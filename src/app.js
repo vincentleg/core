@@ -1,0 +1,303 @@
+// CORE — La Trame. Hand-made wireframe renderer (canvas 2D) driven by the CORE engine.
+(() => {
+  const E = globalThis.CORE, K = E.CORRIDOR, XS = K.xs;
+  const cv = document.getElementById('trame'), ctx = cv.getContext('2d');
+  const $ = id => document.getElementById(id);
+  let W = 1, H = 1, DPR = 1;
+  const reduced = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function resize() {
+    const r = cv.getBoundingClientRect(); DPR = Math.min(2, window.devicePixelRatio || 1);
+    W = Math.max(1, r.width); H = Math.max(1, r.height);
+    cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR); ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  window.addEventListener('resize', resize);
+
+  // ---------- camera ----------
+  const VIEW = {
+    globe: { yaw: -2.1, pitch: 0.42, dist: 3.3, target: [0, 0, 0], near: 0.05 },
+    city: { yaw: -0.75, pitch: 0.6, dist: 980, target: [370, 0, 0], near: 1 },
+  };
+  const cam = { mode: 'globe', fov: 0.9, ...JSON.parse(JSON.stringify(VIEW.globe)) };
+  const sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
+  const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+  const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+  const norm = a => { const l = Math.hypot(a[0], a[1], a[2]) || 1; return [a[0] / l, a[1] / l, a[2] / l]; };
+  let B;
+  function basis() {
+    const cp = Math.cos(cam.pitch), sp = Math.sin(cam.pitch), cy = Math.cos(cam.yaw), sy = Math.sin(cam.yaw), t = cam.target;
+    const eye = [t[0] + cam.dist * cp * sy, t[1] + cam.dist * sp, t[2] + cam.dist * cp * cy];
+    const f = norm(sub(t, eye)), r = norm(cross(f, [0, 1, 0])), u = cross(r, f);
+    B = { eye, f, r, u, k: (H * 0.5) / Math.tan(cam.fov / 2) };
+  }
+  function P(p) { const d = sub(p, B.eye), z = dot(d, B.f); if (z < cam.near) return null; const s = B.k / z; return [W / 2 + dot(d, B.r) * s, H / 2 - dot(d, B.u) * s, z, s]; }
+
+  // ---------- palette ----------
+  const COL = { grid: '86,214,255', cyan: '120,232,255', white: '232,251,255', amber: '255,184,77', magenta: '255,92,214', red: '255,77,109', green: '57,255,159', violet: '170,140,255' };
+  const rgba = (c, a) => `rgba(${c},${Math.max(0, Math.min(1, a)).toFixed(3)})`;
+  function seg(a, b, c, alpha, w = 1) { const p = P(a), q = P(b); if (!p || !q) return; ctx.strokeStyle = rgba(c, alpha); ctx.lineWidth = w; ctx.beginPath(); ctx.moveTo(p[0], p[1]); ctx.lineTo(q[0], q[1]); ctx.stroke(); }
+
+  // ---------- globe ----------
+  const LAND = [
+    [[-168,66],[-162,70],[-140,70],[-128,70],[-110,73],[-95,72],[-82,73],[-78,63],[-94,59],[-90,55],[-80,52],[-65,60],[-60,55],[-56,52],[-66,45],[-70,42],[-76,38],[-81,31],[-80,25],[-82,28],[-90,30],[-97,27],[-97,22],[-92,18],[-87,21],[-88,16],[-84,11],[-79,9],[-83,8],[-86,12],[-92,15],[-98,16],[-105,20],[-110,24],[-112,30],[-115,30],[-110,23],[-114,30],[-118,34],[-121,36],[-124,40],[-124,46],[-123,49],[-130,54],[-135,58],[-145,60],[-152,58],[-158,56],[-164,54],[-160,58],[-166,62],[-168,66]],
+    [[-79,9],[-75,11],[-71,12],[-63,11],[-60,8],[-52,5],[-50,0],[-44,-2],[-35,-5],[-35,-9],[-39,-15],[-41,-22],[-48,-26],[-53,-34],[-58,-38],[-62,-41],[-65,-45],[-68,-50],[-69,-55],[-72,-52],[-75,-47],[-73,-40],[-72,-30],[-70,-18],[-76,-14],[-81,-6],[-80,-1],[-78,2],[-77,7],[-79,9]],
+    [[-9,37],[-9,43],[-2,44],[-4,48],[2,51],[5,53],[8,55],[10,58],[5,62],[14,67],[25,71],[40,68],[45,68],[60,70],[70,73],[80,73],[100,77],[115,73],[130,71],[140,72],[160,70],[170,69],[180,66],[175,62],[163,60],[160,55],[156,51],[150,59],[142,59],[136,54],[140,48],[135,43],[130,42],[128,38],[126,35],[121,40],[118,38],[122,32],[122,30],[120,25],[115,22],[109,21],[106,18],[109,12],[105,9],[103,11],[100,13],[101,7],[103,2],[100,4],[98,9],[97,16],[94,16],[91,22],[87,22],[80,15],[78,8],[73,17],[70,22],[67,25],[62,25],[57,26],[56,24],[59,22],[55,17],[52,16],[45,13],[43,13],[39,21],[35,28],[33,30],[35,33],[36,36],[30,36],[27,37],[26,40],[23,39],[22,37],[20,40],[19,42],[16,43],[13,45],[12,44],[16,41],[18,40],[16,38],[12,38],[11,42],[9,44],[6,43],[3,43],[3,42],[0,40],[-1,37],[-6,36],[-9,37]],
+    [[-17,21],[-16,28],[-10,30],[-6,35],[-1,36],[10,37],[11,34],[20,31],[25,32],[32,31],[34,28],[37,22],[39,16],[43,12],[51,12],[47,5],[41,-2],[39,-7],[40,-15],[35,-22],[33,-28],[27,-34],[20,-35],[18,-32],[15,-26],[12,-17],[13,-11],[12,-5],[9,-1],[9,4],[5,6],[-2,5],[-8,4],[-12,7],[-15,11],[-17,15],[-17,21]],
+    [[114,-22],[114,-34],[118,-35],[123,-34],[129,-32],[135,-35],[138,-35],[141,-38],[146,-39],[150,-37],[153,-31],[153,-25],[146,-19],[142,-11],[136,-12],[131,-11],[126,-14],[122,-18],[114,-22]],
+    [[-73,78],[-60,82],[-30,83],[-20,80],[-20,72],[-30,68],[-42,60],[-50,64],[-55,70],[-73,78]],
+    [[-5,50],[1,51],[2,53],[-2,56],[-3,58],[-6,58],[-5,55],[-3,54],[-5,52],[-5,50]],
+    [[130,31],[132,34],[135,34],[140,36],[141,41],[140,38],[136,36],[133,35],[130,33],[130,31]],
+  ];
+  const CITIES = [[-122.42,37.77],[-74,40.7],[-0.1,51.5],[2.35,48.86],[139.7,35.7],[3.4,6.5],[-46.6,-23.5],[72.9,19.1],[121.5,31.2],[151.2,-33.9],[-99.1,19.4],[31.2,30],[77.2,28.6],[37.6,55.8],[-58.4,-34.6],[18.4,-33.9],[103.8,1.35],[55.3,25.2]];
+  const SF = [-122.42, 37.77];
+  const ll = (lon, lat, r = 1) => { const a = lon * Math.PI / 180, b = lat * Math.PI / 180; return [r * Math.cos(b) * Math.sin(a), r * Math.sin(b), r * Math.cos(b) * Math.cos(a)]; };
+  function densify(line, step = 3) { const out = []; for (let k = 0; k < line.length - 1; k++) { const [a, b] = [line[k], line[k + 1]]; const n = Math.max(1, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / step)); for (let j = 0; j < n; j++) out.push([a[0] + (b[0] - a[0]) * j / n, a[1] + (b[1] - a[1]) * j / n]); } out.push(line[line.length - 1]); return out; }
+  const GRAT = []; for (let lat = -75; lat <= 75; lat += 15) { const l = []; for (let lon = -180; lon <= 180; lon += 5) l.push([lon, lat]); GRAT.push(l); }
+  for (let lon = -180; lon < 180; lon += 15) { const l = []; for (let lat = -85; lat <= 85; lat += 5) l.push([lon, lat]); GRAT.push(l); }
+  const LAND3 = LAND.map(l => densify(l).map(p => ll(p[0], p[1])));
+  const GRAT3 = GRAT.map(l => l.map(p => ll(p[0], p[1])));
+  function poly3(pts, c, aFront, aBack, w) {
+    for (let k = 0; k < pts.length - 1; k++) {
+      const a = pts[k], b = pts[k + 1], front = dot(a, B.eye) > 1 && dot(b, B.eye) > 1;
+      seg(a, b, c, front ? aFront : aBack, w);
+    }
+  }
+  function drawGlobe(now) {
+    // halo
+    const c = P([0, 0, 0]); if (c) { const rad = c[3] * 1.0; const g = ctx.createRadialGradient(c[0], c[1], rad * 0.8, c[0], c[1], rad * 1.35); g.addColorStop(0, 'rgba(60,170,255,0.18)'); g.addColorStop(1, 'rgba(60,170,255,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(c[0], c[1], rad * 1.35, 0, 7); ctx.fill(); ctx.fillStyle = 'rgba(4,12,24,0.9)'; ctx.beginPath(); ctx.arc(c[0], c[1], rad, 0, 7); ctx.fill(); }
+    for (const l of GRAT3) poly3(l, COL.grid, 0.16, 0.035, 1);
+    for (const l of LAND3) poly3(l, COL.cyan, 0.95, 0.07, 1.3);
+    for (const [lon, lat] of CITIES) { const p3 = ll(lon, lat); if (dot(p3, B.eye) <= 1) continue; const p = P(p3); if (!p) continue; ctx.fillStyle = rgba(COL.white, 0.9); ctx.fillRect(p[0] - 1.5, p[1] - 1.5, 3, 3); }
+    // San Francisco beacon
+    const s3 = ll(SF[0], SF[1]), top = ll(SF[0], SF[1], 1.28);
+    if (dot(s3, B.eye) > 1) {
+      seg(s3, top, COL.amber, 0.9, 2);
+      const p = P(s3); const ph = reduced ? 0.5 : (now / 1400) % 1;
+      if (p) { ctx.strokeStyle = rgba(COL.amber, 1 - ph); ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(p[0], p[1], 4 + ph * 22, 0, 7); ctx.stroke();
+        const q = P(top); if (q) { ctx.fillStyle = rgba(COL.amber, 1); ctx.font = '600 12px Oxanium, system-ui, sans-serif'; ctx.fillText('SAN FRANCISCO · corridor pilote', q[0] + 8, q[1]); } }
+    }
+  }
+
+  // ---------- city ----------
+  const G = (gx, gy, h = 0) => [gx, h, -gy];
+  const BLD = [];
+  (function buildCity() {
+    const r = E.rng(2026);
+    const xr = [[-300, -18], [18, 162], [198, 342], [378, 542], [578, 722], [758, 1040]];
+    const yr = [[16, 154], [186, 320], [-154, -16], [-320, -186]];
+    for (const [x0, x1] of xr) for (const [y0, y1] of yr) {
+      for (let x = x0; x < x1 - 20; x += 46) for (let y = y0; y < y1 - 20; y += 46) {
+        if (r() < 0.14) continue;
+        const w = Math.min(40, x1 - x - 4) * (0.7 + 0.3 * r()), d = Math.min(40, y1 - y - 4) * (0.7 + 0.3 * r());
+        const cx = Math.abs((x + w / 2) - 370) / 600, near = Math.abs(y) < 170 ? 1 : 0.6;
+        const h = 10 + r() * 30 + (1 - cx) * 70 * near * r() + (r() < 0.06 ? 60 : 0);
+        BLD.push({ x, y, w, d, h });
+      }
+    }
+  })();
+  const ROADS = [];
+  ROADS.push({ a: [-320, 0], b: [1060, 0], main: true });
+  for (const gy of [170, -170]) ROADS.push({ a: [-320, gy], b: [1060, gy] });
+  for (const x of XS) ROADS.push({ a: [x, -340], b: [x, 340] });
+  ROADS.push({ a: [-160, -340], b: [-160, 340] }); ROADS.push({ a: [900, -340], b: [900, 340] });
+
+  function box(b, c, alpha, full) {
+    const { x, y, w, d, h } = b; const g = [[x, y], [x + w, y], [x + w, y + d], [x, y + d]];
+    for (let k = 0; k < 4; k++) { const p = g[k], q = g[(k + 1) % 4]; seg(G(p[0], p[1], 0), G(q[0], q[1], 0), c, alpha * 0.5); if (full) seg(G(p[0], p[1], h), G(q[0], q[1], h), c, alpha); }
+    if (full) for (const p of g) seg(G(p[0], p[1], 0), G(p[0], p[1], h), c, alpha * 0.75);
+  }
+  function label(text, gx, gy, h, c, size = 11, a = 1) { const p = P(G(gx, gy, h)); if (!p) return; ctx.fillStyle = rgba(c, a); ctx.font = `600 ${size}px Oxanium, system-ui, sans-serif`; ctx.fillText(text, p[0], p[1]); }
+  function ring(gx, gy, r, c, a, w = 1.4, h = 0.3) { let prev = null; for (let k = 0; k <= 24; k++) { const t = k / 24 * Math.PI * 2; const pt = G(gx + Math.cos(t) * r, gy + Math.sin(t) * r, h); if (prev) seg(prev, pt, c, a, w); prev = pt; } }
+
+  function drawCity(now) {
+    const far = cam.dist > 1700;
+    // ground grid
+    for (let gx = -320; gx <= 1060; gx += 92) seg(G(gx, -340), G(gx, 340), COL.grid, 0.05);
+    for (let gy = -340; gy <= 340; gy += 92) seg(G(-320, gy), G(1060, gy), COL.grid, 0.05);
+    for (const rd of ROADS) { seg(G(rd.a[0], rd.a[1]), G(rd.b[0], rd.b[1]), COL.cyan, rd.main ? 0.75 : 0.35, rd.main ? 2 : 1.2); }
+    seg(G(-320, 7), G(1060, 7), COL.cyan, 0.18); seg(G(-320, -7), G(1060, -7), COL.cyan, 0.18);
+    // buildings: depth-faded, simplified when far (level of detail)
+    for (const b of BLD) {
+      const c = P(G(b.x + b.w / 2, b.y + b.d / 2, b.h / 2)); if (!c) continue;
+      const a = Math.max(0.08, Math.min(0.55, 1.6 - c[2] / 1500));
+      box(b, COL.cyan, a, !far || b.h > 60);
+    }
+    // twists drawn in the world
+    if (S.world.includes('chantier')) { const x = XS[3]; for (let k = 0; k < 7; k++) { const gx = x - 90 + k * 11; seg(G(gx, -10, 0), G(gx, -10, 5), COL.amber, 0.95, 2); } seg(G(x - 90, -10, 5), G(x - 24, -10, 5), COL.amber, 0.95, 2); label('CHANTIER · 1 voie', x - 95, -26, 8, COL.amber, 11); }
+    if (S.world.includes('evenement')) { const ph = reduced ? 0.5 : (now / 900) % 1; ring(XS[2] + 60, 240, 26 + ph * 14, COL.magenta, 1 - ph, 2); ring(XS[2] + 60, 240, 22, COL.magenta, 0.6, 1); label('CONCERT · sortie', XS[2] + 92, 250, 10, COL.magenta, 11); }
+    // signals + intersection heat
+    const sim = live;
+    for (let i = 0; i < XS.length; i++) {
+      const ph = sim.phase(i, sim.t), x = XS[i];
+      const q = sim.ap.slice(i * 4, i * 4 + 4).reduce((s, a) => s + queued(a), 0);
+      const heat = Math.min(1, q / 30), hc = heat > 0.5 ? COL.red : heat > 0.2 ? COL.amber : COL.green;
+      ring(x, 0, 20, hc, 0.35 + heat * 0.6, 1.6);
+      const art = ph === 'ART' ? COL.green : COL.red, crs = ph === 'CROSS' ? COL.green : COL.red;
+      for (const [gx, gy, c] of [[x - 14, -10, art], [x + 14, 10, art], [x - 10, 14, crs], [x + 10, -14, crs]]) { seg(G(gx, gy, 0), G(gx, gy, 7), COL.white, 0.4); const p = P(G(gx, gy, 7.5)); if (p) { ctx.fillStyle = rgba(c, 1); const s = Math.max(2, Math.min(5, p[3] * 3)); ctx.fillRect(p[0] - s / 2, p[1] - s / 2, s, s); } }
+      if (!far) label(`C${i + 1}`, x + 22, 22, 2, i === S.sel ? COL.amber : COL.white, 12, 0.9);
+    }
+    drawVehicles(sim);
+    drawAgents(now);
+  }
+
+  // vehicles derived from the engine state (single source of truth)
+  function queued(a) { let n = 0; for (let k = a.served; k < a.arr.length && a.arr[k] <= live.t; k++) n++; return n; }
+  function drawVehicles(sim) {
+    const t = sim.t, v = K.speed;
+    for (const a of sim.ap) {
+      const x = XS[a.i]; let qi = 0;
+      for (let k = a.served; k < a.arr.length; k++) {
+        const at = a.arr[k]; let dist, waiting = false;
+        if (at > t) { dist = (at - t) * v; if (dist > 260) break; } else { waiting = true; dist = 4 + Math.floor(qi / a.lanes) * 7; }
+        const lane = waiting ? qi % a.lanes : k % a.lanes; if (waiting) qi++;
+        let gx, gy;
+        if (a.d === 'EB') { gx = x - 12 - dist; gy = -3 - lane * 3.5; }
+        else if (a.d === 'WB') { gx = x + 12 + dist; gy = 3 + lane * 3.5; }
+        else if (a.d === 'N') { gx = x - 3; gy = 12 + dist; }
+        else { gx = x + 3; gy = -12 - dist; }
+        const p = P(G(gx, gy, 1.2)); if (!p) continue;
+        const s = Math.max(1.6, Math.min(5, p[3] * 3.2));
+        ctx.fillStyle = waiting ? rgba(COL.red, 0.95) : rgba(COL.white, 0.95); ctx.fillRect(p[0] - s / 2, p[1] - s / 2, s, s);
+      }
+    }
+  }
+  // agents hovering over the intersections while they work
+  const FAM = { 'Onde verte': COL.cyan, Exploration: COL.violet, Affinage: COL.amber, Robustesse: COL.magenta };
+  function drawAgents(now) {
+    if (!S.running) return;
+    const c = S.phase === 'adv' ? COL.red : (FAM[S.family] || COL.violet);
+    for (let i = 0; i < XS.length; i++) {
+      const bob = reduced ? 0 : Math.sin(now / 300 + i) * 4, h = 70 + bob, x = XS[i], r = 9, rot = reduced ? 0 : now / 600 + i;
+      const pts = [0, 1, 2, 3].map(k => G(x + Math.cos(rot + k * Math.PI / 2) * r, Math.sin(rot + k * Math.PI / 2) * r, h));
+      const topP = G(x, 0, h + 12), botP = G(x, 0, h - 12);
+      for (let k = 0; k < 4; k++) { seg(pts[k], pts[(k + 1) % 4], c, 1, 1.5); seg(pts[k], topP, c, 0.9, 1.2); seg(pts[k], botP, c, 0.9, 1.2); }
+      seg(botP, G(x, 0, 2), c, 0.25 + 0.2 * Math.sin(now / 120 + i), 1);
+    }
+  }
+
+  // ---------- state & live simulation ----------
+  const S = { world: [], shown: 'base', proposal: null, permit: null, running: false, phase: null, family: null, sims: 0, sel: -1, speed: 6, mode: 'globe', changed: false };
+  let live = new E.Sim(E.basePlan(), E.makeScenario([]));
+  function currentPlan() { return S.shown === 'proposal' && S.proposal ? S.proposal.plan : E.basePlan(); }
+  function restartLive() { live = new E.Sim(currentPlan(), E.makeScenario(S.world)); }
+
+  // ---------- frame ----------
+  let tween = null, fade = 0, last = 0;
+  function frame(now) {
+    const dt = Math.min(0.05, (now - (last || now)) / 1000); last = now;
+    if (tween) tween.step(now);
+    if (cam.mode === 'globe' && !drag && !tween && !reduced) cam.yaw += dt * 0.08;
+    if (cam.mode === 'city' && !S.paused) { for (let k = 0; k < S.speed; k++) { live.step(); if (live.t >= K.T + K.drain) restartLive(); } }
+    basis();
+    ctx.clearRect(0, 0, W, H);
+    const bg = ctx.createRadialGradient(W * 0.5, H * 0.45, 0, W * 0.5, H * 0.45, Math.max(W, H) * 0.75); bg.addColorStop(0, '#071425'); bg.addColorStop(1, '#02050b'); ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+    ctx.globalCompositeOperation = 'lighter';
+    if (cam.mode === 'globe') drawGlobe(now); else drawCity(now);
+    ctx.globalCompositeOperation = 'source-over';
+    if (cam.mode === 'city') hud();
+    if (fade > 0) { ctx.fillStyle = `rgba(2,5,11,${fade})`; ctx.fillRect(0, 0, W, H); }
+    requestAnimationFrame(frame);
+  }
+  function hud() {
+    const tag = S.world.length ? ['MONDE MODIFIÉ', COL.magenta] : S.shown === 'proposal' ? ['PLAN PROPOSÉ · SIMULATION', COL.amber] : ['PLAN DE RÉFÉRENCE · SIMULATION', COL.cyan];
+    ctx.font = '600 11px Oxanium, system-ui, sans-serif'; ctx.fillStyle = rgba(tag[1], 1); ctx.fillText(tag[0], 16, 24);
+    const mm = Math.floor(live.t / 60), ss = String(live.t % 60).padStart(2, '0');
+    ctx.fillStyle = rgba(COL.white, 0.75); ctx.fillText(`t = ${mm}:${ss} · ×${S.speed * 60}`, 16, 42);
+    const avg = live.servedN ? live.delay / live.servedN : 0; let q = 0; for (const a of live.ap) q += queued(a);
+    $('m-delay').textContent = avg.toFixed(1); $('m-queue').textContent = q; $('m-served').textContent = live.servedN;
+  }
+  function animate(dur, fn, done) { const t0 = performance.now(); tween = { step(now) { const k = Math.min(1, (now - t0) / dur), e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2; fn(e); if (k >= 1) { tween = null; done && done(); } } }; }
+  const lerp = (a, b, k) => a + (b - a) * k;
+  function angleTo(a, b) { let d = (b - a) % (2 * Math.PI); if (d > Math.PI) d -= 2 * Math.PI; if (d < -Math.PI) d += 2 * Math.PI; return a + d; }
+
+  function dive() {
+    if (cam.mode !== 'globe' || tween) return;
+    const y0 = cam.yaw, p0 = cam.pitch, d0 = cam.dist, y1 = angleTo(y0, SF[0] * Math.PI / 180), p1 = SF[1] * Math.PI / 180;
+    animate(reduced ? 10 : 1600, e => { cam.yaw = lerp(y0, y1, e); cam.pitch = lerp(p0, p1, e); cam.dist = lerp(d0, 1.35, e); fade = Math.max(0, (e - 0.7) / 0.3); }, () => {
+      Object.assign(cam, JSON.parse(JSON.stringify(VIEW.city)), { mode: 'city' }); cam.dist = 2600; setMode('city');
+      animate(reduced ? 10 : 1500, e => { cam.dist = lerp(2600, VIEW.city.dist, e); fade = 1 - e; }, () => { fade = 0; });
+    });
+  }
+  function toGlobe() { Object.assign(cam, JSON.parse(JSON.stringify(VIEW.globe)), { mode: 'globe' }); setMode('globe'); }
+  function setMode(m) { S.mode = m; document.body.dataset.mode = m; $('crumb-city').hidden = m !== 'city'; render(); }
+
+  // ---------- interaction ----------
+  let drag = null; const ptrs = new Map();
+  cv.addEventListener('pointerdown', e => { cv.setPointerCapture(e.pointerId); ptrs.set(e.pointerId, [e.clientX, e.clientY]); drag = { x: e.clientX, y: e.clientY, moved: 0, pan: e.button === 2 || e.shiftKey, pinch: ptrs.size === 2 ? pinchDist() : 0 }; });
+  cv.addEventListener('pointermove', e => {
+    if (!drag || !ptrs.has(e.pointerId)) return; ptrs.set(e.pointerId, [e.clientX, e.clientY]);
+    if (ptrs.size === 2) { const d = pinchDist(); if (drag.pinch) zoom(drag.pinch / d); drag.pinch = d; drag.moved += 10; return; }
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y; drag.x = e.clientX; drag.y = e.clientY; drag.moved += Math.abs(dx) + Math.abs(dy);
+    if (drag.pan && cam.mode === 'city') { const s = cam.dist / 900; cam.target[0] -= (Math.cos(cam.yaw) * dx + Math.sin(cam.yaw) * dy) * s; cam.target[2] -= (-Math.sin(cam.yaw) * dx + Math.cos(cam.yaw) * dy) * s; }
+    else { cam.yaw -= dx * 0.005; cam.pitch = Math.max(cam.mode === 'city' ? 0.12 : -1.3, Math.min(1.45, cam.pitch + dy * 0.005)); }
+  });
+  const endPtr = e => { ptrs.delete(e.pointerId); if (drag && drag.moved < 6 && ptrs.size === 0) pick(e); if (ptrs.size === 0) drag = null; };
+  cv.addEventListener('pointerup', endPtr); cv.addEventListener('pointercancel', endPtr);
+  cv.addEventListener('contextmenu', e => e.preventDefault());
+  function pinchDist() { const v = [...ptrs.values()]; return Math.hypot(v[0][0] - v[1][0], v[0][1] - v[1][1]) || 1; }
+  function zoom(f) { if (cam.mode === 'globe') cam.dist = Math.max(1.6, Math.min(6, cam.dist * f)); else cam.dist = Math.max(160, Math.min(2600, cam.dist * f)); }
+  cv.addEventListener('wheel', e => { e.preventDefault(); zoom(Math.exp(e.deltaY * 0.0012)); }, { passive: false });
+  function pick(e) {
+    const r = cv.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top;
+    if (cam.mode === 'globe') { const p = P(ll(SF[0], SF[1])); if (p && Math.hypot(p[0] - mx, p[1] - my) < 40) dive(); return; }
+    let best = -1, bd = 36; XS.forEach((x, i) => { const p = P(G(x, 0)); if (p) { const d = Math.hypot(p[0] - mx, p[1] - my); if (d < bd) { bd = d; best = i; } } });
+    S.sel = best; render();
+  }
+
+  // ---------- agents ----------
+  async function runAgents() {
+    if (S.running) return; S.running = true; S.phase = 'build'; render();
+    const sc = E.makeScenario(S.world);
+    const res = await E.searchPlans({ budget: 1500, scenario: sc, onProgress: ({ done, budget, best, base }) => {
+      S.family = best.plan.agent; S.sims = done; progress(`Bâtisseurs : ${done} / ${budget} plans simulés`, done / budget * 0.8, `Meilleur : ${best.m.avgDelay.toFixed(1)} s de retard moyen (référence ${base.avgDelay.toFixed(1)} s) · agent « ${best.plan.agent} »`); } });
+    S.phase = 'adv';
+    const rr = await E.robustRefine({ candidates: res.ranked.slice(0, 15).map(x => x.plan), extra: S.world, onProgress: ({ done, budget, best, sims }) => {
+      S.family = 'Robustesse'; S.sims = 1500 + sims; progress(`Adversaires : ${E.STRESS.length} plot twists × ${done + 15} plans`, 0.8 + 0.2 * done / budget, `Pire cas du meilleur plan : ${Math.round((1 - best.worstRatio) * 100)} % de retard en moins`); } });
+    S.proposal = rr.ranked[0]; S.sims = 1500 + rr.sims;
+    S.permit = E.issuePermit(rr.ranked[0], { label: worldLabel() }); S.permitWorld = S.world.slice(); S.changed = false;
+    S.running = false; S.phase = null; S.shown = 'proposal'; restartLive(); progress(`${S.sims.toLocaleString('fr-FR')} simulations terminées`, 1, 'La Passerelle a émis un permis.'); render();
+  }
+  function worldLabel() { return S.world.length ? S.world.map(t => E.TWISTS[t].label).join(' + ') : 'Conditions normales'; }
+  function toggleTwist(id) {
+    if (S.running) return;
+    S.world = S.world.includes(id) ? S.world.filter(t => t !== id) : S.world.concat(id);
+    restartLive();
+    if (S.proposal) { const st = E.stressTest([S.proposal.plan], S.world)[0]; S.permit = E.issuePermit(st, { label: worldLabel() }); S.changed = true; }
+    render();
+  }
+  function progress(title, k, detail) { $('prog-title').textContent = title; $('prog-bar').style.width = (k * 100).toFixed(1) + '%'; $('prog-detail').textContent = detail; $('prog').hidden = false; }
+
+  // ---------- panel ----------
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  function render() {
+    $('btn-dive').hidden = S.mode !== 'globe'; $('city-panel').hidden = S.mode !== 'city'; $('globe-panel').hidden = S.mode !== 'globe';
+    $('btn-run').disabled = S.running; $('btn-run').textContent = S.running ? 'Les agents travaillent…' : S.proposal ? (S.changed ? 'Relancer les agents dans ce monde' : 'Relancer les agents') : 'Lancer les agents';
+    for (const id of ['evenement', 'chantier']) { const b = $('tw-' + id); b.setAttribute('aria-pressed', S.world.includes(id)); b.disabled = S.running; }
+    $('seg-base').setAttribute('aria-pressed', S.shown === 'base'); $('seg-prop').setAttribute('aria-pressed', S.shown === 'proposal'); $('seg-prop').disabled = !S.proposal;
+    // selected intersection
+    const si = $('sel'); if (S.sel >= 0) { const i = S.sel, b = E.basePlan(), p = S.proposal && S.proposal.plan;
+      si.hidden = false; si.innerHTML = `<h3>Carrefour C${i + 1}</h3><table><tr><th></th><th>Cycle</th><th>Vert axe</th><th>Décalage</th></tr><tr><td>Référence</td><td>${b.C} s</td><td>${b.g[i]} s</td><td>${b.o[i]} s</td></tr>${p ? `<tr><td>Proposé</td><td>${p.C} s</td><td>${p.g[i]} s</td><td>${p.o[i]} s</td></tr>` : ''}</table><p class="note">Vert piéton garanti ≥ ${K.minCrossGreen} s sur la rue transversale.</p>`; } else si.hidden = true;
+    // permit
+    const pm = S.permit, box = $('permit');
+    if (!pm) { box.innerHTML = '<p class="empty">Aucune proposition pour l’instant. Lance les agents : ils vont tester des milliers de plans de feux sur ce corridor, puis les attaquer avec des plot twists. Seul le plan qui survit arrive ici.</p>'; return; }
+    const cls = pm.state === 'PRÊT POUR SIGNATURE' ? 'ok' : pm.state === 'SUSPENDU' ? 'warn' : 'bad';
+    box.innerHTML = `<div class="pill ${cls}">${esc(pm.state)}</div>
+      ${S.changed ? '<p class="changed">Le monde a changé : la Passerelle a réévalué le permis avec les agents adversaires.</p>' : ''}
+      <p class="reason">${esc(pm.reason)}</p>
+      <dl class="kpis"><div><dt>Retard, cas normal</dt><dd>${pm.gainNominal > 0 ? '−' : '+'}${Math.abs(pm.gainNominal)} %</dd></div><div><dt>Pire cas testé</dt><dd>${pm.gainWorst > 0 ? '−' : '+'}${Math.abs(pm.gainWorst)} %</dd></div><div><dt>Simulations</dt><dd>${S.sims.toLocaleString('fr-FR')}</dd></div></dl>
+      <p class="act"><b>Action proposée</b> ${esc(pm.action)} : cycle ${pm.plan.C} s, verts ${pm.plan.g.join(' / ')} s.</p>
+      <div class="scroll"><table class="tests"><thead><tr><th>Cas testé</th><th>Réf.</th><th>Plan</th><th>Gain</th></tr></thead><tbody>${pm.tests.map(t => `<tr class="${t.gain_pct < 0 ? 'neg' : ''}"><td>${esc(t.cas)}</td><td>${t.retardRef_s} s</td><td>${t.retardPlan_s} s</td><td>${t.gain_pct > 0 ? '−' : '+'}${Math.abs(t.gain_pct)} %</td></tr>`).join('')}</tbody></table></div>
+      <details><summary>Hypothèses, validité, signature</summary><ul>${pm.hypotheses.map(h => `<li>${esc(h)}</li>`).join('')}</ul><p><b>Validité</b> ${esc(pm.validite)}</p><p><b>Réversibilité</b> ${esc(pm.reversibilite)}</p><p><b>Signature</b> ${esc(pm.signature)}</p></details>
+      <button id="btn-copy" class="ghost" type="button">Copier le permis (JSON)</button><textarea id="permit-json" readonly hidden></textarea>`;
+    $('btn-copy').onclick = () => { const txt = JSON.stringify(pm, null, 2), ta = $('permit-json'); const fallback = () => { ta.hidden = false; ta.value = txt; ta.select(); $('btn-copy').textContent = 'Sélectionné : Ctrl+C pour copier'; };
+      try { navigator.clipboard.writeText(txt).then(() => { $('btn-copy').textContent = 'Permis copié'; }, fallback); } catch (e) { fallback(); } };
+  }
+
+  $('btn-dive').onclick = dive; $('crumb-earth').onclick = toGlobe; $('btn-run').onclick = runAgents;
+  $('tw-evenement').onclick = () => toggleTwist('evenement'); $('tw-chantier').onclick = () => toggleTwist('chantier');
+  $('seg-base').onclick = () => { S.shown = 'base'; restartLive(); render(); }; $('seg-prop').onclick = () => { if (S.proposal) { S.shown = 'proposal'; restartLive(); render(); } };
+  $('speed').oninput = e => { S.speed = +e.target.value; };
+  $('btn-pause').onclick = () => { S.paused = !S.paused; $('btn-pause').textContent = S.paused ? 'Reprendre' : 'Pause'; };
+  resize(); setMode('globe'); requestAnimationFrame(frame);
+  globalThis.__CORE_APP = { S, cam, dive, runAgents, toggleTwist, frame };
+})();

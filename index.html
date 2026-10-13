@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CORE · La Trame</title>
+<meta name="description" content="CORE : une Terre parallèle où des agents testent des milliers de solutions avant qu'elles touchent le monde réel.">
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: full-screen globe; floating console top-left; layer switches top-right; status bar bottom. Single dark look. */
+:root {
+  color-scheme: dark;
+  --void: #02050b; --panel: rgba(7, 16, 29, 0.88); --line: #15304a; --ink: #e3f6ff; --muted: #8fb1c6;
+  --cyan: #78e8ff; --amber: #ffb84d; --magenta: #ff5cd6;
+  --display: 'Oxanium', 'Segoe UI', system-ui, sans-serif;
+  --body: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+}
+html, body { height: 100%; margin: 0; background: var(--void); color: var(--ink); font: 14px/1.5 var(--body); }
+#map { position: fixed; inset: 0; }
+.panel { position: fixed; z-index: 2; background: var(--panel); border: 1px solid var(--line); border-radius: 4px; backdrop-filter: blur(6px); }
+.console { top: calc(16px + env(safe-area-inset-top, 0px)); left: 16px; width: min(360px, calc(100vw - 32px)); padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.brand { display: flex; align-items: baseline; gap: 10px; }
+.brand b { font: 700 24px var(--display); letter-spacing: 0.18em; color: var(--cyan); }
+.brand span { font: 600 11px var(--display); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.lead { margin: 0; color: var(--ink); text-wrap: pretty; }
+form { display: flex; gap: 6px; }
+input[type=search] { flex: 1; min-width: 0; background: #030a14; color: var(--ink); border: 1px solid var(--line); border-radius: 3px; padding: 9px 10px; font: 14px var(--body); }
+input[type=search]:focus-visible { outline: 1px solid var(--cyan); }
+button { font: 600 12.5px var(--display); letter-spacing: 0.06em; color: var(--void); background: var(--cyan); border: 0; border-radius: 3px; padding: 9px 12px; cursor: pointer; }
+button:hover { filter: brightness(1.12); }
+button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+button.ghost { background: transparent; color: var(--cyan); border: 1px solid var(--line); }
+button.amber { background: var(--amber); }
+.places { display: flex; flex-wrap: wrap; gap: 6px; }
+.layers { top: calc(16px + env(safe-area-inset-top, 0px)); right: 16px; padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+.layers button[aria-pressed="true"] { background: #102a40; color: var(--ink); border-color: var(--cyan); }
+.status { bottom: calc(12px + env(safe-area-inset-bottom, 0px)); left: 16px; padding: 6px 10px; font: 12px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; max-width: calc(100vw - 32px); }
+.status b { color: var(--cyan); font-weight: 500; }
+#msg { color: var(--amber); }
+.pilot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--amber); box-shadow: 0 0 0 0 rgba(255, 184, 77, 0.7); animation: ping 1.8s infinite; cursor: pointer; }
+@keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(255,184,77,0.7); } 100% { box-shadow: 0 0 0 22px rgba(255,184,77,0); } }
+@media (prefers-reduced-motion: reduce) { .pilot { animation: none; } }
+.maplibregl-popup-content { background: var(--panel); color: var(--ink); border: 1px solid var(--line); font: 13px var(--body); }
+.maplibregl-popup-tip { border-top-color: var(--line) !important; }
+.maplibregl-ctrl-attrib { background: rgba(2,5,11,0.7) !important; color: var(--muted); }
+.maplibregl-ctrl-attrib a { color: var(--muted); }
+.note { margin: 0; color: var(--muted); font-size: 12px; }
+@media (max-width: 640px) {
+  .console { top: auto; bottom: calc(44px + env(safe-area-inset-bottom, 0px)); }
+  .console .lead, .console .note { display: none; }
+  .status { font-size: 11px; }
+}
+</style>
+</head>
+<body>
+<div id="map" role="region" aria-label="Globe 3D de CORE"></div>
+
+<div class="panel console">
+  <div class="brand"><b>CORE</b><span>La Trame · phase 1</span></div>
+  <p class="lead">La Terre entière, ses rues et ses bâtiments en 3D. Les agents y travaillent sur les lieux réels.</p>
+  <form id="search" role="search">
+    <input id="q" type="search" placeholder="Une adresse, une ville…" aria-label="Rechercher un lieu" autocomplete="off">
+    <button type="submit">Aller</button>
+  </form>
+  <div class="places">
+    <button class="ghost" data-go="globe" type="button">Globe</button>
+    <button class="ghost" data-go="sf" type="button">San Francisco</button>
+    <button class="ghost" data-go="paris" type="button">Paris</button>
+    <button class="ghost" data-go="tokyo" type="button">Tokyo</button>
+  </div>
+  <button class="amber" id="pilot-btn" type="button">Ouvrir le corridor pilote (agents)</button>
+  <p class="note">Corridor pilote : démo v0 sur un corridor synthétique. La phase 2 le place sur les vraies rues.</p>
+</div>
+
+<div class="panel layers" role="group" aria-label="Couches">
+  <button class="ghost" id="l-trame" type="button" aria-pressed="true">Trame</button>
+  <button class="ghost" id="l-sat" type="button" aria-pressed="false">Satellite</button>
+  <button class="ghost" id="l-relief" type="button" aria-pressed="false">Relief 3D</button>
+</div>
+
+<div class="panel status" aria-live="polite"><b id="pos">—</b> · zoom <b id="zoom">—</b> · <span id="msg">Chargement de la Terre…</span></div>
+
+<script src="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.js"></script>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const msg = t => { $('msg').textContent = t; };
+  if (!window.maplibregl) { msg('Impossible de charger le moteur de carte (connexion ?).'); return; }
+
+  const CYAN = '#78e8ff', CYAN_DIM = '#2f8fb8', VOID = '#02050b';
+  const name = ['coalesce', ['get', 'name:fr'], ['get', 'name:latin'], ['get', 'name']];
+  const roadW = (k) => ['interpolate', ['exponential', 1.6], ['zoom'], 5, 0.3 * k, 12, 1 * k, 16, 4 * k, 19, 14 * k];
+  const MAJOR = ['match', ['get', 'class'], ['motorway', 'trunk', 'primary'], true, false];
+
+  const style = {
+    version: 8,
+    glyphs: 'https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf',
+    sources: {
+      omt: { type: 'vector', url: 'https://tiles.openfreemap.org/planet' },
+      sat: { type: 'raster', tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'], tileSize: 256, maxzoom: 19, attribution: 'Imagerie © Esri, Maxar, Earthstar Geographics' },
+      hill: { type: 'raster-dem', tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'], encoding: 'terrarium', tileSize: 256, maxzoom: 14, attribution: 'Relief © Mapzen, AWS Terrain Tiles' },
+      dem: { type: 'raster-dem', tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'], encoding: 'terrarium', tileSize: 256, maxzoom: 14 },
+    },
+    layers: [
+      { id: 'void', type: 'background', paint: { 'background-color': VOID } },
+      { id: 'sat', type: 'raster', source: 'sat', layout: { visibility: 'none' }, paint: { 'raster-saturation': -0.35, 'raster-brightness-max': 0.75 } },
+      { id: 'hillshade', type: 'hillshade', source: 'hill', paint: { 'hillshade-shadow-color': '#000000', 'hillshade-highlight-color': '#0f4a6b', 'hillshade-accent-color': '#06223a', 'hillshade-exaggeration': 0.4 } },
+      { id: 'park', type: 'fill', source: 'omt', 'source-layer': 'landcover', filter: ['in', ['get', 'class'], ['literal', ['wood', 'grass', 'farmland']]], paint: { 'fill-color': '#04201a', 'fill-opacity': 0.55 } },
+      { id: 'water', type: 'fill', source: 'omt', 'source-layer': 'water', paint: { 'fill-color': '#041a30' } },
+      { id: 'coast', type: 'line', source: 'omt', 'source-layer': 'water', paint: { 'line-color': CYAN, 'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0.8, 10, 0.35], 'line-width': ['interpolate', ['linear'], ['zoom'], 0, 0.6, 10, 1.2] } },
+      { id: 'border', type: 'line', source: 'omt', 'source-layer': 'boundary', filter: ['all', ['<=', ['get', 'admin_level'], 2], ['!=', ['get', 'maritime'], 1]], paint: { 'line-color': CYAN, 'line-opacity': 0.45, 'line-width': 0.8 } },
+      { id: 'region', type: 'line', source: 'omt', 'source-layer': 'boundary', minzoom: 3, filter: ['==', ['get', 'admin_level'], 4], paint: { 'line-color': CYAN_DIM, 'line-opacity': 0.3, 'line-width': 0.6, 'line-dasharray': [2, 2] } },
+      { id: 'road-glow', type: 'line', source: 'omt', 'source-layer': 'transportation', filter: ['!=', ['get', 'class'], 'rail'], layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': CYAN, 'line-opacity': ['case', MAJOR, 0.22, 0.12], 'line-blur': 4, 'line-width': roadW(3) } },
+      { id: 'road', type: 'line', source: 'omt', 'source-layer': 'transportation', filter: ['!=', ['get', 'class'], 'rail'], layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': ['case', MAJOR, CYAN, CYAN_DIM], 'line-opacity': 0.9, 'line-width': roadW(1) } },
+      { id: 'rail', type: 'line', source: 'omt', 'source-layer': 'transportation', minzoom: 10, filter: ['==', ['get', 'class'], 'rail'], paint: { 'line-color': '#aa8cff', 'line-opacity': 0.6, 'line-width': 1, 'line-dasharray': [3, 2] } },
+      { id: 'footprint', type: 'line', source: 'omt', 'source-layer': 'building', minzoom: 14, paint: { 'line-color': CYAN, 'line-opacity': 0.5, 'line-width': 0.8 } },
+      { id: 'building', type: 'fill-extrusion', source: 'omt', 'source-layer': 'building', minzoom: 13, paint: {
+        'fill-extrusion-color': ['interpolate', ['linear'], ['coalesce', ['get', 'render_height'], 8], 0, '#0a3350', 40, '#1b6f9e', 120, '#4fc6ec', 250, CYAN],
+        'fill-extrusion-height': ['coalesce', ['get', 'render_height'], 8], 'fill-extrusion-base': ['coalesce', ['get', 'render_min_height'], 0],
+        'fill-extrusion-opacity': 0.72 } },
+      { id: 'place', type: 'symbol', source: 'omt', 'source-layer': 'place', filter: ['in', ['get', 'class'], ['literal', ['city', 'town', 'country', 'continent']]], layout: { 'text-field': name, 'text-font': ['Noto Sans Regular'], 'text-size': ['match', ['get', 'class'], 'country', 13, 'continent', 14, 12], 'text-transform': ['match', ['get', 'class'], ['country', 'continent'], 'uppercase', 'none'], 'text-letter-spacing': 0.08 }, paint: { 'text-color': '#bfefff', 'text-halo-color': VOID, 'text-halo-width': 1.5 } },
+      { id: 'street-name', type: 'symbol', source: 'omt', 'source-layer': 'transportation_name', minzoom: 15, layout: { 'symbol-placement': 'line', 'text-field': name, 'text-font': ['Noto Sans Regular'], 'text-size': 11 }, paint: { 'text-color': '#8fd8f0', 'text-halo-color': VOID, 'text-halo-width': 1.5 } },
+    ],
+  };
+
+  const map = new maplibregl.Map({ container: 'map', style, center: [-40, 28], zoom: 1.7, maxPitch: 80, attributionControl: { compact: true } });
+  map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'bottom-right');
+  map.on('style.load', () => { try { map.setProjection({ type: 'globe' }); } catch (e) { console.warn(e); } });
+  map.on('load', () => msg('Glisser pour tourner · clic droit pour incliner · molette pour zoomer'));
+  map.on('error', e => { console.warn(e && e.error); });
+
+  // slow spin until the first interaction
+  let spinning = !reduced;
+  const stop = () => { spinning = false; };
+  ['mousedown', 'touchstart', 'wheel'].forEach(ev => map.on(ev, stop));
+  function spin() { if (!spinning || map.getZoom() > 3) return; const c = map.getCenter(); c.lng -= 6; map.easeTo({ center: c, duration: 1000, easing: n => n }); }
+  map.on('moveend', spin); map.on('load', spin);
+
+  // position readout
+  const upd = () => { const c = map.getCenter(); $('pos').textContent = `${c.lat.toFixed(4)}°, ${c.lng.toFixed(4)}°`; $('zoom').textContent = map.getZoom().toFixed(1); };
+  map.on('move', upd); upd();
+
+  // destinations
+  const GO = {
+    globe: { center: [-40, 28], zoom: 1.7, pitch: 0, bearing: 0 },
+    sf: { center: [-122.3985, 37.7873], zoom: 16.2, pitch: 64, bearing: -28 },
+    paris: { center: [2.2945, 48.8584], zoom: 16, pitch: 62, bearing: 30 },
+    tokyo: { center: [139.7671, 35.6812], zoom: 16, pitch: 62, bearing: -15 },
+  };
+  const fly = v => { stop(); map.flyTo({ ...v, duration: reduced ? 0 : 7000, essential: true }); };
+  document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => fly(GO[b.dataset.go])));
+
+  // pilot corridor marker (SoMa)
+  const el = document.createElement('div'); el.className = 'pilot'; el.title = 'Corridor pilote';
+  new maplibregl.Marker({ element: el }).setLngLat([-122.4005, 37.7855]).setPopup(new maplibregl.Popup({ offset: 14 }).setHTML('<b>Corridor pilote</b><br>5 carrefours à feux. Démo v0 synthétique ; la phase 2 l’ancre sur ces rues.<br><a href="corridor.html" style="color:#78e8ff">Ouvrir le corridor et lancer les agents</a>')).addTo(map);
+  $('pilot-btn').addEventListener('click', () => { location.href = 'corridor.html'; });
+
+  // search (OpenStreetMap Nominatim, free, no key: 1 request at a time)
+  let busy = false;
+  $('search').addEventListener('submit', async e => {
+    e.preventDefault(); const q = $('q').value.trim(); if (!q || busy) return; busy = true; msg('Recherche…');
+    try {
+      const r = await fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&accept-language=fr&q=' + encodeURIComponent(q));
+      const d = await r.json();
+      if (!d.length) msg(`Aucun lieu trouvé pour « ${q} ».`);
+      else { msg(d[0].display_name.split(',').slice(0, 3).join(',')); fly({ center: [+d[0].lon, +d[0].lat], zoom: 16, pitch: 60, bearing: 0 }); }
+    } catch (err) { msg('La recherche ne répond pas. Réessaie dans un instant.'); }
+    busy = false;
+  });
+
+  // layers
+  const press = (id, on) => $(id).setAttribute('aria-pressed', String(on));
+  $('l-trame').addEventListener('click', () => { map.setLayoutProperty('sat', 'visibility', 'none'); press('l-trame', true); press('l-sat', false); });
+  $('l-sat').addEventListener('click', () => { map.setLayoutProperty('sat', 'visibility', 'visible'); press('l-trame', false); press('l-sat', true); });
+  let relief = false;
+  $('l-relief').addEventListener('click', () => {
+    relief = !relief;
+    try { map.setTerrain(relief ? { source: 'dem', exaggeration: 1.4 } : null); press('l-relief', relief); msg(relief ? 'Relief 3D activé.' : 'Relief 3D désactivé.'); }
+    catch (err) { relief = false; press('l-relief', false); msg('Relief 3D indisponible dans ce mode.'); }
+  });
+})();
+</script>
+</body>
+</html>

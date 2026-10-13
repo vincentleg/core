@@ -1,0 +1,142 @@
+<title>CORE · La Trame</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: full-bleed 3D world on the left, a control "console" on the right (stacked under the world on phones). Single dark look by design. */
+:root {
+  color-scheme: dark;
+  --void: #02050b; --panel: #07101d; --line: #15304a; --ink: #e3f6ff; --muted: #8fb1c6;
+  --cyan: #78e8ff; --amber: #ffb84d; --magenta: #ff5cd6; --green: #39ff9f; --red: #ff4d6d;
+  --display: 'Oxanium', 'Eurostile', 'Segoe UI', system-ui, sans-serif;
+  --body: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+}
+html, body { height: 100%; background: var(--void); color: var(--ink); }
+body { font-family: var(--body); font-size: 14px; line-height: 1.5; overflow: hidden; }
+.app { display: grid; grid-template-columns: minmax(0, 1fr) 390px; height: 100%; }
+.world { position: relative; min-width: 0; }
+#trame { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+#trame:active { cursor: grabbing; }
+.overlay { position: absolute; right: 16px; bottom: 16px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.hint { position: absolute; left: 16px; bottom: 16px; color: var(--muted); font-size: 12px; max-width: 46ch; }
+aside { background: var(--panel); border-left: 1px solid var(--line); overflow-y: auto; padding-block: 20px 28px; padding-inline: 20px; display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.brand { display: flex; align-items: baseline; gap: 10px; }
+.brand b { font-family: var(--display); font-weight: 700; font-size: 26px; letter-spacing: 0.18em; color: var(--cyan); }
+.brand span { font-family: var(--display); color: var(--muted); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
+nav.crumbs { display: flex; gap: 6px; align-items: center; font-family: var(--display); font-size: 12px; letter-spacing: 0.06em; color: var(--muted); }
+nav.crumbs button { all: unset; cursor: pointer; color: var(--cyan); }
+nav.crumbs button:focus-visible { outline: 1px solid var(--cyan); outline-offset: 2px; }
+h2 { font-family: var(--display); font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px; font-weight: 600; }
+h3 { font-family: var(--display); font-size: 15px; margin: 0 0 6px; color: var(--amber); }
+p { margin: 0 0 8px; }
+.lead { color: var(--ink); font-size: 15px; text-wrap: pretty; }
+.note, .empty { color: var(--muted); font-size: 12.5px; }
+section { display: flex; flex-direction: column; gap: 8px; }
+button { font: 600 13px var(--display); letter-spacing: 0.06em; color: var(--void); background: var(--cyan); border: 0; border-radius: 3px; padding: 10px 14px; cursor: pointer; }
+button:hover { filter: brightness(1.12); }
+button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+button:disabled { opacity: 0.45; cursor: default; filter: none; }
+button.ghost { background: transparent; color: var(--cyan); border: 1px solid var(--line); }
+button.primary { background: var(--amber); }
+.seg { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); border-radius: 3px; overflow: hidden; }
+.seg button { background: transparent; color: var(--muted); border-radius: 0; }
+.seg button[aria-pressed="true"] { background: #102a40; color: var(--ink); }
+.twists { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.twist { text-align: left; background: transparent; color: var(--ink); border: 1px solid var(--line); font: 500 13px var(--body); letter-spacing: 0; padding: 10px; }
+.twist b { display: block; font-family: var(--display); color: var(--magenta); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+.twist[aria-pressed="true"] { border-color: var(--magenta); background: rgba(255, 92, 214, 0.1); }
+.live { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.live div { border-top: 1px solid var(--line); padding-top: 6px; }
+.live dt, .kpis dt { color: var(--muted); font-size: 11.5px; }
+.live dd, .kpis dd { margin: 0; font: 600 20px var(--mono); font-variant-numeric: tabular-nums; }
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.row label { color: var(--muted); font-size: 12px; }
+input[type=range] { accent-color: var(--cyan); flex: 1; min-width: 100px; }
+#prog { border: 1px solid var(--line); padding: 10px; border-radius: 3px; }
+.bar { height: 4px; background: #0d2236; margin: 6px 0; }
+#prog-bar { height: 100%; width: 0; background: linear-gradient(90deg, var(--cyan), var(--amber)); transition: width 0.2s; }
+#prog-title { font: 600 13px var(--display); }
+#prog-detail { color: var(--muted); font-size: 12.5px; margin: 0; }
+.passerelle { border: 1px solid var(--line); border-radius: 3px; padding: 14px; display: flex; flex-direction: column; gap: 8px; background: linear-gradient(180deg, rgba(255,184,77,0.06), transparent 40%); }
+.pill { align-self: flex-start; font: 700 12px var(--display); letter-spacing: 0.12em; padding: 4px 10px; border-radius: 2px; }
+.pill.ok { color: var(--void); background: var(--green); }
+.pill.ok::before { content: '✓ '; }
+.pill.warn { color: var(--void); background: var(--amber); }
+.pill.warn::before { content: '⏸ '; }
+.pill.bad { color: var(--ink); background: var(--red); }
+.pill.bad::before { content: '✕ '; }
+.changed { color: var(--magenta); font-size: 12.5px; }
+.kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 4px 0; }
+.act { font-size: 13px; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 12px; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 4px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--muted); font-weight: 500; }
+td:not(:first-child), th:not(:first-child) { text-align: right; white-space: nowrap; font-family: var(--mono); }
+tr.neg td { color: var(--red); }
+details { font-size: 12.5px; color: var(--muted); }
+summary { cursor: pointer; color: var(--cyan); }
+details ul { padding-left: 18px; margin: 6px 0; }
+textarea { width: 100%; height: 140px; background: #030a14; color: var(--ink); border: 1px solid var(--line); font: 11px var(--mono); }
+#sel { border: 1px solid var(--line); padding: 10px; border-radius: 3px; }
+.honest { border-top: 1px solid var(--line); padding-top: 12px; color: var(--muted); font-size: 12px; }
+@media (max-width: 760px) {
+  body { overflow: auto; }
+  .app { grid-template-columns: 1fr; grid-template-rows: 58vh auto; height: auto; }
+  aside { border-left: 0; border-top: 1px solid var(--line); overflow: visible; padding-inline: 16px; }
+  .hint { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { #prog-bar { transition: none; } }
+</style>
+<div class="app">
+  <div class="world">
+    <canvas id="trame" aria-label="La Trame : globe terrestre, puis corridor pilote de San Francisco en 3D" role="img"></canvas>
+    <div class="overlay"><button id="btn-dive" class="primary" type="button">Plonger sur San Francisco</button></div>
+    <p class="hint">Glisser pour tourner · molette ou pincer pour zoomer · Maj + glisser pour se déplacer · clic sur un carrefour pour l’inspecter</p>
+  </div>
+  <aside>
+    <div class="brand"><b>CORE</b><span>La Trame · v0</span></div>
+    <nav class="crumbs" aria-label="Position"><button id="crumb-earth" type="button">Terre</button><span id="crumb-city" hidden>› San Francisco › Corridor pilote</span></nav>
+
+    <section id="globe-panel">
+      <p class="lead">Une Terre parallèle où des agents testent des milliers de solutions avant qu’elles touchent le monde réel.</p>
+      <p class="note">Le point ambre est le premier lieu de la Trame : un corridor de cinq carrefours à feux. Clique dessus ou utilise le bouton pour y plonger.</p>
+    </section>
+
+    <div id="city-panel" hidden>
+      <section>
+        <h2>Le monde, en direct</h2>
+        <div class="seg" role="group" aria-label="Plan de feux affiché"><button id="seg-base" type="button">Plan de référence</button><button id="seg-prop" type="button">Plan proposé</button></div>
+        <dl class="live"><div><dt>Retard moyen (s)</dt><dd id="m-delay">0</dd></div><div><dt>En file</dt><dd id="m-queue">0</dd></div><div><dt>Véhicules passés</dt><dd id="m-served">0</dd></div></dl>
+        <div class="row"><label for="speed">Vitesse</label><input id="speed" type="range" min="1" max="20" value="6"><button id="btn-pause" class="ghost" type="button">Pause</button></div>
+        <p class="note">Points blancs : véhicules qui roulent. Points rouges : véhicules arrêtés au feu.</p>
+      </section>
+      <section style="margin-top:18px">
+        <h2>Les agents</h2>
+        <button id="btn-run" type="button">Lancer les agents</button>
+        <div id="prog" hidden><div id="prog-title"></div><div class="bar"><div id="prog-bar"></div></div><p id="prog-detail"></p></div>
+      </section>
+      <section style="margin-top:18px">
+        <h2>Plot twists</h2>
+        <div class="twists">
+          <button id="tw-evenement" class="twist" type="button" aria-pressed="false"><b>Concert</b>Sortie de salle : la rue transversale de C3 reçoit 2,5 fois plus de voitures</button>
+          <button id="tw-chantier" class="twist" type="button" aria-pressed="false"><b>Chantier</b>Une voie fermée vers l’est avant C4</button>
+        </div>
+        <p class="note">Un plot twist modifie le monde simulé. La Passerelle réévalue aussitôt le permis.</p>
+      </section>
+      <section id="sel" hidden style="margin-top:18px"></section>
+      <section style="margin-top:18px">
+        <h2>La Passerelle</h2>
+        <div id="permit" class="passerelle"></div>
+      </section>
+    </div>
+
+    <p class="honest">Démo v0 : corridor, bâtiments et demande de trafic synthétiques, contours de la Terre simplifiés. Le moteur de trafic tourne réellement dans ton navigateur ; chaque chiffre vient de ses simulations. Prochaine étape : rues réelles d’OpenStreetMap, SUMO et comptages réels. <a href="index.html" style="color:var(--cyan)">Retour à la Terre réelle</a></p>
+  </aside>
+</div>
+<script>
+/*ENGINE*/
+</script>
+<script>
+/*APP*/
+</script>
