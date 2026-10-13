@@ -8,7 +8,7 @@ solutions (feux, chantiers, énergie) et où seule une solution testée sort par
 - `index.html` : la Terre réelle (MapLibre GL 5.6 en globe, tuiles OpenFreeMap, bâtiments 3D, recherche Nominatim).
 - `src/engine.js` : moteur de trafic, agents, adversaires, Passerelle. Ne pas modifier sa logique sans demande explicite.
 - `src/app.js` + `src/template.html` → `corridor.html` via `node build.js` (ne jamais éditer `corridor.html` à la main).
-- `ROADMAP.md` : les phases. `PROJECT_STATE.md` : où on en est (≤ 30 lignes).
+- `HANDOFF.md` : tout le projet (vision, business, design, ce qui est construit). `ROADMAP.md` : les phases. `PROJECT_STATE.md` : où on en est (≤ 30 lignes).
 
 ## Règles de travail (économiser les tokens)
 - Lis `PROJECT_STATE.md` et seulement les fichiers nécessaires à la phase en cours.
