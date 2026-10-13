@@ -1,6 +1,6 @@
 # Existing architecture
 
-Current state: Phase 2B (San Francisco world foundation) complete — see `PHASE_2B_REPORT.md`.
+Current state: Phase 2C (real-data agents and coordination workspace) complete — see `PHASE_2C_REPORT.md`.
 
 CORE is a static two-page application with committed public-data snapshots. There is no backend, database, account system, worker pool, LLM service, telemetry pipeline, or infrastructure actuator.
 
@@ -11,6 +11,9 @@ flowchart LR
   Snapshot[scripts/sf-snapshot.mjs + src/sf-data.js] --> Data[data/sf GeoJSON + manifest]
   Data --> View[src/sf-view.js pilot view and inspector]
   View --> Globe
+  Data --> Coord[src/coord.js deterministic agents + coordination gateway]
+  Coord --> Workspace[src/coord-view.js agent workspace]
+  Workspace --> Globe
   Globe -->|navigation only| Corridor[corridor.html]
   Template[src/template.html] --> Build[node build.js]
   App[src/app.js] --> Build
@@ -33,6 +36,12 @@ flowchart LR
 
 `scripts/sf-snapshot.mjs` (Node built-ins) fetches DataSF SoQL queries, normalizes rows through `src/sf-data.js` (PII removal, organisation-only permit holders, no invented geometry, CNN normalization, corridor selection by CNN topology) and writes GeoJSON plus a manifest with URLs, timestamps and checksums. Raw responses are hashed, not stored. `test/sf.test.js` checks parsing, PII absence, manifest checksums/counts, corridor membership, landmark positions and replacement zones.
 
+## Coordination intelligence (Phase 2C)
+
+`src/coord.js` (UMD, no dependency) builds a context from the verified snapshot (CNN topology, record index, dataset checksums) and runs six deterministic roles as generators that yield real events: Discovery (overlaps, repeated work, moratorium starts, closure conflicts, upcoming opportunities per segment group), Evidence (record existence, verified SHA-256, dates, CNN membership and ≤ 75 m geometry distance, organisations), Scenario Generator (planning set, fixed reasons, S0–S4), Evaluation (deterministic metrics, declared priority rule), Adversarial (A1–A7 perturbations) and the coordination gateway `issueCoordinationProposal`, which recomputes the finding, mode, baseline, windows, metrics and adversarial results and blocks on any mismatch, missing/unverifiable evidence, invalid geography, inconsistent dates or constraint violation. It returns `PRÊT POUR REVUE HUMAINE`, `SUSPENDU` or `BLOQUÉ`, always with `authorizes: false`. Outputs are plain JSON contracts so a future model-based agent can propose without changing them; the gateway would still accept only proposals matching recomputation.
+
+`src/coord-view.js` drives the generator step by step in the browser (pause gate, display pacing), records the trace, replays it labelled "REJEU" and re-executes to verify the fingerprint. It syncs the map (`coord-scan`, `coord-findings`, `coord-focus`, `coord-points`), renders findings, scenario cards, metric table, schedule chart, evidence and the decision, exports a JSON dossier, and implements the guided demo. The traffic `issuePermit` gateway and corridor engine are untouched.
+
 ## Corridor and engine
 
 `build.js` replaces two placeholders in the template with engine and UI source, producing a committed standalone HTML file for static hosting. `src/app.js` uses a hand-written 3D projection onto Canvas 2D; corridor buildings and globe outlines are illustrative. The live traffic display uses the same `Sim` class as plan evaluation.
@@ -49,4 +58,4 @@ The JSON includes the plan, reasons, comparisons, synthetic-data assumptions, va
 
 ## Verification
 
-`node build.js` assembles; `node --test test/*.test.js` checks assembly, parsing, reproducibility, bounded orchestration and permit states. Browser checks use a local HTTP server. No runtime dependencies were added in Phase 0. Phase 1 explicitly authorized correctness hardening. Equations and valid decision thresholds were preserved; input guards, scenario isolation, bounded execution and cancellation were added. UI clears stale proposals on failure/cancel, throttles DOM updates and uses capped elapsed-time stepping. Phase 1 and Phase 2B closing browser audits are summarized in their reports; `scripts/browser-audit.mjs` now includes 18 San Francisco checks.
+`node build.js` assembles; `node --test test/*.test.js` checks assembly, parsing, reproducibility, bounded orchestration and permit states. Browser checks use a local HTTP server. No runtime dependencies were added in Phase 0. Phase 1 explicitly authorized correctness hardening. Equations and valid decision thresholds were preserved; input guards, scenario isolation, bounded execution and cancellation were added. UI clears stale proposals on failure/cancel, throttles DOM updates and uses capped elapsed-time stepping. Phase 1 and Phase 2B closing browser audits are summarized in their reports; `scripts/browser-audit.mjs` now includes 18 San Francisco and 17 agent-workspace checks (59 total; the workspace checks compare the browser run with an independent Node run).

@@ -1,6 +1,6 @@
 # Agent architecture and workspace specification
 
-Design for Phase 2B. Nothing here is implemented. Core rule: **every line shown in the workspace comes from an actual execution trace.** Traces are recorded or live, and nothing is scripted or invented. Deterministic computations, model-generated text (if ever added) and human actions are typed differently and displayed differently.
+Design written in Phase 2A; **implemented in Phase 2C** (see [PHASE_2C_REPORT.md](PHASE_2C_REPORT.md)). Differences from this design: traces are kept in memory and exportable as a JSON dossier rather than committed JSON Lines files; fingerprints use FNV-1a (non-cryptographic) instead of SHA-256 for outputs; the gateway states are `PRÊT POUR REVUE HUMAINE` / `SUSPENDU` / `BLOQUÉ`; the recommendation is either a dominating reschedule or a coordination review (D019). Core rule: **every line shown in the workspace comes from an actual execution trace.** Traces are recorded or live, and nothing is scripted or invented. Deterministic computations, model-generated text (if ever added) and human actions are typed differently and displayed differently.
 
 ## Principles
 

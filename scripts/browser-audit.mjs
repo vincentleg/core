@@ -4,6 +4,8 @@
 // Serve this repository on localhost:8000 first. Never use a personal browser profile.
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
+import crypto from 'node:crypto';
+import { createRequire } from 'node:module';
 const port = Number(process.argv[2] || 9222), output = process.argv[3] || '/tmp/core-browser', bidi = process.argv[4] === 'bidi';
 let wsUrl;
 if (bidi) wsUrl = `ws://127.0.0.1:${port}/session`;
@@ -126,6 +128,44 @@ try {
   check('record links to DataSF dataset and API record', await evaluate(`(a => a.some(h => /^https:\\/\\/data\\.sf\\.gov\\/d\\//.test(h)) && a.some(h => /^https:\\/\\/data\\.sf\\.gov\\/resource\\/b6tj-gt35\\.json\\?permit_number=/.test(h)))([...document.querySelectorAll('#sf-inspect a')].map(a => a.href))`));
   check('source attribution lists DataSF, OSM and procedural models', await evaluate(`(t => t.includes('DataSF') && t.includes('OpenStreetMap') && t.includes('Modèles procéduraux'))(document.querySelector('.maplibregl-ctrl-attrib').textContent)`));
   check('synthetic demo stays labelled separately', await evaluate(`document.querySelector('#pilot-btn').textContent.includes('synthétique')`));
+
+  // ---- Phase 2C agent workspace ----
+  const COORD = createRequire(import.meta.url)('../src/coord.js');
+  const snap = (() => { const m = JSON.parse(fs.readFileSync('data/sf/manifest.json', 'utf8')), data = {}, verified = {};
+    for (const d of m.datasets) { const t = fs.readFileSync(`data/sf/${d.file}`, 'utf8'), k = d.file.replace('.geojson', ''); data[k] = JSON.parse(t); verified[k] = crypto.createHash('sha256').update(t).digest('hex') === d.sha256 ? 'ok' : 'x'; }
+    return COORD.run(COORD.buildContext({ manifest: m, data, verified })); })();
+  await evaluate(`document.querySelector('#tab-agents').click(); (s => { s.value = '450'; s.dispatchEvent(new Event('change')); })(document.querySelector('#cw-speed')); document.querySelector('#cw-run').click(); 0`);
+  await pause(2500);
+  check('agents run live with labelled real execution', await evaluate(`CORE_COORD_VIEW.state.mode === 'running' && document.querySelector('#cw-status').textContent.includes('EXÉCUTION RÉELLE') && document.querySelectorAll('#cw-log li').length > 0`));
+  check('map follows the segment being inspected', await evaluate(`__CORE_MAP.getSource('coord-scan')._data.features.length > 0 || __CORE_MAP.querySourceFeatures('coord-scan').length > 0`));
+  await evaluate(`document.querySelector('#cw-pause').click(); 0`); await pause(600);
+  const n1 = await evaluate('CORE_COORD_VIEW.state.events.length'); await pause(1500);
+  check('pause stops execution', n1 === await evaluate('CORE_COORD_VIEW.state.events.length') && await evaluate(`document.querySelector('#cw-status').textContent.includes('EN PAUSE')`));
+  await evaluate(`(s => { s.value = '0'; s.dispatchEvent(new Event('change')); })(document.querySelector('#cw-speed')); document.querySelector('#cw-pause').click(); 0`);
+  await until(`CORE_COORD_VIEW.state.mode === 'done'`, 240);
+  check('browser run matches independent Node run (events and fingerprint)', await evaluate(`CORE_COORD_VIEW.state.events.length`) === snap.events.length && await evaluate(`CORE_COORD_VIEW.state.result.fingerprint`) === snap.result.fingerprint);
+  check('all six agent roles executed', await evaluate(`['discovery','evidence','scenario','evaluation','adversarial','gateway'].every(a => CORE_COORD_VIEW.state.events.some(e => e.agent === a))`));
+  check('findings highlighted on the map', await evaluate(`__CORE_MAP.queryRenderedFeatures({ layers: ['coord-findings-line'] }).length > 0`));
+  const top = snap.result.findings.find(f => f.type === 'opportunity');
+  await evaluate(`document.querySelector('[data-f="${top.id}"]').click(); 0`); await pause(2600);
+  check('selecting a finding moves the camera to its street segment', await evaluate(`(() => { const g = CORE_COORD_VIEW.state.ctx.segments.get('${top.seg}').geometry.coordinates, c = __CORE_MAP.getCenter(), m = g[Math.floor(g.length / 2)]; return Math.hypot(c.lng - m[0], c.lat - m[1]) < 0.004 && __CORE_MAP.getZoom() > 15.5; })()`));
+  check('finding permits highlighted by organisation', await evaluate(`__CORE_MAP.queryRenderedFeatures({ layers: ['coord-points-circle'] }).length >= 2`));
+  check('five scenarios evaluated and compared', await evaluate(`document.querySelectorAll('#cw-detail [data-s]').length === 5 && !!document.querySelector('#cw-detail table.metrics') && !!document.querySelector('#cw-detail svg.gantt')`));
+  await evaluate(`document.querySelector('#cw-detail [data-s="S1"]').click(); 0`); await pause(500);
+  check('selecting a scenario updates metrics and map', await evaluate(`document.querySelector('#cw-detail table.metrics thead').textContent.includes('S1') && __CORE_MAP.getSource('coord-points')._data.features.some(f => f.properties.moved) === CORE_COORD_VIEW.state.result.analyses['${top.id}'].result.scenarios.find(s => s.id === 'S1').windows.some(w => w.shift !== 0)`));
+  check('decision requires human review and authorizes nothing', await evaluate(`(t => t.includes('Revue humaine obligatoire') && t.includes('n’autorise ni n’applique'))(document.querySelector('#cw-detail .decision').textContent) && CORE_COORD_VIEW.state.result.decisions['${top.id}'].decision.authorizes === false`));
+  check('decision state matches Node gateway', await evaluate(`CORE_COORD_VIEW.state.result.decisions['${top.id}'].decision.state`) === snap.result.decisions[top.id].decision.state);
+  check('metrics provenance and assumptions shown', await evaluate(`(t => t.includes('HYPOTHÉTIQUE') && t.includes('DÉRIVÉ DES DATES OBSERVÉES') && t.includes('Aucun coût'))(document.querySelector('#cw-detail').textContent)`));
+  await evaluate(`document.querySelector('#cw-detail [data-inspect]').click(); 0`); await pause(500);
+  check('evidence opens the source record with provenance', await evaluate(`!document.querySelector('#sf-body-records').hidden && document.querySelector('#sf-inspect').textContent.includes('Provenance')`));
+  await evaluate(`document.querySelector('#tab-agents').click(); document.querySelector('#cw-replay').click(); 0`); await pause(800);
+  check('replay is clearly labelled', await evaluate(`CORE_COORD_VIEW.state.mode === 'replay' && document.querySelector('#cw-status').textContent.includes('REJEU') && document.querySelector('#cw-log li .ev-op').textContent.startsWith('rejeu')`));
+  await until(`CORE_COORD_VIEW.state.mode === 'done'`, 400);
+  check('replay verified against re-execution', await evaluate(`CORE_COORD_VIEW.state.replayCheck === true`));
+  await evaluate(`CORE_COORD_VIEW.guide(4); 0`); await pause(2500);
+  check('guided demo steps drive real actions', await evaluate(`!document.querySelector('#guide').hidden && document.querySelector('#guide-title').textContent.includes('5/8') && CORE_COORD_VIEW.state.selected !== null`));
+  await evaluate(`document.querySelector('#guide-quit').click(); 0`);
+  await shot('agents');
   await evaluate('document.querySelector("#sf-close").click()');
   await viewport(390, 844, true); await pause(300);
   check('mobile map fits viewport', await evaluate('document.documentElement.scrollWidth <= innerWidth'));

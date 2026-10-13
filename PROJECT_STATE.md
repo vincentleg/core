@@ -1,10 +1,10 @@
 # CORE — état du projet, 13 octobre 2026
-- Phases 0, 1, 2A terminées ; Phase 2B (fondation San Francisco) terminée : docs/PHASE_2B_REPORT.md.
-- Globe → SF (vol 9 s), 11 quartiers/repères, recherche locale, ombrage du relief en ville.
-- Golden Gate procédural (dimensions officielles, pylônes OSM, câbles, suspentes) ; 5 repères.
-- Données réelles : 6 instantanés DataSF datés + SHA-256 (data/sf), sans coordonnées personnelles.
-- Pilote Folsom/Howard : 662 permis, 23 grandes excavations, 71 moratoires, 19 fermetures, inspectables.
-- 29 tests Node ; Chrome 155 et Firefox 122 : 42/42 ; Chrome dégradé 12/12 ; Safari non testé.
-- Aucun service payant, aucune clé, aucune nouvelle dépendance (three.js non requis).
-- Trafic toujours synthétique ; pas encore de moteur de coordination, d'agents ni de passerelle réelle.
-- Phase 2C (analyse de coordination + espace agents) non commencée : sur demande explicite.
+- Phases 0, 1, 2A, 2B, 2C terminées ; 2C : docs/PHASE_2C_REPORT.md.
+- 6 agents déterministes (aucun LLM) sur les registres DataSF : 150 évènements réels, empreinte ed44b98b4c248b03.
+- 50 constats potentiels ; 3 opportunités ; 5 scénarios chacune ; passerelle de coordination recalculant tout.
+- Howard 8th–9th et 10th–11th : prêts pour revue humaine (revue de coordination) ; 4th–5th suspendu.
+- Aucune replanification recommandée sur données réelles : fenêtres déjà simultanées (compromis affiché).
+- Espace agents : exécution, pause, rejeu vérifié, carte synchronisée, preuves, démo guidée.
+- 39 tests Node ; Chrome 155 et Firefox 122 : 59/59 ; Chrome dégradé 12/12 ; Safari non testé.
+- Aucun service payant, clé ni dépendance ; trafic toujours synthétique ; rien n’est autorisé ni appliqué.
+- Phase 3 (pilote calibré) non commencée : sur demande explicite, comptages et plans de feux requis.

@@ -257,11 +257,23 @@
     else showLandmark(land.properties.id || land.properties.landmark);
   }
 
+  function selectTab(name) {
+    for (const t of ['records', 'agents']) { $(`tab-${t}`).setAttribute('aria-selected', String(t === name)); $(`sf-body-${t}`).hidden = t !== name; }
+    document.body.classList.toggle('agents-wide', name === 'agents');
+  }
+  // Open one record in the inspector (used by the agent workspace evidence table).
+  function inspect(dataset, recordId) {
+    openPanel(); selectTab('records');
+    const f = S.data && S.data[dataset] && S.data[dataset].features.find(x => x.properties.record_id === recordId);
+    if (f) { S.selection = [f]; showRecord(f); }
+    return !!f;
+  }
+
   function openPanel() {
     S.open = true; $('sf-panel').hidden = false; document.body.classList.add('sf-open');
     loadData().catch(() => {});
   }
-  function closePanel() { S.open = false; $('sf-panel').hidden = true; document.body.classList.remove('sf-open'); }
+  function closePanel() { S.open = false; $('sf-panel').hidden = true; document.body.classList.remove('sf-open', 'agents-wide'); }
 
   // Keep the target in the free space between the console and the data panel.
   function padded(view) {
@@ -282,6 +294,8 @@
     sel.addEventListener('change', () => { const p = W.PLACES.find(x => x.id === sel.value); if (!p) return; if (p.id === 'pilot') openPilot(); else S.fly(padded(p.view), p.id === 'sf' ? 8000 : 4500); sel.value = ''; });
     $('pilot-real').addEventListener('click', openPilot);
     $('sf-close').addEventListener('click', closePanel);
+    $('tab-records').addEventListener('click', () => selectTab('records'));
+    $('tab-agents').addEventListener('click', () => { openPanel(); selectTab('agents'); });
     $('sf-street').addEventListener('change', e => { S.filters.street = e.target.value; applyFilters(); });
     $('sf-status').addEventListener('change', e => { S.filters.status = e.target.value; applyFilters(); });
     const near = () => { const z = map.getZoom(); if (z >= 9.5 && inSF(map)) { addLandmarks(); if (z >= 11) loadData().catch(() => {}); } };
@@ -302,5 +316,5 @@
     return p;
   }
 
-  globalThis.CORE_SF_VIEW = { init, search, openPilot, openPanel, closePanel, loadData, addLandmarks, replaced, state: S, GROUPS, DATA };
+  globalThis.CORE_SF_VIEW = { init, search, openPilot, openPanel, closePanel, selectTab, inspect, loadData, addLandmarks, replaced, state: S, GROUPS, DATA };
 })();

@@ -67,3 +67,15 @@ Folsom/Howard DataSF records are committed as normalized GeoJSON (~430 KB) with 
 ## D017 — Tile failures do not overwrite status feedback
 
 Transient tile fetch failures during fast flights previously replaced the status message with a source warning. Tile-level errors now set a separate "tuiles partielles" indicator that clears when the map settles; source-level failures (TileJSON, style) still warn in the main message. Hillshade loads from zoom 10 by default so terrain is visible in cities without global tile traffic.
+
+## D018 — Deterministic agents first, LLM-ready contracts
+
+The six Phase 2C roles are rule-based generators in `src/coord.js`; nothing is labelled or presented as a language model. Each yields real execution events and exchanges plain JSON (findings, evidence bundles, scenario windows/metrics, adversarial results, proposals). A future model may propose findings or parameters, but the coordination gateway only accepts proposals that equal its deterministic recomputation from the verified snapshot.
+
+## D019 — Recommendation rule: dominance for reschedules, review otherwise
+
+A reschedule is recommended only if strictly better on the declared priority order (closure conflicts, moratorium starts, sequencing, distinct occupation windows, occupied days) and worse on none; overlap between organisations is reported but neutral because trench sharing and crew separation conflict. Otherwise, verified overlaps between at least two organisations within 60 days yield a coordination-review recommendation with the scenario comparison attached. Programme permits (> 90 days) are excluded from occupation metrics, an assumption tested by perturbation A7. On the 2026-10-13 snapshot no reschedule dominates; two reviews are ready and one is suspended.
+
+## D020 — Real execution, paced display, labelled replay
+
+The workspace advances the generator one event at a time; pacing only delays display, pause stops execution, and replay re-renders the recorded trace labelled "REJEU" and is verified by re-execution (identical trace fingerprint). Browser and Node runs on the same snapshot must produce the same result fingerprint (audited).

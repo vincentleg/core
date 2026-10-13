@@ -1,10 +1,10 @@
 # CORE — instructions for Claude Code
 
-Read `AGENTS.md`, `PROJECT_STATE.md` and `docs/PHASE_1_REPORT.md` first, then only relevant source files. Phases 1, 2A and 2B are closed; **do not start Phase 2C without the founder's explicit request**. For San Francisco work read `docs/PHASE_2A_TECHNICAL_AUDIT.md` and its companion docs.
+Read `AGENTS.md`, `PROJECT_STATE.md` and `docs/PHASE_1_REPORT.md` first, then only relevant source files. Phases 1, 2A, 2B and 2C are closed; **do not start Phase 3 without the founder's explicit request**. For San Francisco work read `docs/PHASE_2A_TECHNICAL_AUDIT.md` and its companion docs.
 
 CORE is building evidence-backed infrastructure decision review. The current application is a static MapLibre globe and a separate synthetic corridor. Agents propose; deterministic code checks proposal eligibility; humans must authorize; nothing controls real infrastructure. “La Trame” is deprecated. CORE is the product; CORE World is temporary wording only. Keep internal IDs and filenames unless a change is necessary.
 
-Current state: Phase 2B (San Francisco world foundation) closed on 2026-10-13 — see `docs/PHASE_2B_REPORT.md`. MapLibre 5.7.3 pinned; SF landmarks are native fill-extrusions (`src/sf-world.js`); DataSF snapshots in `data/sf` are refreshed with `node scripts/sf-snapshot.mjs` (never hand-edit; tests verify checksums). Browser audits: `scripts/browser-audit.mjs` (Chrome CDP, Firefox `bidi`), `scripts/browser-negative-audit.mjs`; run them sequentially. Safari automation requires the owner's setting. 29 Node tests pass. Do not repeatedly run full simulations unnecessarily.
+Current state: Phase 2C (real-data agents and coordination workspace) closed on 2026-10-13 — see `docs/PHASE_2C_REPORT.md`. Agents are deterministic (`src/coord.js`, no LLM) over DataSF snapshots in `data/sf` (refresh with `node scripts/sf-snapshot.mjs`, never hand-edit); the coordination gateway `issueCoordinationProposal` is separate from the unchanged traffic `issuePermit`. Browser audits: `scripts/browser-audit.mjs` (Chrome CDP, Firefox `bidi`, run from the repo root, sequentially), `scripts/browser-negative-audit.mjs`. Safari automation requires the owner's setting. 39 Node tests pass.
 
 Rules:
 - Preserve current code, Git history and user work. No force push, unrelated refactoring or new phase.

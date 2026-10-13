@@ -90,6 +90,39 @@ table.rec { border-collapse: collapse; width: 100%; margin: 6px 0; } table.rec t
 #sf-sources { margin: 0; padding-left: 16px; font-size: 11.5px; color: var(--muted); } #sf-sources span { color: var(--muted); }
 button.small { padding: 4px 8px; font-size: 11px; }
 .agents-placeholder { color: var(--muted); }
+body.agents-wide .data { width: min(480px, calc(100vw - 32px)); }
+body.agents-wide.sf-open .layers { right: calc(min(480px, 100vw - 32px) + 28px); }
+.agent-bar { display: grid; grid-template-columns: auto auto auto 1fr; gap: 6px; align-items: center; }
+.run-status { margin: 0; font: 11.5px var(--mono); color: var(--muted); } .run-status .live { color: #7ee0a0; } .run-status .replay { color: var(--magenta); }
+.roster { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.ag { border: 1px solid var(--line); border-radius: 3px; padding: 4px 6px; display: flex; flex-direction: column; font-size: 11px; color: var(--muted); }
+.ag b { color: var(--ink); font: 600 11px var(--display); letter-spacing: .03em; } .ag i { font-style: normal; font-size: 10px; }
+.ag.running { border-color: var(--amber); box-shadow: 0 0 0 1px var(--amber) inset; } .ag.done { border-color: #2f8fb8; }
+.activity { list-style: none; margin: 0; padding: 0; max-height: 210px; overflow: auto; border: 1px solid var(--line); border-radius: 3px; font-size: 11.5px; }
+.ev { display: grid; grid-template-columns: auto 1fr; gap: 0 8px; padding: 4px 6px; border-bottom: 1px solid rgba(21,48,74,.6); cursor: default; }
+.ev[tabindex] { cursor: pointer; } .ev:hover { background: #061223; }
+.ev-agent { font: 600 10.5px var(--display); color: var(--cyan); } .ev-op { font: 10.5px var(--mono); color: var(--muted); text-align: right; }
+.ev-text { grid-column: 1 / -1; color: var(--ink); } .ev.fail .ev-text { color: var(--amber); } .ev.warn .ev-text { color: #ffd38a; }
+.a-evidence { color: #7ee0a0 !important; } .a-scenario { color: var(--amber) !important; } .a-evaluation { color: #ffd38a !important; } .a-adversarial { color: var(--magenta) !important; } .a-gateway { color: #e3f6ff !important; }
+.chips { display: flex; flex-wrap: wrap; gap: 4px; margin: 4px 0; } .chip { background: transparent; color: var(--muted); border: 1px solid var(--line); padding: 3px 7px; font-size: 10.5px; } .chip.on { color: var(--ink); border-color: var(--cyan); }
+.findings { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; max-height: 230px; overflow: auto; }
+.findings button { width: 100%; text-align: left; background: #061223; color: var(--ink); border: 1px solid var(--line); display: grid; grid-template-columns: 10px 1fr auto; gap: 2px 8px; align-items: center; font: 12px var(--body); padding: 6px 8px; }
+.findings button i { width: 10px; height: 10px; border-radius: 2px; grid-row: span 2; } .findings button span { grid-column: 2; color: var(--muted); font-size: 11px; } .findings button small { grid-column: 2; color: var(--muted); font-size: 10px; }
+.findings button em { grid-row: 1; grid-column: 3; font: normal 600 10px var(--mono); } .findings button.sel { border-color: var(--amber); } .findings button.suggest { border-color: var(--cyan); }
+em.ok, .state.ok { color: #7ee0a0; } em.warn, .state.warn { color: var(--amber); } em.fail, .state.fail { color: #ff7b7b; }
+#cw-detail h3 { margin: 8px 0 2px; font: 600 15px var(--display); } #cw-detail h4 { margin: 10px 0 4px; font: 600 12px var(--display); letter-spacing: .1em; text-transform: uppercase; color: var(--cyan); }
+.scen-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.scen { background: #061223; color: var(--ink); border: 1px solid var(--line); text-align: left; display: flex; flex-direction: column; gap: 3px; padding: 6px; font: 11.5px var(--body); }
+.scen b { font: 600 11.5px var(--display); } .scen small { color: var(--muted); font-size: 10.5px; } .scen.on { border-color: var(--amber); box-shadow: 0 0 0 1px var(--amber) inset; }
+table.metrics { width: 100%; border-collapse: collapse; font-size: 11.5px; margin-top: 6px; } table.metrics th, table.metrics td { padding: 2px 4px; border-bottom: 1px solid rgba(21,48,74,.6); text-align: right; font-variant-numeric: tabular-nums; }
+table.metrics th:first-child, table.metrics tbody th { text-align: left; font-weight: 400; color: var(--muted); } td.down { color: #7ee0a0; } td.up { color: var(--amber); }
+.gantt { width: 100%; height: auto; background: #030a14; border: 1px solid var(--line); border-radius: 3px; margin-top: 6px; }
+.gantt .gl { font: 9px var(--mono); fill: #8fb1c6; } .gantt .mv { fill: #ffffff; } .gantt .gt { stroke: #15304a; }
+.evid summary, .decision h4 { cursor: pointer; } .evid { border-top: 1px solid var(--line); padding-top: 6px; margin-top: 8px; font-size: 11.5px; }
+ul.checks { list-style: none; margin: 4px 0; padding: 0; font-size: 11.5px; } ul.checks li.ok { color: #9fe8bd; } ul.checks li.warn { color: var(--amber); }
+.decision { border: 1px solid var(--line); border-radius: 3px; padding: 8px; margin-top: 8px; } .decision .state { font: 700 14px var(--display); letter-spacing: .08em; margin: 2px 0; }
+.guide { left: 50%; transform: translateX(-50%); bottom: calc(60px + env(safe-area-inset-bottom, 0px)); padding: 10px 14px; display: flex; flex-direction: column; gap: 6px; width: min(520px, calc(100vw - 32px)); z-index: 4; }
+.guide b { font: 600 13px var(--display); color: var(--amber); letter-spacing: .06em; } .guide div { display: flex; gap: 6px; justify-content: flex-end; }
 @media (max-width: 640px) {
   .console { top: auto; bottom: calc(44px + env(safe-area-inset-bottom, 0px)); }
   .console .lead, .console > .note:not(#search-help) { display: none; }
@@ -128,6 +161,7 @@ button.small { padding: 4px 8px; font-size: 11px; }
     <button class="amber" id="pilot-real" type="button">Pilote Folsom / Howard · données réelles</button>
     <ul class="legend-kinds" aria-label="Nature des données"><li class="badge observed">OBSERVÉ</li><li class="badge approx">APPROXIMATIF</li><li class="badge synthetic">SYNTHÉTIQUE</li></ul>
   </div>
+  <button class="amber" id="demo-guided" type="button">Démo guidée · Terre → recommandation</button>
   <button class="ghost" id="pilot-btn" type="button">Démo des agents · corridor synthétique</button>
   <p class="note">La démo des agents utilise un corridor et un trafic synthétiques, non calibrés, distincts des registres réels Folsom / Howard.</p>
   <details class="provenance" id="sources">
@@ -153,10 +187,24 @@ button.small { padding: 4px 8px; font-size: 11px; }
 <aside class="panel data" id="sf-panel" hidden aria-label="Pilote Folsom / Howard">
   <header><h2>Folsom / Howard</h2><button class="ghost small" id="sf-close" type="button" aria-label="Fermer le panneau">Fermer</button></header>
   <div class="tabs" role="tablist">
-    <button type="button" role="tab" aria-selected="true">Registres publics</button>
-    <button type="button" role="tab" aria-selected="false" disabled title="Espace agents : phase ultérieure">Agents · à venir</button>
+    <button type="button" role="tab" id="tab-records" aria-selected="true" aria-controls="sf-body-records">Registres publics</button>
+    <button type="button" role="tab" id="tab-agents" aria-selected="false" aria-controls="sf-body-agents">Agents · analyse</button>
   </div>
-  <div class="body">
+  <div class="body" id="sf-body-agents" role="tabpanel" hidden>
+    <div class="agent-bar">
+      <button type="button" id="cw-run" class="amber">Lancer les agents</button>
+      <button type="button" id="cw-pause" class="ghost" disabled>Pause</button>
+      <button type="button" id="cw-replay" class="ghost" disabled>Rejouer</button>
+      <select id="cw-speed" aria-label="Rythme d’affichage"><option value="0">Instantané</option><option value="140" selected>Lecture (140 ms/étape)</option><option value="450">Lent (450 ms/étape)</option></select>
+    </div>
+    <p id="cw-status" class="run-status" aria-live="polite"></p>
+    <p class="hint">Agents à règles déterministes (aucun modèle de langage) sur l’instantané DataSF. Un constat est <b>potentiel</b> : un permis n’est pas une preuve de travaux ; aucun trafic, coût ni gain n’est estimé.</p>
+    <ul id="cw-roster" class="roster" aria-label="Agents"></ul>
+    <ol id="cw-log" class="activity" aria-label="Activité des agents"></ol>
+    <div id="cw-findings"></div>
+    <div id="cw-detail"></div>
+  </div>
+  <div class="body" id="sf-body-records" role="tabpanel">
     <p id="sf-fresh">Chargement de l’instantané…</p>
     <p class="hint">2nd → 11th St · permis depuis 2021 · registres <span class="badge observed">OBSERVÉ</span> — un permis n’est pas une preuve de travaux réalisés ; une partie relève du projet Folsom-Howard Streetscape.</p>
     <div class="filters">
@@ -169,11 +217,18 @@ button.small { padding: 4px 8px; font-size: 11px; }
   </div>
 </aside>
 
+<div class="panel guide" id="guide" hidden role="dialog" aria-label="Démo guidée">
+  <b id="guide-title"></b><span id="guide-text"></span>
+  <div><button type="button" class="ghost small" id="guide-prev">Précédent</button><button type="button" class="small" id="guide-next">Suivant</button><button type="button" class="ghost small" id="guide-quit">Quitter</button></div>
+</div>
+
 <div class="panel status" aria-live="polite"><b id="pos">—</b> · zoom <b id="zoom">—</b> · <span id="msg">Chargement de la Terre…</span><span id="net" hidden> · <span class="warn">tuiles partielles (réseau)</span></span></div>
 
 <script src="https://unpkg.com/maplibre-gl@5.7.3/dist/maplibre-gl.js"></script>
 <script src="src/sf-world.js"></script>
 <script src="src/sf-view.js"></script>
+<script src="src/coord.js"></script>
+<script src="src/coord-view.js"></script>
 <script>
 (() => {
   const $ = id => document.getElementById(id);
@@ -223,7 +278,7 @@ button.small { padding: 4px 8px; font-size: 11px; }
   map.on('style.load', () => { try { map.setProjection({ type: 'globe' }); } catch (e) { console.warn(e); } });
   // MapLibre ≥5.7.2 fires load even when a TileJSON fails: never let the hint hide a source warning.
   let sourceError = false;
-  map.on('load', () => { if (window.CORE_SF_VIEW) CORE_SF_VIEW.init({ map, msg, fly: (v, ms) => fly(v, ms) }); });
+  map.on('load', () => { if (window.CORE_SF_VIEW) CORE_SF_VIEW.init({ map, msg, fly: (v, ms) => fly(v, ms) }); if (window.CORE_COORD_VIEW) CORE_COORD_VIEW.init({ map }); });
   map.on('load', () => { ['l-trame', 'l-relief', 'l-buildings'].forEach(id => { $(id).disabled = false; }); if (!sourceError) msg('Glisser pour tourner · clic droit pour incliner · molette pour zoomer'); });
   // Source-level failures (TileJSON, style) replace the status message. Tile failures (often transient during
   // fast flights) get their own indicator so they never erase user feedback; it clears once the map settles.
