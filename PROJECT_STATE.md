@@ -1,10 +1,10 @@
 # CORE — état du projet, 13 octobre 2026
-- Phases 0, 1, 2A, 2B, 2C terminées ; 2C : docs/PHASE_2C_REPORT.md.
-- 6 agents déterministes (aucun LLM) sur les registres DataSF : 150 évènements réels, empreinte ed44b98b4c248b03.
-- 50 constats potentiels ; 3 opportunités ; 5 scénarios chacune ; passerelle de coordination recalculant tout.
-- Howard 8th–9th et 10th–11th : prêts pour revue humaine (revue de coordination) ; 4th–5th suspendu.
-- Aucune replanification recommandée sur données réelles : fenêtres déjà simultanées (compromis affiché).
-- Espace agents : exécution, pause, rejeu vérifié, carte synchronisée, preuves, démo guidée.
-- 39 tests Node ; Chrome 155 et Firefox 122 : 59/59 ; Chrome dégradé 12/12 ; Safari non testé.
-- Aucun service payant, clé ni dépendance ; trafic toujours synthétique ; rien n’est autorisé ni appliqué.
-- Phase 3 (pilote calibré) non commencée : sur demande explicite, comptages et plans de feux requis.
+- Phases 0 → 2D terminées ; 2D (intelligence urbaine) : docs/PHASE_2_REPORT.md, audit docs/PHASE_2_AUDIT.md.
+- 7 domaines déclarés (statut honnête) ; 6 nouveaux jeux réels : arbres, abattages, permis de construire, énergie, parcs, trottoirs.
+- Graphe de connaissances local : ~2 700 entités, ~4 400 relations expliquées (observé / dérivé / règle / hypothèse).
+- Investigation à 8 rôles déterministes (aucun LLM) ; découverte : Howard 10th–11th (voirie + arbres + bâtiments).
+- 3 alternatives évaluées ; R2 « vérifier sur le terrain » éligible à la revue humaine, sensibilités affichées.
+- Paramètres réglables recalculant tout ; note de décision JSON ; démo guidée en 9 étapes réelles.
+- 51 tests Node ; Chrome 155 et Firefox 122 : 73/73 ; Chrome dégradé 12/12 ; Safari non testé.
+- Aucun service payant ; aucun gain énergétique, écologique, trafic ou coût estimé ; rien n’est exécuté.
+- Phase 3 non commencée : sur demande explicite (recommandations dans le rapport).

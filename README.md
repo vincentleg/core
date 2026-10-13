@@ -20,7 +20,8 @@ Open http://localhost:8000 for the globe and http://localhost:8000/corridor.html
 
 - MapLibre GL JS 5.7.3 globe with OpenFreeMap streets, extruded buildings, city navigation, and local search. Satellite is disabled; terrain is approximate (not survey data).
 - San Francisco: cinematic arrival, neighbourhood navigation, procedural Golden Gate Bridge, Salesforce and Transamerica models (labelled approximate), OSM landmarks, and a Folsom/Howard pilot view of dated DataSF public records (permits, large excavations, paving moratoria, closures) with per-record provenance and checksums. Refresh with `node scripts/sf-snapshot.mjs`.
-- Agent workspace (Folsom / Howard → Agents): six deterministic agents analyse the real records (overlaps, repeated work, moratoria, closures, coordination opportunities), compare five scheduling scenarios and submit proposals to a coordination gateway that recomputes everything; recommendations are conditional and always require human review. Pause, verified replay and a guided demo are included.
+- City intelligence (Folsom / Howard → Investigation, Thèmes): a registry of seven domains with honest status, six additional real DataSF datasets (street trees, tree removal notices, building permits, energy benchmarks, parks, sidewalk widths), a local knowledge graph and an eight-role deterministic investigation that finds a cross-domain co-location, compares three alternatives with adjustable parameters, reviews itself adversarially and writes a Decision Brief checked by a fail-closed gateway. Refresh new domains with `node scripts/city-snapshot.mjs`.
+- Street-works agent workspace (Folsom / Howard → Agents · voirie): six deterministic agents analyse the real records (overlaps, repeated work, moratoria, closures, coordination opportunities), compare five scheduling scenarios and submit proposals to a coordination gateway that recomputes everything; recommendations are conditional and always require human review. Pause, verified replay and a guided demo are included.
 - A separate synthetic five-intersection corridor with seeded traffic, heuristic builder agents, six stress cases, and robust refinement. No LLM or autonomous infrastructure integration exists.
 - A deterministic permit proposal with assumptions, tested results and mandatory human signature text. Changing a scenario reevaluates the proposal; there is no actual signing or execution service.
 
@@ -37,6 +38,7 @@ All traffic demand, corridor geometry and corridor buildings are synthetic. Simu
 | `build.js` → `corridor.html` | Dependency-free assembly; never edit the generated file directly |
 | `src/sf-world.js`, `src/sf-view.js`, `src/sf-data.js` | San Francisco landmarks, pilot view/inspector, record normalization |
 | `src/coord.js`, `src/coord-view.js` | Deterministic coordination agents and gateway; agent workspace UI |
+| `src/domains.js`, `src/graph.js`, `src/simulation.js`, `src/city-agents.js`, `src/city-view.js` | Domain registry, knowledge graph, simulation interface, multidomain investigation and UI |
 | `data/sf/` | Dated DataSF snapshots + manifest (checksums, URLs) |
 | `test/` | Node built-in tests; simulation, build and SF data/landmark checks |
 | `docs/` | Architecture, vision, decisions, sources, phase reports and San Francisco Phase 2A specs |
@@ -46,7 +48,7 @@ Read [PROJECT_STATE.md](PROJECT_STATE.md), [ROADMAP.md](ROADMAP.md) and [AGENTS.
 
 ## Validation and limitations
 
-Phases 0, 1, 2A, 2B and 2C are complete — latest: [Phase 2C report](docs/PHASE_2C_REPORT.md). All 39 Node tests pass. Headless Chrome 155 and Firefox 122 pass the 59-check browser audit with no uncaught errors; Safari, physical phones and current Firefox were not tested. Optional audits: `scripts/browser-audit.mjs` (CDP or WebDriver BiDi) and `scripts/browser-negative-audit.mjs` (Chrome). Traffic remains synthetic; no cost, emission or traffic benefit is estimated, and nothing is authorized or applied.
+Phases 0, 1 and 2A–2D are complete — latest: [Phase 2 (2D) report](docs/PHASE_2_REPORT.md). All 51 Node tests pass. Headless Chrome 155 and Firefox 122 pass the 73-check browser audit with no uncaught errors; Safari, physical phones and current Firefox were not tested. Optional audits: `scripts/browser-audit.mjs` (CDP or WebDriver BiDi) and `scripts/browser-negative-audit.mjs` (Chrome). Traffic remains synthetic; no cost, emission or traffic benefit is estimated, and nothing is authorized or applied.
 
 Providers and licenses are listed in [DATA_SOURCES.md](docs/DATA_SOURCES.md). Esri imagery requests are disabled because usage rights are unresolved; Nominatim requests are also disabled. No paid services or billing have been configured. CORE itself has no repository license grant yet; do not infer one from public visibility or third-party licenses.
 

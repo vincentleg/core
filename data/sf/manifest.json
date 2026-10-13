@@ -142,6 +142,161 @@
       },
       "kind": "administrative record (SFMTA-permitted closures only)",
       "note": "Excludes closures managed by other departments (dataset definition)."
+    },
+    {
+      "file": "street-trees.geojson",
+      "id": "tkzw-k3nq",
+      "title": "San Francisco Street Tree Inventory",
+      "provider": "San Francisco Public Works",
+      "domain": "nature",
+      "page": "https://data.sf.gov/d/tkzw-k3nq",
+      "request": "https://data.sf.gov/resource/tkzw-k3nq.json?$query=SELECT%20treeid%2C%20species%2C%20legalstatus%2C%20siteinfo%2C%20planttype%2C%20dbhrange%2C%20plotsize%2C%20planteddate%2C%20cnn%2C%20onstreet%2C%20crossstreet%2C%20latitude%2C%20longitude%20WHERE%20cnn%20in%20('5660000'%2C'05660000'%2C'5661000'%2C'05661000'%2C'5662000'%2C'05662000'%2C'5663000'%2C'05663000'%2C'5664000'%2C'05664000'%2C'5665000'%2C'05665000'%2C'5666000'%2C'05666000'%2C'5667000'%2C'05667000'%2C'5668000'%2C'05668000'%2C'5669000'%2C'05669000'%2C'5670000'%2C'05670000'%2C'5671000'%2C'05671000'%2C'5672000'%2C'05672000'%2C'5673000'%2C'05673000'%2C'5674000'%2C'05674000'%2C'5675000'%2C'05675000'%2C'5676000'%2C'05676000'%2C'5677000'%2C'05677000'%2C'5678000'%2C'05678000'%2C'5679000'%2C'05679000'%2C'5680000'%2C'05680000'%2C'5681000'%2C'05681000'%2C'5682000'%2C'05682000'%2C'7035000'%2C'07035000'%2C'7036000'%2C'07036000'%2C'7037000'%2C'07037000'%2C'7038000'%2C'07038000'%2C'7039001'%2C'07039001'%2C'7041000'%2C'07041000'%2C'7042000'%2C'07042000'%2C'7043000'%2C'07043000'%2C'7044000'%2C'07044000'%2C'7045000'%2C'07045000'%2C'7046000'%2C'07046000'%2C'7047000'%2C'07047000'%2C'7048000'%2C'07048000'%2C'7049000'%2C'07049000'%2C'7050000'%2C'07050000'%2C'7051000'%2C'07051000'%2C'7052000'%2C'07052000'%2C'7053000'%2C'07053000'%2C'7054000'%2C'07054000'%2C'7055000'%2C'07055000'%2C'7056000'%2C'07056000')%20LIMIT%2020000",
+      "retrieved_at": "2026-10-13T21:01:42.656Z",
+      "raw_rows": 497,
+      "raw_sha256": "aed080de0b7b252ec6356abc61698475b3432fe3b2ffbaab753f0a73355175a3",
+      "features": 484,
+      "rejected": {
+        "latitude manquant": 13
+      },
+      "duplicates": 0,
+      "outside_corridor": 0,
+      "sha256": "4d71d2f4d36b6a0ce4f3319d903c61ed9a41d82650f89e5133e5e1045c95a523",
+      "license": {
+        "name": "ODC Public Domain Dedication and License (PDDL)",
+        "url": "https://opendatacommons.org/licenses/pddl/1-0/"
+      },
+      "kind": "observed inventory (asset register)",
+      "update_frequency": "Daily",
+      "changed_since_previous": null,
+      "note": "Bounded corridor query; schema treeid, latitude, longitude; dedupe treeid."
+    },
+    {
+      "file": "tree-removals.geojson",
+      "id": "qrwx-q4gg",
+      "title": "Street Tree Removal Notifications",
+      "provider": "San Francisco Public Works",
+      "domain": "nature",
+      "page": "https://data.sf.gov/d/qrwx-q4gg",
+      "request": "https://data.sf.gov/resource/qrwx-q4gg.json?$query=SELECT%20treeid%2C%20postedtype%2C%20posteddate%2C%20description%2C%20species%2C%20location%2C%20lat%2C%20long%20WHERE%20treeid%20in%20('201192'%2C'110633'%2C'201183'%2C'110636'%2C'201176'%2C'110908'%2C'110910'%2C'201178'%2C'110907'%2C'201193'%2C'201180'%2C'201188'%2C'201186'%2C'110909'%2C'201185'%2C'201882'%2C'201182'%2C'201191'%2C'201181'%2C'110634'%2C'201189'%2C'201177'%2C'201187'%2C'110635'%2C'201184'%2C'201179'%2C'201175'%2C'110911'%2C'201190'%2C'32997'%2C'38794'%2C'201220'%2C'32998'%2C'201217'%2C'88994'%2C'32993'%2C'88993'%2C'198562'%2C'201218'%2C'201215'%2C'32994'%2C'201213'%2C'32996'%2C'201216'%2C'32995'%2C'40324'%2C'88990'%2C'40325'%2C'201221'%2C'38796'%2C'38795'%2C'201219'%2C'201214'%2C'32989'%2C'201211'%2C'201212'%2C'201203'%2C'201201'%2C'255538'%2C'201204'%2C'201846'%2C'201844'%2C'201202'%2C'201196'%2C'201200'%2C'200812'%2C'201197'%2C'101871'%2C'101869'%2C'201000'%2C'255539'%2C'201198'%2C'101868'%2C'201847'%2C'201845'%2C'201223'%2C'101870'%2C'101867'%2C'201195'%2C'101872'%2C'201199'%2C'200811'%2C'201222'%2C'200809'%2C'101873'%2C'201194'%2C'200810'%2C'201210'%2C'101795'%2C'101790'%2C'201209'%2C'201208'%2C'101793'%2C'101792'%2C'201207'%2C'101794'%2C'101791'%2C'101788'%2C'101787'%2C'101796'%2C'101789'%2C'201234'%2C'201206'%2C'91339'%2C'100568'%2C'201872'%2C'201238'%2C'201871'%2C'201875'%2C'85744'%2C'121507'%2C'121506'%2C'50649'%2C'104618'%2C'66997'%2C'116719'%2C'201240'%2C'85854'%2C'104619'%2C'201239')%20LIMIT%205000 | https://data.sf.gov/resource/qrwx-q4gg.json?$query=SELECT%20treeid%2C%20postedtype%2C%20posteddate%2C%20description%2C%20species%2C%20location%2C%20lat%2C%20long%20WHERE%20treeid%20in%20('50647'%2C'264807'%2C'201868'%2C'53651'%2C'61926'%2C'201876'%2C'264806'%2C'201869'%2C'94464'%2C'35219'%2C'50650'%2C'201866'%2C'85743'%2C'264808'%2C'85809'%2C'201874'%2C'201867'%2C'50648'%2C'35218'%2C'104620'%2C'201873'%2C'201870'%2C'261560'%2C'261552'%2C'261558'%2C'261555'%2C'201850'%2C'261553'%2C'85804'%2C'261554'%2C'261557'%2C'261559'%2C'85803'%2C'261556'%2C'85756'%2C'85796'%2C'85757'%2C'84636'%2C'85797'%2C'47606'%2C'85799'%2C'41342'%2C'85795'%2C'85794'%2C'7377'%2C'7381'%2C'7380'%2C'7382'%2C'7378'%2C'7379'%2C'7390'%2C'7388'%2C'201865'%2C'7387'%2C'7389'%2C'7391'%2C'201864'%2C'91036'%2C'91035'%2C'91037'%2C'91032'%2C'91034'%2C'7404'%2C'7393'%2C'7403'%2C'91031'%2C'91033'%2C'7408'%2C'7409'%2C'201855'%2C'7420'%2C'7411'%2C'201854'%2C'7417'%2C'7418'%2C'7412'%2C'201860'%2C'201861'%2C'201856'%2C'201851'%2C'201858'%2C'201859'%2C'201857'%2C'95822'%2C'201853'%2C'82928'%2C'82908'%2C'95821'%2C'201852'%2C'95825'%2C'34005'%2C'48536'%2C'85790'%2C'255643'%2C'82927'%2C'255644'%2C'255645'%2C'46457'%2C'85789'%2C'85788'%2C'46458'%2C'31837'%2C'52255'%2C'52256'%2C'31840'%2C'31836'%2C'52254'%2C'46459'%2C'85759'%2C'31841'%2C'85784'%2C'70678'%2C'85785'%2C'76201'%2C'85782'%2C'30613'%2C'200975'%2C'85781'%2C'31843'%2C'49607')%20LIMIT%205000 | https://data.sf.gov/resource/qrwx-q4gg.json?$query=SELECT%20treeid%2C%20postedtype%2C%20posteddate%2C%20description%2C%20species%2C%20location%2C%20lat%2C%20long%20WHERE%20treeid%20in%20('76155'%2C'59555'%2C'117609'%2C'85787'%2C'31842'%2C'85761'%2C'85762'%2C'201863'%2C'76181'%2C'201862'%2C'49606'%2C'85783'%2C'85779'%2C'200954'%2C'85780'%2C'200958'%2C'200957'%2C'200955'%2C'85778'%2C'85763'%2C'200956'%2C'85764'%2C'85777'%2C'49610'%2C'85765'%2C'49609'%2C'84297'%2C'82753'%2C'85768'%2C'81238'%2C'85767'%2C'200939'%2C'80188'%2C'85766'%2C'49611'%2C'200937'%2C'80187'%2C'200938'%2C'85769'%2C'195421'%2C'195423'%2C'195399'%2C'195400'%2C'195422'%2C'193134'%2C'193132'%2C'193133'%2C'193131'%2C'193875'%2C'197344'%2C'173642'%2C'190326'%2C'193878'%2C'190327'%2C'173643'%2C'193877'%2C'193876'%2C'194801'%2C'103083'%2C'197343'%2C'173641'%2C'193879'%2C'197342'%2C'173640'%2C'194800'%2C'193874'%2C'59946'%2C'195402'%2C'195401'%2C'195832'%2C'50326'%2C'195831'%2C'52747'%2C'193239'%2C'197571'%2C'197570'%2C'52745'%2C'197572'%2C'193242'%2C'196910'%2C'50328'%2C'196909'%2C'50331'%2C'193241'%2C'50333'%2C'193245'%2C'52746'%2C'197569'%2C'193243'%2C'197574'%2C'50335'%2C'50327'%2C'85736'%2C'52748'%2C'193240'%2C'52744'%2C'52749'%2C'197573'%2C'193244'%2C'193246'%2C'85738'%2C'114033'%2C'192118'%2C'59332'%2C'193230'%2C'85699'%2C'85700'%2C'85701'%2C'85702'%2C'193229'%2C'105878'%2C'100875'%2C'85734'%2C'195806'%2C'195805'%2C'67290'%2C'193228'%2C'102432'%2C'85703'%2C'32686')%20LIMIT%205000 | https://data.sf.gov/resource/qrwx-q4gg.json?$query=SELECT%20treeid%2C%20postedtype%2C%20posteddate%2C%20description%2C%20species%2C%20location%2C%20lat%2C%20long%20WHERE%20treeid%20in%20('85705'%2C'195807'%2C'195804'%2C'195803'%2C'102431'%2C'85704'%2C'100874'%2C'70839'%2C'193469'%2C'85735'%2C'85706'%2C'199504'%2C'199503'%2C'199502'%2C'45071'%2C'84834'%2C'199501'%2C'84835'%2C'83463'%2C'192539'%2C'192538'%2C'40819'%2C'193261'%2C'85729'%2C'85731'%2C'192541'%2C'193260'%2C'192540'%2C'85730'%2C'98226'%2C'80222'%2C'85710'%2C'85709'%2C'85723'%2C'85725'%2C'85724'%2C'66960'%2C'66493'%2C'85722'%2C'85726'%2C'192542'%2C'196247'%2C'121419'%2C'49551'%2C'196256'%2C'195852'%2C'195854'%2C'192558'%2C'195851'%2C'192559'%2C'59534'%2C'195853'%2C'192557'%2C'46544'%2C'74256'%2C'189118'%2C'196409'%2C'193262'%2C'85711'%2C'196410'%2C'46560'%2C'46543'%2C'51389'%2C'79052'%2C'110750'%2C'85713'%2C'51388'%2C'65921'%2C'266255'%2C'98185'%2C'98183'%2C'85717'%2C'266256'%2C'85718'%2C'98184'%2C'98187'%2C'98186'%2C'85716'%2C'197347'%2C'43889'%2C'197346'%2C'83722'%2C'47613'%2C'79969'%2C'43892'%2C'43888'%2C'43893'%2C'43891'%2C'48729'%2C'85714'%2C'85715'%2C'43890'%2C'197345'%2C'193269'%2C'82893'%2C'193268'%2C'82894'%2C'82946'%2C'82895'%2C'82988'%2C'251253'%2C'85843'%2C'85842'%2C'193270'%2C'193271'%2C'193272'%2C'82748'%2C'117088'%2C'109907'%2C'49619'%2C'193275'%2C'117086'%2C'117087'%2C'85845'%2C'109906'%2C'85846'%2C'192610'%2C'109908'%2C'192613'%2C'192612')%20LIMIT%205000 | https://data.sf.gov/resource/qrwx-q4gg.json?$query=SELECT%20treeid%2C%20postedtype%2C%20posteddate%2C%20description%2C%20species%2C%20location%2C%20lat%2C%20long%20WHERE%20treeid%20in%20('117085'%2C'192611'%2C'49618'%2C'85823')%20LIMIT%205000",
+      "retrieved_at": "2026-10-13T21:01:43.739Z",
+      "raw_rows": 13,
+      "raw_sha256": "452b9c59f7702f0d724f7c5c051429f515ebb268ee2ab74ae06a56d2a91b79c6",
+      "features": 13,
+      "rejected": {},
+      "duplicates": 0,
+      "outside_corridor": 0,
+      "sha256": "5f0c1b0d66fdd758f9fdd72f4760b7f7ab0d6a8c6fed409bcc2f956b471e9db8",
+      "license": {
+        "name": "ODC Public Domain Dedication and License (PDDL)",
+        "url": "https://opendatacommons.org/licenses/pddl/1-0/"
+      },
+      "kind": "public notice (administrative)",
+      "update_frequency": "Daily",
+      "changed_since_previous": null,
+      "note": "Bounded corridor query; schema treeid, posteddate; dedupe treeid+posteddate."
+    },
+    {
+      "file": "building-permits.geojson",
+      "id": "i98e-djp9",
+      "title": "Building Permits",
+      "provider": "Department of Building Inspection",
+      "domain": "buildings",
+      "page": "https://data.sf.gov/d/i98e-djp9",
+      "request": "https://data.sf.gov/resource/i98e-djp9.json?$query=SELECT%20permit_number%2C%20permit_type_definition%2C%20status%2C%20filed_date%2C%20issued_date%2C%20completed_date%2C%20status_date%2C%20block%2C%20lot%2C%20street_number%2C%20street_name%2C%20street_suffix%2C%20description%2C%20existing_use%2C%20proposed_use%2C%20estimated_cost%2C%20proposed_units%2C%20existing_units%2C%20location%2C%20primary_address_flag%20WHERE%20within_box(location%2C%2037.7895%2C%20-122.419%2C%2037.77%2C%20-122.3945)%20AND%20(status%20in%20('filed'%2C'approved'%2C'issued'%2C'reinstated'%2C'plancheck'%2C'suspend')%20OR%20completed_date%20%3E%3D%20'2025-10-13')%20AND%20filed_date%20%3E%3D%20'2016-01-01'%20ORDER%20BY%20filed_date%20DESC%20LIMIT%2020000",
+      "retrieved_at": "2026-10-13T21:01:46.740Z",
+      "raw_rows": 11028,
+      "raw_sha256": "4917481beb2592eef8b7b67a0088b053e24c0b1671b1ab7952ba8ec2d280d5f2",
+      "features": 854,
+      "rejected": {},
+      "duplicates": 0,
+      "outside_corridor": 9561,
+      "sha256": "f718f287648095c7affc2eaae0a171572c0c0e89c21aea357567e42759960362",
+      "license": {
+        "name": "ODC Public Domain Dedication and License (PDDL)",
+        "url": "https://opendatacommons.org/licenses/pddl/1-0/"
+      },
+      "kind": "administrative record (permit, not proof of construction)",
+      "update_frequency": "Multiple times per hour",
+      "changed_since_previous": null,
+      "note": "Bounded corridor query; schema permit_number, status, location; dedupe permit_number (primary address)."
+    },
+    {
+      "file": "energy-benchmarks.geojson",
+      "id": "96ck-qcfe",
+      "title": "Existing Buildings Energy Performance Ordinance Report",
+      "provider": "SF Environment",
+      "domain": "energy",
+      "page": "https://data.sf.gov/d/96ck-qcfe",
+      "request": "https://data.sf.gov/resource/96ck-qcfe.json?$query=SELECT%20parcel_number%2C%20building_name%2C%20building_address%2C%20property_type%2C%20floor_area%2C%20benchmark_year%2C%20benchmark_status%2C%20site_eui%2C%20source_eui%2C%20total_ghg_emissions%2C%20energy_star_score%2C%20year_built%2C%20energy_audit_status%2C%20energy_audit_due_date%2C%20point%20WHERE%20within_box(point%2C%2037.7895%2C%20-122.419%2C%2037.77%2C%20-122.3945)%20ORDER%20BY%20benchmark_year%20DESC%20LIMIT%205000",
+      "retrieved_at": "2026-10-13T21:01:54.456Z",
+      "raw_rows": 5000,
+      "raw_sha256": "fed21d1f5883e8efb34a2b7156b45c128bc5664e35db104e565b481c42b77e5f",
+      "features": 92,
+      "rejected": {},
+      "duplicates": 0,
+      "outside_corridor": 4908,
+      "sha256": "78a7279043b8e3bb3db4b2a0a561775b63dedb9642b65c276cf38aea41485ad8",
+      "license": {
+        "name": "ODC Public Domain Dedication and License (PDDL)",
+        "url": "https://opendatacommons.org/licenses/pddl/1-0/"
+      },
+      "kind": "self-reported annual benchmark (Energy Star Portfolio Manager)",
+      "update_frequency": "Monthly",
+      "changed_since_previous": null,
+      "note": "Bounded corridor query; schema parcel_number, benchmark_year, point; dedupe parcel_number+benchmark_year."
+    },
+    {
+      "file": "parks.geojson",
+      "id": "gtr9-ntp6",
+      "title": "Recreation and Parks Properties",
+      "provider": "Recreation and Parks Department",
+      "domain": "nature",
+      "page": "https://data.sf.gov/d/gtr9-ntp6",
+      "request": "https://data.sf.gov/resource/gtr9-ntp6.json?$query=SELECT%20property_id%2C%20objectid%2C%20property_name%2C%20propertytype%2C%20acres%2C%20address%2C%20latitude%2C%20longitude%20LIMIT%205000",
+      "retrieved_at": "2026-10-13T21:01:54.728Z",
+      "raw_rows": 255,
+      "raw_sha256": "20787426298477086969a7dbd81c58ef366eeef4f330ef457cfd671592724ea0",
+      "features": 3,
+      "rejected": {
+        "géométrie ou identifiant inutilisable": 1
+      },
+      "duplicates": 0,
+      "outside_corridor": 251,
+      "sha256": "ea45c21b3f453a1393a879dd578337e23954d873cd4b4987beb747d42cac4164",
+      "license": {
+        "name": "ODC Public Domain Dedication and License (PDDL)",
+        "url": "https://opendatacommons.org/licenses/pddl/1-0/"
+      },
+      "kind": "administrative asset register",
+      "update_frequency": "Weekly",
+      "changed_since_previous": null,
+      "note": "Bounded corridor query; schema property_name, latitude, longitude; dedupe property_id."
+    },
+    {
+      "file": "sidewalks.geojson",
+      "id": "4g86-grxu",
+      "title": "Sidewalk Widths (2014)",
+      "provider": "SFMTA (AECOM 2014 study)",
+      "domain": "public_space",
+      "page": "https://data.sf.gov/d/4g86-grxu",
+      "request": "https://data.sf.gov/resource/4g86-grxu.json?$query=SELECT%20objectid%2C%20cnn%2C%20street%2C%20side%2C%20sidewalk_f%2C%20width_min%2C%20width_reco%2C%20class%2C%20shape%20WHERE%20cnn%20in%20('5660000'%2C'05660000'%2C'5661000'%2C'05661000'%2C'5662000'%2C'05662000'%2C'5663000'%2C'05663000'%2C'5664000'%2C'05664000'%2C'5665000'%2C'05665000'%2C'5666000'%2C'05666000'%2C'5667000'%2C'05667000'%2C'5668000'%2C'05668000'%2C'5669000'%2C'05669000'%2C'5670000'%2C'05670000'%2C'5671000'%2C'05671000'%2C'5672000'%2C'05672000'%2C'5673000'%2C'05673000'%2C'5674000'%2C'05674000'%2C'5675000'%2C'05675000'%2C'5676000'%2C'05676000'%2C'5677000'%2C'05677000'%2C'5678000'%2C'05678000'%2C'5679000'%2C'05679000'%2C'5680000'%2C'05680000'%2C'5681000'%2C'05681000'%2C'5682000'%2C'05682000'%2C'7035000'%2C'07035000'%2C'7036000'%2C'07036000'%2C'7037000'%2C'07037000'%2C'7038000'%2C'07038000'%2C'7039001'%2C'07039001'%2C'7041000'%2C'07041000'%2C'7042000'%2C'07042000'%2C'7043000'%2C'07043000'%2C'7044000'%2C'07044000'%2C'7045000'%2C'07045000'%2C'7046000'%2C'07046000'%2C'7047000'%2C'07047000'%2C'7048000'%2C'07048000'%2C'7049000'%2C'07049000'%2C'7050000'%2C'07050000'%2C'7051000'%2C'07051000'%2C'7052000'%2C'07052000'%2C'7053000'%2C'07053000'%2C'7054000'%2C'07054000'%2C'7055000'%2C'07055000'%2C'7056000'%2C'07056000')%20LIMIT%205000",
+      "retrieved_at": "2026-10-13T21:01:55.021Z",
+      "raw_rows": 44,
+      "raw_sha256": "d475bfd8088e764fcf93d4c5dde8b6ccc408a6d9a623274d4c1606b0026fc14c",
+      "features": 44,
+      "rejected": {},
+      "duplicates": 0,
+      "outside_corridor": 0,
+      "sha256": "c5adad5995b8dae5fd5022ccc1ee76b5f94ab417ea3d2d52c41aef62b06718da",
+      "license": {
+        "name": "ODC Public Domain Dedication and License (PDDL)",
+        "url": "https://opendatacommons.org/licenses/pddl/1-0/"
+      },
+      "kind": "measured in a 2014 study, joined to centerlines",
+      "update_frequency": "As needed (2014 study)",
+      "changed_since_previous": null,
+      "note": "Bounded corridor query; schema cnn; dedupe objectid."
     }
-  ]
+  ],
+  "city_snapshot_at": "2026-10-13T21:01:55.024Z"
 }

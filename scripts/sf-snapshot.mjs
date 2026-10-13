@@ -98,10 +98,13 @@ const clRows = await soql(clMeta.id, `SELECT objectid, case_num, case_name, type
 const clo = SF.collect(clRows.rows, SF.closureFeature);
 write('closures', clMeta, clRows, clo.features, clo.dropped, 'Excludes closures managed by other departments (dataset definition).');
 
+// Keep entries produced by other adapters (scripts/city-snapshot.mjs) so a partial refresh never drops them.
+const previous = fs.existsSync(path.join(outDir, 'manifest.json')) ? JSON.parse(fs.readFileSync(path.join(outDir, 'manifest.json'), 'utf8')) : null;
+const others = previous ? previous.datasets.filter(d => !datasets.some(x => x.file === d.file)) : [];
 const manifest = {
-  generated_at: new Date().toISOString(), generator: 'scripts/sf-snapshot.mjs', corridor: SF.CORRIDOR,
+  generated_at: new Date().toISOString(), generator: 'scripts/sf-snapshot.mjs', corridor: SF.CORRIDOR, ...(previous && previous.city_snapshot_at ? { city_snapshot_at: previous.city_snapshot_at } : {}),
   removed_columns: SF.PII_COLUMNS, caveat: 'Public administrative records. A permit is not proof that excavation occurred; counts include planned capital projects.',
-  datasets,
+  datasets: [...datasets, ...others],
 };
 fs.writeFileSync(path.join(outDir, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
 console.log('manifest written:', path.join(outDir, 'manifest.json'));

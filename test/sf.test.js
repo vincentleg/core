@@ -53,7 +53,9 @@ test('corridor chain follows CNN topology and refuses an incomplete chain', () =
 test('committed snapshot matches its manifest checksums, counts and provenance', () => {
   assert.ok(Date.parse(manifest.generated_at));
   assert.deepEqual(manifest.removed_columns, SF.PII_COLUMNS);
-  assert.equal(manifest.datasets.length, 6);
+  const files = manifest.datasets.map(d => d.file).sort();
+  for (const f of ['closures', 'corridor', 'intersections', 'large-excavations', 'moratoria', 'permits', 'street-trees', 'tree-removals', 'building-permits', 'energy-benchmarks', 'parks', 'sidewalks']) assert.ok(files.includes(`${f}.geojson`), f);
+  assert.equal(new Set(files).size, files.length, 'no duplicate manifest entries');
   for (const d of manifest.datasets) {
     const text = fs.readFileSync(path.join(DIR, d.file), 'utf8');
     assert.equal(crypto.createHash('sha256').update(text).digest('hex'), d.sha256, d.file);

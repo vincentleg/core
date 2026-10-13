@@ -121,6 +121,20 @@ table.metrics th:first-child, table.metrics tbody th { text-align: left; font-we
 .evid summary, .decision h4 { cursor: pointer; } .evid { border-top: 1px solid var(--line); padding-top: 6px; margin-top: 8px; font-size: 11.5px; }
 ul.checks { list-style: none; margin: 4px 0; padding: 0; font-size: 11.5px; } ul.checks li.ok { color: #9fe8bd; } ul.checks li.warn { color: var(--amber); }
 .decision { border: 1px solid var(--line); border-radius: 3px; padding: 8px; margin-top: 8px; } .decision .state { font: 700 14px var(--display); letter-spacing: .08em; margin: 2px 0; }
+.brand button { margin-left: auto; }
+body.console-min .console-body { display: none; } body.console-min .console { width: auto; }
+.themes { font-size: 12px; max-width: 230px; } .themes summary { font: 600 12px var(--display); letter-spacing: .08em; color: var(--cyan); padding: 4px 2px; }
+.themes ul { list-style: none; margin: 4px 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.themes label { display: grid; grid-template-columns: 16px 10px 1fr auto; gap: 6px; align-items: center; cursor: pointer; } .themes label.off { opacity: .55; cursor: default; }
+.themes i { width: 10px; height: 10px; border-radius: 2px; } .themes em { font: normal 9.5px var(--mono); color: var(--muted); }
+.themes em.st-working { color: #7ee0a0; } .themes em.st-partial { color: var(--amber); } .themes em.st-candidate, .themes em.st-unavailable { color: #8fb1c6; }
+.themes .period { display: flex; flex-direction: column; gap: 3px; margin-top: 4px; color: var(--muted); }
+.params { display: grid; grid-template-columns: 1fr; gap: 2px; font-size: 11.5px; color: var(--muted); } .params input[type=range] { width: 100%; accent-color: #78e8ff; } .params output { color: var(--ink); font-family: var(--mono); }
+.roster8 { grid-template-columns: repeat(4, 1fr); }
+.r-crossdomain { color: #7ee0a0 !important; } .r-synthesis { color: #aa8cff !important; } .r-evidence { color: #9fe8bd !important; } .r-scenario { color: var(--amber) !important; } .r-evaluation { color: #ffd38a !important; } .r-adversarial { color: var(--magenta) !important; } .r-gateway { color: #e3f6ff !important; }
+.brief-head h3 { margin: 2px 0; } .brief-head .state, .decision .state { font: 700 13px var(--display); letter-spacing: .06em; }
+#ci-brief h4 { margin: 10px 0 4px; font: 600 12px var(--display); letter-spacing: .1em; text-transform: uppercase; color: var(--cyan); }
+#ci-brief details { border-top: 1px solid var(--line); padding-top: 6px; margin-top: 6px; font-size: 11.5px; } #ci-brief summary { cursor: pointer; color: var(--ink); }
 .guide { left: 50%; transform: translateX(-50%); bottom: calc(60px + env(safe-area-inset-bottom, 0px)); padding: 10px 14px; display: flex; flex-direction: column; gap: 6px; width: min(520px, calc(100vw - 32px)); z-index: 4; }
 .guide b { font: 600 13px var(--display); color: var(--amber); letter-spacing: .06em; } .guide div { display: flex; gap: 6px; justify-content: flex-end; }
 @media (max-width: 640px) {
@@ -133,6 +147,7 @@ ul.checks { list-style: none; margin: 4px 0; padding: 0; font-size: 11.5px; } ul
   .maplibregl-ctrl-bottom-right { bottom: calc(68px + env(safe-area-inset-bottom, 0px)); }
   .maplibregl-ctrl-bottom-right .maplibregl-ctrl-group { display: none; }
   .data { top: auto; bottom: calc(68px + env(safe-area-inset-bottom, 0px)); left: 16px; right: 16px; width: auto; max-height: 52dvh; }
+  .themes { max-width: 180px; } .roster8 { grid-template-columns: repeat(2, 1fr); }
   body.sf-open .console { display: none; }
   body.sf-open .layers { right: 16px; }
 }
@@ -142,7 +157,8 @@ ul.checks { list-style: none; margin: 4px 0; padding: 0; font-size: 11.5px; } ul
 <div id="map" role="region" aria-label="Globe 3D de CORE"></div>
 
 <div class="panel console">
-  <div class="brand"><b>CORE</b><span>CORE World</span></div>
+  <div class="brand"><b>CORE</b><span>CORE World</span><button type="button" class="ghost small" id="console-toggle" aria-expanded="true" aria-controls="console-body">Réduire</button></div>
+  <div id="console-body" class="console-body">
   <p class="lead">Explore les rues et bâtiments cartographiés en 3D. Les agents travaillent pour l’instant dans un corridor synthétique séparé.</p>
   <form id="search" role="search">
     <input id="q" type="search" placeholder="Ville, quartier de SF, repère ou lat, lon" aria-label="Recherche locale : ville, quartier ou repère de San Francisco, ou latitude, longitude" maxlength="120" autocomplete="off">
@@ -161,7 +177,7 @@ ul.checks { list-style: none; margin: 4px 0; padding: 0; font-size: 11.5px; } ul
     <button class="amber" id="pilot-real" type="button">Pilote Folsom / Howard · données réelles</button>
     <ul class="legend-kinds" aria-label="Nature des données"><li class="badge observed">OBSERVÉ</li><li class="badge approx">APPROXIMATIF</li><li class="badge synthetic">SYNTHÉTIQUE</li></ul>
   </div>
-  <button class="amber" id="demo-guided" type="button">Démo guidée · Terre → recommandation</button>
+  <button class="amber" id="demo-guided" type="button">Démo guidée · Terre → décision humaine</button>
   <button class="ghost" id="pilot-btn" type="button">Démo des agents · corridor synthétique</button>
   <p class="note">La démo des agents utilise un corridor et un trafic synthétiques, non calibrés, distincts des registres réels Folsom / Howard.</p>
   <details class="provenance" id="sources">
@@ -173,8 +189,10 @@ ul.checks { list-style: none; margin: 4px 0; padding: 0; font-size: 11.5px; } ul
     <p><b>San Francisco — registres publics (OBSERVÉ) :</b> permis de voirie, grandes excavations, moratoires de chaussée, fermetures SFMTA, axes et intersections — <a href="https://data.sf.gov">DataSF</a>, domaine public (ODC-PDDL). Instantané daté, sommes SHA-256 vérifiées dans le navigateur, coordonnées personnelles supprimées. Un permis n’est pas une preuve de travaux réalisés.</p>
     <p><b>Repères 3D (APPROXIMATIF) :</b> Golden Gate Bridge, Salesforce Tower et Transamerica Pyramid sont des modèles procéduraux CORE (dimensions publiées, positions et emprises OSM ; câbles épaissis pour la lisibilité). Ferry Building, Coit Tower et City Hall proviennent de la cartographie OSM. Aucun n’est un relevé.</p>
     <p><b>Simulation séparée :</b> corridor et trafic synthétiques, référence supposée, résultats non calibrés. <b>Observations de trafic validées : aucune.</b></p>
+    <p><b>Domaines (Phase 2D) :</b> arbres d’alignement et avis d’abattage (Public Works), permis de construire (DBI), bilans énergétiques déclarés (SF Environment), parcs (Rec & Parks), largeurs de trottoir 2014 (SFMTA) — DataSF, domaine public. Société : aucune donnée intégrée. Aucun gain énergétique, écologique, de trafic ou de coût n’est estimé.</p>
     <p>Nominatim désactivé : limites globales non garanties par ce site statique. Esri désactivé : droits non vérifiés. Recherche locale sans appel réseau. Moteur MapLibre 5.7.3 (BSD-3-Clause, unpkg) ; polices Google Fonts. <a href="https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCES.md">Inventaire et limitations</a>.</p>
   </details>
+  </div>
 </div>
 
 <div class="panel layers" role="group" aria-label="Couches">
@@ -182,13 +200,38 @@ ul.checks { list-style: none; margin: 4px 0; padding: 0; font-size: 11.5px; } ul
   <button class="ghost" id="l-buildings" type="button" aria-pressed="true" disabled>Bâtiments 3D</button>
   <button class="ghost" id="l-sat" type="button" disabled title="Esri : droits d’usage non vérifiés">Satellite indisponible</button>
   <button class="ghost" id="l-relief" type="button" disabled aria-pressed="false">Relief 3D</button>
+  <details id="themes" class="themes"><summary>Thèmes</summary>
+    <ul id="th-list" aria-label="Domaines"></ul>
+    <label class="period">Période <select id="th-period" aria-label="Filtre temporel des permis"><option value="recent" selected>Actifs, 12 derniers mois</option><option value="active">Actifs (statut)</option><option value="all">Tout l’instantané</option></select></label>
+    <p id="th-count" class="hint"></p>
+  </details>
 </div>
 
 <aside class="panel data" id="sf-panel" hidden aria-label="Pilote Folsom / Howard">
   <header><h2>Folsom / Howard</h2><button class="ghost small" id="sf-close" type="button" aria-label="Fermer le panneau">Fermer</button></header>
   <div class="tabs" role="tablist">
     <button type="button" role="tab" id="tab-records" aria-selected="true" aria-controls="sf-body-records">Registres publics</button>
-    <button type="button" role="tab" id="tab-agents" aria-selected="false" aria-controls="sf-body-agents">Agents · analyse</button>
+    <button type="button" role="tab" id="tab-agents" aria-selected="false" aria-controls="sf-body-agents">Agents · voirie</button>
+    <button type="button" role="tab" id="tab-city" aria-selected="false" aria-controls="sf-body-city">Investigation</button>
+  </div>
+  <div class="body" id="sf-body-city" role="tabpanel" hidden>
+    <p class="hint"><b>Investigation inter-domaines</b> — 8 rôles à règles déterministes (découverte, preuves, raisonnement inter-domaines, scénarios, évaluation, revue adversariale, synthèse, passerelle). Fournisseur de modèle de langage : <b>aucun</b>.</p>
+    <div class="agent-bar">
+      <button type="button" id="ci-run" class="amber">Lancer l’investigation</button>
+      <button type="button" id="ci-pause" class="ghost" disabled>Pause</button>
+      <button type="button" id="ci-replay" class="ghost" disabled>Rejouer</button>
+      <select id="ci-speed" aria-label="Rythme d’affichage"><option value="0">Instantané</option><option value="120" selected>Lecture (120 ms/étape)</option><option value="400">Lent (400 ms/étape)</option></select>
+    </div>
+    <div class="params" role="group" aria-label="Paramètres de l’investigation (recalcul réel)">
+      <label for="ci-buffer">Rayon arbre ↔ permis d’excavation <output id="ci-buffer-v"></output></label><input id="ci-buffer" type="range" min="3" max="30" step="1" value="12">
+      <label for="ci-recency">Récence des permis de bâtiment <output id="ci-recency-v"></output></label><input id="ci-recency" type="range" min="90" max="730" step="5" value="365">
+      <label for="ci-horizon">Horizon des excavations <output id="ci-horizon-v"></output></label><input id="ci-horizon" type="range" min="30" max="120" step="10" value="60">
+      <p class="hint">Modifier un paramètre relance réellement toute l’investigation (découverte → passerelle).</p>
+    </div>
+    <p id="ci-status" class="run-status" aria-live="polite"></p>
+    <ul id="ci-roster" class="roster roster8" aria-label="Rôles"></ul>
+    <ol id="ci-log" class="activity" aria-label="Activité de l’investigation"></ol>
+    <div id="ci-brief"></div>
   </div>
   <div class="body" id="sf-body-agents" role="tabpanel" hidden>
     <div class="agent-bar">
@@ -229,6 +272,11 @@ ul.checks { list-style: none; margin: 4px 0; padding: 0; font-size: 11.5px; } ul
 <script src="src/sf-view.js"></script>
 <script src="src/coord.js"></script>
 <script src="src/coord-view.js"></script>
+<script src="src/domains.js"></script>
+<script src="src/graph.js"></script>
+<script src="src/simulation.js"></script>
+<script src="src/city-agents.js"></script>
+<script src="src/city-view.js"></script>
 <script>
 (() => {
   const $ = id => document.getElementById(id);
@@ -278,7 +326,7 @@ ul.checks { list-style: none; margin: 4px 0; padding: 0; font-size: 11.5px; } ul
   map.on('style.load', () => { try { map.setProjection({ type: 'globe' }); } catch (e) { console.warn(e); } });
   // MapLibre ≥5.7.2 fires load even when a TileJSON fails: never let the hint hide a source warning.
   let sourceError = false;
-  map.on('load', () => { if (window.CORE_SF_VIEW) CORE_SF_VIEW.init({ map, msg, fly: (v, ms) => fly(v, ms) }); if (window.CORE_COORD_VIEW) CORE_COORD_VIEW.init({ map }); });
+  map.on('load', () => { if (window.CORE_SF_VIEW) CORE_SF_VIEW.init({ map, msg, fly: (v, ms) => fly(v, ms) }); if (window.CORE_COORD_VIEW) CORE_COORD_VIEW.init({ map }); if (window.CORE_CITY_VIEW) CORE_CITY_VIEW.init({ map }); });
   map.on('load', () => { ['l-trame', 'l-relief', 'l-buildings'].forEach(id => { $(id).disabled = false; }); if (!sourceError) msg('Glisser pour tourner · clic droit pour incliner · molette pour zoomer'); });
   // Source-level failures (TileJSON, style) replace the status message. Tile failures (often transient during
   // fast flights) get their own indicator so they never erase user feedback; it clears once the map settles.

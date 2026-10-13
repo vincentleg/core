@@ -13,6 +13,13 @@
     { key: 'large-excavations', file: 'large-excavations.geojson', label: 'Grandes excavations (≥ 1 000 pi²)', recordKey: 'permit_number' },
     { key: 'moratoria', file: 'moratoria.geojson', label: 'Moratoires de chaussée (5 ans)', recordKey: 'id' },
     { key: 'closures', file: 'closures.geojson', label: 'Fermetures temporaires SFMTA', recordKey: 'objectid' },
+    // Phase 2D multidomain datasets (registry: src/domains.js)
+    { key: 'street-trees', file: 'street-trees.geojson', label: 'Arbres d’alignement', recordKey: 'treeid' },
+    { key: 'tree-removals', file: 'tree-removals.geojson', label: 'Avis d’abattage', recordKey: 'treeid' },
+    { key: 'building-permits', file: 'building-permits.geojson', label: 'Permis de construire', recordKey: 'permit_number' },
+    { key: 'energy-benchmarks', file: 'energy-benchmarks.geojson', label: 'Bilans énergétiques', recordKey: 'parcel_number' },
+    { key: 'parks', file: 'parks.geojson', label: 'Parcs', recordKey: 'property_id' },
+    { key: 'sidewalks', file: 'sidewalks.geojson', label: 'Largeurs de trottoir (2014)', recordKey: 'objectid' },
   ];
   // Toggleable groups → map layers
   const GROUPS = [
@@ -22,7 +29,7 @@
     { id: 'moratoria', label: 'Moratoires de chaussée', swatch: '#7ee0a0', layers: ['sf-moratoria-line', 'sf-moratoria-point'], data: ['moratoria'] },
     { id: 'closures', label: 'Fermetures temporaires', swatch: '#ff5cd6', layers: ['sf-closures-line', 'sf-closures-point'], data: ['closures'] },
   ];
-  const CLICKABLE = ['sf-permits', 'sf-large', 'sf-closures-line', 'sf-closures-point', 'sf-moratoria-line', 'sf-moratoria-point', 'sf-intersections', 'sf-corridor', 'sf-landmarks-3d', 'sf-landmark-labels'];
+  const CLICKABLE = ['city-trees', 'city-removals', 'city-bp', 'city-energy', 'city-parks', 'city-sidewalks', 'sf-permits', 'sf-large', 'sf-closures-line', 'sf-closures-point', 'sf-moratoria-line', 'sf-moratoria-point', 'sf-intersections', 'sf-corridor', 'sf-landmarks-3d', 'sf-landmark-labels'];
 
   const S = { map: null, msg: () => {}, fly: null, landmarks: false, data: null, manifest: null, verified: {}, filters: { street: 'all', status: 'all' }, selection: [], selected: null, groups: {}, open: false };
 
@@ -179,18 +186,27 @@
 
   const FIELD_LABELS = { permit_number: 'Permis', permit_type: 'Type', status: 'Statut', street: 'Rue', cross_street_1: 'Entre', cross_street_2: 'et', cnn: 'CNN (tronçon/nœud)',
     agent: 'Titulaire (organisation)', agent_masked: 'Titulaire masqué', purpose: 'Objet déclaré', reason: 'Motif', approved: 'Approuvé le', start: 'Début', end: 'Fin', project: 'Projet', limits: 'Limites', job_order: 'Ordre de travail',
-    case_num: 'Dossier', case_name: 'Nom du dossier', type: 'Type', impact: 'Impact véhicules', info: 'Information', from: 'De', to: 'À', name: 'Nom', oneway: 'Sens unique', classcode: 'Classe', geometry_source: 'Géométrie' };
-  const API_FIELD = { permits: 'permit_number', 'large-excavations': 'permit_number', moratoria: 'id', closures: 'objectid', corridor: 'cnn', intersections: 'cnn' };
+    case_num: 'Dossier', case_name: 'Nom du dossier', type: 'Type', impact: 'Impact véhicules', info: 'Information', from: 'De', to: 'À', name: 'Nom', oneway: 'Sens unique', classcode: 'Classe', geometry_source: 'Géométrie',
+    treeid: 'Arbre (ID)', species: 'Espèce', legal_status: 'Statut légal', site: 'Emplacement', dbh_range: 'Classe de diamètre', planted: 'Planté le', on_street: 'Rue', cross_street: 'Croisement', notice: 'Avis', posted: 'Affiché le',
+    filed: 'Déposé le', issued: 'Délivré le', completed: 'Achevé le', address: 'Adresse', parcel: 'Parcelle', description: 'Description', existing_use: 'Usage existant', proposed_use: 'Usage proposé', estimated_cost: 'Coût déclaré ($)',
+    property_type: 'Type de bien', floor_area_sqft: 'Surface (pi²)', year: 'Année du bilan', site_eui: 'Intensité énergétique site (kBtu/pi²)', ghg_tco2e: 'GES déclarés (tCO2e)', energy_star: 'Score Energy Star', year_built: 'Année de construction', acres: 'Acres',
+    width_ft: 'Largeur (pi)', min_width_ft: 'Largeur min. requise (pi)', recommended_ft: 'Largeur recommandée (pi)', side: 'Côté' };
+  const API_FIELD = { permits: 'permit_number', 'large-excavations': 'permit_number', moratoria: 'id', closures: 'objectid', corridor: 'cnn', intersections: 'cnn',
+    'street-trees': ['treeid', 'treeid'], 'tree-removals': ['treeid', 'treeid'], 'building-permits': ['permit_number', 'permit_number'], 'energy-benchmarks': ['parcel_number', 'parcel'], parks: ['property_id', 'record_id'], sidewalks: ['objectid', 'record_id'] };
 
   function recordLink(f) {
     const ds = datasetOf(f.properties.dataset), key = API_FIELD[f.properties.dataset];
+    if (Array.isArray(key)) return `https://data.sf.gov/resource/${ds.id}.json?${key[0]}=${encodeURIComponent(f.properties[key[1]])}`;
     const value = f.properties.dataset === 'permits' || f.properties.dataset === 'large-excavations' ? f.properties.permit_number : f.properties.dataset === 'closures' ? f.properties.record_id : f.properties.dataset === 'moratoria' ? f.properties.record_id : f.properties.cnn;
     return `https://data.sf.gov/resource/${ds.id}.json?${key}=${encodeURIComponent(value)}`;
   }
   const KIND_NOTE = {
     permits: 'Permis délivré : ce n’est pas une preuve que l’excavation a eu lieu.', 'large-excavations': 'Permis délivré : ce n’est pas une preuve que l’excavation a eu lieu.',
     moratoria: 'Moratoire en vigueur (le jeu ne liste que les moratoires actuels). Des dérogations peuvent exister.', closures: 'Fermeture autorisée par la SFMTA uniquement.',
-    corridor: 'Géométrie administrative (axe de voirie DPW).', intersections: 'Nœud du réseau de voirie (CNN).' };
+    corridor: 'Géométrie administrative (axe de voirie DPW).', intersections: 'Nœud du réseau de voirie (CNN).',
+    'street-trees': 'Inventaire administratif : présence et état non vérifiés sur le terrain par CORE.', 'tree-removals': 'Avis public : l’abattage effectif n’est pas confirmé.',
+    'building-permits': 'Permis DBI : ce n’est pas une preuve de chantier en cours ; « issued » peut rester ouvert des années.', 'energy-benchmarks': 'Bilan déclaré par le propriétaire (Energy Star Portfolio Manager), non mesuré par CORE.',
+    parks: 'Registre des propriétés Rec & Parks (centroïde).', sidewalks: 'Largeurs issues d’une étude de 2014.' };
 
   function showList(features, lngLat) {
     S.selection = features; S.selected = null;
@@ -246,10 +262,11 @@
     const recs = []; const seen = new Set();
     for (const h of hits) {
       const ds = h.properties.dataset; if (!ds || !S.data) continue;
-      const f = S.data[ds].features[h.id]; const k = ds + ':' + h.id;
+      const f = (h.id !== undefined && S.data[ds].features[h.id] && S.data[ds].features[h.id].properties.record_id === h.properties.record_id) ? S.data[ds].features[h.id] : S.data[ds].features.find(x => x.properties.record_id === h.properties.record_id);
+      const k = ds + ':' + (f ? f.properties.record_id : h.id);
       if (f && !seen.has(k)) { seen.add(k); recs.push(f); }
     }
-    const order = ['permits', 'large-excavations', 'closures', 'moratoria', 'intersections', 'corridor'];
+    const order = ['permits', 'large-excavations', 'building-permits', 'street-trees', 'tree-removals', 'energy-benchmarks', 'closures', 'moratoria', 'parks', 'sidewalks', 'intersections', 'corridor'];
     recs.sort((a, b) => order.indexOf(a.properties.dataset) - order.indexOf(b.properties.dataset) || String(b.properties.approved || '').localeCompare(String(a.properties.approved || '')));
     if (!recs.length && !land) return;
     openPanel();
@@ -258,8 +275,8 @@
   }
 
   function selectTab(name) {
-    for (const t of ['records', 'agents']) { $(`tab-${t}`).setAttribute('aria-selected', String(t === name)); $(`sf-body-${t}`).hidden = t !== name; }
-    document.body.classList.toggle('agents-wide', name === 'agents');
+    for (const t of ['records', 'agents', 'city']) { const b = $(`tab-${t}`); if (!b) continue; b.setAttribute('aria-selected', String(t === name)); $(`sf-body-${t}`).hidden = t !== name; }
+    document.body.classList.toggle('agents-wide', name === 'agents' || name === 'city');
   }
   // Open one record in the inspector (used by the agent workspace evidence table).
   function inspect(dataset, recordId) {
@@ -296,6 +313,7 @@
     $('sf-close').addEventListener('click', closePanel);
     $('tab-records').addEventListener('click', () => selectTab('records'));
     $('tab-agents').addEventListener('click', () => { openPanel(); selectTab('agents'); });
+    if ($('tab-city')) $('tab-city').addEventListener('click', () => { openPanel(); selectTab('city'); });
     $('sf-street').addEventListener('change', e => { S.filters.street = e.target.value; applyFilters(); });
     $('sf-status').addEventListener('change', e => { S.filters.status = e.target.value; applyFilters(); });
     const near = () => { const z = map.getZoom(); if (z >= 9.5 && inSF(map)) { addLandmarks(); if (z >= 11) loadData().catch(() => {}); } };

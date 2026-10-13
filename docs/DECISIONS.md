@@ -79,3 +79,19 @@ A reschedule is recommended only if strictly better on the declared priority ord
 ## D020 — Real execution, paced display, labelled replay
 
 The workspace advances the generator one event at a time; pacing only delays display, pause stops execution, and replay re-renders the recorded trace labelled "REJEU" and is verified by re-execution (identical trace fingerprint). Browser and Node runs on the same snapshot must produce the same result fingerprint (audited).
+
+## D021 — Registry-driven multidomain data, bounded and honest
+
+Domains and datasets are declared in `src/domains.js` with an explicit status (working, partial, candidate, unavailable) and per-dataset schema, normalizer and dedupe key. Adapters query only the corridor (CNN lists, bounding box, recency) and filter by frontage distance; failures keep the previous snapshot. DBI `issued` status is not treated as active construction without recency (540 of 669 corridor permits are over 3 years old without completion).
+
+## D022 — Local knowledge graph with explained bases
+
+A lightweight in-memory graph (no graph database) links entities with typed relationships whose basis is observed, derived, rule or hypothesis and whose reason is mandatory. `AFFECTS` is hypothesis-only; contradictions are explicit (`CONTRADICTED_BY`). The graph is rebuilt deterministically from the verified snapshot.
+
+## D023 — Recommend investigation when intervention evidence is missing
+
+The cross-domain synthesis recommends the coordinated intervention only when its essential evidence is complete; otherwise it recommends defer-and-investigate. The gateway requires interventions to survive every perturbation and investigations a majority, disclosing sensitivities. Proximity is reported as an indicator; no damage, energy, emission, cost or traffic effect is modelled.
+
+## D024 — Contradicting evidence lowers rank
+
+Trees under a public removal notice do not count towards ranking a cross-domain finding; the brief lists them as contradictions. This changed the discovery from Howard 8th–9th to Howard 10th–11th.

@@ -1,6 +1,6 @@
 # Existing architecture
 
-Current state: Phase 2C (real-data agents and coordination workspace) complete — see `PHASE_2C_REPORT.md`.
+Current state: Phase 2D (multidomain city intelligence) complete — see `PHASE_2_REPORT.md` and the detailed `CITY_INTELLIGENCE_ARCHITECTURE.md`.
 
 CORE is a static two-page application with committed public-data snapshots. There is no backend, database, account system, worker pool, LLM service, telemetry pipeline, or infrastructure actuator.
 
@@ -14,6 +14,10 @@ flowchart LR
   Data --> Coord[src/coord.js deterministic agents + coordination gateway]
   Coord --> Workspace[src/coord-view.js agent workspace]
   Workspace --> Globe
+  Data --> CityGraph[src/graph.js knowledge graph]
+  CityGraph --> CityAgents[src/city-agents.js 8-role investigation + issueCityDecision]
+  CityAgents --> CityView[src/city-view.js themes, investigation, brief]
+  CityView --> Globe
   Globe -->|navigation only| Corridor[corridor.html]
   Template[src/template.html] --> Build[node build.js]
   App[src/app.js] --> Build
@@ -42,6 +46,10 @@ flowchart LR
 
 `src/coord-view.js` drives the generator step by step in the browser (pause gate, display pacing), records the trace, replays it labelled "REJEU" and re-executes to verify the fingerprint. It syncs the map (`coord-scan`, `coord-findings`, `coord-focus`, `coord-points`), renders findings, scenario cards, metric table, schedule chart, evidence and the decision, exports a JSON dossier, and implements the guided demo. The traffic `issuePermit` gateway and corridor engine are untouched.
 
+## Multidomain city intelligence (Phase 2D)
+
+`src/domains.js` (domain and dataset registry), `scripts/city-snapshot.mjs` (bounded adapters merging into the SHA-256 manifest), `src/graph.js` (local knowledge graph with explained relationships), `src/simulation.js` (model registry), `src/city-agents.js` (eight deterministic roles, Decision Brief, `issueCityDecision`) and `src/city-view.js` (themes, investigation, brief, guided demo). Details in [CITY_INTELLIGENCE_ARCHITECTURE.md](CITY_INTELLIGENCE_ARCHITECTURE.md).
+
 ## Corridor and engine
 
 `build.js` replaces two placeholders in the template with engine and UI source, producing a committed standalone HTML file for static hosting. `src/app.js` uses a hand-written 3D projection onto Canvas 2D; corridor buildings and globe outlines are illustrative. The live traffic display uses the same `Sim` class as plan evaluation.
@@ -58,4 +66,4 @@ The JSON includes the plan, reasons, comparisons, synthetic-data assumptions, va
 
 ## Verification
 
-`node build.js` assembles; `node --test test/*.test.js` checks assembly, parsing, reproducibility, bounded orchestration and permit states. Browser checks use a local HTTP server. No runtime dependencies were added in Phase 0. Phase 1 explicitly authorized correctness hardening. Equations and valid decision thresholds were preserved; input guards, scenario isolation, bounded execution and cancellation were added. UI clears stale proposals on failure/cancel, throttles DOM updates and uses capped elapsed-time stepping. Phase 1 and Phase 2B closing browser audits are summarized in their reports; `scripts/browser-audit.mjs` now includes 18 San Francisco and 17 agent-workspace checks (59 total; the workspace checks compare the browser run with an independent Node run).
+`node build.js` assembles; `node --test test/*.test.js` checks assembly, parsing, reproducibility, bounded orchestration and permit states. Browser checks use a local HTTP server. No runtime dependencies were added in Phase 0. Phase 1 explicitly authorized correctness hardening. Equations and valid decision thresholds were preserved; input guards, scenario isolation, bounded execution and cancellation were added. UI clears stale proposals on failure/cancel, throttles DOM updates and uses capped elapsed-time stepping. Phase 1 and Phase 2B closing browser audits are summarized in their reports; `scripts/browser-audit.mjs` now includes 18 San Francisco and 17 agent-workspace checks and 14 city-intelligence checks (73 total; workspace and investigation checks compare browser runs with independent Node runs).

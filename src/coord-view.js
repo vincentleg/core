@@ -256,41 +256,14 @@
     W.lastExport = id;
   }
 
-  // ---------- Guided investor demo (real actions, user-paced) ----------
-  const STEPS = [
-    { t: 'Terre', d: 'Le globe CORE : géographie OpenStreetMap, aucune donnée inventée.', go: () => document.querySelector('[data-go=globe]').click() },
-    { t: 'San Francisco', d: 'Vol vers la ville ; repères 3D labellisés (procédural ou OSM).', go: () => document.querySelector('[data-go=sf]').click() },
-    { t: 'Folsom / Howard', d: 'Registres publics DataSF datés et vérifiés (SHA-256).', go: () => SFV().openPilot() },
-    { t: 'Lancer les agents', d: 'Exécution réelle du pipeline déterministe, affichée au rythme de lecture.', go: () => { SFV().selectTab('agents'); W.speed = 140; $('cw-speed').value = '140'; start(); }, wait: () => W.mode === 'done' },
-    { t: 'Opportunité', d: 'Premier constat de coordination : la caméra se place sur le tronçon.', go: () => { const f = W.result && W.result.findings.find(x => x.type === 'opportunity'); if (f) selectFinding(f.id); } },
-    { t: 'Scénarios', d: 'Comparaison des 5 scénarios ; S1 montre le compromis chevauchement / durée.', go: () => { if (W.selected && W.result.analyses[W.selected]) selectScenario('S1'); } },
-    { t: 'Preuves', d: 'Enregistrements sources, méthode, paramètres, contrôles et tests adversariaux.', go: () => { const e = document.querySelector('#cw-detail .evid'); if (e) { e.open = true; e.scrollIntoView({ block: 'start', behavior: 'smooth' }); } } },
-    { t: 'Recommandation', d: 'Passerelle : recommandation conditionnelle, revue humaine obligatoire, rien n’est appliqué.', go: () => { if (W.selected) selectScenario(W.result.analyses[W.selected].result.recommended || 'S0'); const d = document.querySelector('#cw-detail .decision'); if (d) d.scrollIntoView({ block: 'start', behavior: 'smooth' }); } },
-  ];
-  let step = -1;
-  function guide(i) {
-    step = Math.max(0, Math.min(STEPS.length - 1, i)); const s = STEPS[step];
-    $('guide').hidden = false; $('guide-title').textContent = `Étape ${step + 1}/${STEPS.length} · ${s.t}`; $('guide-text').textContent = s.d;
-    $('guide-prev').disabled = step === 0; $('guide-next').textContent = step === STEPS.length - 1 ? 'Terminer' : 'Suivant';
-    s.go(); waitStep();
-  }
-  async function waitStep() {
-    const s = STEPS[step]; if (!s.wait) { $('guide-next').disabled = false; return; }
-    $('guide-next').disabled = true; while (!s.wait()) await sleep(200); $('guide-next').disabled = false;
-  }
-
   function init({ map }) {
     W.map = map;
     $('cw-run').addEventListener('click', start);
     $('cw-pause').addEventListener('click', togglePause);
     $('cw-replay').addEventListener('click', replay);
     $('cw-speed').addEventListener('change', e => { W.speed = +e.target.value; renderStatus(); });
-    $('demo-guided').addEventListener('click', () => guide(0));
-    $('guide-next').addEventListener('click', () => { if (step >= STEPS.length - 1) { $('guide').hidden = true; step = -1; } else guide(step + 1); });
-    $('guide-prev').addEventListener('click', () => guide(step - 1));
-    $('guide-quit').addEventListener('click', () => { $('guide').hidden = true; step = -1; });
     W.speed = +$('cw-speed').value; renderRoster(); renderStatus();
   }
 
-  globalThis.CORE_COORD_VIEW = { init, start, replay, togglePause, selectFinding, selectScenario, exportDossier, guide, state: W };
+  globalThis.CORE_COORD_VIEW = { init, start, replay, togglePause, selectFinding, selectScenario, exportDossier, state: W };
 })();

@@ -20,3 +20,5 @@ The globe currently falls back to an 8 m display height where `render_height` is
 Overpass, SUMO, observed traffic counts, EnergyPlus, underground network plans and LLM APIs are future possibilities only; none is integrated. Free/open tools and accessible data have separate licenses. CORE repository licensing remains undecided.
 
 San Francisco candidate sources researched in Phase 2A are listed in [SF_DATA_INVENTORY.md](SF_DATA_INVENTORY.md); only the six DataSF datasets above are integrated. OSM-derived geometry embedded in `src/sf-world.js` (Transamerica footprint, tower positions) is © OpenStreetMap contributors under ODbL and attributed on screen. Hillshade (AWS Terrain Tiles) now loads by default from zoom 10.
+
+Phase 2D multidomain datasets (street trees, tree removal notices, building permits, energy benchmarks, parks, sidewalk widths) and identified-but-not-integrated candidates are documented in [DATA_SOURCE_REGISTRY.md](DATA_SOURCE_REGISTRY.md); all are DataSF ODC-PDDL, bounded to the corridor, PII-scrubbed and checksummed in `data/sf/manifest.json`.
