@@ -18,7 +18,8 @@ Open http://localhost:8000 for the globe and http://localhost:8000/corridor.html
 
 ## Current capabilities
 
-- MapLibre GL JS 5.7.3 globe with OpenFreeMap streets, extruded buildings, city navigation, and local pilot-city/coordinate search. Satellite is disabled; optional terrain is approximate (not survey data).
+- MapLibre GL JS 5.7.3 globe with OpenFreeMap streets, extruded buildings, city navigation, and local search. Satellite is disabled; terrain is approximate (not survey data).
+- San Francisco: cinematic arrival, neighbourhood navigation, procedural Golden Gate Bridge, Salesforce and Transamerica models (labelled approximate), OSM landmarks, and a Folsom/Howard pilot view of dated DataSF public records (permits, large excavations, paving moratoria, closures) with per-record provenance and checksums. Refresh with `node scripts/sf-snapshot.mjs`.
 - A separate synthetic five-intersection corridor with seeded traffic, heuristic builder agents, six stress cases, and robust refinement. No LLM or autonomous infrastructure integration exists.
 - A deterministic permit proposal with assumptions, tested results and mandatory human signature text. Changing a scenario reevaluates the proposal; there is no actual signing or execution service.
 
@@ -33,7 +34,9 @@ All traffic demand, corridor geometry and corridor buildings are synthetic. Simu
 | `src/app.js` | Corridor rendering and browser orchestration |
 | `src/template.html` | Corridor HTML/CSS and build placeholders |
 | `build.js` → `corridor.html` | Dependency-free assembly; never edit the generated file directly |
-| `test/` | Node built-in tests; bounded simulation and build checks |
+| `src/sf-world.js`, `src/sf-view.js`, `src/sf-data.js` | San Francisco landmarks, pilot view/inspector, record normalization |
+| `data/sf/` | Dated DataSF snapshots + manifest (checksums, URLs) |
+| `test/` | Node built-in tests; simulation, build and SF data/landmark checks |
 | `docs/` | Architecture, vision, decisions, sources, phase reports and San Francisco Phase 2A specs |
 | `scripts/` | Optional dependency-free browser audits against an isolated browser |
 
@@ -41,7 +44,7 @@ Read [PROJECT_STATE.md](PROJECT_STATE.md), [ROADMAP.md](ROADMAP.md) and [AGENTS.
 
 ## Validation and limitations
 
-Phase 0 established the repository; Phase 1 (prototype reliability and data honesty) is closed — see the [Phase 1 report](docs/PHASE_1_REPORT.md). All 21 Node tests pass. Headless Chrome 155 and Firefox 122 pass the browser audits with no uncaught errors; Safari, physical phones and current Firefox were not tested. Optional audits: `scripts/browser-audit.mjs` (CDP or WebDriver BiDi) and `scripts/browser-negative-audit.mjs` (Chrome). Phase 2A (San Francisco technical discovery) is documented in [the Phase 2A audit](docs/PHASE_2A_TECHNICAL_AUDIT.md); Phase 2B implementation has not started.
+Phases 0, 1, 2A and 2B are complete — latest: [Phase 2B report](docs/PHASE_2B_REPORT.md). All 29 Node tests pass. Headless Chrome 155 and Firefox 122 pass the 42-check browser audit with no uncaught errors; Safari, physical phones and current Firefox were not tested. Optional audits: `scripts/browser-audit.mjs` (CDP or WebDriver BiDi) and `scripts/browser-negative-audit.mjs` (Chrome). Traffic remains synthetic; coordination analysis and agents on real data (Phase 2C) have not started.
 
 Providers and licenses are listed in [DATA_SOURCES.md](docs/DATA_SOURCES.md). Esri imagery requests are disabled because usage rights are unresolved; Nominatim requests are also disabled. No paid services or billing have been configured. CORE itself has no repository license grant yet; do not infer one from public visibility or third-party licenses.
 

@@ -51,3 +51,19 @@ The Phase 1 contract validator accepted evidence whose plan had been swapped or 
 ## D013 — San Francisco pilot starts with works coordination, not congestion
 
 Phase 2A found observed, public-domain DataSF records of excavation permits, paving moratoria, closures and injury crashes, but no public current counts, measured arterial speeds or signal timing for Folsom. The first SF demonstration therefore analyses coordination of street works on Folsom (2nd–11th) with Howard as the prospective case, using deterministic metrics on dated snapshots. Traffic simulation of real streets stays synthetic and labelled until counts and timing are obtained. MapLibre/OpenFreeMap remain the renderer; Google Photorealistic 3D Tiles and Cesium ion are not activated because of billing and commercial-use terms. See docs/PHASE_2A_TECHNICAL_AUDIT.md.
+
+## D014 — Native procedural landmarks instead of three.js
+
+The Golden Gate Bridge, Salesforce Tower and Transamerica Pyramid are generated as GeoJSON fill-extrusions (`src/sf-world.js`) from published dimensions and OSM positions. This works with the globe, terrain and existing audits, adds no dependency, and keeps geometry testable in Node, so the three.js spike was unnecessary. Thin parts need `tolerance: 0` on the GeoJSON source; with 3D relief, bridge parts are offset by the terrain value (Bay bathymetry) at their centroid. Models are labelled approximate.
+
+## D015 — Hide replaced OSM parts by zone, not by id
+
+OpenMapTiles feature ids do not follow one OSM-id encoding (Golden Gate parts ×10+0, Transamerica parts ×10+2), so hard-coded ids missed buildings. Replaced OSM parts are detected at runtime from loaded tiles inside per-landmark zones with height criteria that keep unrelated buildings (e.g. Fort Point, Ferry Building), and filtered out of the building layer.
+
+## D016 — Commit small, normalized public-domain snapshots
+
+Folsom/Howard DataSF records are committed as normalized GeoJSON (~430 KB) with a manifest of URLs, timestamps and SHA-256 checksums, so the static site works offline from APIs and evidence is reproducible. Raw responses are not stored. Personal contact columns are removed, emails and phone numbers embedded in free text are redacted, and permit holders are kept only when clearly organisations. Missing geometry is dropped and counted, never inferred.
+
+## D017 — Tile failures do not overwrite status feedback
+
+Transient tile fetch failures during fast flights previously replaced the status message with a source warning. Tile-level errors now set a separate "tuiles partielles" indicator that clears when the map settles; source-level failures (TileJSON, style) still warn in the main message. Hillshade loads from zoom 10 by default so terrain is visible in cities without global tile traffic.

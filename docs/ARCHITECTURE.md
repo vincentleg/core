@@ -1,12 +1,16 @@
 # Existing architecture
 
-Phase 1 checkpoint: see `CLAUDE_HANDOFF.md` and `PHASE_1_REPORT.md`; browser reliability is not yet accepted.
+Current state: Phase 2B (San Francisco world foundation) complete — see `PHASE_2B_REPORT.md`.
 
-CORE is a static two-page application. There is no backend, database, account system, worker pool, LLM service, telemetry pipeline, or infrastructure actuator.
+CORE is a static two-page application with committed public-data snapshots. There is no backend, database, account system, worker pool, LLM service, telemetry pipeline, or infrastructure actuator.
 
 ```mermaid
 flowchart LR
   Providers[Map and font providers] --> Globe[index.html / MapLibre]
+  World[src/sf-world.js procedural landmarks] --> Globe
+  Snapshot[scripts/sf-snapshot.mjs + src/sf-data.js] --> Data[data/sf GeoJSON + manifest]
+  Data --> View[src/sf-view.js pilot view and inspector]
+  View --> Globe
   Globe -->|navigation only| Corridor[corridor.html]
   Template[src/template.html] --> Build[node build.js]
   App[src/app.js] --> Build
@@ -22,6 +26,12 @@ flowchart LR
 ## Globe
 
 `index.html` embeds styling and application JavaScript. MapLibre GL JS 5.7.3 comes from unpkg (pinned; 5.6.0 crashed on terrain/navigation, see D010). It reads OpenFreeMap vector tiles/glyphs, optional AWS-hosted Terrarium elevation. Esri and Nominatim requests are disabled; search resolves pilot cities and coordinates locally. Extrusion heights use `render_height` with an 8 m fallback. The SoMa marker links to the separate synthetic corridor; it does not feed geometry into the simulator.
+
+## San Francisco world (Phase 2B)
+
+`src/sf-world.js` (UMD, Node-testable) generates procedural landmark geometry as GeoJSON for MapLibre fill-extrusions: the Golden Gate Bridge from published dimensions on OSM tower positions, and Salesforce/Transamerica silhouettes on OSM footprints. It also defines the SF navigation targets and the runtime replacement zones that hide overlapping OSM building parts. `src/sf-view.js` (browser) lazily adds landmarks near SF (zoom ≥ 9.5), loads `data/sf` snapshots (zoom ≥ 11 or pilot open), verifies each file's SHA-256 against `manifest.json` with Web Crypto, renders the pilot layers, filters, and the record inspector. It offsets bridge parts by terrain when 3D relief is on. No new runtime dependency: three.js was not needed.
+
+`scripts/sf-snapshot.mjs` (Node built-ins) fetches DataSF SoQL queries, normalizes rows through `src/sf-data.js` (PII removal, organisation-only permit holders, no invented geometry, CNN normalization, corridor selection by CNN topology) and writes GeoJSON plus a manifest with URLs, timestamps and checksums. Raw responses are hashed, not stored. `test/sf.test.js` checks parsing, PII absence, manifest checksums/counts, corridor membership, landmark positions and replacement zones.
 
 ## Corridor and engine
 
@@ -39,4 +49,4 @@ The JSON includes the plan, reasons, comparisons, synthetic-data assumptions, va
 
 ## Verification
 
-`node build.js` assembles; `node --test test/*.test.js` checks assembly, parsing, reproducibility, bounded orchestration and permit states. Browser checks use a local HTTP server. No runtime dependencies were added in Phase 0. Phase 1 explicitly authorized correctness hardening. Equations and valid decision thresholds were preserved; input guards, scenario isolation, bounded execution and cancellation were added. UI clears stale proposals on failure/cancel, throttles DOM updates and uses capped elapsed-time stepping. Phase 1 closing browser audits are summarized in the Phase 1 report.
+`node build.js` assembles; `node --test test/*.test.js` checks assembly, parsing, reproducibility, bounded orchestration and permit states. Browser checks use a local HTTP server. No runtime dependencies were added in Phase 0. Phase 1 explicitly authorized correctness hardening. Equations and valid decision thresholds were preserved; input guards, scenario isolation, bounded execution and cancellation were added. UI clears stale proposals on failure/cancel, throttles DOM updates and uses capped elapsed-time stepping. Phase 1 and Phase 2B closing browser audits are summarized in their reports; `scripts/browser-audit.mjs` now includes 18 San Francisco checks.

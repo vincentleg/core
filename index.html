@@ -58,6 +58,38 @@ button.amber { background: var(--amber); }
 .maplibregl-ctrl-attrib.maplibregl-compact a { color: #102a40; }
 .maplibregl-ctrl-bottom-right { bottom: 44px; }
 .note { margin: 0; color: var(--muted); font-size: 12px; }
+.sf-nav { display: flex; flex-direction: column; gap: 6px; padding-top: 10px; border-top: 1px solid var(--line); }
+.sf-nav label { font: 600 11px var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+select { background: #030a14; color: var(--ink); border: 1px solid var(--line); border-radius: 3px; padding: 8px; font: 13px var(--body); width: 100%; }
+select:focus-visible { outline: 1px solid var(--cyan); }
+.legend-kinds { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.badge { display: inline-block; font: 600 10.5px var(--mono); letter-spacing: .06em; padding: 2px 6px; border-radius: 2px; border: 1px solid currentColor; margin: 0; }
+.badge.observed { color: var(--cyan); } .badge.approx { color: var(--amber); } .badge.synthetic { color: var(--magenta); }
+.data { top: calc(16px + env(safe-area-inset-top, 0px)); right: 16px; width: min(380px, calc(100vw - 32px)); max-height: calc(100dvh - 96px); display: flex; flex-direction: column; z-index: 3; }
+body.sf-open .layers { right: calc(min(380px, 100vw - 32px) + 28px); }
+.data header { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px 8px; }
+.data header h2 { margin: 0; font: 700 14px var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); }
+.tabs { display: flex; gap: 4px; padding: 0 14px; border-bottom: 1px solid var(--line); }
+.tabs button { background: transparent; color: var(--muted); border: 0; border-bottom: 2px solid transparent; border-radius: 0; padding: 6px 8px; font-size: 11.5px; }
+.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--cyan); }
+.data .body { overflow: auto; padding: 10px 14px 14px; display: flex; flex-direction: column; gap: 10px; font-size: 12.5px; }
+#sf-fresh { margin: 0; color: var(--muted); font: 11.5px var(--mono); } #sf-fresh.stale { color: var(--amber); }
+.ok { color: #7ee0a0; } .warn { color: var(--amber); } .muted { color: var(--muted); }
+.filters { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.grp { display: grid; grid-template-columns: 16px 10px 1fr auto; gap: 8px; align-items: center; padding: 3px 0; cursor: pointer; }
+.grp i { width: 10px; height: 10px; border-radius: 2px; } .grp b { font: 500 11.5px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+#sf-inspect h3 { margin: 4px 0; font: 600 14px var(--display); letter-spacing: .04em; }
+.hint { margin: 0; color: var(--muted); }
+.rec-list { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 4px; max-height: 220px; overflow: auto; }
+.rec-list button { width: 100%; text-align: left; background: #061223; color: var(--ink); border: 1px solid var(--line); display: flex; flex-direction: column; gap: 2px; font: 12px var(--body); padding: 6px 8px; }
+.rec-list button span { color: var(--muted); font: 11px var(--mono); }
+table.rec { border-collapse: collapse; width: 100%; margin: 6px 0; } table.rec th { text-align: left; color: var(--muted); font-weight: 500; padding: 3px 8px 3px 0; vertical-align: top; width: 38%; } table.rec td { padding: 3px 0; overflow-wrap: anywhere; }
+.caveat { margin: 0; color: var(--amber); font-size: 12px; }
+.prov { border-top: 1px solid var(--line); padding-top: 6px; display: flex; flex-direction: column; gap: 3px; font-size: 11.5px; overflow-wrap: anywhere; }
+.prov code { font: 11px var(--mono); color: var(--muted); }
+#sf-sources { margin: 0; padding-left: 16px; font-size: 11.5px; color: var(--muted); } #sf-sources span { color: var(--muted); }
+button.small { padding: 4px 8px; font-size: 11px; }
+.agents-placeholder { color: var(--muted); }
 @media (max-width: 640px) {
   .console { top: auto; bottom: calc(44px + env(safe-area-inset-bottom, 0px)); }
   .console .lead, .console > .note:not(#search-help) { display: none; }
@@ -67,6 +99,9 @@ button.amber { background: var(--amber); }
   /* Keep attribution between status and console; touch gestures replace the hidden zoom/pitch buttons. */
   .maplibregl-ctrl-bottom-right { bottom: calc(68px + env(safe-area-inset-bottom, 0px)); }
   .maplibregl-ctrl-bottom-right .maplibregl-ctrl-group { display: none; }
+  .data { top: auto; bottom: calc(68px + env(safe-area-inset-bottom, 0px)); left: 16px; right: 16px; width: auto; max-height: 52dvh; }
+  body.sf-open .console { display: none; }
+  body.sf-open .layers { right: 16px; }
 }
 </style>
 </head>
@@ -77,24 +112,32 @@ button.amber { background: var(--amber); }
   <div class="brand"><b>CORE</b><span>CORE World</span></div>
   <p class="lead">Explore les rues et bâtiments cartographiés en 3D. Les agents travaillent pour l’instant dans un corridor synthétique séparé.</p>
   <form id="search" role="search">
-    <input id="q" type="search" placeholder="Ville pilote ou latitude, longitude" aria-label="Recherche locale : ville pilote ou latitude, longitude" maxlength="120" autocomplete="off">
+    <input id="q" type="search" placeholder="Ville, quartier de SF, repère ou lat, lon" aria-label="Recherche locale : ville, quartier ou repère de San Francisco, ou latitude, longitude" maxlength="120" autocomplete="off">
     <button type="submit">Aller</button>
   </form>
-  <p class="note" id="search-help">Recherche locale : San Francisco, Paris, Tokyo ou coordonnées. Recherche d’adresse externe désactivée.</p>
+  <p class="note" id="search-help">Recherche locale : villes pilotes, quartiers et repères de San Francisco, ou coordonnées. Recherche d’adresse externe désactivée.</p>
   <div class="places">
     <button class="ghost" data-go="globe" type="button">Globe</button>
     <button class="ghost" data-go="sf" type="button">San Francisco</button>
     <button class="ghost" data-go="paris" type="button">Paris</button>
     <button class="ghost" data-go="tokyo" type="button">Tokyo</button>
   </div>
-  <button class="amber" id="pilot-btn" type="button">Ouvrir le corridor pilote (agents)</button>
-  <p class="note">Corridor pilote : démo v0 sur un corridor synthétique. La phase 2 le place sur les vraies rues.</p>
+  <div class="sf-nav">
+    <label for="sf-place">San Francisco</label>
+    <select id="sf-place" aria-label="Quartiers et repères de San Francisco"></select>
+    <button class="amber" id="pilot-real" type="button">Pilote Folsom / Howard · données réelles</button>
+    <ul class="legend-kinds" aria-label="Nature des données"><li class="badge observed">OBSERVÉ</li><li class="badge approx">APPROXIMATIF</li><li class="badge synthetic">SYNTHÉTIQUE</li></ul>
+  </div>
+  <button class="ghost" id="pilot-btn" type="button">Démo des agents · corridor synthétique</button>
+  <p class="note">La démo des agents utilise un corridor et un trafic synthétiques, non calibrés, distincts des registres réels Folsom / Howard.</p>
   <details class="provenance" id="sources">
     <summary>Sources et limites des données</summary>
     <p><b>Géographie cartographiée :</b> <a href="https://openfreemap.org/">OpenFreeMap</a>, © <a href="https://openmaptiles.org/">OpenMapTiles</a>, © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors (ODbL)</a>. Couverture variable ; date des observations inconnue, pas de données en temps réel.</p>
     <p><b>Hypothèses d’affichage :</b> hauteur absente → 8 m ; base absente → 0 m. Les bâtiments ne sont pas des relevés d’ingénierie.</p>
     <p><b>Relief :</b> Mapzen / AWS Terrain Tiles, approximation amplifiée ×1,4. Date et précision variables. <a href="https://github.com/tilezen/joerd/blob/master/docs/attribution.md">Sources, crédits et licences par région</a> ; pas de garantie de conformité globale ni de précision topographique.</p>
     <p>Crédits terrain : USGS (3DEP, SRTM, GMTED2010), NOAA (ETOPO1), Copernicus / Union européenne (EU-DEM), ArcticDEM / NSF / DigitalGlobe, Geoscience Australia, offene Daten Österreichs, Canada, INEGI, LINZ, Kartverket et Environment Agency. Voir les crédits détaillés liés ci-dessus.</p>
+    <p><b>San Francisco — registres publics (OBSERVÉ) :</b> permis de voirie, grandes excavations, moratoires de chaussée, fermetures SFMTA, axes et intersections — <a href="https://data.sf.gov">DataSF</a>, domaine public (ODC-PDDL). Instantané daté, sommes SHA-256 vérifiées dans le navigateur, coordonnées personnelles supprimées. Un permis n’est pas une preuve de travaux réalisés.</p>
+    <p><b>Repères 3D (APPROXIMATIF) :</b> Golden Gate Bridge, Salesforce Tower et Transamerica Pyramid sont des modèles procéduraux CORE (dimensions publiées, positions et emprises OSM ; câbles épaissis pour la lisibilité). Ferry Building, Coit Tower et City Hall proviennent de la cartographie OSM. Aucun n’est un relevé.</p>
     <p><b>Simulation séparée :</b> corridor et trafic synthétiques, référence supposée, résultats non calibrés. <b>Observations de trafic validées : aucune.</b></p>
     <p>Nominatim désactivé : limites globales non garanties par ce site statique. Esri désactivé : droits non vérifiés. Recherche locale sans appel réseau. Moteur MapLibre 5.7.3 (BSD-3-Clause, unpkg) ; polices Google Fonts. <a href="https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCES.md">Inventaire et limitations</a>.</p>
   </details>
@@ -107,9 +150,30 @@ button.amber { background: var(--amber); }
   <button class="ghost" id="l-relief" type="button" disabled aria-pressed="false">Relief 3D</button>
 </div>
 
-<div class="panel status" aria-live="polite"><b id="pos">—</b> · zoom <b id="zoom">—</b> · <span id="msg">Chargement de la Terre…</span></div>
+<aside class="panel data" id="sf-panel" hidden aria-label="Pilote Folsom / Howard">
+  <header><h2>Folsom / Howard</h2><button class="ghost small" id="sf-close" type="button" aria-label="Fermer le panneau">Fermer</button></header>
+  <div class="tabs" role="tablist">
+    <button type="button" role="tab" aria-selected="true">Registres publics</button>
+    <button type="button" role="tab" aria-selected="false" disabled title="Espace agents : phase ultérieure">Agents · à venir</button>
+  </div>
+  <div class="body">
+    <p id="sf-fresh">Chargement de l’instantané…</p>
+    <p class="hint">2nd → 11th St · permis depuis 2021 · registres <span class="badge observed">OBSERVÉ</span> — un permis n’est pas une preuve de travaux réalisés ; une partie relève du projet Folsom-Howard Streetscape.</p>
+    <div class="filters">
+      <select id="sf-street" aria-label="Filtrer par rue"><option value="all">Folsom + Howard</option><option value="FOLSOM ST">Folsom St</option><option value="HOWARD ST">Howard St</option></select>
+      <select id="sf-status" aria-label="Filtrer par statut"><option value="all">Tous statuts</option><option value="active">Approuvés / actifs</option><option value="ended">Clos / expirés</option><option value="other">Renouvelés / autres</option></select>
+    </div>
+    <div id="sf-groups" role="group" aria-label="Couches de données"></div>
+    <div id="sf-inspect" aria-live="polite"><p class="hint">Cliquez un point, un tronçon ou un repère pour inspecter l’enregistrement et sa provenance.</p></div>
+    <details><summary>Jeux de données de l’instantané</summary><ul id="sf-sources"></ul></details>
+  </div>
+</aside>
+
+<div class="panel status" aria-live="polite"><b id="pos">—</b> · zoom <b id="zoom">—</b> · <span id="msg">Chargement de la Terre…</span><span id="net" hidden> · <span class="warn">tuiles partielles (réseau)</span></span></div>
 
 <script src="https://unpkg.com/maplibre-gl@5.7.3/dist/maplibre-gl.js"></script>
+<script src="src/sf-world.js"></script>
+<script src="src/sf-view.js"></script>
 <script>
 (() => {
   const $ = id => document.getElementById(id);
@@ -133,7 +197,7 @@ button.amber { background: var(--amber); }
     },
     layers: [
       { id: 'void', type: 'background', paint: { 'background-color': VOID } },
-      { id: 'hillshade', type: 'hillshade', source: 'hill', layout: { visibility: 'none' }, paint: { 'hillshade-shadow-color': '#000000', 'hillshade-highlight-color': '#0f4a6b', 'hillshade-accent-color': '#06223a', 'hillshade-exaggeration': 0.4 } },
+      { id: 'hillshade', type: 'hillshade', source: 'hill', minzoom: 10, layout: { visibility: 'visible' }, paint: { 'hillshade-shadow-color': '#000000', 'hillshade-highlight-color': '#0f4a6b', 'hillshade-accent-color': '#06223a', 'hillshade-exaggeration': 0.4 } },
       { id: 'park', type: 'fill', source: 'omt', 'source-layer': 'landcover', filter: ['in', ['get', 'class'], ['literal', ['wood', 'grass', 'farmland']]], paint: { 'fill-color': '#04201a', 'fill-opacity': 0.55 } },
       { id: 'water', type: 'fill', source: 'omt', 'source-layer': 'water', paint: { 'fill-color': '#041a30' } },
       { id: 'coast', type: 'line', source: 'omt', 'source-layer': 'water', paint: { 'line-color': CYAN, 'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0.8, 10, 0.35], 'line-width': ['interpolate', ['linear'], ['zoom'], 0, 0.6, 10, 1.2] } },
@@ -154,12 +218,22 @@ button.amber { background: var(--amber); }
 
   let map;
   try { map = new maplibregl.Map({ container: 'map', style, center: [-40, 28], zoom: 1.7, maxPitch: 80, attributionControl: { compact: true } }); } catch (error) { msg('Carte indisponible : WebGL ou connexion. Le corridor reste accessible.'); return; }
+  globalThis.__CORE_MAP = map; // inspection hook for browser audits
   map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'bottom-right');
   map.on('style.load', () => { try { map.setProjection({ type: 'globe' }); } catch (e) { console.warn(e); } });
   // MapLibre ≥5.7.2 fires load even when a TileJSON fails: never let the hint hide a source warning.
   let sourceError = false;
+  map.on('load', () => { if (window.CORE_SF_VIEW) CORE_SF_VIEW.init({ map, msg, fly: (v, ms) => fly(v, ms) }); });
   map.on('load', () => { ['l-trame', 'l-relief', 'l-buildings'].forEach(id => { $(id).disabled = false; }); if (!sourceError) msg('Glisser pour tourner · clic droit pour incliner · molette pour zoomer'); });
-  map.on('error', e => { console.warn(e && e.error); sourceError = true; msg('Une source cartographique est indisponible ; données potentiellement incomplètes.'); });
+  // Source-level failures (TileJSON, style) replace the status message. Tile failures (often transient during
+  // fast flights) get their own indicator so they never erase user feedback; it clears once the map settles.
+  let lastTileError = 0;
+  map.on('error', e => {
+    console.warn(e && e.error);
+    if (e && e.tile) { lastTileError = Date.now(); $('net').hidden = false; return; }
+    sourceError = true; msg('Une source cartographique est indisponible ; données potentiellement incomplètes.');
+  });
+  map.on('idle', () => { if (Date.now() - lastTileError > 8000) $('net').hidden = true; });
 
   // slow spin until the first interaction
   let spinning = !reduced;
@@ -176,16 +250,17 @@ button.amber { background: var(--amber); }
   // destinations
   const GO = {
     globe: { center: [-40, 28], zoom: 1.7, pitch: 0, bearing: 0 },
-    sf: { center: [-122.3985, 37.7873], zoom: 16.2, pitch: 64, bearing: -28 },
+    sf: { center: [-122.4005, 37.7880], zoom: 14.1, pitch: 66, bearing: -28 },
     paris: { center: [2.2945, 48.8584], zoom: 16, pitch: 62, bearing: 30 },
     tokyo: { center: [139.7671, 35.6812], zoom: 16, pitch: 62, bearing: -15 },
   };
-  const fly = v => { stop(); map.flyTo({ ...v, duration: reduced ? 0 : 7000, essential: true }); };
-  document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => fly(GO[b.dataset.go])));
+  const NO_PAD = { top: 0, bottom: 0, left: 0, right: 0 };
+  const fly = (v, ms = 7000) => { stop(); map.flyTo({ ...v, padding: v.padding || NO_PAD, duration: reduced ? 0 : ms, curve: 1.6, essential: true }); };
+  document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => fly(GO[b.dataset.go], b.dataset.go === 'sf' ? 9000 : 7000)));
 
   // pilot corridor marker (SoMa)
-  const el = document.createElement('div'); el.className = 'pilot'; el.title = 'Corridor pilote';
-  new maplibregl.Marker({ element: el }).setLngLat([-122.4005, 37.7855]).setPopup(new maplibregl.Popup({ offset: 14 }).setHTML('<b>Corridor pilote</b><br>5 carrefours à feux. Démo v0 synthétique ; la phase 2 l’ancre sur ces rues.<br><a href="corridor.html" style="color:#78e8ff">Ouvrir le corridor et lancer les agents</a>')).addTo(map);
+  const el = document.createElement('div'); el.className = 'pilot'; el.title = 'Démo des agents (corridor synthétique)';
+  new maplibregl.Marker({ element: el }).setLngLat([-122.4005, 37.7855]).setPopup(new maplibregl.Popup({ offset: 14 }).setHTML('<b>Démo des agents (synthétique)</b><br>5 carrefours fictifs, trafic synthétique non calibré, sans lien géométrique avec ces rues.<br><a href="corridor.html" style="color:#78e8ff">Ouvrir la démo synthétique</a>')).addTo(map);
 
   // Deliberately local: the public geocoder cannot be globally rate-limited here.
   $('search').addEventListener('submit', e => {
@@ -193,11 +268,13 @@ button.amber { background: var(--amber); }
     const q = $('q').value.trim().toLowerCase();
     if (!q) return;
     const places = { 'san francisco': 'sf', sf: 'sf', paris: 'paris', tokyo: 'tokyo' };
-    if (Object.hasOwn(places, q)) { fly(GO[places[q]]); msg('Lieu pilote — coordonnées indicatives.'); return; }
+    if (Object.hasOwn(places, q) && places[q] !== 'sf') { fly(GO[places[q]]); msg('Lieu pilote — coordonnées indicatives.'); return; }
+    const sfPlace = window.CORE_SF_VIEW && CORE_SF_VIEW.search(q);
+    if (sfPlace) { msg(`${sfPlace.name} — vue indicative.`); return; }
     const match = q.match(/^(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)$/);
     if (match && Number.isFinite(+match[1]) && Number.isFinite(+match[2]) && Math.abs(+match[1]) <= 85 && Math.abs(+match[2]) <= 180) {
       fly({ center: [+match[2], +match[1]], zoom: 16, pitch: 60, bearing: 0 }); msg('Coordonnées saisies — non validées sur le terrain.');
-    } else msg('Recherche locale : San Francisco, Paris, Tokyo ou latitude (±85), longitude (±180). Adresses indisponibles.');
+    } else msg('Recherche locale : villes pilotes, quartiers ou repères de San Francisco, ou latitude (±85), longitude (±180). Adresses indisponibles.');
   });
 
   // layers
@@ -210,7 +287,7 @@ button.amber { background: var(--amber); }
   let relief = false;
   $('l-relief').addEventListener('click', () => {
     relief = !relief;
-    try { map.setTerrain(relief ? { source: 'dem', exaggeration: 1.4 } : null); map.setLayoutProperty('hillshade', 'visibility', relief ? 'visible' : 'none'); press('l-relief', relief); press('l-trame', !relief); msg(relief ? 'Relief 3D activé.' : 'Relief 3D désactivé.'); }
+    try { map.setTerrain(relief ? { source: 'dem', exaggeration: 1.4 } : null); press('l-relief', relief); press('l-trame', !relief); msg(relief ? 'Relief 3D activé.' : 'Relief 3D désactivé.'); }
     catch (err) { relief = false; press('l-relief', false); msg('Relief 3D indisponible dans ce mode.'); }
   });
 })();

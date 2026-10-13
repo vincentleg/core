@@ -1,0 +1,147 @@
+{
+  "generated_at": "2026-10-13T18:25:19.678Z",
+  "generator": "scripts/sf-snapshot.mjs",
+  "corridor": {
+    "id": "folsom-howard-2nd-11th",
+    "streets": [
+      "FOLSOM ST",
+      "HOWARD ST"
+    ],
+    "from": "02ND ST",
+    "to": "11TH ST",
+    "since": "2021-01-01"
+  },
+  "removed_columns": [
+    "agentphone",
+    "contact",
+    "inspector",
+    "planchecker",
+    "phone",
+    "email",
+    "contact_name",
+    "contact_phone"
+  ],
+  "caveat": "Public administrative records. A permit is not proof that excavation occurred; counts include planned capital projects.",
+  "datasets": [
+    {
+      "file": "corridor.geojson",
+      "id": "3psu-pn9h",
+      "title": "Streets – Active and Retired",
+      "provider": "City and County of San Francisco (DPW Basemap)",
+      "page": "https://data.sf.gov/d/3psu-pn9h",
+      "request": "https://data.sf.gov/resource/3psu-pn9h.json?$query=SELECT%20cnn%2C%20streetname%2C%20f_st%2C%20t_st%2C%20f_node_cnn%2C%20t_node_cnn%2C%20active%2C%20oneway%2C%20classcode%2C%20line%20WHERE%20streetname%20in%20('FOLSOM%20ST'%2C'HOWARD%20ST')%20AND%20active%20%3D%20true%20LIMIT%202000",
+      "retrieved_at": "2026-10-13T18:25:17.891Z",
+      "raw_rows": 99,
+      "raw_sha256": "3002dbab4166f7f05005f02f851c1d6256fa8b3e920d94f629cbae7a64a5e82d",
+      "features": 44,
+      "dropped_without_geometry": 0,
+      "sha256": "5ab999617ad97f0978ad09e63c88c3773015543ff5e5e2aa1f9342e2d5192df1",
+      "license": {
+        "name": "ODC Public Domain Dedication and License (PDDL)",
+        "url": "https://opendatacommons.org/licenses/pddl/1-0/"
+      },
+      "kind": "administrative geometry",
+      "note": "FOLSOM ST and HOWARD ST centerline segments from 02ND ST to 11TH ST, selected by following CNN node topology."
+    },
+    {
+      "file": "intersections.geojson",
+      "id": "gmfx-8h6i",
+      "title": "Street Intersections",
+      "provider": "City and County of San Francisco",
+      "page": "https://data.sf.gov/d/gmfx-8h6i",
+      "request": "https://data.sf.gov/resource/gmfx-8h6i.json?$query=SELECT%20cnn%2C%20st_name%2C%20st_type%2C%20the_geom%20WHERE%20cnn%20in%20('24519000'%2C'24514000'%2C'24583000'%2C'24586000'%2C'23938000'%2C'23937000'%2C'23936000'%2C'23941000'%2C'23924000'%2C'23926000'%2C'24279000'%2C'24264000'%2C'24263000'%2C'24262000'%2C'24274000'%2C'24275000'%2C'24276000'%2C'24269000'%2C'24272000'%2C'24246000'%2C'24234000'%2C'24233000'%2C'24244000'%2C'24238000'%2C'24540000'%2C'24596000'%2C'24595000'%2C'24590000'%2C'24627000'%2C'23944000'%2C'23947000'%2C'23946000'%2C'24281000'%2C'24287000'%2C'24286000'%2C'24265000'%2C'24290000'%2C'24300000'%2C'24301000'%2C'24299000'%2C'24305000'%2C'24307000'%2C'24247000'%2C'24308000'%2C'24248000'%2C'24353000')%20LIMIT%205000",
+      "retrieved_at": "2026-10-13T18:25:18.109Z",
+      "raw_rows": 92,
+      "raw_sha256": "071a823574948ac76798d703410afe59f504555f71a7ea77e2d940af4aa80ada",
+      "features": 46,
+      "dropped_without_geometry": 0,
+      "sha256": "3a9a06fb0dc361a870d13e217d6ec058d7967a285384848306effb4d9cca8e3d",
+      "license": {
+        "name": "ODC Public Domain Dedication and License (PDDL)",
+        "url": "https://opendatacommons.org/licenses/pddl/1-0/"
+      },
+      "kind": "administrative geometry",
+      "note": "One feature per CNN node; names joined from one row per street."
+    },
+    {
+      "file": "permits.geojson",
+      "id": "b6tj-gt35",
+      "title": "Street-Use Permits",
+      "provider": "San Francisco Public Works",
+      "page": "https://data.sf.gov/d/b6tj-gt35",
+      "request": "https://data.sf.gov/resource/b6tj-gt35.json?$query=SELECT%20permit_number%2C%20permit_type%2C%20status%2C%20streetname%2C%20cross_street_1%2C%20cross_street_2%2C%20cnn%2C%20agent%2C%20permit_purpose%2C%20approved_date%2C%20permit_start_date%2C%20permit_end_date%2C%20latitude%2C%20longitude%20WHERE%20permit_type%20in%20('Excavation'%2C'ExcStreet'%2C'StrtImprov'%2C'Boring'%2C'Emergency')%20AND%20cnn%20in%20('5660000'%2C'5661000'%2C'5662000'%2C'5663000'%2C'5664000'%2C'5665000'%2C'5666000'%2C'5667000'%2C'5668000'%2C'5669000'%2C'5670000'%2C'5671000'%2C'5672000'%2C'5673000'%2C'5674000'%2C'5675000'%2C'5676000'%2C'5677000'%2C'5678000'%2C'5679000'%2C'5680000'%2C'5681000'%2C'5682000'%2C'7035000'%2C'7036000'%2C'7037000'%2C'7038000'%2C'7039001'%2C'7041000'%2C'7042000'%2C'7043000'%2C'7044000'%2C'7045000'%2C'7046000'%2C'7047000'%2C'7048000'%2C'7049000'%2C'7050000'%2C'7051000'%2C'7052000'%2C'7053000'%2C'7054000'%2C'7055000'%2C'7056000'%2C'24519000'%2C'24514000'%2C'24583000'%2C'24586000'%2C'23938000'%2C'23937000'%2C'23936000'%2C'23941000'%2C'23924000'%2C'23926000'%2C'24279000'%2C'24264000'%2C'24263000'%2C'24262000'%2C'24274000'%2C'24275000'%2C'24276000'%2C'24269000'%2C'24272000'%2C'24246000'%2C'24234000'%2C'24233000'%2C'24244000'%2C'24238000'%2C'24540000'%2C'24596000'%2C'24595000'%2C'24590000'%2C'24627000'%2C'23944000'%2C'23947000'%2C'23946000'%2C'24281000'%2C'24287000'%2C'24286000'%2C'24265000'%2C'24290000'%2C'24300000'%2C'24301000'%2C'24299000'%2C'24305000'%2C'24307000'%2C'24247000'%2C'24308000'%2C'24248000'%2C'24353000')%20AND%20approved_date%20%3E%3D%20'2021-01-01'%20ORDER%20BY%20approved_date%20DESC%20LIMIT%2020000",
+      "retrieved_at": "2026-10-13T18:25:18.884Z",
+      "raw_rows": 662,
+      "raw_sha256": "96b7092a0bf19dd9cc63d9cd539d0605e92a3e29d59a67430fcd971accaadc15",
+      "features": 662,
+      "dropped_without_geometry": 0,
+      "sha256": "a5d9fa5537eb3d75c149cd90eab51d31b836b0cf91e5af962bbf00c3708bbd37",
+      "license": {
+        "name": "ODC Public Domain Dedication and License (PDDL)",
+        "url": "https://opendatacommons.org/licenses/pddl/1-0/"
+      },
+      "kind": "administrative record (permit issued, not proof of work performed)",
+      "note": "Permit types Excavation, ExcStreet, StrtImprov, Boring, Emergency; approved on or after 2021-01-01; agent organisation kept, personal contact columns removed."
+    },
+    {
+      "file": "large-excavations.geojson",
+      "id": "i926-ujnc",
+      "title": "Large Utility Excavation Permits",
+      "provider": "San Francisco Public Works",
+      "page": "https://data.sf.gov/d/i926-ujnc",
+      "request": "https://data.sf.gov/resource/i926-ujnc.json?$query=SELECT%20permit_number%2C%20permit_status%2C%20street_name%2C%20cross_street_1%2C%20cross_street_2%2C%20cnn%2C%20agent%2C%20permit_purpose%2C%20permit_reason%2C%20permit_start_date%2C%20permit_end_date%2C%20latitude%2C%20longitude%20WHERE%20cnn%20in%20('5660000'%2C'5661000'%2C'5662000'%2C'5663000'%2C'5664000'%2C'5665000'%2C'5666000'%2C'5667000'%2C'5668000'%2C'5669000'%2C'5670000'%2C'5671000'%2C'5672000'%2C'5673000'%2C'5674000'%2C'5675000'%2C'5676000'%2C'5677000'%2C'5678000'%2C'5679000'%2C'5680000'%2C'5681000'%2C'5682000'%2C'7035000'%2C'7036000'%2C'7037000'%2C'7038000'%2C'7039001'%2C'7041000'%2C'7042000'%2C'7043000'%2C'7044000'%2C'7045000'%2C'7046000'%2C'7047000'%2C'7048000'%2C'7049000'%2C'7050000'%2C'7051000'%2C'7052000'%2C'7053000'%2C'7054000'%2C'7055000'%2C'7056000'%2C'24519000'%2C'24514000'%2C'24583000'%2C'24586000'%2C'23938000'%2C'23937000'%2C'23936000'%2C'23941000'%2C'23924000'%2C'23926000'%2C'24279000'%2C'24264000'%2C'24263000'%2C'24262000'%2C'24274000'%2C'24275000'%2C'24276000'%2C'24269000'%2C'24272000'%2C'24246000'%2C'24234000'%2C'24233000'%2C'24244000'%2C'24238000'%2C'24540000'%2C'24596000'%2C'24595000'%2C'24590000'%2C'24627000'%2C'23944000'%2C'23947000'%2C'23946000'%2C'24281000'%2C'24287000'%2C'24286000'%2C'24265000'%2C'24290000'%2C'24300000'%2C'24301000'%2C'24299000'%2C'24305000'%2C'24307000'%2C'24247000'%2C'24308000'%2C'24248000'%2C'24353000')%20LIMIT%205000",
+      "retrieved_at": "2026-10-13T18:25:19.144Z",
+      "raw_rows": 23,
+      "raw_sha256": "595fbd8715641632aff84d97a348c59263d632d1432b1c4f9e7a0977a4778f4c",
+      "features": 23,
+      "dropped_without_geometry": 0,
+      "sha256": "47914a76d2c8b3f893be0247527b80ca728fe8a01620c2d1b7f27b4c0743c0e5",
+      "license": {
+        "name": "ODC Public Domain Dedication and License (PDDL)",
+        "url": "https://opendatacommons.org/licenses/pddl/1-0/"
+      },
+      "kind": "administrative record (permit issued, not proof of work performed)",
+      "note": "Permits ≥1,000 sq ft, active/approved plus those ended within the last year (dataset definition)."
+    },
+    {
+      "file": "moratoria.geojson",
+      "id": "5wbp-dwzt",
+      "title": "Utility Excavation Moratorium Streets",
+      "provider": "San Francisco Public Works",
+      "page": "https://data.sf.gov/d/5wbp-dwzt",
+      "request": "https://data.sf.gov/resource/5wbp-dwzt.json?$query=SELECT%20id%2C%20cnn%2C%20streetname%2C%20limits%2C%20effectivedate%2C%20expirationdate%2C%20jobordernum%2C%20latitude%2C%20longitude%20WHERE%20cnn%20in%20('5660000'%2C'5661000'%2C'5662000'%2C'5663000'%2C'5664000'%2C'5665000'%2C'5666000'%2C'5667000'%2C'5668000'%2C'5669000'%2C'5670000'%2C'5671000'%2C'5672000'%2C'5673000'%2C'5674000'%2C'5675000'%2C'5676000'%2C'5677000'%2C'5678000'%2C'5679000'%2C'5680000'%2C'5681000'%2C'5682000'%2C'7035000'%2C'7036000'%2C'7037000'%2C'7038000'%2C'7039001'%2C'7041000'%2C'7042000'%2C'7043000'%2C'7044000'%2C'7045000'%2C'7046000'%2C'7047000'%2C'7048000'%2C'7049000'%2C'7050000'%2C'7051000'%2C'7052000'%2C'7053000'%2C'7054000'%2C'7055000'%2C'7056000'%2C'24519000'%2C'24514000'%2C'24583000'%2C'24586000'%2C'23938000'%2C'23937000'%2C'23936000'%2C'23941000'%2C'23924000'%2C'23926000'%2C'24279000'%2C'24264000'%2C'24263000'%2C'24262000'%2C'24274000'%2C'24275000'%2C'24276000'%2C'24269000'%2C'24272000'%2C'24246000'%2C'24234000'%2C'24233000'%2C'24244000'%2C'24238000'%2C'24540000'%2C'24596000'%2C'24595000'%2C'24590000'%2C'24627000'%2C'23944000'%2C'23947000'%2C'23946000'%2C'24281000'%2C'24287000'%2C'24286000'%2C'24265000'%2C'24290000'%2C'24300000'%2C'24301000'%2C'24299000'%2C'24305000'%2C'24307000'%2C'24247000'%2C'24308000'%2C'24248000'%2C'24353000')%20LIMIT%205000",
+      "retrieved_at": "2026-10-13T18:25:19.471Z",
+      "raw_rows": 71,
+      "raw_sha256": "8a19f854ad614555e8c57e1e59cea0db54fe13c5a6e5e9f2d88c63dbe309661e",
+      "features": 71,
+      "dropped_without_geometry": 0,
+      "sha256": "cc14120e4decfd0ad35255f04be4ba8170fda7dbb33d54f0b86b661cae7d19a9",
+      "license": {
+        "name": "ODC Public Domain Dedication and License (PDDL)",
+        "url": "https://opendatacommons.org/licenses/pddl/1-0/"
+      },
+      "kind": "administrative record (current moratoria only)",
+      "note": "Segments paved within the last 5 years; geometry joined from corridor segments by CNN when available."
+    },
+    {
+      "file": "closures.geojson",
+      "id": "8x25-yybr",
+      "title": "Temporary Street Closures",
+      "provider": "SFMTA",
+      "page": "https://data.sf.gov/d/8x25-yybr",
+      "request": "https://data.sf.gov/resource/8x25-yybr.json?$query=SELECT%20objectid%2C%20case_num%2C%20case_name%2C%20type%2C%20status%2C%20street%2C%20from_st%2C%20to_st%2C%20cnn%2C%20veh_imp%2C%20start_date%2C%20end_date%2C%20start_dt%2C%20end_dt%2C%20info%2C%20shape%20WHERE%20cnn%20in%20('5660000'%2C'5661000'%2C'5662000'%2C'5663000'%2C'5664000'%2C'5665000'%2C'5666000'%2C'5667000'%2C'5668000'%2C'5669000'%2C'5670000'%2C'5671000'%2C'5672000'%2C'5673000'%2C'5674000'%2C'5675000'%2C'5676000'%2C'5677000'%2C'5678000'%2C'5679000'%2C'5680000'%2C'5681000'%2C'5682000'%2C'7035000'%2C'7036000'%2C'7037000'%2C'7038000'%2C'7039001'%2C'7041000'%2C'7042000'%2C'7043000'%2C'7044000'%2C'7045000'%2C'7046000'%2C'7047000'%2C'7048000'%2C'7049000'%2C'7050000'%2C'7051000'%2C'7052000'%2C'7053000'%2C'7054000'%2C'7055000'%2C'7056000'%2C'24519000'%2C'24514000'%2C'24583000'%2C'24586000'%2C'23938000'%2C'23937000'%2C'23936000'%2C'23941000'%2C'23924000'%2C'23926000'%2C'24279000'%2C'24264000'%2C'24263000'%2C'24262000'%2C'24274000'%2C'24275000'%2C'24276000'%2C'24269000'%2C'24272000'%2C'24246000'%2C'24234000'%2C'24233000'%2C'24244000'%2C'24238000'%2C'24540000'%2C'24596000'%2C'24595000'%2C'24590000'%2C'24627000'%2C'23944000'%2C'23947000'%2C'23946000'%2C'24281000'%2C'24287000'%2C'24286000'%2C'24265000'%2C'24290000'%2C'24300000'%2C'24301000'%2C'24299000'%2C'24305000'%2C'24307000'%2C'24247000'%2C'24308000'%2C'24248000'%2C'24353000')%20LIMIT%205000",
+      "retrieved_at": "2026-10-13T18:25:19.676Z",
+      "raw_rows": 19,
+      "raw_sha256": "804dde1682eb1178cb20dd9c03fd1bfe5fd762a2c326984e29fda4b70b8adf14",
+      "features": 19,
+      "dropped_without_geometry": 0,
+      "sha256": "cabedfd3275dfd753364ef849928bcb301667af68c54915440c5c9dc37b35848",
+      "license": {
+        "name": "ODC Public Domain Dedication and License (PDDL)",
+        "url": "https://opendatacommons.org/licenses/pddl/1-0/"
+      },
+      "kind": "administrative record (SFMTA-permitted closures only)",
+      "note": "Excludes closures managed by other departments (dataset definition)."
+    }
+  ]
+}
