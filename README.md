@@ -34,14 +34,14 @@ All traffic demand, corridor geometry and corridor buildings are synthetic. Simu
 | `src/template.html` | Corridor HTML/CSS and build placeholders |
 | `build.js` → `corridor.html` | Dependency-free assembly; never edit the generated file directly |
 | `test/` | Node built-in tests; bounded simulation and build checks |
-| `docs/` | Architecture, vision, decisions, sources, Phase 0 audit and Phase 1 report |
+| `docs/` | Architecture, vision, decisions, sources, phase reports and San Francisco Phase 2A specs |
 | `scripts/` | Optional dependency-free browser audits against an isolated browser |
 
 Read [PROJECT_STATE.md](PROJECT_STATE.md), [ROADMAP.md](ROADMAP.md) and [AGENTS.md](AGENTS.md) before changing code. [HANDOFF.md](HANDOFF.md) is historical context; its phase numbering and performance claims are not current acceptance evidence.
 
 ## Validation and limitations
 
-Phase 0 established the repository; Phase 1 (prototype reliability and data honesty) is closed — see the [Phase 1 report](docs/PHASE_1_REPORT.md). All 21 Node tests pass. Headless Chrome 155 and Firefox 122 pass the browser audits with no uncaught errors; Safari, physical phones and current Firefox were not tested. Optional audits: `scripts/browser-audit.mjs` (CDP or WebDriver BiDi) and `scripts/browser-negative-audit.mjs` (Chrome). Phase 2 has not started.
+Phase 0 established the repository; Phase 1 (prototype reliability and data honesty) is closed — see the [Phase 1 report](docs/PHASE_1_REPORT.md). All 21 Node tests pass. Headless Chrome 155 and Firefox 122 pass the browser audits with no uncaught errors; Safari, physical phones and current Firefox were not tested. Optional audits: `scripts/browser-audit.mjs` (CDP or WebDriver BiDi) and `scripts/browser-negative-audit.mjs` (Chrome). Phase 2A (San Francisco technical discovery) is documented in [the Phase 2A audit](docs/PHASE_2A_TECHNICAL_AUDIT.md); Phase 2B implementation has not started.
 
 Providers and licenses are listed in [DATA_SOURCES.md](docs/DATA_SOURCES.md). Esri imagery requests are disabled because usage rights are unresolved; Nominatim requests are also disabled. No paid services or billing have been configured. CORE itself has no repository license grant yet; do not infer one from public visibility or third-party licenses.
 

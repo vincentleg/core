@@ -16,3 +16,5 @@ Inventory revisited at Phase 1 closure (2026-10-12). A reachable URL is not a li
 The globe currently falls back to an 8 m display height where `render_height` is absent. The source panel now discloses the fallback and explicitly states observation dates are unknown. A map-backed building is not a validated engineering model. Map/font requests go directly from browsers to providers. Search text now stays local; no Nominatim or Esri requests are made.
 
 Overpass, SUMO, observed traffic counts, EnergyPlus, underground network plans and LLM APIs are future possibilities only; none is integrated. Free/open tools and accessible data have separate licenses. CORE repository licensing remains undecided.
+
+San Francisco candidate sources researched in Phase 2A are listed in [SF_DATA_INVENTORY.md](SF_DATA_INVENTORY.md). None are integrated yet; each enters this inventory only when snapshotted and used.

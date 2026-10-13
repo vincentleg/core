@@ -47,3 +47,7 @@ Firefox 122 exposes only WebDriver BiDi on its remote port in a fresh profile, w
 ## D012 — Bind permit evidence to the plan by deterministic replay
 
 The Phase 1 contract validator accepted evidence whose plan had been swapped or whose numbers were fabricated but self-consistent. Because the engine is deterministic, `issuePermit` now re-runs the six-case stress test (about 15 ms) for the submitted plan and dependencies and blocks unless every baseline and plan delay matches. Equations, seeds and decision thresholds are unchanged; the threshold rule is exposed as the pure `permitState` for direct tests. This is integrity against the in-repository engine, not authentication of people, data provenance or signatures.
+
+## D013 — San Francisco pilot starts with works coordination, not congestion
+
+Phase 2A found observed, public-domain DataSF records of excavation permits, paving moratoria, closures and injury crashes, but no public current counts, measured arterial speeds or signal timing for Folsom. The first SF demonstration therefore analyses coordination of street works on Folsom (2nd–11th) with Howard as the prospective case, using deterministic metrics on dated snapshots. Traffic simulation of real streets stays synthetic and labelled until counts and timing are obtained. MapLibre/OpenFreeMap remain the renderer; Google Photorealistic 3D Tiles and Cesium ion are not activated because of billing and commercial-use terms. See docs/PHASE_2A_TECHNICAL_AUDIT.md.
