@@ -27,6 +27,40 @@ const TWISTS = {
   evenement:{ id: 'evenement',label: 'Sortie de concert : rue transversale du carrefour 3 ×2,5', crossBoost: { i: 2, mul: 2.5 } },
 };
 
+// Validation is deliberately separate from the point-queue equations.
+const MODEL = 'core-point-queue-v0';
+const finite = x => typeof x === 'number' && Number.isFinite(x);
+const record = x => x !== null && typeof x === 'object' && !Array.isArray(x);
+const keysOnly = (x, keys) => record(x) && Object.keys(x).every(k => keys.includes(k));
+const dense = (xs, n, check) => Array.isArray(xs) && xs.length === n && Array.from(xs).every(check);
+const validTwists = xs => Array.isArray(xs) && xs.length <= Object.keys(TWISTS).length &&
+  Array.from(xs).every(x => typeof x === 'string' && Object.hasOwn(TWISTS, x)) && new Set(xs).size === xs.length;
+const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+const close = (a, b) => finite(a) && finite(b) && Math.abs(a - b) <= 1e-12 * Math.max(1, Math.abs(a), Math.abs(b));
+function validPlan(p) {
+  return keysOnly(p, ['C', 'g', 'o', 'name', 'agent']) &&
+    (p.name === undefined || typeof p.name === 'string') && (p.agent === undefined || typeof p.agent === 'string') && Number.isInteger(p.C) && p.C >= 60 && p.C <= 120 &&
+    dense(p.g, CORRIDOR.xs.length, x => Number.isInteger(x) && x >= CORRIDOR.minArtGreen && x <= p.C - 2 * CORRIDOR.lost - CORRIDOR.minCrossGreen) &&
+    dense(p.o, CORRIDOR.xs.length, x => Number.isInteger(x) && x >= 0 && x < p.C);
+}
+function requireInput(ok, message) { if (!ok) throw new TypeError(message); }
+function validClosed(xs) {
+  return Array.isArray(xs) && xs.length <= CORRIDOR.xs.length * 4 && Array.from(xs).every(c => record(c) &&
+    Number.isInteger(c.i) && c.i >= 0 && c.i < CORRIDOR.xs.length && ['EB', 'WB', 'N', 'S'].includes(c.dir));
+}
+function validScenario(sc) {
+  const arrivalsOK = xs => Array.isArray(xs) && xs.length <= 100000 && Array.from(xs).every((t, i) =>
+    finite(t) && t >= 0 && t <= CORRIDOR.T + CORRIDOR.entryLen / CORRIDOR.speed && (i === 0 || t >= xs[i - 1]));
+  return record(sc) && validTwists(sc.twists) && finite(sc.headway) && sc.headway > 0 && validClosed(sc.closed) &&
+    record(sc.gen) && arrivalsOK(sc.gen.EB) && arrivalsOK(sc.gen.WB) &&
+    dense(sc.gen.N, CORRIDOR.xs.length, arrivalsOK) && dense(sc.gen.S, CORRIDOR.xs.length, arrivalsOK);
+}
+function checkRun(budget, max, seed, signal) {
+  requireInput(Number.isInteger(budget) && budget >= 1 && budget <= max, 'Budget de simulation invalide.');
+  requireInput(Number.isInteger(seed) && seed >= 0 && seed <= 0xffffffff, 'Graine invalide.');
+  if (signal && signal.aborted) { const e = new Error('Simulation annulée.'); e.name = 'AbortError'; throw e; }
+}
+
 function rng(seed) {
   let a = seed >>> 0;
   return () => { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a);
@@ -42,12 +76,14 @@ function arrivals(rate, T, rand) {
 
 // A scenario = demand + conditions. Same scenario => identical arrivals for every plan (fair comparison).
 function makeScenario(twistIds = [], extra = {}) {
+  requireInput(Array.isArray(twistIds), 'Scénario invalide.');
   twistIds = [...new Set(twistIds)];
+  requireInput(validTwists(twistIds) && record(extra) && validClosed(extra.closed === undefined ? [] : extra.closed), 'Scénario ou fermetures invalides.');
   const tw = twistIds.map(id => TWISTS[id]).filter(Boolean);
   const mul = tw.reduce((m, t) => m * (t.demandMul || 1), 1);
   const hw = tw.reduce((m, t) => m * (t.headwayMul || 1), 1);
   const seed = tw.reduce((s, t) => t.seed || s, 1);
-  const closed = tw.filter(t => t.closed).map(t => t.closed).concat(extra.closed || []);
+  const closed = tw.filter(t => t.closed).map(t => t.closed).concat(extra.closed || []).map(c => ({ ...c }));
   const rand = rng(seed * 9973);
   const boost = i => tw.reduce((m, t) => m * (t.crossBoost && t.crossBoost.i === i ? t.crossBoost.mul : 1), 1);
   const T = CORRIDOR.T;
@@ -66,6 +102,9 @@ function basePlan() { // assumed current timing: fixed 90 s cycle, 50/50, no coo
 
 class Sim {
   constructor(plan, sc) {
+    requireInput(validPlan(plan) && validScenario(sc), 'Plan ou scénario invalide.');
+    plan = { ...plan, g: plan.g.slice(), o: plan.o.slice() };
+    sc = { ...sc, twists: sc.twists.slice(), closed: sc.closed.map(c => ({ ...c })) };
     const n = CORRIDOR.xs.length; this.plan = plan; this.sc = sc; this.t = 0; this.n = n;
     this.ap = [];
     for (let i = 0; i < n; i++) for (const d of ['EB', 'WB', 'N', 'S']) {
@@ -147,17 +186,21 @@ function mutate(p, r) {
 }
 
 // Runs `budget` variants on the nominal scenario. onProgress({done, best}) for the UI. Chunked & async-friendly.
-async function searchPlans({ budget = 1500, scenario, onProgress, yieldEvery = 40, seed = 42 }) {
+async function searchPlans({ budget = 1500, scenario, onProgress, yieldEvery = 40, seed = 42, signal }) {
+  checkRun(budget, 5000, seed, signal);
+  requireInput(Number.isInteger(yieldEvery) && yieldEvery >= 1 && yieldEvery <= 40, 'Intervalle invalide.');
   const r = rng(seed + 1); const gen = builderAgents(budget, seed); const scored = [];
   const base = evaluate(basePlan(), scenario);
   for (let k = 0; k < budget; k++) {
+    checkRun(budget, 5000, seed, signal);
     let p;
     if (k > budget * 0.45 && scored.length) { const top = scored.slice(0, 12); p = mutate(top[Math.floor(r() * top.length)].plan, r); }
     else p = gen.next().value;
     const m = evaluate(p, scenario); scored.push({ plan: p, m });
     if (k % 20 === 19 || k === budget - 1) scored.sort((a, b) => a.m.avgDelay - b.m.avgDelay);
-    if (onProgress && (k % yieldEvery === 0 || k === budget - 1)) { onProgress({ done: k + 1, budget, best: scored[0], base }); await new Promise(res => setTimeout(res, 0)); }
+    if (k % yieldEvery === 0 || k === budget - 1) { if (onProgress) onProgress({ done: k + 1, budget, best: scored[0], base }); await new Promise(res => setTimeout(res, 0)); }
   }
+  checkRun(budget, 5000, seed, signal);
   scored.sort((a, b) => a.m.avgDelay - b.m.avgDelay);
   return { base, ranked: scored };
 }
@@ -166,33 +209,67 @@ async function searchPlans({ budget = 1500, scenario, onProgress, yieldEvery = 4
 const STRESS = [[], ['pointe'], ['chantier'], ['pluie'], ['aleas'], ['pointe', 'pluie']];
 
 function stressTest(plans, extraTwists = []) {
+  requireInput(Array.isArray(plans) && plans.length > 0 && plans.length <= 30 && Array.from(plans).every(validPlan) && validTwists(extraTwists), 'Plans ou dépendances invalides.');
   const scs = STRESS.map(t => makeScenario(t.concat(extraTwists)));
   const baseM = scs.map(sc => evaluate(basePlan(), sc));
   return plans.map(p => {
-    const rows = scs.map((sc, j) => { const m = evaluate(p, sc); return { label: sc.label, base: baseM[j].avgDelay, plan: m.avgDelay, ratio: m.avgDelay / baseM[j].avgDelay }; });
+    const rows = scs.map((sc, j) => { const m = evaluate(p, sc); return { caseId: j, twists: sc.twists.slice(), label: sc.label, base: baseM[j].avgDelay, plan: m.avgDelay, ratio: m.avgDelay / baseM[j].avgDelay }; });
     const worst = rows.reduce((a, b) => (b.ratio > a.ratio ? b : a));
-    return { plan: p, rows, worstRatio: worst.ratio, worst, gain: 1 - rows[0].ratio };
+    return { dependencies: { model: MODEL, twists: extraTwists.slice() }, plan: p, rows, worstRatio: worst.ratio, worst, gain: 1 - rows[0].ratio };
   }).sort((a, b) => a.worstRatio - b.worstRatio);
 }
 
 // Robust refinement: builders mutate the best plans, adversaries score each mutant on every stress case.
-async function robustRefine({ candidates, extra = [], budget = 240, onProgress, seed = 99 }) {
+async function robustRefine({ candidates, extra = [], budget = 240, onProgress, seed = 99, signal }) {
+  checkRun(budget, 1000, seed, signal);
+  requireInput(Array.isArray(candidates) && candidates.length > 0 && candidates.length <= 30 && Array.from(candidates).every(validPlan) && validTwists(extra), 'Candidats ou dépendances invalides.');
   const r = rng(seed); const scs = STRESS.map(t => makeScenario(t.concat(extra)));
   const baseM = scs.map(sc => evaluate(basePlan(), sc).avgDelay);
-  const score = p => { const rows = scs.map((sc, j) => { const d = evaluate(p, sc).avgDelay; return { label: sc.label, base: baseM[j], plan: d, ratio: d / baseM[j] }; });
-    const worst = rows.reduce((a, b) => (b.ratio > a.ratio ? b : a)); return { plan: p, rows, worstRatio: worst.ratio, worst, gain: 1 - rows[0].ratio }; };
+  const score = p => { const rows = scs.map((sc, j) => { const d = evaluate(p, sc).avgDelay; return { caseId: j, twists: sc.twists.slice(), label: sc.label, base: baseM[j], plan: d, ratio: d / baseM[j] }; });
+    const worst = rows.reduce((a, b) => (b.ratio > a.ratio ? b : a)); return { dependencies: { model: MODEL, twists: extra.slice() }, plan: p, rows, worstRatio: worst.ratio, worst, gain: 1 - rows[0].ratio }; };
   let pool = candidates.map(score).sort((a, b) => a.worstRatio - b.worstRatio); let sims = candidates.length * scs.length;
   for (let k = 0; k < budget; k++) {
+    checkRun(budget, 1000, seed, signal);
     const parent = pool[Math.floor(r() * Math.min(6, pool.length))].plan;
     const child = score({ ...mutate(parent, r), agent: 'Robustesse' }); sims += scs.length;
     pool.push(child); pool.sort((a, b) => a.worstRatio - b.worstRatio || b.gain - a.gain); pool = pool.slice(0, 30);
-    if (onProgress && (k % 10 === 0 || k === budget - 1)) { onProgress({ done: k + 1, budget, best: pool[0], sims }); await new Promise(res => setTimeout(res, 0)); }
+    if (k % 10 === 0 || k === budget - 1) { if (onProgress) onProgress({ done: k + 1, budget, best: pool[0], sims }); await new Promise(res => setTimeout(res, 0)); }
   }
+  checkRun(budget, 1000, seed, signal);
   return { ranked: pool, sims };
+}
+
+// Complete internal evidence contract. Unknown dependencies/cases cannot count as success.
+function validEvidence(st, world) {
+  if (!keysOnly(st, ['dependencies', 'plan', 'rows', 'worstRatio', 'worst', 'gain']) || !validPlan(st.plan) || !keysOnly(world, ['label', 'twists']) ||
+      (world.label !== undefined && typeof world.label !== 'string') ||
+      !record(st.dependencies) || !same(Object.keys(st.dependencies).sort(), ['model', 'twists']) ||
+      st.dependencies.model !== MODEL || !validTwists(st.dependencies.twists) ||
+      (world.twists !== undefined && (!validTwists(world.twists) || !same(world.twists, st.dependencies.twists)))) return false;
+  const delay = x => finite(x) && x >= 0 && x <= CORRIDOR.T + CORRIDOR.drain;
+  if (!dense(st.rows, STRESS.length, (r, i) => {
+    const twists = [...new Set(STRESS[i].concat(st.dependencies.twists))];
+    return keysOnly(r, ['caseId', 'twists', 'label', 'base', 'plan', 'ratio']) && r.caseId === i && validTwists(r.twists) && same(r.twists, twists) &&
+      r.label === (twists.map(id => TWISTS[id].label).join(' + ') || 'Conditions normales') &&
+      delay(r.base) && r.base > 0 && delay(r.plan) && finite(r.ratio) && r.ratio >= 0 && r.ratio <= Number.MAX_SAFE_INTEGER / 100 &&
+      close(r.ratio, r.plan / r.base);
+  })) return false;
+  const worst = st.rows.reduce((a, b) => b.ratio > a.ratio ? b : a);
+  return record(st.worst) && ['caseId', 'label', 'base', 'plan', 'ratio', 'twists'].every(k => same(st.worst[k], worst[k])) &&
+    close(st.worstRatio, worst.ratio) && close(st.gain, 1 - st.rows[0].ratio);
 }
 
 // The Passerelle: deterministic rules, never an LLM. A plan is only ever *proposed* for a human signature.
 function issuePermit(st, world = {}) {
+  let valid = false;
+  // Also fail closed on hostile accessors/cyclic objects supplied by JS callers.
+  try { st = structuredClone(st); world = structuredClone(world); valid = validEvidence(st, world); } catch (_) { /* invalid evidence */ }
+  if (!valid) return {
+    state: 'BLOQUÉ', reason: 'Preuves invalides, inconnues ou incomplètes : aucune proposition autorisable.',
+    action: null, plan: null, gainNominal: null, gainWorst: null, worstCase: null, tests: [],
+    hypotheses: ['Données non validées ; résultats inutilisables.'], validite: 'Aucune.', reversibilite: 'Sans objet.',
+    signature: 'Signature humaine obligatoire ; CORE n’applique rien.', monde: 'Non validé',
+  };
   const pct = x => Math.round(x * 100);
   const failing = st.rows.filter(r => r.ratio > 1.0);
   let state, reason;
@@ -201,7 +278,8 @@ function issuePermit(st, world = {}) {
   else { state = 'PRÊT POUR SIGNATURE'; reason = 'Meilleur que le plan de référence dans tous les cas testés.'; }
   return {
     action: `Reprogrammer les feux des ${CORRIDOR.xs.length} carrefours du corridor pilote`,
-    plan: st.plan, state, reason,
+    plan: { ...st.plan, g: st.plan.g.slice(), o: st.plan.o.slice() }, state, reason,
+    dependencies: { model: MODEL, twists: st.dependencies.twists.slice() },
     gainNominal: pct(st.gain), gainWorst: pct(1 - st.worstRatio), worstCase: st.worst.label,
     tests: st.rows.map(r => ({ cas: r.label, retardRef_s: +r.base.toFixed(1), retardPlan_s: +r.plan.toFixed(1), gain_pct: pct(1 - r.ratio) })),
     hypotheses: [

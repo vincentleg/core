@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>CORE · La Trame</title>
+<link rel="icon" href="data:,">
+<title>CORE</title>
 <meta name="description" content="CORE : une Terre parallèle où des agents testent des milliers de solutions avant qu'elles touchent le monde réel.">
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,10 +19,16 @@
   --body: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
 }
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+a { color: var(--cyan); }
+summary { cursor: pointer; }
+button:disabled { opacity: .6; cursor: default; }
+.provenance { font-size: 12px; max-height: 28vh; overflow: auto; }
 html, body { height: 100%; margin: 0; background: var(--void); color: var(--ink); font: 14px/1.5 var(--body); }
 #map { position: fixed; inset: 0; }
 .panel { position: fixed; z-index: 2; background: var(--panel); border: 1px solid var(--line); border-radius: 4px; backdrop-filter: blur(6px); }
-.console { top: calc(16px + env(safe-area-inset-top, 0px)); left: 16px; width: min(360px, calc(100vw - 32px)); padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.console { top: calc(16px + env(safe-area-inset-top, 0px)); left: 16px; width: min(360px, calc(100vw - 32px)); padding: 16px; display: flex; flex-direction: column; gap: 12px; max-height: calc(100dvh - 90px); overflow: auto; }
 .brand { display: flex; align-items: baseline; gap: 10px; }
 .brand b { font: 700 24px var(--display); letter-spacing: 0.18em; color: var(--cyan); }
 .brand span { font: 600 11px var(--display); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
@@ -47,10 +54,15 @@ button.amber { background: var(--amber); }
 .maplibregl-popup-tip { border-top-color: var(--line) !important; }
 .maplibregl-ctrl-attrib { background: rgba(2,5,11,0.7) !important; color: var(--muted); }
 .maplibregl-ctrl-attrib a { color: var(--muted); }
+.maplibregl-ctrl-attrib.maplibregl-compact { background-color: #e3f6ff !important; color: #102a40; }
+.maplibregl-ctrl-attrib.maplibregl-compact a { color: #102a40; }
+.maplibregl-ctrl-bottom-right { bottom: 44px; }
 .note { margin: 0; color: var(--muted); font-size: 12px; }
 @media (max-width: 640px) {
   .console { top: auto; bottom: calc(44px + env(safe-area-inset-bottom, 0px)); }
-  .console .lead, .console .note { display: none; }
+  .console .lead, .console > .note:not(#search-help) { display: none; }
+  .console { bottom: calc(100px + env(safe-area-inset-bottom, 0px)); max-height: calc(100dvh - 160px); }
+  .status { max-height: 80px; overflow: auto; }
   .status { font-size: 11px; }
 }
 </style>
@@ -59,12 +71,13 @@ button.amber { background: var(--amber); }
 <div id="map" role="region" aria-label="Globe 3D de CORE"></div>
 
 <div class="panel console">
-  <div class="brand"><b>CORE</b><span>La Trame · phase 1</span></div>
+  <div class="brand"><b>CORE</b><span>CORE World</span></div>
   <p class="lead">Explore les rues et bâtiments cartographiés en 3D. Les agents travaillent pour l’instant dans un corridor synthétique séparé.</p>
   <form id="search" role="search">
-    <input id="q" type="search" placeholder="Une adresse, une ville…" aria-label="Rechercher un lieu" autocomplete="off">
+    <input id="q" type="search" placeholder="Ville pilote ou latitude, longitude" aria-label="Recherche locale : ville pilote ou latitude, longitude" maxlength="120" autocomplete="off">
     <button type="submit">Aller</button>
   </form>
+  <p class="note" id="search-help">Recherche locale : San Francisco, Paris, Tokyo ou coordonnées. Recherche d’adresse externe désactivée.</p>
   <div class="places">
     <button class="ghost" data-go="globe" type="button">Globe</button>
     <button class="ghost" data-go="sf" type="button">San Francisco</button>
@@ -73,12 +86,22 @@ button.amber { background: var(--amber); }
   </div>
   <button class="amber" id="pilot-btn" type="button">Ouvrir le corridor pilote (agents)</button>
   <p class="note">Corridor pilote : démo v0 sur un corridor synthétique. La phase 2 le place sur les vraies rues.</p>
+  <details class="provenance" id="sources">
+    <summary>Sources et limites des données</summary>
+    <p><b>Géographie cartographiée :</b> <a href="https://openfreemap.org/">OpenFreeMap</a>, © <a href="https://openmaptiles.org/">OpenMapTiles</a>, © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors (ODbL)</a>. Couverture variable ; date des observations inconnue, pas de données en temps réel.</p>
+    <p><b>Hypothèses d’affichage :</b> hauteur absente → 8 m ; base absente → 0 m. Les bâtiments ne sont pas des relevés d’ingénierie.</p>
+    <p><b>Relief :</b> Mapzen / AWS Terrain Tiles, approximation amplifiée ×1,4. Date et précision variables. <a href="https://github.com/tilezen/joerd/blob/master/docs/attribution.md">Sources, crédits et licences par région</a> ; pas de garantie de conformité globale ni de précision topographique.</p>
+    <p>Crédits terrain : USGS (3DEP, SRTM, GMTED2010), NOAA (ETOPO1), Copernicus / Union européenne (EU-DEM), ArcticDEM / NSF / DigitalGlobe, Geoscience Australia, offene Daten Österreichs, Canada, INEGI, LINZ, Kartverket et Environment Agency. Voir les crédits détaillés liés ci-dessus.</p>
+    <p><b>Simulation séparée :</b> corridor et trafic synthétiques, référence supposée, résultats non calibrés. <b>Observations de trafic validées : aucune.</b></p>
+    <p>Nominatim désactivé : limites globales non garanties par ce site statique. Esri désactivé : droits non vérifiés. Recherche locale sans appel réseau. Moteur MapLibre 5.6.0 (BSD-3-Clause, unpkg) ; polices Google Fonts. <a href="https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCES.md">Inventaire et limitations</a>.</p>
+  </details>
 </div>
 
 <div class="panel layers" role="group" aria-label="Couches">
-  <button class="ghost" id="l-trame" type="button" aria-pressed="true">Trame</button>
-  <button class="ghost" id="l-sat" type="button" aria-pressed="false">Satellite</button>
-  <button class="ghost" id="l-relief" type="button" aria-pressed="false">Relief 3D</button>
+  <button class="ghost" id="l-trame" type="button" disabled aria-pressed="true">Carte</button>
+  <button class="ghost" id="l-buildings" type="button" aria-pressed="true" disabled>Bâtiments 3D</button>
+  <button class="ghost" id="l-sat" type="button" disabled title="Esri : droits d’usage non vérifiés">Satellite indisponible</button>
+  <button class="ghost" id="l-relief" type="button" disabled aria-pressed="false">Relief 3D</button>
 </div>
 
 <div class="panel status" aria-live="polite"><b id="pos">—</b> · zoom <b id="zoom">—</b> · <span id="msg">Chargement de la Terre…</span></div>
@@ -89,10 +112,11 @@ button.amber { background: var(--amber); }
   const $ = id => document.getElementById(id);
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const msg = t => { $('msg').textContent = t; };
+  $('pilot-btn').addEventListener('click', () => { location.href = 'corridor.html'; });
   if (!window.maplibregl) { msg('Impossible de charger le moteur de carte (connexion ?).'); return; }
 
   const CYAN = '#78e8ff', CYAN_DIM = '#2f8fb8', VOID = '#02050b';
-  const name = ['coalesce', ['get', 'name:fr'], ['get', 'name:latin'], ['get', 'name']];
+  const name = ['coalesce', ['get', 'name:fr'], ['get', 'name:latin'], ['get', 'name'], ''];
   const roadW = (k) => ['interpolate', ['exponential', 1.6], ['zoom'], 5, 0.3 * k, 12, 1 * k, 16, 4 * k, 19, 14 * k];
   const MAJOR = ['match', ['get', 'class'], ['motorway', 'trunk', 'primary'], true, false];
 
@@ -101,48 +125,48 @@ button.amber { background: var(--amber); }
     glyphs: 'https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf',
     sources: {
       omt: { type: 'vector', url: 'https://tiles.openfreemap.org/planet' },
-      sat: { type: 'raster', tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'], tileSize: 256, maxzoom: 19, attribution: 'Imagerie © Esri, Maxar, Earthstar Geographics' },
-      hill: { type: 'raster-dem', tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'], encoding: 'terrarium', tileSize: 256, maxzoom: 14, attribution: 'Relief © Mapzen, AWS Terrain Tiles' },
-      dem: { type: 'raster-dem', tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'], encoding: 'terrarium', tileSize: 256, maxzoom: 14 },
+      hill: { type: 'raster-dem', tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'], encoding: 'terrarium', tileSize: 256, maxzoom: 14, attribution: 'Terrain : Mapzen / AWS · <a href="https://github.com/tilezen/joerd/blob/master/docs/attribution.md">Sources et crédits</a>' },
+      dem: { type: 'raster-dem', tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'], encoding: 'terrarium', tileSize: 256, maxzoom: 14, attribution: 'Terrain : Mapzen / AWS · <a href="https://github.com/tilezen/joerd/blob/master/docs/attribution.md">Sources et crédits</a>' },
     },
     layers: [
       { id: 'void', type: 'background', paint: { 'background-color': VOID } },
-      { id: 'sat', type: 'raster', source: 'sat', layout: { visibility: 'none' }, paint: { 'raster-saturation': -0.35, 'raster-brightness-max': 0.75 } },
-      { id: 'hillshade', type: 'hillshade', source: 'hill', paint: { 'hillshade-shadow-color': '#000000', 'hillshade-highlight-color': '#0f4a6b', 'hillshade-accent-color': '#06223a', 'hillshade-exaggeration': 0.4 } },
+      { id: 'hillshade', type: 'hillshade', source: 'hill', layout: { visibility: 'none' }, paint: { 'hillshade-shadow-color': '#000000', 'hillshade-highlight-color': '#0f4a6b', 'hillshade-accent-color': '#06223a', 'hillshade-exaggeration': 0.4 } },
       { id: 'park', type: 'fill', source: 'omt', 'source-layer': 'landcover', filter: ['in', ['get', 'class'], ['literal', ['wood', 'grass', 'farmland']]], paint: { 'fill-color': '#04201a', 'fill-opacity': 0.55 } },
       { id: 'water', type: 'fill', source: 'omt', 'source-layer': 'water', paint: { 'fill-color': '#041a30' } },
       { id: 'coast', type: 'line', source: 'omt', 'source-layer': 'water', paint: { 'line-color': CYAN, 'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0.8, 10, 0.35], 'line-width': ['interpolate', ['linear'], ['zoom'], 0, 0.6, 10, 1.2] } },
-      { id: 'border', type: 'line', source: 'omt', 'source-layer': 'boundary', filter: ['all', ['<=', ['get', 'admin_level'], 2], ['!=', ['get', 'maritime'], 1]], paint: { 'line-color': CYAN, 'line-opacity': 0.45, 'line-width': 0.8 } },
+      { id: 'border', type: 'line', source: 'omt', 'source-layer': 'boundary', filter: ['all', ['<=', ['number', ['get', 'admin_level'], 99], 2], ['!=', ['get', 'maritime'], 1]], paint: { 'line-color': CYAN, 'line-opacity': 0.45, 'line-width': 0.8 } },
       { id: 'region', type: 'line', source: 'omt', 'source-layer': 'boundary', minzoom: 3, filter: ['==', ['get', 'admin_level'], 4], paint: { 'line-color': CYAN_DIM, 'line-opacity': 0.3, 'line-width': 0.6, 'line-dasharray': [2, 2] } },
       { id: 'road-glow', type: 'line', source: 'omt', 'source-layer': 'transportation', filter: ['!=', ['get', 'class'], 'rail'], layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': CYAN, 'line-opacity': ['case', MAJOR, 0.22, 0.12], 'line-blur': 4, 'line-width': roadW(3) } },
       { id: 'road', type: 'line', source: 'omt', 'source-layer': 'transportation', filter: ['!=', ['get', 'class'], 'rail'], layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': ['case', MAJOR, CYAN, CYAN_DIM], 'line-opacity': 0.9, 'line-width': roadW(1) } },
       { id: 'rail', type: 'line', source: 'omt', 'source-layer': 'transportation', minzoom: 10, filter: ['==', ['get', 'class'], 'rail'], paint: { 'line-color': '#aa8cff', 'line-opacity': 0.6, 'line-width': 1, 'line-dasharray': [3, 2] } },
       { id: 'footprint', type: 'line', source: 'omt', 'source-layer': 'building', minzoom: 14, paint: { 'line-color': CYAN, 'line-opacity': 0.5, 'line-width': 0.8 } },
       { id: 'building', type: 'fill-extrusion', source: 'omt', 'source-layer': 'building', minzoom: 13, paint: {
-        'fill-extrusion-color': ['interpolate', ['linear'], ['coalesce', ['get', 'render_height'], 8], 0, '#0a3350', 40, '#1b6f9e', 120, '#4fc6ec', 250, CYAN],
-        'fill-extrusion-height': ['coalesce', ['get', 'render_height'], 8], 'fill-extrusion-base': ['coalesce', ['get', 'render_min_height'], 0],
+        'fill-extrusion-color': ['interpolate', ['linear'], ['max', 0, ['number', ['get', 'render_height'], 8]], 0, '#0a3350', 40, '#1b6f9e', 120, '#4fc6ec', 250, CYAN],
+        'fill-extrusion-height': ['max', 0, ['number', ['get', 'render_height'], 8]], 'fill-extrusion-base': ['min', ['max', 0, ['number', ['get', 'render_height'], 8]], ['max', 0, ['number', ['get', 'render_min_height'], 0]]],
         'fill-extrusion-opacity': 0.72 } },
       { id: 'place', type: 'symbol', source: 'omt', 'source-layer': 'place', filter: ['in', ['get', 'class'], ['literal', ['city', 'town', 'country', 'continent']]], layout: { 'text-field': name, 'text-font': ['Noto Sans Regular'], 'text-size': ['match', ['get', 'class'], 'country', 13, 'continent', 14, 12], 'text-transform': ['match', ['get', 'class'], ['country', 'continent'], 'uppercase', 'none'], 'text-letter-spacing': 0.08 }, paint: { 'text-color': '#bfefff', 'text-halo-color': VOID, 'text-halo-width': 1.5 } },
       { id: 'street-name', type: 'symbol', source: 'omt', 'source-layer': 'transportation_name', minzoom: 15, layout: { 'symbol-placement': 'line', 'text-field': name, 'text-font': ['Noto Sans Regular'], 'text-size': 11 }, paint: { 'text-color': '#8fd8f0', 'text-halo-color': VOID, 'text-halo-width': 1.5 } },
     ],
   };
 
-  const map = new maplibregl.Map({ container: 'map', style, center: [-40, 28], zoom: 1.7, maxPitch: 80, attributionControl: { compact: true } });
+  let map;
+  try { map = new maplibregl.Map({ container: 'map', style, center: [-40, 28], zoom: 1.7, maxPitch: 80, attributionControl: { compact: true } }); } catch (error) { msg('Carte indisponible : WebGL ou connexion. Le corridor reste accessible.'); return; }
   map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'bottom-right');
   map.on('style.load', () => { try { map.setProjection({ type: 'globe' }); } catch (e) { console.warn(e); } });
-  map.on('load', () => msg('Glisser pour tourner · clic droit pour incliner · molette pour zoomer'));
-  map.on('error', e => { console.warn(e && e.error); });
+  map.on('load', () => { ['l-trame', 'l-relief', 'l-buildings'].forEach(id => { $(id).disabled = false; }); msg('Glisser pour tourner · clic droit pour incliner · molette pour zoomer'); });
+  map.on('error', e => { console.warn(e && e.error); msg('Une source cartographique est indisponible ; données potentiellement incomplètes.'); });
 
   // slow spin until the first interaction
   let spinning = !reduced;
   const stop = () => { spinning = false; };
   ['mousedown', 'touchstart', 'wheel'].forEach(ev => map.on(ev, stop));
-  function spin() { if (!spinning || map.getZoom() > 3) return; const c = map.getCenter(); c.lng -= 6; map.easeTo({ center: c, duration: 1000, easing: n => n }); }
+  function spin() { if (document.hidden || !spinning || map.getZoom() > 3) return; const c = map.getCenter(); c.lng -= 6; map.easeTo({ center: c, duration: 1000, easing: n => n }); }
+  document.addEventListener('visibilitychange', () => { if (document.hidden) map.stop(); else spin(); });
   map.on('moveend', spin); map.on('load', spin);
 
   // position readout
   const upd = () => { const c = map.getCenter(); $('pos').textContent = `${c.lat.toFixed(4)}°, ${c.lng.toFixed(4)}°`; $('zoom').textContent = map.getZoom().toFixed(1); };
-  map.on('move', upd); upd();
+  map.on('moveend', upd); upd();
 
   // destinations
   const GO = {
@@ -157,29 +181,31 @@ button.amber { background: var(--amber); }
   // pilot corridor marker (SoMa)
   const el = document.createElement('div'); el.className = 'pilot'; el.title = 'Corridor pilote';
   new maplibregl.Marker({ element: el }).setLngLat([-122.4005, 37.7855]).setPopup(new maplibregl.Popup({ offset: 14 }).setHTML('<b>Corridor pilote</b><br>5 carrefours à feux. Démo v0 synthétique ; la phase 2 l’ancre sur ces rues.<br><a href="corridor.html" style="color:#78e8ff">Ouvrir le corridor et lancer les agents</a>')).addTo(map);
-  $('pilot-btn').addEventListener('click', () => { location.href = 'corridor.html'; });
 
-  // search (OpenStreetMap Nominatim, free, no key: 1 request at a time)
-  let busy = false;
-  $('search').addEventListener('submit', async e => {
-    e.preventDefault(); const q = $('q').value.trim(); if (!q || busy) return; busy = true; msg('Recherche…');
-    try {
-      const r = await fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&accept-language=fr&q=' + encodeURIComponent(q));
-      const d = await r.json();
-      if (!d.length) msg(`Aucun lieu trouvé pour « ${q} ».`);
-      else { msg(d[0].display_name.split(',').slice(0, 3).join(',')); fly({ center: [+d[0].lon, +d[0].lat], zoom: 16, pitch: 60, bearing: 0 }); }
-    } catch (err) { msg('La recherche ne répond pas. Réessaie dans un instant.'); }
-    busy = false;
+  // Deliberately local: the public geocoder cannot be globally rate-limited here.
+  $('search').addEventListener('submit', e => {
+    e.preventDefault();
+    const q = $('q').value.trim().toLowerCase();
+    if (!q) return;
+    const places = { 'san francisco': 'sf', sf: 'sf', paris: 'paris', tokyo: 'tokyo' };
+    if (Object.hasOwn(places, q)) { fly(GO[places[q]]); msg('Lieu pilote — coordonnées indicatives.'); return; }
+    const match = q.match(/^(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)$/);
+    if (match && Number.isFinite(+match[1]) && Number.isFinite(+match[2]) && Math.abs(+match[1]) <= 85 && Math.abs(+match[2]) <= 180) {
+      fly({ center: [+match[2], +match[1]], zoom: 16, pitch: 60, bearing: 0 }); msg('Coordonnées saisies — non validées sur le terrain.');
+    } else msg('Recherche locale : San Francisco, Paris, Tokyo ou latitude (±85), longitude (±180). Adresses indisponibles.');
   });
 
   // layers
   const press = (id, on) => $(id).setAttribute('aria-pressed', String(on));
-  $('l-trame').addEventListener('click', () => { map.setLayoutProperty('sat', 'visibility', 'none'); press('l-trame', true); press('l-sat', false); });
-  $('l-sat').addEventListener('click', () => { map.setLayoutProperty('sat', 'visibility', 'visible'); press('l-trame', false); press('l-sat', true); });
+  $('l-trame').addEventListener('click', () => { if (relief) $('l-relief').click(); });
+  let buildings = true;
+  $('l-buildings').addEventListener('click', () => {
+    buildings = !buildings; map.setLayoutProperty('building', 'visibility', buildings ? 'visible' : 'none'); press('l-buildings', buildings);
+  });
   let relief = false;
   $('l-relief').addEventListener('click', () => {
     relief = !relief;
-    try { map.setTerrain(relief ? { source: 'dem', exaggeration: 1.4 } : null); press('l-relief', relief); msg(relief ? 'Relief 3D activé.' : 'Relief 3D désactivé.'); }
+    try { map.setTerrain(relief ? { source: 'dem', exaggeration: 1.4 } : null); map.setLayoutProperty('hillshade', 'visibility', relief ? 'visible' : 'none'); press('l-relief', relief); press('l-trame', !relief); msg(relief ? 'Relief 3D activé.' : 'Relief 3D désactivé.'); }
     catch (err) { relief = false; press('l-relief', false); msg('Relief 3D indisponible dans ce mode.'); }
   });
 })();

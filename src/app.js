@@ -1,12 +1,13 @@
-// CORE — La Trame. Hand-made wireframe renderer (canvas 2D) driven by the CORE engine.
+// CORE World (temporary reference). Hand-made wireframe renderer (canvas 2D) driven by the CORE engine.
 (() => {
   const E = globalThis.CORE, K = E.CORRIDOR, XS = K.xs;
   const cv = document.getElementById('trame'), ctx = cv.getContext('2d');
   const $ = id => document.getElementById(id);
-  let W = 1, H = 1, DPR = 1;
+  let W = 1, H = 1, DPR = 1, dirty = true;
   const reduced = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function resize() {
+    dirty = true;
     const r = cv.getBoundingClientRect(); DPR = Math.min(2, window.devicePixelRatio || 1);
     W = Math.max(1, r.width); H = Math.max(1, r.height);
     cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR); ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
@@ -182,27 +183,33 @@
   function restartLive() { live = new E.Sim(currentPlan(), E.makeScenario(S.world)); }
 
   // ---------- frame ----------
-  let tween = null, fade = 0, last = 0;
+  let tween = null, fade = 0, last = 0, clock = 0, hudAt = 0, raf = 0;
   function frame(now) {
+    raf = 0;
+    if (document.hidden) return;
+    raf = requestAnimationFrame(frame);
+    const active = tween || S.running || (cam.mode === 'globe' && !reduced) || (cam.mode === 'city' && (!S.paused || (!reduced && S.world.includes('evenement'))));
+    if (!active && !dirty) { last = now; return; }
+    dirty = false;
     const dt = Math.min(0.05, (now - (last || now)) / 1000); last = now;
     if (tween) tween.step(now);
     if (cam.mode === 'globe' && !drag && !tween && !reduced) cam.yaw += dt * 0.08;
-    if (cam.mode === 'city' && !S.paused) { for (let k = 0; k < S.speed; k++) { live.step(); if (live.t >= K.T + K.drain) restartLive(); } }
+    if (cam.mode === 'city' && !S.paused) { clock += dt * S.speed * 60; while (clock >= 1) { clock--; live.step(); if (live.t >= K.T + K.drain) restartLive(); } } else clock = 0;
     basis();
     ctx.clearRect(0, 0, W, H);
     const bg = ctx.createRadialGradient(W * 0.5, H * 0.45, 0, W * 0.5, H * 0.45, Math.max(W, H) * 0.75); bg.addColorStop(0, '#071425'); bg.addColorStop(1, '#02050b'); ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
     ctx.globalCompositeOperation = 'lighter';
     if (cam.mode === 'globe') drawGlobe(now); else drawCity(now);
     ctx.globalCompositeOperation = 'source-over';
-    if (cam.mode === 'city') hud();
+    if (cam.mode === 'city') hud(now);
     if (fade > 0) { ctx.fillStyle = `rgba(2,5,11,${fade})`; ctx.fillRect(0, 0, W, H); }
-    requestAnimationFrame(frame);
   }
-  function hud() {
+  function hud(now) {
     const tag = S.world.length ? ['MONDE MODIFIÉ', COL.magenta] : S.shown === 'proposal' ? ['PLAN PROPOSÉ · SIMULATION', COL.amber] : ['PLAN DE RÉFÉRENCE · SIMULATION', COL.cyan];
     ctx.font = '600 11px Oxanium, system-ui, sans-serif'; ctx.fillStyle = rgba(tag[1], 1); ctx.fillText(tag[0], 16, 24);
     const mm = Math.floor(live.t / 60), ss = String(live.t % 60).padStart(2, '0');
     ctx.fillStyle = rgba(COL.white, 0.75); ctx.fillText(`t = ${mm}:${ss} · ×${S.speed * 60}`, 16, 42);
+    if (now - hudAt < 250) return; hudAt = now;
     const avg = live.servedN ? live.delay / live.servedN : 0; let q = 0; for (const a of live.ap) q += queued(a);
     $('m-delay').textContent = avg.toFixed(1); $('m-queue').textContent = q; $('m-served').textContent = live.servedN;
   }
@@ -218,14 +225,14 @@
       animate(reduced ? 10 : 1500, e => { cam.dist = lerp(2600, VIEW.city.dist, e); fade = 1 - e; }, () => { fade = 0; });
     });
   }
-  function toGlobe() { Object.assign(cam, JSON.parse(JSON.stringify(VIEW.globe)), { mode: 'globe' }); setMode('globe'); }
+  function toGlobe() { tween = null; fade = 0; Object.assign(cam, JSON.parse(JSON.stringify(VIEW.globe)), { mode: 'globe' }); setMode('globe'); }
   function setMode(m) { S.mode = m; document.body.dataset.mode = m; $('crumb-city').hidden = m !== 'city'; render(); }
 
   // ---------- interaction ----------
   let drag = null; const ptrs = new Map();
   cv.addEventListener('pointerdown', e => { cv.setPointerCapture(e.pointerId); ptrs.set(e.pointerId, [e.clientX, e.clientY]); drag = { x: e.clientX, y: e.clientY, moved: 0, pan: e.button === 2 || e.shiftKey, pinch: ptrs.size === 2 ? pinchDist() : 0 }; });
   cv.addEventListener('pointermove', e => {
-    if (!drag || !ptrs.has(e.pointerId)) return; ptrs.set(e.pointerId, [e.clientX, e.clientY]);
+    if (!drag || !ptrs.has(e.pointerId)) return; dirty = true; ptrs.set(e.pointerId, [e.clientX, e.clientY]);
     if (ptrs.size === 2) { const d = pinchDist(); if (drag.pinch) zoom(drag.pinch / d); drag.pinch = d; drag.moved += 10; return; }
     const dx = e.clientX - drag.x, dy = e.clientY - drag.y; drag.x = e.clientX; drag.y = e.clientY; drag.moved += Math.abs(dx) + Math.abs(dy);
     if (drag.pan && cam.mode === 'city') { const s = cam.dist / 900; cam.target[0] -= (Math.cos(cam.yaw) * dx + Math.sin(cam.yaw) * dy) * s; cam.target[2] -= (-Math.sin(cam.yaw) * dx + Math.cos(cam.yaw) * dy) * s; }
@@ -235,7 +242,7 @@
   cv.addEventListener('pointerup', endPtr); cv.addEventListener('pointercancel', endPtr);
   cv.addEventListener('contextmenu', e => e.preventDefault());
   function pinchDist() { const v = [...ptrs.values()]; return Math.hypot(v[0][0] - v[1][0], v[0][1] - v[1][1]) || 1; }
-  function zoom(f) { if (cam.mode === 'globe') cam.dist = Math.max(1.6, Math.min(6, cam.dist * f)); else cam.dist = Math.max(160, Math.min(2600, cam.dist * f)); }
+  function zoom(f) { dirty = true; if (cam.mode === 'globe') cam.dist = Math.max(1.6, Math.min(6, cam.dist * f)); else cam.dist = Math.max(160, Math.min(2600, cam.dist * f)); }
   cv.addEventListener('wheel', e => { e.preventDefault(); zoom(Math.exp(e.deltaY * 0.0012)); }, { passive: false });
   function pick(e) {
     const r = cv.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top;
@@ -245,24 +252,37 @@
   }
 
   // ---------- agents ----------
+  let controller = null;
   async function runAgents() {
-    if (S.running) return; S.running = true; S.phase = 'build'; render();
-    const sc = E.makeScenario(S.world);
-    const res = await E.searchPlans({ budget: 1500, scenario: sc, onProgress: ({ done, budget, best, base }) => {
-      S.family = best.plan.agent; S.sims = done; progress(`Bâtisseurs : ${done} / ${budget} plans simulés`, done / budget * 0.8, `Meilleur : ${best.m.avgDelay.toFixed(1)} s de retard moyen (référence ${base.avgDelay.toFixed(1)} s) · agent « ${best.plan.agent} »`); } });
-    S.phase = 'adv';
-    const rr = await E.robustRefine({ candidates: res.ranked.slice(0, 15).map(x => x.plan), extra: S.world, onProgress: ({ done, budget, best, sims }) => {
-      S.family = 'Robustesse'; S.sims = 1500 + sims; progress(`Adversaires : ${E.STRESS.length} plot twists × ${done + 15} plans`, 0.8 + 0.2 * done / budget, `Pire cas du meilleur plan : ${Math.round((1 - best.worstRatio) * 100)} % de retard en moins`); } });
-    S.proposal = rr.ranked[0]; S.sims = 1500 + rr.sims;
-    S.permit = E.issuePermit(rr.ranked[0], { label: worldLabel() }); S.permitWorld = S.world.slice(); S.changed = false;
-    S.running = false; S.phase = null; S.shown = 'proposal'; restartLive(); progress(`${S.sims.toLocaleString('fr-FR')} simulations terminées`, 1, 'La Passerelle a émis un permis.'); render();
+    if (S.running) return;
+    controller = new AbortController();
+    const signal = controller.signal;
+    S.running = true; S.phase = 'build'; S.proposal = null; S.permit = null; S.shown = 'base'; S.sims = 0;
+    restartLive(); render();
+    try {
+      const sc = E.makeScenario(S.world);
+      const res = await E.searchPlans({ budget: 1500, scenario: sc, signal, onProgress: ({ done, budget, best, base }) => {
+        S.family = best.plan.agent; S.sims = done; progress(`Bâtisseurs : ${done} / ${budget} plans simulés`, done / budget * 0.8, `Meilleur : ${best.m.avgDelay.toFixed(1)} s de retard moyen simulé (référence ${base.avgDelay.toFixed(1)} s)`); } });
+      S.phase = 'adv';
+      const rr = await E.robustRefine({ candidates: res.ranked.slice(0, 15).map(x => x.plan), extra: S.world, signal, onProgress: ({ done, budget, best, sims }) => {
+        S.family = 'Robustesse'; S.sims = 1500 + sims; progress(`Adversaires : ${E.STRESS.length} cas × ${done + 15} plans`, 0.8 + 0.2 * done / budget, `Pire cas simulé : ${Math.round((1 - best.worstRatio) * 100)} % de retard en moins`); } });
+      S.permit = E.issuePermit(rr.ranked[0], { label: worldLabel(), twists: S.world });
+      if (S.permit.plan) S.proposal = rr.ranked[0];
+      S.sims = 1500 + rr.sims; S.changed = false;
+      S.shown = S.proposal ? 'proposal' : 'base'; restartLive();
+      progress(`${S.sims.toLocaleString('fr-FR')} évaluations terminées`, 1, 'Résultats synthétiques, non calibrés. Aucune action réelle.');
+    } catch (error) {
+      S.proposal = null; S.permit = E.issuePermit(null); S.shown = 'base'; restartLive();
+      progress(error.name === 'AbortError' ? 'Simulation annulée' : 'Échec de la simulation', 0, 'Aucun permis utilisable. Vous pouvez relancer les agents.');
+      if (error.name !== 'AbortError') console.error(error);
+    } finally { S.running = false; S.phase = null; controller = null; render(); }
   }
   function worldLabel() { return S.world.length ? S.world.map(t => E.TWISTS[t].label).join(' + ') : 'Conditions normales'; }
   function toggleTwist(id) {
-    if (S.running) return;
+    if (S.running || !Object.hasOwn(E.TWISTS, id)) return;
     S.world = S.world.includes(id) ? S.world.filter(t => t !== id) : S.world.concat(id);
     restartLive();
-    if (S.proposal) { const st = E.stressTest([S.proposal.plan], S.world)[0]; S.permit = E.issuePermit(st, { label: worldLabel() }); S.changed = true; }
+    if (S.proposal) { const st = E.stressTest([S.proposal.plan], S.world)[0]; S.permit = E.issuePermit(st, { label: worldLabel(), twists: S.world }); S.changed = true; }
     render();
   }
   function progress(title, k, detail) { $('prog-title').textContent = title; $('prog-bar').style.width = (k * 100).toFixed(1) + '%'; $('prog-detail').textContent = detail; $('prog').hidden = false; }
@@ -270,6 +290,8 @@
   // ---------- panel ----------
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   function render() {
+    dirty = true;
+    $('btn-cancel').hidden = !S.running;
     $('btn-dive').hidden = S.mode !== 'globe'; $('city-panel').hidden = S.mode !== 'city'; $('globe-panel').hidden = S.mode !== 'globe';
     $('btn-run').disabled = S.running; $('btn-run').textContent = S.running ? 'Les agents travaillent…' : S.proposal ? (S.changed ? 'Relancer les agents dans ce monde' : 'Relancer les agents') : 'Lancer les agents';
     for (const id of ['evenement', 'chantier']) { const b = $('tw-' + id); b.setAttribute('aria-pressed', S.world.includes(id)); b.disabled = S.running; }
@@ -280,11 +302,12 @@
     // permit
     const pm = S.permit, box = $('permit');
     if (!pm) { box.innerHTML = '<p class="empty">Aucune proposition pour l’instant. Lance les agents : ils vont tester des milliers de plans de feux sur ce corridor, puis les attaquer avec des plot twists. Seul le plan qui survit arrive ici.</p>'; return; }
+    if (!pm.plan) { box.innerHTML = `<div class="pill bad">BLOQUÉ</div><p>${esc(pm.reason)}</p><p class="note">Aucun gain disponible. Aucune action réelle.</p>`; return; }
     const cls = pm.state === 'PRÊT POUR SIGNATURE' ? 'ok' : pm.state === 'SUSPENDU' ? 'warn' : 'bad';
     box.innerHTML = `<div class="pill ${cls}">${esc(pm.state)}</div>
       ${S.changed ? '<p class="changed">Le monde a changé : la Passerelle a réévalué le permis avec les agents adversaires.</p>' : ''}
       <p class="reason">${esc(pm.reason)}</p>
-      <dl class="kpis"><div><dt>Retard, cas normal</dt><dd>${pm.gainNominal > 0 ? '−' : '+'}${Math.abs(pm.gainNominal)} %</dd></div><div><dt>Pire cas testé</dt><dd>${pm.gainWorst > 0 ? '−' : '+'}${Math.abs(pm.gainWorst)} %</dd></div><div><dt>Simulations</dt><dd>${S.sims.toLocaleString('fr-FR')}</dd></div></dl>
+      <dl class="kpis"><div><dt>Retard simulé, scénario</dt><dd>${pm.gainNominal > 0 ? '−' : '+'}${Math.abs(pm.gainNominal)} %</dd></div><div><dt>Pire cas simulé</dt><dd>${pm.gainWorst > 0 ? '−' : '+'}${Math.abs(pm.gainWorst)} %</dd></div><div><dt>Évaluations</dt><dd>${S.sims.toLocaleString('fr-FR')}</dd></div></dl>
       <p class="act"><b>Action proposée</b> ${esc(pm.action)} : cycle ${pm.plan.C} s, verts ${pm.plan.g.join(' / ')} s.</p>
       <div class="scroll"><table class="tests"><thead><tr><th>Cas testé</th><th>Réf.</th><th>Plan</th><th>Gain</th></tr></thead><tbody>${pm.tests.map(t => `<tr class="${t.gain_pct < 0 ? 'neg' : ''}"><td>${esc(t.cas)}</td><td>${t.retardRef_s} s</td><td>${t.retardPlan_s} s</td><td>${t.gain_pct > 0 ? '−' : '+'}${Math.abs(t.gain_pct)} %</td></tr>`).join('')}</tbody></table></div>
       <details><summary>Hypothèses, validité, signature</summary><ul>${pm.hypotheses.map(h => `<li>${esc(h)}</li>`).join('')}</ul><p><b>Validité</b> ${esc(pm.validite)}</p><p><b>Réversibilité</b> ${esc(pm.reversibilite)}</p><p><b>Signature</b> ${esc(pm.signature)}</p></details>
@@ -294,10 +317,15 @@
   }
 
   $('btn-dive').onclick = dive; $('crumb-earth').onclick = toGlobe; $('btn-run').onclick = runAgents;
+  $('btn-cancel').onclick = () => controller?.abort();
   $('tw-evenement').onclick = () => toggleTwist('evenement'); $('tw-chantier').onclick = () => toggleTwist('chantier');
   $('seg-base').onclick = () => { S.shown = 'base'; restartLive(); render(); }; $('seg-prop').onclick = () => { if (S.proposal) { S.shown = 'proposal'; restartLive(); render(); } };
   $('speed').oninput = e => { S.speed = +e.target.value; };
-  $('btn-pause').onclick = () => { S.paused = !S.paused; $('btn-pause').textContent = S.paused ? 'Reprendre' : 'Pause'; };
-  resize(); setMode('globe'); requestAnimationFrame(frame);
+  $('btn-pause').onclick = () => { dirty = true; S.paused = !S.paused; $('btn-pause').textContent = S.paused ? 'Reprendre' : 'Pause'; };
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) { cancelAnimationFrame(raf); raf = 0; controller?.abort(); }
+    else { last = 0; dirty = true; if (!raf) raf = requestAnimationFrame(frame); }
+  });
+  resize(); setMode('globe'); raf = requestAnimationFrame(frame);
   globalThis.__CORE_APP = { S, cam, dive, runAgents, toggleTwist, frame };
 })();

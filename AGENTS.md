@@ -1,11 +1,11 @@
 # CORE — règles pour l'agent de code (Codex, Claude Code)
 
-CORE vise une Terre parallèle en 3D (style « Trame » : fond noir, arêtes cyan). Le dépôt contient actuellement
+CORE vise une Terre parallèle en 3D (style CORE : fond noir, arêtes cyan). Le dépôt contient actuellement
 un globe cartographique et un corridor synthétique séparé. La Passerelle produit des propositions de permis
 à faire signer par un humain. Site statique compatible GitHub Pages ; publication à vérifier séparément.
 
 ## Fichiers
-- `index.html` : la Terre réelle (MapLibre GL 5.6 en globe, tuiles OpenFreeMap, bâtiments 3D, recherche Nominatim).
+- `index.html` : la Terre réelle (MapLibre GL 5.6 en globe, tuiles OpenFreeMap, bâtiments 3D, recherche locale).
 - `src/engine.js` : moteur de trafic, agents, adversaires, Passerelle. Ne pas modifier sa logique sans demande explicite.
 - `src/app.js` + `src/template.html` → `corridor.html` via `node build.js` (ne jamais éditer `corridor.html` à la main).
 - `HANDOFF.md` : contexte historique. `ROADMAP.md` : phases actuelles (nouvelle Phase 0 fondations). `PROJECT_STATE.md` : état courant (10 lignes max). `docs/PHASE_0_AUDIT.md` : constats et validations.

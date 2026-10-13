@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CORE · La Trame</title>
+<link rel="icon" href="data:,">
+<title>CORE · CORE World</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -16,6 +17,7 @@
   --body: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
 }
+*, *::before, *::after { box-sizing: border-box; }
 html, body { height: 100%; margin: 0; background: var(--void); color: var(--ink); }
 [hidden] { display: none !important; }
 body { font-family: var(--body); font-size: 14px; line-height: 1.5; overflow: hidden; }
@@ -98,30 +100,31 @@ textarea { width: 100%; height: 140px; background: #030a14; color: var(--ink); b
 <body>
 <div class="app">
   <div class="world">
-    <canvas id="trame" aria-label="La Trame : globe terrestre, puis corridor pilote de San Francisco en 3D" role="img"></canvas>
+    <canvas id="trame" aria-label="CORE World : globe terrestre, puis corridor pilote de San Francisco en 3D" role="img"></canvas>
     <div class="overlay"><button id="btn-dive" class="primary" type="button">Plonger sur San Francisco</button></div>
     <p class="hint">Glisser pour tourner · molette ou pincer pour zoomer · Maj + glisser pour se déplacer · clic sur un carrefour pour l’inspecter</p>
   </div>
   <aside>
-    <div class="brand"><b>CORE</b><span>La Trame · v0</span></div>
+    <div class="brand"><b>CORE</b><span>CORE World · v0</span></div>
     <nav class="crumbs" aria-label="Position"><button id="crumb-earth" type="button">Terre</button><span id="crumb-city" hidden>› San Francisco › Corridor pilote</span></nav>
 
     <section id="globe-panel">
       <p class="lead">Une Terre parallèle où des agents testent des milliers de solutions avant qu’elles touchent le monde réel.</p>
-      <p class="note">Le point ambre est le premier lieu de la Trame : un corridor de cinq carrefours à feux. Clique dessus ou utilise le bouton pour y plonger.</p>
+      <p class="note">Le point ambre est le premier lieu du monde CORE : un corridor de cinq carrefours à feux. Clique dessus ou utilise le bouton pour y plonger.</p>
     </section>
 
     <div id="city-panel" hidden>
       <section>
         <h2>Le monde, en direct</h2>
         <div class="seg" role="group" aria-label="Plan de feux affiché"><button id="seg-base" type="button">Plan de référence</button><button id="seg-prop" type="button">Plan proposé</button></div>
-        <dl class="live"><div><dt>Retard moyen (s)</dt><dd id="m-delay">0</dd></div><div><dt>En file</dt><dd id="m-queue">0</dd></div><div><dt>Véhicules passés</dt><dd id="m-served">0</dd></div></dl>
+        <dl class="live"><div><dt>Retard simulé (s)</dt><dd id="m-delay">0</dd></div><div><dt>En file</dt><dd id="m-queue">0</dd></div><div><dt>Passages aux feux</dt><dd id="m-served">0</dd></div></dl>
         <div class="row"><label for="speed">Vitesse</label><input id="speed" type="range" min="1" max="20" value="6"><button id="btn-pause" class="ghost" type="button">Pause</button></div>
         <p class="note">Points blancs : véhicules qui roulent. Points rouges : véhicules arrêtés au feu.</p>
       </section>
       <section style="margin-top:18px">
         <h2>Les agents</h2>
         <button id="btn-run" type="button">Lancer les agents</button>
+        <button id="btn-cancel" class="ghost" type="button" hidden>Annuler</button>
         <div id="prog" hidden><div id="prog-title"></div><div class="bar"><div id="prog-bar"></div></div><p id="prog-detail"></p></div>
       </section>
       <section style="margin-top:18px">
@@ -139,7 +142,7 @@ textarea { width: 100%; height: 140px; background: #030a14; color: var(--ink); b
       </section>
     </div>
 
-    <p class="honest">Démo v0 : corridor, bâtiments et demande de trafic synthétiques, contours de la Terre simplifiés. Le moteur de trafic tourne réellement dans ton navigateur ; chaque chiffre vient de ses simulations. Prochaine étape : rues réelles d’OpenStreetMap, SUMO et comptages réels. <a href="index.html" style="color:var(--cyan)">Retour à la Terre réelle</a></p>
+    <p class="honest"><b>Observations validées : aucune.</b> Référence supposée : cycle de 90 s, sans coordination. Les gains sont des comparaisons simulées, jamais des améliorations mesurées. Démo v0 : corridor, bâtiments et demande de trafic synthétiques, contours de la Terre simplifiés. Le moteur de trafic tourne réellement dans ton navigateur ; chaque chiffre vient de ses simulations. Prochaine étape : rues réelles d’OpenStreetMap, SUMO et comptages réels. <a href="index.html" style="color:var(--cyan)">Retour à la carte</a></p>
   </aside>
 </div>
 <script>

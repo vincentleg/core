@@ -36,9 +36,12 @@ test('bounded builder/adversary orchestration repeats with fixed seeds', async (
 });
 
 function evidence(ratios) {
-  const rows = ratios.map((ratio, i) => ({ label: `Fixture ${i}`, base: 100, plan: ratio * 100, ratio }));
-  const worst = rows.reduce((a, b) => a.ratio > b.ratio ? a : b);
-  return { plan: E.basePlan(), rows, worst, worstRatio: worst.ratio, gain: 1 - rows[0].ratio };
+  const result = E.stressTest([E.basePlan()])[0];
+  result.rows.forEach((r, i) => { r.ratio = ratios[i] ?? ratios[ratios.length - 1]; r.base = 100; r.plan = r.ratio * 100; });
+  result.worst = result.rows.reduce((a, b) => b.ratio > a.ratio ? b : a);
+  result.worstRatio = result.worst.ratio;
+  result.gain = 1 - result.rows[0].ratio;
+  return result;
 }
 
 test('permit states enforce degradation and gain thresholds on valid evidence', () => {

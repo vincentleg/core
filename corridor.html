@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CORE · La Trame</title>
+<link rel="icon" href="data:,">
+<title>CORE · CORE World</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -16,6 +17,7 @@
   --body: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
 }
+*, *::before, *::after { box-sizing: border-box; }
 html, body { height: 100%; margin: 0; background: var(--void); color: var(--ink); }
 [hidden] { display: none !important; }
 body { font-family: var(--body); font-size: 14px; line-height: 1.5; overflow: hidden; }
@@ -98,30 +100,31 @@ textarea { width: 100%; height: 140px; background: #030a14; color: var(--ink); b
 <body>
 <div class="app">
   <div class="world">
-    <canvas id="trame" aria-label="La Trame : globe terrestre, puis corridor pilote de San Francisco en 3D" role="img"></canvas>
+    <canvas id="trame" aria-label="CORE World : globe terrestre, puis corridor pilote de San Francisco en 3D" role="img"></canvas>
     <div class="overlay"><button id="btn-dive" class="primary" type="button">Plonger sur San Francisco</button></div>
     <p class="hint">Glisser pour tourner · molette ou pincer pour zoomer · Maj + glisser pour se déplacer · clic sur un carrefour pour l’inspecter</p>
   </div>
   <aside>
-    <div class="brand"><b>CORE</b><span>La Trame · v0</span></div>
+    <div class="brand"><b>CORE</b><span>CORE World · v0</span></div>
     <nav class="crumbs" aria-label="Position"><button id="crumb-earth" type="button">Terre</button><span id="crumb-city" hidden>› San Francisco › Corridor pilote</span></nav>
 
     <section id="globe-panel">
       <p class="lead">Une Terre parallèle où des agents testent des milliers de solutions avant qu’elles touchent le monde réel.</p>
-      <p class="note">Le point ambre est le premier lieu de la Trame : un corridor de cinq carrefours à feux. Clique dessus ou utilise le bouton pour y plonger.</p>
+      <p class="note">Le point ambre est le premier lieu du monde CORE : un corridor de cinq carrefours à feux. Clique dessus ou utilise le bouton pour y plonger.</p>
     </section>
 
     <div id="city-panel" hidden>
       <section>
         <h2>Le monde, en direct</h2>
         <div class="seg" role="group" aria-label="Plan de feux affiché"><button id="seg-base" type="button">Plan de référence</button><button id="seg-prop" type="button">Plan proposé</button></div>
-        <dl class="live"><div><dt>Retard moyen (s)</dt><dd id="m-delay">0</dd></div><div><dt>En file</dt><dd id="m-queue">0</dd></div><div><dt>Véhicules passés</dt><dd id="m-served">0</dd></div></dl>
+        <dl class="live"><div><dt>Retard simulé (s)</dt><dd id="m-delay">0</dd></div><div><dt>En file</dt><dd id="m-queue">0</dd></div><div><dt>Passages aux feux</dt><dd id="m-served">0</dd></div></dl>
         <div class="row"><label for="speed">Vitesse</label><input id="speed" type="range" min="1" max="20" value="6"><button id="btn-pause" class="ghost" type="button">Pause</button></div>
         <p class="note">Points blancs : véhicules qui roulent. Points rouges : véhicules arrêtés au feu.</p>
       </section>
       <section style="margin-top:18px">
         <h2>Les agents</h2>
         <button id="btn-run" type="button">Lancer les agents</button>
+        <button id="btn-cancel" class="ghost" type="button" hidden>Annuler</button>
         <div id="prog" hidden><div id="prog-title"></div><div class="bar"><div id="prog-bar"></div></div><p id="prog-detail"></p></div>
       </section>
       <section style="margin-top:18px">
@@ -139,7 +142,7 @@ textarea { width: 100%; height: 140px; background: #030a14; color: var(--ink); b
       </section>
     </div>
 
-    <p class="honest">Démo v0 : corridor, bâtiments et demande de trafic synthétiques, contours de la Terre simplifiés. Le moteur de trafic tourne réellement dans ton navigateur ; chaque chiffre vient de ses simulations. Prochaine étape : rues réelles d’OpenStreetMap, SUMO et comptages réels. <a href="index.html" style="color:var(--cyan)">Retour à la Terre réelle</a></p>
+    <p class="honest"><b>Observations validées : aucune.</b> Référence supposée : cycle de 90 s, sans coordination. Les gains sont des comparaisons simulées, jamais des améliorations mesurées. Démo v0 : corridor, bâtiments et demande de trafic synthétiques, contours de la Terre simplifiés. Le moteur de trafic tourne réellement dans ton navigateur ; chaque chiffre vient de ses simulations. Prochaine étape : rues réelles d’OpenStreetMap, SUMO et comptages réels. <a href="index.html" style="color:var(--cyan)">Retour à la carte</a></p>
   </aside>
 </div>
 <script>
@@ -172,6 +175,40 @@ const TWISTS = {
   evenement:{ id: 'evenement',label: 'Sortie de concert : rue transversale du carrefour 3 ×2,5', crossBoost: { i: 2, mul: 2.5 } },
 };
 
+// Validation is deliberately separate from the point-queue equations.
+const MODEL = 'core-point-queue-v0';
+const finite = x => typeof x === 'number' && Number.isFinite(x);
+const record = x => x !== null && typeof x === 'object' && !Array.isArray(x);
+const keysOnly = (x, keys) => record(x) && Object.keys(x).every(k => keys.includes(k));
+const dense = (xs, n, check) => Array.isArray(xs) && xs.length === n && Array.from(xs).every(check);
+const validTwists = xs => Array.isArray(xs) && xs.length <= Object.keys(TWISTS).length &&
+  Array.from(xs).every(x => typeof x === 'string' && Object.hasOwn(TWISTS, x)) && new Set(xs).size === xs.length;
+const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+const close = (a, b) => finite(a) && finite(b) && Math.abs(a - b) <= 1e-12 * Math.max(1, Math.abs(a), Math.abs(b));
+function validPlan(p) {
+  return keysOnly(p, ['C', 'g', 'o', 'name', 'agent']) &&
+    (p.name === undefined || typeof p.name === 'string') && (p.agent === undefined || typeof p.agent === 'string') && Number.isInteger(p.C) && p.C >= 60 && p.C <= 120 &&
+    dense(p.g, CORRIDOR.xs.length, x => Number.isInteger(x) && x >= CORRIDOR.minArtGreen && x <= p.C - 2 * CORRIDOR.lost - CORRIDOR.minCrossGreen) &&
+    dense(p.o, CORRIDOR.xs.length, x => Number.isInteger(x) && x >= 0 && x < p.C);
+}
+function requireInput(ok, message) { if (!ok) throw new TypeError(message); }
+function validClosed(xs) {
+  return Array.isArray(xs) && xs.length <= CORRIDOR.xs.length * 4 && Array.from(xs).every(c => record(c) &&
+    Number.isInteger(c.i) && c.i >= 0 && c.i < CORRIDOR.xs.length && ['EB', 'WB', 'N', 'S'].includes(c.dir));
+}
+function validScenario(sc) {
+  const arrivalsOK = xs => Array.isArray(xs) && xs.length <= 100000 && Array.from(xs).every((t, i) =>
+    finite(t) && t >= 0 && t <= CORRIDOR.T + CORRIDOR.entryLen / CORRIDOR.speed && (i === 0 || t >= xs[i - 1]));
+  return record(sc) && validTwists(sc.twists) && finite(sc.headway) && sc.headway > 0 && validClosed(sc.closed) &&
+    record(sc.gen) && arrivalsOK(sc.gen.EB) && arrivalsOK(sc.gen.WB) &&
+    dense(sc.gen.N, CORRIDOR.xs.length, arrivalsOK) && dense(sc.gen.S, CORRIDOR.xs.length, arrivalsOK);
+}
+function checkRun(budget, max, seed, signal) {
+  requireInput(Number.isInteger(budget) && budget >= 1 && budget <= max, 'Budget de simulation invalide.');
+  requireInput(Number.isInteger(seed) && seed >= 0 && seed <= 0xffffffff, 'Graine invalide.');
+  if (signal && signal.aborted) { const e = new Error('Simulation annulée.'); e.name = 'AbortError'; throw e; }
+}
+
 function rng(seed) {
   let a = seed >>> 0;
   return () => { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a);
@@ -187,12 +224,14 @@ function arrivals(rate, T, rand) {
 
 // A scenario = demand + conditions. Same scenario => identical arrivals for every plan (fair comparison).
 function makeScenario(twistIds = [], extra = {}) {
+  requireInput(Array.isArray(twistIds), 'Scénario invalide.');
   twistIds = [...new Set(twistIds)];
+  requireInput(validTwists(twistIds) && record(extra) && validClosed(extra.closed === undefined ? [] : extra.closed), 'Scénario ou fermetures invalides.');
   const tw = twistIds.map(id => TWISTS[id]).filter(Boolean);
   const mul = tw.reduce((m, t) => m * (t.demandMul || 1), 1);
   const hw = tw.reduce((m, t) => m * (t.headwayMul || 1), 1);
   const seed = tw.reduce((s, t) => t.seed || s, 1);
-  const closed = tw.filter(t => t.closed).map(t => t.closed).concat(extra.closed || []);
+  const closed = tw.filter(t => t.closed).map(t => t.closed).concat(extra.closed || []).map(c => ({ ...c }));
   const rand = rng(seed * 9973);
   const boost = i => tw.reduce((m, t) => m * (t.crossBoost && t.crossBoost.i === i ? t.crossBoost.mul : 1), 1);
   const T = CORRIDOR.T;
@@ -211,6 +250,9 @@ function basePlan() { // assumed current timing: fixed 90 s cycle, 50/50, no coo
 
 class Sim {
   constructor(plan, sc) {
+    requireInput(validPlan(plan) && validScenario(sc), 'Plan ou scénario invalide.');
+    plan = { ...plan, g: plan.g.slice(), o: plan.o.slice() };
+    sc = { ...sc, twists: sc.twists.slice(), closed: sc.closed.map(c => ({ ...c })) };
     const n = CORRIDOR.xs.length; this.plan = plan; this.sc = sc; this.t = 0; this.n = n;
     this.ap = [];
     for (let i = 0; i < n; i++) for (const d of ['EB', 'WB', 'N', 'S']) {
@@ -292,17 +334,21 @@ function mutate(p, r) {
 }
 
 // Runs `budget` variants on the nominal scenario. onProgress({done, best}) for the UI. Chunked & async-friendly.
-async function searchPlans({ budget = 1500, scenario, onProgress, yieldEvery = 40, seed = 42 }) {
+async function searchPlans({ budget = 1500, scenario, onProgress, yieldEvery = 40, seed = 42, signal }) {
+  checkRun(budget, 5000, seed, signal);
+  requireInput(Number.isInteger(yieldEvery) && yieldEvery >= 1 && yieldEvery <= 40, 'Intervalle invalide.');
   const r = rng(seed + 1); const gen = builderAgents(budget, seed); const scored = [];
   const base = evaluate(basePlan(), scenario);
   for (let k = 0; k < budget; k++) {
+    checkRun(budget, 5000, seed, signal);
     let p;
     if (k > budget * 0.45 && scored.length) { const top = scored.slice(0, 12); p = mutate(top[Math.floor(r() * top.length)].plan, r); }
     else p = gen.next().value;
     const m = evaluate(p, scenario); scored.push({ plan: p, m });
     if (k % 20 === 19 || k === budget - 1) scored.sort((a, b) => a.m.avgDelay - b.m.avgDelay);
-    if (onProgress && (k % yieldEvery === 0 || k === budget - 1)) { onProgress({ done: k + 1, budget, best: scored[0], base }); await new Promise(res => setTimeout(res, 0)); }
+    if (k % yieldEvery === 0 || k === budget - 1) { if (onProgress) onProgress({ done: k + 1, budget, best: scored[0], base }); await new Promise(res => setTimeout(res, 0)); }
   }
+  checkRun(budget, 5000, seed, signal);
   scored.sort((a, b) => a.m.avgDelay - b.m.avgDelay);
   return { base, ranked: scored };
 }
@@ -311,33 +357,67 @@ async function searchPlans({ budget = 1500, scenario, onProgress, yieldEvery = 4
 const STRESS = [[], ['pointe'], ['chantier'], ['pluie'], ['aleas'], ['pointe', 'pluie']];
 
 function stressTest(plans, extraTwists = []) {
+  requireInput(Array.isArray(plans) && plans.length > 0 && plans.length <= 30 && Array.from(plans).every(validPlan) && validTwists(extraTwists), 'Plans ou dépendances invalides.');
   const scs = STRESS.map(t => makeScenario(t.concat(extraTwists)));
   const baseM = scs.map(sc => evaluate(basePlan(), sc));
   return plans.map(p => {
-    const rows = scs.map((sc, j) => { const m = evaluate(p, sc); return { label: sc.label, base: baseM[j].avgDelay, plan: m.avgDelay, ratio: m.avgDelay / baseM[j].avgDelay }; });
+    const rows = scs.map((sc, j) => { const m = evaluate(p, sc); return { caseId: j, twists: sc.twists.slice(), label: sc.label, base: baseM[j].avgDelay, plan: m.avgDelay, ratio: m.avgDelay / baseM[j].avgDelay }; });
     const worst = rows.reduce((a, b) => (b.ratio > a.ratio ? b : a));
-    return { plan: p, rows, worstRatio: worst.ratio, worst, gain: 1 - rows[0].ratio };
+    return { dependencies: { model: MODEL, twists: extraTwists.slice() }, plan: p, rows, worstRatio: worst.ratio, worst, gain: 1 - rows[0].ratio };
   }).sort((a, b) => a.worstRatio - b.worstRatio);
 }
 
 // Robust refinement: builders mutate the best plans, adversaries score each mutant on every stress case.
-async function robustRefine({ candidates, extra = [], budget = 240, onProgress, seed = 99 }) {
+async function robustRefine({ candidates, extra = [], budget = 240, onProgress, seed = 99, signal }) {
+  checkRun(budget, 1000, seed, signal);
+  requireInput(Array.isArray(candidates) && candidates.length > 0 && candidates.length <= 30 && Array.from(candidates).every(validPlan) && validTwists(extra), 'Candidats ou dépendances invalides.');
   const r = rng(seed); const scs = STRESS.map(t => makeScenario(t.concat(extra)));
   const baseM = scs.map(sc => evaluate(basePlan(), sc).avgDelay);
-  const score = p => { const rows = scs.map((sc, j) => { const d = evaluate(p, sc).avgDelay; return { label: sc.label, base: baseM[j], plan: d, ratio: d / baseM[j] }; });
-    const worst = rows.reduce((a, b) => (b.ratio > a.ratio ? b : a)); return { plan: p, rows, worstRatio: worst.ratio, worst, gain: 1 - rows[0].ratio }; };
+  const score = p => { const rows = scs.map((sc, j) => { const d = evaluate(p, sc).avgDelay; return { caseId: j, twists: sc.twists.slice(), label: sc.label, base: baseM[j], plan: d, ratio: d / baseM[j] }; });
+    const worst = rows.reduce((a, b) => (b.ratio > a.ratio ? b : a)); return { dependencies: { model: MODEL, twists: extra.slice() }, plan: p, rows, worstRatio: worst.ratio, worst, gain: 1 - rows[0].ratio }; };
   let pool = candidates.map(score).sort((a, b) => a.worstRatio - b.worstRatio); let sims = candidates.length * scs.length;
   for (let k = 0; k < budget; k++) {
+    checkRun(budget, 1000, seed, signal);
     const parent = pool[Math.floor(r() * Math.min(6, pool.length))].plan;
     const child = score({ ...mutate(parent, r), agent: 'Robustesse' }); sims += scs.length;
     pool.push(child); pool.sort((a, b) => a.worstRatio - b.worstRatio || b.gain - a.gain); pool = pool.slice(0, 30);
-    if (onProgress && (k % 10 === 0 || k === budget - 1)) { onProgress({ done: k + 1, budget, best: pool[0], sims }); await new Promise(res => setTimeout(res, 0)); }
+    if (k % 10 === 0 || k === budget - 1) { if (onProgress) onProgress({ done: k + 1, budget, best: pool[0], sims }); await new Promise(res => setTimeout(res, 0)); }
   }
+  checkRun(budget, 1000, seed, signal);
   return { ranked: pool, sims };
+}
+
+// Complete internal evidence contract. Unknown dependencies/cases cannot count as success.
+function validEvidence(st, world) {
+  if (!keysOnly(st, ['dependencies', 'plan', 'rows', 'worstRatio', 'worst', 'gain']) || !validPlan(st.plan) || !keysOnly(world, ['label', 'twists']) ||
+      (world.label !== undefined && typeof world.label !== 'string') ||
+      !record(st.dependencies) || !same(Object.keys(st.dependencies).sort(), ['model', 'twists']) ||
+      st.dependencies.model !== MODEL || !validTwists(st.dependencies.twists) ||
+      (world.twists !== undefined && (!validTwists(world.twists) || !same(world.twists, st.dependencies.twists)))) return false;
+  const delay = x => finite(x) && x >= 0 && x <= CORRIDOR.T + CORRIDOR.drain;
+  if (!dense(st.rows, STRESS.length, (r, i) => {
+    const twists = [...new Set(STRESS[i].concat(st.dependencies.twists))];
+    return keysOnly(r, ['caseId', 'twists', 'label', 'base', 'plan', 'ratio']) && r.caseId === i && validTwists(r.twists) && same(r.twists, twists) &&
+      r.label === (twists.map(id => TWISTS[id].label).join(' + ') || 'Conditions normales') &&
+      delay(r.base) && r.base > 0 && delay(r.plan) && finite(r.ratio) && r.ratio >= 0 && r.ratio <= Number.MAX_SAFE_INTEGER / 100 &&
+      close(r.ratio, r.plan / r.base);
+  })) return false;
+  const worst = st.rows.reduce((a, b) => b.ratio > a.ratio ? b : a);
+  return record(st.worst) && ['caseId', 'label', 'base', 'plan', 'ratio', 'twists'].every(k => same(st.worst[k], worst[k])) &&
+    close(st.worstRatio, worst.ratio) && close(st.gain, 1 - st.rows[0].ratio);
 }
 
 // The Passerelle: deterministic rules, never an LLM. A plan is only ever *proposed* for a human signature.
 function issuePermit(st, world = {}) {
+  let valid = false;
+  // Also fail closed on hostile accessors/cyclic objects supplied by JS callers.
+  try { st = structuredClone(st); world = structuredClone(world); valid = validEvidence(st, world); } catch (_) { /* invalid evidence */ }
+  if (!valid) return {
+    state: 'BLOQUÉ', reason: 'Preuves invalides, inconnues ou incomplètes : aucune proposition autorisable.',
+    action: null, plan: null, gainNominal: null, gainWorst: null, worstCase: null, tests: [],
+    hypotheses: ['Données non validées ; résultats inutilisables.'], validite: 'Aucune.', reversibilite: 'Sans objet.',
+    signature: 'Signature humaine obligatoire ; CORE n’applique rien.', monde: 'Non validé',
+  };
   const pct = x => Math.round(x * 100);
   const failing = st.rows.filter(r => r.ratio > 1.0);
   let state, reason;
@@ -346,7 +426,8 @@ function issuePermit(st, world = {}) {
   else { state = 'PRÊT POUR SIGNATURE'; reason = 'Meilleur que le plan de référence dans tous les cas testés.'; }
   return {
     action: `Reprogrammer les feux des ${CORRIDOR.xs.length} carrefours du corridor pilote`,
-    plan: st.plan, state, reason,
+    plan: { ...st.plan, g: st.plan.g.slice(), o: st.plan.o.slice() }, state, reason,
+    dependencies: { model: MODEL, twists: st.dependencies.twists.slice() },
     gainNominal: pct(st.gain), gainWorst: pct(1 - st.worstRatio), worstCase: st.worst.label,
     tests: st.rows.map(r => ({ cas: r.label, retardRef_s: +r.base.toFixed(1), retardPlan_s: +r.plan.toFixed(1), gain_pct: pct(1 - r.ratio) })),
     hypotheses: [
@@ -367,15 +448,16 @@ if (typeof module !== 'undefined') module.exports = CORE; else globalThis.CORE =
 
 </script>
 <script>
-// CORE — La Trame. Hand-made wireframe renderer (canvas 2D) driven by the CORE engine.
+// CORE World (temporary reference). Hand-made wireframe renderer (canvas 2D) driven by the CORE engine.
 (() => {
   const E = globalThis.CORE, K = E.CORRIDOR, XS = K.xs;
   const cv = document.getElementById('trame'), ctx = cv.getContext('2d');
   const $ = id => document.getElementById(id);
-  let W = 1, H = 1, DPR = 1;
+  let W = 1, H = 1, DPR = 1, dirty = true;
   const reduced = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function resize() {
+    dirty = true;
     const r = cv.getBoundingClientRect(); DPR = Math.min(2, window.devicePixelRatio || 1);
     W = Math.max(1, r.width); H = Math.max(1, r.height);
     cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR); ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
@@ -551,27 +633,33 @@ if (typeof module !== 'undefined') module.exports = CORE; else globalThis.CORE =
   function restartLive() { live = new E.Sim(currentPlan(), E.makeScenario(S.world)); }
 
   // ---------- frame ----------
-  let tween = null, fade = 0, last = 0;
+  let tween = null, fade = 0, last = 0, clock = 0, hudAt = 0, raf = 0;
   function frame(now) {
+    raf = 0;
+    if (document.hidden) return;
+    raf = requestAnimationFrame(frame);
+    const active = tween || S.running || (cam.mode === 'globe' && !reduced) || (cam.mode === 'city' && (!S.paused || (!reduced && S.world.includes('evenement'))));
+    if (!active && !dirty) { last = now; return; }
+    dirty = false;
     const dt = Math.min(0.05, (now - (last || now)) / 1000); last = now;
     if (tween) tween.step(now);
     if (cam.mode === 'globe' && !drag && !tween && !reduced) cam.yaw += dt * 0.08;
-    if (cam.mode === 'city' && !S.paused) { for (let k = 0; k < S.speed; k++) { live.step(); if (live.t >= K.T + K.drain) restartLive(); } }
+    if (cam.mode === 'city' && !S.paused) { clock += dt * S.speed * 60; while (clock >= 1) { clock--; live.step(); if (live.t >= K.T + K.drain) restartLive(); } } else clock = 0;
     basis();
     ctx.clearRect(0, 0, W, H);
     const bg = ctx.createRadialGradient(W * 0.5, H * 0.45, 0, W * 0.5, H * 0.45, Math.max(W, H) * 0.75); bg.addColorStop(0, '#071425'); bg.addColorStop(1, '#02050b'); ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
     ctx.globalCompositeOperation = 'lighter';
     if (cam.mode === 'globe') drawGlobe(now); else drawCity(now);
     ctx.globalCompositeOperation = 'source-over';
-    if (cam.mode === 'city') hud();
+    if (cam.mode === 'city') hud(now);
     if (fade > 0) { ctx.fillStyle = `rgba(2,5,11,${fade})`; ctx.fillRect(0, 0, W, H); }
-    requestAnimationFrame(frame);
   }
-  function hud() {
+  function hud(now) {
     const tag = S.world.length ? ['MONDE MODIFIÉ', COL.magenta] : S.shown === 'proposal' ? ['PLAN PROPOSÉ · SIMULATION', COL.amber] : ['PLAN DE RÉFÉRENCE · SIMULATION', COL.cyan];
     ctx.font = '600 11px Oxanium, system-ui, sans-serif'; ctx.fillStyle = rgba(tag[1], 1); ctx.fillText(tag[0], 16, 24);
     const mm = Math.floor(live.t / 60), ss = String(live.t % 60).padStart(2, '0');
     ctx.fillStyle = rgba(COL.white, 0.75); ctx.fillText(`t = ${mm}:${ss} · ×${S.speed * 60}`, 16, 42);
+    if (now - hudAt < 250) return; hudAt = now;
     const avg = live.servedN ? live.delay / live.servedN : 0; let q = 0; for (const a of live.ap) q += queued(a);
     $('m-delay').textContent = avg.toFixed(1); $('m-queue').textContent = q; $('m-served').textContent = live.servedN;
   }
@@ -587,14 +675,14 @@ if (typeof module !== 'undefined') module.exports = CORE; else globalThis.CORE =
       animate(reduced ? 10 : 1500, e => { cam.dist = lerp(2600, VIEW.city.dist, e); fade = 1 - e; }, () => { fade = 0; });
     });
   }
-  function toGlobe() { Object.assign(cam, JSON.parse(JSON.stringify(VIEW.globe)), { mode: 'globe' }); setMode('globe'); }
+  function toGlobe() { tween = null; fade = 0; Object.assign(cam, JSON.parse(JSON.stringify(VIEW.globe)), { mode: 'globe' }); setMode('globe'); }
   function setMode(m) { S.mode = m; document.body.dataset.mode = m; $('crumb-city').hidden = m !== 'city'; render(); }
 
   // ---------- interaction ----------
   let drag = null; const ptrs = new Map();
   cv.addEventListener('pointerdown', e => { cv.setPointerCapture(e.pointerId); ptrs.set(e.pointerId, [e.clientX, e.clientY]); drag = { x: e.clientX, y: e.clientY, moved: 0, pan: e.button === 2 || e.shiftKey, pinch: ptrs.size === 2 ? pinchDist() : 0 }; });
   cv.addEventListener('pointermove', e => {
-    if (!drag || !ptrs.has(e.pointerId)) return; ptrs.set(e.pointerId, [e.clientX, e.clientY]);
+    if (!drag || !ptrs.has(e.pointerId)) return; dirty = true; ptrs.set(e.pointerId, [e.clientX, e.clientY]);
     if (ptrs.size === 2) { const d = pinchDist(); if (drag.pinch) zoom(drag.pinch / d); drag.pinch = d; drag.moved += 10; return; }
     const dx = e.clientX - drag.x, dy = e.clientY - drag.y; drag.x = e.clientX; drag.y = e.clientY; drag.moved += Math.abs(dx) + Math.abs(dy);
     if (drag.pan && cam.mode === 'city') { const s = cam.dist / 900; cam.target[0] -= (Math.cos(cam.yaw) * dx + Math.sin(cam.yaw) * dy) * s; cam.target[2] -= (-Math.sin(cam.yaw) * dx + Math.cos(cam.yaw) * dy) * s; }
@@ -604,7 +692,7 @@ if (typeof module !== 'undefined') module.exports = CORE; else globalThis.CORE =
   cv.addEventListener('pointerup', endPtr); cv.addEventListener('pointercancel', endPtr);
   cv.addEventListener('contextmenu', e => e.preventDefault());
   function pinchDist() { const v = [...ptrs.values()]; return Math.hypot(v[0][0] - v[1][0], v[0][1] - v[1][1]) || 1; }
-  function zoom(f) { if (cam.mode === 'globe') cam.dist = Math.max(1.6, Math.min(6, cam.dist * f)); else cam.dist = Math.max(160, Math.min(2600, cam.dist * f)); }
+  function zoom(f) { dirty = true; if (cam.mode === 'globe') cam.dist = Math.max(1.6, Math.min(6, cam.dist * f)); else cam.dist = Math.max(160, Math.min(2600, cam.dist * f)); }
   cv.addEventListener('wheel', e => { e.preventDefault(); zoom(Math.exp(e.deltaY * 0.0012)); }, { passive: false });
   function pick(e) {
     const r = cv.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top;
@@ -614,24 +702,37 @@ if (typeof module !== 'undefined') module.exports = CORE; else globalThis.CORE =
   }
 
   // ---------- agents ----------
+  let controller = null;
   async function runAgents() {
-    if (S.running) return; S.running = true; S.phase = 'build'; render();
-    const sc = E.makeScenario(S.world);
-    const res = await E.searchPlans({ budget: 1500, scenario: sc, onProgress: ({ done, budget, best, base }) => {
-      S.family = best.plan.agent; S.sims = done; progress(`Bâtisseurs : ${done} / ${budget} plans simulés`, done / budget * 0.8, `Meilleur : ${best.m.avgDelay.toFixed(1)} s de retard moyen (référence ${base.avgDelay.toFixed(1)} s) · agent « ${best.plan.agent} »`); } });
-    S.phase = 'adv';
-    const rr = await E.robustRefine({ candidates: res.ranked.slice(0, 15).map(x => x.plan), extra: S.world, onProgress: ({ done, budget, best, sims }) => {
-      S.family = 'Robustesse'; S.sims = 1500 + sims; progress(`Adversaires : ${E.STRESS.length} plot twists × ${done + 15} plans`, 0.8 + 0.2 * done / budget, `Pire cas du meilleur plan : ${Math.round((1 - best.worstRatio) * 100)} % de retard en moins`); } });
-    S.proposal = rr.ranked[0]; S.sims = 1500 + rr.sims;
-    S.permit = E.issuePermit(rr.ranked[0], { label: worldLabel() }); S.permitWorld = S.world.slice(); S.changed = false;
-    S.running = false; S.phase = null; S.shown = 'proposal'; restartLive(); progress(`${S.sims.toLocaleString('fr-FR')} simulations terminées`, 1, 'La Passerelle a émis un permis.'); render();
+    if (S.running) return;
+    controller = new AbortController();
+    const signal = controller.signal;
+    S.running = true; S.phase = 'build'; S.proposal = null; S.permit = null; S.shown = 'base'; S.sims = 0;
+    restartLive(); render();
+    try {
+      const sc = E.makeScenario(S.world);
+      const res = await E.searchPlans({ budget: 1500, scenario: sc, signal, onProgress: ({ done, budget, best, base }) => {
+        S.family = best.plan.agent; S.sims = done; progress(`Bâtisseurs : ${done} / ${budget} plans simulés`, done / budget * 0.8, `Meilleur : ${best.m.avgDelay.toFixed(1)} s de retard moyen simulé (référence ${base.avgDelay.toFixed(1)} s)`); } });
+      S.phase = 'adv';
+      const rr = await E.robustRefine({ candidates: res.ranked.slice(0, 15).map(x => x.plan), extra: S.world, signal, onProgress: ({ done, budget, best, sims }) => {
+        S.family = 'Robustesse'; S.sims = 1500 + sims; progress(`Adversaires : ${E.STRESS.length} cas × ${done + 15} plans`, 0.8 + 0.2 * done / budget, `Pire cas simulé : ${Math.round((1 - best.worstRatio) * 100)} % de retard en moins`); } });
+      S.permit = E.issuePermit(rr.ranked[0], { label: worldLabel(), twists: S.world });
+      if (S.permit.plan) S.proposal = rr.ranked[0];
+      S.sims = 1500 + rr.sims; S.changed = false;
+      S.shown = S.proposal ? 'proposal' : 'base'; restartLive();
+      progress(`${S.sims.toLocaleString('fr-FR')} évaluations terminées`, 1, 'Résultats synthétiques, non calibrés. Aucune action réelle.');
+    } catch (error) {
+      S.proposal = null; S.permit = E.issuePermit(null); S.shown = 'base'; restartLive();
+      progress(error.name === 'AbortError' ? 'Simulation annulée' : 'Échec de la simulation', 0, 'Aucun permis utilisable. Vous pouvez relancer les agents.');
+      if (error.name !== 'AbortError') console.error(error);
+    } finally { S.running = false; S.phase = null; controller = null; render(); }
   }
   function worldLabel() { return S.world.length ? S.world.map(t => E.TWISTS[t].label).join(' + ') : 'Conditions normales'; }
   function toggleTwist(id) {
-    if (S.running) return;
+    if (S.running || !Object.hasOwn(E.TWISTS, id)) return;
     S.world = S.world.includes(id) ? S.world.filter(t => t !== id) : S.world.concat(id);
     restartLive();
-    if (S.proposal) { const st = E.stressTest([S.proposal.plan], S.world)[0]; S.permit = E.issuePermit(st, { label: worldLabel() }); S.changed = true; }
+    if (S.proposal) { const st = E.stressTest([S.proposal.plan], S.world)[0]; S.permit = E.issuePermit(st, { label: worldLabel(), twists: S.world }); S.changed = true; }
     render();
   }
   function progress(title, k, detail) { $('prog-title').textContent = title; $('prog-bar').style.width = (k * 100).toFixed(1) + '%'; $('prog-detail').textContent = detail; $('prog').hidden = false; }
@@ -639,6 +740,8 @@ if (typeof module !== 'undefined') module.exports = CORE; else globalThis.CORE =
   // ---------- panel ----------
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   function render() {
+    dirty = true;
+    $('btn-cancel').hidden = !S.running;
     $('btn-dive').hidden = S.mode !== 'globe'; $('city-panel').hidden = S.mode !== 'city'; $('globe-panel').hidden = S.mode !== 'globe';
     $('btn-run').disabled = S.running; $('btn-run').textContent = S.running ? 'Les agents travaillent…' : S.proposal ? (S.changed ? 'Relancer les agents dans ce monde' : 'Relancer les agents') : 'Lancer les agents';
     for (const id of ['evenement', 'chantier']) { const b = $('tw-' + id); b.setAttribute('aria-pressed', S.world.includes(id)); b.disabled = S.running; }
@@ -649,11 +752,12 @@ if (typeof module !== 'undefined') module.exports = CORE; else globalThis.CORE =
     // permit
     const pm = S.permit, box = $('permit');
     if (!pm) { box.innerHTML = '<p class="empty">Aucune proposition pour l’instant. Lance les agents : ils vont tester des milliers de plans de feux sur ce corridor, puis les attaquer avec des plot twists. Seul le plan qui survit arrive ici.</p>'; return; }
+    if (!pm.plan) { box.innerHTML = `<div class="pill bad">BLOQUÉ</div><p>${esc(pm.reason)}</p><p class="note">Aucun gain disponible. Aucune action réelle.</p>`; return; }
     const cls = pm.state === 'PRÊT POUR SIGNATURE' ? 'ok' : pm.state === 'SUSPENDU' ? 'warn' : 'bad';
     box.innerHTML = `<div class="pill ${cls}">${esc(pm.state)}</div>
       ${S.changed ? '<p class="changed">Le monde a changé : la Passerelle a réévalué le permis avec les agents adversaires.</p>' : ''}
       <p class="reason">${esc(pm.reason)}</p>
-      <dl class="kpis"><div><dt>Retard, cas normal</dt><dd>${pm.gainNominal > 0 ? '−' : '+'}${Math.abs(pm.gainNominal)} %</dd></div><div><dt>Pire cas testé</dt><dd>${pm.gainWorst > 0 ? '−' : '+'}${Math.abs(pm.gainWorst)} %</dd></div><div><dt>Simulations</dt><dd>${S.sims.toLocaleString('fr-FR')}</dd></div></dl>
+      <dl class="kpis"><div><dt>Retard simulé, scénario</dt><dd>${pm.gainNominal > 0 ? '−' : '+'}${Math.abs(pm.gainNominal)} %</dd></div><div><dt>Pire cas simulé</dt><dd>${pm.gainWorst > 0 ? '−' : '+'}${Math.abs(pm.gainWorst)} %</dd></div><div><dt>Évaluations</dt><dd>${S.sims.toLocaleString('fr-FR')}</dd></div></dl>
       <p class="act"><b>Action proposée</b> ${esc(pm.action)} : cycle ${pm.plan.C} s, verts ${pm.plan.g.join(' / ')} s.</p>
       <div class="scroll"><table class="tests"><thead><tr><th>Cas testé</th><th>Réf.</th><th>Plan</th><th>Gain</th></tr></thead><tbody>${pm.tests.map(t => `<tr class="${t.gain_pct < 0 ? 'neg' : ''}"><td>${esc(t.cas)}</td><td>${t.retardRef_s} s</td><td>${t.retardPlan_s} s</td><td>${t.gain_pct > 0 ? '−' : '+'}${Math.abs(t.gain_pct)} %</td></tr>`).join('')}</tbody></table></div>
       <details><summary>Hypothèses, validité, signature</summary><ul>${pm.hypotheses.map(h => `<li>${esc(h)}</li>`).join('')}</ul><p><b>Validité</b> ${esc(pm.validite)}</p><p><b>Réversibilité</b> ${esc(pm.reversibilite)}</p><p><b>Signature</b> ${esc(pm.signature)}</p></details>
@@ -663,11 +767,16 @@ if (typeof module !== 'undefined') module.exports = CORE; else globalThis.CORE =
   }
 
   $('btn-dive').onclick = dive; $('crumb-earth').onclick = toGlobe; $('btn-run').onclick = runAgents;
+  $('btn-cancel').onclick = () => controller?.abort();
   $('tw-evenement').onclick = () => toggleTwist('evenement'); $('tw-chantier').onclick = () => toggleTwist('chantier');
   $('seg-base').onclick = () => { S.shown = 'base'; restartLive(); render(); }; $('seg-prop').onclick = () => { if (S.proposal) { S.shown = 'proposal'; restartLive(); render(); } };
   $('speed').oninput = e => { S.speed = +e.target.value; };
-  $('btn-pause').onclick = () => { S.paused = !S.paused; $('btn-pause').textContent = S.paused ? 'Reprendre' : 'Pause'; };
-  resize(); setMode('globe'); requestAnimationFrame(frame);
+  $('btn-pause').onclick = () => { dirty = true; S.paused = !S.paused; $('btn-pause').textContent = S.paused ? 'Reprendre' : 'Pause'; };
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) { cancelAnimationFrame(raf); raf = 0; controller?.abort(); }
+    else { last = 0; dirty = true; if (!raf) raf = requestAnimationFrame(frame); }
+  });
+  resize(); setMode('globe'); raf = requestAnimationFrame(frame);
   globalThis.__CORE_APP = { S, cam, dive, runAgents, toggleTwist, frame };
 })();
 

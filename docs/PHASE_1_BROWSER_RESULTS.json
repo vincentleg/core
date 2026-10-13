@@ -1,0 +1,99 @@
+{
+  "chrome": {
+    "checks_passed": [
+      "globe loaded",
+      "city sf",
+      "city paris",
+      "city tokyo",
+      "building layer off",
+      "terrain activated",
+      "terrain off / map restored",
+      "unverified imagery disabled",
+      "local search: Paris",
+      "local search: 37.7873, -122.3985",
+      "local search: 999, 999",
+      "local search: <script>invalid</script>",
+      "mobile map fits viewport",
+      "mobile corridor fits viewport",
+      "cancel blocks permit and restores controls",
+      "full agents generate ready proposal",
+      "concert suspends permit",
+      "removing concert restores ready state",
+      "roadwork dependency follows scenario",
+      "pause holds simulated traffic",
+      "plan comparison controls",
+      "failed run blocks stale permit and recovers UI"
+    ],
+    "uncaught_exceptions": [
+      "Uncaught TypeError: Cannot read properties of undefined (reading 'key')"
+    ],
+    "exception_count": 8,
+    "browser_log": [
+      "warning: performance warning: READ-usage buffer was written, then fenced, but written again before being read back. This discarded the shadow copy that was created to accelerate readback."
+    ]
+  },
+  "chrome-final": {
+    "checks_passed": [
+      "globe loaded",
+      "city sf",
+      "city paris",
+      "city tokyo",
+      "building layer off",
+      "terrain activated",
+      "terrain off / map restored",
+      "unverified imagery disabled",
+      "local search: Paris",
+      "local search: 37.7873, -122.3985",
+      "local search: 999, 999",
+      "local search: <script>invalid</script>",
+      "mobile map fits viewport",
+      "mobile corridor fits viewport",
+      "cancel blocks permit and restores controls",
+      "full agents generate ready proposal",
+      "concert suspends permit",
+      "removing concert restores ready state",
+      "roadwork dependency follows scenario",
+      "pause holds simulated traffic",
+      "plan comparison controls",
+      "failed run blocks stale permit and recovers UI"
+    ],
+    "uncaught_exceptions": [
+      "Uncaught TypeError: Cannot read properties of undefined (reading 'key')"
+    ],
+    "exception_count": 18,
+    "browser_log": [
+      "warning: performance warning: READ-usage buffer was written, then fenced, but written again before being read back. This discarded the shadow copy that was created to accelerate readback."
+    ]
+  },
+  "firefox": {
+    "checks_passed": [
+      "globe loaded",
+      "city sf",
+      "city paris",
+      "city tokyo",
+      "building layer off",
+      "terrain activated",
+      "terrain off / map restored",
+      "unverified imagery disabled",
+      "local search: Paris",
+      "local search: 37.7873, -122.3985",
+      "local search: 999, 999",
+      "local search: <script>invalid</script>",
+      "mobile map fits viewport"
+    ],
+    "uncaught_exceptions": [],
+    "exception_count": 0,
+    "browser_log": [
+      "warning: After reporting 32, no further warnings will be reported for this WebGL context.",
+      "warning: WebGL warning: texImage: Alpha-premult and y-flip are deprecated for non-DOM-Element uploads."
+    ]
+  },
+  "firefox-final": {
+    "checks_passed": [],
+    "uncaught_exceptions": [],
+    "exception_count": 0,
+    "browser_log": [
+      "warning: WebGL warning: texImage: Alpha-premult and y-flip are deprecated for non-DOM-Element uploads."
+    ]
+  }
+}

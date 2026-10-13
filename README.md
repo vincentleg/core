@@ -18,7 +18,7 @@ Open http://localhost:8000 for the globe and http://localhost:8000/corridor.html
 
 ## Current capabilities
 
-- MapLibre GL JS 5.6.0 globe with OpenFreeMap streets, extruded buildings, city navigation, and Nominatim search. Existing satellite and terrain switches remain experimental.
+- MapLibre GL JS 5.6.0 globe with OpenFreeMap streets, extruded buildings, city navigation, and local pilot-city/coordinate search. Satellite is disabled; terrain remains experimental with an unresolved runtime error.
 - A separate synthetic five-intersection corridor with seeded traffic, heuristic builder agents, six stress cases, and robust refinement. No LLM or autonomous infrastructure integration exists.
 - A deterministic permit proposal with assumptions, tested results and mandatory human signature text. Changing a scenario reevaluates the proposal; there is no actual signing or execution service.
 
@@ -40,9 +40,9 @@ Read [PROJECT_STATE.md](PROJECT_STATE.md), [ROADMAP.md](ROADMAP.md) and [AGENTS.
 
 ## Validation and limitations
 
-Phase 0 adds six passing tests; no automated test suite existed at the initial revision. Chrome desktop inspection confirms globe/SoMa buildings and the corridor agent/permit flow. See [the audit](docs/PHASE_0_AUDIT.md) for browser coverage and unresolved issues, including Nominatim policy gaps, Esri terms, input validation and uncalibrated traffic.
+Phase 0 established the repository; Phase 1 is partially implemented and preserved for Claude Code. All 19 Node tests pass, but the browser gate fails on a MapLibre terrain/navigation error. Firefox coverage is partial and Safari untested. Start with [the Claude handoff](docs/CLAUDE_HANDOFF.md) and [partial Phase 1 report](docs/PHASE_1_REPORT.md); do not restart Phase 1 or start Phase 2.
 
-Providers and licenses are listed in [DATA_SOURCES.md](docs/DATA_SOURCES.md). Existing Esri imagery is not open data and is not approved for production use. No paid services or billing have been configured. CORE itself has no repository license grant yet; do not infer one from public visibility or third-party licenses.
+Providers and licenses are listed in [DATA_SOURCES.md](docs/DATA_SOURCES.md). Esri imagery requests are disabled because usage rights are unresolved; Nominatim requests are also disabled. No paid services or billing have been configured. CORE itself has no repository license grant yet; do not infer one from public visibility or third-party licenses.
 
 ## GitHub
 

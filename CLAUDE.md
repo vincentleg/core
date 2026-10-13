@@ -1,28 +1,20 @@
-# CORE — règles pour Claude Code
+# CORE — instructions for Claude Code
 
-> Les règles d'ingénierie actuelles sont dans `AGENTS.md` ; elles prévalent sur les descriptions historiques
-> ci-dessous. Voir `ROADMAP.md` pour la nouvelle numérotation et `docs/PHASE_0_AUDIT.md` pour les validations.
+Continue autonomously from the preserved Phase 1 work. Read `AGENTS.md`, `PROJECT_STATE.md`, `docs/CLAUDE_HANDOFF.md` and `docs/PHASE_1_REPORT.md` first, then only relevant source files. The founder explicitly requested this handoff; **do not restart Phase 1, do not start Phase 2, and do not mistake a checkpoint commit for acceptance**.
 
-CORE est une Terre parallèle en 3D (style « Trame » : fond noir, arêtes cyan) où des agents testent des milliers de
-solutions (feux, chantiers, énergie) et où seule une solution testée sort par la « Passerelle », sous forme de permis
-à faire signer par un humain. Site statique publié sur GitHub Pages.
+CORE is building evidence-backed infrastructure decision review. The current application is a static MapLibre globe and a separate synthetic corridor. Agents propose; deterministic code checks proposal eligibility; humans must authorize; nothing controls real infrastructure. “La Trame” is deprecated. CORE is the product; CORE World is temporary wording only. Keep internal IDs and filenames unless a change is necessary.
 
-## Fichiers
-- `index.html` : la Terre réelle (MapLibre GL 5.6 en globe, tuiles OpenFreeMap, bâtiments 3D, recherche Nominatim).
-- `src/engine.js` : moteur de trafic, agents, adversaires, Passerelle. Ne pas modifier sa logique sans demande explicite.
-- `src/app.js` + `src/template.html` → `corridor.html` via `node build.js` (ne jamais éditer `corridor.html` à la main).
-- `HANDOFF.md` : tout le projet (vision, business, design, ce qui est construit). `ROADMAP.md` : les phases. `PROJECT_STATE.md` : où on en est (≤ 30 lignes).
+Immediate task: diagnose the Chrome MapLibre 5.6.0 `_updateRetainedTiles` undefined `.key` exception during terrain/navigation; finish available browser validation, then close Phase 1. Firefox CDP harness currently times out across contexts; Safari automation requires the owner's browser setting. Node suite currently has 19 passing tests. See handoff evidence; do not repeatedly run full simulations unnecessarily.
 
-## Règles de travail (économiser les tokens)
-- Lis `PROJECT_STATE.md` et seulement les fichiers nécessaires à la phase en cours.
-- Une phase à la fois ; arrête-toi dès que son critère de fin (ROADMAP.md) est atteint.
-- Pas de refonte du code existant, pas de nouvelle dépendance sans la justifier en une ligne.
-- Outils et données gratuits uniquement, sans clé ni compte. Bibliothèques depuis unpkg, versions épinglées.
-- Les simulations longues : donne la commande, ne les lance pas en boucle.
-- Ne colle pas de grosses données dans la conversation ; écris-les dans des fichiers.
-- Vérifier : `python3 -m http.server 8000` puis ouvrir http://localhost:8000.
-- Fin de phase : `node build.js` si `src/` a changé, commit, `PROJECT_STATE.md` mis à jour (10 lignes max), `git push`.
+Rules:
+- Preserve current code, Git history and user work. No force push, unrelated refactoring or new phase.
+- Existing Phase 1 authorization permits engine/gateway correctness changes. Preserve the point-queue equations, seeded behavior and valid decision thresholds. Invalid/unknown/incomplete evidence must block.
+- Free/open tools only; no paid APIs, subscriptions, billing or unnecessary dependencies. Pin external libraries. Do not re-enable Nominatim/Esri without resolving the documented constraints.
+- Never commit secrets, credentials, sensitive geographic data, dependencies, raw logs or screenshots. `test-results/phase1/` contains ignored local evidence; compact browser summaries are in docs.
+- Edit `src/template.html`, `src/app.js` and `src/engine.js`; regenerate `corridor.html` with `node build.js`, never hand-edit it.
+- Validate with `node --test test/*.test.js` and local `python3 -m http.server 8000 --bind 127.0.0.1`. Record actual browser versions, failures and unavailable coverage honestly.
+- Keep documentation consistent, PROJECT_STATE.md at 10 lines max, and clearly distinguish geography, assumptions, synthetic traffic, simulation output and validated observations (currently none).
+- Work autonomously on routine authorized repairs. Ask only for genuine blockers, security concerns or paid-service requirements. Do not change machine-wide browser settings merely to make a test pass.
+- When Phase 1 really passes, update its report/roadmap/state, build, test, inspect staged content, commit and push main without force. Original requested completion message: `feat: harden CORE world foundation and permit integrity`. Stop before Phase 2.
 
-## Honnêteté du produit
-- Tout ce qui est synthétique, précalculé ou non calibré est indiqué à l'écran.
-- Les agents proposent ; la Passerelle (code déterministe) décide de l'état du permis ; rien n'est appliqué au monde réel.
+Full historical business/design context is preserved in `HANDOFF.md`; current truth is in the new handoff and reports.

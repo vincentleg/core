@@ -1,5 +1,7 @@
 # Existing architecture
 
+Phase 1 checkpoint: see `CLAUDE_HANDOFF.md` and `PHASE_1_REPORT.md`; browser reliability is not yet accepted.
+
 CORE is a static two-page application. There is no backend, database, account system, worker pool, LLM service, telemetry pipeline, or infrastructure actuator.
 
 ```mermaid
@@ -19,7 +21,7 @@ flowchart LR
 
 ## Globe
 
-`index.html` embeds styling and application JavaScript. MapLibre GL JS 5.6.0 comes from unpkg. It reads OpenFreeMap vector tiles/glyphs, optionally Esri raster imagery and AWS-hosted Terrarium elevation, and submits user searches to Nominatim. Extrusion heights use `render_height` with an 8 m fallback. The SoMa marker links to the separate synthetic corridor; it does not feed geometry into the simulator.
+`index.html` embeds styling and application JavaScript. MapLibre GL JS 5.6.0 comes from unpkg. It reads OpenFreeMap vector tiles/glyphs, optional AWS-hosted Terrarium elevation. Esri and Nominatim requests are disabled; search resolves pilot cities and coordinates locally. Extrusion heights use `render_height` with an 8 m fallback. The SoMa marker links to the separate synthetic corridor; it does not feed geometry into the simulator.
 
 ## Corridor and engine
 
@@ -33,8 +35,8 @@ The UI runs `searchPlans` with 1,500 candidates, then `robustRefine` with 15 ini
 
 `issuePermit` operates on internal stress summaries: any tested ratio above 1 suspends; otherwise nominal gain below 5% blocks; otherwise the state is ready for signature. Scenario toggles recompute stress tests and the permit synchronously. Outcomes are relative only to the assumed baseline.
 
-The JSON includes the plan, reasons, comparisons, synthetic-data assumptions, validity text, reversibility text and a mandatory human-signature statement. It does not authenticate users, record signatures, enforce expiration, monitor real evidence or transmit commands. Input summaries are trusted; malformed evidence is not validated. This is a demonstration rule boundary, not a production authorization boundary.
+The JSON includes the plan, reasons, comparisons, synthetic-data assumptions, validity text, reversibility text and a mandatory human-signature statement. It does not authenticate users, record signatures, enforce expiration, monitor real evidence or transmit commands. Phase 1 snapshots and validates the complete six-case evidence contract (model/twist dependencies, ordered case IDs, finite bounded metrics, consistent ratios/summaries and feasible plans). Invalid evidence returns a blocked envelope without a plan or gains. This does not authenticate externally fabricated evidence. This is a demonstration rule boundary, not a production authorization boundary.
 
 ## Verification
 
-`node build.js` assembles; `node --test test/*.test.js` checks assembly, parsing, reproducibility, bounded orchestration and permit states. Browser checks use a local HTTP server. No runtime dependencies were added in Phase 0. Retain the deterministic engine until a separate scoped change explicitly authorizes modifications.
+`node build.js` assembles; `node --test test/*.test.js` checks assembly, parsing, reproducibility, bounded orchestration and permit states. Browser checks use a local HTTP server. No runtime dependencies were added in Phase 0. Phase 1 explicitly authorized correctness hardening. Equations and valid decision thresholds were preserved; input guards, scenario isolation, bounded execution and cancellation were added. UI clears stale proposals on failure/cancel, throttles DOM updates and uses capped elapsed-time stepping. Terrain/navigation still triggers a MapLibre exception; see the partial report.
