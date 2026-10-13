@@ -95,3 +95,23 @@ The cross-domain synthesis recommends the coordinated intervention only when its
 ## D024 — Contradicting evidence lowers rank
 
 Trees under a public removal notice do not count towards ranking a cross-domain finding; the brief lists them as contradictions. This changed the discovery from Howard 8th–9th to Howard 10th–11th.
+
+## D025 — Agents are identities over executable tools, not simulated scale
+
+The registry holds 60 profiles: 16 are executable deterministic tools, 29 coordinate, 15 are unavailable with a stated data or tool gap. Roles are competency labels with an explicit no-credential disclaimer. Permissions are fixed per profile and checked before every tool call; profiles are frozen. Scale is supported by indexes and lazy activation (only recruited agents run, 3 at a time), not by generating inert records.
+
+## D026 — Missions recompute; managers coordinate without factual authority
+
+A mission's conclusion only aggregates specialist findings with citations. The mission gateway hashes the submitted content, recomputes the mission from its origin, verifies every evidence reference and rejects unvalidated model claims; corridor missions defer to `issueCityDecision`. Nothing is authorized or executed.
+
+## D027 — Official sources only; honest scheduling
+
+City Intelligence uses official public feeds and APIs (DataSF, USGS, NWS, Legistar, agency RSS) with per-source rate limits. Stale sources (Legistar API, SFPUC RSS) are shown as stale. Refresh runs only while the Node watch process or the browser app is running; no background scheduler is claimed. Civic items are metadata, classified by official status, never ranked; they never auto-trigger missions.
+
+## D028 — Local model optional, never authoritative
+
+`src/llm.js` defines local providers (Ollama, OpenAI-compatible) and a validator: every model sentence must cite findings and add no unsourced number. No runtime is installed on the founder's Mac, so no model runs; installing one requires the founder's approval.
+
+## D029 — Professional shell around a Tron-style map
+
+The application chrome uses neutral surfaces and IBM Plex typography with seven functional sections; the CORE/Tron visual language stays inside the 3D map. Camera controls add orbit, keyboard, reset and help; MapLibre remains target-centred (no roll or 6-DoF free flight).

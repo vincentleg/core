@@ -109,3 +109,11 @@ The same snapshot and parameters give the same events and fingerprint (FNV-1a, n
 - No individual-level social data.
 - No real-time feeds.
 - No automated action.
+
+## Phase 3 additions: organization, missions, continuous awareness
+
+- **Organization:** global → city manager → 28 departments → specialists → independent verification and governance (`src/org.js`). A profile is an identity with declared competencies, tools, permission and budget, not a running model. 16 profiles are executable; 15 are unavailable, each with its reason.
+- **Missions** (`src/missions.js`): a question or detected event gives domains; the manager recruits qualified executable agents; tasks run in a pool of 3 with timeouts, retries and cancellation. Findings are shared and typed, disagreements detected, the adversarial review runs, and every synthesis statement cites findings. The mission gateway recomputes everything and corridor missions consult `issueCityDecision`. A manager has no extra factual authority.
+- **Continuous awareness** (`src/feeds.js`, `scripts/city-feed.mjs`): 10 official sources run through verification, classification, geolocation, graph linking (`linkFeedItems`) and deduplicated mission suggestions. Refresh works only while a process or the app runs; no background scheduler exists.
+- **Knowledge** (`src/knowledge.js`): approved, versioned documents with freshness, confidence and limitations; contradiction detection; agents propose, humans approve.
+- **Models** (`src/llm.js`): a provider-independent local interface. Any model text must cite findings and add no unsourced numbers; deterministic tools and gateways stay authoritative. No provider runs today.

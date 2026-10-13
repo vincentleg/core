@@ -94,6 +94,19 @@
     return G;
   }
 
-  const GRAPH = { BASES, TYPES, createGraph, buildCityGraph };
+  // City Intelligence items become Event entities; links to corridor segments are observed (CNN field) or
+  // derived (distance). Items without coordinates stay unlinked: nothing is geolocated by guesswork.
+  function linkFeedItems(G, items, ctx, linkFn) {
+    let linked = 0;
+    for (const it of items) {
+      const id = `event:feed:${it.id}`;
+      G.addEntity(id, 'Event', { title: it.title, kind: it.kind, published: it.published, source: it.source, verification: it.verification.status }, { dataset: `feed:${it.source}`, record_id: it.id, url: it.url, retrieved_at: it.retrieved_at || null });
+      const l = linkFn(it, ctx);
+      if (l && G.entities.has(`segment:${l.segment}`)) { G.relate(/observed/.test(l.basis) ? 'LOCATED_IN' : 'NEAR', id, `segment:${l.segment}`, /observed/.test(l.basis) ? 'observed' : 'derived', `Élément de veille rattaché au tronçon (${l.basis}, ${l.distance_m} m).`, { distance_m: l.distance_m }); linked++; }
+    }
+    return linked;
+  }
+
+  const GRAPH = { BASES, TYPES, createGraph, buildCityGraph, linkFeedItems };
   if (typeof module !== 'undefined' && module.exports) module.exports = GRAPH; else root.CORE_GRAPH = GRAPH;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

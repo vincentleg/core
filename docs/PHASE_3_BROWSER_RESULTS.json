@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-13",
+  "server": "python3 -m http.server 8000 --bind 127.0.0.1",
+  "chrome": {
+    "browser": "Chrome 155 headless (CDP)",
+    "checks": 93,
+    "passed": 93,
+    "failed": 0,
+    "note": "audit aborts on first failed check; all checks completed",
+    "uncaughtErrors": 0
+  },
+  "firefox": {
+    "browser": "Firefox 122 headless (WebDriver BiDi)",
+    "checks": 93,
+    "passed": 93,
+    "failed": 0,
+    "note": "audit aborts on first failed check; all checks completed",
+    "uncaughtErrors": 0,
+    "handledNetworkMessages": 1
+  },
+  "chromeNegative": {
+    "browser": "Chrome 155 headless (CDP)",
+    "checks": 12,
+    "passed": 12,
+    "failed": 0,
+    "note": "audit aborts on first failed check; all checks completed"
+  },
+  "safari": "not performed (remote automation disabled; machine-wide setting not changed)",
+  "phase3Checks": [
+    "mission cancellation works",
+    "decisions view lists gateway outcomes without authorizations",
+    "data view shows verified snapshots, knowledge and contradictions",
+    "simulation view marks unavailable models",
+    "360° orbit rotates the camera continuously",
+    "a user gesture stops the orbit",
+    "keyboard rotation (E)",
+    "reset view returns north-up",
+    "navigation help documents trackpad, keyboard and 6-DoF limits",
+    "mobile map fits viewport",
+    "mobile corridor fits viewport",
+    "cancel blocks permit and restores controls",
+    "full agents generate ready proposal",
+    "concert suspends permit",
+    "removing concert restores ready state",
+    "roadwork dependency follows scenario",
+    "pause holds simulated traffic",
+    "plan comparison controls",
+    "failed run blocks stale permit and recovers UI",
+    "no uncaught JavaScript errors"
+  ],
+  "firefoxMatchesChrome": true
+}

@@ -1,0 +1,2025 @@
+{
+ "version": "core-agent-registry-v1",
+ "city": {
+  "id": "san-francisco",
+  "name": "San Francisco",
+  "scope": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+ },
+ "departments": [
+  {
+   "id": "architecture",
+   "name": "Architecture et design urbain",
+   "domains": [
+    "buildings",
+    "public_space"
+   ]
+  },
+  {
+   "id": "civil",
+   "name": "Génie civil",
+   "domains": [
+    "infrastructure"
+   ]
+  },
+  {
+   "id": "electrical",
+   "name": "Génie électrique",
+   "domains": [
+    "energy",
+    "infrastructure"
+   ]
+  },
+  {
+   "id": "energy",
+   "name": "Systèmes énergétiques",
+   "domains": [
+    "energy"
+   ]
+  },
+  {
+   "id": "building-systems",
+   "name": "Systèmes du bâtiment",
+   "domains": [
+    "buildings",
+    "energy"
+   ]
+  },
+  {
+   "id": "mechanical",
+   "name": "Génie mécanique",
+   "domains": [
+    "buildings"
+   ]
+  },
+  {
+   "id": "water",
+   "name": "Eau et assainissement",
+   "domains": [
+    "infrastructure"
+   ]
+  },
+  {
+   "id": "mobility",
+   "name": "Transports et mobilité",
+   "domains": [
+    "infrastructure",
+    "events",
+    "mobility"
+   ]
+  },
+  {
+   "id": "transit",
+   "name": "Transports publics",
+   "domains": [
+    "infrastructure",
+    "mobility"
+   ]
+  },
+  {
+   "id": "ecology",
+   "name": "Écologie et biodiversité",
+   "domains": [
+    "nature"
+   ]
+  },
+  {
+   "id": "forestry",
+   "name": "Foresterie urbaine",
+   "domains": [
+    "nature"
+   ]
+  },
+  {
+   "id": "environmental",
+   "name": "Génie environnemental",
+   "domains": [
+    "nature",
+    "climate"
+   ]
+  },
+  {
+   "id": "climate",
+   "name": "Climat et résilience",
+   "domains": [
+    "events",
+    "nature",
+    "climate",
+    "emergency"
+   ]
+  },
+  {
+   "id": "geotech",
+   "name": "Géologie et géotechnique",
+   "domains": [
+    "infrastructure",
+    "emergency"
+   ]
+  },
+  {
+   "id": "housing",
+   "name": "Logement et usage des sols",
+   "domains": [
+    "buildings"
+   ]
+  },
+  {
+   "id": "health",
+   "name": "Santé publique",
+   "domains": [
+    "society",
+    "health"
+   ]
+  },
+  {
+   "id": "economics",
+   "name": "Économie et finances",
+   "domains": [
+    "society",
+    "economy"
+   ]
+  },
+  {
+   "id": "administration",
+   "name": "Administration publique",
+   "domains": [
+    "events",
+    "administration"
+   ]
+  },
+  {
+   "id": "regulatory",
+   "name": "Recherche réglementaire et juridique",
+   "domains": [
+    "events",
+    "administration"
+   ]
+  },
+  {
+   "id": "social",
+   "name": "Sciences sociales et impacts communautaires",
+   "domains": [
+    "society",
+    "culture"
+   ]
+  },
+  {
+   "id": "public-space",
+   "name": "Espace public et accessibilité",
+   "domains": [
+    "public_space"
+   ]
+  },
+  {
+   "id": "digital",
+   "name": "Infrastructures numériques",
+   "domains": [
+    "infrastructure"
+   ]
+  },
+  {
+   "id": "telecom",
+   "name": "Télécommunications",
+   "domains": [
+    "infrastructure"
+   ]
+  },
+  {
+   "id": "cybersecurity",
+   "name": "Cybersécurité",
+   "domains": [
+    "infrastructure"
+   ]
+  },
+  {
+   "id": "data-science",
+   "name": "Science des données",
+   "domains": []
+  },
+  {
+   "id": "simulation",
+   "name": "Simulation et modélisation",
+   "domains": []
+  },
+  {
+   "id": "research",
+   "name": "Recherche et vérification des preuves",
+   "domains": []
+  },
+  {
+   "id": "safety",
+   "name": "Sûreté et revue adversariale",
+   "domains": []
+  }
+ ],
+ "agents": [
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.global.coordinator",
+   "scope": {
+    "level": "global"
+   },
+   "department": null,
+   "role": "Coordination globale CORE",
+   "specialization": "Routage des villes et politiques communes",
+   "competencies": [],
+   "knowledge": [
+    "k-neutrality",
+    "k-provenance"
+   ],
+   "tools": [],
+   "permission": "govern",
+   "supervisor": null,
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.manager",
+   "scope": {
+    "level": "city",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": null,
+   "role": "Coordination de la ville — San Francisco",
+   "specialization": "Planification de missions, recrutement, synthèse (sans autorité factuelle supérieure)",
+   "competencies": [
+    {
+     "id": "mission-planning",
+     "basis": "declared"
+    }
+   ],
+   "knowledge": [
+    "k-neutrality",
+    "k-provenance"
+   ],
+   "tools": [
+    "mission.plan"
+   ],
+   "permission": "propose",
+   "supervisor": "core.global.coordinator",
+   "executionMode": "deterministic",
+   "status": "available"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.architecture.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "architecture",
+   "role": "Direction — Architecture et design urbain",
+   "specialization": "Coordination du département ; domaines buildings, public_space",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.civil.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "civil",
+   "role": "Direction — Génie civil",
+   "specialization": "Coordination du département ; domaines infrastructure",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.electrical.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "electrical",
+   "role": "Direction — Génie électrique",
+   "specialization": "Coordination du département ; domaines energy, infrastructure",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.energy.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "energy",
+   "role": "Direction — Systèmes énergétiques",
+   "specialization": "Coordination du département ; domaines energy",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.building-systems.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "building-systems",
+   "role": "Direction — Systèmes du bâtiment",
+   "specialization": "Coordination du département ; domaines buildings, energy",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.mechanical.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "mechanical",
+   "role": "Direction — Génie mécanique",
+   "specialization": "Coordination du département ; domaines buildings",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.water.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "water",
+   "role": "Direction — Eau et assainissement",
+   "specialization": "Coordination du département ; domaines infrastructure",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.mobility.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "mobility",
+   "role": "Direction — Transports et mobilité",
+   "specialization": "Coordination du département ; domaines infrastructure, events, mobility",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.transit.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "transit",
+   "role": "Direction — Transports publics",
+   "specialization": "Coordination du département ; domaines infrastructure, mobility",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.ecology.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "ecology",
+   "role": "Direction — Écologie et biodiversité",
+   "specialization": "Coordination du département ; domaines nature",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.forestry.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "forestry",
+   "role": "Direction — Foresterie urbaine",
+   "specialization": "Coordination du département ; domaines nature",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.environmental.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "environmental",
+   "role": "Direction — Génie environnemental",
+   "specialization": "Coordination du département ; domaines nature, climate",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.climate.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "climate",
+   "role": "Direction — Climat et résilience",
+   "specialization": "Coordination du département ; domaines events, nature, climate, emergency",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.geotech.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "geotech",
+   "role": "Direction — Géologie et géotechnique",
+   "specialization": "Coordination du département ; domaines infrastructure, emergency",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.housing.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "housing",
+   "role": "Direction — Logement et usage des sols",
+   "specialization": "Coordination du département ; domaines buildings",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.health.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "health",
+   "role": "Direction — Santé publique",
+   "specialization": "Coordination du département ; domaines society, health",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.economics.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "economics",
+   "role": "Direction — Économie et finances",
+   "specialization": "Coordination du département ; domaines society, economy",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.administration.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "administration",
+   "role": "Direction — Administration publique",
+   "specialization": "Coordination du département ; domaines events, administration",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.regulatory.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "regulatory",
+   "role": "Direction — Recherche réglementaire et juridique",
+   "specialization": "Coordination du département ; domaines events, administration",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.social.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "social",
+   "role": "Direction — Sciences sociales et impacts communautaires",
+   "specialization": "Coordination du département ; domaines society, culture",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.public-space.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "public-space",
+   "role": "Direction — Espace public et accessibilité",
+   "specialization": "Coordination du département ; domaines public_space",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.digital.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "digital",
+   "role": "Direction — Infrastructures numériques",
+   "specialization": "Coordination du département ; domaines infrastructure",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.telecom.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "telecom",
+   "role": "Direction — Télécommunications",
+   "specialization": "Coordination du département ; domaines infrastructure",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.cybersecurity.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "cybersecurity",
+   "role": "Direction — Cybersécurité",
+   "specialization": "Coordination du département ; domaines infrastructure",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.data-science.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "data-science",
+   "role": "Direction — Science des données",
+   "specialization": "Coordination du département ; domaines transverses",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.simulation.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "simulation",
+   "role": "Direction — Simulation et modélisation",
+   "specialization": "Coordination du département ; domaines transverses",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.research.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "research",
+   "role": "Direction — Recherche et vérification des preuves",
+   "specialization": "Coordination du département ; domaines transverses",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.safety.lead",
+   "scope": {
+    "level": "department",
+    "city": "san-francisco"
+   },
+   "department": "safety",
+   "role": "Direction — Sûreté et revue adversariale",
+   "specialization": "Coordination du département ; domaines transverses",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "propose",
+   "supervisor": "core.san-francisco.manager",
+   "executionMode": "coordination-only",
+   "status": "registered"
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.civil.works-coordination",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "civil",
+   "role": "Analyste de coordination des travaux de voirie",
+   "specialization": "Fenêtres de permis d’excavation, chevauchements, contraintes de planification",
+   "competencies": [
+    {
+     "id": "works.windows",
+     "basis": "declared"
+    }
+   ],
+   "knowledge": [
+    "k-street-use-permits",
+    "k-coordination-method"
+   ],
+   "tools": [
+    "works.windows"
+   ],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.civil.lead",
+   "executionMode": "deterministic",
+   "status": "available",
+   "independent": false,
+   "gap": null
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.telecom.telecom-works",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "telecom",
+   "role": "Analyste des travaux de télécommunications",
+   "specialization": "Permis d’opérateurs télécoms sur la voirie (classement déclaré des titulaires)",
+   "competencies": [
+    {
+     "id": "works.telecom",
+     "basis": "declared"
+    }
+   ],
+   "knowledge": [
+    "k-street-use-permits"
+   ],
+   "tools": [
+    "works.telecom"
+   ],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.telecom.lead",
+   "executionMode": "deterministic",
+   "status": "available",
+   "independent": false,
+   "gap": null
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.forestry.street-trees",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "forestry",
+   "role": "Spécialiste des arbres d’alignement",
+   "specialization": "Inventaire des arbres, avis d’abattage, proximité des travaux",
+   "competencies": [
+    {
+     "id": "trees.near-works",
+     "basis": "declared"
+    }
+   ],
+   "knowledge": [
+    "k-street-trees",
+    "k-tree-removals",
+    "k-proximity-indicator"
+   ],
+   "tools": [
+    "trees.near-works"
+   ],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.forestry.lead",
+   "executionMode": "deterministic",
+   "status": "available",
+   "independent": false,
+   "gap": null
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.housing.building-permits",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "housing",
+   "role": "Analyste des permis de construire",
+   "specialization": "Activité DBI au front des tronçons ; limites du statut « issued »",
+   "competencies": [
+    {
+     "id": "buildings.frontage",
+     "basis": "declared"
+    }
+   ],
+   "knowledge": [
+    "k-building-permits",
+    "k-dbi-issued-status"
+   ],
+   "tools": [
+    "buildings.frontage"
+   ],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.housing.lead",
+   "executionMode": "deterministic",
+   "status": "available",
+   "independent": false,
+   "gap": null
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.energy.energy-benchmarks",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "energy",
+   "role": "Analyste des bilans énergétiques déclarés",
+   "specialization": "Rapports de l’ordonnance sur la performance énergétique des bâtiments existants",
+   "competencies": [
+    {
+     "id": "energy.benchmarks",
+     "basis": "declared"
+    }
+   ],
+   "knowledge": [
+    "k-energy-ordinance"
+   ],
+   "tools": [
+    "energy.benchmarks"
+   ],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.energy.lead",
+   "executionMode": "deterministic",
+   "status": "available",
+   "independent": false,
+   "gap": null
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.public-space.sidewalks",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "public-space",
+   "role": "Analyste espace public et trottoirs",
+   "specialization": "Largeurs de trottoir (étude 2014), parcs proches",
+   "competencies": [
+    {
+     "id": "public-space.sidewalks",
+     "basis": "declared"
+    }
+   ],
+   "knowledge": [
+    "k-sidewalk-widths"
+   ],
+   "tools": [
+    "public-space.sidewalks"
+   ],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.public-space.lead",
+   "executionMode": "deterministic",
+   "status": "available",
+   "independent": false,
+   "gap": null
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.climate.seismic-context",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "climate",
+   "role": "Analyste du contexte sismique",
+   "specialization": "Séismes USGS proches et actifs du corridor (sans données structurelles)",
+   "competencies": [
+    {
+     "id": "resilience.quake-context",
+     "basis": "declared"
+    }
+   ],
+   "knowledge": [
+    "k-usgs-feed",
+    "k-no-structural-data"
+   ],
+   "tools": [
+    "resilience.quake-context"
+   ],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.climate.lead",
+   "executionMode": "deterministic",
+   "status": "available",
+   "independent": false,
+   "gap": null
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.climate.weather-alerts",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "climate",
+   "role": "Analyste des alertes météorologiques",
+   "specialization": "Alertes NWS actives pour San Francisco (prévisions, non observations)",
+   "competencies": [
+    {
+     "id": "resilience.weather-alerts",
+     "basis": "declared"
+    }
+   ],
+   "knowledge": [
+    "k-nws-alerts"
+   ],
+   "tools": [
+    "resilience.weather-alerts"
+   ],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.climate.lead",
+   "executionMode": "deterministic",
+   "status": "available",
+   "independent": false,
+   "gap": null
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.administration.civic-records",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "administration",
+   "role": "Analyste des dossiers municipaux",
+   "specialization": "Législation du Board of Supervisors (Legistar) : type, statut, dates, sans jugement politique",
+   "competencies": [
+    {
+     "id": "civic.legislation",
+     "basis": "declared"
+    }
+   ],
+   "knowledge": [
+    "k-legistar",
+    "k-neutrality"
+   ],
+   "tools": [
+    "civic.legislation"
+   ],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.administration.lead",
+   "executionMode": "deterministic",
+   "status": "available",
+   "independent": false,
+   "gap": null
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.data-science.graph-linker",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "data-science",
+   "role": "Analyste de liaison du graphe",
+   "specialization": "Géolocalisation des évènements et liaison au graphe de connaissances",
+   "competencies": [
+    {
+     "id": "graph.link",
+     "basis": "declared"
+    }
+   ],
+   "knowledge": [
+    "k-graph-bases"
+   ],
+   "tools": [
+    "graph.link"
+   ],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.data-science.lead",
+   "executionMode": "deterministic",
+   "status": "available",
+   "independent": false,
+   "gap": null
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.simulation.scenario-evaluator",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "simulation",
+   "role": "Évaluateur de scénarios",
+   "specialization": "Investigation inter-domaines déterministe et alternatives R0–R2",
+   "competencies": [
+    {
+     "id": "scenario.investigate",
+     "basis": "declared"
+    }
+   ],
+   "knowledge": [
+    "k-coordination-method",
+    "k-proximity-indicator"
+   ],
+   "tools": [
+    "scenario.investigate"
+   ],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.simulation.lead",
+   "executionMode": "deterministic",
+   "status": "available",
+   "independent": false,
+   "gap": null
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.regulatory.knowledge-research",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "regulatory",
+   "role": "Chargé de recherche documentaire",
+   "specialization": "Recherche dans la bibliothèque de connaissances approuvée",
+   "competencies": [
+    {
+     "id": "knowledge.retrieve",
+     "basis": "declared"
+    }
+   ],
+   "knowledge": [
+    "k-coordination-method",
+    "k-neutrality"
+   ],
+   "tools": [
+    "knowledge.retrieve"
+   ],
+   "permission": "read",
+   "supervisor": "core.san-francisco.regulatory.lead",
+   "executionMode": "deterministic",
+   "status": "available",
+   "independent": false,
+   "gap": null
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.research.evidence-verifier",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "research",
+   "role": "Vérificateur de preuves",
+   "specialization": "Sommes SHA-256, existence des enregistrements, dates, statut des sources",
+   "competencies": [
+    {
+     "id": "evidence.verify",
+     "basis": "declared"
+    }
+   ],
+   "knowledge": [
+    "k-provenance"
+   ],
+   "tools": [
+    "evidence.verify"
+   ],
+   "permission": "review",
+   "supervisor": "core.san-francisco.research.lead",
+   "executionMode": "deterministic",
+   "status": "available",
+   "independent": true,
+   "gap": null
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.safety.adversarial-reviewer",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "safety",
+   "role": "Réviseur adversarial",
+   "specialization": "Désaccords, sensibilités, preuves manquantes",
+   "competencies": [
+    {
+     "id": "adversarial.review",
+     "basis": "declared"
+    }
+   ],
+   "knowledge": [
+    "k-proximity-indicator",
+    "k-dbi-issued-status"
+   ],
+   "tools": [
+    "adversarial.review"
+   ],
+   "permission": "review",
+   "supervisor": "core.san-francisco.safety.lead",
+   "executionMode": "deterministic",
+   "status": "available",
+   "independent": true,
+   "gap": null
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.geotech.geotechnical",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "geotech",
+   "role": "Ingénieur géotechnique (compétence visée)",
+   "specialization": "Sols, liquéfaction",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.geotech.lead",
+   "executionMode": "unavailable",
+   "status": "unavailable",
+   "independent": false,
+   "gap": "Aucune donnée de sol ou de sous-sol intégrée."
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.electrical.grid",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "electrical",
+   "role": "Ingénieur réseau électrique (compétence visée)",
+   "specialization": "Réseau de distribution",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.electrical.lead",
+   "executionMode": "unavailable",
+   "status": "unavailable",
+   "independent": false,
+   "gap": "Aucune donnée de réseau électrique publique intégrée."
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.water.water-network",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "water",
+   "role": "Ingénieur réseaux d’eau (compétence visée)",
+   "specialization": "Eau potable, assainissement",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.water.lead",
+   "executionMode": "unavailable",
+   "status": "unavailable",
+   "independent": false,
+   "gap": "Aucune donnée de réseau d’eau intégrée."
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.transit.transit-planner",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "transit",
+   "role": "Planificateur de transports publics (compétence visée)",
+   "specialization": "Lignes Muni",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.transit.lead",
+   "executionMode": "unavailable",
+   "status": "unavailable",
+   "independent": false,
+   "gap": "GTFS non intégré."
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.mobility.traffic",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "mobility",
+   "role": "Ingénieur trafic (compétence visée)",
+   "specialization": "Flux et feux",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.mobility.lead",
+   "executionMode": "unavailable",
+   "status": "unavailable",
+   "independent": false,
+   "gap": "Pas de comptages ni de plans de feux observés."
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.ecology.biodiversity",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "ecology",
+   "role": "Écologue (compétence visée)",
+   "specialization": "Biodiversité",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.ecology.lead",
+   "executionMode": "unavailable",
+   "status": "unavailable",
+   "independent": false,
+   "gap": "Aucune donnée de biodiversité intégrée."
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.environmental.air-quality",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "environmental",
+   "role": "Analyste qualité de l’air (compétence visée)",
+   "specialization": "Exposition aux polluants",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.environmental.lead",
+   "executionMode": "unavailable",
+   "status": "unavailable",
+   "independent": false,
+   "gap": "APEZ identifié mais non intégré ; aucune mesure."
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.architecture.urban-design",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "architecture",
+   "role": "Urbaniste-concepteur (compétence visée)",
+   "specialization": "Formes urbaines",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.architecture.lead",
+   "executionMode": "unavailable",
+   "status": "unavailable",
+   "independent": false,
+   "gap": "Pas d’outil de conception."
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.mechanical.mechanical-systems",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "mechanical",
+   "role": "Ingénieur mécanique (compétence visée)",
+   "specialization": "CVC",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.mechanical.lead",
+   "executionMode": "unavailable",
+   "status": "unavailable",
+   "independent": false,
+   "gap": "Aucune donnée d’équipements."
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.building-systems.building-systems-eng",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "building-systems",
+   "role": "Ingénieur systèmes du bâtiment (compétence visée)",
+   "specialization": "Enveloppe, systèmes",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.building-systems.lead",
+   "executionMode": "unavailable",
+   "status": "unavailable",
+   "independent": false,
+   "gap": "Seuls les bilans déclarés sont disponibles."
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.health.public-health",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "health",
+   "role": "Analyste santé publique (compétence visée)",
+   "specialization": "Indicateurs environnementaux de santé",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.health.lead",
+   "executionMode": "unavailable",
+   "status": "unavailable",
+   "independent": false,
+   "gap": "Aucun indicateur agrégé intégré."
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.economics.economist",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "economics",
+   "role": "Économiste urbain (compétence visée)",
+   "specialization": "Coûts, financement",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.economics.lead",
+   "executionMode": "unavailable",
+   "status": "unavailable",
+   "independent": false,
+   "gap": "Aucune donnée de coût ; aucune estimation produite."
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.social.community-impacts",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "social",
+   "role": "Analyste des impacts communautaires (compétence visée)",
+   "specialization": "Équité, données agrégées",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.social.lead",
+   "executionMode": "unavailable",
+   "status": "unavailable",
+   "independent": false,
+   "gap": "Aucune donnée sociale intégrée ; jamais de données individuelles."
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.digital.digital-infra",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "digital",
+   "role": "Analyste infrastructures numériques (compétence visée)",
+   "specialization": "Réseaux numériques",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.digital.lead",
+   "executionMode": "unavailable",
+   "status": "unavailable",
+   "independent": false,
+   "gap": "Aucune donnée intégrée."
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.cybersecurity.cyber",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "cybersecurity",
+   "role": "Analyste cybersécurité (compétence visée)",
+   "specialization": "Sécurité des systèmes",
+   "competencies": [],
+   "knowledge": [],
+   "tools": [],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.cybersecurity.lead",
+   "executionMode": "unavailable",
+   "status": "unavailable",
+   "independent": false,
+   "gap": "Hors périmètre des données publiques actuelles."
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.governance.gateway",
+   "scope": {
+    "level": "governance",
+    "city": "san-francisco"
+   },
+   "department": "safety",
+   "role": "Passerelle de décision (gouvernance indépendante)",
+   "specialization": "Recalcul déterministe, échec fermé, revue humaine obligatoire",
+   "competencies": [],
+   "knowledge": [
+    "k-provenance"
+   ],
+   "tools": [
+    "decision.gateway"
+   ],
+   "permission": "govern",
+   "supervisor": null,
+   "executionMode": "deterministic",
+   "status": "available",
+   "independent": true
+  }
+ ],
+ "generated_at": "2026-10-13T22:49:51.036Z",
+ "counts": {
+  "registered": 60,
+  "executable": 16,
+  "coordinationOnly": 29,
+  "unavailable": 15,
+  "departments": 28,
+  "llm": 0
+ }
+}

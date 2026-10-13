@@ -1,0 +1,1635 @@
+{
+ "id": "mission:c594c2dba81f",
+ "version": "core-mission-v1",
+ "origin": {
+  "type": "suggestion",
+  "suggestion": {
+   "key": "corridor:7037000",
+   "type": "corridor-change",
+   "segment": "7037000",
+   "reason": "Permis de construire 202609228481 — 201 03rd St — proposal rattaché à HOWARD ST HAWTHORNE ST → 03RD ST (derived (≤ 60 m)).",
+   "item": "datasf-building:202609228481",
+   "created": "2026-10-13T22:48:34.222Z"
+  }
+ },
+ "state": "needs-evidence",
+ "target": {
+  "type": "corridor-change",
+  "segment": "7037000",
+  "item": "datasf-building:202609228481",
+  "question": "Que change « Permis de construire 202609228481 — 201 03rd St » pour HOWARD ST HAWTHORNE ST → 03RD ST ?",
+  "domains": [
+   "buildings"
+  ]
+ },
+ "plan": {
+  "domains": [
+   "buildings",
+   "energy",
+   "infrastructure",
+   "nature",
+   "public_space"
+  ],
+  "manager": "core.san-francisco.manager",
+  "specialists": [
+   {
+    "tool": "works.windows",
+    "agent": "core.san-francisco.civil.works-coordination"
+   },
+   {
+    "tool": "works.telecom",
+    "agent": "core.san-francisco.telecom.telecom-works"
+   },
+   {
+    "tool": "trees.near-works",
+    "agent": "core.san-francisco.forestry.street-trees"
+   },
+   {
+    "tool": "buildings.frontage",
+    "agent": "core.san-francisco.housing.building-permits"
+   },
+   {
+    "tool": "energy.benchmarks",
+    "agent": "core.san-francisco.energy.energy-benchmarks"
+   },
+   {
+    "tool": "public-space.sidewalks",
+    "agent": "core.san-francisco.public-space.sidewalks"
+   },
+   {
+    "tool": "resilience.weather-alerts",
+    "agent": "core.san-francisco.climate.weather-alerts"
+   },
+   {
+    "tool": "graph.link",
+    "agent": "core.san-francisco.data-science.graph-linker"
+   },
+   {
+    "tool": "scenario.investigate",
+    "agent": "core.san-francisco.simulation.scenario-evaluator"
+   },
+   {
+    "tool": "knowledge.retrieve",
+    "agent": "core.san-francisco.regulatory.knowledge-research"
+   }
+  ],
+  "verifier": "core.san-francisco.research.evidence-verifier",
+  "reviewer": "core.san-francisco.safety.adversarial-reviewer",
+  "gateway": "core.san-francisco.governance.gateway",
+  "unavailable": [
+   {
+    "agent": "core.san-francisco.geotech.geotechnical",
+    "role": "Ingénieur géotechnique (compétence visée)",
+    "gap": "Aucune donnée de sol ou de sous-sol intégrée."
+   },
+   {
+    "agent": "core.san-francisco.electrical.grid",
+    "role": "Ingénieur réseau électrique (compétence visée)",
+    "gap": "Aucune donnée de réseau électrique publique intégrée."
+   },
+   {
+    "agent": "core.san-francisco.water.water-network",
+    "role": "Ingénieur réseaux d’eau (compétence visée)",
+    "gap": "Aucune donnée de réseau d’eau intégrée."
+   },
+   {
+    "agent": "core.san-francisco.transit.transit-planner",
+    "role": "Planificateur de transports publics (compétence visée)",
+    "gap": "GTFS non intégré."
+   },
+   {
+    "agent": "core.san-francisco.mobility.traffic",
+    "role": "Ingénieur trafic (compétence visée)",
+    "gap": "Pas de comptages ni de plans de feux observés."
+   },
+   {
+    "agent": "core.san-francisco.ecology.biodiversity",
+    "role": "Écologue (compétence visée)",
+    "gap": "Aucune donnée de biodiversité intégrée."
+   },
+   {
+    "agent": "core.san-francisco.environmental.air-quality",
+    "role": "Analyste qualité de l’air (compétence visée)",
+    "gap": "APEZ identifié mais non intégré ; aucune mesure."
+   },
+   {
+    "agent": "core.san-francisco.architecture.urban-design",
+    "role": "Urbaniste-concepteur (compétence visée)",
+    "gap": "Pas d’outil de conception."
+   },
+   {
+    "agent": "core.san-francisco.mechanical.mechanical-systems",
+    "role": "Ingénieur mécanique (compétence visée)",
+    "gap": "Aucune donnée d’équipements."
+   },
+   {
+    "agent": "core.san-francisco.building-systems.building-systems-eng",
+    "role": "Ingénieur systèmes du bâtiment (compétence visée)",
+    "gap": "Seuls les bilans déclarés sont disponibles."
+   },
+   {
+    "agent": "core.san-francisco.digital.digital-infra",
+    "role": "Analyste infrastructures numériques (compétence visée)",
+    "gap": "Aucune donnée intégrée."
+   },
+   {
+    "agent": "core.san-francisco.cybersecurity.cyber",
+    "role": "Analyste cybersécurité (compétence visée)",
+    "gap": "Hors périmètre des données publiques actuelles."
+   }
+  ]
+ },
+ "tasks": [
+  {
+   "id": "task-1",
+   "agent": "core.san-francisco.civil.works-coordination",
+   "tool": "works.windows",
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 1,
+   "records": 13,
+   "error": null,
+   "findings": [
+    {
+     "topic": "works",
+     "claim": "1 fenêtre(s) d’excavation en cours ou à venir sur HOWARD ST HAWTHORNE ST → 03RD ST (Esquivel Grading & Paving, Inc.).",
+     "epistemic": "observed",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:25EXC-05123@7037000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      }
+     ],
+     "value": 1,
+     "agent": "core.san-francisco.civil.works-coordination",
+     "tool": "works.windows"
+    },
+    {
+     "topic": "works-overlap",
+     "claim": "0 chevauchement(s) entre organisations dans les 60 j.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "dataset",
+       "ref": "permits",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      }
+     ],
+     "value": 0,
+     "agent": "core.san-francisco.civil.works-coordination",
+     "tool": "works.windows"
+    }
+   ],
+   "extra": {
+    "brief": null,
+    "decision": null
+   }
+  },
+  {
+   "id": "task-2",
+   "agent": "core.san-francisco.telecom.telecom-works",
+   "tool": "works.telecom",
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 1,
+   "records": 1,
+   "error": null,
+   "findings": [
+    {
+     "topic": "telecom",
+     "claim": "0 fenêtre(s) de titulaires classés télécoms (classement déclaré par nom) : aucune.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "dataset",
+       "ref": "permits",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      }
+     ],
+     "value": 0,
+     "agent": "core.san-francisco.telecom.telecom-works",
+     "tool": "works.telecom"
+    }
+   ],
+   "extra": {
+    "brief": null,
+    "decision": null
+   }
+  },
+  {
+   "id": "task-3",
+   "agent": "core.san-francisco.forestry.street-trees",
+   "tool": "trees.near-works",
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 9,
+   "records": 19,
+   "error": null,
+   "findings": [
+    {
+     "topic": "trees",
+     "claim": "19 arbre(s) inventorié(s) sur le tronçon ; 0 à ≤ 12 m d’un point de permis d’excavation (indicateur de proximité).",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "dataset",
+       "ref": "street-trees",
+       "url": "https://data.sf.gov/d/tkzw-k3nq"
+      }
+     ],
+     "value": 0,
+     "agent": "core.san-francisco.forestry.street-trees",
+     "tool": "trees.near-works"
+    }
+   ],
+   "extra": {
+    "brief": null,
+    "decision": null
+   }
+  },
+  {
+   "id": "task-4",
+   "agent": "core.san-francisco.housing.building-permits",
+   "tool": "buildings.frontage",
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 18,
+   "records": 71,
+   "error": null,
+   "findings": [
+    {
+     "topic": "buildings",
+     "claim": "11 permis de construire récent(s) (≤ 365 j) au front du tronçon ; 71 au total.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "building-permits",
+       "ref": "building-permits:202609228481",
+       "url": "https://data.sf.gov/d/i98e-djp9"
+      },
+      {
+       "type": "record",
+       "dataset": "building-permits",
+       "ref": "building-permits:202605070874",
+       "url": "https://data.sf.gov/d/i98e-djp9"
+      },
+      {
+       "type": "record",
+       "dataset": "building-permits",
+       "ref": "building-permits:202602236339",
+       "url": "https://data.sf.gov/d/i98e-djp9"
+      },
+      {
+       "type": "record",
+       "dataset": "building-permits",
+       "ref": "building-permits:202602236335",
+       "url": "https://data.sf.gov/d/i98e-djp9"
+      },
+      {
+       "type": "record",
+       "dataset": "building-permits",
+       "ref": "building-permits:202602125857",
+       "url": "https://data.sf.gov/d/i98e-djp9"
+      },
+      {
+       "type": "record",
+       "dataset": "building-permits",
+       "ref": "building-permits:202602115703",
+       "url": "https://data.sf.gov/d/i98e-djp9"
+      },
+      {
+       "type": "record",
+       "dataset": "building-permits",
+       "ref": "building-permits:202601204115",
+       "url": "https://data.sf.gov/d/i98e-djp9"
+      },
+      {
+       "type": "record",
+       "dataset": "building-permits",
+       "ref": "building-permits:202512121672",
+       "url": "https://data.sf.gov/d/i98e-djp9"
+      },
+      {
+       "type": "record",
+       "dataset": "building-permits",
+       "ref": "building-permits:202511260534",
+       "url": "https://data.sf.gov/d/i98e-djp9"
+      },
+      {
+       "type": "record",
+       "dataset": "building-permits",
+       "ref": "building-permits:202511260530",
+       "url": "https://data.sf.gov/d/i98e-djp9"
+      },
+      {
+       "type": "record",
+       "dataset": "building-permits",
+       "ref": "building-permits:202511250428",
+       "url": "https://data.sf.gov/d/i98e-djp9"
+      }
+     ],
+     "value": 11,
+     "agent": "core.san-francisco.housing.building-permits",
+     "tool": "buildings.frontage"
+    },
+    {
+     "topic": "buildings",
+     "claim": "3 semblent intérieurs ou d’enseigne : lien avec le trottoir incertain.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "building-permits",
+       "ref": "building-permits:202609228481",
+       "url": "https://data.sf.gov/d/i98e-djp9"
+      },
+      {
+       "type": "record",
+       "dataset": "building-permits",
+       "ref": "building-permits:202602236335",
+       "url": "https://data.sf.gov/d/i98e-djp9"
+      },
+      {
+       "type": "record",
+       "dataset": "building-permits",
+       "ref": "building-permits:202512121672",
+       "url": "https://data.sf.gov/d/i98e-djp9"
+      }
+     ],
+     "value": 3,
+     "contradicts": "buildings",
+     "agent": "core.san-francisco.housing.building-permits",
+     "tool": "buildings.frontage"
+    },
+    {
+     "topic": "buildings",
+     "claim": "Le statut DBI « issued » n’indique pas un chantier en cours (connaissance approuvée k-dbi-issued-status).",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "knowledge",
+       "ref": "k-dbi-issued-status"
+      }
+     ],
+     "agent": "core.san-francisco.housing.building-permits",
+     "tool": "buildings.frontage"
+    }
+   ],
+   "extra": {
+    "brief": null,
+    "decision": null
+   }
+  },
+  {
+   "id": "task-5",
+   "agent": "core.san-francisco.energy.energy-benchmarks",
+   "tool": "energy.benchmarks",
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 27,
+   "records": 8,
+   "error": null,
+   "findings": [
+    {
+     "topic": "energy",
+     "claim": "8 bâtiment(s) avec bilan énergétique déclaré à proximité (contexte ; aucun modèle d’économie).",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "energy-benchmarks",
+       "ref": "energy-benchmarks:3722/014@2025",
+       "url": "https://data.sf.gov/d/96ck-qcfe"
+      },
+      {
+       "type": "record",
+       "dataset": "energy-benchmarks",
+       "ref": "energy-benchmarks:3722/081@2025",
+       "url": "https://data.sf.gov/d/96ck-qcfe"
+      },
+      {
+       "type": "record",
+       "dataset": "energy-benchmarks",
+       "ref": "energy-benchmarks:3735/059@2025",
+       "url": "https://data.sf.gov/d/96ck-qcfe"
+      },
+      {
+       "type": "record",
+       "dataset": "energy-benchmarks",
+       "ref": "energy-benchmarks:3735/050@2025",
+       "url": "https://data.sf.gov/d/96ck-qcfe"
+      },
+      {
+       "type": "record",
+       "dataset": "energy-benchmarks",
+       "ref": "energy-benchmarks:3722/022@2025",
+       "url": "https://data.sf.gov/d/96ck-qcfe"
+      },
+      {
+       "type": "record",
+       "dataset": "energy-benchmarks",
+       "ref": "energy-benchmarks:3735/041@2025",
+       "url": "https://data.sf.gov/d/96ck-qcfe"
+      },
+      {
+       "type": "record",
+       "dataset": "energy-benchmarks",
+       "ref": "energy-benchmarks:3735/040@2025",
+       "url": "https://data.sf.gov/d/96ck-qcfe"
+      },
+      {
+       "type": "record",
+       "dataset": "energy-benchmarks",
+       "ref": "energy-benchmarks:3735A/001@2025",
+       "url": "https://data.sf.gov/d/96ck-qcfe"
+      }
+     ],
+     "value": 8,
+     "agent": "core.san-francisco.energy.energy-benchmarks",
+     "tool": "energy.benchmarks"
+    }
+   ],
+   "extra": {
+    "brief": null,
+    "decision": null
+   }
+  },
+  {
+   "id": "task-6",
+   "agent": "core.san-francisco.public-space.sidewalks",
+   "tool": "public-space.sidewalks",
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 26,
+   "records": 1,
+   "error": null,
+   "findings": [
+    {
+     "topic": "public-space",
+     "claim": "Trottoir : 12 pi (W) (étude 2014) ; 0 parc(s) proche(s).",
+     "epistemic": "observed",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "sidewalks",
+       "ref": "sidewalks:4654",
+       "url": "https://data.sf.gov/d/4g86-grxu"
+      }
+     ],
+     "value": 12,
+     "agent": "core.san-francisco.public-space.sidewalks",
+     "tool": "public-space.sidewalks"
+    }
+   ],
+   "extra": {
+    "brief": null,
+    "decision": null
+   }
+  },
+  {
+   "id": "task-7",
+   "agent": "core.san-francisco.climate.weather-alerts",
+   "tool": "resilience.weather-alerts",
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 17,
+   "records": 0,
+   "error": null,
+   "findings": [
+    {
+     "topic": "weather",
+     "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "feed-source",
+       "ref": "nws-alerts",
+       "url": "https://api.weather.gov/alerts/active?zone=CAZ006"
+      }
+     ],
+     "value": 0,
+     "agent": "core.san-francisco.climate.weather-alerts",
+     "tool": "resilience.weather-alerts"
+    }
+   ],
+   "extra": {
+    "brief": null,
+    "decision": null
+   }
+  },
+  {
+   "id": "task-8",
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "tool": "graph.link",
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 8,
+   "records": 1,
+   "error": null,
+   "findings": [
+    {
+     "topic": "graph",
+     "claim": "L’élément « Permis de construire 202609228481 — 201 03rd St » est rattaché au tronçon HOWARD ST HAWTHORNE ST → 03RD ST (derived (≤ 60 m), 39 m).",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "feed",
+       "ref": "datasf-building:202609228481",
+       "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202609228481"
+      }
+     ],
+     "value": "7037000",
+     "link": {
+      "segment": "7037000",
+      "basis": "derived (≤ 60 m)",
+      "distance_m": 39
+     },
+     "agent": "core.san-francisco.data-science.graph-linker",
+     "tool": "graph.link"
+    }
+   ],
+   "extra": {
+    "brief": null,
+    "decision": null
+   }
+  },
+  {
+   "id": "task-9",
+   "agent": "core.san-francisco.simulation.scenario-evaluator",
+   "tool": "scenario.investigate",
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 18,
+   "records": 0,
+   "error": null,
+   "findings": [
+    {
+     "topic": "scenario",
+     "claim": "Pas d’investigation inter-domaines sur HOWARD ST HAWTHORNE ST → 03RD ST : Aucune relation inter-domaines vérifiable avec ces paramètres.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "corridor",
+       "ref": "corridor:7037000",
+       "url": "https://data.sf.gov/d/3psu-pn9h"
+      }
+     ],
+     "value": null,
+     "decision": "REJETÉ",
+     "agent": "core.san-francisco.simulation.scenario-evaluator",
+     "tool": "scenario.investigate"
+    }
+   ],
+   "extra": {
+    "brief": null,
+    "decision": {
+     "state": "REJETÉ",
+     "reason": "Aucune relation inter-domaines vérifiable avec ces paramètres.",
+     "authorizes": false,
+     "checks": []
+    }
+   }
+  },
+  {
+   "id": "task-10",
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve",
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 19,
+   "records": 1,
+   "error": null,
+   "findings": [
+    {
+     "topic": "knowledge",
+     "claim": "Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only..",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "knowledge",
+       "ref": "k-dbi-issued-status",
+       "url": "https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCE_REGISTRY.md"
+      }
+     ],
+     "value": 0.0654,
+     "agent": "core.san-francisco.regulatory.knowledge-research",
+     "tool": "knowledge.retrieve"
+    }
+   ],
+   "extra": {
+    "brief": null,
+    "decision": null
+   }
+  }
+ ],
+ "findings": [
+  {
+   "topic": "works",
+   "claim": "1 fenêtre(s) d’excavation en cours ou à venir sur HOWARD ST HAWTHORNE ST → 03RD ST (Esquivel Grading & Paving, Inc.).",
+   "epistemic": "observed",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:25EXC-05123@7037000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "value": 1,
+   "agent": "core.san-francisco.civil.works-coordination",
+   "tool": "works.windows"
+  },
+  {
+   "topic": "works-overlap",
+   "claim": "0 chevauchement(s) entre organisations dans les 60 j.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "dataset",
+     "ref": "permits",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "value": 0,
+   "agent": "core.san-francisco.civil.works-coordination",
+   "tool": "works.windows"
+  },
+  {
+   "topic": "telecom",
+   "claim": "0 fenêtre(s) de titulaires classés télécoms (classement déclaré par nom) : aucune.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "dataset",
+     "ref": "permits",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "value": 0,
+   "agent": "core.san-francisco.telecom.telecom-works",
+   "tool": "works.telecom"
+  },
+  {
+   "topic": "trees",
+   "claim": "19 arbre(s) inventorié(s) sur le tronçon ; 0 à ≤ 12 m d’un point de permis d’excavation (indicateur de proximité).",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "dataset",
+     "ref": "street-trees",
+     "url": "https://data.sf.gov/d/tkzw-k3nq"
+    }
+   ],
+   "value": 0,
+   "agent": "core.san-francisco.forestry.street-trees",
+   "tool": "trees.near-works"
+  },
+  {
+   "topic": "buildings",
+   "claim": "11 permis de construire récent(s) (≤ 365 j) au front du tronçon ; 71 au total.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202609228481",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202605070874",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202602236339",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202602236335",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202602125857",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202602115703",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202601204115",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202512121672",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202511260534",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202511260530",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202511250428",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    }
+   ],
+   "value": 11,
+   "agent": "core.san-francisco.housing.building-permits",
+   "tool": "buildings.frontage"
+  },
+  {
+   "topic": "buildings",
+   "claim": "3 semblent intérieurs ou d’enseigne : lien avec le trottoir incertain.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202609228481",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202602236335",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202512121672",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    }
+   ],
+   "value": 3,
+   "contradicts": "buildings",
+   "agent": "core.san-francisco.housing.building-permits",
+   "tool": "buildings.frontage"
+  },
+  {
+   "topic": "buildings",
+   "claim": "Le statut DBI « issued » n’indique pas un chantier en cours (connaissance approuvée k-dbi-issued-status).",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "knowledge",
+     "ref": "k-dbi-issued-status"
+    }
+   ],
+   "agent": "core.san-francisco.housing.building-permits",
+   "tool": "buildings.frontage"
+  },
+  {
+   "topic": "energy",
+   "claim": "8 bâtiment(s) avec bilan énergétique déclaré à proximité (contexte ; aucun modèle d’économie).",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "energy-benchmarks",
+     "ref": "energy-benchmarks:3722/014@2025",
+     "url": "https://data.sf.gov/d/96ck-qcfe"
+    },
+    {
+     "type": "record",
+     "dataset": "energy-benchmarks",
+     "ref": "energy-benchmarks:3722/081@2025",
+     "url": "https://data.sf.gov/d/96ck-qcfe"
+    },
+    {
+     "type": "record",
+     "dataset": "energy-benchmarks",
+     "ref": "energy-benchmarks:3735/059@2025",
+     "url": "https://data.sf.gov/d/96ck-qcfe"
+    },
+    {
+     "type": "record",
+     "dataset": "energy-benchmarks",
+     "ref": "energy-benchmarks:3735/050@2025",
+     "url": "https://data.sf.gov/d/96ck-qcfe"
+    },
+    {
+     "type": "record",
+     "dataset": "energy-benchmarks",
+     "ref": "energy-benchmarks:3722/022@2025",
+     "url": "https://data.sf.gov/d/96ck-qcfe"
+    },
+    {
+     "type": "record",
+     "dataset": "energy-benchmarks",
+     "ref": "energy-benchmarks:3735/041@2025",
+     "url": "https://data.sf.gov/d/96ck-qcfe"
+    },
+    {
+     "type": "record",
+     "dataset": "energy-benchmarks",
+     "ref": "energy-benchmarks:3735/040@2025",
+     "url": "https://data.sf.gov/d/96ck-qcfe"
+    },
+    {
+     "type": "record",
+     "dataset": "energy-benchmarks",
+     "ref": "energy-benchmarks:3735A/001@2025",
+     "url": "https://data.sf.gov/d/96ck-qcfe"
+    }
+   ],
+   "value": 8,
+   "agent": "core.san-francisco.energy.energy-benchmarks",
+   "tool": "energy.benchmarks"
+  },
+  {
+   "topic": "public-space",
+   "claim": "Trottoir : 12 pi (W) (étude 2014) ; 0 parc(s) proche(s).",
+   "epistemic": "observed",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "sidewalks",
+     "ref": "sidewalks:4654",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "value": 12,
+   "agent": "core.san-francisco.public-space.sidewalks",
+   "tool": "public-space.sidewalks"
+  },
+  {
+   "topic": "weather",
+   "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "feed-source",
+     "ref": "nws-alerts",
+     "url": "https://api.weather.gov/alerts/active?zone=CAZ006"
+    }
+   ],
+   "value": 0,
+   "agent": "core.san-francisco.climate.weather-alerts",
+   "tool": "resilience.weather-alerts"
+  },
+  {
+   "topic": "graph",
+   "claim": "L’élément « Permis de construire 202609228481 — 201 03rd St » est rattaché au tronçon HOWARD ST HAWTHORNE ST → 03RD ST (derived (≤ 60 m), 39 m).",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "feed",
+     "ref": "datasf-building:202609228481",
+     "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202609228481"
+    }
+   ],
+   "value": "7037000",
+   "link": {
+    "segment": "7037000",
+    "basis": "derived (≤ 60 m)",
+    "distance_m": 39
+   },
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "tool": "graph.link"
+  },
+  {
+   "topic": "scenario",
+   "claim": "Pas d’investigation inter-domaines sur HOWARD ST HAWTHORNE ST → 03RD ST : Aucune relation inter-domaines vérifiable avec ces paramètres.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "corridor",
+     "ref": "corridor:7037000",
+     "url": "https://data.sf.gov/d/3psu-pn9h"
+    }
+   ],
+   "value": null,
+   "decision": "REJETÉ",
+   "agent": "core.san-francisco.simulation.scenario-evaluator",
+   "tool": "scenario.investigate"
+  },
+  {
+   "topic": "knowledge",
+   "claim": "Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only..",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "knowledge",
+     "ref": "k-dbi-issued-status",
+     "url": "https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCE_REGISTRY.md"
+    }
+   ],
+   "value": 0.0654,
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve"
+  }
+ ],
+ "verification": [
+  {
+   "claim": "1 fenêtre(s) d’excavation en cours ou à venir sur HOWARD ST HAWTHORNE ST → 03RD ST (Esquivel Grading & Paving, Inc.).",
+   "agent": "core.san-francisco.civil.works-coordination",
+   "epistemic": "observed",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "0 chevauchement(s) entre organisations dans les 60 j.",
+   "agent": "core.san-francisco.civil.works-coordination",
+   "epistemic": "derived",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "0 fenêtre(s) de titulaires classés télécoms (classement déclaré par nom) : aucune.",
+   "agent": "core.san-francisco.telecom.telecom-works",
+   "epistemic": "derived",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "19 arbre(s) inventorié(s) sur le tronçon ; 0 à ≤ 12 m d’un point de permis d’excavation (indicateur de proximité).",
+   "agent": "core.san-francisco.forestry.street-trees",
+   "epistemic": "derived",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "11 permis de construire récent(s) (≤ 365 j) au front du tronçon ; 71 au total.",
+   "agent": "core.san-francisco.housing.building-permits",
+   "epistemic": "derived",
+   "typeOk": true,
+   "evidence": 11,
+   "resolved": 11
+  },
+  {
+   "claim": "3 semblent intérieurs ou d’enseigne : lien avec le trottoir incertain.",
+   "agent": "core.san-francisco.housing.building-permits",
+   "epistemic": "derived",
+   "typeOk": true,
+   "evidence": 3,
+   "resolved": 3
+  },
+  {
+   "claim": "Le statut DBI « issued » n’indique pas un chantier en cours (connaissance approuvée k-dbi-issued-status).",
+   "agent": "core.san-francisco.housing.building-permits",
+   "epistemic": "reported",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "8 bâtiment(s) avec bilan énergétique déclaré à proximité (contexte ; aucun modèle d’économie).",
+   "agent": "core.san-francisco.energy.energy-benchmarks",
+   "epistemic": "reported",
+   "typeOk": true,
+   "evidence": 8,
+   "resolved": 8
+  },
+  {
+   "claim": "Trottoir : 12 pi (W) (étude 2014) ; 0 parc(s) proche(s).",
+   "agent": "core.san-francisco.public-space.sidewalks",
+   "epistemic": "observed",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+   "agent": "core.san-francisco.climate.weather-alerts",
+   "epistemic": "reported",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "L’élément « Permis de construire 202609228481 — 201 03rd St » est rattaché au tronçon HOWARD ST HAWTHORNE ST → 03RD ST (derived (≤ 60 m), 39 m).",
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "epistemic": "derived",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "Pas d’investigation inter-domaines sur HOWARD ST HAWTHORNE ST → 03RD ST : Aucune relation inter-domaines vérifiable avec ces paramètres.",
+   "agent": "core.san-francisco.simulation.scenario-evaluator",
+   "epistemic": "derived",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only..",
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "epistemic": "reported",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  }
+ ],
+ "disagreements": [
+  {
+   "between": [
+    "core.san-francisco.housing.building-permits"
+   ],
+   "topic": "buildings",
+   "a": null,
+   "b": "3 semblent intérieurs ou d’enseigne : lien avec le trottoir incertain."
+  }
+ ],
+ "adversarial": {
+  "reviewer": "core.san-francisco.safety.adversarial-reviewer",
+  "disagreements": 1,
+  "sensitivities": [],
+  "missing": [],
+  "failedTasks": [],
+  "limitations": []
+ },
+ "conclusion": {
+  "statements": [
+   {
+    "topic": "works",
+    "text": "1 fenêtre(s) d’excavation en cours ou à venir sur HOWARD ST HAWTHORNE ST → 03RD ST (Esquivel Grading & Paving, Inc.).",
+    "cites": [
+     0
+    ],
+    "epistemic": [
+     "observed"
+    ]
+   },
+   {
+    "topic": "works-overlap",
+    "text": "0 chevauchement(s) entre organisations dans les 60 j.",
+    "cites": [
+     1
+    ],
+    "epistemic": [
+     "derived"
+    ]
+   },
+   {
+    "topic": "telecom",
+    "text": "0 fenêtre(s) de titulaires classés télécoms (classement déclaré par nom) : aucune.",
+    "cites": [
+     2
+    ],
+    "epistemic": [
+     "derived"
+    ]
+   },
+   {
+    "topic": "trees",
+    "text": "19 arbre(s) inventorié(s) sur le tronçon ; 0 à ≤ 12 m d’un point de permis d’excavation (indicateur de proximité).",
+    "cites": [
+     3
+    ],
+    "epistemic": [
+     "derived"
+    ]
+   },
+   {
+    "topic": "buildings",
+    "text": "11 permis de construire récent(s) (≤ 365 j) au front du tronçon ; 71 au total. 3 semblent intérieurs ou d’enseigne : lien avec le trottoir incertain. Le statut DBI « issued » n’indique pas un chantier en cours (connaissance approuvée k-dbi-issued-status).",
+    "cites": [
+     4,
+     5,
+     6
+    ],
+    "epistemic": [
+     "derived",
+     "reported"
+    ]
+   },
+   {
+    "topic": "energy",
+    "text": "8 bâtiment(s) avec bilan énergétique déclaré à proximité (contexte ; aucun modèle d’économie).",
+    "cites": [
+     7
+    ],
+    "epistemic": [
+     "reported"
+    ]
+   },
+   {
+    "topic": "public-space",
+    "text": "Trottoir : 12 pi (W) (étude 2014) ; 0 parc(s) proche(s).",
+    "cites": [
+     8
+    ],
+    "epistemic": [
+     "observed"
+    ]
+   },
+   {
+    "topic": "weather",
+    "text": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+    "cites": [
+     9
+    ],
+    "epistemic": [
+     "reported"
+    ]
+   },
+   {
+    "topic": "graph",
+    "text": "L’élément « Permis de construire 202609228481 — 201 03rd St » est rattaché au tronçon HOWARD ST HAWTHORNE ST → 03RD ST (derived (≤ 60 m), 39 m).",
+    "cites": [
+     10
+    ],
+    "epistemic": [
+     "derived"
+    ]
+   },
+   {
+    "topic": "scenario",
+    "text": "Pas d’investigation inter-domaines sur HOWARD ST HAWTHORNE ST → 03RD ST : Aucune relation inter-domaines vérifiable avec ces paramètres.",
+    "cites": [
+     11
+    ],
+    "epistemic": [
+     "derived"
+    ]
+   },
+   {
+    "topic": "knowledge",
+    "text": "Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only..",
+    "cites": [
+     12
+    ],
+    "epistemic": [
+     "reported"
+    ]
+   }
+  ],
+  "disagreements": [
+   {
+    "between": [
+     "core.san-francisco.housing.building-permits"
+    ],
+    "topic": "buildings",
+    "a": null,
+    "b": "3 semblent intérieurs ou d’enseigne : lien avec le trottoir incertain."
+   }
+  ],
+  "nextAction": "Information à examiner par un humain ; aucune intervention proposée faute de relation inter-domaines vérifiée.",
+  "cityDecision": null,
+  "humanReview": "Revue humaine obligatoire. Aucun agent ne peut autoriser ni exécuter une action physique ou politique."
+ },
+ "decision": {
+  "state": "PREUVES SUPPLÉMENTAIRES REQUISES",
+  "reason": "Information à examiner par un humain ; aucune intervention proposée faute de relation inter-domaines vérifiée.",
+  "checks": [
+   {
+    "id": "contract",
+    "label": "mission complète",
+    "pass": true,
+    "detail": null
+   },
+   {
+    "id": "recompute",
+    "label": "contenu soumis identique au recalcul déterministe (empreinte)",
+    "pass": true,
+    "detail": null
+   },
+   {
+    "id": "typed",
+    "label": "chaque constat a un statut épistémique valide",
+    "pass": true,
+    "detail": null
+   },
+   {
+    "id": "sourced",
+    "label": "chaque preuve citée est vérifiable",
+    "pass": true,
+    "detail": null
+   },
+   {
+    "id": "cited",
+    "label": "chaque énoncé de synthèse cite des constats",
+    "pass": true,
+    "detail": null
+   },
+   {
+    "id": "no-llm-bypass",
+    "label": "aucune affirmation de modèle de langage non validée",
+    "pass": true,
+    "detail": null
+   },
+   {
+    "id": "tasks",
+    "label": "toutes les tâches ont abouti",
+    "pass": true,
+    "detail": null
+   }
+  ],
+  "authorizes": false,
+  "humanReview": "Revue humaine obligatoire ; CORE n’exécute rien."
+ },
+ "log": [
+  {
+   "seq": 1,
+   "t": 0,
+   "kind": "mission",
+   "state": "planning",
+   "text": "Mission → planning"
+  },
+  {
+   "seq": 2,
+   "t": 0,
+   "kind": "plan",
+   "agent": "core.san-francisco.manager",
+   "text": "Domaines : buildings, energy, infrastructure, nature, public_space ; 10 spécialiste(s) exécutable(s) recruté(s) ; 12 profil(s) pertinent(s) indisponible(s) (pas d’outil ou de données)."
+  },
+  {
+   "seq": 3,
+   "t": 0,
+   "kind": "mission",
+   "state": "assigned",
+   "text": "Mission → assigned"
+  },
+  {
+   "seq": 4,
+   "t": 0,
+   "kind": "task",
+   "task": "task-1",
+   "agent": "core.san-francisco.civil.works-coordination",
+   "tool": "works.windows",
+   "state": "queued",
+   "text": "core.san-francisco.civil.works-coordination ← works.windows"
+  },
+  {
+   "seq": 5,
+   "t": 0,
+   "kind": "task",
+   "task": "task-2",
+   "agent": "core.san-francisco.telecom.telecom-works",
+   "tool": "works.telecom",
+   "state": "queued",
+   "text": "core.san-francisco.telecom.telecom-works ← works.telecom"
+  },
+  {
+   "seq": 6,
+   "t": 0,
+   "kind": "task",
+   "task": "task-3",
+   "agent": "core.san-francisco.forestry.street-trees",
+   "tool": "trees.near-works",
+   "state": "queued",
+   "text": "core.san-francisco.forestry.street-trees ← trees.near-works"
+  },
+  {
+   "seq": 7,
+   "t": 0,
+   "kind": "task",
+   "task": "task-4",
+   "agent": "core.san-francisco.housing.building-permits",
+   "tool": "buildings.frontage",
+   "state": "queued",
+   "text": "core.san-francisco.housing.building-permits ← buildings.frontage"
+  },
+  {
+   "seq": 8,
+   "t": 0,
+   "kind": "task",
+   "task": "task-5",
+   "agent": "core.san-francisco.energy.energy-benchmarks",
+   "tool": "energy.benchmarks",
+   "state": "queued",
+   "text": "core.san-francisco.energy.energy-benchmarks ← energy.benchmarks"
+  },
+  {
+   "seq": 9,
+   "t": 0,
+   "kind": "task",
+   "task": "task-6",
+   "agent": "core.san-francisco.public-space.sidewalks",
+   "tool": "public-space.sidewalks",
+   "state": "queued",
+   "text": "core.san-francisco.public-space.sidewalks ← public-space.sidewalks"
+  },
+  {
+   "seq": 10,
+   "t": 0,
+   "kind": "task",
+   "task": "task-7",
+   "agent": "core.san-francisco.climate.weather-alerts",
+   "tool": "resilience.weather-alerts",
+   "state": "queued",
+   "text": "core.san-francisco.climate.weather-alerts ← resilience.weather-alerts"
+  },
+  {
+   "seq": 11,
+   "t": 0,
+   "kind": "task",
+   "task": "task-8",
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "tool": "graph.link",
+   "state": "queued",
+   "text": "core.san-francisco.data-science.graph-linker ← graph.link"
+  },
+  {
+   "seq": 12,
+   "t": 0,
+   "kind": "task",
+   "task": "task-9",
+   "agent": "core.san-francisco.simulation.scenario-evaluator",
+   "tool": "scenario.investigate",
+   "state": "queued",
+   "text": "core.san-francisco.simulation.scenario-evaluator ← scenario.investigate"
+  },
+  {
+   "seq": 13,
+   "t": 0,
+   "kind": "task",
+   "task": "task-10",
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve",
+   "state": "queued",
+   "text": "core.san-francisco.regulatory.knowledge-research ← knowledge.retrieve"
+  },
+  {
+   "seq": 14,
+   "t": 0,
+   "kind": "mission",
+   "state": "running",
+   "text": "Mission → running"
+  },
+  {
+   "seq": 15,
+   "t": 0,
+   "kind": "task",
+   "task": "task-1",
+   "agent": "core.san-francisco.civil.works-coordination",
+   "tool": "works.windows",
+   "state": "running",
+   "text": "exécution (tentative 1)"
+  },
+  {
+   "seq": 16,
+   "t": 0,
+   "kind": "task",
+   "task": "task-2",
+   "agent": "core.san-francisco.telecom.telecom-works",
+   "tool": "works.telecom",
+   "state": "running",
+   "text": "exécution (tentative 1)"
+  },
+  {
+   "seq": 17,
+   "t": 0,
+   "kind": "task",
+   "task": "task-3",
+   "agent": "core.san-francisco.forestry.street-trees",
+   "tool": "trees.near-works",
+   "state": "running",
+   "text": "exécution (tentative 1)"
+  },
+  {
+   "seq": 18,
+   "t": 1,
+   "kind": "task",
+   "task": "task-1",
+   "agent": "core.san-francisco.civil.works-coordination",
+   "tool": "works.windows",
+   "state": "succeeded",
+   "text": "2 constat(s), 13 enregistrement(s), 1 ms"
+  },
+  {
+   "seq": 19,
+   "t": 1,
+   "kind": "task",
+   "task": "task-4",
+   "agent": "core.san-francisco.housing.building-permits",
+   "tool": "buildings.frontage",
+   "state": "running",
+   "text": "exécution (tentative 1)"
+  },
+  {
+   "seq": 20,
+   "t": 1,
+   "kind": "task",
+   "task": "task-2",
+   "agent": "core.san-francisco.telecom.telecom-works",
+   "tool": "works.telecom",
+   "state": "succeeded",
+   "text": "1 constat(s), 1 enregistrement(s), 1 ms"
+  },
+  {
+   "seq": 21,
+   "t": 1,
+   "kind": "task",
+   "task": "task-5",
+   "agent": "core.san-francisco.energy.energy-benchmarks",
+   "tool": "energy.benchmarks",
+   "state": "running",
+   "text": "exécution (tentative 1)"
+  },
+  {
+   "seq": 22,
+   "t": 9,
+   "kind": "task",
+   "task": "task-3",
+   "agent": "core.san-francisco.forestry.street-trees",
+   "tool": "trees.near-works",
+   "state": "succeeded",
+   "text": "1 constat(s), 19 enregistrement(s), 9 ms"
+  },
+  {
+   "seq": 23,
+   "t": 9,
+   "kind": "task",
+   "task": "task-6",
+   "agent": "core.san-francisco.public-space.sidewalks",
+   "tool": "public-space.sidewalks",
+   "state": "running",
+   "text": "exécution (tentative 1)"
+  },
+  {
+   "seq": 24,
+   "t": 19,
+   "kind": "task",
+   "task": "task-4",
+   "agent": "core.san-francisco.housing.building-permits",
+   "tool": "buildings.frontage",
+   "state": "succeeded",
+   "text": "3 constat(s), 71 enregistrement(s), 18 ms"
+  },
+  {
+   "seq": 25,
+   "t": 19,
+   "kind": "task",
+   "task": "task-7",
+   "agent": "core.san-francisco.climate.weather-alerts",
+   "tool": "resilience.weather-alerts",
+   "state": "running",
+   "text": "exécution (tentative 1)"
+  },
+  {
+   "seq": 26,
+   "t": 28,
+   "kind": "task",
+   "task": "task-5",
+   "agent": "core.san-francisco.energy.energy-benchmarks",
+   "tool": "energy.benchmarks",
+   "state": "succeeded",
+   "text": "1 constat(s), 8 enregistrement(s), 27 ms"
+  },
+  {
+   "seq": 27,
+   "t": 28,
+   "kind": "task",
+   "task": "task-8",
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "tool": "graph.link",
+   "state": "running",
+   "text": "exécution (tentative 1)"
+  },
+  {
+   "seq": 28,
+   "t": 35,
+   "kind": "task",
+   "task": "task-6",
+   "agent": "core.san-francisco.public-space.sidewalks",
+   "tool": "public-space.sidewalks",
+   "state": "succeeded",
+   "text": "1 constat(s), 1 enregistrement(s), 26 ms"
+  },
+  {
+   "seq": 29,
+   "t": 35,
+   "kind": "task",
+   "task": "task-9",
+   "agent": "core.san-francisco.simulation.scenario-evaluator",
+   "tool": "scenario.investigate",
+   "state": "running",
+   "text": "exécution (tentative 1)"
+  },
+  {
+   "seq": 30,
+   "t": 36,
+   "kind": "task",
+   "task": "task-7",
+   "agent": "core.san-francisco.climate.weather-alerts",
+   "tool": "resilience.weather-alerts",
+   "state": "succeeded",
+   "text": "1 constat(s), 0 enregistrement(s), 17 ms"
+  },
+  {
+   "seq": 31,
+   "t": 36,
+   "kind": "task",
+   "task": "task-10",
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve",
+   "state": "running",
+   "text": "exécution (tentative 1)"
+  },
+  {
+   "seq": 32,
+   "t": 36,
+   "kind": "task",
+   "task": "task-8",
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "tool": "graph.link",
+   "state": "succeeded",
+   "text": "1 constat(s), 1 enregistrement(s), 8 ms"
+  },
+  {
+   "seq": 33,
+   "t": 53,
+   "kind": "task",
+   "task": "task-9",
+   "agent": "core.san-francisco.simulation.scenario-evaluator",
+   "tool": "scenario.investigate",
+   "state": "succeeded",
+   "text": "1 constat(s), 0 enregistrement(s), 18 ms"
+  },
+  {
+   "seq": 34,
+   "t": 55,
+   "kind": "task",
+   "task": "task-10",
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve",
+   "state": "succeeded",
+   "text": "1 constat(s), 1 enregistrement(s), 19 ms"
+  },
+  {
+   "seq": 35,
+   "t": 55,
+   "kind": "mission",
+   "state": "reviewing",
+   "text": "Mission → reviewing"
+  },
+  {
+   "seq": 36,
+   "t": 55,
+   "kind": "review",
+   "agent": "core.san-francisco.research.evidence-verifier",
+   "text": "Vérification indépendante : 13/13 constats entièrement sourcés."
+  },
+  {
+   "seq": 37,
+   "t": 55,
+   "kind": "review",
+   "agent": "core.san-francisco.safety.adversarial-reviewer",
+   "text": "Revue adversariale : 1 désaccord(s), 0 sensibilité(s), 0 limite(s), 0 tâche(s) non abouties."
+  },
+  {
+   "seq": 38,
+   "t": 55,
+   "kind": "synthesis",
+   "agent": "core.san-francisco.manager",
+   "text": "Synthèse : 11 énoncé(s) sourcé(s) ; action suivante : Information à examiner par un humain ; aucune intervention proposée faute de relation inter-domaines vérifiée."
+  },
+  {
+   "seq": 39,
+   "t": 124,
+   "kind": "gateway",
+   "agent": "core.san-francisco.governance.gateway",
+   "text": "PREUVES SUPPLÉMENTAIRES REQUISES — Information à examiner par un humain ; aucune intervention proposée faute de relation inter-domaines vérifiée."
+  },
+  {
+   "seq": 40,
+   "t": 124,
+   "kind": "mission",
+   "state": "needs-evidence",
+   "text": "Mission → needs-evidence"
+  }
+ ],
+ "fingerprint": "0960ef7155f76f8a",
+ "recorded": {
+  "by": "scripts/agents.mjs (Node)",
+  "at": "2026-10-13T22:49:51.036Z",
+  "wallMs": 124,
+  "snapshot": "2026-10-13T18:25:19.678Z",
+  "feedUpdate": "2026-10-13T22:49:35.562Z"
+ }
+}

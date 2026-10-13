@@ -151,10 +151,89 @@ body.console-min .console-body { display: none; } body.console-min .console { wi
   body.sf-open .console { display: none; }
   body.sf-open .layers { right: 16px; }
 }
+/* ---------- Phase 3: professional platform layer (the 3D map keeps the CORE/Tron style) ---------- */
+:root { --display: 'IBM Plex Sans', system-ui, -apple-system, sans-serif; --panel: rgba(13, 17, 23, 0.94); --line: #232c37; --ink: #e6edf3; --muted: #8b98a5; --surface: #161b22; --accent: #6fd3ee; --navh: 52px; }
+.panel { backdrop-filter: none; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,.35); }
+button { font: 600 12.5px var(--body); letter-spacing: 0; color: #0d1117; background: #c9d1d9; border-radius: 5px; }
+button.amber { background: #e3b341; color: #0d1117; }
+button.ghost { color: var(--ink); background: var(--surface); border: 1px solid var(--line); }
+button.ghost:hover { border-color: #3d4a57; filter: none; }
+.brand b { font: 700 18px var(--body); letter-spacing: .32em; color: var(--ink); }
+.brand span, .sf-nav label, .data header h2, #cw-detail h4, #ci-brief h4, .themes summary { font-family: var(--body) !important; letter-spacing: .04em !important; }
+.data header h2 { color: var(--ink); text-transform: none; font-size: 14px; }
+.console, .layers, .data, .status { top: auto; }
+.console { top: calc(var(--navh) + 12px + env(safe-area-inset-top, 0px)); }
+.layers { top: calc(var(--navh) + 12px + env(safe-area-inset-top, 0px)); }
+.data { top: calc(var(--navh) + 12px + env(safe-area-inset-top, 0px)); max-height: calc(100dvh - var(--navh) - 80px); }
+.badge { border-radius: 3px; font-weight: 500; }
+.ev-agent, .ag b { font-family: var(--body) !important; letter-spacing: 0 !important; }
+#appnav { position: fixed; z-index: 5; top: 0; left: 0; right: 0; height: var(--navh); display: flex; align-items: center; gap: 4px; padding: 0 14px; background: rgba(13,17,23,.97); border-bottom: 1px solid var(--line); }
+#appnav .mark { font: 700 15px var(--body); letter-spacing: .34em; color: var(--ink); margin-right: 14px; }
+#appnav .mark small { font-weight: 400; letter-spacing: .04em; color: var(--muted); margin-left: 8px; }
+#appnav [role=tab] { background: transparent; color: var(--muted); border: 0; border-radius: 0; padding: 0 10px; height: var(--navh); font: 500 13px var(--body); border-bottom: 2px solid transparent; }
+#appnav [role=tab][aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+#appnav [role=tab]:hover { color: var(--ink); filter: none; }
+#appnav .navmeta { margin-left: auto; font: 11.5px var(--mono); color: var(--muted); white-space: nowrap; }
+.ws { position: fixed; z-index: 3; top: calc(var(--navh) + 12px); right: 16px; width: min(520px, calc(100vw - 32px)); max-height: calc(100dvh - var(--navh) - 80px); display: flex; flex-direction: column; }
+.ws header { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding: 14px 16px 6px; }
+.ws header h2 { margin: 0; font: 600 15px var(--body); }
+.ws .wsbody { overflow: auto; padding: 4px 16px 16px; font-size: 13px; display: flex; flex-direction: column; gap: 10px; }
+body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
+.kpis { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 6px; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: 5px; padding: 8px; } .kpi b { display: block; font: 600 18px var(--body); font-variant-numeric: tabular-nums; } .kpi span { color: var(--muted); font-size: 11.5px; }
+.tbl { width: 100%; border-collapse: collapse; font-size: 12px; } .tbl th, .tbl td { text-align: left; padding: 5px 6px; border-bottom: 1px solid var(--line); vertical-align: top; } .tbl th { color: var(--muted); font-weight: 500; }
+.pill { display: inline-block; padding: 1px 6px; border-radius: 10px; font: 500 10.5px var(--body); border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+.pill.ok { color: #7ee0a0; border-color: #24543a; } .pill.warn { color: #e3b341; border-color: #5b4a1d; } .pill.fail { color: #ff7b72; border-color: #5c2a27; } .pill.info { color: var(--accent); border-color: #1f4757; }
+.list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.item { background: var(--surface); border: 1px solid var(--line); border-radius: 5px; padding: 8px 10px; display: flex; flex-direction: column; gap: 3px; }
+.item .t { font-weight: 600; } .item .m { color: var(--muted); font-size: 11.5px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; } .item.sel { border-color: var(--accent); }
+.item button { align-self: flex-start; }
+.org { font-size: 12px; } .org details { border-left: 1px solid var(--line); margin-left: 6px; padding-left: 10px; } .org summary { cursor: pointer; padding: 3px 0; }
+.agentbtn { background: none; border: 0; color: var(--ink); padding: 2px 0; font: 12px var(--body); text-align: left; cursor: pointer; } .agentbtn:hover { color: var(--accent); filter: none; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.toolbar select, .toolbar input[type=text] { width: auto; flex: 1; min-width: 120px; background: #0d1117; color: var(--ink); border: 1px solid var(--line); border-radius: 5px; padding: 7px 8px; font: 13px var(--body); }
+.cam { position: fixed; z-index: 2; left: 50%; transform: translateX(-50%); top: calc(var(--navh) + 12px + env(safe-area-inset-top, 0px)); display: flex; gap: 4px; padding: 5px; }
+.cam button { padding: 6px 9px; min-width: 34px; font-size: 13px; }
+.cam button[aria-pressed="true"] { background: var(--accent); color: #0d1117; }
+#cam-help { position: fixed; z-index: 4; left: 50%; transform: translateX(-50%); top: calc(var(--navh) + 64px); width: min(460px, calc(100vw - 32px)); padding: 12px 14px; font-size: 12.5px; }
+#cam-help kbd { font: 11px var(--mono); border: 1px solid var(--line); border-radius: 3px; padding: 0 4px; }
+@media (max-width: 900px) { #appnav { overflow-x: auto; } #appnav .navmeta { display: none; } }
+@media (max-width: 640px) { .ws { top: auto; bottom: calc(68px + env(safe-area-inset-bottom, 0px)); left: 16px; right: 16px; width: auto; max-height: 52dvh; } body.ws-open .console { display: none; } .cam { top: calc(var(--navh) + 8px); left: 16px; transform: none; } .cam .opt { display: none; } }
 </style>
 </head>
 <body>
+<nav id="appnav" aria-label="Navigation principale">
+  <span class="mark">CORE<small>San Francisco</small></span>
+  <div role="tablist" aria-label="Sections" style="display:flex">
+    <button type="button" role="tab" data-sec="world" aria-selected="true">Monde</button>
+    <button type="button" role="tab" data-sec="intel" aria-selected="false">Intelligence urbaine</button>
+    <button type="button" role="tab" data-sec="agents" aria-selected="false">Agents</button>
+    <button type="button" role="tab" data-sec="missions" aria-selected="false">Missions</button>
+    <button type="button" role="tab" data-sec="sims" aria-selected="false">Simulations</button>
+    <button type="button" role="tab" data-sec="decisions" aria-selected="false">Décisions</button>
+    <button type="button" role="tab" data-sec="data" aria-selected="false">Données &amp; preuves</button>
+  </div>
+  <span class="navmeta" id="navmeta">—</span>
+</nav>
 <div id="map" role="region" aria-label="Globe 3D de CORE"></div>
+<section class="panel ws" id="ws" hidden aria-live="polite"><header><h2 id="ws-title"></h2><button type="button" class="ghost small" id="ws-close">Fermer</button></header><div class="wsbody" id="ws-body"></div></section>
+<div class="panel cam" role="toolbar" aria-label="Caméra 3D">
+  <button type="button" class="ghost" data-cam="rotl" title="Pivoter à gauche (Q)" aria-label="Pivoter à gauche">⟲</button>
+  <button type="button" class="ghost" data-cam="rotr" title="Pivoter à droite (E)" aria-label="Pivoter à droite">⟳</button>
+  <button type="button" class="ghost" data-cam="orbit" aria-pressed="false" title="Orbite 360° autour du centre ou de la sélection (O)" aria-label="Orbite 360 degrés">Orbite</button>
+  <button type="button" class="ghost" data-cam="tiltu" title="Incliner (R)" aria-label="Incliner davantage">⤒</button>
+  <button type="button" class="ghost" data-cam="tiltd" title="Redresser (F)" aria-label="Redresser">⤓</button>
+  <button type="button" class="ghost opt" data-cam="zin" title="Zoom avant (+)" aria-label="Zoom avant">+</button>
+  <button type="button" class="ghost opt" data-cam="zout" title="Zoom arrière (−)" aria-label="Zoom arrière">−</button>
+  <button type="button" class="ghost" data-cam="north" title="Nord en haut (N)" aria-label="Nord en haut">N</button>
+  <button type="button" class="ghost" data-cam="reset" title="Vue de référence (0)" aria-label="Réinitialiser la vue">Vue</button>
+  <button type="button" class="ghost opt" data-cam="help" aria-expanded="false" aria-controls="cam-help" title="Aide navigation">?</button>
+</div>
+<div class="panel" id="cam-help" hidden role="note"><b>Navigation 3D</b><br>
+  Souris : glisser = déplacer · clic droit (ou Ctrl) + glisser = pivoter et incliner · molette = zoom · Maj + glisser = zoom sur zone.<br>
+  Pavé tactile : deux doigts = zoom/défilement · Ctrl + glisser = pivoter/incliner. Tactile : pincer = zoom, deux doigts = pivoter, glisser vertical à deux doigts = incliner.<br>
+  Clavier (carte ou page) : <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> déplacer · <kbd>Q</kbd>/<kbd>E</kbd> pivoter · <kbd>R</kbd>/<kbd>F</kbd> incliner · <kbd>+</kbd>/<kbd>−</kbd> zoom · <kbd>O</kbd> orbite · <kbd>N</kbd> nord · <kbd>0</kbd> vue de référence.<br>
+  Limites : caméra MapLibre centrée sur une cible (cap 360°, inclinaison ≤ 85°) — pas de vol libre à 6 degrés de liberté ni de roulis.</div>
 
 <div class="panel console">
   <div class="brand"><b>CORE</b><span>CORE World</span><button type="button" class="ghost small" id="console-toggle" aria-expanded="true" aria-controls="console-body">Réduire</button></div>
@@ -277,6 +356,15 @@ body.console-min .console-body { display: none; } body.console-min .console { wi
 <script src="src/simulation.js"></script>
 <script src="src/city-agents.js"></script>
 <script src="src/city-view.js"></script>
+<script src="src/org.js"></script>
+<script src="src/feeds.js"></script>
+<script src="src/knowledge.js"></script>
+<script src="src/tools.js"></script>
+<script src="src/missions.js"></script>
+<script src="src/llm.js"></script>
+<script src="src/evals.js"></script>
+<script src="src/camera.js"></script>
+<script src="src/platform.js"></script>
 <script>
 (() => {
   const $ = id => document.getElementById(id);
@@ -320,13 +408,13 @@ body.console-min .console-body { display: none; } body.console-min .console { wi
   };
 
   let map;
-  try { map = new maplibregl.Map({ container: 'map', style, center: [-40, 28], zoom: 1.7, maxPitch: 80, attributionControl: { compact: true } }); } catch (error) { msg('Carte indisponible : WebGL ou connexion. Le corridor reste accessible.'); return; }
+  try { map = new maplibregl.Map({ container: 'map', style, center: [-40, 28], zoom: 1.7, maxPitch: 85, attributionControl: { compact: true } }); } catch (error) { msg('Carte indisponible : WebGL ou connexion. Le corridor reste accessible.'); return; }
   globalThis.__CORE_MAP = map; // inspection hook for browser audits
   map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'bottom-right');
   map.on('style.load', () => { try { map.setProjection({ type: 'globe' }); } catch (e) { console.warn(e); } });
   // MapLibre ≥5.7.2 fires load even when a TileJSON fails: never let the hint hide a source warning.
   let sourceError = false;
-  map.on('load', () => { if (window.CORE_SF_VIEW) CORE_SF_VIEW.init({ map, msg, fly: (v, ms) => fly(v, ms) }); if (window.CORE_COORD_VIEW) CORE_COORD_VIEW.init({ map }); if (window.CORE_CITY_VIEW) CORE_CITY_VIEW.init({ map }); });
+  map.on('load', () => { if (window.CORE_SF_VIEW) CORE_SF_VIEW.init({ map, msg, fly: (v, ms) => fly(v, ms) }); if (window.CORE_COORD_VIEW) CORE_COORD_VIEW.init({ map }); if (window.CORE_CITY_VIEW) CORE_CITY_VIEW.init({ map }); if (window.CORE_CAMERA) CORE_CAMERA.init({ map, reduced }); if (window.CORE_PLATFORM) CORE_PLATFORM.init({ map, fly: (v, ms) => fly(v, ms) }); });
   map.on('load', () => { ['l-trame', 'l-relief', 'l-buildings'].forEach(id => { $(id).disabled = false; }); if (!sourceError) msg('Glisser pour tourner · clic droit pour incliner · molette pour zoomer'); });
   // Source-level failures (TileJSON, style) replace the status message. Tile failures (often transient during
   // fast flights) get their own indicator so they never erase user feedback; it clears once the map settles.

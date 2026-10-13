@@ -1,0 +1,677 @@
+{
+ "id": "mission:ee4a55ff63fb",
+ "version": "core-mission-v1",
+ "origin": {
+  "type": "suggestion",
+  "suggestion": {
+   "key": "seismic:usgs-quakes:nc75443097",
+   "type": "seismic-context",
+   "reason": "Séisme M3.32 à 94 km de San Francisco.",
+   "item": "usgs-quakes:nc75443097",
+   "created": "2026-10-13T22:48:34.222Z"
+  }
+ },
+ "state": "needs-evidence",
+ "target": {
+  "type": "seismic-context",
+  "segment": null,
+  "item": "usgs-quakes:nc75443097",
+  "question": "Contexte de « Séisme M3.32 — 27 km WSW of Westley, CA » pour la ville",
+  "domains": [
+   "emergency"
+  ]
+ },
+ "plan": {
+  "domains": [
+   "emergency"
+  ],
+  "manager": "core.san-francisco.manager",
+  "specialists": [
+   {
+    "tool": "resilience.quake-context",
+    "agent": "core.san-francisco.climate.seismic-context"
+   },
+   {
+    "tool": "resilience.weather-alerts",
+    "agent": "core.san-francisco.climate.weather-alerts"
+   },
+   {
+    "tool": "graph.link",
+    "agent": "core.san-francisco.data-science.graph-linker"
+   },
+   {
+    "tool": "knowledge.retrieve",
+    "agent": "core.san-francisco.regulatory.knowledge-research"
+   }
+  ],
+  "verifier": "core.san-francisco.research.evidence-verifier",
+  "reviewer": "core.san-francisco.safety.adversarial-reviewer",
+  "gateway": "core.san-francisco.governance.gateway",
+  "unavailable": [
+   {
+    "agent": "core.san-francisco.geotech.geotechnical",
+    "role": "Ingénieur géotechnique (compétence visée)",
+    "gap": "Aucune donnée de sol ou de sous-sol intégrée."
+   }
+  ]
+ },
+ "tasks": [
+  {
+   "id": "task-1",
+   "agent": "core.san-francisco.climate.seismic-context",
+   "tool": "resilience.quake-context",
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 1,
+   "records": 1,
+   "error": null,
+   "findings": [
+    {
+     "topic": "seismic",
+     "claim": "Séisme M3.32 — 27 km WSW of Westley, CA (revue), profondeur 3.37 km.",
+     "epistemic": "observed",
+     "evidence": [
+      {
+       "type": "feed",
+       "ref": "usgs-quakes:nc75443097",
+       "url": "https://earthquake.usgs.gov/earthquakes/eventpage/nc75443097"
+      }
+     ],
+     "value": 3.32,
+     "agent": "core.san-francisco.climate.seismic-context",
+     "tool": "resilience.quake-context"
+    },
+    {
+     "topic": "seismic",
+     "claim": "Distance au corridor Folsom/Howard : 93 km.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "feed",
+       "ref": "usgs-quakes:nc75443097",
+       "url": "https://earthquake.usgs.gov/earthquakes/eventpage/nc75443097"
+      },
+      {
+       "type": "record",
+       "dataset": "corridor",
+       "ref": "corridor:5660000",
+       "url": "https://data.sf.gov/d/3psu-pn9h"
+      }
+     ],
+     "value": 93,
+     "agent": "core.san-francisco.climate.seismic-context",
+     "tool": "resilience.quake-context"
+    },
+    {
+     "topic": "seismic",
+     "claim": "Aucune donnée structurelle, géotechnique ou d’inspection : aucun impact ne peut être évalué.",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "knowledge",
+       "ref": "k-no-structural-data"
+      }
+     ],
+     "limitation": true,
+     "agent": "core.san-francisco.climate.seismic-context",
+     "tool": "resilience.quake-context"
+    }
+   ],
+   "extra": {
+    "brief": null,
+    "decision": null
+   }
+  },
+  {
+   "id": "task-2",
+   "agent": "core.san-francisco.climate.weather-alerts",
+   "tool": "resilience.weather-alerts",
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 1,
+   "records": 0,
+   "error": null,
+   "findings": [
+    {
+     "topic": "weather",
+     "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "feed-source",
+       "ref": "nws-alerts",
+       "url": "https://api.weather.gov/alerts/active?zone=CAZ006"
+      }
+     ],
+     "value": 0,
+     "agent": "core.san-francisco.climate.weather-alerts",
+     "tool": "resilience.weather-alerts"
+    }
+   ],
+   "extra": {
+    "brief": null,
+    "decision": null
+   }
+  },
+  {
+   "id": "task-3",
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "tool": "graph.link",
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 1,
+   "records": 1,
+   "error": null,
+   "findings": [
+    {
+     "topic": "graph",
+     "claim": "L’élément « Séisme M3.32 — 27 km WSW of Westley, CA » n’est pas géolocalisé sur le corridor.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "feed",
+       "ref": "usgs-quakes:nc75443097",
+       "url": "https://earthquake.usgs.gov/earthquakes/eventpage/nc75443097"
+      }
+     ],
+     "value": null,
+     "link": null,
+     "agent": "core.san-francisco.data-science.graph-linker",
+     "tool": "graph.link"
+    }
+   ],
+   "extra": {
+    "brief": null,
+    "decision": null
+   }
+  },
+  {
+   "id": "task-4",
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve",
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 1,
+   "records": 0,
+   "error": null,
+   "findings": [
+    {
+     "topic": "knowledge",
+     "claim": "Aucun document approuvé ne correspond à la question.",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "knowledge-library",
+       "ref": "core-knowledge-library-v1"
+      }
+     ],
+     "agent": "core.san-francisco.regulatory.knowledge-research",
+     "tool": "knowledge.retrieve"
+    }
+   ],
+   "extra": {
+    "brief": null,
+    "decision": null
+   }
+  }
+ ],
+ "findings": [
+  {
+   "topic": "seismic",
+   "claim": "Séisme M3.32 — 27 km WSW of Westley, CA (revue), profondeur 3.37 km.",
+   "epistemic": "observed",
+   "evidence": [
+    {
+     "type": "feed",
+     "ref": "usgs-quakes:nc75443097",
+     "url": "https://earthquake.usgs.gov/earthquakes/eventpage/nc75443097"
+    }
+   ],
+   "value": 3.32,
+   "agent": "core.san-francisco.climate.seismic-context",
+   "tool": "resilience.quake-context"
+  },
+  {
+   "topic": "seismic",
+   "claim": "Distance au corridor Folsom/Howard : 93 km.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "feed",
+     "ref": "usgs-quakes:nc75443097",
+     "url": "https://earthquake.usgs.gov/earthquakes/eventpage/nc75443097"
+    },
+    {
+     "type": "record",
+     "dataset": "corridor",
+     "ref": "corridor:5660000",
+     "url": "https://data.sf.gov/d/3psu-pn9h"
+    }
+   ],
+   "value": 93,
+   "agent": "core.san-francisco.climate.seismic-context",
+   "tool": "resilience.quake-context"
+  },
+  {
+   "topic": "seismic",
+   "claim": "Aucune donnée structurelle, géotechnique ou d’inspection : aucun impact ne peut être évalué.",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "knowledge",
+     "ref": "k-no-structural-data"
+    }
+   ],
+   "limitation": true,
+   "agent": "core.san-francisco.climate.seismic-context",
+   "tool": "resilience.quake-context"
+  },
+  {
+   "topic": "weather",
+   "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "feed-source",
+     "ref": "nws-alerts",
+     "url": "https://api.weather.gov/alerts/active?zone=CAZ006"
+    }
+   ],
+   "value": 0,
+   "agent": "core.san-francisco.climate.weather-alerts",
+   "tool": "resilience.weather-alerts"
+  },
+  {
+   "topic": "graph",
+   "claim": "L’élément « Séisme M3.32 — 27 km WSW of Westley, CA » n’est pas géolocalisé sur le corridor.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "feed",
+     "ref": "usgs-quakes:nc75443097",
+     "url": "https://earthquake.usgs.gov/earthquakes/eventpage/nc75443097"
+    }
+   ],
+   "value": null,
+   "link": null,
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "tool": "graph.link"
+  },
+  {
+   "topic": "knowledge",
+   "claim": "Aucun document approuvé ne correspond à la question.",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "knowledge-library",
+     "ref": "core-knowledge-library-v1"
+    }
+   ],
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve"
+  }
+ ],
+ "verification": [
+  {
+   "claim": "Séisme M3.32 — 27 km WSW of Westley, CA (revue), profondeur 3.37 km.",
+   "agent": "core.san-francisco.climate.seismic-context",
+   "epistemic": "observed",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "Distance au corridor Folsom/Howard : 93 km.",
+   "agent": "core.san-francisco.climate.seismic-context",
+   "epistemic": "derived",
+   "typeOk": true,
+   "evidence": 2,
+   "resolved": 2
+  },
+  {
+   "claim": "Aucune donnée structurelle, géotechnique ou d’inspection : aucun impact ne peut être évalué.",
+   "agent": "core.san-francisco.climate.seismic-context",
+   "epistemic": "reported",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+   "agent": "core.san-francisco.climate.weather-alerts",
+   "epistemic": "reported",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "L’élément « Séisme M3.32 — 27 km WSW of Westley, CA » n’est pas géolocalisé sur le corridor.",
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "epistemic": "derived",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "Aucun document approuvé ne correspond à la question.",
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "epistemic": "reported",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  }
+ ],
+ "disagreements": [],
+ "adversarial": {
+  "reviewer": "core.san-francisco.safety.adversarial-reviewer",
+  "disagreements": 0,
+  "sensitivities": [],
+  "missing": [],
+  "failedTasks": [],
+  "limitations": [
+   "Aucune donnée structurelle, géotechnique ou d’inspection : aucun impact ne peut être évalué."
+  ]
+ },
+ "conclusion": {
+  "statements": [
+   {
+    "topic": "seismic",
+    "text": "Séisme M3.32 — 27 km WSW of Westley, CA (revue), profondeur 3.37 km. Distance au corridor Folsom/Howard : 93 km. Aucune donnée structurelle, géotechnique ou d’inspection : aucun impact ne peut être évalué.",
+    "cites": [
+     0,
+     1,
+     2
+    ],
+    "epistemic": [
+     "observed",
+     "derived",
+     "reported"
+    ]
+   },
+   {
+    "topic": "weather",
+    "text": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+    "cites": [
+     3
+    ],
+    "epistemic": [
+     "reported"
+    ]
+   },
+   {
+    "topic": "graph",
+    "text": "L’élément « Séisme M3.32 — 27 km WSW of Westley, CA » n’est pas géolocalisé sur le corridor.",
+    "cites": [
+     4
+    ],
+    "epistemic": [
+     "derived"
+    ]
+   },
+   {
+    "topic": "knowledge",
+    "text": "Aucun document approuvé ne correspond à la question.",
+    "cites": [
+     5
+    ],
+    "epistemic": [
+     "reported"
+    ]
+   }
+  ],
+  "disagreements": [],
+  "nextAction": "Aucune action proposée : surveiller les révisions USGS ; une évaluation d’impact exigerait des données structurelles et géotechniques non disponibles.",
+  "cityDecision": null,
+  "humanReview": "Revue humaine obligatoire. Aucun agent ne peut autoriser ni exécuter une action physique ou politique."
+ },
+ "decision": {
+  "state": "PREUVES SUPPLÉMENTAIRES REQUISES",
+  "reason": "Aucune action proposée : surveiller les révisions USGS ; une évaluation d’impact exigerait des données structurelles et géotechniques non disponibles. Limites : Aucune donnée structurelle, géotechnique ou d’inspection : aucun impact ne peut être évalué.",
+  "checks": [
+   {
+    "id": "contract",
+    "label": "mission complète",
+    "pass": true,
+    "detail": null
+   },
+   {
+    "id": "recompute",
+    "label": "contenu soumis identique au recalcul déterministe (empreinte)",
+    "pass": true,
+    "detail": null
+   },
+   {
+    "id": "typed",
+    "label": "chaque constat a un statut épistémique valide",
+    "pass": true,
+    "detail": null
+   },
+   {
+    "id": "sourced",
+    "label": "chaque preuve citée est vérifiable",
+    "pass": true,
+    "detail": null
+   },
+   {
+    "id": "cited",
+    "label": "chaque énoncé de synthèse cite des constats",
+    "pass": true,
+    "detail": null
+   },
+   {
+    "id": "no-llm-bypass",
+    "label": "aucune affirmation de modèle de langage non validée",
+    "pass": true,
+    "detail": null
+   },
+   {
+    "id": "tasks",
+    "label": "toutes les tâches ont abouti",
+    "pass": true,
+    "detail": null
+   }
+  ],
+  "authorizes": false,
+  "humanReview": "Revue humaine obligatoire ; CORE n’exécute rien."
+ },
+ "log": [
+  {
+   "seq": 1,
+   "t": 0,
+   "kind": "mission",
+   "state": "planning",
+   "text": "Mission → planning"
+  },
+  {
+   "seq": 2,
+   "t": 0,
+   "kind": "plan",
+   "agent": "core.san-francisco.manager",
+   "text": "Domaines : emergency ; 4 spécialiste(s) exécutable(s) recruté(s) ; 1 profil(s) pertinent(s) indisponible(s) (pas d’outil ou de données)."
+  },
+  {
+   "seq": 3,
+   "t": 0,
+   "kind": "mission",
+   "state": "assigned",
+   "text": "Mission → assigned"
+  },
+  {
+   "seq": 4,
+   "t": 0,
+   "kind": "task",
+   "task": "task-1",
+   "agent": "core.san-francisco.climate.seismic-context",
+   "tool": "resilience.quake-context",
+   "state": "queued",
+   "text": "core.san-francisco.climate.seismic-context ← resilience.quake-context"
+  },
+  {
+   "seq": 5,
+   "t": 0,
+   "kind": "task",
+   "task": "task-2",
+   "agent": "core.san-francisco.climate.weather-alerts",
+   "tool": "resilience.weather-alerts",
+   "state": "queued",
+   "text": "core.san-francisco.climate.weather-alerts ← resilience.weather-alerts"
+  },
+  {
+   "seq": 6,
+   "t": 0,
+   "kind": "task",
+   "task": "task-3",
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "tool": "graph.link",
+   "state": "queued",
+   "text": "core.san-francisco.data-science.graph-linker ← graph.link"
+  },
+  {
+   "seq": 7,
+   "t": 0,
+   "kind": "task",
+   "task": "task-4",
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve",
+   "state": "queued",
+   "text": "core.san-francisco.regulatory.knowledge-research ← knowledge.retrieve"
+  },
+  {
+   "seq": 8,
+   "t": 0,
+   "kind": "mission",
+   "state": "running",
+   "text": "Mission → running"
+  },
+  {
+   "seq": 9,
+   "t": 0,
+   "kind": "task",
+   "task": "task-1",
+   "agent": "core.san-francisco.climate.seismic-context",
+   "tool": "resilience.quake-context",
+   "state": "running",
+   "text": "exécution (tentative 1)"
+  },
+  {
+   "seq": 10,
+   "t": 0,
+   "kind": "task",
+   "task": "task-2",
+   "agent": "core.san-francisco.climate.weather-alerts",
+   "tool": "resilience.weather-alerts",
+   "state": "running",
+   "text": "exécution (tentative 1)"
+  },
+  {
+   "seq": 11,
+   "t": 0,
+   "kind": "task",
+   "task": "task-3",
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "tool": "graph.link",
+   "state": "running",
+   "text": "exécution (tentative 1)"
+  },
+  {
+   "seq": 12,
+   "t": 1,
+   "kind": "task",
+   "task": "task-1",
+   "agent": "core.san-francisco.climate.seismic-context",
+   "tool": "resilience.quake-context",
+   "state": "succeeded",
+   "text": "3 constat(s), 1 enregistrement(s), 1 ms"
+  },
+  {
+   "seq": 13,
+   "t": 1,
+   "kind": "task",
+   "task": "task-4",
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve",
+   "state": "running",
+   "text": "exécution (tentative 1)"
+  },
+  {
+   "seq": 14,
+   "t": 1,
+   "kind": "task",
+   "task": "task-2",
+   "agent": "core.san-francisco.climate.weather-alerts",
+   "tool": "resilience.weather-alerts",
+   "state": "succeeded",
+   "text": "1 constat(s), 0 enregistrement(s), 1 ms"
+  },
+  {
+   "seq": 15,
+   "t": 1,
+   "kind": "task",
+   "task": "task-3",
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "tool": "graph.link",
+   "state": "succeeded",
+   "text": "1 constat(s), 1 enregistrement(s), 1 ms"
+  },
+  {
+   "seq": 16,
+   "t": 2,
+   "kind": "task",
+   "task": "task-4",
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve",
+   "state": "succeeded",
+   "text": "1 constat(s), 0 enregistrement(s), 1 ms"
+  },
+  {
+   "seq": 17,
+   "t": 2,
+   "kind": "mission",
+   "state": "reviewing",
+   "text": "Mission → reviewing"
+  },
+  {
+   "seq": 18,
+   "t": 2,
+   "kind": "review",
+   "agent": "core.san-francisco.research.evidence-verifier",
+   "text": "Vérification indépendante : 6/6 constats entièrement sourcés."
+  },
+  {
+   "seq": 19,
+   "t": 2,
+   "kind": "review",
+   "agent": "core.san-francisco.safety.adversarial-reviewer",
+   "text": "Revue adversariale : 0 désaccord(s), 0 sensibilité(s), 1 limite(s), 0 tâche(s) non abouties."
+  },
+  {
+   "seq": 20,
+   "t": 2,
+   "kind": "synthesis",
+   "agent": "core.san-francisco.manager",
+   "text": "Synthèse : 4 énoncé(s) sourcé(s) ; action suivante : Aucune action proposée : surveiller les révisions USGS ; une évaluation d’impact exigerait des données structurelles et géotechniques non disponibles."
+  },
+  {
+   "seq": 21,
+   "t": 3,
+   "kind": "gateway",
+   "agent": "core.san-francisco.governance.gateway",
+   "text": "PREUVES SUPPLÉMENTAIRES REQUISES — Aucune action proposée : surveiller les révisions USGS ; une évaluation d’impact exigerait des données structurelles et géotechniques non disponibles. Limites : Aucune donnée structurelle, géotechnique ou d’inspection : aucun impact ne peut être évalué."
+  },
+  {
+   "seq": 22,
+   "t": 3,
+   "kind": "mission",
+   "state": "needs-evidence",
+   "text": "Mission → needs-evidence"
+  }
+ ],
+ "fingerprint": "adde646d337b71ff",
+ "recorded": {
+  "by": "scripts/agents.mjs (Node)",
+  "at": "2026-10-13T22:49:51.036Z",
+  "wallMs": 3,
+  "snapshot": "2026-10-13T18:25:19.678Z",
+  "feedUpdate": "2026-10-13T22:49:35.562Z"
+ }
+}

@@ -1,0 +1,132 @@
+{
+ "version": "core-agent-evals-v1",
+ "generated_at": "2026-10-13T22:49:51.036Z",
+ "results": [
+  {
+   "agent": "core.san-francisco.civil.works-coordination",
+   "tool": "works.windows",
+   "case": "fenêtres = recalcul du moteur de coordination",
+   "pass": true,
+   "error": null,
+   "date": "2026-10-13",
+   "knowledgeVersion": "core-knowledge-library-v1@341"
+  },
+  {
+   "agent": "core.san-francisco.telecom.telecom-works",
+   "tool": "works.telecom",
+   "case": "seuls des titulaires classés télécoms",
+   "pass": true,
+   "error": null,
+   "date": "2026-10-13",
+   "knowledgeVersion": "core-knowledge-library-v1@341"
+  },
+  {
+   "agent": "core.san-francisco.forestry.street-trees",
+   "tool": "trees.near-works",
+   "case": "preuves vérifiables, distances ≤ rayon",
+   "pass": true,
+   "error": null,
+   "date": "2026-10-13",
+   "knowledgeVersion": "core-knowledge-library-v1@341"
+  },
+  {
+   "agent": "core.san-francisco.housing.building-permits",
+   "tool": "buildings.frontage",
+   "case": "rappelle la limite du statut « issued »",
+   "pass": true,
+   "error": null,
+   "date": "2026-10-13",
+   "knowledgeVersion": "core-knowledge-library-v1@341"
+  },
+  {
+   "agent": "core.san-francisco.energy.energy-benchmarks",
+   "tool": "energy.benchmarks",
+   "case": "données déclarées marquées « reported »",
+   "pass": true,
+   "error": null,
+   "date": "2026-10-13",
+   "knowledgeVersion": "core-knowledge-library-v1@341"
+  },
+  {
+   "agent": "core.san-francisco.public-space.sidewalks",
+   "tool": "public-space.sidewalks",
+   "case": "largeur issue de l’étude 2014",
+   "pass": true,
+   "error": null,
+   "date": "2026-10-13",
+   "knowledgeVersion": "core-knowledge-library-v1@341"
+  },
+  {
+   "agent": "core.san-francisco.climate.seismic-context",
+   "tool": "resilience.quake-context",
+   "case": "distance exacte et limite structurelle",
+   "pass": true,
+   "error": null,
+   "date": "2026-10-13",
+   "knowledgeVersion": "core-knowledge-library-v1@341"
+  },
+  {
+   "agent": "core.san-francisco.climate.weather-alerts",
+   "tool": "resilience.weather-alerts",
+   "case": "alertes = prévisions (« reported »)",
+   "pass": true,
+   "error": null,
+   "date": "2026-10-13",
+   "knowledgeVersion": "core-knowledge-library-v1@341"
+  },
+  {
+   "agent": "core.san-francisco.administration.civic-records",
+   "tool": "civic.legislation",
+   "case": "aucun classement ni jugement politique",
+   "pass": true,
+   "error": null,
+   "date": "2026-10-13",
+   "knowledgeVersion": "core-knowledge-library-v1@341"
+  },
+  {
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "tool": "graph.link",
+   "case": "un point au milieu du tronçon y est rattaché",
+   "pass": true,
+   "error": null,
+   "date": "2026-10-13",
+   "knowledgeVersion": "core-knowledge-library-v1@341"
+  },
+  {
+   "agent": "core.san-francisco.simulation.scenario-evaluator",
+   "tool": "scenario.investigate",
+   "case": "même décision que la passerelle inter-domaines",
+   "pass": true,
+   "error": null,
+   "date": "2026-10-13",
+   "knowledgeVersion": "core-knowledge-library-v1@341"
+  },
+  {
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve",
+   "case": "retrouve la note sur les avis d’abattage",
+   "pass": true,
+   "error": null,
+   "date": "2026-10-13",
+   "knowledgeVersion": "core-knowledge-library-v1@341"
+  },
+  {
+   "agent": "core.san-francisco.research.evidence-verifier",
+   "tool": "evidence.verify",
+   "case": "rejette une preuve fabriquée",
+   "pass": true,
+   "error": null,
+   "date": "2026-10-13",
+   "knowledgeVersion": "core-knowledge-library-v1@341"
+  },
+  {
+   "agent": "core.san-francisco.safety.adversarial-reviewer",
+   "tool": "adversarial.review",
+   "case": "détecte une contradiction entre spécialistes",
+   "pass": true,
+   "error": null,
+   "date": "2026-10-13",
+   "knowledgeVersion": "core-knowledge-library-v1@341"
+  }
+ ]
+}

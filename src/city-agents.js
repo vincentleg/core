@@ -129,7 +129,7 @@
       yield ev('discovery', 'scan', `${b.street} ${b.from} → ${b.to} : ${b.works.length} excavation(s) à ≤ ${p.horizonDays} j (${b.orgs.length} org.), ${b.trees.length} arbre(s) dont ${b.exposed.length} à ≤ ${p.treeBufferM} m, ${b.recent.length} permis de bâtiment récent(s), ${b.energy.length} bâtiment(s) déclaré(s) énergie — ${b.core}/3 domaines clés.`,
         { cnn: C.groupCnns(ctx, seg), domains: Object.keys(b.domains).filter(k => b.domains[k]) });
     }
-    const candidates = blocks.filter(b => b.core === 3).sort(rank);
+    const candidates = blocks.filter(b => b.core === 3 && (!p.segment || b.seg === p.segment)).sort(rank); // optional target segment (missions)
     out.candidates = candidates.map(b => ({ seg: b.seg, street: b.street, from: b.from, to: b.to, core: b.core, domains: b.domains, orgs: b.orgs, exposed: b.exposed.length, exposedNet: b.exposedNet.length, recent: b.recent.length }));
     yield ev('discovery', 'done', `${candidates.length} tronçon(s) combinent infrastructure, nature et bâtiments ; classement : domaines, organisations, arbres exposés, permis récents.`, { status: candidates.length ? 'ok' : 'warn' });
     if (!candidates.length) { out.brief = null; out.decision = { state: STATES.REJECT, reason: 'Aucune relation inter-domaines vérifiable avec ces paramètres.', authorizes: false, checks: [] }; if (!p._noGateway) yield ev('gateway', 'decide', out.decision.reason, { status: 'fail' }); return out; }
@@ -212,7 +212,7 @@
     const recentList = b.recent.slice(0, 8).map(e => ({ permit: e.props.permit_number, type: e.props.type, status: e.props.status, filed: e.props.filed, issued: e.props.issued, address: e.props.address, description: e.props.description, url: `https://data.sf.gov/resource/i98e-djp9.json?permit_number=${encodeURIComponent(e.props.permit_number)}` }));
     return {
       version: 'core-decision-brief-v1', snapshot: { generated_at: ctx.manifest.generated_at, city_snapshot_at: ctx.manifest.city_snapshot_at || null, datasets: Object.fromEntries(Object.entries(ctx.datasets).map(([k, d]) => [k, { id: d.id, sha256: d.sha256, verified: d.verified }])) },
-      params: Object.fromEntries(Object.entries(p).filter(([k]) => !k.startsWith('_') && ['treeBufferM', 'frontageM', 'buildingRecencyDays', 'investigationDays', 'horizonDays', 'maxShiftDays', 'leadDays', 'programmeDays', 'geoToleranceM'].includes(k))),
+      params: Object.fromEntries(Object.entries(p).filter(([k]) => !k.startsWith('_') && p[k] !== undefined && ['segment', 'treeBufferM', 'frontageM', 'buildingRecencyDays', 'investigationDays', 'horizonDays', 'maxShiftDays', 'leadDays', 'programmeDays', 'geoToleranceM'].includes(k))),
       discovered: `Sur ${b.street} entre ${b.from} et ${b.to}, ${b.works.length} fenêtre(s) d’excavation de ${b.orgs.length} organisation(s) dans les ${p.horizonDays} prochains jours se situent à ≤ ${p.treeBufferM} m de ${b.exposed.length} arbre(s) d’alignement inventorié(s), sur un front où ${b.recent.length} permis de bâtiment ont été déposés ou délivrés depuis ${p.buildingRecencyDays} jours.`,
       location: { segment_cnn: b.seg, street: b.street, from: b.from, to: b.to, group_cnns: C.groupCnns(ctx, b.seg) },
       whyItMatters: 'Plusieurs services interviennent sur le même trottoir que des arbres publics et des chantiers de façade : sans revue commune, les mêmes fosses d’arbres et le même cheminement peuvent être perturbés plusieurs fois. C’est une hypothèse à vérifier, pas un dommage constaté.',

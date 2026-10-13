@@ -1,0 +1,2878 @@
+{
+ "id": "mission:b800f920af82",
+ "version": "core-mission-v1",
+ "origin": {
+  "type": "suggestion",
+  "suggestion": {
+   "key": "corridor:7051000",
+   "type": "corridor-change",
+   "segment": "7051000",
+   "reason": "Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) — approved-decision rattaché à HOWARD ST 08TH ST → 09TH ST (observed (CNN field)).",
+   "item": "datasf-street-use:26EXC-05114@7051000",
+   "created": "2026-10-13T22:48:34.222Z"
+  }
+ },
+ "state": "needs-human-review",
+ "target": {
+  "type": "corridor-change",
+  "segment": "7051000",
+  "item": "datasf-street-use:26EXC-05114@7051000",
+  "question": "Que change « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » pour HOWARD ST 08TH ST → 09TH ST ?",
+  "domains": [
+   "infrastructure"
+  ]
+ },
+ "plan": {
+  "domains": [
+   "buildings",
+   "energy",
+   "infrastructure",
+   "nature",
+   "public_space"
+  ],
+  "manager": "core.san-francisco.manager",
+  "specialists": [
+   {
+    "tool": "works.windows",
+    "agent": "core.san-francisco.civil.works-coordination"
+   },
+   {
+    "tool": "works.telecom",
+    "agent": "core.san-francisco.telecom.telecom-works"
+   },
+   {
+    "tool": "trees.near-works",
+    "agent": "core.san-francisco.forestry.street-trees"
+   },
+   {
+    "tool": "buildings.frontage",
+    "agent": "core.san-francisco.housing.building-permits"
+   },
+   {
+    "tool": "energy.benchmarks",
+    "agent": "core.san-francisco.energy.energy-benchmarks"
+   },
+   {
+    "tool": "public-space.sidewalks",
+    "agent": "core.san-francisco.public-space.sidewalks"
+   },
+   {
+    "tool": "resilience.weather-alerts",
+    "agent": "core.san-francisco.climate.weather-alerts"
+   },
+   {
+    "tool": "graph.link",
+    "agent": "core.san-francisco.data-science.graph-linker"
+   },
+   {
+    "tool": "scenario.investigate",
+    "agent": "core.san-francisco.simulation.scenario-evaluator"
+   },
+   {
+    "tool": "knowledge.retrieve",
+    "agent": "core.san-francisco.regulatory.knowledge-research"
+   }
+  ],
+  "verifier": "core.san-francisco.research.evidence-verifier",
+  "reviewer": "core.san-francisco.safety.adversarial-reviewer",
+  "gateway": "core.san-francisco.governance.gateway",
+  "unavailable": [
+   {
+    "agent": "core.san-francisco.geotech.geotechnical",
+    "role": "Ingénieur géotechnique (compétence visée)",
+    "gap": "Aucune donnée de sol ou de sous-sol intégrée."
+   },
+   {
+    "agent": "core.san-francisco.electrical.grid",
+    "role": "Ingénieur réseau électrique (compétence visée)",
+    "gap": "Aucune donnée de réseau électrique publique intégrée."
+   },
+   {
+    "agent": "core.san-francisco.water.water-network",
+    "role": "Ingénieur réseaux d’eau (compétence visée)",
+    "gap": "Aucune donnée de réseau d’eau intégrée."
+   },
+   {
+    "agent": "core.san-francisco.transit.transit-planner",
+    "role": "Planificateur de transports publics (compétence visée)",
+    "gap": "GTFS non intégré."
+   },
+   {
+    "agent": "core.san-francisco.mobility.traffic",
+    "role": "Ingénieur trafic (compétence visée)",
+    "gap": "Pas de comptages ni de plans de feux observés."
+   },
+   {
+    "agent": "core.san-francisco.ecology.biodiversity",
+    "role": "Écologue (compétence visée)",
+    "gap": "Aucune donnée de biodiversité intégrée."
+   },
+   {
+    "agent": "core.san-francisco.environmental.air-quality",
+    "role": "Analyste qualité de l’air (compétence visée)",
+    "gap": "APEZ identifié mais non intégré ; aucune mesure."
+   },
+   {
+    "agent": "core.san-francisco.architecture.urban-design",
+    "role": "Urbaniste-concepteur (compétence visée)",
+    "gap": "Pas d’outil de conception."
+   },
+   {
+    "agent": "core.san-francisco.mechanical.mechanical-systems",
+    "role": "Ingénieur mécanique (compétence visée)",
+    "gap": "Aucune donnée d’équipements."
+   },
+   {
+    "agent": "core.san-francisco.building-systems.building-systems-eng",
+    "role": "Ingénieur systèmes du bâtiment (compétence visée)",
+    "gap": "Seuls les bilans déclarés sont disponibles."
+   },
+   {
+    "agent": "core.san-francisco.digital.digital-infra",
+    "role": "Analyste infrastructures numériques (compétence visée)",
+    "gap": "Aucune donnée intégrée."
+   },
+   {
+    "agent": "core.san-francisco.cybersecurity.cyber",
+    "role": "Analyste cybersécurité (compétence visée)",
+    "gap": "Hors périmètre des données publiques actuelles."
+   }
+  ]
+ },
+ "tasks": [
+  {
+   "id": "task-1",
+   "agent": "core.san-francisco.civil.works-coordination",
+   "tool": "works.windows",
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 2,
+   "records": 34,
+   "error": null,
+   "findings": [
+    {
+     "topic": "works",
+     "claim": "5 fenêtre(s) d’excavation en cours ou à venir sur HOWARD ST 08TH ST → 09TH ST (CableCom, Precision Engineering, Inc., R & S Construction Management Inc).",
+     "epistemic": "observed",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:25EXC-03925@7051000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      },
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:26EXC-04307@24305000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      },
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:26EXC-04619@7051000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      },
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:26EXC-04337@7051000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      },
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:26EXC-05114@7051000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      }
+     ],
+     "value": 5,
+     "agent": "core.san-francisco.civil.works-coordination",
+     "tool": "works.windows"
+    },
+    {
+     "topic": "works-overlap",
+     "claim": "8 chevauchement(s) entre organisations dans les 60 j.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:25EXC-03925@7051000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      },
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:26EXC-04307@24305000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      },
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:25EXC-03925@7051000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      },
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:26EXC-04619@7051000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      },
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:25EXC-03925@7051000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      },
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:26EXC-04337@7051000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      },
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:25EXC-03925@7051000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      },
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:26EXC-05114@7051000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      },
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:26EXC-04307@24305000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      },
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:26EXC-04619@7051000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      },
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:26EXC-04307@24305000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      },
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:26EXC-05114@7051000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      },
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:26EXC-04619@7051000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      },
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:26EXC-04337@7051000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      },
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:26EXC-04337@7051000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      },
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:26EXC-05114@7051000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      }
+     ],
+     "value": 8,
+     "agent": "core.san-francisco.civil.works-coordination",
+     "tool": "works.windows"
+    }
+   ],
+   "extra": {
+    "brief": null,
+    "decision": null
+   }
+  },
+  {
+   "id": "task-2",
+   "agent": "core.san-francisco.telecom.telecom-works",
+   "tool": "works.telecom",
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 2,
+   "records": 5,
+   "error": null,
+   "findings": [
+    {
+     "topic": "telecom",
+     "claim": "2 fenêtre(s) de titulaires classés télécoms (classement déclaré par nom) : CableCom.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:26EXC-04619@7051000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      },
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:26EXC-05114@7051000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      }
+     ],
+     "value": 2,
+     "agent": "core.san-francisco.telecom.telecom-works",
+     "tool": "works.telecom"
+    }
+   ],
+   "extra": {
+    "brief": null,
+    "decision": null
+   }
+  },
+  {
+   "id": "task-3",
+   "agent": "core.san-francisco.forestry.street-trees",
+   "tool": "trees.near-works",
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 9,
+   "records": 15,
+   "error": null,
+   "findings": [
+    {
+     "topic": "trees",
+     "claim": "15 arbre(s) inventorié(s) sur le tronçon ; 2 à ≤ 12 m d’un point de permis d’excavation (indicateur de proximité).",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "street-trees",
+       "ref": "street-trees:197347",
+       "url": "https://data.sf.gov/d/tkzw-k3nq"
+      },
+      {
+       "type": "record",
+       "dataset": "street-trees",
+       "ref": "street-trees:197346",
+       "url": "https://data.sf.gov/d/tkzw-k3nq"
+      }
+     ],
+     "value": 2,
+     "agent": "core.san-francisco.forestry.street-trees",
+     "tool": "trees.near-works"
+    },
+    {
+     "topic": "trees",
+     "claim": "2 de ces arbres ont un avis d’abattage : la relation est contredite pour eux.",
+     "epistemic": "observed",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "street-trees",
+       "ref": "street-trees:197347",
+       "url": "https://data.sf.gov/d/tkzw-k3nq"
+      },
+      {
+       "type": "record",
+       "dataset": "street-trees",
+       "ref": "street-trees:197346",
+       "url": "https://data.sf.gov/d/tkzw-k3nq"
+      }
+     ],
+     "value": 2,
+     "contradicts": "trees",
+     "agent": "core.san-francisco.forestry.street-trees",
+     "tool": "trees.near-works"
+    }
+   ],
+   "extra": {
+    "brief": null,
+    "decision": null
+   }
+  },
+  {
+   "id": "task-4",
+   "agent": "core.san-francisco.housing.building-permits",
+   "tool": "buildings.frontage",
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 17,
+   "records": 45,
+   "error": null,
+   "findings": [
+    {
+     "topic": "buildings",
+     "claim": "7 permis de construire récent(s) (≤ 365 j) au front du tronçon ; 45 au total.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "building-permits",
+       "ref": "building-permits:202607064565",
+       "url": "https://data.sf.gov/d/i98e-djp9"
+      },
+      {
+       "type": "record",
+       "dataset": "building-permits",
+       "ref": "building-permits:202606163324",
+       "url": "https://data.sf.gov/d/i98e-djp9"
+      },
+      {
+       "type": "record",
+       "dataset": "building-permits",
+       "ref": "building-permits:202605201599",
+       "url": "https://data.sf.gov/d/i98e-djp9"
+      },
+      {
+       "type": "record",
+       "dataset": "building-permits",
+       "ref": "building-permits:202605201598",
+       "url": "https://data.sf.gov/d/i98e-djp9"
+      },
+      {
+       "type": "record",
+       "dataset": "building-permits",
+       "ref": "building-permits:202603278469",
+       "url": "https://data.sf.gov/d/i98e-djp9"
+      },
+      {
+       "type": "record",
+       "dataset": "building-permits",
+       "ref": "building-permits:202603177768",
+       "url": "https://data.sf.gov/d/i98e-djp9"
+      },
+      {
+       "type": "record",
+       "dataset": "building-permits",
+       "ref": "building-permits:202502100018",
+       "url": "https://data.sf.gov/d/i98e-djp9"
+      }
+     ],
+     "value": 7,
+     "agent": "core.san-francisco.housing.building-permits",
+     "tool": "buildings.frontage"
+    },
+    {
+     "topic": "buildings",
+     "claim": "2 semblent intérieurs ou d’enseigne : lien avec le trottoir incertain.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "building-permits",
+       "ref": "building-permits:202605201599",
+       "url": "https://data.sf.gov/d/i98e-djp9"
+      },
+      {
+       "type": "record",
+       "dataset": "building-permits",
+       "ref": "building-permits:202502100018",
+       "url": "https://data.sf.gov/d/i98e-djp9"
+      }
+     ],
+     "value": 2,
+     "contradicts": "buildings",
+     "agent": "core.san-francisco.housing.building-permits",
+     "tool": "buildings.frontage"
+    },
+    {
+     "topic": "buildings",
+     "claim": "Le statut DBI « issued » n’indique pas un chantier en cours (connaissance approuvée k-dbi-issued-status).",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "knowledge",
+       "ref": "k-dbi-issued-status"
+      }
+     ],
+     "agent": "core.san-francisco.housing.building-permits",
+     "tool": "buildings.frontage"
+    }
+   ],
+   "extra": {
+    "brief": null,
+    "decision": null
+   }
+  },
+  {
+   "id": "task-5",
+   "agent": "core.san-francisco.energy.energy-benchmarks",
+   "tool": "energy.benchmarks",
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 25,
+   "records": 4,
+   "error": null,
+   "findings": [
+    {
+     "topic": "energy",
+     "claim": "4 bâtiment(s) avec bilan énergétique déclaré à proximité (contexte ; aucun modèle d’économie).",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "energy-benchmarks",
+       "ref": "energy-benchmarks:3729/097@2025",
+       "url": "https://data.sf.gov/d/96ck-qcfe"
+      },
+      {
+       "type": "record",
+       "dataset": "energy-benchmarks",
+       "ref": "energy-benchmarks:3728/007@2025",
+       "url": "https://data.sf.gov/d/96ck-qcfe"
+      },
+      {
+       "type": "record",
+       "dataset": "energy-benchmarks",
+       "ref": "energy-benchmarks:3729/086@2025",
+       "url": "https://data.sf.gov/d/96ck-qcfe"
+      },
+      {
+       "type": "record",
+       "dataset": "energy-benchmarks",
+       "ref": "energy-benchmarks:3730/038@2025",
+       "url": "https://data.sf.gov/d/96ck-qcfe"
+      }
+     ],
+     "value": 4,
+     "agent": "core.san-francisco.energy.energy-benchmarks",
+     "tool": "energy.benchmarks"
+    }
+   ],
+   "extra": {
+    "brief": null,
+    "decision": null
+   }
+  },
+  {
+   "id": "task-6",
+   "agent": "core.san-francisco.public-space.sidewalks",
+   "tool": "public-space.sidewalks",
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 26,
+   "records": 1,
+   "error": null,
+   "findings": [
+    {
+     "topic": "public-space",
+     "claim": "Trottoir : 12 pi (W) (étude 2014) ; 0 parc(s) proche(s).",
+     "epistemic": "observed",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "sidewalks",
+       "ref": "sidewalks:13077",
+       "url": "https://data.sf.gov/d/4g86-grxu"
+      }
+     ],
+     "value": 12,
+     "agent": "core.san-francisco.public-space.sidewalks",
+     "tool": "public-space.sidewalks"
+    }
+   ],
+   "extra": {
+    "brief": null,
+    "decision": null
+   }
+  },
+  {
+   "id": "task-7",
+   "agent": "core.san-francisco.climate.weather-alerts",
+   "tool": "resilience.weather-alerts",
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 17,
+   "records": 0,
+   "error": null,
+   "findings": [
+    {
+     "topic": "weather",
+     "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "feed-source",
+       "ref": "nws-alerts",
+       "url": "https://api.weather.gov/alerts/active?zone=CAZ006"
+      }
+     ],
+     "value": 0,
+     "agent": "core.san-francisco.climate.weather-alerts",
+     "tool": "resilience.weather-alerts"
+    }
+   ],
+   "extra": {
+    "brief": null,
+    "decision": null
+   }
+  },
+  {
+   "id": "task-8",
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "tool": "graph.link",
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 10,
+   "records": 1,
+   "error": null,
+   "findings": [
+    {
+     "topic": "graph",
+     "claim": "L’élément « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » est rattaché au tronçon HOWARD ST 08TH ST → 09TH ST (observed (CNN field), 17 m).",
+     "epistemic": "observed",
+     "evidence": [
+      {
+       "type": "feed",
+       "ref": "datasf-street-use:26EXC-05114@7051000",
+       "url": "https://data.sf.gov/resource/b6tj-gt35.json?permit_number=26EXC-05114"
+      }
+     ],
+     "value": "7051000",
+     "link": {
+      "segment": "7051000",
+      "basis": "observed (CNN field)",
+      "distance_m": 17
+     },
+     "agent": "core.san-francisco.data-science.graph-linker",
+     "tool": "graph.link"
+    }
+   ],
+   "extra": {
+    "brief": null,
+    "decision": null
+   }
+  },
+  {
+   "id": "task-9",
+   "agent": "core.san-francisco.simulation.scenario-evaluator",
+   "tool": "scenario.investigate",
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 150,
+   "records": 69,
+   "error": null,
+   "findings": [
+    {
+     "topic": "scenario",
+     "claim": "Alternatives évaluées (modèles déterministes) : épisodes d’exposition R0 2, R1 2, R2 2 ; complétude des preuves R1 33 %.",
+     "epistemic": "simulated",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "corridor",
+       "ref": "corridor:7051000",
+       "url": "https://data.sf.gov/d/3psu-pn9h"
+      }
+     ],
+     "value": "R2",
+     "agent": "core.san-francisco.simulation.scenario-evaluator",
+     "tool": "scenario.investigate"
+    },
+    {
+     "topic": "scenario",
+     "claim": "Hypothèse : Les excavations à venir, les arbres d’alignement proches et les travaux de bâtiment récents sur ce tronçon gagneraient à être examinés ensemble avant ouverture.",
+     "epistemic": "hypothesis",
+     "evidence": [
+      {
+       "type": "graph",
+       "ref": "permit:25EXC-03925@7051000"
+      },
+      {
+       "type": "graph",
+       "ref": "permit:26EXC-04307@24305000"
+      },
+      {
+       "type": "graph",
+       "ref": "permit:26EXC-04619@7051000"
+      },
+      {
+       "type": "graph",
+       "ref": "tree:197347"
+      },
+      {
+       "type": "graph",
+       "ref": "tree:197346"
+      },
+      {
+       "type": "graph",
+       "ref": "building-permit:202607064565"
+      },
+      {
+       "type": "graph",
+       "ref": "building-permit:202606163324"
+      },
+      {
+       "type": "graph",
+       "ref": "building-permit:202605201599"
+      }
+     ],
+     "value": "ÉLIGIBLE À LA REVUE HUMAINE",
+     "agent": "core.san-francisco.simulation.scenario-evaluator",
+     "tool": "scenario.investigate"
+    }
+   ],
+   "extra": {
+    "brief": {
+     "version": "core-decision-brief-v1",
+     "snapshot": {
+      "generated_at": "2026-10-13T18:25:19.678Z",
+      "city_snapshot_at": "2026-10-13T21:01:55.024Z",
+      "datasets": {
+       "corridor": {
+        "id": "3psu-pn9h",
+        "sha256": "5ab999617ad97f0978ad09e63c88c3773015543ff5e5e2aa1f9342e2d5192df1",
+        "verified": "ok"
+       },
+       "intersections": {
+        "id": "gmfx-8h6i",
+        "sha256": "3a9a06fb0dc361a870d13e217d6ec058d7967a285384848306effb4d9cca8e3d",
+        "verified": "ok"
+       },
+       "permits": {
+        "id": "b6tj-gt35",
+        "sha256": "a5d9fa5537eb3d75c149cd90eab51d31b836b0cf91e5af962bbf00c3708bbd37",
+        "verified": "ok"
+       },
+       "large-excavations": {
+        "id": "i926-ujnc",
+        "sha256": "47914a76d2c8b3f893be0247527b80ca728fe8a01620c2d1b7f27b4c0743c0e5",
+        "verified": "ok"
+       },
+       "moratoria": {
+        "id": "5wbp-dwzt",
+        "sha256": "cc14120e4decfd0ad35255f04be4ba8170fda7dbb33d54f0b86b661cae7d19a9",
+        "verified": "ok"
+       },
+       "closures": {
+        "id": "8x25-yybr",
+        "sha256": "cabedfd3275dfd753364ef849928bcb301667af68c54915440c5c9dc37b35848",
+        "verified": "ok"
+       },
+       "street-trees": {
+        "id": "tkzw-k3nq",
+        "sha256": "4d71d2f4d36b6a0ce4f3319d903c61ed9a41d82650f89e5133e5e1045c95a523",
+        "verified": "ok"
+       },
+       "tree-removals": {
+        "id": "qrwx-q4gg",
+        "sha256": "5f0c1b0d66fdd758f9fdd72f4760b7f7ab0d6a8c6fed409bcc2f956b471e9db8",
+        "verified": "ok"
+       },
+       "building-permits": {
+        "id": "i98e-djp9",
+        "sha256": "f718f287648095c7affc2eaae0a171572c0c0e89c21aea357567e42759960362",
+        "verified": "ok"
+       },
+       "energy-benchmarks": {
+        "id": "96ck-qcfe",
+        "sha256": "78a7279043b8e3bb3db4b2a0a561775b63dedb9642b65c276cf38aea41485ad8",
+        "verified": "ok"
+       },
+       "parks": {
+        "id": "gtr9-ntp6",
+        "sha256": "ea45c21b3f453a1393a879dd578337e23954d873cd4b4987beb747d42cac4164",
+        "verified": "ok"
+       },
+       "sidewalks": {
+        "id": "4g86-grxu",
+        "sha256": "c5adad5995b8dae5fd5022ccc1ee76b5f94ab417ea3d2d52c41aef62b06718da",
+        "verified": "ok"
+       }
+      }
+     },
+     "params": {
+      "treeBufferM": 12,
+      "frontageM": 40,
+      "buildingRecencyDays": 365,
+      "investigationDays": 21,
+      "maxShiftDays": 30,
+      "leadDays": 7,
+      "programmeDays": 90,
+      "geoToleranceM": 75,
+      "horizonDays": 60,
+      "segment": "7051000"
+     },
+     "discovered": "Sur HOWARD ST entre 08TH ST et 09TH ST, 5 fenêtre(s) d’excavation de 3 organisation(s) dans les 60 prochains jours se situent à ≤ 12 m de 2 arbre(s) d’alignement inventorié(s), sur un front où 7 permis de bâtiment ont été déposés ou délivrés depuis 365 jours.",
+     "location": {
+      "segment_cnn": "7051000",
+      "street": "HOWARD ST",
+      "from": "08TH ST",
+      "to": "09TH ST",
+      "group_cnns": [
+       "7051000",
+       "24299000",
+       "24305000"
+      ]
+     },
+     "whyItMatters": "Plusieurs services interviennent sur le même trottoir que des arbres publics et des chantiers de façade : sans revue commune, les mêmes fosses d’arbres et le même cheminement peuvent être perturbés plusieurs fois. C’est une hypothèse à vérifier, pas un dommage constaté.",
+     "domains": [
+      "infrastructure",
+      "nature",
+      "buildings",
+      "energy",
+      "public_space",
+      "events"
+     ],
+     "evidence": {
+      "excavations": [
+       {
+        "permit": "25EXC-03925",
+        "organisation": "Precision Engineering, Inc.",
+        "start": "2025-09-21",
+        "end": "2026-12-03",
+        "status": "APPROVED",
+        "fixed": [
+         "déjà commencé",
+         "programme > 90 j"
+        ],
+        "record_id": "25EXC-03925@7051000",
+        "url": "https://data.sf.gov/resource/b6tj-gt35.json?permit_number=25EXC-03925"
+       },
+       {
+        "permit": "26EXC-04307",
+        "organisation": "R & S Construction Management Inc",
+        "start": "2026-10-05",
+        "end": "2026-10-16",
+        "status": "ACTIVE",
+        "fixed": [
+         "déjà commencé",
+         "actif"
+        ],
+        "record_id": "26EXC-04307@24305000",
+        "url": "https://data.sf.gov/resource/b6tj-gt35.json?permit_number=26EXC-04307"
+       },
+       {
+        "permit": "26EXC-04619",
+        "organisation": "CableCom",
+        "start": "2026-10-09",
+        "end": "2026-11-06",
+        "status": "APPROVED",
+        "fixed": [
+         "déjà commencé"
+        ],
+        "record_id": "26EXC-04619@7051000",
+        "url": "https://data.sf.gov/resource/b6tj-gt35.json?permit_number=26EXC-04619"
+       },
+       {
+        "permit": "26EXC-04337",
+        "organisation": "R & S Construction Management Inc",
+        "start": "2026-10-12",
+        "end": "2026-10-23",
+        "status": "ACTIVE",
+        "fixed": [
+         "déjà commencé",
+         "actif"
+        ],
+        "record_id": "26EXC-04337@7051000",
+        "url": "https://data.sf.gov/resource/b6tj-gt35.json?permit_number=26EXC-04337"
+       },
+       {
+        "permit": "26EXC-05114",
+        "organisation": "CableCom",
+        "start": "2026-10-15",
+        "end": "2026-11-12",
+        "status": "APPROVED",
+        "fixed": [],
+        "record_id": "26EXC-05114@7051000",
+        "url": "https://data.sf.gov/resource/b6tj-gt35.json?permit_number=26EXC-05114"
+       }
+      ],
+      "trees": [
+       {
+        "treeid": "197347",
+        "species": "Rhamnus alaternus :: Italian Buckthorn",
+        "legal_status": "DPW Maintained",
+        "url": "https://data.sf.gov/resource/tkzw-k3nq.json?treeid=197347"
+       },
+       {
+        "treeid": "197346",
+        "species": "Rhamnus alaternus :: Italian Buckthorn",
+        "legal_status": "DPW Maintained",
+        "url": "https://data.sf.gov/resource/tkzw-k3nq.json?treeid=197346"
+       }
+      ],
+      "buildingPermits": [
+       {
+        "permit": "202607064565",
+        "type": "otc alterations permit",
+        "status": "issued",
+        "filed": "2026-07-06",
+        "issued": "2026-07-07",
+        "address": "1256 Howard St",
+        "description": "revision to bpa: 202502100001 - for correction of title 24 to eliminate solar requirements.",
+        "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202607064565"
+       },
+       {
+        "permit": "202606163324",
+        "type": "otc alterations permit",
+        "status": "filed",
+        "filed": "2026-06-16",
+        "issued": null,
+        "address": "1220 Howard St",
+        "description": "pge meter relocation for future cafe space. build mechanical room to house new meters and distribution panels.",
+        "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202606163324"
+       },
+       {
+        "permit": "202605201599",
+        "type": "sign - erect",
+        "status": "issued",
+        "filed": "2026-05-20",
+        "issued": "2026-06-05",
+        "address": "1200 Howard St",
+        "description": "install (n) electrical channel letters sign facing street single sided for \"soma gift shop\" called sign a.",
+        "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202605201599"
+       },
+       {
+        "permit": "202605201598",
+        "type": "otc alterations permit",
+        "status": "filed",
+        "filed": "2026-05-20",
+        "issued": null,
+        "address": "1200 Howard St",
+        "description": "install electrical channel letters facing street",
+        "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202605201598"
+       },
+       {
+        "permit": "202603278469",
+        "type": "otc alterations permit",
+        "status": "issued",
+        "filed": "2026-03-27",
+        "issued": "2026-03-30",
+        "address": "1256 Howard St",
+        "description": "revision to bpa: 202502100001 minor changes to foundation plan.",
+        "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202603278469"
+       },
+       {
+        "permit": "202603177768",
+        "type": "otc alterations permit",
+        "status": "issued",
+        "filed": "2026-03-17",
+        "issued": "2026-06-29",
+        "address": "201 09th St",
+        "description": "basement: n) walk-in cooler at (e) storage room. new changing room/dry storage. 1st/f: n) power door operators at (e) restrooms & restroom accessibility upgrades, new accessible counter at bar, new bench seating area & dj area.",
+        "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202603177768"
+       },
+       {
+        "permit": "202502100018",
+        "type": "additions alterations or repairs",
+        "status": "issued",
+        "filed": "2025-02-27",
+        "issued": "2025-10-31",
+        "address": "1252 Howard St",
+        "description": "unit# 1252-b: proposed interior renovation of (e) vacant commercial space at first floor. all works to be performed within (e) boundary of the building. residential conversion at lvl 2 and (n) egress passageway @ lvl 1 under sep. pa# 2025-0210-0001. t.i. in adjacent tenant space under 2025-0210-0009",
+        "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202502100018"
+       }
+      ],
+      "buildingPermitsTotal": 7,
+      "energyBuildings": [
+       {
+        "parcel": "3729/097@2025",
+        "name": "1235 HOWARD ST",
+        "address": "1235 HOWARD ST",
+        "site_eui": null,
+        "benchmark_status": "2025 - Violation - Did Not Report"
+       },
+       {
+        "parcel": "3728/007@2025",
+        "name": "Canon Kip Community House",
+        "address": "705 NATOMA ST",
+        "site_eui": null,
+        "benchmark_status": "2025 - Violation - Did Not Report"
+       },
+       {
+        "parcel": "3729/086@2025",
+        "name": "1263 HOWARD ST",
+        "address": "1263 HOWARD ST",
+        "site_eui": 5.5,
+        "benchmark_status": "2025 - Complied"
+       },
+       {
+        "parcel": "3730/038@2025",
+        "name": "201 8TH ST",
+        "address": "201 8TH ST",
+        "site_eui": 77.1,
+        "benchmark_status": "2025 - Complied"
+       }
+      ],
+      "sidewalks": [
+       {
+        "width_ft": 12,
+        "side": "W",
+        "year": 2014
+       }
+      ],
+      "removals": [
+       {
+        "notice": "Posted 24hr",
+        "posted": "2023-01-20",
+        "site": "1245 Howard St | Tree 2"
+       },
+       {
+        "notice": "Posted 24hr",
+        "posted": "2023-01-20",
+        "site": "1245 Howard St | Tree 1"
+       }
+      ],
+      "parks": []
+     },
+     "observationVsInference": {
+      "observed": [
+       "Fenêtres, titulaires et statuts des permis de voirie",
+       "Arbres de l’inventaire et leur CNN",
+       "Avis d’abattage",
+       "Permis de bâtiment (type, statut, dates, adresse)",
+       "Bilans énergétiques déclarés",
+       "Largeurs de trottoir (2014)"
+      ],
+      "derived": [
+       "Distances arbre–permis (≤ 12 m) au point publié du permis",
+       "Permis de bâtiment à ≤ 40 m de l’axe"
+      ],
+      "rule": [
+       "Chevauchements temporels",
+       "Récence des permis de bâtiment (365 j)"
+      ],
+      "hypothesis": [
+       "Les excavations à venir, les arbres d’alignement proches et les travaux de bâtiment récents sur ce tronçon gagneraient à être examinés ensemble avant ouverture."
+      ]
+     },
+     "hypothesis": {
+      "id": "hypothesis:7051000",
+      "text": "Les excavations à venir, les arbres d’alignement proches et les travaux de bâtiment récents sur ce tronçon gagneraient à être examinés ensemble avant ouverture.",
+      "claims": [
+       {
+        "id": "C1",
+        "text": "5 fenêtre(s) d’excavation de 3 organisation(s) dans les 60 j, dont 8 chevauchement(s) entre organisations.",
+        "basis": "rule",
+        "support": [
+         "permit:25EXC-03925@7051000",
+         "permit:26EXC-04307@24305000",
+         "permit:26EXC-04619@7051000",
+         "permit:26EXC-04337@7051000",
+         "permit:26EXC-05114@7051000"
+        ]
+       },
+       {
+        "id": "C2",
+        "text": "2 arbre(s) inventorié(s) à ≤ 12 m des points de permis d’excavation.",
+        "basis": "derived",
+        "support": [
+         "tree:197347",
+         "tree:197346"
+        ]
+       },
+       {
+        "id": "C3",
+        "text": "7 permis de bâtiment déposé(s) ou délivré(s) depuis 365 j au front du tronçon.",
+        "basis": "derived",
+        "support": [
+         "building-permit:202607064565",
+         "building-permit:202606163324",
+         "building-permit:202605201599",
+         "building-permit:202605201598",
+         "building-permit:202603278469",
+         "building-permit:202603177768",
+         "building-permit:202502100018"
+        ]
+       }
+      ],
+      "contradictions": [
+       {
+        "id": "event:tree-removal:197347@2023-01-20",
+        "text": "Avis d’abattage (Posted 24hr, 2023-01-20) : l’arbre concerné pourrait ne plus être à protéger."
+       },
+       {
+        "id": "event:tree-removal:197346@2023-01-20",
+        "text": "Avis d’abattage (Posted 24hr, 2023-01-20) : l’arbre concerné pourrait ne plus être à protéger."
+       },
+       {
+        "id": "scope",
+        "text": "2 permis de bâtiment récents semblent intérieurs ou d’enseigne : leur lien avec le trottoir est incertain."
+       }
+      ]
+     },
+     "baseline": "R0",
+     "alternatives": [
+      {
+       "id": "R0",
+       "name": "Référence : travaux indépendants, tels que permis",
+       "kind": "observed-derived",
+       "description": "Chaque titulaire travaille dans sa fenêtre de permis ; aucune revue commune des arbres ni des travaux de façade.",
+       "assumptions": [
+        "Dates de permis = fenêtres autorisées, pas travaux réalisés."
+       ],
+       "windows": [
+        {
+         "record_id": "25EXC-03925@7051000",
+         "permit_number": "25EXC-03925",
+         "agent": "Precision Engineering, Inc.",
+         "start": "2025-09-21",
+         "end": "2026-12-03",
+         "shift": 0,
+         "fixed": [
+          "déjà commencé",
+          "programme > 90 j"
+         ]
+        },
+        {
+         "record_id": "26EXC-04307@24305000",
+         "permit_number": "26EXC-04307",
+         "agent": "R & S Construction Management Inc",
+         "start": "2026-10-05",
+         "end": "2026-10-16",
+         "shift": 0,
+         "fixed": [
+          "déjà commencé",
+          "actif"
+         ]
+        },
+        {
+         "record_id": "26EXC-04619@7051000",
+         "permit_number": "26EXC-04619",
+         "agent": "CableCom",
+         "start": "2026-10-09",
+         "end": "2026-11-06",
+         "shift": 0,
+         "fixed": [
+          "déjà commencé"
+         ]
+        },
+        {
+         "record_id": "26EXC-04337@7051000",
+         "permit_number": "26EXC-04337",
+         "agent": "R & S Construction Management Inc",
+         "start": "2026-10-12",
+         "end": "2026-10-23",
+         "shift": 0,
+         "fixed": [
+          "déjà commencé",
+          "actif"
+         ]
+        },
+        {
+         "record_id": "26EXC-05114@7051000",
+         "permit_number": "26EXC-05114",
+         "agent": "CableCom",
+         "start": "2026-10-15",
+         "end": "2026-11-12",
+         "shift": 0,
+         "fixed": []
+        }
+       ]
+      },
+      {
+       "id": "R1",
+       "name": "Intervention coordonnée : fenêtre commune + revue de protection des arbres",
+       "kind": "hypothetical",
+       "description": "Fenêtres d’excavation alignées (scénario S2 du moteur de coordination, sous contraintes) et une seule revue de protection des arbres avant le premier début, coordonnée avec les travaux de façade.",
+       "assumptions": [
+        "Les excavations sont techniquement compatibles dans une même fenêtre (non vérifié).",
+        "Une revue d’arbres commune couvre tous les permis simultanés."
+       ],
+       "windows": [
+        {
+         "record_id": "25EXC-03925@7051000",
+         "permit_number": "25EXC-03925",
+         "agent": "Precision Engineering, Inc.",
+         "start": "2025-09-21",
+         "end": "2026-12-03",
+         "shift": 0,
+         "fixed": [
+          "déjà commencé",
+          "programme > 90 j"
+         ]
+        },
+        {
+         "record_id": "26EXC-04307@24305000",
+         "permit_number": "26EXC-04307",
+         "agent": "R & S Construction Management Inc",
+         "start": "2026-10-05",
+         "end": "2026-10-16",
+         "shift": 0,
+         "fixed": [
+          "déjà commencé",
+          "actif"
+         ]
+        },
+        {
+         "record_id": "26EXC-04619@7051000",
+         "permit_number": "26EXC-04619",
+         "agent": "CableCom",
+         "start": "2026-10-09",
+         "end": "2026-11-06",
+         "shift": 0,
+         "fixed": [
+          "déjà commencé"
+         ]
+        },
+        {
+         "record_id": "26EXC-04337@7051000",
+         "permit_number": "26EXC-04337",
+         "agent": "R & S Construction Management Inc",
+         "start": "2026-10-12",
+         "end": "2026-10-23",
+         "shift": 0,
+         "fixed": [
+          "déjà commencé",
+          "actif"
+         ]
+        },
+        {
+         "record_id": "26EXC-05114@7051000",
+         "permit_number": "26EXC-05114",
+         "agent": "CableCom",
+         "start": "2026-10-15",
+         "end": "2026-11-12",
+         "shift": 0,
+         "fixed": []
+        }
+       ]
+      },
+      {
+       "id": "R2",
+       "name": "Différer et investiguer : vérification de terrain avant ouverture",
+       "kind": "hypothetical",
+       "description": "Les permis non commencés sont décalés jusqu’à 21 j après l’instantané (dans la limite de ±30 j) pour vérifier tracés de tranchées, arbres et travaux de façade ; les travaux commencés continuent.",
+       "assumptions": [
+        "21 jours suffisent pour une visite de terrain (hypothèse).",
+        "Les titulaires acceptent un report (non vérifié)."
+       ],
+       "windows": [
+        {
+         "record_id": "25EXC-03925@7051000",
+         "permit_number": "25EXC-03925",
+         "agent": "Precision Engineering, Inc.",
+         "start": "2025-09-21",
+         "end": "2026-12-03",
+         "shift": 0,
+         "fixed": [
+          "déjà commencé",
+          "programme > 90 j"
+         ]
+        },
+        {
+         "record_id": "26EXC-04307@24305000",
+         "permit_number": "26EXC-04307",
+         "agent": "R & S Construction Management Inc",
+         "start": "2026-10-05",
+         "end": "2026-10-16",
+         "shift": 0,
+         "fixed": [
+          "déjà commencé",
+          "actif"
+         ]
+        },
+        {
+         "record_id": "26EXC-04619@7051000",
+         "permit_number": "26EXC-04619",
+         "agent": "CableCom",
+         "start": "2026-10-09",
+         "end": "2026-11-06",
+         "shift": 0,
+         "fixed": [
+          "déjà commencé"
+         ]
+        },
+        {
+         "record_id": "26EXC-04337@7051000",
+         "permit_number": "26EXC-04337",
+         "agent": "R & S Construction Management Inc",
+         "start": "2026-10-12",
+         "end": "2026-10-23",
+         "shift": 0,
+         "fixed": [
+          "déjà commencé",
+          "actif"
+         ]
+        },
+        {
+         "record_id": "26EXC-05114@7051000",
+         "permit_number": "26EXC-05114",
+         "agent": "CableCom",
+         "start": "2026-11-03",
+         "end": "2026-12-01",
+         "shift": 19,
+         "fixed": []
+        }
+       ]
+      }
+     ],
+     "evaluation": {
+      "method": "Modèles déterministes : coordination-schedule-v1 (calendrier sous contraintes), tree-proximity-exposure-v1 (comptage de proximité), evidence-completeness-v1 (liste de contrôle). Aucun modèle physique, énergétique ou écologique.",
+      "results": [
+       {
+        "id": "R0",
+        "metrics": {
+         "excavationPermits": 5,
+         "organisations": 3,
+         "occupationWindows": 1,
+         "overlapPairs": 8,
+         "overlapDays": 113,
+         "treesWithinBuffer": 2,
+         "permitTreePairs": 2,
+         "exposureEpisodes": 2,
+         "recentBuildingPermits": 7,
+         "moved": 0,
+         "delayDays": 0,
+         "violations": 0,
+         "evidenceCompleteness": 1
+        },
+        "violations": [],
+        "missingEvidence": [],
+        "models": [
+         "tree-proximity-exposure-v1",
+         "evidence-completeness-v1"
+        ],
+        "notes": "Épisodes d’exposition comptés par permis (chaque titulaire intervient séparément)."
+       },
+       {
+        "id": "R1",
+        "metrics": {
+         "excavationPermits": 5,
+         "organisations": 3,
+         "occupationWindows": 1,
+         "overlapPairs": 8,
+         "overlapDays": 113,
+         "treesWithinBuffer": 2,
+         "permitTreePairs": 2,
+         "exposureEpisodes": 2,
+         "recentBuildingPermits": 7,
+         "moved": 0,
+         "delayDays": 0,
+         "violations": 0,
+         "evidenceCompleteness": 0.33
+        },
+        "violations": [],
+        "missingEvidence": [
+         "tracé réel des tranchées",
+         "état sanitaire et zones racinaires des arbres",
+         "calendrier des travaux de bâtiment",
+         "accord des titulaires"
+        ],
+        "models": [
+         "tree-proximity-exposure-v1",
+         "evidence-completeness-v1",
+         "coordination-schedule-v1"
+        ],
+        "notes": "Épisodes d’exposition comptés par fenêtre d’occupation commune (hypothèse de revue partagée)."
+       },
+       {
+        "id": "R2",
+        "metrics": {
+         "excavationPermits": 5,
+         "organisations": 3,
+         "occupationWindows": 1,
+         "overlapPairs": 6,
+         "overlapDays": 102,
+         "treesWithinBuffer": 2,
+         "permitTreePairs": 2,
+         "exposureEpisodes": 2,
+         "recentBuildingPermits": 7,
+         "moved": 1,
+         "delayDays": 19,
+         "violations": 0,
+         "evidenceCompleteness": 1
+        },
+        "violations": [],
+        "missingEvidence": [],
+        "models": [
+         "tree-proximity-exposure-v1",
+         "evidence-completeness-v1"
+        ],
+        "notes": "Épisodes d’exposition comptés par fenêtre d’occupation commune (hypothèse de revue partagée)."
+       }
+      ]
+     },
+     "constraints": [
+      "Décalage maximal ±30 j",
+      "Préavis 7 j",
+      "Permis > 90 j non déplacés",
+      "Permis commencés, actifs ou d’urgence non déplacés",
+      "Durées conservées"
+     ],
+     "uncertainty": [
+      "Position des permis géocodée à l’adresse ou au tronçon : distances indicatives.",
+      "Statut DBI « issued » sans date d’achèvement : récence utilisée comme indicateur d’activité.",
+      "Largeurs de trottoir issues d’une étude de 2014.",
+      "Bilans énergétiques déclarés, non mesurés par CORE."
+     ],
+     "missingData": [
+      "tracé réel des tranchées (les points de permis sont à l’adresse ou au tronçon)",
+      "état sanitaire et zones racinaires des arbres",
+      "calendrier et emprise des travaux de bâtiment sur le trottoir",
+      "accord des titulaires sur un report ou une fenêtre commune"
+     ],
+     "stakeholders": [
+      "CableCom",
+      "Precision Engineering, Inc.",
+      "R & S Construction Management Inc",
+      "SF Public Works (permis de voirie, Bureau of Urban Forestry)",
+      "Department of Building Inspection",
+      "titulaires des permis de bâtiment au front du tronçon",
+      "riverains et usagers du trottoir"
+     ],
+     "adversarial": [
+      {
+       "id": "P1",
+       "label": "Rayon autour des arbres divisé par deux",
+       "pass": false,
+       "detail": "5 excavation(s), 0 arbre(s) à ≤ 6 m, 7 permis de bâtiment récent(s)"
+      },
+      {
+       "id": "P2",
+       "label": "Incertitude de géocodage : rayon +15 m",
+       "pass": true,
+       "detail": "5 excavation(s), 4 arbre(s) à ≤ 27 m, 7 permis de bâtiment récent(s)"
+      },
+      {
+       "id": "P3",
+       "label": "Permis de bâtiment récents limités à 180 jours",
+       "pass": true,
+       "detail": "5 excavation(s), 2 arbre(s) à ≤ 12 m, 5 permis de bâtiment récent(s)"
+      },
+      {
+       "id": "P4",
+       "label": "Front de rue resserré à 25 m",
+       "pass": true,
+       "detail": "5 excavation(s), 2 arbre(s) à ≤ 12 m, 3 permis de bâtiment récent(s)"
+      },
+      {
+       "id": "P5",
+       "label": "Horizon réduit à 30 jours",
+       "pass": true,
+       "detail": "5 excavation(s), 2 arbre(s) à ≤ 12 m, 7 permis de bâtiment récent(s)"
+      },
+      {
+       "id": "P6",
+       "label": "Arbres faisant l’objet d’un avis d’abattage exclus",
+       "pass": false,
+       "detail": "5 excavation(s), 0 arbre(s) à ≤ 12 m, 7 permis de bâtiment récent(s)"
+      },
+      {
+       "id": "P7",
+       "label": "Arbres non entretenus par DPW exclus",
+       "pass": true,
+       "detail": "5 excavation(s), 2 arbre(s) à ≤ 12 m, 7 permis de bâtiment récent(s)"
+      }
+     ],
+     "contradictions": [
+      {
+       "id": "event:tree-removal:197347@2023-01-20",
+       "text": "Avis d’abattage (Posted 24hr, 2023-01-20) : l’arbre concerné pourrait ne plus être à protéger."
+      },
+      {
+       "id": "event:tree-removal:197346@2023-01-20",
+       "text": "Avis d’abattage (Posted 24hr, 2023-01-20) : l’arbre concerné pourrait ne plus être à protéger."
+      },
+      {
+       "id": "scope",
+       "text": "2 permis de bâtiment récents semblent intérieurs ou d’enseigne : leur lien avec le trottoir est incertain."
+      }
+     ],
+     "ranking": [
+      {
+       "id": "R2",
+       "why": "Seule option dont les preuves requises sont disponibles ; elle comble les manques avant d’engager une intervention."
+      },
+      {
+       "id": "R1",
+       "why": "Moins d’épisodes d’exposition modélisés (2 contre 2) mais preuves requises incomplètes (tracé réel des tranchées, état sanitaire et zones racinaires des arbres, calendrier des travaux de bâtiment, accord des titulaires)."
+      },
+      {
+       "id": "R0",
+       "why": "Laisse la relation inter-domaines sans revue ; reste la référence si l’investigation ne confirme rien."
+      }
+     ],
+     "recommendedAction": {
+      "alternative": "R2",
+      "summary": "Proposer à la revue humaine une vérification de terrain coordonnée (R2) sur HOWARD ST 08TH ST → 09TH ST avant l’ouverture des excavations non commencées ; ne pas engager d’intervention coordonnée (R1) tant que tracés, état des arbres et calendrier des façades ne sont pas connus."
+     },
+     "humanApproval": "Revue humaine obligatoire : coordination SF Public Works (voirie et Bureau of Urban Forestry), DBI et titulaires. CORE n’autorise ni n’applique aucune action.",
+     "invalidatedIf": [
+      "Les permis à venir sont annulés, reportés hors horizon ou déjà terminés.",
+      "Les tranchées réelles sont éloignées des arbres (tracé vérifié).",
+      "Les arbres exposés font l’objet d’un abattage approuvé.",
+      "Les permis de bâtiment récents sont sans emprise sur le trottoir.",
+      "Un nouvel instantané ne reproduit pas la relation (empreinte différente)."
+     ]
+    },
+    "decision": {
+     "checks": [
+      {
+       "id": "contract",
+       "label": "note de décision complète, sans champ inconnu",
+       "pass": true,
+       "detail": null
+      },
+      {
+       "id": "params",
+       "label": "paramètres valides",
+       "pass": true,
+       "detail": null
+      },
+      {
+       "id": "snapshot",
+       "label": "sources vérifiables (SHA-256 identiques et vérifiés)",
+       "pass": true,
+       "detail": null
+      },
+      {
+       "id": "location",
+       "label": "tronçon du corridor",
+       "pass": true,
+       "detail": null
+      },
+      {
+       "id": "dates",
+       "label": "dates cohérentes",
+       "pass": true,
+       "detail": null
+      },
+      {
+       "id": "discovery",
+       "label": "découverte recalculée à l’identique",
+       "pass": true,
+       "detail": null
+      },
+      {
+       "id": "evidence",
+       "label": "preuves identiques au recalcul",
+       "pass": true,
+       "detail": null
+      },
+      {
+       "id": "domains",
+       "label": "au moins trois domaines reliés",
+       "pass": true,
+       "detail": null
+      },
+      {
+       "id": "evaluation",
+       "label": "résultats identiques au recalcul déterministe",
+       "pass": true,
+       "detail": null
+      },
+      {
+       "id": "adversarial",
+       "label": "revue adversariale recalculée à l’identique",
+       "pass": true,
+       "detail": null
+      },
+      {
+       "id": "ranking",
+       "label": "classement et action recommandée recalculés",
+       "pass": true,
+       "detail": null
+      },
+      {
+       "id": "constraints",
+       "label": "action recommandée sans violation de contrainte",
+       "pass": true,
+       "detail": null
+      },
+      {
+       "id": "essential-evidence",
+       "label": "preuves essentielles de l’action disponibles",
+       "pass": true,
+       "detail": null
+      },
+      {
+       "id": "robust",
+       "label": "relation maintenue sous les perturbations",
+       "pass": false,
+       "detail": "P1 Rayon autour des arbres divisé par deux ; P6 Arbres faisant l’objet d’un avis d’abattage exclus"
+      },
+      {
+       "id": "sensitivity-rule",
+       "label": "investigation : relation maintenue sous une majorité de perturbations",
+       "pass": true,
+       "detail": null
+      }
+     ],
+     "authorizes": false,
+     "recommended": "R2",
+     "humanReview": "Revue humaine obligatoire : coordination SF Public Works (voirie et Bureau of Urban Forestry), DBI et titulaires. CORE n’autorise ni n’applique aucune action.",
+     "state": "ÉLIGIBLE À LA REVUE HUMAINE",
+     "reason": "Proposer à la revue humaine une vérification de terrain coordonnée (R2) sur HOWARD ST 08TH ST → 09TH ST avant l’ouverture des excavations non commencées ; ne pas engager d’intervention coordonnée (R1) tant que tracés, état des arbres et calendrier des façades ne sont pas connus. Relation maintenue sous 5/7 perturbations (sensible à : rayon autour des arbres divisé par deux ; arbres faisant l’objet d’un avis d’abattage exclus) ; 4 manque(s) déclaré(s)."
+    }
+   }
+  },
+  {
+   "id": "task-10",
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve",
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 151,
+   "records": 2,
+   "error": null,
+   "findings": [
+    {
+     "topic": "knowledge",
+     "claim": "Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only..",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "knowledge",
+       "ref": "k-dbi-issued-status",
+       "url": "https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCE_REGISTRY.md"
+      }
+     ],
+     "value": 0.1309,
+     "agent": "core.san-francisco.regulatory.knowledge-research",
+     "tool": "knowledge.retrieve"
+    },
+    {
+     "topic": "knowledge",
+     "claim": "Street-Use Permits (b6tj-gt35) — DataSF open data portal (v1, à jour) ; limites : Administrative record; contact columns removed by CORE..",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "knowledge",
+       "ref": "k-street-use-permits",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      }
+     ],
+     "value": 0.1253,
+     "agent": "core.san-francisco.regulatory.knowledge-research",
+     "tool": "knowledge.retrieve"
+    }
+   ],
+   "extra": {
+    "brief": null,
+    "decision": null
+   }
+  }
+ ],
+ "findings": [
+  {
+   "topic": "works",
+   "claim": "5 fenêtre(s) d’excavation en cours ou à venir sur HOWARD ST 08TH ST → 09TH ST (CableCom, Precision Engineering, Inc., R & S Construction Management Inc).",
+   "epistemic": "observed",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:25EXC-03925@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04307@24305000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04619@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04337@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-05114@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "value": 5,
+   "agent": "core.san-francisco.civil.works-coordination",
+   "tool": "works.windows"
+  },
+  {
+   "topic": "works-overlap",
+   "claim": "8 chevauchement(s) entre organisations dans les 60 j.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:25EXC-03925@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04307@24305000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:25EXC-03925@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04619@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:25EXC-03925@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04337@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:25EXC-03925@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-05114@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04307@24305000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04619@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04307@24305000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-05114@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04619@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04337@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04337@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-05114@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "value": 8,
+   "agent": "core.san-francisco.civil.works-coordination",
+   "tool": "works.windows"
+  },
+  {
+   "topic": "telecom",
+   "claim": "2 fenêtre(s) de titulaires classés télécoms (classement déclaré par nom) : CableCom.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04619@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-05114@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "value": 2,
+   "agent": "core.san-francisco.telecom.telecom-works",
+   "tool": "works.telecom"
+  },
+  {
+   "topic": "trees",
+   "claim": "15 arbre(s) inventorié(s) sur le tronçon ; 2 à ≤ 12 m d’un point de permis d’excavation (indicateur de proximité).",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "street-trees",
+     "ref": "street-trees:197347",
+     "url": "https://data.sf.gov/d/tkzw-k3nq"
+    },
+    {
+     "type": "record",
+     "dataset": "street-trees",
+     "ref": "street-trees:197346",
+     "url": "https://data.sf.gov/d/tkzw-k3nq"
+    }
+   ],
+   "value": 2,
+   "agent": "core.san-francisco.forestry.street-trees",
+   "tool": "trees.near-works"
+  },
+  {
+   "topic": "trees",
+   "claim": "2 de ces arbres ont un avis d’abattage : la relation est contredite pour eux.",
+   "epistemic": "observed",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "street-trees",
+     "ref": "street-trees:197347",
+     "url": "https://data.sf.gov/d/tkzw-k3nq"
+    },
+    {
+     "type": "record",
+     "dataset": "street-trees",
+     "ref": "street-trees:197346",
+     "url": "https://data.sf.gov/d/tkzw-k3nq"
+    }
+   ],
+   "value": 2,
+   "contradicts": "trees",
+   "agent": "core.san-francisco.forestry.street-trees",
+   "tool": "trees.near-works"
+  },
+  {
+   "topic": "buildings",
+   "claim": "7 permis de construire récent(s) (≤ 365 j) au front du tronçon ; 45 au total.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202607064565",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202606163324",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202605201599",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202605201598",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202603278469",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202603177768",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202502100018",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    }
+   ],
+   "value": 7,
+   "agent": "core.san-francisco.housing.building-permits",
+   "tool": "buildings.frontage"
+  },
+  {
+   "topic": "buildings",
+   "claim": "2 semblent intérieurs ou d’enseigne : lien avec le trottoir incertain.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202605201599",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202502100018",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    }
+   ],
+   "value": 2,
+   "contradicts": "buildings",
+   "agent": "core.san-francisco.housing.building-permits",
+   "tool": "buildings.frontage"
+  },
+  {
+   "topic": "buildings",
+   "claim": "Le statut DBI « issued » n’indique pas un chantier en cours (connaissance approuvée k-dbi-issued-status).",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "knowledge",
+     "ref": "k-dbi-issued-status"
+    }
+   ],
+   "agent": "core.san-francisco.housing.building-permits",
+   "tool": "buildings.frontage"
+  },
+  {
+   "topic": "energy",
+   "claim": "4 bâtiment(s) avec bilan énergétique déclaré à proximité (contexte ; aucun modèle d’économie).",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "energy-benchmarks",
+     "ref": "energy-benchmarks:3729/097@2025",
+     "url": "https://data.sf.gov/d/96ck-qcfe"
+    },
+    {
+     "type": "record",
+     "dataset": "energy-benchmarks",
+     "ref": "energy-benchmarks:3728/007@2025",
+     "url": "https://data.sf.gov/d/96ck-qcfe"
+    },
+    {
+     "type": "record",
+     "dataset": "energy-benchmarks",
+     "ref": "energy-benchmarks:3729/086@2025",
+     "url": "https://data.sf.gov/d/96ck-qcfe"
+    },
+    {
+     "type": "record",
+     "dataset": "energy-benchmarks",
+     "ref": "energy-benchmarks:3730/038@2025",
+     "url": "https://data.sf.gov/d/96ck-qcfe"
+    }
+   ],
+   "value": 4,
+   "agent": "core.san-francisco.energy.energy-benchmarks",
+   "tool": "energy.benchmarks"
+  },
+  {
+   "topic": "public-space",
+   "claim": "Trottoir : 12 pi (W) (étude 2014) ; 0 parc(s) proche(s).",
+   "epistemic": "observed",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "sidewalks",
+     "ref": "sidewalks:13077",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "value": 12,
+   "agent": "core.san-francisco.public-space.sidewalks",
+   "tool": "public-space.sidewalks"
+  },
+  {
+   "topic": "weather",
+   "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "feed-source",
+     "ref": "nws-alerts",
+     "url": "https://api.weather.gov/alerts/active?zone=CAZ006"
+    }
+   ],
+   "value": 0,
+   "agent": "core.san-francisco.climate.weather-alerts",
+   "tool": "resilience.weather-alerts"
+  },
+  {
+   "topic": "graph",
+   "claim": "L’élément « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » est rattaché au tronçon HOWARD ST 08TH ST → 09TH ST (observed (CNN field), 17 m).",
+   "epistemic": "observed",
+   "evidence": [
+    {
+     "type": "feed",
+     "ref": "datasf-street-use:26EXC-05114@7051000",
+     "url": "https://data.sf.gov/resource/b6tj-gt35.json?permit_number=26EXC-05114"
+    }
+   ],
+   "value": "7051000",
+   "link": {
+    "segment": "7051000",
+    "basis": "observed (CNN field)",
+    "distance_m": 17
+   },
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "tool": "graph.link"
+  },
+  {
+   "topic": "scenario",
+   "claim": "Alternatives évaluées (modèles déterministes) : épisodes d’exposition R0 2, R1 2, R2 2 ; complétude des preuves R1 33 %.",
+   "epistemic": "simulated",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "corridor",
+     "ref": "corridor:7051000",
+     "url": "https://data.sf.gov/d/3psu-pn9h"
+    }
+   ],
+   "value": "R2",
+   "agent": "core.san-francisco.simulation.scenario-evaluator",
+   "tool": "scenario.investigate"
+  },
+  {
+   "topic": "scenario",
+   "claim": "Hypothèse : Les excavations à venir, les arbres d’alignement proches et les travaux de bâtiment récents sur ce tronçon gagneraient à être examinés ensemble avant ouverture.",
+   "epistemic": "hypothesis",
+   "evidence": [
+    {
+     "type": "graph",
+     "ref": "permit:25EXC-03925@7051000"
+    },
+    {
+     "type": "graph",
+     "ref": "permit:26EXC-04307@24305000"
+    },
+    {
+     "type": "graph",
+     "ref": "permit:26EXC-04619@7051000"
+    },
+    {
+     "type": "graph",
+     "ref": "tree:197347"
+    },
+    {
+     "type": "graph",
+     "ref": "tree:197346"
+    },
+    {
+     "type": "graph",
+     "ref": "building-permit:202607064565"
+    },
+    {
+     "type": "graph",
+     "ref": "building-permit:202606163324"
+    },
+    {
+     "type": "graph",
+     "ref": "building-permit:202605201599"
+    }
+   ],
+   "value": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "agent": "core.san-francisco.simulation.scenario-evaluator",
+   "tool": "scenario.investigate"
+  },
+  {
+   "topic": "knowledge",
+   "claim": "Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only..",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "knowledge",
+     "ref": "k-dbi-issued-status",
+     "url": "https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCE_REGISTRY.md"
+    }
+   ],
+   "value": 0.1309,
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve"
+  },
+  {
+   "topic": "knowledge",
+   "claim": "Street-Use Permits (b6tj-gt35) — DataSF open data portal (v1, à jour) ; limites : Administrative record; contact columns removed by CORE..",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "knowledge",
+     "ref": "k-street-use-permits",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "value": 0.1253,
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve"
+  }
+ ],
+ "verification": [
+  {
+   "claim": "5 fenêtre(s) d’excavation en cours ou à venir sur HOWARD ST 08TH ST → 09TH ST (CableCom, Precision Engineering, Inc., R & S Construction Management Inc).",
+   "agent": "core.san-francisco.civil.works-coordination",
+   "epistemic": "observed",
+   "typeOk": true,
+   "evidence": 5,
+   "resolved": 5
+  },
+  {
+   "claim": "8 chevauchement(s) entre organisations dans les 60 j.",
+   "agent": "core.san-francisco.civil.works-coordination",
+   "epistemic": "derived",
+   "typeOk": true,
+   "evidence": 16,
+   "resolved": 16
+  },
+  {
+   "claim": "2 fenêtre(s) de titulaires classés télécoms (classement déclaré par nom) : CableCom.",
+   "agent": "core.san-francisco.telecom.telecom-works",
+   "epistemic": "derived",
+   "typeOk": true,
+   "evidence": 2,
+   "resolved": 2
+  },
+  {
+   "claim": "15 arbre(s) inventorié(s) sur le tronçon ; 2 à ≤ 12 m d’un point de permis d’excavation (indicateur de proximité).",
+   "agent": "core.san-francisco.forestry.street-trees",
+   "epistemic": "derived",
+   "typeOk": true,
+   "evidence": 2,
+   "resolved": 2
+  },
+  {
+   "claim": "2 de ces arbres ont un avis d’abattage : la relation est contredite pour eux.",
+   "agent": "core.san-francisco.forestry.street-trees",
+   "epistemic": "observed",
+   "typeOk": true,
+   "evidence": 2,
+   "resolved": 2
+  },
+  {
+   "claim": "7 permis de construire récent(s) (≤ 365 j) au front du tronçon ; 45 au total.",
+   "agent": "core.san-francisco.housing.building-permits",
+   "epistemic": "derived",
+   "typeOk": true,
+   "evidence": 7,
+   "resolved": 7
+  },
+  {
+   "claim": "2 semblent intérieurs ou d’enseigne : lien avec le trottoir incertain.",
+   "agent": "core.san-francisco.housing.building-permits",
+   "epistemic": "derived",
+   "typeOk": true,
+   "evidence": 2,
+   "resolved": 2
+  },
+  {
+   "claim": "Le statut DBI « issued » n’indique pas un chantier en cours (connaissance approuvée k-dbi-issued-status).",
+   "agent": "core.san-francisco.housing.building-permits",
+   "epistemic": "reported",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "4 bâtiment(s) avec bilan énergétique déclaré à proximité (contexte ; aucun modèle d’économie).",
+   "agent": "core.san-francisco.energy.energy-benchmarks",
+   "epistemic": "reported",
+   "typeOk": true,
+   "evidence": 4,
+   "resolved": 4
+  },
+  {
+   "claim": "Trottoir : 12 pi (W) (étude 2014) ; 0 parc(s) proche(s).",
+   "agent": "core.san-francisco.public-space.sidewalks",
+   "epistemic": "observed",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+   "agent": "core.san-francisco.climate.weather-alerts",
+   "epistemic": "reported",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "L’élément « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » est rattaché au tronçon HOWARD ST 08TH ST → 09TH ST (observed (CNN field), 17 m).",
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "epistemic": "observed",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "Alternatives évaluées (modèles déterministes) : épisodes d’exposition R0 2, R1 2, R2 2 ; complétude des preuves R1 33 %.",
+   "agent": "core.san-francisco.simulation.scenario-evaluator",
+   "epistemic": "simulated",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "Hypothèse : Les excavations à venir, les arbres d’alignement proches et les travaux de bâtiment récents sur ce tronçon gagneraient à être examinés ensemble avant ouverture.",
+   "agent": "core.san-francisco.simulation.scenario-evaluator",
+   "epistemic": "hypothesis",
+   "typeOk": true,
+   "evidence": 8,
+   "resolved": 8
+  },
+  {
+   "claim": "Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only..",
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "epistemic": "reported",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "Street-Use Permits (b6tj-gt35) — DataSF open data portal (v1, à jour) ; limites : Administrative record; contact columns removed by CORE..",
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "epistemic": "reported",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  }
+ ],
+ "disagreements": [
+  {
+   "between": [
+    "core.san-francisco.forestry.street-trees"
+   ],
+   "topic": "trees",
+   "a": null,
+   "b": "2 de ces arbres ont un avis d’abattage : la relation est contredite pour eux."
+  },
+  {
+   "between": [
+    "core.san-francisco.housing.building-permits"
+   ],
+   "topic": "buildings",
+   "a": null,
+   "b": "2 semblent intérieurs ou d’enseigne : lien avec le trottoir incertain."
+  }
+ ],
+ "adversarial": {
+  "reviewer": "core.san-francisco.safety.adversarial-reviewer",
+  "disagreements": 2,
+  "sensitivities": [
+   "Rayon autour des arbres divisé par deux",
+   "Arbres faisant l’objet d’un avis d’abattage exclus"
+  ],
+  "missing": [
+   "tracé réel des tranchées (les points de permis sont à l’adresse ou au tronçon)",
+   "état sanitaire et zones racinaires des arbres",
+   "calendrier et emprise des travaux de bâtiment sur le trottoir",
+   "accord des titulaires sur un report ou une fenêtre commune"
+  ],
+  "failedTasks": [],
+  "limitations": []
+ },
+ "conclusion": {
+  "statements": [
+   {
+    "topic": "works",
+    "text": "5 fenêtre(s) d’excavation en cours ou à venir sur HOWARD ST 08TH ST → 09TH ST (CableCom, Precision Engineering, Inc., R & S Construction Management Inc).",
+    "cites": [
+     0
+    ],
+    "epistemic": [
+     "observed"
+    ]
+   },
+   {
+    "topic": "works-overlap",
+    "text": "8 chevauchement(s) entre organisations dans les 60 j.",
+    "cites": [
+     1
+    ],
+    "epistemic": [
+     "derived"
+    ]
+   },
+   {
+    "topic": "telecom",
+    "text": "2 fenêtre(s) de titulaires classés télécoms (classement déclaré par nom) : CableCom.",
+    "cites": [
+     2
+    ],
+    "epistemic": [
+     "derived"
+    ]
+   },
+   {
+    "topic": "trees",
+    "text": "15 arbre(s) inventorié(s) sur le tronçon ; 2 à ≤ 12 m d’un point de permis d’excavation (indicateur de proximité). 2 de ces arbres ont un avis d’abattage : la relation est contredite pour eux.",
+    "cites": [
+     3,
+     4
+    ],
+    "epistemic": [
+     "derived",
+     "observed"
+    ]
+   },
+   {
+    "topic": "buildings",
+    "text": "7 permis de construire récent(s) (≤ 365 j) au front du tronçon ; 45 au total. 2 semblent intérieurs ou d’enseigne : lien avec le trottoir incertain. Le statut DBI « issued » n’indique pas un chantier en cours (connaissance approuvée k-dbi-issued-status).",
+    "cites": [
+     5,
+     6,
+     7
+    ],
+    "epistemic": [
+     "derived",
+     "reported"
+    ]
+   },
+   {
+    "topic": "energy",
+    "text": "4 bâtiment(s) avec bilan énergétique déclaré à proximité (contexte ; aucun modèle d’économie).",
+    "cites": [
+     8
+    ],
+    "epistemic": [
+     "reported"
+    ]
+   },
+   {
+    "topic": "public-space",
+    "text": "Trottoir : 12 pi (W) (étude 2014) ; 0 parc(s) proche(s).",
+    "cites": [
+     9
+    ],
+    "epistemic": [
+     "observed"
+    ]
+   },
+   {
+    "topic": "weather",
+    "text": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+    "cites": [
+     10
+    ],
+    "epistemic": [
+     "reported"
+    ]
+   },
+   {
+    "topic": "graph",
+    "text": "L’élément « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » est rattaché au tronçon HOWARD ST 08TH ST → 09TH ST (observed (CNN field), 17 m).",
+    "cites": [
+     11
+    ],
+    "epistemic": [
+     "observed"
+    ]
+   },
+   {
+    "topic": "scenario",
+    "text": "Alternatives évaluées (modèles déterministes) : épisodes d’exposition R0 2, R1 2, R2 2 ; complétude des preuves R1 33 %. Hypothèse : Les excavations à venir, les arbres d’alignement proches et les travaux de bâtiment récents sur ce tronçon gagneraient à être examinés ensemble avant ouverture.",
+    "cites": [
+     12,
+     13
+    ],
+    "epistemic": [
+     "simulated",
+     "hypothesis"
+    ]
+   },
+   {
+    "topic": "knowledge",
+    "text": "Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only.. Street-Use Permits (b6tj-gt35) — DataSF open data portal (v1, à jour) ; limites : Administrative record; contact columns removed by CORE..",
+    "cites": [
+     14,
+     15
+    ],
+    "epistemic": [
+     "reported"
+    ]
+   }
+  ],
+  "disagreements": [
+   {
+    "between": [
+     "core.san-francisco.forestry.street-trees"
+    ],
+    "topic": "trees",
+    "a": null,
+    "b": "2 de ces arbres ont un avis d’abattage : la relation est contredite pour eux."
+   },
+   {
+    "between": [
+     "core.san-francisco.housing.building-permits"
+    ],
+    "topic": "buildings",
+    "a": null,
+    "b": "2 semblent intérieurs ou d’enseigne : lien avec le trottoir incertain."
+   }
+  ],
+  "nextAction": "Proposer à la revue humaine une vérification de terrain coordonnée (R2) sur HOWARD ST 08TH ST → 09TH ST avant l’ouverture des excavations non commencées ; ne pas engager d’intervention coordonnée (R1) tant que tracés, état des arbres et calendrier des façades ne sont pas connus.",
+  "cityDecision": "ÉLIGIBLE À LA REVUE HUMAINE",
+  "humanReview": "Revue humaine obligatoire. Aucun agent ne peut autoriser ni exécuter une action physique ou politique."
+ },
+ "decision": {
+  "state": "ÉLIGIBLE À LA REVUE HUMAINE",
+  "reason": "Passerelle inter-domaines : ÉLIGIBLE À LA REVUE HUMAINE. Proposer à la revue humaine une vérification de terrain coordonnée (R2) sur HOWARD ST 08TH ST → 09TH ST avant l’ouverture des excavations non commencées ; ne pas engager d’intervention coordonnée (R1) tant que tracés, état des arbres et calendrier des façades ne sont pas connus.",
+  "checks": [
+   {
+    "id": "contract",
+    "label": "mission complète",
+    "pass": true,
+    "detail": null
+   },
+   {
+    "id": "recompute",
+    "label": "contenu soumis identique au recalcul déterministe (empreinte)",
+    "pass": true,
+    "detail": null
+   },
+   {
+    "id": "typed",
+    "label": "chaque constat a un statut épistémique valide",
+    "pass": true,
+    "detail": null
+   },
+   {
+    "id": "sourced",
+    "label": "chaque preuve citée est vérifiable",
+    "pass": true,
+    "detail": null
+   },
+   {
+    "id": "cited",
+    "label": "chaque énoncé de synthèse cite des constats",
+    "pass": true,
+    "detail": null
+   },
+   {
+    "id": "no-llm-bypass",
+    "label": "aucune affirmation de modèle de langage non validée",
+    "pass": true,
+    "detail": null
+   },
+   {
+    "id": "tasks",
+    "label": "toutes les tâches ont abouti",
+    "pass": true,
+    "detail": null
+   },
+   {
+    "id": "city-gateway",
+    "label": "passerelle inter-domaines (issueCityDecision) consultée",
+    "pass": true,
+    "detail": "ÉLIGIBLE À LA REVUE HUMAINE"
+   }
+  ],
+  "authorizes": false,
+  "humanReview": "Revue humaine obligatoire ; CORE n’exécute rien."
+ },
+ "log": [
+  {
+   "seq": 1,
+   "t": 0,
+   "kind": "mission",
+   "state": "planning",
+   "text": "Mission → planning"
+  },
+  {
+   "seq": 2,
+   "t": 0,
+   "kind": "plan",
+   "agent": "core.san-francisco.manager",
+   "text": "Domaines : buildings, energy, infrastructure, nature, public_space ; 10 spécialiste(s) exécutable(s) recruté(s) ; 12 profil(s) pertinent(s) indisponible(s) (pas d’outil ou de données)."
+  },
+  {
+   "seq": 3,
+   "t": 0,
+   "kind": "mission",
+   "state": "assigned",
+   "text": "Mission → assigned"
+  },
+  {
+   "seq": 4,
+   "t": 0,
+   "kind": "task",
+   "task": "task-1",
+   "agent": "core.san-francisco.civil.works-coordination",
+   "tool": "works.windows",
+   "state": "queued",
+   "text": "core.san-francisco.civil.works-coordination ← works.windows"
+  },
+  {
+   "seq": 5,
+   "t": 0,
+   "kind": "task",
+   "task": "task-2",
+   "agent": "core.san-francisco.telecom.telecom-works",
+   "tool": "works.telecom",
+   "state": "queued",
+   "text": "core.san-francisco.telecom.telecom-works ← works.telecom"
+  },
+  {
+   "seq": 6,
+   "t": 0,
+   "kind": "task",
+   "task": "task-3",
+   "agent": "core.san-francisco.forestry.street-trees",
+   "tool": "trees.near-works",
+   "state": "queued",
+   "text": "core.san-francisco.forestry.street-trees ← trees.near-works"
+  },
+  {
+   "seq": 7,
+   "t": 0,
+   "kind": "task",
+   "task": "task-4",
+   "agent": "core.san-francisco.housing.building-permits",
+   "tool": "buildings.frontage",
+   "state": "queued",
+   "text": "core.san-francisco.housing.building-permits ← buildings.frontage"
+  },
+  {
+   "seq": 8,
+   "t": 0,
+   "kind": "task",
+   "task": "task-5",
+   "agent": "core.san-francisco.energy.energy-benchmarks",
+   "tool": "energy.benchmarks",
+   "state": "queued",
+   "text": "core.san-francisco.energy.energy-benchmarks ← energy.benchmarks"
+  },
+  {
+   "seq": 9,
+   "t": 0,
+   "kind": "task",
+   "task": "task-6",
+   "agent": "core.san-francisco.public-space.sidewalks",
+   "tool": "public-space.sidewalks",
+   "state": "queued",
+   "text": "core.san-francisco.public-space.sidewalks ← public-space.sidewalks"
+  },
+  {
+   "seq": 10,
+   "t": 0,
+   "kind": "task",
+   "task": "task-7",
+   "agent": "core.san-francisco.climate.weather-alerts",
+   "tool": "resilience.weather-alerts",
+   "state": "queued",
+   "text": "core.san-francisco.climate.weather-alerts ← resilience.weather-alerts"
+  },
+  {
+   "seq": 11,
+   "t": 0,
+   "kind": "task",
+   "task": "task-8",
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "tool": "graph.link",
+   "state": "queued",
+   "text": "core.san-francisco.data-science.graph-linker ← graph.link"
+  },
+  {
+   "seq": 12,
+   "t": 0,
+   "kind": "task",
+   "task": "task-9",
+   "agent": "core.san-francisco.simulation.scenario-evaluator",
+   "tool": "scenario.investigate",
+   "state": "queued",
+   "text": "core.san-francisco.simulation.scenario-evaluator ← scenario.investigate"
+  },
+  {
+   "seq": 13,
+   "t": 0,
+   "kind": "task",
+   "task": "task-10",
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve",
+   "state": "queued",
+   "text": "core.san-francisco.regulatory.knowledge-research ← knowledge.retrieve"
+  },
+  {
+   "seq": 14,
+   "t": 0,
+   "kind": "mission",
+   "state": "running",
+   "text": "Mission → running"
+  },
+  {
+   "seq": 15,
+   "t": 0,
+   "kind": "task",
+   "task": "task-1",
+   "agent": "core.san-francisco.civil.works-coordination",
+   "tool": "works.windows",
+   "state": "running",
+   "text": "exécution (tentative 1)"
+  },
+  {
+   "seq": 16,
+   "t": 0,
+   "kind": "task",
+   "task": "task-2",
+   "agent": "core.san-francisco.telecom.telecom-works",
+   "tool": "works.telecom",
+   "state": "running",
+   "text": "exécution (tentative 1)"
+  },
+  {
+   "seq": 17,
+   "t": 1,
+   "kind": "task",
+   "task": "task-3",
+   "agent": "core.san-francisco.forestry.street-trees",
+   "tool": "trees.near-works",
+   "state": "running",
+   "text": "exécution (tentative 1)"
+  },
+  {
+   "seq": 18,
+   "t": 2,
+   "kind": "task",
+   "task": "task-1",
+   "agent": "core.san-francisco.civil.works-coordination",
+   "tool": "works.windows",
+   "state": "succeeded",
+   "text": "2 constat(s), 34 enregistrement(s), 2 ms"
+  },
+  {
+   "seq": 19,
+   "t": 2,
+   "kind": "task",
+   "task": "task-4",
+   "agent": "core.san-francisco.housing.building-permits",
+   "tool": "buildings.frontage",
+   "state": "running",
+   "text": "exécution (tentative 1)"
+  },
+  {
+   "seq": 20,
+   "t": 2,
+   "kind": "task",
+   "task": "task-2",
+   "agent": "core.san-francisco.telecom.telecom-works",
+   "tool": "works.telecom",
+   "state": "succeeded",
+   "text": "1 constat(s), 5 enregistrement(s), 2 ms"
+  },
+  {
+   "seq": 21,
+   "t": 2,
+   "kind": "task",
+   "task": "task-5",
+   "agent": "core.san-francisco.energy.energy-benchmarks",
+   "tool": "energy.benchmarks",
+   "state": "running",
+   "text": "exécution (tentative 1)"
+  },
+  {
+   "seq": 22,
+   "t": 10,
+   "kind": "task",
+   "task": "task-3",
+   "agent": "core.san-francisco.forestry.street-trees",
+   "tool": "trees.near-works",
+   "state": "succeeded",
+   "text": "2 constat(s), 15 enregistrement(s), 9 ms"
+  },
+  {
+   "seq": 23,
+   "t": 10,
+   "kind": "task",
+   "task": "task-6",
+   "agent": "core.san-francisco.public-space.sidewalks",
+   "tool": "public-space.sidewalks",
+   "state": "running",
+   "text": "exécution (tentative 1)"
+  },
+  {
+   "seq": 24,
+   "t": 19,
+   "kind": "task",
+   "task": "task-4",
+   "agent": "core.san-francisco.housing.building-permits",
+   "tool": "buildings.frontage",
+   "state": "succeeded",
+   "text": "3 constat(s), 45 enregistrement(s), 17 ms"
+  },
+  {
+   "seq": 25,
+   "t": 19,
+   "kind": "task",
+   "task": "task-7",
+   "agent": "core.san-francisco.climate.weather-alerts",
+   "tool": "resilience.weather-alerts",
+   "state": "running",
+   "text": "exécution (tentative 1)"
+  },
+  {
+   "seq": 26,
+   "t": 27,
+   "kind": "task",
+   "task": "task-5",
+   "agent": "core.san-francisco.energy.energy-benchmarks",
+   "tool": "energy.benchmarks",
+   "state": "succeeded",
+   "text": "1 constat(s), 4 enregistrement(s), 25 ms"
+  },
+  {
+   "seq": 27,
+   "t": 27,
+   "kind": "task",
+   "task": "task-8",
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "tool": "graph.link",
+   "state": "running",
+   "text": "exécution (tentative 1)"
+  },
+  {
+   "seq": 28,
+   "t": 36,
+   "kind": "task",
+   "task": "task-6",
+   "agent": "core.san-francisco.public-space.sidewalks",
+   "tool": "public-space.sidewalks",
+   "state": "succeeded",
+   "text": "1 constat(s), 1 enregistrement(s), 26 ms"
+  },
+  {
+   "seq": 29,
+   "t": 36,
+   "kind": "task",
+   "task": "task-9",
+   "agent": "core.san-francisco.simulation.scenario-evaluator",
+   "tool": "scenario.investigate",
+   "state": "running",
+   "text": "exécution (tentative 1)"
+  },
+  {
+   "seq": 30,
+   "t": 36,
+   "kind": "task",
+   "task": "task-7",
+   "agent": "core.san-francisco.climate.weather-alerts",
+   "tool": "resilience.weather-alerts",
+   "state": "succeeded",
+   "text": "1 constat(s), 0 enregistrement(s), 17 ms"
+  },
+  {
+   "seq": 31,
+   "t": 36,
+   "kind": "task",
+   "task": "task-10",
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve",
+   "state": "running",
+   "text": "exécution (tentative 1)"
+  },
+  {
+   "seq": 32,
+   "t": 37,
+   "kind": "task",
+   "task": "task-8",
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "tool": "graph.link",
+   "state": "succeeded",
+   "text": "1 constat(s), 1 enregistrement(s), 10 ms"
+  },
+  {
+   "seq": 33,
+   "t": 186,
+   "kind": "task",
+   "task": "task-9",
+   "agent": "core.san-francisco.simulation.scenario-evaluator",
+   "tool": "scenario.investigate",
+   "state": "succeeded",
+   "text": "2 constat(s), 69 enregistrement(s), 150 ms"
+  },
+  {
+   "seq": 34,
+   "t": 187,
+   "kind": "task",
+   "task": "task-10",
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve",
+   "state": "succeeded",
+   "text": "2 constat(s), 2 enregistrement(s), 151 ms"
+  },
+  {
+   "seq": 35,
+   "t": 187,
+   "kind": "mission",
+   "state": "reviewing",
+   "text": "Mission → reviewing"
+  },
+  {
+   "seq": 36,
+   "t": 187,
+   "kind": "review",
+   "agent": "core.san-francisco.research.evidence-verifier",
+   "text": "Vérification indépendante : 16/16 constats entièrement sourcés."
+  },
+  {
+   "seq": 37,
+   "t": 187,
+   "kind": "review",
+   "agent": "core.san-francisco.safety.adversarial-reviewer",
+   "text": "Revue adversariale : 2 désaccord(s), 2 sensibilité(s), 0 limite(s), 0 tâche(s) non abouties."
+  },
+  {
+   "seq": 38,
+   "t": 187,
+   "kind": "synthesis",
+   "agent": "core.san-francisco.manager",
+   "text": "Synthèse : 11 énoncé(s) sourcé(s) ; action suivante : Proposer à la revue humaine une vérification de terrain coordonnée (R2) sur HOWARD ST 08TH ST → 09TH ST avant l’ouverture des excavations non commencées ; ne pas engager d’intervention coordonnée (R1) tant que tracés, état des arbres et calendrier des façades ne sont pas connus."
+  },
+  {
+   "seq": 39,
+   "t": 365,
+   "kind": "gateway",
+   "agent": "core.san-francisco.governance.gateway",
+   "text": "ÉLIGIBLE À LA REVUE HUMAINE — Passerelle inter-domaines : ÉLIGIBLE À LA REVUE HUMAINE. Proposer à la revue humaine une vérification de terrain coordonnée (R2) sur HOWARD ST 08TH ST → 09TH ST avant l’ouverture des excavations non commencées ; ne pas engager d’intervention coordonnée (R1) tant que tracés, état des arbres et calendrier des façades ne sont pas connus."
+  },
+  {
+   "seq": 40,
+   "t": 365,
+   "kind": "mission",
+   "state": "needs-human-review",
+   "text": "Mission → needs-human-review"
+  }
+ ],
+ "fingerprint": "ca822e57106d2f26",
+ "recorded": {
+  "by": "scripts/agents.mjs (Node)",
+  "at": "2026-10-13T22:49:51.036Z",
+  "wallMs": 366,
+  "snapshot": "2026-10-13T18:25:19.678Z",
+  "feedUpdate": "2026-10-13T22:49:35.562Z"
+ }
+}

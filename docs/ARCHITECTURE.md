@@ -1,6 +1,6 @@
 # Existing architecture
 
-Current state: Phase 2D (multidomain city intelligence) complete — see `PHASE_2_REPORT.md` and the detailed `CITY_INTELLIGENCE_ARCHITECTURE.md`.
+Current state: Phase 3 (agent organization, city intelligence, professional platform) complete — see `PHASE_3_REPORT.md` and `CITY_INTELLIGENCE_ARCHITECTURE.md`.
 
 CORE is a static two-page application with committed public-data snapshots. There is no backend, database, account system, worker pool, LLM service, telemetry pipeline, or infrastructure actuator.
 
@@ -50,6 +50,10 @@ flowchart LR
 
 `src/domains.js` (domain and dataset registry), `scripts/city-snapshot.mjs` (bounded adapters merging into the SHA-256 manifest), `src/graph.js` (local knowledge graph with explained relationships), `src/simulation.js` (model registry), `src/city-agents.js` (eight deterministic roles, Decision Brief, `issueCityDecision`) and `src/city-view.js` (themes, investigation, brief, guided demo). Details in [CITY_INTELLIGENCE_ARCHITECTURE.md](CITY_INTELLIGENCE_ARCHITECTURE.md).
 
+## Agent organization, missions and City Intelligence (Phase 3)
+
+`src/org.js` (registry and hierarchy), `src/tools.js` (executable specialist tools with typed, resolvable evidence), `src/missions.js` (orchestration, bounded worker pool, mission gateway), `src/knowledge.js` + `data/knowledge/library.json` (versioned knowledge, retrieval, contradictions, human approval), `src/evals.js` (competency evaluations), `src/feeds.js` + `scripts/city-feed.mjs` + `data/feeds/` (official sources, normalization, verification, classification, geolocation, suggestions), `src/llm.js` + `scripts/llm-check.mjs` (optional local model interface; not operational), `scripts/agents.mjs` (persists registry, evaluations, recorded missions), `src/platform.js` (seven-section professional shell) and `src/camera.js` (3D navigation). See [PHASE_3_REPORT.md](PHASE_3_REPORT.md).
+
 ## Corridor and engine
 
 `build.js` replaces two placeholders in the template with engine and UI source, producing a committed standalone HTML file for static hosting. `src/app.js` uses a hand-written 3D projection onto Canvas 2D; corridor buildings and globe outlines are illustrative. The live traffic display uses the same `Sim` class as plan evaluation.
@@ -66,4 +70,4 @@ The JSON includes the plan, reasons, comparisons, synthetic-data assumptions, va
 
 ## Verification
 
-`node build.js` assembles; `node --test test/*.test.js` checks assembly, parsing, reproducibility, bounded orchestration and permit states. Browser checks use a local HTTP server. No runtime dependencies were added in Phase 0. Phase 1 explicitly authorized correctness hardening. Equations and valid decision thresholds were preserved; input guards, scenario isolation, bounded execution and cancellation were added. UI clears stale proposals on failure/cancel, throttles DOM updates and uses capped elapsed-time stepping. Phase 1 and Phase 2B closing browser audits are summarized in their reports; `scripts/browser-audit.mjs` now includes 18 San Francisco and 17 agent-workspace checks and 14 city-intelligence checks (73 total; workspace and investigation checks compare browser runs with independent Node runs).
+`node build.js` assembles; `node --test test/*.test.js` checks assembly, parsing, reproducibility, bounded orchestration and permit states. Browser checks use a local HTTP server. No runtime dependencies were added in Phase 0. Phase 1 explicitly authorized correctness hardening. Equations and valid decision thresholds were preserved; input guards, scenario isolation, bounded execution and cancellation were added. UI clears stale proposals on failure/cancel, throttles DOM updates and uses capped elapsed-time stepping. Phase 1 and Phase 2B closing browser audits are summarized in their reports; `scripts/browser-audit.mjs` now includes 18 San Francisco and 17 agent-workspace checks 14 city-intelligence and 20 platform checks (93 total; workspace, investigation and mission checks compare browser runs with independent Node runs).

@@ -41,3 +41,22 @@ Bold rows are the new Phase 2D domains. New real domains beyond roadworks: natur
 - **Privacy:** personal contact columns are removed, emails and phones in free text are redacted, and permit holders are kept only when they are clearly organisations.
 - **Failure handling:** a failed fetch keeps the previous snapshot and exits non-zero. Synthetic substitution is forbidden.
 - **Refresh:** run `node scripts/sf-snapshot.mjs` then `node scripts/city-snapshot.mjs`. Tests verify checksums. Refreshing changes findings and fingerprints, and the brief shows the snapshot date.
+
+## City Intelligence feed sources (Phase 3, `src/feeds.js`)
+
+Verified 2026-10-13. Items keep source, URL, publication date, retrieval date, first/last seen, revision and verification status. Stored in `data/feeds/items.json`, with health in `data/feeds/state.json`.
+
+| Source | Kind of items | Access | Minimum interval | Status 2026-10-13 |
+| --- | --- | --- | --- | --- |
+| DataSF Street-Use Permits (b6tj-gt35), corridor, 30 days | approved decisions / ongoing | Node + browser | 15 min | 7 items |
+| DataSF Building Permits (i98e-djp9), corridor box, 30 days | proposals / approved decisions | Node + browser | 15 min | 92 items |
+| DataSF Tree Removal Notifications (qrwx-q4gg), corridor box, 90 days | public notices | Node + browser | 30 min | 4 items |
+| DataSF Temporary Street Closures (8x25-yybr), corridor, upcoming | approved decisions / proposals | Node + browser | 30 min | 3 items |
+| USGS FDSN, ≤ 100 km, 30 days, M ≥ 2.5 (public domain) | observations | Node + browser | 5 min | 7 items |
+| NWS alerts, zone CAZ006 (public domain) | predictions | Node + browser | 10 min | 0 active |
+| Legistar web API (sfgov) | metadata only | Node | 60 min | **stale** (newest 2020) |
+| SFMTA blog RSS | announcements | Node | 60 min | current |
+| SF Public Works RSS | announcements | Node | 60 min | current |
+| SFPUC RSS | announcements | Node | 60 min | **stale** (newest 2024) |
+
+Not available: sf.gov and SF Planning RSS (404), licensed news (not integrated).
