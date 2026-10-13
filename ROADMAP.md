@@ -1,7 +1,7 @@
 # CORE — phases de build
 
-Chaque phase livre un site qui marche. Un prompt Codex par phase ; Codex lit `PROJECT_STATE.md`, pas tout le dépôt,
-et s'arrête dès que le critère de fin est atteint. Tout est gratuit, sans compte ni clé, sauf mention.
+Chaque phase livre un site qui marche. Un prompt par phase, à coller dans Claude Code (terminal, dans le dossier du dépôt).
+Claude Code lit `CLAUDE.md` automatiquement et s'arrête dès que le critère de fin est atteint. Tout est gratuit, sans compte ni clé, sauf mention.
 
 | Phase | Ce qu'on voit sur le site | Fini quand | État |
 | --- | --- | --- | --- |
@@ -20,10 +20,10 @@ et s'arrête dès que le critère de fin est atteint. Tout est gratuit, sans com
 - Recherche d'adresse : Nominatim (une requête à la fois).
 - Relief : AWS Terrain Tiles. Satellite : Esri World Imagery (conditions d'usage commercial à vérifier avant de vendre).
 
-## Prompts Codex
+## Prompts pour Claude Code
 
 **Phase 2**
-> Projet CORE. Lis PROJECT_STATE.md et ROADMAP.md. Dans `index.html`, ajoute un panneau « Corridor » et un bouton
+> Phase 2 de ROADMAP.md. Dans `index.html`, ajoute un panneau « Corridor » et un bouton
 > « Optimiser ce corridor » sur le marqueur pilote. Au clic : requête Overpass des nœuds `highway=traffic_signals` le long de
 > Folsom Street entre 2nd St et 6th St ; ordonne-les, calcule les distances ; construis `CORRIDOR.xs` à partir d'elles
 > (expose une fonction `setCorridor(xs)` dans `src/engine.js` sans changer le reste). Dessine véhicules (cercles) et feux
