@@ -1,5 +1,8 @@
 # CORE — règles pour Claude Code
 
+> Les règles d'ingénierie actuelles sont dans `AGENTS.md` ; elles prévalent sur les descriptions historiques
+> ci-dessous. Voir `ROADMAP.md` pour la nouvelle numérotation et `docs/PHASE_0_AUDIT.md` pour les validations.
+
 CORE est une Terre parallèle en 3D (style « Trame » : fond noir, arêtes cyan) où des agents testent des milliers de
 solutions (feux, chantiers, énergie) et où seule une solution testée sort par la « Passerelle », sous forme de permis
 à faire signer par un humain. Site statique publié sur GitHub Pages.

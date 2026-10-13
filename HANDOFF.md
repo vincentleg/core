@@ -1,5 +1,9 @@
 # CORE — dossier complet de passation
 
+> Document historique conservé. Pour l'état vérifié et la nouvelle numérotation des phases, lire
+> `PROJECT_STATE.md`, `ROADMAP.md` et `docs/PHASE_0_AUDIT.md`. Les ambitions et résultats ci-dessous
+> ne constituent pas des validations actuelles ni des gains mesurés sur le terrain.
+
 Dernière mise à jour : 12 octobre 2026. Auteur du projet : Vincent Leguide (vincent.leguide@outlook.com), fondateur.
 Dépôt : https://github.com/vincentleg/core · Site prévu : https://vincentleg.github.io/core/
 

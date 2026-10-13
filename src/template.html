@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CORE · La Trame</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -11,7 +16,8 @@
   --body: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
 }
-html, body { height: 100%; background: var(--void); color: var(--ink); }
+html, body { height: 100%; margin: 0; background: var(--void); color: var(--ink); }
+[hidden] { display: none !important; }
 body { font-family: var(--body); font-size: 14px; line-height: 1.5; overflow: hidden; }
 .app { display: grid; grid-template-columns: minmax(0, 1fr) 390px; height: 100%; }
 .world { position: relative; min-width: 0; }
@@ -88,6 +94,8 @@ textarea { width: 100%; height: 140px; background: #030a14; color: var(--ink); b
 }
 @media (prefers-reduced-motion: reduce) { #prog-bar { transition: none; } }
 </style>
+</head>
+<body>
 <div class="app">
   <div class="world">
     <canvas id="trame" aria-label="La Trame : globe terrestre, puis corridor pilote de San Francisco en 3D" role="img"></canvas>
@@ -140,3 +148,5 @@ textarea { width: 100%; height: 140px; background: #030a14; color: var(--ink); b
 <script>
 /*APP*/
 </script>
+</body>
+</html>

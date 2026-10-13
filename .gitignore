@@ -1,0 +1,15 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+node_modules/
+coverage/
+test-results/
+playwright-report/
+*.log
+__pycache__/
+.venv/
+data/raw/
+data/results.local.json

@@ -1,12 +1,10 @@
-# PROJECT_STATE (12 oct. 2026)
-
-Fait
-- Phase 0 : `corridor.html` (moteur + agents + Passerelle, testé en Node : 3 030 simulations, permis, plot twists).
-- Phase 1 : `index.html` — MapLibre GL 5.6 en globe, style Trame sur tuiles OpenFreeMap, bâtiments 3D,
-  recherche Nominatim, satellite Esri, relief AWS. Syntaxe vérifiée ; rendu à vérifier dans un vrai navigateur
-  (construit sans accès réseau).
-
-Lancer : `python3 -m http.server 8000` puis http://localhost:8000 · Reconstruire le corridor : `node build.js`
-
-Développement : Claude Code en local (règles dans CLAUDE.md).
-Prochaine phase : 2 (corridor sur les feux réels de Folsom St). Voir ROADMAP.md.
+# CORE — état au 12 octobre 2026
+- Phase 0 : fondations, audit et validations terminés ; livraison sur main (hash dans le rapport final).
+- Dépôt cible existant public : https://github.com/vincentleg/core ; historique local conservé.
+- Globe/SoMa et corridor vus dans Chrome ; agents → permis → suspension concert vérifiés.
+- Build réussi ; 6 tests Node passent ; moteur et src/app.js inchangés.
+- Corrigé : enveloppe HTML/UTF-8, panneaux masqués ; description du globe honnête.
+- Données trafic synthétiques/non calibrées ; aucun système de signature ou action réelle.
+- Limites : NaN accepté par Passerelle, Nominatim, Esri, avertissements carte ; docs/PHASE_0_AUDIT.md.
+- Local : node build.js ; node --test test/*.test.js ; python3 -m http.server 8000.
+- Suite : Phase 1 fiabilité (ROADMAP.md), non commencée ; Pages/autres navigateurs non validés.
