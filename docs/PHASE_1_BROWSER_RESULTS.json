@@ -95,5 +95,126 @@
     "browser_log": [
       "warning: WebGL warning: texImage: Alpha-premult and y-flip are deprecated for non-DOM-Element uploads."
     ]
+  },
+  "_note": "Historical entries (chrome, chrome-final, firefox, firefox-final) used MapLibre 5.6.0 at the Codex handoff. claude-* entries are the Phase 1 closing runs on MapLibre 5.7.3, fresh isolated profiles, headless.",
+  "claude-chrome": {
+    "date": "2026-10-12",
+    "browser": "Chrome 155.0.8059.40 headless",
+    "protocol": "CDP",
+    "maplibre": "5.7.3",
+    "browser_log": [
+      "256 headless GPU performance warnings (READ-usage buffer), as in earlier runs",
+      "MapLibre warning: calculateFogMatrix is not supported on globe projection (terrain on globe)",
+      "3 transient OpenFreeMap z8 tile fetch failures handled by the map error path; 1 WebGL error-limit notice",
+      "deliberate INJECTED_AUDIT_FAILURE console.error (failure-recovery test)"
+    ],
+    "checks_passed": [
+      "globe loaded",
+      "terrain toggles at globe zoom",
+      "city sf",
+      "city paris",
+      "city tokyo",
+      "building layer off",
+      "terrain activated",
+      "terrain off / map restored",
+      "unverified imagery disabled",
+      "local search: Paris",
+      "local search: 37.7873, -122.3985",
+      "local search: 999, 999",
+      "local search: <script>invalid</script>",
+      "mobile map fits viewport",
+      "mobile corridor fits viewport",
+      "cancel blocks permit and restores controls",
+      "full agents generate ready proposal",
+      "concert suspends permit",
+      "removing concert restores ready state",
+      "roadwork dependency follows scenario",
+      "pause holds simulated traffic",
+      "plan comparison controls",
+      "failed run blocks stale permit and recovers UI",
+      "no uncaught JavaScript errors"
+    ],
+    "uncaught_exceptions": [],
+    "exception_count": 0
+  },
+  "claude-firefox": {
+    "date": "2026-10-12",
+    "browser": "Firefox 122.0 headless",
+    "protocol": "WebDriver BiDi (CDP endpoints absent)",
+    "maplibre": "5.7.3",
+    "viewport_note": "BiDi setViewport sets 390x844 size only; no mobile/touch emulation",
+    "browser_log": [
+      "MapLibre warning: calculateFogMatrix is not supported on globe projection",
+      "deliberate INJECTED_AUDIT_FAILURE console.error"
+    ],
+    "checks_passed": [
+      "globe loaded",
+      "terrain toggles at globe zoom",
+      "city sf",
+      "city paris",
+      "city tokyo",
+      "building layer off",
+      "terrain activated",
+      "terrain off / map restored",
+      "unverified imagery disabled",
+      "local search: Paris",
+      "local search: 37.7873, -122.3985",
+      "local search: 999, 999",
+      "local search: <script>invalid</script>",
+      "mobile map fits viewport",
+      "mobile corridor fits viewport",
+      "cancel blocks permit and restores controls",
+      "full agents generate ready proposal",
+      "concert suspends permit",
+      "removing concert restores ready state",
+      "roadwork dependency follows scenario",
+      "pause holds simulated traffic",
+      "plan comparison controls",
+      "failed run blocks stale permit and recovers UI",
+      "no uncaught JavaScript errors"
+    ],
+    "uncaught_exceptions": [],
+    "exception_count": 0
+  },
+  "claude-chrome-negative": {
+    "date": "2026-10-12",
+    "browser": "Chrome 155.0.8059.40 headless",
+    "protocol": "CDP",
+    "maplibre": "5.7.3",
+    "browser_log": [],
+    "checks_passed": [
+      "engine blocked shows message",
+      "corridor reachable without map engine",
+      "engine blocked: no uncaught errors",
+      "blocked tiles show unavailable-source message",
+      "blocked tiles: no uncaught errors",
+      "rapid toggles leave terrain off",
+      "rapid toggles: no uncaught errors",
+      "hidden tab aborts agents and blocks permit",
+      "visible tab resumes simulation",
+      "ready proposal after resume",
+      "clipboard failure shows selectable permit JSON",
+      "corridor negative paths: no uncaught errors"
+    ],
+    "uncaught_exceptions": [],
+    "exception_count": 0
+  },
+  "safari": {
+    "browser": "Safari 27.0.1",
+    "status": "NOT PERFORMED",
+    "reason": "safaridriver: session not created; Allow remote automation is disabled in Safari Developer settings (owner setting, not changed by the agent)",
+    "date": "2026-10-12"
+  },
+  "terrain-repro-ab": {
+    "browser": "Chrome 155.0.8059.40 headless",
+    "sequence": "terrain on at globe zoom, city flights, terrain toggles mid-flight, globe return (12 steps)",
+    "maplibre_5_6_0": {
+      "uncaught": 12,
+      "first": "TypeError reading wrap in _getOverscaledTileIDFromLngLatZoom, then render TaskQueue Attempting to run(), but is already running x11"
+    },
+    "maplibre_5_7_3": {
+      "uncaught": 0
+    },
+    "upstream_fix": "maplibre-gl-js 5.7.2 #6388 (_updateRetainedTiles children length 1); 5.7.0 #6011 (enabling terrain while transitioning)"
   }
 }

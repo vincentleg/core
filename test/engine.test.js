@@ -44,15 +44,21 @@ function evidence(ratios) {
   return result;
 }
 
-test('permit states enforce degradation and gain thresholds on valid evidence', () => {
-  assert.equal(E.issuePermit(evidence([0.9, 1.01])).state, 'SUSPENDU');
-  assert.equal(E.issuePermit(evidence([0.96, 1])).state, 'BLOQUÉ');
-  const ready = E.issuePermit(evidence([0.9, 1]));
+test('permit thresholds: degradation suspends, small gain blocks, otherwise ready', () => {
+  assert.equal(E.permitState(evidence([0.9, 1.01])).state, 'SUSPENDU');
+  assert.equal(E.permitState(evidence([0.96, 1])).state, 'BLOQUÉ');
+  assert.equal(E.permitState(evidence([0.9, 1])).state, 'PRÊT POUR SIGNATURE');
+  // The same numbers were never produced by the engine for this plan: the gateway refuses them.
+  assert.equal(E.issuePermit(evidence([0.9, 1])).state, 'BLOQUÉ');
+});
+
+test('engine-produced evidence keeps deterministic ready permits with mandatory human signature', () => {
+  const ready = E.issuePermit(E.stressTest([E.greenWave(90, 0.6)])[0]);
   assert.equal(ready.state, 'PRÊT POUR SIGNATURE');
   assert.match(ready.signature, /signature humaine obligatoire/);
   assert.match(ready.signature, /CORE n’applique rien/);
   assert.match(ready.hypotheses.join(' '), /synthétique, non calibrée/);
-  assert.deepEqual(ready, E.issuePermit(evidence([0.9, 1])));
+  assert.deepEqual(ready, E.issuePermit(E.stressTest([E.greenWave(90, 0.6)])[0]));
 });
 
 test('stress cases compare a plan against the same reference demand', () => {

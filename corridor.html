@@ -403,8 +403,19 @@ function validEvidence(st, world) {
       close(r.ratio, r.plan / r.base);
   })) return false;
   const worst = st.rows.reduce((a, b) => b.ratio > a.ratio ? b : a);
-  return record(st.worst) && ['caseId', 'label', 'base', 'plan', 'ratio', 'twists'].every(k => same(st.worst[k], worst[k])) &&
-    close(st.worstRatio, worst.ratio) && close(st.gain, 1 - st.rows[0].ratio);
+  if (!(record(st.worst) && ['caseId', 'label', 'base', 'plan', 'ratio', 'twists'].every(k => same(st.worst[k], worst[k])) &&
+    close(st.worstRatio, worst.ratio) && close(st.gain, 1 - st.rows[0].ratio))) return false;
+  // Bind evidence to this exact plan: the deterministic stress test must reproduce every reported delay.
+  const rerun = stressTest([st.plan], st.dependencies.twists)[0];
+  return rerun.rows.every((r, i) => close(r.base, st.rows[i].base) && close(r.plan, st.rows[i].plan));
+}
+
+// Decision thresholds on already-validated evidence (unchanged): any degraded case suspends; < 5 % gain blocks.
+function permitState(st) {
+  const failing = st.rows.filter(r => r.ratio > 1.0);
+  if (failing.length) return { state: 'SUSPENDU', reason: `Le plan dégrade la situation dans ${failing.length} cas testé(s) : ${failing.map(f => f.label).join(' ; ')}.` };
+  if (st.gain < 0.05) return { state: 'BLOQUÉ', reason: 'Gain inférieur à 5 % : ne justifie pas un changement sur le terrain.' };
+  return { state: 'PRÊT POUR SIGNATURE', reason: 'Meilleur que le plan de référence dans tous les cas testés.' };
 }
 
 // The Passerelle: deterministic rules, never an LLM. A plan is only ever *proposed* for a human signature.
@@ -419,11 +430,7 @@ function issuePermit(st, world = {}) {
     signature: 'Signature humaine obligatoire ; CORE n’applique rien.', monde: 'Non validé',
   };
   const pct = x => Math.round(x * 100);
-  const failing = st.rows.filter(r => r.ratio > 1.0);
-  let state, reason;
-  if (failing.length) { state = 'SUSPENDU'; reason = `Le plan dégrade la situation dans ${failing.length} cas testé(s) : ${failing.map(f => f.label).join(' ; ')}.`; }
-  else if (st.gain < 0.05) { state = 'BLOQUÉ'; reason = 'Gain inférieur à 5 % : ne justifie pas un changement sur le terrain.'; }
-  else { state = 'PRÊT POUR SIGNATURE'; reason = 'Meilleur que le plan de référence dans tous les cas testés.'; }
+  const { state, reason } = permitState(st);
   return {
     action: `Reprogrammer les feux des ${CORRIDOR.xs.length} carrefours du corridor pilote`,
     plan: { ...st.plan, g: st.plan.g.slice(), o: st.plan.o.slice() }, state, reason,
@@ -443,7 +450,7 @@ function issuePermit(st, world = {}) {
   };
 }
 
-const CORE = { CORRIDOR, BASE_DEMAND, TWISTS, rng, makeScenario, basePlan, Sim, evaluate, greenWave, searchPlans, robustRefine, stressTest, issuePermit, STRESS };
+const CORE = { CORRIDOR, BASE_DEMAND, TWISTS, rng, makeScenario, basePlan, Sim, evaluate, greenWave, searchPlans, robustRefine, stressTest, issuePermit, permitState, STRESS };
 if (typeof module !== 'undefined') module.exports = CORE; else globalThis.CORE = CORE;
 
 </script>

@@ -1,5 +1,7 @@
 # CORE — handoff to Claude Code (2026-10-12)
 
+> **Resolved:** Claude Code completed Phase 1 from this checkpoint. MapLibre was pinned to 5.7.3 (D010), Firefox now runs over WebDriver BiDi (D011) and evidence is bound to its plan (D012). Current truth: [PHASE_1_REPORT.md](PHASE_1_REPORT.md). The rest of this file is the historical handoff record.
+
 ## Mission and exact stopping point
 
 The founder stopped Codex during Phase 1 because of remaining credits. Preserve and finish the current work; **do not restart Phase 1 and do not start Phase 2**. This commit is a handoff checkpoint, not a Phase 1 acceptance or production release. Latest user-requested commit message: `chore: prepare Claude Code handoff` (supersedes the earlier Phase 1 feature-commit message for this checkpoint).

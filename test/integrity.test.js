@@ -90,3 +90,13 @@ test('valid evidence retains deterministic statuses and exported plans are isola
   assert.equal(E.issuePermit(stress, { twists: ['evenement'] }).state, 'BLOQUÉ');
   assert.notEqual(E.issuePermit(stress).plan, null); // Valid but no improvement.
 });
+
+test('evidence is bound to its plan: swapped plans and fabricated consistent numbers fail closed', () => {
+  const swapped = copy(); swapped.plan.o[1] = (swapped.plan.o[1] + 1) % swapped.plan.C; blocked(swapped);
+  const fabricated = copy();
+  fabricated.rows.forEach(r => { r.plan *= 0.5; r.ratio = r.plan / r.base; });
+  fabricated.worst = structuredClone(fabricated.rows.reduce((a, b) => b.ratio > a.ratio ? b : a));
+  fabricated.worstRatio = fabricated.worst.ratio; fabricated.gain = 1 - fabricated.rows[0].ratio;
+  blocked(fabricated);
+  const rebased = copy(); rebased.dependencies.twists = ['pluie']; blocked(rebased);
+});

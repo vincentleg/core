@@ -1,10 +1,10 @@
 # CORE — instructions for Claude Code
 
-Continue autonomously from the preserved Phase 1 work. Read `AGENTS.md`, `PROJECT_STATE.md`, `docs/CLAUDE_HANDOFF.md` and `docs/PHASE_1_REPORT.md` first, then only relevant source files. The founder explicitly requested this handoff; **do not restart Phase 1, do not start Phase 2, and do not mistake a checkpoint commit for acceptance**.
+Read `AGENTS.md`, `PROJECT_STATE.md` and `docs/PHASE_1_REPORT.md` first, then only relevant source files. Phase 1 is closed; **do not start Phase 2 without the founder's explicit request**.
 
 CORE is building evidence-backed infrastructure decision review. The current application is a static MapLibre globe and a separate synthetic corridor. Agents propose; deterministic code checks proposal eligibility; humans must authorize; nothing controls real infrastructure. “La Trame” is deprecated. CORE is the product; CORE World is temporary wording only. Keep internal IDs and filenames unless a change is necessary.
 
-Immediate task: diagnose the Chrome MapLibre 5.6.0 `_updateRetainedTiles` undefined `.key` exception during terrain/navigation; finish available browser validation, then close Phase 1. Firefox CDP harness currently times out across contexts; Safari automation requires the owner's browser setting. Node suite currently has 19 passing tests. See handoff evidence; do not repeatedly run full simulations unnecessarily.
+Current state: Phase 1 closed on 2026-10-12. MapLibre is pinned to 5.7.3 because 5.6.0 crashed on terrain/navigation. Chrome uses `scripts/browser-audit.mjs` over CDP and Firefox over WebDriver BiDi (`bidi` argument); `scripts/browser-negative-audit.mjs` covers degraded paths in Chrome. Safari automation requires the owner's browser setting. The Node suite has 21 passing tests. Do not repeatedly run full simulations unnecessarily.
 
 Rules:
 - Preserve current code, Git history and user work. No force push, unrelated refactoring or new phase.
@@ -15,6 +15,6 @@ Rules:
 - Validate with `node --test test/*.test.js` and local `python3 -m http.server 8000 --bind 127.0.0.1`. Record actual browser versions, failures and unavailable coverage honestly.
 - Keep documentation consistent, PROJECT_STATE.md at 10 lines max, and clearly distinguish geography, assumptions, synthetic traffic, simulation output and validated observations (currently none).
 - Work autonomously on routine authorized repairs. Ask only for genuine blockers, security concerns or paid-service requirements. Do not change machine-wide browser settings merely to make a test pass.
-- When Phase 1 really passes, update its report/roadmap/state, build, test, inspect staged content, commit and push main without force. Original requested completion message: `feat: harden CORE world foundation and permit integrity`. Stop before Phase 2.
+- At the end of each phase, update its report/roadmap/state, build, test, inspect staged content, commit and push main without force. Stop before the next phase.
 
-Full historical business/design context is preserved in `HANDOFF.md`; current truth is in the new handoff and reports.
+Full historical business/design context is preserved in `HANDOFF.md`; current truth is in `PROJECT_STATE.md` and `docs/PHASE_1_REPORT.md`.

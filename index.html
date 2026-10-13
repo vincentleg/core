@@ -6,7 +6,7 @@
 <link rel="icon" href="data:,">
 <title>CORE</title>
 <meta name="description" content="CORE : une Terre parallèle où des agents testent des milliers de solutions avant qu'elles touchent le monde réel.">
-<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.css">
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.7.3/dist/maplibre-gl.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -61,9 +61,12 @@ button.amber { background: var(--amber); }
 @media (max-width: 640px) {
   .console { top: auto; bottom: calc(44px + env(safe-area-inset-bottom, 0px)); }
   .console .lead, .console > .note:not(#search-help) { display: none; }
-  .console { bottom: calc(100px + env(safe-area-inset-bottom, 0px)); max-height: calc(100dvh - 160px); }
-  .status { max-height: 80px; overflow: auto; }
+  .console { bottom: calc(124px + env(safe-area-inset-bottom, 0px)); max-height: calc(100dvh - 344px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)); }
+  .status { max-height: 52px; overflow: auto; }
   .status { font-size: 11px; }
+  /* Keep attribution between status and console; touch gestures replace the hidden zoom/pitch buttons. */
+  .maplibregl-ctrl-bottom-right { bottom: calc(68px + env(safe-area-inset-bottom, 0px)); }
+  .maplibregl-ctrl-bottom-right .maplibregl-ctrl-group { display: none; }
 }
 </style>
 </head>
@@ -93,7 +96,7 @@ button.amber { background: var(--amber); }
     <p><b>Relief :</b> Mapzen / AWS Terrain Tiles, approximation amplifiée ×1,4. Date et précision variables. <a href="https://github.com/tilezen/joerd/blob/master/docs/attribution.md">Sources, crédits et licences par région</a> ; pas de garantie de conformité globale ni de précision topographique.</p>
     <p>Crédits terrain : USGS (3DEP, SRTM, GMTED2010), NOAA (ETOPO1), Copernicus / Union européenne (EU-DEM), ArcticDEM / NSF / DigitalGlobe, Geoscience Australia, offene Daten Österreichs, Canada, INEGI, LINZ, Kartverket et Environment Agency. Voir les crédits détaillés liés ci-dessus.</p>
     <p><b>Simulation séparée :</b> corridor et trafic synthétiques, référence supposée, résultats non calibrés. <b>Observations de trafic validées : aucune.</b></p>
-    <p>Nominatim désactivé : limites globales non garanties par ce site statique. Esri désactivé : droits non vérifiés. Recherche locale sans appel réseau. Moteur MapLibre 5.6.0 (BSD-3-Clause, unpkg) ; polices Google Fonts. <a href="https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCES.md">Inventaire et limitations</a>.</p>
+    <p>Nominatim désactivé : limites globales non garanties par ce site statique. Esri désactivé : droits non vérifiés. Recherche locale sans appel réseau. Moteur MapLibre 5.7.3 (BSD-3-Clause, unpkg) ; polices Google Fonts. <a href="https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCES.md">Inventaire et limitations</a>.</p>
   </details>
 </div>
 
@@ -106,7 +109,7 @@ button.amber { background: var(--amber); }
 
 <div class="panel status" aria-live="polite"><b id="pos">—</b> · zoom <b id="zoom">—</b> · <span id="msg">Chargement de la Terre…</span></div>
 
-<script src="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.js"></script>
+<script src="https://unpkg.com/maplibre-gl@5.7.3/dist/maplibre-gl.js"></script>
 <script>
 (() => {
   const $ = id => document.getElementById(id);
@@ -153,8 +156,10 @@ button.amber { background: var(--amber); }
   try { map = new maplibregl.Map({ container: 'map', style, center: [-40, 28], zoom: 1.7, maxPitch: 80, attributionControl: { compact: true } }); } catch (error) { msg('Carte indisponible : WebGL ou connexion. Le corridor reste accessible.'); return; }
   map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'bottom-right');
   map.on('style.load', () => { try { map.setProjection({ type: 'globe' }); } catch (e) { console.warn(e); } });
-  map.on('load', () => { ['l-trame', 'l-relief', 'l-buildings'].forEach(id => { $(id).disabled = false; }); msg('Glisser pour tourner · clic droit pour incliner · molette pour zoomer'); });
-  map.on('error', e => { console.warn(e && e.error); msg('Une source cartographique est indisponible ; données potentiellement incomplètes.'); });
+  // MapLibre ≥5.7.2 fires load even when a TileJSON fails: never let the hint hide a source warning.
+  let sourceError = false;
+  map.on('load', () => { ['l-trame', 'l-relief', 'l-buildings'].forEach(id => { $(id).disabled = false; }); if (!sourceError) msg('Glisser pour tourner · clic droit pour incliner · molette pour zoomer'); });
+  map.on('error', e => { console.warn(e && e.error); sourceError = true; msg('Une source cartographique est indisponible ; données potentiellement incomplètes.'); });
 
   // slow spin until the first interaction
   let spinning = !reduced;
