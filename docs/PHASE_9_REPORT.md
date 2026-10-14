@@ -199,7 +199,17 @@ The model-learning mechanism exists and is safe. A demonstrated benefit would ne
 
 ## L. Deployment
 
-Recorded after the push (below).
+- **Release:** the checkpoint (`f1315bd`) was released by fast-forwarding `main` to `84f356c`, pushed without force (hooks reported 0 findings). `main` had no new commits since the checkpoint.
+- **GitHub Pages:** built `84f356c1…`.
+- **Production check** (Chrome 155 against https://vincentleg.github.io/core/, 2026-10-14 ≈ 19:00 UTC):
+  - public mode; ENTER CORE landing; entry into San Francisco;
+  - **68/68** profiles shown; statuses: 33 with recorded work, 21 coordination, 1 available, 13 unavailable; **0 live, 0 executing**;
+  - activity layer replaying **5** recorded autonomous missions, every feed label **RELECTURE**;
+  - **0** requests to a code CDN or to any local endpoint;
+  - at street zoom, **11/11** rendered avatars each opened their own card; the memory tab shows episodes;
+  - the demo's final step states the gateway proposal and that **no human decision has been taken**;
+  - **0 uncaught errors**.
+- **Scheduled refresh:** the 15:17 and 18:17 UTC slots were missed. The hourly retry with its freshness gate is now active on `main`; its first runs are pending.
 
 ## M. Phase 10 recommendations
 
