@@ -36,7 +36,7 @@ The avatar click called `openAgent → show('agents')`. That re-rendered the who
 
 - **Configuration:** the workflow is `active`, on the default branch `main`; Actions is enabled with all actions allowed; the repository is public and not a fork.
 - **Observed runs:** the first `schedule` run happened on **2026-10-14 at 08:41 UTC**. It succeeded (all steps, including tests and the integrity gate) and pushed commit `fa438f7`. It is roughly 2 h 24 min after the 06:17 slot, so it was delayed.
-- **Missed slots:** 03:17, 09:17 and 12:17 UTC (checked at 14:00 UTC). So **1 of 5** slots since creation produced a run.
+- **Missed slots:** 03:17, 09:17 and 12:17 UTC (checked at 14:00 UTC). So **1 of 4** slots since creation (03:17, 06:17, 09:17, 12:17 UTC) produced a run.
 - **Conclusion:** the schedule works, but it is sparse and delayed. That matches GitHub's documented best-effort cron (delays and dropped events under load). Continuous 3-hourly refresh **cannot be claimed**; the interface must show the real history and the data age.
 
 ## Other findings
@@ -44,3 +44,5 @@ The avatar click called `openAgent → show('agents')`. That re-rendered the who
 - **Third-party requests:** fonts (Google Fonts) and MapLibre (unpkg) load from third-party CDNs, which disclose visitor IP addresses (Phase 7 legal checklist, item 1).
 - **No local operations layer:** the session scheduler only runs in the browser, so rule-based agents have no persistent, recorded workload beyond the 11 recorded missions.
 - **Problems are not linked to agents:** the problems registry (98 entries) has no assigned agents, investigation status or map layer.
+
+**Update at 14:40 UTC.** A second scheduled run started at 14:30 UTC, about 2 h 13 min after the 12:17 slot, and **failed** in the Tests step. The cause was a latent time-dependent bug in `test/phase3.test.js`. The test assumed every feed source had last been attempted at the time of the last successful update. Real scheduled runs are staggered, so a source with a 3–6 h interval that was last tried at 08:41 is legitimately due within the test's +61 min window, and 11 sources were due instead of 10. The test was fixed in Phase 8 to check each source's own interval, with the same rule as `dueSources`.

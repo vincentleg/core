@@ -15,6 +15,7 @@
   // ---------- World Problems Registry ----------
   async function renderProblems(el) {
     try { C.problems = C.problems || await getJSON('data/problems/registry.json'); } catch (e) { el.innerHTML = `<p class="hint">Registre des problèmes indisponible (${esc(e.message)}).</p>`; return; }
+    if (G.CORE_PLATFORM.state.sec !== 'problems') return; // left during the first load: do not overwrite another view
     const R = C.problems, list = R.problems.filter(p => C.filter === 'all' || p.status === C.filter);
     el.innerHTML = `<p class="hint">Problèmes dérivés <b>uniquement</b> de l’instantané vérifié du ${fmt(R.snapshot)} et des missions enregistrées (<code>scripts/problems.mjs</code>, empreinte ${esc(R.fingerprint)}). Chaque entrée dit quel type de connaissance elle est ; aucune mesure n’est inventée.</p>
       <div class="kpis">${Object.entries(ST).map(([k, [l]]) => `<div class="kpi"><b>${R.counts[k] || 0}</b><span>${esc(l)}</span></div>`).join('')}<div class="kpi"><b>${R.gaps.length}</b><span>domaines sans preuve intégrée</span></div></div>
@@ -63,11 +64,14 @@
   // ---------- Data health ----------
   async function loadRuns() {
     if (C.runs) return C.runs;
-    try { const r = await getJSON('https://api.github.com/repos/vincentleg/core/actions/workflows/city-feed.yml/runs?per_page=30');
-      C.runs = { ok: true, at: new Date().toISOString(), runs: (r.workflow_runs || []).map(x => ({ event: x.event, created: x.created_at, status: x.status, conclusion: x.conclusion, url: x.html_url })) };
+    try { const [r, wf] = await Promise.all([getJSON('https://api.github.com/repos/vincentleg/core/actions/workflows/city-feed.yml/runs?per_page=50'), getJSON('https://api.github.com/repos/vincentleg/core/actions/workflows/city-feed.yml').catch(() => null)]);
+      C.runs = { ok: true, at: new Date().toISOString(), created: wf && wf.created_at, state: wf && wf.state, runs: (r.workflow_runs || []).map(x => ({ event: x.event, created: x.created_at, status: x.status, conclusion: x.conclusion, url: x.html_url })) };
     } catch (e) { C.runs = { ok: false, error: String(e.message || e) }; }
     return C.runs;
   }
+  // Cron slots of '17 */3 * * *' (UTC) strictly after the workflow was created and before `now`.
+  function expectedSlots(createdIso, nowIso) { let n = 0; const end = Date.parse(nowIso); const t = new Date(createdIso); t.setUTCMinutes(17, 0, 0); t.setUTCHours(t.getUTCHours() - (t.getUTCHours() % 3));
+    for (; t.getTime() <= end; t.setUTCHours(t.getUTCHours() + 3)) if (t.getTime() > Date.parse(createdIso)) n++; return n; }
   async function renderHealth(el, env) {
     const P = G.CORE_PLATFORM.state, sv = G.CORE_SF_VIEW.state, m = sv.manifest, health = env.feedHealth;
     el.innerHTML = `<p class="hint">Santé des données : âge des instantanés, état de chaque source de veille et historique réel des collectes automatiques. Une source joignable n’est pas une preuve d’exactitude.</p>
@@ -77,10 +81,15 @@
       <h3>Collecte automatique (GitHub Actions <code>city-feed.yml</code>)</h3><div id="hl-runs"><p class="hint">Lecture de l’historique public des exécutions…</p></div>`;
     const R = await loadRuns(), box = $('hl-runs'); if (!box) return;
     if (!R.ok) { box.innerHTML = `<p class="hint">Historique indisponible (${esc(R.error)}). Aucune conclusion n’est tirée.</p>`; return; }
-    const sch = R.runs.filter(r => r.event === 'schedule'), man = R.runs.filter(r => r.event === 'workflow_dispatch');
-    box.innerHTML = `<div class="kpis"><div class="kpi"><b>${sch.length}</b><span>exécutions planifiées (cron)</span></div><div class="kpi"><b>${man.length}</b><span>exécutions manuelles</span></div><div class="kpi"><b>${R.runs.filter(r => r.conclusion === 'success').length}/${R.runs.length}</b><span>réussies</span></div></div>
-      <p class="hint">${sch.length ? `Dernière exécution planifiée : ${fmt(sch[0].created)}.` : '<b>Aucune exécution planifiée observée</b> : seules des exécutions manuelles existent. La collecte continue n’est donc pas revendiquée.'} Lu le ${fmt(R.at)} depuis l’API publique GitHub.</p>
+    const sch = R.runs.filter(r => r.event === 'schedule'), man = R.runs.filter(r => r.event === 'workflow_dispatch'), slots = R.created ? expectedSlots(R.created, R.at) : null;
+    const ok = R.runs.filter(r => r.conclusion === 'success'), lastOk = ok[0], lastTry = R.runs[0], age = P.state.lastSuccessfulUpdate ? (Date.parse(R.at) - Date.parse(P.state.lastSuccessfulUpdate)) / 3600e3 : null;
+    box.innerHTML = `<div class="kpis"><div class="kpi"><b>${sch.length}${slots !== null ? ` / ${slots}` : ''}</b><span>exécutions planifiées observées / créneaux cron prévus</span></div><div class="kpi"><b>${man.length}</b><span>exécutions manuelles</span></div><div class="kpi"><b>${ok.length}/${R.runs.length}</b><span>réussies</span></div><div class="kpi"><b>${age === null ? '—' : `${Math.round(age)} h`}</b><span>âge de la veille publiée</span></div></div>
+      ${age !== null && age > 6 ? `<p class="warnbox">⚠ Données de veille âgées de ${Math.round(age)} h (plus de deux créneaux de 3 h) : la collecte automatique n’est pas fiable ; ne pas considérer ces données comme actuelles.</p>` : ''}
+      <table class="tbl"><tbody><tr><th>Dernière collecte réussie</th><td>${lastOk ? `${fmt(lastOk.created)} · déclencheur <b>${esc(lastOk.event === 'schedule' ? 'planifié (cron)' : 'manuel')}</b>` : '—'}</td></tr>
+        <tr><th>Dernière tentative</th><td>${lastTry ? `${fmt(lastTry.created)} · ${esc(lastTry.event)} · ${esc(lastTry.conclusion || lastTry.status)}` : '—'}</td></tr>
+        <tr><th>Workflow</th><td>${esc(R.state || '—')} · créé ${fmt(R.created)} · cron <code>17 */3 * * *</code> (UTC)</td></tr></tbody></table>
+      <p class="hint">${sch.length ? `Le cron fonctionne mais de façon <b>irrégulière</b> : ${sch.length} exécution(s) observée(s) pour ${slots ?? '?'} créneau(x) prévu(s) (GitHub ne garantit pas l’heure ni l’exécution des tâches planifiées). La collecte toutes les 3 h n’est donc pas revendiquée.` : '<b>Aucune exécution planifiée observée</b> : seules des exécutions manuelles existent.'} Lu le ${fmt(R.at)} depuis l’API publique GitHub.</p>
       <ul class="list">${R.runs.slice(0, 8).map(r => `<li class="item"><span class="m">${fmt(r.created)} · ${esc(r.event)} · ${esc(r.conclusion || r.status)} · <a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener">détail</a></span></li>`).join('')}</ul>`;
   }
-  G.CORE_CIV = { renderProblems, renderActivity, renderHealth, state: C };
+  G.CORE_CIV = { renderProblems, renderActivity, renderHealth, expectedSlots, state: C };
 })();

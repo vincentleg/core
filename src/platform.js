@@ -133,7 +133,8 @@
   async function cogRecords() { if (P.cogRecords || !P.cogIndex) return P.cogRecords || []; P.cogRecords = (await Promise.all(P.cogIndex.missions.map(m => getJSON(`data/missions/cognitive/${m.id.replace(':', '-')}.json`).catch(() => null)))).filter(Boolean); return P.cogRecords; }
   const TOOL_SOURCES = { 'works.windows': 'permits', 'works.telecom': 'permits', 'trees.near-works': 'street-trees', 'buildings.frontage': 'building-permits', 'energy.benchmarks': 'energy-benchmarks', 'public-space.sidewalks': 'sidewalks', 'sim.sidewalk-capacity': 'sidewalks', 'planning.records': 'datasf-planning (feed)', 'grid.mix': 'caiso-fuelmix (feed)', 'air.quality': 'openmeteo-aq (en quarantaine)', 'resilience.quake-context': 'usgs-quakes (feed)', 'resilience.weather-alerts': 'nws-alerts (feed)', 'civic.legislation': 'legistar (historique)', 'graph.link': 'veille + corridor', 'knowledge.search': 'bibliothèque de connaissances', 'knowledge.retrieve': 'bibliothèque de connaissances', 'scenario.investigate': 'instantané complet', 'scenario.evaluate': 'instantané complet', 'policy.check': 'politique de données', 'evidence.check': 'registre de preuves' };
   async function renderAgents() {
-    await cogRecords();
+    await cogRecords(); if (G.CORE_PROBLEMS_VIEW) await G.CORE_PROBLEMS_VIEW.load().catch(() => null);
+    if (P.sec !== 'agents') return; // the visitor left during the async load: never overwrite another view
     const R = P.registry, c = P.counts, running = P.missions.reduce((n, m) => n + m.tasks.filter(t => t.state === 'running').length, 0);
     const F = P.agentFilter || 'all', keep = a => F === 'all' || (F === 'deterministic' && a.executionMode === 'deterministic') || (F === 'llm' && a.executionMode === 'llm') || (F === 'unavailable' && a.executionMode === 'unavailable');
     const byDept = new Map(R.departments.map(d => [d.id, []])); for (const a of R.agents) if (a.department && byDept.has(a.department) && !a.id.endsWith('.lead') && keep(a)) byDept.get(a.department).push(a);
@@ -470,7 +471,9 @@
 
   function updateMeta() {
     const sv = G.CORE_SF_VIEW.state;
-    $('navmeta').textContent = `Registres collectés ${sv.manifest ? fmt(sv.manifest.generated_at) : '…'} · veille collectée ${fmt(P.state ? P.state.lastSuccessfulUpdate : null)}${P.lastRefresh ? ` · navigateur ${fmt(P.lastRefresh.at)}` : ''}`;
+    const age = P.state && P.state.lastSuccessfulUpdate ? (Date.now() - Date.parse(P.state.lastSuccessfulUpdate)) / 3600e3 : null;
+    $('navmeta').classList.toggle('stale', age !== null && age > 6);
+    $('navmeta').textContent = `${age !== null && age > 6 ? `⚠ veille âgée de ${Math.round(age)} h · ` : ''}Registres collectés ${sv.manifest ? fmt(sv.manifest.generated_at) : '…'} · veille collectée ${fmt(P.state ? P.state.lastSuccessfulUpdate : null)}${P.lastRefresh ? ` · navigateur ${fmt(P.lastRefresh.at)}` : ''}`;
     $('navmeta').title = 'Dates de collecte par CORE (UTC). Chaque registre garde ses propres dates (publication, approbation, début et fin prévus).';
   }
 

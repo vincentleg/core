@@ -13,8 +13,8 @@ const TILES = ['https://tiles.openfreemap.org', 'https://s3.amazonaws.com', 'htt
 const policy = [
   "default-src 'self'",
   `script-src 'self' https://unpkg.com ${hashes.join(' ')}`,
-  "style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com",
-  'font-src https://fonts.gstatic.com',
+  "style-src 'self' 'unsafe-inline' https://unpkg.com",
+  "font-src 'self'",
   `img-src 'self' data: blob: ${TILES.join(' ')}`,
   `connect-src 'self' ${TILES.join(' ')} https://data.sf.gov https://earthquake.usgs.gov https://api.weather.gov https://api.github.com http://127.0.0.1:11434 http://localhost:11434 http://127.0.0.1:8080`,
   'worker-src blob:', 'child-src blob:', "object-src 'none'", "base-uri 'self'", "form-action 'self'",

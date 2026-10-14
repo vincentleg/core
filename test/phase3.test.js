@@ -91,7 +91,15 @@ test('city intelligence store: real items with source, dates and verification; r
   assert.ok(state.lastSuccessfulUpdate && state.health.length === F.SOURCES.length && /manuelle|GitHub Actions|surveillance/.test(state.scheduler), 'the scheduler actually used is stated');
   const now = Date.parse(state.lastSuccessfulUpdate);
   assert.equal(F.dueSources({ items, sources: state.sources }, now + 60000).length, 0, 'no source re-requested within its interval');
-  assert.equal(F.dueSources({ items, sources: state.sources }, now + 61 * 60000).length, F.SOURCES.filter(s => s.enabled !== false && s.minIntervalMin <= 60).length, 'hourly sources due after an hour; retired and daily sources are not');
+  // Each source is due exactly when its own last attempt is older than its interval (runs are staggered: the
+  // scheduled collector skips sources that are not yet due, so last attempts differ between sources).
+  const later = now + 61 * 60000, due = new Set(F.dueSources({ items, sources: state.sources }, later).map(s => s.id));
+  for (const s of F.SOURCES) {
+    const last = state.sources[s.id] && state.sources[s.id].lastAttempt, expected = s.enabled !== false && (!last || later - Date.parse(last) >= s.minIntervalMin * 60000);
+    assert.equal(due.has(s.id), expected, `${s.id}: due after an hour only if its own interval has elapsed`);
+  }
+  assert.ok(F.SOURCES.filter(s => s.enabled !== false && s.minIntervalMin <= 60).every(s => due.has(s.id)), 'hourly sources are due after an hour');
+  assert.ok(F.SOURCES.filter(s => s.enabled === false).every(s => !due.has(s.id)), 'retired sources are never due');
   assert.ok(state.health.some(h => /stale/.test(h.freshness)), 'stale official sources are reported, not hidden');
 });
 
