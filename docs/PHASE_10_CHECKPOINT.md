@@ -10,7 +10,7 @@ Branch: `phase10`. `main` serves the verified Phase 9 release (tag `phase9-relea
 | B — multi-city organisation + engine | **done** | `ORG.buildWorld()` (82 profiles, SF codes unchanged); engine per city (`createEngine({city})`); NYC workflows `safety-works`, `ramps-works`; `src/civ-world.js` cross-city mission (director → both cities → methodology review → human; memory reuse; restart-safe); runtime/CLI/control server multi-city. Recorded: 5 SF (unchanged), 5 NYC, 1 decision, 1 world mission — all at HUMAN_REVIEW, no human decision |
 | C — discovery + persistent scheduler + memory supersession | **done** | `src/civ-discovery.js` (snapshot diff, dedupe, priority); `scripts/civd.mjs` (SQLite queue, crash recovery, budgets, STOP, triage, follow-ups after human decisions; `--publish` → `data/civ/discovery.json`); memory `supersede` + conflicts. First real diffs (SF 3 h, NYC 17 min apart): **0 changes** — re-run later |
 | D — decision intelligence | **done** | `decision-safety-works` (SF Tenderloin): I0–I3, 18-case sensitivity, evidence grades, review, human checkpoint. Index exploratory, uncalibrated; no costs |
-| E — UI multi-city, motion per city, command centre, demo | pending | |
+| E — UI multi-city, motion per city, command centre, demo | in progress | Done: New York destination + coverage; `src/city-layer.js` (NYC study-area layers, lazy ramps); motion per city (each agent on its own city's network); multi-city replay (camera follows, SF↔NYC arc); `src/cities-view.js` (« Villes & enquêtes »); 9-step demo (Chrome: 0 errors). Pending: command centre |
 | G — validation, docs, release | pending | |
 
 ## Key facts (verified)
@@ -31,6 +31,11 @@ Branch: `phase10`. `main` serves the verified Phase 9 release (tag `phase9-relea
   - works data differs (permits vs closures);
   - crash assignment differs (key-based vs a 20 m spatial join);
   - the time windows differ.
+
+## Corrections made during the phase (recorded honestly)
+
+- **NYC collision attribution:** the 20 m spatial join attached collisions recorded on the FDR Drive (an elevated limited-access highway) to a 145 m piece of the East Houston corridor. Fix: collisions whose street is a limited-access roadway are excluded (250 in the bbox, counted in the manifest). Effect: East Village went from 475 to 456 collisions and from 4 to 2 fatal. New York was re-snapshotted, and mission ids outside SF now carry the snapshot time.
+- **Memory supersession bug (development):** an older world finding was linked to the wrong successor, and a false conflict was recorded. Neither was ever published. The local memory was restored from the Phase 9 backup (`.core-local/backup/memory-phase9.sqlite`), and every Phase 10 run was replayed with the fixed code. The faulty database is kept in `.core-local/backup/dev-bug/`.
 
 ## Resume
 

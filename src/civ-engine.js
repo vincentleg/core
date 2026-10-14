@@ -95,7 +95,7 @@ function createEngine({ city = 'san-francisco', registry = ORG.buildRegistry(), 
   function newMission(workflow, nhood) {
     const W = WORKFLOWS[workflow]; if (!W) throw new Error(`workflow inconnu ${workflow}`); if (!W.cities.includes(city)) throw new Error(`workflow ${workflow} non disponible à ${CFG.name}`);
     // San Francisco ids keep their Phase 9 form (recorded data); other cities carry the city in the id.
-    const id = `civ:${city === 'san-francisco' ? '' : city + ':'}${workflow}:${nhood.toLowerCase().replace(/[^a-z]+/g, '-')}@${cx.asOf}`;
+    const id = `civ:${city === 'san-francisco' ? '' : city + ':'}${workflow}:${nhood.toLowerCase().replace(/[^a-z]+/g, '-')}@${cx.stamp || cx.asOf}`;
     return { id, version: 'core-civ-mission-v1', workflow, title: W.title, nhood, question: W.question(nhood, cx), city, state: 'DISCOVERED', stages: [], subtasks: [], messages: [], results: {}, findings: [], rejected: [], challenges: [], conflicts: [], recommendation: null, review: null, decision: null, model: { calls: 0, accepted: [], rejected: [], lessonsUsed: [] }, learning: { proceduresApplied: [], lessonsProposed: [] }, owner: null, priority: null, errors: [] };
   }
   const now = () => clock();

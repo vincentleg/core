@@ -5,9 +5,11 @@
   'use strict';
   const G = globalThis, $ = id => document.getElementById(id);
 
-  // Operational coverage — San Francisco only. Other cities are navigation destinations without data or agents.
+  // Operational coverage (Phase 10: src/cities.js) — San Francisco and New York study areas. Other cities are navigation
+  // destinations without data or agents.
   const COVERAGE = [
     { name: 'San Francisco', status: 'operational', label: 'San Francisco\nPilote opérationnel', lon: -122.4194, lat: 37.7749 },
+    { name: 'New York', status: 'operational', label: 'New York\nZone d’étude opérationnelle', lon: -73.9880, lat: 40.7195 },
     { name: 'Paris', status: 'navigation', label: 'Paris\nNavigation seulement', lon: 2.3522, lat: 48.8566 },
     { name: 'Tokyo', status: 'navigation', label: 'Tokyo\nNavigation seulement', lon: 139.6917, lat: 35.6895 },
   ];

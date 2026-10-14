@@ -9,7 +9,7 @@
   const G = globalThis, $ = id => document.getElementById(id);
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const M = () => G.CORE_MOTION, reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const TYPE_FR = { assign: 'affectation', delegate: 'délégation', request: 'demande', result: 'résultat', challenge: 'contestation', 'coverage-gap': 'lacune de couverture', 'review-request': 'demande de revue', review: 'revue', decision: 'décision proposée', 'human-decision': 'décision humaine', note: 'procédure apprise', error: 'échec' };
+  const TYPE_FR = { 'memory-read': 'lecture de la mémoire institutionnelle', report: 'compte rendu', assign: 'affectation', delegate: 'délégation', request: 'demande', result: 'résultat', challenge: 'contestation', 'coverage-gap': 'lacune de couverture', 'review-request': 'demande de revue', review: 'revue', decision: 'décision proposée', 'human-decision': 'décision humaine', note: 'procédure apprise', error: 'échec' };
   const COLOR = { request: '#5cc8ff', delegate: '#5cc8ff', assign: '#9fe3ff', result: '#7ee787', challenge: '#ff8a5c', 'coverage-gap': '#f0b72f', 'review-request': '#d2a8ff', review: '#d2a8ff', decision: '#ff4d6d', error: '#ff4d6d', note: '#f0b72f' };
   const S = { index: null, missions: [], playing: false, speed: 1, i: 0, run: 0, feed: [], current: null, liveSeen: 0 };
   const wait = ms => new Promise(r => setTimeout(r, reduced() ? 0 : ms / S.speed));
@@ -23,6 +23,10 @@
     const map = M().state.map; if (map.getSource('civ-links')) return;
     map.addSource('civ-links', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
     map.addLayer({ id: 'civ-links', type: 'line', source: 'civ-links', paint: { 'line-color': ['get', 'color'], 'line-width': 2, 'line-dasharray': [1, 1.2], 'line-opacity': 0.9 } });
+    // Phase 10: while a recorded cross-city mission replays, one labelled arc joins the participating cities.
+    map.addSource('civ-arc', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+    map.addLayer({ id: 'civ-arc', type: 'line', source: 'civ-arc', paint: { 'line-color': '#f0b72f', 'line-width': 2.5, 'line-opacity': 0.85, 'line-dasharray': [2, 1] } });
+    map.addLayer({ id: 'civ-arc-label', type: 'symbol', source: 'civ-arc', layout: { 'symbol-placement': 'line-center', 'text-field': ['get', 'label'], 'text-font': ['Noto Sans Regular'], 'text-size': 12, 'text-offset': [0, -0.9] }, paint: { 'text-color': '#ffd38a', 'text-halo-color': '#06121c', 'text-halo-width': 1.5 } });
   }
   const links = [];
   function link(from, to, type) {
@@ -38,7 +42,7 @@
   }
   const codeOf = id => { const A = M().state.agents.get(id); return A ? A.agent.code : id; };
   function feed(m, msg, label) {
-    S.feed.unshift({ label, mission: m.title + ' · ' + m.nhood, type: msg.type, from: codeOf(msg.from), to: msg.to === 'human' ? 'revue humaine' : codeOf(msg.to), purpose: msg.purpose, outcome: msg.outcome, at: msg.at });
+    S.feed.unshift({ label, mission: m.title + ' · ' + m.nhood, type: msg.type, from: codeOf(msg.from), to: msg.to === 'human' ? 'revue humaine' : msg.to === 'memory' ? 'mémoire institutionnelle' : codeOf(msg.to), purpose: msg.purpose, outcome: msg.outcome, at: msg.at });
     S.feed = S.feed.slice(0, 40); render();
   }
   function setState(id, mode, state, note) { const A = M().state.agents.get(id); if (!A || A.path) return; A.mode = mode; A.state = state; A.note = note; A.visible = true; M().state.dirty = true; }
@@ -46,10 +50,14 @@
   // Replay one recorded mission, message by message, in recorded order.
   async function playMission(m, run) {
     S.current = m; const parts = new Set(m.messages.flatMap(x => [x.from, x.to]).filter(id => M().state.agents.has(id)));
+    arc(m.cities && m.cities.length > 1 ? m : null);
+    // Phase 10: when the viewer is inside a city and the mission belongs to another one, the camera follows the mission.
+    const map = M().state.map, C = G.CORE_CITIES, city = m.city || (m.cities && m.cities.length === 1 ? m.cities[0] : null);
+    if (S.follow !== false && C && city && map && map.getZoom() >= 11) { const cfg = C.get(city), c = map.getCenter(); if (cfg && Math.hypot(c.lng - cfg.view.center[0], c.lat - cfg.view.center[1]) > 0.3) map.easeTo({ ...cfg.view, duration: reduced() ? 0 : 2500 }); }
     M().dim([...parts]); render();
     for (const x of m.messages) {
       if (!S.playing || run !== S.run) return;
-      feed(m, x, 'RELECTURE'); if (x.to !== 'human' && x.from !== x.to) link(x.from, x.to, x.type);
+      feed(m, x, 'RELECTURE'); if (x.to !== 'human' && x.to !== 'memory' && x.from !== x.to) link(x.from, x.to, x.type);
       const st = m.subtasks.find(s => x.purpose.includes(s.id + ' ') || x.purpose.includes(s.id + ' (') || x.purpose.endsWith(s.id));
       if (x.type === 'delegate' && st && st.agent === x.to) {
         if (st.site && st.state === 'succeeded') M().go(x.to, st.site.coord, { durationMs: 6000 / S.speed, purpose: `vers ${st.site.kind} : ${st.site.label} (${st.tool}, relecture)`, onArrive: A => { A.mode = 'work'; A.state = 'investigating'; A.note = `${st.tool} — ${st.site.label} (relecture)`; } });
@@ -59,12 +67,23 @@
       else if (x.type === 'note') setState(x.from, 'coordinate', 'reasoning', 'procédure apprise appliquée (relecture)');
       else if (['request', 'assign', 'review-request', 'challenge', 'coverage-gap'].includes(x.type)) setState(x.from, 'coordinate', x.type === 'challenge' ? 'collaborating' : 'routing', `${TYPE_FR[x.type]} (relecture)`);
       else if (x.type === 'review') setState(x.from, 'coordinate', 'reasoning', 'revue adversariale (relecture)');
+      else if (x.type === 'memory-read') setState(x.from, 'coordinate', 'reasoning', `mémoire institutionnelle consultée : ${x.outcome} (relecture)`);
+      else if (x.type === 'report') setState(x.from, 'coordinate', 'reporting', 'compte rendu à la direction (relecture)');
       else if (x.type === 'decision') setState(x.from, 'coordinate', 'reporting', 'décision proposée à la revue humaine (relecture)');
       await wait(900);
     }
     await wait(1500);
     for (const id of parts) { const A = M().state.agents.get(id); if (A && A.mode !== 'post') M().toPost(id, 'retour au poste après la mission (relecture)', 5000 / S.speed); }
-    await wait(2500); M().dim(null);
+    await wait(2500); M().dim(null); arc(null);
+  }
+  // Great-circle arc between the participating cities (display only), with the recorded mission's label.
+  function arc(m) {
+    const src = M().state.map && M().state.map.getSource('civ-arc'); if (!src) return;
+    if (!m || !G.CORE_CITIES) { src.setData({ type: 'FeatureCollection', features: [] }); return; }
+    const [a, b] = m.cities.map(c => G.CORE_CITIES.get(c).center), R = Math.PI / 180, v = p => [Math.cos(p[1] * R) * Math.cos(p[0] * R), Math.cos(p[1] * R) * Math.sin(p[0] * R), Math.sin(p[1] * R)];
+    const A = v(a), B = v(b), d = Math.acos(Math.min(1, A[0] * B[0] + A[1] * B[1] + A[2] * B[2])), pts = [];
+    for (let k = 0; k <= 64; k++) { const t = k / 64, sa = Math.sin((1 - t) * d) / Math.sin(d), sb = Math.sin(t * d) / Math.sin(d), x = sa * A[0] + sb * B[0], y = sa * A[1] + sb * B[1], z = sa * A[2] + sb * B[2]; pts.push([Math.atan2(y, x) / R, Math.atan2(z, Math.hypot(x, y)) / R]); }
+    src.setData({ type: 'FeatureCollection', features: [{ type: 'Feature', geometry: { type: 'LineString', coordinates: pts }, properties: { label: `${m.cities.map(c => G.CORE_CITIES.get(c).name).join(' ↔ ')} — collaboration enregistrée (relecture)` } }] });
   }
   async function start() {
     await load(); await M().ensure(); layer(); if (!S.missions.length) { render(); return false; }
@@ -72,7 +91,7 @@
     while (S.playing && run === S.run) { const m = S.missions[S.i % S.missions.length]; S.i++; await playMission(m, run); }
     return true;
   }
-  function stop() { S.playing = false; S.run++; S.current = null; if (M().state.ready) { M().dim(null); for (const A of M().state.agents.values()) if (A.mode !== 'post' && A.mode !== 'replay' && A.mode !== 'live') M().toPost(A.agent.id, 'retour au poste (relecture arrêtée)'); } render(); }
+  function stop() { S.playing = false; S.run++; S.current = null; arc(null); if (M().state.ready) { M().dim(null); for (const A of M().state.agents.values()) if (A.mode !== 'post' && A.mode !== 'replay' && A.mode !== 'live') M().toPost(A.agent.id, 'retour au poste (relecture arrêtée)'); } render(); }
   // Replay a single recorded mission (guided demo), then stop.
   async function playOnly(id) {
     await load(); await M().ensure(); layer(); const m = S.missions.find(x => x.id === id); if (!m) return false;
@@ -90,10 +109,13 @@
       `## Constats rejetés`, ...(m.rejected.length ? m.rejected.map(r => `- ${r.claim} — ${r.reason}`) : ['- aucun']), '',
       `## Réserves (vérification des données)`, ...m.challenges.map(c => `- [${c.level}] ${c.text}`), '',
       `## Hypothèses de calcul`, ...Object.values(m.results).flatMap(r => r.assumptions || []).map(a => `- ${a}`), '',
+      ...(m.decisionAnalysis ? ['## Aide à la décision (modélisé, exploratoire, non calibré)', '| Option | Description | Indice | Variation | Autorisations concernées |', '| --- | --- | --- | --- | --- |', ...m.decisionAnalysis.options.map(o => `| ${o.id} | ${o.label} | ${o.exposure} | ${o.coveredShare !== undefined ? `part couverte ${Math.round(o.coveredShare * 100)} %` : `${Math.round(o.change * 100)} %`} | ${o.permitsAffected} |`), '', `Sensibilité : ${m.decisionAnalysis.sensitivity.length} combinaisons (top N, horizon, pondération) ; option la plus réductrice par combinaison : ${Object.entries(m.decisionAnalysis.sensitivity.reduce((o, x) => ({ ...o, [x.best]: (o[x.best] || 0) + 1 }), {})).map(([k, v]) => `${k} ×${v}`).join(', ')}.`, '', 'Qualité des preuves : ' + m.decisionAnalysis.quality.map(q => `${q.source} ${q.grade} (${q.why})`).join(' ; '), ''] : []),
+      ...(m.comparability && m.comparability.length ? ['## Comparabilité entre villes (réviseur méthodologique)', '| Indicateur | Verdict | Raison |', '| --- | --- | --- |', ...m.comparability.map(c => `| ${c.metric} | ${c.verdict} | ${c.why.replace(/\|/g, '/')} |`), ''] : []),
+      ...(m.memoryReused && m.memoryReused.length ? ['## Mémoire institutionnelle réutilisée', ...m.memoryReused.map(e => `- ${e.id} [${e.status}] ${e.statement}`), ''] : []),
       `## Recommandation (${m.recommendation ? m.recommendation.kind : '—'})`, m.recommendation ? m.recommendation.text : 'Aucune.', '',
       `## Interprétation assistée par modèle (local, enregistrée, validée)`, ...(m.model.calls ? [...m.model.accepted.map(a => `- accepté : ${a.statement}`), ...m.model.rejected.map(r => `- rejeté (${r.reason}) : ${r.statement}`)] : ['- aucune']), '',
       `## Échanges enregistrés (${m.messages.length})`, ...m.messages.map(x => `- ${x.at} · ${x.type} · ${code(x.from)} → ${x.to === 'human' ? 'revue humaine' : code(x.to)} — ${x.purpose}${x.outcome ? ` (${x.outcome})` : ''}`), '',
-      '## Sources', ...((G.CORE_PLATFORM.state.civIndex && G.CORE_PLATFORM.state.civIndex.study_area) ? [`Zone d’étude : ${G.CORE_PLATFORM.state.civIndex.study_area.neighborhoods.join(', ')} — données DataSF (ODC-PDDL) et OpenStreetMap (ODbL) ; voir data/sf9/manifest.json (URL, dates, SHA-256).`] : []));
+      '## Sources', ...((m.cities || [m.city || 'san-francisco']).filter(c => c !== 'san-francisco').map(c => `Zone d’étude ${c === 'new-york' ? 'New York' : c} : données NYC Open Data (loi NYC Open Data ; attribution : source, date de collecte, modifications CORE) et OpenStreetMap (ODbL) ; voir data/nyc/manifest.json (URL, dates, SHA-256).`)), ...(((m.cities || [m.city || 'san-francisco']).includes('san-francisco') && G.CORE_PLATFORM.state.civIndex && G.CORE_PLATFORM.state.civIndex.study_area) ? [`Zone d’étude : ${G.CORE_PLATFORM.state.civIndex.study_area.neighborhoods.join(', ')} — données DataSF (ODC-PDDL) et OpenStreetMap (ODbL) ; voir data/sf9/manifest.json (URL, dates, SHA-256).`] : []));
     const blob = new Blob([L.join('\n') + '\n'], { type: 'text/markdown' }), a2 = document.createElement('a');
     a2.href = URL.createObjectURL(blob); a2.download = `CORE-dossier-${m.id.replace(/[^a-z0-9]+/gi, '-')}.md`; document.body.appendChild(a2); a2.click(); setTimeout(() => { URL.revokeObjectURL(a2.href); a2.remove(); }, 1000);
     return L.length;
@@ -102,7 +124,7 @@
   async function pollLive() {
     if (!G.CORE_PLATFORM.state.local) return;
     try { const r = await fetch('.core-local/civ-live.json', { cache: 'no-store' }); if (r.ok) { const L = await r.json(); const fresh = L.events.filter(e => e.kind === 'message' && Date.parse(e.at) > S.liveSeen);
-      for (const e of fresh) { S.liveSeen = Math.max(S.liveSeen, Date.parse(e.at)); feed({ title: e.mission.split(':')[1], nhood: e.mission.split(':')[2].split('@')[0] }, e.data, 'EN DIRECT (local)'); if (e.data.to !== 'human') link(e.data.from, e.data.to, e.data.type); }
+      for (const e of fresh) { S.liveSeen = Math.max(S.liveSeen, Date.parse(e.at)); feed({ title: e.mission.replace(/@.*$/, '').split(':').slice(1, -1).join(' · '), nhood: e.mission.replace(/@.*$/, '').split(':').pop() }, e.data, 'EN DIRECT (local)'); if (e.data.to !== 'human') link(e.data.from, e.data.to, e.data.type); }
       if (fresh.length) requestAnimationFrame(drawLinks); } } catch (_) { /* no local runtime */ }
     setTimeout(pollLive, 2000);
   }

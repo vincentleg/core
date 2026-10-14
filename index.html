@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-grQhkw45sQNnRe8rX9V41tavoBX/nRjZmNN/y7HdSoc='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https://tiles.openfreemap.org https://s3.amazonaws.com https://gibs.earthdata.nasa.gov; connect-src 'self' https://tiles.openfreemap.org https://s3.amazonaws.com https://gibs.earthdata.nasa.gov https://data.sf.gov https://earthquake.usgs.gov https://api.weather.gov https://api.github.com http://127.0.0.1:11434 http://localhost:11434 http://127.0.0.1:8080; worker-src blob:; child-src blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-oLIQleRoPCX7qYVFEIrxP7xwxJIyiYhyXx92kKX7IhQ='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https://tiles.openfreemap.org https://s3.amazonaws.com https://gibs.earthdata.nasa.gov; connect-src 'self' https://tiles.openfreemap.org https://s3.amazonaws.com https://gibs.earthdata.nasa.gov https://data.sf.gov https://earthquake.usgs.gov https://api.weather.gov https://api.github.com http://127.0.0.1:11434 http://localhost:11434 http://127.0.0.1:8080; worker-src blob:; child-src blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CORE</title>
 <meta name="description" content="CORE — Creation of Reborn Earth : un double numérique de la Terre où des agents spécialisés étudient des problèmes réels à partir de données publiques ; les décisions restent humaines.">
@@ -359,7 +359,7 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
     <p class="landing-tag">Creation of Reborn Earth</p>
     <p class="landing-lead">Un double numérique de la Terre où des agents spécialisés étudient des problèmes réels à partir de données publiques — les décisions restent humaines.</p>
     <div class="landing-actions"><button type="button" id="enter-core" class="enter">ENTER CORE</button><button type="button" id="landing-skip" class="ghost">Accès direct</button></div>
-    <p class="landing-note">Pilote opérationnel : San Francisco · données publiques · missions d’IA enregistrées · coût d’exploitation nul</p>
+    <p class="landing-note">Villes opérationnelles : San Francisco et New York · données publiques · missions d’IA enregistrées · coût d’exploitation nul</p>
   </div>
   <p class="landing-credit">Imagerie de la Terre : NASA Blue Marble via GIBS · <a href="privacy.html">Confidentialité</a></p>
 </section>
@@ -375,7 +375,7 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
   <span class="navmeta" id="navmeta">—</span><a class="navlink" href="privacy.html">Confidentialité</a>
 </nav>
 <div id="map" role="region" aria-label="Globe 3D de CORE"></div>
-<div id="legacy-sec" hidden><button type="button" data-sec="agents">agents</button><button type="button" data-sec="problems">problems</button><button type="button" data-sec="activity">activity</button><button type="button" data-sec="sims">sims</button><button type="button" data-sec="decisions">decisions</button><button type="button" data-sec="data">data</button><button type="button" data-sec="health">health</button><button type="button" data-sec="demo">demo</button></div>
+<div id="legacy-sec" hidden><button type="button" data-sec="agents">agents</button><button type="button" data-sec="cities">cities</button><button type="button" data-sec="problems">problems</button><button type="button" data-sec="activity">activity</button><button type="button" data-sec="sims">sims</button><button type="button" data-sec="decisions">decisions</button><button type="button" data-sec="data">data</button><button type="button" data-sec="health">health</button><button type="button" data-sec="demo">demo</button></div>
 <section class="panel ws" id="ws" hidden aria-live="polite"><header><h2 id="ws-title"></h2><button type="button" class="ghost small" id="ws-close">Fermer</button></header><div class="ws-tabs" id="ws-tabs" role="tablist"></div><div class="wsbody" id="ws-body"></div></section>
 <div class="panel sim-badge" id="sim-badge" hidden role="status">Scénario hypothétique — modèle exploratoire non calibré (sidewalk-tree-capacity-v1)</div>
 <div class="panel cam" role="toolbar" aria-label="Caméra 3D">
@@ -395,14 +395,15 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
 
 <div class="panel console">
   <div class="brand"><b>Explorer</b><span>Pilote San Francisco</span><button type="button" class="ghost small" id="console-toggle" aria-expanded="false" aria-controls="console-body">Déplier</button></div>
-  <p class="dock-lead">Intelligence urbaine fondée sur des données publiques et des agents vérifiés. Pilote opérationnel : <b>San Francisco</b>. Les décisions restent humaines.</p>
+  <p class="dock-lead">Intelligence urbaine fondée sur des données publiques et des agents vérifiés. Villes opérationnelles : <b>San Francisco</b> (pilote) et <b>New York</b> (zone d’étude de Manhattan). Les décisions restent humaines.</p>
   <form id="search" role="search">
-    <input id="q" type="search" placeholder="Ville, quartier de SF, repère ou lat, lon" aria-label="Recherche locale : ville, quartier ou repère de San Francisco, ou latitude, longitude" maxlength="120" autocomplete="off">
+    <input id="q" type="search" placeholder="Ville, quartier de SF ou de NY, repère ou lat, lon" aria-label="Recherche locale : ville, quartier ou repère de San Francisco, ou latitude, longitude" maxlength="120" autocomplete="off">
     <button type="submit">Aller</button>
   </form>
   <div class="places">
     <button class="ghost" data-go="globe" type="button">Globe</button>
     <button class="ghost" data-go="sf" type="button">San Francisco</button>
+    <button class="ghost" data-go="nyc" type="button">New York</button>
     <button class="ghost" data-go="paris" type="button">Paris</button>
     <button class="ghost" data-go="tokyo" type="button">Tokyo</button>
   </div>
@@ -520,6 +521,7 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
 <script src="src/simulation.js"></script>
 <script src="src/city-agents.js"></script>
 <script src="src/city-view.js"></script>
+<script src="src/cities.js"></script>
 <script src="src/org.js"></script>
 <script src="src/feeds.js"></script>
 <script src="src/knowledge.js"></script>
@@ -539,6 +541,7 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
 <script src="src/camera.js"></script>
 <script src="src/map-style.js"></script>
 <script src="src/entry.js"></script>
+<script src="src/city-layer.js"></script>
 <script src="src/agent-population.js"></script>
 <script src="src/agent-motion.js"></script>
 <script src="src/agents-world.js"></script>
@@ -546,6 +549,7 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
 <script src="src/problems-view.js"></script>
 <script src="src/population-ui.js"></script>
 <script src="src/civ-activity.js"></script>
+<script src="src/cities-view.js"></script>
 <script src="src/civ.js"></script>
 <script src="src/scheduler.js"></script>
 <script src="src/task-queue.js"></script>
@@ -613,6 +617,7 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
   map.on('style.load', () => { try { map.setProjection({ type: 'globe' }); } catch (e) { console.warn(e); } });
   // MapLibre ≥5.7.2 fires load even when a TileJSON fails: never let the hint hide a source warning.
   let sourceError = false;
+  map.on('load', () => { if (window.CORE_CITY_LAYER) CORE_CITY_LAYER.init(map); });
   map.on('load', () => { if (window.CORE_SF_VIEW) CORE_SF_VIEW.init({ map, msg, fly: (v, ms) => fly(v, ms) }); if (window.CORE_COORD_VIEW) CORE_COORD_VIEW.init({ map }); if (window.CORE_CITY_VIEW) CORE_CITY_VIEW.init({ map }); if (window.CORE_CAMERA) CORE_CAMERA.init({ map, reduced }); if (window.CORE_MAPSTYLE) CORE_MAPSTYLE.init({ map, reduced }); if (window.CORE_ENTRY) CORE_ENTRY.init({ map }); if (window.CORE_MOTION) CORE_MOTION.init({ map }); if (window.CORE_PROBLEMS_VIEW) CORE_PROBLEMS_VIEW.init({ map }); if (window.CORE_AGENTS_WORLD) CORE_AGENTS_WORLD.init({ map }); if (window.CORE_PLATFORM) CORE_PLATFORM.init({ map, fly: (v, ms) => fly(v, ms) }); });
   map.on('load', () => { ['l-trame', 'l-relief', 'l-buildings'].forEach(id => { $(id).disabled = false; }); if (!sourceError) msg('Glisser pour tourner · clic droit pour incliner · molette pour zoomer'); });
   // Source-level failures (TileJSON, style) replace the status message. Tile failures (often transient during
@@ -644,12 +649,13 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
   const GO = {
     get globe() { return { center: [-98, 30], zoom: globeZoom(), pitch: 0, bearing: 0 }; },
     sf: { center: [-122.4005, 37.7880], zoom: 14.1, pitch: 66, bearing: -28 },
+    nyc: { center: [-73.9860, 40.7195], zoom: 14.3, pitch: 58, bearing: 29 },
     paris: { center: [2.2945, 48.8584], zoom: 16, pitch: 62, bearing: 30 },
     tokyo: { center: [139.7671, 35.6812], zoom: 16, pitch: 62, bearing: -15 },
   };
   const NO_PAD = { top: 0, bottom: 0, left: 0, right: 0 };
   const fly = (v, ms = 7000) => { stop(); map.flyTo({ ...v, padding: v.padding || (window.CORE_LAYOUT ? CORE_LAYOUT.padding() : NO_PAD), duration: reduced ? 0 : ms, curve: 1.6, essential: true }); };
-  document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => fly(GO[b.dataset.go], b.dataset.go === 'sf' ? 9000 : 7000)));
+  document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => fly(GO[b.dataset.go], b.dataset.go === 'sf' || b.dataset.go === 'nyc' ? 9000 : 7000)));
 
   // pilot corridor marker (SoMa)
   const el = document.createElement('div'); el.className = 'pilot'; el.title = 'Démo des agents (corridor synthétique)';
@@ -661,8 +667,8 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
     e.preventDefault();
     const q = $('q').value.trim().toLowerCase();
     if (!q) return;
-    const places = { 'san francisco': 'sf', sf: 'sf', paris: 'paris', tokyo: 'tokyo' };
-    if (Object.hasOwn(places, q) && places[q] !== 'sf') { fly(GO[places[q]]); msg('Lieu pilote — coordonnées indicatives.'); return; }
+    const places = { 'san francisco': 'sf', sf: 'sf', 'new york': 'nyc', nyc: 'nyc', manhattan: 'nyc', 'lower east side': 'nyc', 'east village': 'nyc', chinatown: 'nyc', paris: 'paris', tokyo: 'tokyo' };
+    if (Object.hasOwn(places, q) && places[q] !== 'sf') { fly(GO[places[q]]); msg(places[q] === 'nyc' ? 'New York — zone d’étude opérationnelle (Chinatown-Two Bridges, Lower East Side, East Village).' : 'Navigation seulement — aucune donnée ni aucun agent.'); return; }
     const sfPlace = window.CORE_SF_VIEW && CORE_SF_VIEW.search(q);
     if (sfPlace) { msg(`${sfPlace.name} — vue indicative.`); return; }
     const match = q.match(/^(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)$/);

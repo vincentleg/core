@@ -1,6 +1,6 @@
 {
  "version": "core-civ-index-v1",
- "recorded_at": "2026-10-14T19:13:34.890Z",
+ "recorded_at": "2026-10-14T19:33:26.808Z",
  "study_area": {
   "neighborhoods": [
    "South of Market",
@@ -326,8 +326,8 @@
    "at": "2026-10-14T16:40:58.448Z"
   },
   {
-   "id": "civ:new-york:ramps-works:east-village@2026-10-14",
-   "file": "civ-new-york-ramps-works-east-village-2026-10-14.json",
+   "id": "civ:new-york:ramps-works:east-village@2026-10-14T1925",
+   "file": "civ-new-york-ramps-works-east-village-2026-10-14T1925.json",
    "city": "new-york",
    "cities": [
     "new-york"
@@ -359,7 +359,7 @@
     "basis": "sévérité 58 × 2 + signal 58 (règle déclarée)"
    },
    "metrics": {
-    "wallMs": 64,
+    "wallMs": 62,
     "subtasks": 4,
     "failed": 0,
     "toolCalls": 5,
@@ -374,11 +374,11 @@
     "accepted": 0,
     "rejected": 0
    },
-   "at": "2026-10-14T19:13:03.414Z"
+   "at": "2026-10-14T19:27:35.601Z"
   },
   {
-   "id": "civ:new-york:ramps-works:lower-east-side@2026-10-14",
-   "file": "civ-new-york-ramps-works-lower-east-side-2026-10-14.json",
+   "id": "civ:new-york:ramps-works:lower-east-side@2026-10-14T1925",
+   "file": "civ-new-york-ramps-works-lower-east-side-2026-10-14T1925.json",
    "city": "new-york",
    "cities": [
     "new-york"
@@ -410,7 +410,7 @@
     "basis": "sévérité 32 × 2 + signal 32 (règle déclarée)"
    },
    "metrics": {
-    "wallMs": 65,
+    "wallMs": 63,
     "subtasks": 4,
     "failed": 0,
     "toolCalls": 5,
@@ -425,11 +425,11 @@
     "accepted": 0,
     "rejected": 0
    },
-   "at": "2026-10-14T19:13:03.427Z"
+   "at": "2026-10-14T19:27:35.615Z"
   },
   {
-   "id": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14",
-   "file": "civ-new-york-ramps-works-chinatown-two-bridges-2026-10-14.json",
+   "id": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14T1925",
+   "file": "civ-new-york-ramps-works-chinatown-two-bridges-2026-10-14T1925.json",
    "city": "new-york",
    "cities": [
     "new-york"
@@ -461,7 +461,7 @@
     "basis": "sévérité 6 × 2 + signal 6 (règle déclarée)"
    },
    "metrics": {
-    "wallMs": 57,
+    "wallMs": 47,
     "subtasks": 4,
     "failed": 0,
     "toolCalls": 5,
@@ -476,11 +476,11 @@
     "accepted": 0,
     "rejected": 0
    },
-   "at": "2026-10-14T19:13:03.485Z"
+   "at": "2026-10-14T19:27:35.664Z"
   },
   {
-   "id": "civ:new-york:safety-works:east-village@2026-10-14",
-   "file": "civ-new-york-safety-works-east-village-2026-10-14.json",
+   "id": "civ:new-york:safety-works:east-village@2026-10-14T1925",
+   "file": "civ-new-york-safety-works-east-village-2026-10-14T1925.json",
    "city": "new-york",
    "cities": [
     "new-york"
@@ -508,11 +508,11 @@
    "human": null,
    "owner": "core.new-york.mobility.lead",
    "priority": {
-    "score": 10,
-    "basis": "sévérité 4 × 2 + signal 2 (règle déclarée)"
+    "score": 6,
+    "basis": "sévérité 2 × 2 + signal 2 (règle déclarée)"
    },
    "metrics": {
-    "wallMs": 62,
+    "wallMs": 54,
     "subtasks": 4,
     "failed": 0,
     "toolCalls": 5,
@@ -527,11 +527,11 @@
     "accepted": 0,
     "rejected": 0
    },
-   "at": "2026-10-14T19:13:03.496Z"
+   "at": "2026-10-14T19:27:35.676Z"
   },
   {
-   "id": "civ:new-york:safety-works:lower-east-side@2026-10-14",
-   "file": "civ-new-york-safety-works-lower-east-side-2026-10-14.json",
+   "id": "civ:new-york:safety-works:lower-east-side@2026-10-14T1925",
+   "file": "civ-new-york-safety-works-lower-east-side-2026-10-14T1925.json",
    "city": "new-york",
    "cities": [
     "new-york"
@@ -563,7 +563,7 @@
     "basis": "sévérité 2 × 2 + signal 1 (règle déclarée)"
    },
    "metrics": {
-    "wallMs": 41,
+    "wallMs": 28,
     "subtasks": 4,
     "failed": 0,
     "toolCalls": 5,
@@ -578,7 +578,7 @@
     "accepted": 0,
     "rejected": 0
    },
-   "at": "2026-10-14T19:13:03.543Z"
+   "at": "2026-10-14T19:27:35.709Z"
   },
   {
    "id": "civ:decision-safety-works:tenderloin@2026-10-14",
@@ -614,7 +614,7 @@
     "basis": "sévérité 41 × 2 + signal 70 (règle déclarée)"
    },
    "metrics": {
-    "wallMs": 48,
+    "wallMs": 55,
     "subtasks": 3,
     "failed": 0,
     "toolCalls": 4,
@@ -629,11 +629,11 @@
     "accepted": 0,
     "rejected": 0
    },
-   "at": "2026-10-14T19:13:15.758Z"
+   "at": "2026-10-14T19:27:43.896Z"
   },
   {
-   "id": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14",
-   "file": "world-road-safety-comparison-san-francisco-tenderloin-2026-10-14-new-york-east-village-2026-10-14.json",
+   "id": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "file": "world-road-safety-comparison-san-francisco-tenderloin-2026-10-14-new-york-east-village-2026-10-14T1925.json",
    "city": null,
    "cities": [
     "san-francisco",
@@ -667,7 +667,7 @@
    "human": null,
    "owner": "core.global.director.road-safety",
    "metrics": {
-    "wallMs": 26,
+    "wallMs": 29,
     "subtasks": 7,
     "failed": 0,
     "toolCalls": 7,
@@ -683,7 +683,11 @@
     "accepted": 0,
     "rejected": 0
    },
-   "at": "2026-10-14T19:13:23.904Z"
+   "at": "2026-10-14T19:33:26.783Z"
   }
- ]
+ ],
+ "notPublished": {
+  "supersededSnapshots": 0,
+  "note": "missions sur un instantané remplacé : conservées dans la mémoire locale, non publiées"
+ }
 }

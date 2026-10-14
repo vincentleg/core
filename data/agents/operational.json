@@ -1,6 +1,6 @@
 {
  "version": "core-agent-registry-v2",
- "generated_at": "2026-10-14T19:13:34.948Z",
+ "generated_at": "2026-10-14T19:33:26.864Z",
  "base": "core-agent-registry-v3-world",
  "counts": {
   "opérationnel autonome": 13,
@@ -368,7 +368,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:13:15.762Z",
+   "lastGenuineExecution": "2026-10-14T19:27:43.898Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -470,7 +470,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:13:15.762Z",
+   "lastGenuineExecution": "2026-10-14T19:27:43.898Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -595,7 +595,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:13:15.766Z",
+   "lastGenuineExecution": "2026-10-14T19:27:43.905Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -950,7 +950,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:13:15.762Z",
+   "lastGenuineExecution": "2026-10-14T19:27:43.899Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -1960,7 +1960,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:13:15.765Z",
+   "lastGenuineExecution": "2026-10-14T19:27:43.903Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -2136,7 +2136,7 @@
     "passed": 1,
     "total": 1
    },
-   "lastGenuineExecution": "2026-10-14T19:13:15.765Z",
+   "lastGenuineExecution": "2026-10-14T19:27:43.905Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -2732,7 +2732,7 @@
     "passed": 1,
     "total": 1
    },
-   "lastGenuineExecution": "2026-10-14T19:13:15.765Z",
+   "lastGenuineExecution": "2026-10-14T19:27:43.902Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -2861,7 +2861,7 @@
     "passed": 1,
     "total": 1
    },
-   "lastGenuineExecution": "2026-10-14T19:13:15.763Z",
+   "lastGenuineExecution": "2026-10-14T19:27:43.900Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -2937,7 +2937,7 @@
     "passed": 1,
     "total": 1
    },
-   "lastGenuineExecution": "2026-10-14T19:13:15.763Z",
+   "lastGenuineExecution": "2026-10-14T19:27:43.900Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -3684,7 +3684,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:13:15.764Z",
+   "lastGenuineExecution": "2026-10-14T19:27:43.901Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -4236,7 +4236,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:13:15.764Z",
+   "lastGenuineExecution": "2026-10-14T19:27:43.901Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -4414,7 +4414,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:13:03.545Z",
+   "lastGenuineExecution": "2026-10-14T19:27:35.711Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -4479,7 +4479,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:13:03.545Z",
+   "lastGenuineExecution": "2026-10-14T19:27:35.712Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -4542,7 +4542,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:13:03.547Z",
+   "lastGenuineExecution": "2026-10-14T19:27:35.713Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -4605,7 +4605,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:13:03.546Z",
+   "lastGenuineExecution": "2026-10-14T19:27:35.713Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -4770,7 +4770,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:13:03.546Z",
+   "lastGenuineExecution": "2026-10-14T19:27:35.712Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -4833,7 +4833,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:13:03.547Z",
+   "lastGenuineExecution": "2026-10-14T19:27:35.713Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -4893,7 +4893,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:13:03.546Z",
+   "lastGenuineExecution": "2026-10-14T19:27:35.713Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -4959,7 +4959,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:13:03.545Z",
+   "lastGenuineExecution": "2026-10-14T19:27:35.712Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -5023,7 +5023,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:13:03.546Z",
+   "lastGenuineExecution": "2026-10-14T19:27:35.712Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -5090,7 +5090,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:13:03.546Z",
+   "lastGenuineExecution": "2026-10-14T19:27:35.712Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   }
  ]

@@ -1,0 +1,1826 @@
+{
+ "id": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+ "version": "core-world-mission-v1",
+ "workflow": "cross-city-road-safety",
+ "title": "Comparaison inter-villes : sécurité routière sur les réseaux désignés",
+ "scope": "world",
+ "cities": [
+  "san-francisco",
+  "new-york"
+ ],
+ "nhoods": [
+  "San Francisco — Tenderloin",
+  "New York — East Village"
+ ],
+ "nhood": "Tenderloin / East Village",
+ "question": "Que peut-on comparer, et que ne peut-on pas comparer, entre les accidents sur les réseaux désignés de Tenderloin (San Francisco) et East Village (New York) ?",
+ "owner": "core.global.director.road-safety",
+ "state": "HUMAN_REVIEW",
+ "stages": [
+  {
+   "stage": "DISCOVERED",
+   "at": "2026-10-14T19:33:26.757Z"
+  },
+  {
+   "stage": "ASSIGNED",
+   "at": "2026-10-14T19:33:26.763Z"
+  },
+  {
+   "stage": "MEMORY_CONSULTED",
+   "at": "2026-10-14T19:33:26.766Z"
+  },
+  {
+   "stage": "INVESTIGATING",
+   "at": "2026-10-14T19:33:26.772Z"
+  },
+  {
+   "stage": "METHODOLOGY_REVIEW",
+   "at": "2026-10-14T19:33:26.775Z"
+  },
+  {
+   "stage": "EVIDENCE_VALIDATION",
+   "at": "2026-10-14T19:33:26.779Z"
+  },
+  {
+   "stage": "PROPOSED_DECISION",
+   "at": "2026-10-14T19:33:26.781Z"
+  },
+  {
+   "stage": "HUMAN_REVIEW",
+   "at": "2026-10-14T19:33:26.783Z"
+  }
+ ],
+ "subtasks": [
+  {
+   "id": "S1",
+   "tool": "safety.crash-profile",
+   "city": "san-francisco",
+   "target": {
+    "nhood": "Tenderloin"
+   },
+   "agent": "core.san-francisco.mobility.traffic",
+   "code": "CORE-TRF-0057",
+   "requester": "core.san-francisco.mobility.lead",
+   "via": null,
+   "depth": 1,
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 2,
+   "error": null,
+   "findings": 0,
+   "site": {
+    "coord": [
+     -122.417901411,
+     37.785167215
+    ],
+    "label": "OFARRELL ST (San Francisco)",
+    "kind": "tronçon désigné le plus touché"
+   }
+  },
+  {
+   "id": "S2",
+   "tool": "works.area-windows",
+   "city": "san-francisco",
+   "target": {
+    "segments": [
+     "9733000",
+     "6117000",
+     "12718000",
+     "7563000",
+     "5173000",
+     "12717000",
+     "5061001",
+     "5063000",
+     "7117000",
+     "6553000"
+    ]
+   },
+   "agent": "core.san-francisco.civil.works-coordination",
+   "code": "CORE-CIV-0031",
+   "requester": "core.san-francisco.mobility.traffic",
+   "via": "core.san-francisco.civil.lead",
+   "depth": 2,
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 1,
+   "error": null,
+   "findings": 0,
+   "site": {
+    "coord": [
+     -122.417901411,
+     37.785167215
+    ],
+    "label": "OFARRELL ST (San Francisco)",
+    "kind": "tronçon désigné le plus touché"
+   }
+  },
+  {
+   "id": "S3",
+   "tool": "safety.crash-profile",
+   "city": "new-york",
+   "target": {
+    "nhood": "East Village"
+   },
+   "agent": "core.new-york.mobility.traffic",
+   "code": "CORE-TRF-0077",
+   "requester": "core.new-york.mobility.lead",
+   "via": null,
+   "depth": 1,
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 1,
+   "error": null,
+   "findings": 0,
+   "site": {
+    "coord": [
+     -73.98616358058554,
+     40.726398232372745
+    ],
+    "label": "1 AVENUE (New York)",
+    "kind": "tronçon désigné le plus touché"
+   }
+  },
+  {
+   "id": "S4",
+   "tool": "works.area-windows",
+   "city": "new-york",
+   "target": {
+    "segments": [
+     "pc-3d2d0da7cb:EV",
+     "pc-268c848b02:EV",
+     "pc-399eb17562:EV",
+     "pc-ff6dbd5275:EV",
+     "pc-88ebe56861:EV"
+    ]
+   },
+   "agent": "core.new-york.civil.works-coordination",
+   "code": "CORE-CIV-0078",
+   "requester": "core.new-york.mobility.traffic",
+   "via": "core.new-york.civil.lead",
+   "depth": 2,
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 0,
+   "error": null,
+   "findings": 0,
+   "site": {
+    "coord": [
+     -73.98616358058554,
+     40.726398232372745
+    ],
+    "label": "1 AVENUE (New York)",
+    "kind": "tronçon désigné le plus touché"
+   }
+  },
+  {
+   "id": "S5",
+   "tool": "comparability.review",
+   "city": null,
+   "target": {
+    "pairs": [
+     [
+      "san-francisco",
+      "Tenderloin"
+     ],
+     [
+      "new-york",
+      "East Village"
+     ]
+    ]
+   },
+   "agent": "core.global.research.methodology-reviewer",
+   "code": "CORE-RES-0070",
+   "requester": "core.global.director.road-safety",
+   "via": null,
+   "depth": 1,
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 0,
+   "error": null,
+   "findings": 0
+  },
+  {
+   "id": "S6",
+   "tool": "data.freshness",
+   "city": "san-francisco",
+   "target": {
+    "datasets": [
+     "crashes-agg",
+     "hin"
+    ]
+   },
+   "agent": "core.san-francisco.research.evidence-verifier",
+   "code": "CORE-RES-0043",
+   "requester": "core.global.director.road-safety",
+   "via": "core.san-francisco.research.lead",
+   "depth": 2,
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 0,
+   "error": null,
+   "findings": 0
+  },
+  {
+   "id": "S7",
+   "tool": "data.freshness",
+   "city": "new-york",
+   "target": {
+    "datasets": [
+     "crashes-agg",
+     "hin"
+    ]
+   },
+   "agent": "core.new-york.research.evidence-verifier",
+   "code": "CORE-RES-0080",
+   "requester": "core.global.director.road-safety",
+   "via": "core.new-york.research.lead",
+   "depth": 2,
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 0,
+   "error": null,
+   "findings": 0
+  }
+ ],
+ "messages": [
+  {
+   "id": "M1",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "at": "2026-10-14T19:33:26.763Z",
+   "from": "core.global.coordinator",
+   "to": "core.global.director.road-safety",
+   "type": "assign",
+   "purpose": "Analyse comparative demandée entre deux villes opérationnelles",
+   "evidence": [],
+   "outcome": "acceptée"
+  },
+  {
+   "id": "M2",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "at": "2026-10-14T19:33:26.763Z",
+   "from": "core.global.director.road-safety",
+   "to": "core.san-francisco.mobility.lead",
+   "type": "delegate",
+   "purpose": "Profil d’accidents des réseaux désignés de Tenderloin",
+   "evidence": [],
+   "outcome": "acceptée"
+  },
+  {
+   "id": "M3",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "at": "2026-10-14T19:33:26.763Z",
+   "from": "core.global.director.road-safety",
+   "to": "core.new-york.mobility.lead",
+   "type": "delegate",
+   "purpose": "Profil d’accidents des réseaux désignés de East Village",
+   "evidence": [],
+   "outcome": "acceptée"
+  },
+  {
+   "id": "M4",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "at": "2026-10-14T19:33:26.766Z",
+   "from": "core.global.director.road-safety",
+   "to": "memory",
+   "type": "memory-read",
+   "purpose": "Mémoire institutionnelle consultée pour Tenderloin",
+   "evidence": [
+    "memory:finding:b5c23e4c99cc",
+    "memory:finding:2c204126bb68",
+    "memory:finding:13742a5255ad",
+    "memory:finding:2a667923c002",
+    "memory:finding:719bde218068",
+    "memory:finding:18e79495c218"
+   ],
+   "outcome": "6 constat(s) vérifiés et revus réutilisé(s) comme point de départ"
+  },
+  {
+   "id": "M5",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "at": "2026-10-14T19:33:26.766Z",
+   "from": "core.global.director.road-safety",
+   "to": "memory",
+   "type": "memory-read",
+   "purpose": "Mémoire institutionnelle consultée pour East Village",
+   "evidence": [
+    "memory:finding:c2ed92e29ae6",
+    "memory:finding:34e61d544e72",
+    "memory:finding:b34fd008b647"
+   ],
+   "outcome": "3 constat(s) vérifiés et revus réutilisé(s) comme point de départ"
+  },
+  {
+   "id": "M6",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "at": "2026-10-14T19:33:26.767Z",
+   "from": "core.san-francisco.mobility.lead",
+   "to": "core.san-francisco.mobility.traffic",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S1 : safety.crash-profile",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M7",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "at": "2026-10-14T19:33:26.770Z",
+   "from": "core.san-francisco.mobility.traffic",
+   "to": "core.san-francisco.civil.lead",
+   "type": "request",
+   "purpose": "Demande d’appui (works.area-windows) pour San Francisco",
+   "evidence": [],
+   "outcome": "accepté par la direction"
+  },
+  {
+   "id": "M8",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "at": "2026-10-14T19:33:26.770Z",
+   "from": "core.san-francisco.civil.lead",
+   "to": "core.san-francisco.civil.works-coordination",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S2 : works.area-windows",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M9",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "at": "2026-10-14T19:33:26.771Z",
+   "from": "core.san-francisco.mobility.traffic",
+   "to": "core.san-francisco.mobility.lead",
+   "type": "report",
+   "purpose": "Résultats pour Tenderloin remis à la direction",
+   "evidence": [
+    "neighborhoods:Tenderloin",
+    "crashes-agg:9733000",
+    "crashes-agg:6117000",
+    "crashes-agg:12718000",
+    "crashes-agg:7563000"
+   ],
+   "outcome": "transmis"
+  },
+  {
+   "id": "M10",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "at": "2026-10-14T19:33:26.771Z",
+   "from": "core.san-francisco.mobility.lead",
+   "to": "core.global.director.road-safety",
+   "type": "report",
+   "purpose": "Synthèse San Francisco",
+   "evidence": [],
+   "outcome": "transmise"
+  },
+  {
+   "id": "M11",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "at": "2026-10-14T19:33:26.771Z",
+   "from": "core.new-york.mobility.lead",
+   "to": "core.new-york.mobility.traffic",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S3 : safety.crash-profile",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M12",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "at": "2026-10-14T19:33:26.772Z",
+   "from": "core.new-york.mobility.traffic",
+   "to": "core.new-york.civil.lead",
+   "type": "request",
+   "purpose": "Demande d’appui (works.area-windows) pour New York",
+   "evidence": [],
+   "outcome": "accepté par la direction"
+  },
+  {
+   "id": "M13",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "at": "2026-10-14T19:33:26.772Z",
+   "from": "core.new-york.civil.lead",
+   "to": "core.new-york.civil.works-coordination",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S4 : works.area-windows",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M14",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "at": "2026-10-14T19:33:26.772Z",
+   "from": "core.new-york.mobility.traffic",
+   "to": "core.new-york.mobility.lead",
+   "type": "report",
+   "purpose": "Résultats pour East Village remis à la direction",
+   "evidence": [
+    "neighborhoods:East Village",
+    "crashes-agg:pc-3d2d0da7cb:EV",
+    "crashes-agg:pc-268c848b02:EV",
+    "crashes-agg:pc-399eb17562:EV",
+    "crashes-agg:pc-ff6dbd5275:EV"
+   ],
+   "outcome": "transmis"
+  },
+  {
+   "id": "M15",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "at": "2026-10-14T19:33:26.772Z",
+   "from": "core.new-york.mobility.lead",
+   "to": "core.global.director.road-safety",
+   "type": "report",
+   "purpose": "Synthèse New York",
+   "evidence": [],
+   "outcome": "transmise"
+  },
+  {
+   "id": "M16",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "at": "2026-10-14T19:33:26.774Z",
+   "from": "core.global.director.road-safety",
+   "to": "core.global.research.methodology-reviewer",
+   "type": "request",
+   "purpose": "Vérifier la comparabilité des définitions, méthodes, périodes et géographies",
+   "evidence": [],
+   "outcome": "acceptée"
+  },
+  {
+   "id": "M17",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "at": "2026-10-14T19:33:26.775Z",
+   "from": "core.global.research.methodology-reviewer",
+   "to": "core.global.director.road-safety",
+   "type": "review",
+   "purpose": "Avis de comparabilité remis avant toute comparaison",
+   "evidence": [],
+   "outcome": "4 indicateur(s) non comparable(s)"
+  },
+  {
+   "id": "M18",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "at": "2026-10-14T19:33:26.778Z",
+   "from": "core.global.director.road-safety",
+   "to": "core.san-francisco.research.lead",
+   "type": "request",
+   "purpose": "Demande d’appui (data.freshness) pour San Francisco",
+   "evidence": [],
+   "outcome": "accepté par la direction"
+  },
+  {
+   "id": "M19",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "at": "2026-10-14T19:33:26.778Z",
+   "from": "core.san-francisco.research.lead",
+   "to": "core.san-francisco.research.evidence-verifier",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S6 : data.freshness",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M20",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "at": "2026-10-14T19:33:26.778Z",
+   "from": "core.global.director.road-safety",
+   "to": "core.new-york.research.lead",
+   "type": "request",
+   "purpose": "Demande d’appui (data.freshness) pour New York",
+   "evidence": [],
+   "outcome": "accepté par la direction"
+  },
+  {
+   "id": "M21",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "at": "2026-10-14T19:33:26.778Z",
+   "from": "core.new-york.research.lead",
+   "to": "core.new-york.research.evidence-verifier",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S7 : data.freshness",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M22",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "at": "2026-10-14T19:33:26.779Z",
+   "from": "core.san-francisco.safety.adversarial-reviewer",
+   "to": "core.global.director.road-safety",
+   "type": "review",
+   "purpose": "Revue adversariale des constats (San Francisco)",
+   "evidence": [],
+   "outcome": "2 accepté(s)"
+  },
+  {
+   "id": "M23",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "at": "2026-10-14T19:33:26.779Z",
+   "from": "core.new-york.safety.adversarial-reviewer",
+   "to": "core.global.director.road-safety",
+   "type": "review",
+   "purpose": "Revue adversariale des constats (New York)",
+   "evidence": [],
+   "outcome": "2 accepté(s)"
+  },
+  {
+   "id": "M24",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "at": "2026-10-14T19:33:26.781Z",
+   "from": "core.global.director.road-safety",
+   "to": "human",
+   "type": "decision",
+   "purpose": "Proposition : ÉLIGIBLE À LA REVUE HUMAINE",
+   "evidence": [],
+   "outcome": "San Francisco : Accidents jusqu’au 2026-08-31 seulement (44 j avant l’instantané) : les accidents récents ne sont pas inclus. New York : Collisions jusqu’au 2026-06-11 seulement (125 j avant l’instantané) : les collisions récentes ne sont pas incluses."
+  }
+ ],
+ "results": {
+  "san-francisco:safety.crash-profile": {
+   "rows": [
+    {
+     "cnn": "9733000",
+     "street": "OFARRELL ST",
+     "length_km": 0.146,
+     "crashes": 11,
+     "severe_fatal": 3,
+     "pedestrian": 3,
+     "per_km_year": 15
+    },
+    {
+     "cnn": "6117000",
+     "street": "GEARY ST",
+     "length_km": 0.147,
+     "crashes": 9,
+     "severe_fatal": 2,
+     "pedestrian": 3,
+     "per_km_year": 12.2
+    },
+    {
+     "cnn": "12718000",
+     "street": "TURK ST",
+     "length_km": 0.146,
+     "crashes": 7,
+     "severe_fatal": 2,
+     "pedestrian": 3,
+     "per_km_year": 9.6
+    },
+    {
+     "cnn": "7563000",
+     "street": "JONES ST",
+     "length_km": 0.105,
+     "crashes": 6,
+     "severe_fatal": 2,
+     "pedestrian": 2,
+     "per_km_year": 11.4
+    },
+    {
+     "cnn": "5173000",
+     "street": "ELLIS ST",
+     "length_km": 0.146,
+     "crashes": 5,
+     "severe_fatal": 2,
+     "pedestrian": 4,
+     "per_km_year": 6.8
+    },
+    {
+     "cnn": "12717000",
+     "street": "TURK ST",
+     "length_km": 0.147,
+     "crashes": 3,
+     "severe_fatal": 2,
+     "pedestrian": 0,
+     "per_km_year": 4.1
+    },
+    {
+     "cnn": "5061001",
+     "street": "EDDY ST",
+     "length_km": 0.062,
+     "crashes": 3,
+     "severe_fatal": 2,
+     "pedestrian": 1,
+     "per_km_year": 9.7
+    },
+    {
+     "cnn": "5063000",
+     "street": "EDDY ST",
+     "length_km": 0.147,
+     "crashes": 9,
+     "severe_fatal": 1,
+     "pedestrian": 5,
+     "per_km_year": 12.3
+    },
+    {
+     "cnn": "7117000",
+     "street": "HYDE ST",
+     "length_km": 0.105,
+     "crashes": 7,
+     "severe_fatal": 1,
+     "pedestrian": 2,
+     "per_km_year": 13.3
+    },
+    {
+     "cnn": "6553000",
+     "street": "GROVE ST",
+     "length_km": 0.147,
+     "crashes": 6,
+     "severe_fatal": 1,
+     "pedestrian": 3,
+     "per_km_year": 8.2
+    },
+    {
+     "cnn": "8239000",
+     "street": "LEAVENWORTH ST",
+     "length_km": 0.105,
+     "crashes": 6,
+     "severe_fatal": 1,
+     "pedestrian": 3,
+     "per_km_year": 11.5
+    },
+    {
+     "cnn": "7114000",
+     "street": "HYDE ST",
+     "length_km": 0.105,
+     "crashes": 6,
+     "severe_fatal": 1,
+     "pedestrian": 2,
+     "per_km_year": 11.4
+    },
+    {
+     "cnn": "6262000",
+     "street": "GOLDEN GATE AVE",
+     "length_km": 0.073,
+     "crashes": 6,
+     "severe_fatal": 1,
+     "pedestrian": 2,
+     "per_km_year": 16.4
+    },
+    {
+     "cnn": "6116000",
+     "street": "GEARY ST",
+     "length_km": 0.146,
+     "crashes": 6,
+     "severe_fatal": 1,
+     "pedestrian": 2,
+     "per_km_year": 8.2
+    },
+    {
+     "cnn": "7116000",
+     "street": "HYDE ST",
+     "length_km": 0.105,
+     "crashes": 5,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 9.6
+    },
+    {
+     "cnn": "12425000",
+     "street": "TAYLOR ST",
+     "length_km": 0.09,
+     "crashes": 5,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 11.1
+    },
+    {
+     "cnn": "10558000",
+     "street": "POLK ST",
+     "length_km": 0.052,
+     "crashes": 5,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 19.4
+    },
+    {
+     "cnn": "8125000",
+     "street": "LARKIN ST",
+     "length_km": 0.105,
+     "crashes": 5,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 9.5
+    },
+    {
+     "cnn": "6813000",
+     "street": "HAYES ST",
+     "length_km": 0.147,
+     "crashes": 4,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 5.4
+    },
+    {
+     "cnn": "12427000",
+     "street": "TAYLOR ST",
+     "length_km": 0.104,
+     "crashes": 4,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 7.7
+    },
+    {
+     "cnn": "10562000",
+     "street": "POLK ST",
+     "length_km": 0.053,
+     "crashes": 4,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 15.2
+    },
+    {
+     "cnn": "5439000",
+     "street": "FELL ST",
+     "length_km": 0.181,
+     "crashes": 3,
+     "severe_fatal": 1,
+     "pedestrian": 2,
+     "per_km_year": 3.3
+    },
+    {
+     "cnn": "8890000",
+     "street": "MCALLISTER ST",
+     "length_km": 0.146,
+     "crashes": 3,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 4.1
+    },
+    {
+     "cnn": "10552000",
+     "street": "POLK ST",
+     "length_km": 0.053,
+     "crashes": 3,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 11.4
+    },
+    {
+     "cnn": "9729000",
+     "street": "OFARRELL ST",
+     "length_km": 0.147,
+     "crashes": 3,
+     "severe_fatal": 1,
+     "pedestrian": 2,
+     "per_km_year": 4.1
+    },
+    {
+     "cnn": "6260000",
+     "street": "GOLDEN GATE AVE",
+     "length_km": 0.147,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 2.7
+    },
+    {
+     "cnn": "5176000",
+     "street": "ELLIS ST",
+     "length_km": 0.115,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 2,
+     "per_km_year": 3.5
+    },
+    {
+     "cnn": "8800000",
+     "street": "MASON ST",
+     "length_km": 0.105,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 3.8
+    },
+    {
+     "cnn": "5171000",
+     "street": "ELLIS ST",
+     "length_km": 0.074,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 5.4
+    },
+    {
+     "cnn": "5058000",
+     "street": "EDDY ST",
+     "length_km": 0.073,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 5.5
+    },
+    {
+     "cnn": "10557000",
+     "street": "POLK ST",
+     "length_km": 0.053,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 7.6
+    },
+    {
+     "cnn": "7571000",
+     "street": "JONES ST",
+     "length_km": 0.074,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 5.4
+    },
+    {
+     "cnn": "9732000",
+     "street": "OFARRELL ST",
+     "length_km": 0.052,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 7.7
+    },
+    {
+     "cnn": "5059000",
+     "street": "EDDY ST",
+     "length_km": 0.147,
+     "crashes": 13,
+     "severe_fatal": 0,
+     "pedestrian": 9,
+     "per_km_year": 17.7
+    },
+    {
+     "cnn": "5065000",
+     "street": "EDDY ST",
+     "length_km": 0.146,
+     "crashes": 10,
+     "severe_fatal": 0,
+     "pedestrian": 2,
+     "per_km_year": 13.7
+    },
+    {
+     "cnn": "5174000",
+     "street": "ELLIS ST",
+     "length_km": 0.147,
+     "crashes": 9,
+     "severe_fatal": 0,
+     "pedestrian": 2,
+     "per_km_year": 12.2
+    },
+    {
+     "cnn": "5062000",
+     "street": "EDDY ST",
+     "length_km": 0.146,
+     "crashes": 9,
+     "severe_fatal": 0,
+     "pedestrian": 3,
+     "per_km_year": 12.3
+    },
+    {
+     "cnn": "12719000",
+     "street": "TURK ST",
+     "length_km": 0.146,
+     "crashes": 8,
+     "severe_fatal": 0,
+     "pedestrian": 4,
+     "per_km_year": 10.9
+    },
+    {
+     "cnn": "9734000",
+     "street": "OFARRELL ST",
+     "length_km": 0.147,
+     "crashes": 8,
+     "severe_fatal": 0,
+     "pedestrian": 3,
+     "per_km_year": 10.9
+    },
+    {
+     "cnn": "12722000",
+     "street": "TURK ST",
+     "length_km": 0.148,
+     "crashes": 7,
+     "severe_fatal": 0,
+     "pedestrian": 1,
+     "per_km_year": 9.5
+    }
+   ],
+   "assumptions": [
+    "Accidents rattachés à un tronçon par la clé CNN du jeu (les accidents d’intersection sans tronçon sont exclus).",
+    "Fenêtre de 5 ans 2021-09-01 → 2026-08-31 ; accidents déclarés (sous-déclaration possible)."
+   ]
+  },
+  "san-francisco:works.area-windows": {
+   "rows": [
+    {
+     "cnn": "9733000",
+     "permits": [
+      "26EXC-01206@9733000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "6117000",
+     "permits": [
+      "26EXC-01206@6117000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "12718000",
+     "permits": [
+      "26EXC-04492@12718000",
+      "26EXC-04705@12718000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric",
+      "San Francisco Water Department"
+     ],
+     "excavation": 2
+    },
+    {
+     "cnn": "5173000",
+     "permits": [
+      "26EXC-01206@5173000",
+      "26EXC-04374@5173000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc.",
+      "R & S Construction Management Inc"
+     ],
+     "excavation": 2
+    },
+    {
+     "cnn": "5061001",
+     "permits": [
+      "26EXC-02625@5061001"
+     ],
+     "orgs": [],
+     "excavation": 1
+    },
+    {
+     "cnn": "5063000",
+     "permits": [
+      "26EXC-01206@5063000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "7117000",
+     "permits": [
+      "26EXC-01206@7117000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    }
+   ],
+   "assumptions": null
+  },
+  "new-york:safety.crash-profile": {
+   "rows": [
+    {
+     "cnn": "pc-3d2d0da7cb:EV",
+     "street": "1 AVENUE",
+     "length_km": 1.067,
+     "crashes": 136,
+     "severe_fatal": 1,
+     "pedestrian": 36,
+     "per_km_year": 25.5
+    },
+    {
+     "cnn": "pc-268c848b02:EV",
+     "street": "3 AVENUE",
+     "length_km": 0.476,
+     "crashes": 67,
+     "severe_fatal": 1,
+     "pedestrian": 19,
+     "per_km_year": 28.2
+    },
+    {
+     "cnn": "pc-399eb17562:EV",
+     "street": "2 AVENUE",
+     "length_km": 1.137,
+     "crashes": 149,
+     "severe_fatal": 0,
+     "pedestrian": 33,
+     "per_km_year": 26.2
+    },
+    {
+     "cnn": "pc-ff6dbd5275:EV",
+     "street": "EAST 14 STREET",
+     "length_km": 1.723,
+     "crashes": 90,
+     "severe_fatal": 0,
+     "pedestrian": 27,
+     "per_km_year": 10.4
+    },
+    {
+     "cnn": "pc-88ebe56861:EV",
+     "street": "EAST HOUSTON STREET",
+     "length_km": 0.137,
+     "crashes": 14,
+     "severe_fatal": 0,
+     "pedestrian": 0,
+     "per_km_year": 20.4
+    }
+   ],
+   "assumptions": [
+    "Collisions rattachées au tronçon de corridor le plus proche à moins de 20 m (rattachement spatial par CORE) ; les collisions sans blessé ni tué sont exclues.",
+    "Fenêtre de 5 ans 2021-06-11 → 2026-06-11 ; collisions déclarées (sous-déclaration possible)."
+   ]
+  },
+  "new-york:works.area-windows": {
+   "rows": [
+    {
+     "cnn": "pc-3d2d0da7cb:EV",
+     "permits": [
+      "f0c8a6589b5b885e@32903",
+      "7add90dd103bde72@32903",
+      "1385dfe0c81f1d57@32903",
+      "d34b871bcb929a07@32901",
+      "791e37fedd950c4b@32901",
+      "cf9508dc369444ec@32901",
+      "e9e5179d06e6fd7f@32886",
+      "d4049031b545d155@32886",
+      "b74a708df68adc27@32886",
+      "e8efb641b512b0db@33106",
+      "c80c91396ff4a632@33106",
+      "4fcad03409762a56@33106",
+      "0eaebcc0a876786e@33105",
+      "22c513c627770b50@33105",
+      "6864a6278de416dd@33105",
+      "0b8065eba7709693@33095",
+      "fc3adbf1a59122ac@33095",
+      "06459e239fd1e3da@33095",
+      "043f2f3d3d57735c@33110",
+      "a87f0980f5fd60ca@33110",
+      "ce0ccfe8e4ab7d73@33110",
+      "595c07fe235588fe@33119",
+      "9eb6bf0f179a9372@33119",
+      "4af8bb134ab760ad@33119",
+      "ea9b1009841038c8@33108",
+      "35383bac38f4f1ed@33108",
+      "65389232d0b2720f@33108",
+      "e1af1cf90397310b@32897",
+      "fdd797c41fbaa6a2@32897",
+      "16ea9a8ba8307b67@32897",
+      "7f4eae84c4fdfd90@32899",
+      "64b8998ed44cdd4a@32899",
+      "0fcc71d5e4db4c70@32899",
+      "634cabb085428eec@164367",
+      "890279fdd68b5ccf@164367",
+      "5348f6bcb573634d@164367",
+      "18d3437357929933@164368",
+      "dbb7213dd130e114@164368",
+      "0375ebd6902cd47b@164368"
+     ],
+     "orgs": [],
+     "excavation": 0
+    },
+    {
+     "cnn": "pc-399eb17562:EV",
+     "permits": [
+      "26b7a7a76daccacf@32951",
+      "dfcca3f8ba0d411f@32951"
+     ],
+     "orgs": [],
+     "excavation": 0
+    }
+   ],
+   "assumptions": null
+  }
+ },
+ "findings": [
+  {
+   "topic": "safety",
+   "claim": "Tenderloin : 146 tronçon(s) du réseau HIN 2024 ; 119 avec au moins un accident avec blessé déclaré sur 5 ans (399 accidents, dont 41 graves ou mortels).",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "neighborhoods",
+     "ref": "neighborhoods:Tenderloin",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9733000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:6117000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:12718000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:7563000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:5173000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:12717000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:5061001",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:5063000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:7117000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:6553000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:8239000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:7114000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:6262000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:6116000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:7116000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:12425000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:10558000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:8125000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:6813000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:12427000",
+     "city": "san-francisco"
+    }
+   ],
+   "values": {
+    "segments": 146,
+    "withCrashes": 119,
+    "crashes": 399,
+    "severeFatal": 41
+   },
+   "city": "san-francisco",
+   "by": "core.san-francisco.mobility.traffic",
+   "id": "F1"
+  },
+  {
+   "topic": "works",
+   "claim": "7 des 10 tronçons examinés ont des fenêtres de travaux approuvées en cours ou dans les 120 j (9 permis, 4 organisation(s)).",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01206@9733000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01206@6117000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04492@12718000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04705@12718000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01206@5173000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04374@5173000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-02625@5061001",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01206@5063000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01206@7117000",
+     "city": "san-francisco"
+    }
+   ],
+   "values": {
+    "segments": 10,
+    "withWorks": 7
+   },
+   "city": "san-francisco",
+   "by": "core.san-francisco.civil.works-coordination",
+   "id": "F2"
+  },
+  {
+   "topic": "safety",
+   "claim": "East Village : 5 tronçon(s) de corridor prioritaire Vision Zero ; 5 avec au moins une collision avec blessé ou tué déclarée par la police sur 5 ans (456 collisions, dont 2 mortelles (la source ne classe pas la gravité des blessures)).",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "neighborhoods",
+     "ref": "neighborhoods:East Village",
+     "city": "new-york"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:pc-3d2d0da7cb:EV",
+     "city": "new-york"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:pc-268c848b02:EV",
+     "city": "new-york"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:pc-399eb17562:EV",
+     "city": "new-york"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:pc-ff6dbd5275:EV",
+     "city": "new-york"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:pc-88ebe56861:EV",
+     "city": "new-york"
+    }
+   ],
+   "values": {
+    "segments": 5,
+    "withCrashes": 5,
+    "crashes": 456,
+    "severeFatal": 2
+   },
+   "city": "new-york",
+   "by": "core.new-york.mobility.traffic",
+   "id": "F3"
+  },
+  {
+   "topic": "works",
+   "claim": "2 des 5 tronçons examinés ont des fermetures de rue pour travaux en cours ou dans les 120 j (41 fermetures).",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:f0c8a6589b5b885e@32903",
+     "city": "new-york"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:7add90dd103bde72@32903",
+     "city": "new-york"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:1385dfe0c81f1d57@32903",
+     "city": "new-york"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26b7a7a76daccacf@32951",
+     "city": "new-york"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:dfcca3f8ba0d411f@32951",
+     "city": "new-york"
+    }
+   ],
+   "values": {
+    "segments": 5,
+    "withWorks": 2
+   },
+   "city": "new-york",
+   "by": "core.new-york.civil.works-coordination",
+   "id": "F4"
+  },
+  {
+   "topic": "cross",
+   "city": null,
+   "by": "core.global.research.methodology-reviewer",
+   "claim": "Comparabilité : 3 indicateur(s) comparable(s) avec ou sans réserves, 4 non comparable(s) (gravité, réseau désigné, rattachement, travaux).",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "neighborhoods",
+     "ref": "neighborhoods:Tenderloin",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9733000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "neighborhoods",
+     "ref": "neighborhoods:East Village",
+     "city": "new-york"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:pc-3d2d0da7cb:EV",
+     "city": "new-york"
+    }
+   ],
+   "values": {
+    "comparable": 3
+   },
+   "id": "F5"
+  },
+  {
+   "topic": "cross",
+   "city": null,
+   "by": "core.global.director.road-safety",
+   "claim": "Juxtaposition descriptive (non comparable en niveau) : Tenderloin (San Francisco) 399 accidents avec blessé ou tué sur 14.45 km de réseau désigné, dont 8 mortel(s) ; East Village (New York) 456 collisions avec blessé ou tué sur 4.54 km de réseau désigné, dont 2 mortel(s) — 5 ans, définitions différentes.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "neighborhoods",
+     "ref": "neighborhoods:Tenderloin",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9733000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:6117000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:12718000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:7563000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:5173000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "neighborhoods",
+     "ref": "neighborhoods:East Village",
+     "city": "new-york"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:pc-3d2d0da7cb:EV",
+     "city": "new-york"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:pc-268c848b02:EV",
+     "city": "new-york"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:pc-399eb17562:EV",
+     "city": "new-york"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:pc-ff6dbd5275:EV",
+     "city": "new-york"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:pc-88ebe56861:EV",
+     "city": "new-york"
+    }
+   ],
+   "values": {
+    "figures": [
+     {
+      "city": "san-francisco",
+      "name": "San Francisco",
+      "nhood": "Tenderloin",
+      "km": 14.45,
+      "crashes": 399,
+      "fatal": 8,
+      "perKmYear": 5.5,
+      "fatalPerKmYear": 0.11
+     },
+     {
+      "city": "new-york",
+      "name": "New York",
+      "nhood": "East Village",
+      "km": 4.54,
+      "crashes": 456,
+      "fatal": 2,
+      "perKmYear": 20.1,
+      "fatalPerKmYear": 0.09
+     }
+    ]
+   },
+   "id": "F6"
+  }
+ ],
+ "rejected": [],
+ "challenges": [
+  {
+   "dataset": "crashes-agg",
+   "level": "warn",
+   "text": "Accidents jusqu’au 2026-08-31 seulement (44 j avant l’instantané) : les accidents récents ne sont pas inclus.",
+   "city": "san-francisco",
+   "by": "core.san-francisco.research.evidence-verifier"
+  },
+  {
+   "dataset": "hin",
+   "level": "info",
+   "text": "Réseau HIN 2024 : désignation administrative fondée sur des années antérieures ; ne mesure pas le risque actuel.",
+   "city": "san-francisco",
+   "by": "core.san-francisco.research.evidence-verifier"
+  },
+  {
+   "dataset": "crashes-agg",
+   "level": "warn",
+   "text": "Collisions jusqu’au 2026-06-11 seulement (125 j avant l’instantané) : les collisions récentes ne sont pas incluses.",
+   "city": "new-york",
+   "by": "core.new-york.research.evidence-verifier"
+  },
+  {
+   "dataset": "hin",
+   "level": "info",
+   "text": "Corridors prioritaires Vision Zero (NYC DOT) : désignation administrative selon une méthode propre à New York ; ne mesure pas le risque actuel et n’est pas équivalente au HIN de San Francisco.",
+   "city": "new-york",
+   "by": "core.new-york.research.evidence-verifier"
+  }
+ ],
+ "comparability": [
+  {
+   "metric": "Accidents ou collisions avec au moins un blessé ou tué (5 ans)",
+   "verdict": "comparable avec réserves",
+   "why": "Les deux sources sont des déclarations de police ; systèmes et seuils de déclaration différents (accidents avec blessés déclarés (TIMS, SFPD/DPH) ; collisions avec blessés ou tués (NYPD MV-104AN))."
+  },
+  {
+   "metric": "Accidents ou collisions mortels",
+   "verdict": "comparable avec réserves",
+   "why": "Définition proche (au moins une personne tuée) ; effectifs très faibles, donc très incertains."
+  },
+  {
+   "metric": "Accidents graves (blessés graves)",
+   "verdict": "non comparable",
+   "why": "Classes de gravité : San Francisco Injury (Complaint of Pain) / Injury (Other Visible) / Injury (Severe) ; New York Injury (unspecified severity)."
+  },
+  {
+   "metric": "Réseau désigné et taux par km",
+   "verdict": "non comparable (descriptif seulement)",
+   "why": "Désignations administratives de méthodes différentes (réseau HIN 2024 (Vision Zero SF) ; corridors prioritaires Vision Zero (NYC DOT)) et de granularité différente : un taux par km décrit chaque réseau, il ne compare pas le risque des villes."
+  },
+  {
+   "metric": "Rattachement d’un accident à un tronçon",
+   "verdict": "non comparable sans recalcul",
+   "why": "Accidents rattachés à un tronçon par la clé CNN du jeu (les accidents d’intersection sans tronçon sont exclus). / Collisions rattachées au tronçon de corridor le plus proche à moins de 20 m (rattachement spatial par CORE) ; les collisions sans blessé ni tué sont exclues."
+  },
+  {
+   "metric": "Travaux",
+   "verdict": "non comparable",
+   "why": "permis de voirie approuvés (SF Public Works) contre fermetures de rue pour travaux (NYC DOT) : objets administratifs différents."
+  },
+  {
+   "metric": "Période couverte",
+   "verdict": "comparable",
+   "why": "San Francisco 2021-09-01 → 2026-08-31 ; New York 2021-06-11 → 2026-06-11 (recouvrement 96 %)."
+  }
+ ],
+ "memoryReused": [
+  {
+   "id": "finding:b5c23e4c99cc",
+   "city": "san-francisco",
+   "status": "reviewed",
+   "statement": "70 tronçon(s) HIN cumulent des accidents avec blessés (5 ans) et des fenêtres de travaux approuvées dans les 120 j ; 20 avec au moins un accident grave ou mortel.",
+   "mission": "civ:safety-works:tenderloin@2026-10-14"
+  },
+  {
+   "id": "finding:2c204126bb68",
+   "city": "san-francisco",
+   "status": "reviewed",
+   "statement": "OFARRELL ST (CNN 9733000) : 3 accident(s) grave(s)/mortel(s), 11 au total, et 1 permis de travaux (1 organisation(s)) à venir.",
+   "mission": "civ:safety-works:tenderloin@2026-10-14"
+  },
+  {
+   "id": "finding:13742a5255ad",
+   "city": "san-francisco",
+   "status": "reviewed",
+   "statement": "GEARY ST (CNN 6117000) : 2 accident(s) grave(s)/mortel(s), 9 au total, et 1 permis de travaux (1 organisation(s)) à venir.",
+   "mission": "civ:safety-works:tenderloin@2026-10-14"
+  },
+  {
+   "id": "finding:2a667923c002",
+   "city": "san-francisco",
+   "status": "reviewed",
+   "statement": "TURK ST (CNN 12718000) : 2 accident(s) grave(s)/mortel(s), 7 au total, et 2 permis de travaux (2 organisation(s)) à venir.",
+   "mission": "civ:safety-works:tenderloin@2026-10-14"
+  },
+  {
+   "id": "finding:719bde218068",
+   "city": "san-francisco",
+   "status": "reviewed",
+   "statement": "ELLIS ST (CNN 5173000) : 2 accident(s) grave(s)/mortel(s), 5 au total, et 2 permis de travaux (2 organisation(s)) à venir.",
+   "mission": "civ:safety-works:tenderloin@2026-10-14"
+  },
+  {
+   "id": "finding:18e79495c218",
+   "city": "san-francisco",
+   "status": "reviewed",
+   "statement": "EDDY ST (CNN 5061001) : 2 accident(s) grave(s)/mortel(s), 3 au total, et 1 permis de travaux (0 organisation(s)) à venir.",
+   "mission": "civ:safety-works:tenderloin@2026-10-14"
+  },
+  {
+   "id": "finding:c2ed92e29ae6",
+   "city": "new-york",
+   "status": "reviewed",
+   "statement": "2 tronçon(s) de corridor prioritaire cumulent des collisions avec blessés ou tués (5 ans) et des fermetures de rue pour travaux dans les 120 j ; 1 avec au moins une collision mortelle.",
+   "mission": "civ:new-york:safety-works:east-village@2026-10-14T1925"
+  },
+  {
+   "id": "finding:34e61d544e72",
+   "city": "new-york",
+   "status": "reviewed",
+   "statement": "1 AVENUE (id pc-3d2d0da7cb:EV) : 1 collision(s) mortelle(s), 136 au total, et 39 fermeture(s) de rue pour travaux à venir.",
+   "mission": "civ:new-york:safety-works:east-village@2026-10-14T1925"
+  },
+  {
+   "id": "finding:b34fd008b647",
+   "city": "new-york",
+   "status": "reviewed",
+   "statement": "2 AVENUE (id pc-399eb17562:EV) : 0 collision(s) mortelle(s), 149 au total, et 2 fermeture(s) de rue pour travaux à venir.",
+   "mission": "civ:new-york:safety-works:east-village@2026-10-14T1925"
+  }
+ ],
+ "recommendation": {
+  "kind": "recommandation (hypothèse à vérifier)",
+  "text": "Ne comparer les deux villes que sur les collisions avec blessé ou tué et les collisions mortelles, chacune sur sa propre définition ; ne pas comparer la gravité, les réseaux désignés ni les travaux. Prochaine étape : obtenir une classification de gravité commune et recalculer le rattachement avec la même méthode dans les deux villes. Hypothèse : aucune ville n’est jugée plus ou moins sûre par cette analyse."
+ },
+ "review": {
+  "rejected": [],
+  "recommendation": {
+   "ok": true,
+   "issues": []
+  },
+  "by": [
+   "core.san-francisco.safety.adversarial-reviewer",
+   "core.new-york.safety.adversarial-reviewer"
+  ]
+ },
+ "decision": {
+  "by": [
+   "core.san-francisco.governance.gateway",
+   "core.new-york.governance.gateway"
+  ],
+  "state": "ÉLIGIBLE À LA REVUE HUMAINE",
+  "caveats": [
+   "San Francisco : Accidents jusqu’au 2026-08-31 seulement (44 j avant l’instantané) : les accidents récents ne sont pas inclus.",
+   "New York : Collisions jusqu’au 2026-06-11 seulement (125 j avant l’instantané) : les collisions récentes ne sont pas incluses."
+  ],
+  "authorizes": "rien — décision humaine requise"
+ },
+ "errors": [],
+ "model": {
+  "calls": 0,
+  "accepted": [],
+  "rejected": []
+ },
+ "figures": [
+  {
+   "city": "san-francisco",
+   "name": "San Francisco",
+   "nhood": "Tenderloin",
+   "km": 14.45,
+   "crashes": 399,
+   "fatal": 8,
+   "perKmYear": 5.5,
+   "fatalPerKmYear": 0.11,
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "neighborhoods",
+     "ref": "neighborhoods:Tenderloin",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9733000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:6117000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:12718000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:7563000",
+     "city": "san-francisco"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:5173000",
+     "city": "san-francisco"
+    }
+   ]
+  },
+  {
+   "city": "new-york",
+   "name": "New York",
+   "nhood": "East Village",
+   "km": 4.54,
+   "crashes": 456,
+   "fatal": 2,
+   "perKmYear": 20.1,
+   "fatalPerKmYear": 0.09,
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "neighborhoods",
+     "ref": "neighborhoods:East Village",
+     "city": "new-york"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:pc-3d2d0da7cb:EV",
+     "city": "new-york"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:pc-268c848b02:EV",
+     "city": "new-york"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:pc-399eb17562:EV",
+     "city": "new-york"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:pc-ff6dbd5275:EV",
+     "city": "new-york"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:pc-88ebe56861:EV",
+     "city": "new-york"
+    }
+   ]
+  }
+ ],
+ "metrics": {
+  "wallMs": 29,
+  "subtasks": 7,
+  "failed": 0,
+  "toolCalls": 7,
+  "messages": 24,
+  "modelCalls": 0,
+  "memoryReused": 9
+ },
+ "recorded": {
+  "at": "2026-10-14T19:33:26.807Z",
+  "by": "scripts/civ.mjs (Node, local)",
+  "snapshot": {
+   "san-francisco": "2026-10-14T16:09:41.363Z",
+   "new-york": "2026-10-14T19:25:58.770Z"
+  }
+ }
+}

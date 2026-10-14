@@ -30,7 +30,7 @@ export async function createRuntime({ llm = null, memoryFile = MEMFILE, onEvent 
   };
   const engines = Object.fromEntries(Object.keys(cxs).map(c => [c, E.createEngine({ city: c, registry, cx: cxs[c], env: c === 'san-francisco' ? env : null, memory, llm, onEvent: handle })]));
   const world = WD.createWorld({ registry, cxs, memory, onEvent: handle });
-  const missionId = p => `civ:${p.city === 'san-francisco' ? '' : p.city + ':'}${p.workflow}:${p.nhood.toLowerCase().replace(/[^a-z]+/g, '-')}@${cxs[p.city].asOf}`;
+  const missionId = p => `civ:${p.city === 'san-francisco' ? '' : p.city + ':'}${p.workflow}:${p.nhood.toLowerCase().replace(/[^a-z]+/g, '-')}@${cxs[p.city].stamp}`;
   const cityOf = id => /^world:/.test(id) ? 'world' : (Object.keys(cxs).find(c => c !== 'san-francisco' && id.startsWith(`civ:${c}:`)) || 'san-francisco');
   // Facade with the Phase 9 engine API, spanning all cities.
   const engine = {
@@ -56,7 +56,7 @@ export async function createRuntime({ llm = null, memoryFile = MEMFILE, onEvent 
     return { missions, metrics: { wallMs: Date.now() - t0, cpuMs: Math.round((cpu.user + cpu.system) / 1000), concurrency, rssMB: Math.round(process.memoryUsage().rss / 1e6), machine: `${os.cpus()[0].model}, ${os.cpus().length} cœurs` } };
   }
   // Focused missions started explicitly (not by discovery): decision analysis, cross-city comparison.
-  async function runFocused(kind, args) { if (fs.existsSync(STOP)) return { refused: 'arrêt d’urgence actif' }; return kind === 'world' ? world.compare(args.pairs) : engines[args.city].run(args.workflow, args.nhood); }
+  async function runFocused(kind, args) { if (fs.existsSync(STOP)) return { refused: 'arrêt d’urgence actif' }; return kind === 'world' ? world.compare(args.pairs, { resume: !args.fresh }) : engines[args.city].run(args.workflow, args.nhood); }
   const load = id => { const cp = memory.loadCheckpoint(id); return cp ? cp.body : null; };
   function decide(id, reviewer, decision, note) { const m = load(id); if (!m) throw new Error('mission inconnue'); engine.humanDecision(m, reviewer, decision, note); memory.checkpoint(m.id, m.state, m); return m; }
   function missions() { return memory.checkpoints().map(c => load(c.mission)).filter(Boolean); }
@@ -89,9 +89,12 @@ export async function createRuntime({ llm = null, memoryFile = MEMFILE, onEvent 
   const fileOf = id => `${id.replace(/[:@/+]/g, '-')}.json`; // Phase 9 file names unchanged for San Francisco ids
   function record() {
     fs.mkdirSync('data/civ/missions', { recursive: true }); fs.mkdirSync('data/memory', { recursive: true });
-    const ms = missions().filter(m => m.state !== 'DISCOVERED'), index = ms.map(m => ({ id: m.id, file: fileOf(m.id), city: cityOf(m.id) === 'world' ? null : cityOf(m.id), cities: m.cities || [cityOf(m.id)], scope: m.scope || 'city', participants: [...new Set(m.messages.flatMap(x => [x.from, x.to]).filter(id => registry.agents.some(a => a.id === id)))], workflow: m.workflow, title: m.title, nhood: m.nhood, state: m.state, decision: m.decision && m.decision.state, human: m.human || null, owner: m.owner, priority: m.priority, metrics: m.metrics, findings: m.findings.length, memoryReused: (m.memoryReused || []).length, messages: m.messages.length, model: { calls: m.model.calls, accepted: m.model.accepted.length, rejected: m.model.rejected.length }, at: m.stages[m.stages.length - 1].at }));
+    // Only missions on each city's CURRENT published snapshot are published (their evidence resolves); missions on
+    // superseded snapshots stay in local memory (traceable) and are counted in the index.
+    const current = m => m.cities ? m.cities.every(c => cxs[c] && new RegExp(`${c}/[a-z-]+@${cxs[c].stamp}(\\+|$)`).test(m.id)) : !!cxs[cityOf(m.id)] && m.id.endsWith(`@${cxs[cityOf(m.id)].stamp}`);
+    const all = missions().filter(m => m.state !== 'DISCOVERED'), ms = all.filter(current), index = ms.map(m => ({ id: m.id, file: fileOf(m.id), city: cityOf(m.id) === 'world' ? null : cityOf(m.id), cities: m.cities || [cityOf(m.id)], scope: m.scope || 'city', participants: [...new Set(m.messages.flatMap(x => [x.from, x.to]).filter(id => registry.agents.some(a => a.id === id)))], workflow: m.workflow, title: m.title, nhood: m.nhood, state: m.state, decision: m.decision && m.decision.state, human: m.human || null, owner: m.owner, priority: m.priority, metrics: m.metrics, findings: m.findings.length, memoryReused: (m.memoryReused || []).length, messages: m.messages.length, model: { calls: m.model.calls, accepted: m.model.accepted.length, rejected: m.model.rejected.length }, at: m.stages[m.stages.length - 1].at }));
     for (const m of ms) fs.writeFileSync(`data/civ/missions/${fileOf(m.id)}`, JSON.stringify({ ...m, results: Object.fromEntries(Object.entries(m.results).map(([k, v]) => [k, { findings: v.findings, rows: (v.rows || []).slice(0, 40), assumptions: v.assumptions || null }])), recorded: { at: new Date().toISOString(), by: 'scripts/civ.mjs (Node, local)', snapshot: m.cities ? Object.fromEntries(m.cities.map(c => [c, manifests[c].generated_at])) : manifests[cityOf(m.id)].generated_at } }, null, 1) + '\n');
-    fs.writeFileSync('data/civ/index.json', JSON.stringify({ version: 'core-civ-index-v1', recorded_at: new Date().toISOString(), study_area: manifest.study_area, study_areas: Object.fromEntries(Object.entries(manifests).map(([c, m]) => [c, m.study_area])), missions: index }, null, 1) + '\n');
+    fs.writeFileSync('data/civ/index.json', JSON.stringify({ version: 'core-civ-index-v1', recorded_at: new Date().toISOString(), study_area: manifest.study_area, study_areas: Object.fromEntries(Object.entries(manifests).map(([c, m]) => [c, m.study_area])), missions: index, notPublished: { supersededSnapshots: all.length - ms.length, note: 'missions sur un instantané remplacé : conservées dans la mémoire locale, non publiées' } }, null, 1) + '\n');
     fs.writeFileSync('data/memory/export.json', JSON.stringify(memory.export(), null, 1) + '\n');
     fs.writeFileSync('data/agents/operational.json', JSON.stringify(operationalRegistry(), null, 1) + '\n');
     return { missions: index.length };

@@ -54,7 +54,8 @@ async function cycle(rt) {
   // (2b) Snapshot comparison.
   for (const c of CITIES.operational()) {
     const dir = args.includes('--fetch') ? fetchWatch(c.id) : latestWatch(c.id); if (!dir) continue;
-    const d = D.diff(rt.cxs[c.id], loadCx(dir, c.id)); report.diffs.push({ city: c.id, baseline: d.baseline, current: d.current, totals: d.totals, signals: d.signals.length });
+    const w = loadCx(dir, c.id); if (Date.parse(w.manifest.generated_at) <= Date.parse(rt.cxs[c.id].manifest.generated_at)) { log('skip', { city: c.id, reason: 'instantané de veille antérieur ou égal à l’instantané publié' }); continue; }
+    const d = D.diff(rt.cxs[c.id], w); report.diffs.push({ city: c.id, baseline: d.baseline, current: d.current, totals: d.totals, signals: d.signals.length });
     for (const s of d.signals) report.signals += enqueue(`signal|${s.key}`, 'signal', c.id, { ...s, baseline: d.baseline, current: d.current }, s.priority);
   }
   // (3) Triage by the city coordinator (deterministic): link to the neighbourhood mission, open a follow-up.

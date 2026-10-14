@@ -21,14 +21,15 @@ test('mission graph uses only recorded events; disputes match recorded disagreem
 });
 
 test('coverage states only San Francisco as operational; markers stay inspectable at their zoom', () => {
-  assert.deepEqual(MS.COVERAGE.filter(c => c.status === 'operational').map(c => c.name), ['San Francisco']);
+  // Phase 10: New York is the second operational study area (src/cities.js); nothing else is claimed.
+  assert.deepEqual(MS.COVERAGE.filter(c => c.status === 'operational').map(c => c.name), ['San Francisco', 'New York']);
   assert.ok(MS.COVERAGE.filter(c => c.status !== 'operational').every(c => /Navigation seulement/.test(c.label)));
   for (const [id, [minz]] of Object.entries(MS.TUNE)) assert.ok(minz <= 16, `${id} must remain visible at street zoom`);
 });
 
-test('investor demo (rebuilt in Phase 9): eight steps from a recorded autonomous mission, recorded vs live stated', () => {
-  assert.equal(DEMO.STEPS.length, 8);
-  assert.deepEqual(DEMO.STEPS.map(s => s.t), ['La Terre', 'Le pilote', 'Un problème réel', 'Un responsable assemble son équipe', 'Les agents enquêtent (relecture)', 'Preuves et contestations', 'Une recommandation, avec ses limites', 'La revue humaine']);
+test('investor demo (rebuilt in Phase 9, nine steps in Phase 10): recorded missions, recorded vs live stated', () => {
+  assert.equal(DEMO.STEPS.length, 9);
+  assert.deepEqual(DEMO.STEPS.map(s => s.t), ['La Terre', 'Deux villes', 'Un problème détecté', 'Une hiérarchie qui délègue', 'L’enquête (relecture)', 'Collaboration entre villes', 'Une mémoire qui sert', 'Aide à la décision', 'La supervision humaine']);
   const src = fs.readFileSync(path.join(ROOT, 'src/demo.js'), 'utf8');
   assert.match(src, /enregistrée/); assert.match(src, /aucune autorisation/i); assert.match(src, /Aucune décision humaine n’a encore été prise/); assert.match(src, /pas une exécution en direct/);
   assert.doesNotMatch(src, /tonnes|CO2|économies de|\$\d/i, 'no fabricated benefit figures');

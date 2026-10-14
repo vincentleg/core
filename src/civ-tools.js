@@ -29,7 +29,10 @@
     const permits = new Map(); for (const p of data.permits.features) { const k = p.properties.cnn; if (!permits.has(k)) permits.set(k, []); permits.get(k).push(p); }
     const recordIds = new Set(data.permits.features.map(p => p.properties.record_id));
     const ramps = data.ramps ? data.ramps.features : [];
-    return { city: cityId, L, ramps, manifest, data, nh, hin, crashes, permits, recordIds, asOf: String(manifest.generated_at).slice(0, 10), asOfN: days(manifest.generated_at), retrieved: Object.fromEntries(manifest.datasets.map(d => [d.file.replace('.json', ''), d.retrieved_at])) };
+    // Mission-id stamp: the date for San Francisco (Phase 9 ids unchanged); date and time of the snapshot elsewhere, so a
+    // corrected same-day snapshot yields new missions that supersede the old ones instead of colliding with them.
+    const stamp = cityId === 'san-francisco' ? String(manifest.generated_at).slice(0, 10) : String(manifest.generated_at).slice(0, 16).replace(':', '');
+    return { city: cityId, stamp, L, ramps, manifest, data, nh, hin, crashes, permits, recordIds, asOf: String(manifest.generated_at).slice(0, 10), asOfN: days(manifest.generated_at), retrieved: Object.fromEntries(manifest.datasets.map(d => [d.file.replace('.json', ''), d.retrieved_at])) };
   }
   // Evidence resolution (used by reviewers and tests).
   function resolve(cx, r) {

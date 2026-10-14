@@ -53,15 +53,19 @@
     if (S.ready) return true; if (S.loading) return S.loading;
     S.loading = (async () => {
       const P = G.CORE_PLATFORM.state; if (!P.registry) return false; if (P.opsReady) await P.opsReady;
-      const walk = await (await fetch('data/osm/walk-network.json')).json();
-      S.walk = walk; S.net = POP().network(walk); S.zones = POP().zoneLayout(S.net, [-122.4120, 37.7700], 2300);
+      // Phase 10: one validated pedestrian network and one set of virtual zones per operational city. Each agent has
+      // its post in its own city (global roles keep their San Francisco posts) and only ever walks on that city's network.
+      const CITIES = G.CORE_CITIES ? G.CORE_CITIES.operational() : [{ id: 'san-francisco', studyArea: { walkNetwork: 'data/osm/walk-network.json' }, motion: { centre: [-122.4120, 37.7700], radiusM: 2300 } }];
+      S.nets = {}; S.zones = [];
+      for (const c of CITIES) { const w = await (await fetch(c.studyArea.walkNetwork)).json(), net = POP().network(w), zs = POP().zoneLayout(net, c.motion.centre, c.motion.radiusM).map(z => ({ ...z, city: c.id, key: `${c.id}:${z.id}` })); S.nets[c.id] = { walk: w, net, zones: zs }; S.zones.push(...zs); }
+      S.walk = S.nets['san-francisco'].walk; S.net = S.nets['san-francisco'].net; // corridor replays (agents-world.js) stay in San Francisco
       S.ops = P.operations || null; S.reg = P.registry; S.facts = POP().facts({ cogIndex: P.cogIndex, detIndex: P.recorded, operations: P.operations, civ: P.civIndex && P.civIndex.missions });
       // Posts: one distinct, valid pedestrian node per agent inside its virtual zone (never inside a building).
       const used = new Set();
       for (const a of P.registry.agents) {
-        const zid = POP().zoneOf(a), zone = S.zones.find(z => z.id === zid), rnd = POP().prng(a.code); let node;
+        const city = S.nets[a.scope.city] ? a.scope.city : 'san-francisco', net = S.nets[city].net, zid = POP().zoneOf(a), zone = S.nets[city].zones.find(z => z.id === zid), rnd = POP().prng(a.code); let node;
         for (let k = 0; k < 50; k++) { node = zone.nodes[Math.floor(rnd() * zone.nodes.length)]; if (!used.has(node)) break; } used.add(node);
-        S.agents.set(a.id, { agent: a, zone, rnd, post: node, pos: S.net.nodes[node], node, path: null, along: 0, mode: 'post', state: 'idle', note: '', visible: false, st: POP().status(a, S.facts), f: 0 });
+        S.agents.set(a.id, { agent: a, city, net, zone, rnd, post: node, pos: net.nodes[node], node, path: null, along: 0, mode: 'post', state: 'idle', note: '', visible: false, st: POP().status(a, S.facts), f: 0 });
       }
       addIcons(); layers(); setFilter(S.filter); S.ready = true; loop(); pollLive();
       return true;
@@ -79,7 +83,7 @@
   function refreshStatus() { const P = G.CORE_PLATFORM.state; S.facts = POP().facts({ cogIndex: P.cogIndex, detIndex: P.recorded, operations: P.operations, civ: P.civIndex && P.civIndex.missions, live: S.live, sessionRunning: P.missions.flatMap(m => m.tasks.filter(t => t.state === 'running').map(t => t.agent)) }); for (const A of S.agents.values()) A.st = POP().status(A.agent, S.facts); S.dirty = true; }
   function zonesData() {
     const short = { governance: 'Gouvernance', mobility: 'Mobilité', infrastructure: 'Infrastructures', environment: 'Environnement', energy: 'Énergie', 'public-safety': 'Risques', accessibility: 'Accessibilité', planning: 'Urbanisme', 'public-health': 'Santé', water: 'Eau', climate: 'Climat', verification: 'Vérification', review: 'Revue' };
-    S.map.getSource('pop-zones').setData({ type: 'FeatureCollection', features: S.zones.map(z => ({ type: 'Feature', geometry: { type: 'Point', coordinates: z.anchor }, properties: { id: z.id, name: z.name, short: short[z.id], n: [...S.agents.values()].filter(A => A.visible && A.zone.id === z.id).length } })) });
+    S.map.getSource('pop-zones').setData({ type: 'FeatureCollection', features: S.zones.map(z => ({ type: 'Feature', geometry: { type: 'Point', coordinates: z.anchor }, properties: { id: z.id, city: z.city, name: z.name, short: short[z.id], n: [...S.agents.values()].filter(A => A.visible && A.zone === z).length } })).filter(f => f.properties.n > 0) });
   }
 
   // ---------- motion: agents move only for a reason (recorded activity, replay, live task, return to post) ----------
@@ -87,9 +91,9 @@
   // line through a block), then call onArrive. Display speed: ×SPEED walking pace, disclosed in the interface.
   function go(id, target, { purpose = '', state = 'walking', mode = 'travel', onArrive = null, durationMs = null } = {}) {
     const A = S.agents.get(id); if (!A) return false;
-    const from = S.net.nearest(A.pos).i, to = S.net.nearest(target).i, sp = S.net.shortest(from, to);
+    const net = A.net, from = net.nearest(A.pos).i, to = net.nearest(target).i, sp = net.shortest(from, to);
     if (!sp) { A.note = 'aucun itinéraire piéton cartographié : déplacement non animé'; return false; }
-    const coords = sp.nodes.map(i => S.net.nodes[i]); let acc = 0; const cum = coords.map((c, i) => (acc += i ? POP().dist(coords[i - 1], c) : 0));
+    const coords = sp.nodes.map(i => net.nodes[i]); let acc = 0; const cum = coords.map((c, i) => (acc += i ? POP().dist(coords[i - 1], c) : 0));
     // Optional fixed display duration (replays of recorded activity): the acceleration over a 1.4 m/s walk is stated.
     A.speedMps = durationMs ? Math.max(WALK, acc / (durationMs / 1000)) : WALK * SPEED;
     const factor = Math.round(A.speedMps / WALK);
@@ -107,7 +111,7 @@
     A.pos = [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]; A.dir = [b[0] - a[0], b[1] - a[1]];
     A.f = Math.floor(A.along / 0.9) % 2;
   }
-  function toPost(id, note = 'retour au poste virtuel', durationMs = null) { const A = S.agents.get(id); if (!A) return; go(id, S.net.nodes[A.post], { purpose: note, mode: 'travel', durationMs, onArrive: B => { B.mode = 'post'; B.state = 'idle'; B.note = ''; } }); }
+  function toPost(id, note = 'retour au poste virtuel', durationMs = null) { const A = S.agents.get(id); if (!A) return; go(id, A.net.nodes[A.post], { purpose: note, mode: 'travel', durationMs, onArrive: B => { B.mode = 'post'; B.state = 'idle'; B.note = ''; } }); }
   // Occlusion (exact geometry): an agent is hidden when the 3D segment from the camera to its head (1.7 m) passes
   // through a building prism (rendered OSM footprint × render_height). MapLibre's own query only covers footprints.
   const RAD = Math.PI / 180;
@@ -202,7 +206,7 @@
 
   // ---------- replay / live drivers ----------
   function drive(id, { pos, state, note, dir }) { const A = S.agents.get(id); if (!A) return; S.dirty = true; A.path = null; A.mode = A.mode === 'live' ? 'live' : 'replay'; if (dir) A.dir = dir; else if (A.pos && pos && (A.pos[0] !== pos[0] || A.pos[1] !== pos[1])) A.dir = [pos[0] - A.pos[0], pos[1] - A.pos[1]]; A.pos = pos; A.state = state; A.note = note || ''; A.visible = true; A.f = Math.floor(performance.now() / 280) % 2; }
-  function release(id) { const A = S.agents.get(id); if (!A || A.mode === 'post') return; const n = S.net.nearest(A.pos); A.node = n.i; A.pos = S.net.nodes[n.i]; A.visible = S.shown.has(id); toPost(id); }
+  function release(id) { const A = S.agents.get(id); if (!A || A.mode === 'post') return; const n = A.net.nearest(A.pos); A.node = n.i; A.pos = A.net.nodes[n.i]; A.visible = S.shown.has(id); toPost(id); }
   function dim(ids) { S.dimOthers = ids ? new Set(ids) : null; S.dirty = true; geo(); }
   // Live local execution: poll the supervisor status written on this machine (localhost only).
   async function pollLive() {

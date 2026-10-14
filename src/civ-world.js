@@ -42,7 +42,7 @@
       const a = byId(agentId), def = CT.TOOLS[tool] || TOOLS[tool];
       if (!a || !def || !ORG.canUse(a, tool, def.permission)) throw new Error(`permission refusée : ${agentId} → ${tool}`);
       const st = { id: `S${m.subtasks.length + 1}`, tool, city, target, agent: a.id, code: a.code, requester, via, depth: via ? 2 : 1, state: 'running', attempts: 1, ms: 0, error: null, findings: 0 };
-      if (via) { msg(m, requester, via, 'request', `Demande d’appui (${tool}) pour ${city}`, [], 'accepté par la direction'); msg(m, via, a.id, 'delegate', `Sous-tâche bornée ${st.id} : ${tool}`, [], 'assignée'); }
+      if (via) { msg(m, requester, via, 'request', `Demande d’appui (${tool}) pour ${city ? CITIES.get(city).name : 'la comparaison'}`, [], 'accepté par la direction'); msg(m, via, a.id, 'delegate', `Sous-tâche bornée ${st.id} : ${tool}`, [], 'assignée'); }
       else msg(m, requester, a.id, 'delegate', `Sous-tâche bornée ${st.id} : ${tool}`, [], 'assignée');
       m.subtasks.push(st); const t0 = Date.now();
       try { const out = city ? CT.TOOLS[tool].run(cxs[city], target) : null; st.state = 'succeeded'; st.ms = Date.now() - t0; return out; }
@@ -52,9 +52,10 @@
     async function compare(pairs, { resume = true, crashAfter = null } = {}) {
       const parts = pairs.map(([city, nhood]) => ({ city, nhood, cfg: CITIES.get(city), cx: cxs[city] }));
       for (const p of parts) if (!p.cfg || p.cfg.status !== 'operational' || !p.cx || !p.cx.nh.has(p.nhood)) throw new Error(`zone non opérationnelle : ${p.city}/${p.nhood}`);
-      const id = `world:road-safety-comparison:${parts.map(p => `${p.city}/${p.nhood.toLowerCase().replace(/[^a-z]+/g, '-')}@${p.cx.asOf}`).join('+')}`;
+      const id = `world:road-safety-comparison:${parts.map(p => `${p.city}/${p.nhood.toLowerCase().replace(/[^a-z]+/g, '-')}@${p.cx.stamp || p.cx.asOf}`).join('+')}`;
       const cp = resume && memory ? memory.loadCheckpoint(id) : null;
-      if (cp && ['HUMAN_REVIEW', 'APPROVED', 'REJECTED', 'NEEDS_MORE_EVIDENCE'].includes(cp.body.state)) return cp.body;
+      if (cp && ['APPROVED', 'REJECTED', 'NEEDS_MORE_EVIDENCE'].includes(cp.body.state)) return cp.body; // a human decision is never overwritten
+      if (cp && cp.body.state === 'HUMAN_REVIEW' && resume) return cp.body;
       const t0 = Date.now(); let m;
       if (cp && cp.body.state !== 'FAILED' && cp.body.state !== 'CANCELLED') { m = cp.body; m.resumedFrom = cp.stage; }
       else m = { id, version: 'core-world-mission-v1', workflow: 'cross-city-road-safety', title: 'Comparaison inter-villes : sécurité routière sur les réseaux désignés', scope: 'world', cities: parts.map(p => p.city), nhoods: parts.map(p => `${p.cfg.name} — ${p.nhood}`), nhood: parts.map(p => p.nhood).join(' / '),
@@ -65,17 +66,20 @@
         if (at('ASSIGNED')) { guard(); for (const p of parts) msg(m, DIRECTOR, `core.${p.city}.mobility.lead`, 'delegate', `Profil d’accidents des réseaux désignés de ${p.nhood}`, [], 'acceptée'); stage(m, 'ASSIGNED'); crash('ASSIGNED'); }
         if (at('MEMORY_CONSULTED')) { guard();
           // Institutional memory: city findings already verified and reviewed (or approved) on the same snapshots.
-          if (memory) for (const p of parts) { const mid = `civ:${p.city === 'san-francisco' ? '' : p.city + ':'}safety-works:${p.nhood.toLowerCase().replace(/[^a-z]+/g, '-')}@${p.cx.asOf}`;
-            const hits = memory.entries({ kind: 'finding', workflow: 'safety-works' }).filter(e => e.mission === mid && ['verified', 'reviewed', 'approved'].includes(e.status));
+          if (memory) for (const p of parts) { const mid = `civ:${p.city === 'san-francisco' ? '' : p.city + ':'}safety-works:${p.nhood.toLowerCase().replace(/[^a-z]+/g, '-')}@${p.cx.stamp || p.cx.asOf}`;
+            // Same problem on any snapshot; superseded entries are excluded by status (a still-valid older entry is reused).
+            const hits = memory.entries({ kind: 'finding', workflow: 'safety-works' }).filter(e => e.mission.replace(/@.*$/, '') === mid.replace(/@.*$/, '') && ['verified', 'reviewed', 'approved'].includes(e.status));
             for (const e of hits) m.memoryReused.push({ id: e.id, city: p.city, status: e.status, statement: e.statement, mission: e.mission });
-            msg(m, DIRECTOR, 'memory', 'memory-read', `Mémoire institutionnelle consultée pour ${p.nhood}`, hits.map(e => `memory:${e.id}`), hits.length ? `${hits.length} constat(s) ${[...new Set(hits.map(e => e.status))].join('/')} réutilisé(s) comme point de départ` : 'aucun constat vérifié disponible : enquête complète'); }
+            msg(m, DIRECTOR, 'memory', 'memory-read', `Mémoire institutionnelle consultée pour ${p.nhood}`, hits.map(e => `memory:${e.id}`), hits.length ? `${hits.length} constat(s) ${[...new Set(hits.map(e => ({ verified: 'vérifiés', reviewed: 'vérifiés et revus', approved: 'approuvés par un humain' }[e.status])))].join(' / ')} réutilisé(s) comme point de départ` : 'aucun constat vérifié disponible : enquête complète'); }
           stage(m, 'MEMORY_CONSULTED'); }
         if (at('INVESTIGATING')) { guard(); // a stage is checkpointed only once its work is complete, so a resume never skips work
           for (const p of parts) { const L = `core.${p.city}.mobility.lead`, tr = specialist(p.city, 'safety.crash-profile'), wk = specialist(p.city, 'works.area-windows');
             const cpf = exec(m, tr.id, 'safety.crash-profile', p.city, { nhood: p.nhood }, L, null); if (!cpf) continue;
             m.results[`${p.city}:safety.crash-profile`] = { rows: cpf.rows.slice(0, 50), assumptions: cpf.assumptions };
+            // Evidence location (for the map replay): the most injured designated segment of the neighbourhood.
+            const top0 = cpf.rows[0] && p.cx.hin.get(cpf.rows[0].cnn), site = top0 ? { coord: top0.mid, label: `${top0.street || cpf.rows[0].cnn} (${p.cfg.name})`, kind: 'tronçon désigné le plus touché' } : null; m.subtasks[m.subtasks.length - 1].site = site;
             for (const f of cpf.findings.slice(0, 1)) m.findings.push({ ...f, city: p.city, by: tr.id, evidence: f.evidence.map(r => ({ ...r, city: p.city })) });
-            const top = cpf.rows.slice(0, 10).map(r => r.cnn), wo = top.length ? exec(m, wk.id, 'works.area-windows', p.city, { segments: top }, tr.id, `core.${p.city}.civil.lead`) : null;
+            const top = cpf.rows.slice(0, 10).map(r => r.cnn), wo = top.length ? exec(m, wk.id, 'works.area-windows', p.city, { segments: top }, tr.id, `core.${p.city}.civil.lead`) : null; if (wo) m.subtasks[m.subtasks.length - 1].site = site;
             if (wo) { m.results[`${p.city}:works.area-windows`] = { rows: wo.rows }; for (const f of wo.findings) m.findings.push({ ...f, city: p.city, by: wk.id, evidence: f.evidence.map(r => ({ ...r, city: p.city })) }); }
             msg(m, tr.id, L, 'report', `Résultats pour ${p.nhood} remis à la direction`, cpf.findings[0].evidence.slice(0, 5), 'transmis'); msg(m, L, DIRECTOR, 'report', `Synthèse ${p.cfg.name}`, [], 'transmise'); }
           stage(m, 'INVESTIGATING'); crash('INVESTIGATING'); }
@@ -106,6 +110,11 @@
         msg(m, DIRECTOR, 'human', 'decision', `Proposition : ${m.decision.state}`, [], m.decision.caveats.join(' ') || 'aucune réserve');
         stage(m, 'PROPOSED_DECISION'); stage(m, 'HUMAN_REVIEW');
         if (memory) for (const f of m.findings.filter(f => f.topic === 'cross')) { const p = memory.propose({ kind: 'finding', workflow: 'cross-city-road-safety', statement: f.claim, evidence: f.evidence.map(e => `${e.city}:${e.ref}`), origin: f.by, mission: m.id }); if (!p.existing) { memory.transition(p.id, 'verified', `core.${parts[0].city}.research.evidence-verifier`, 'références résolues dans les deux instantanés'); memory.transition(p.id, 'reviewed', `core.${parts[1].city}.safety.adversarial-reviewer`, 'revue adversariale (règles déterministes) après avis de comparabilité'); } }
+        // Same comparison on newer snapshots supersedes the older findings (kept, linked; changed numbers → conflict).
+        if (memory) { const key = id.replace(/@[^+]*/g, ''), all = memory.entries({ kind: 'finding', workflow: 'cross-city-road-safety' }), mine = all.filter(e => e.mission === id && e.status !== 'rejected');
+          for (const old of all.filter(e => e.mission !== id && e.mission.replace(/@[^+]*/g, '') === key && e.mission < id && ['verified', 'reviewed', 'approved'].includes(e.status))) {
+            const succ = mine.find(e => e.statement.split(':')[0] === old.statement.split(':')[0]); if (!succ) continue; // unchanged statements keep their entry
+            const r = memory.supersede(old.id, succ.id, `core.${parts[0].city}.research.evidence-verifier`, 'remplacé par une comparaison sur des instantanés plus récents'); if (r.conflict) (m.conflicts = m.conflicts || []).push({ entry: old.id, successor: succ.id, note: 'valeurs différentes entre instantanés' }); } }
       } catch (e) { if (e.crash) throw e; m.state = e.stopped ? 'CANCELLED' : 'FAILED'; m.errors.push(e.stopped ? 'arrêt d’urgence' : e.message); if (memory) memory.checkpoint(m.id, m.state, m); }
       m.metrics = { wallMs: Date.now() - t0, subtasks: m.subtasks.length, failed: m.subtasks.filter(s => s.state === 'failed').length, toolCalls: m.subtasks.length, messages: m.messages.length, modelCalls: 0, memoryReused: m.memoryReused.length };
       if (memory) memory.checkpoint(m.id, m.state, m);

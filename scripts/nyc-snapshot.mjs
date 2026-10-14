@@ -63,14 +63,17 @@ const corridorOf = (p, nhd = null) => { let best = null, bd = 20; for (const f o
 const crMeta = { id: 'h9gi-nx95', title: 'Motor Vehicle Collisions - Crashes', provider: 'NYC Police Department (NYPD)', kind: 'police-reported collisions (aggregated by CORE)' };
 const maxDate = (await soql(crMeta.id, { $select: 'max(crash_date) AS d' })).rows[0].d.slice(0, 10), from = `${+maxDate.slice(0, 4) - 5}-${maxDate.slice(5)}`;
 const pages = []; for (let off = 0; ; off += 50000) { const p = await soql(crMeta.id, { $select: 'latitude, longitude, on_street_name, number_of_persons_injured, number_of_persons_killed, number_of_pedestrians_injured, number_of_pedestrians_killed', $where: `crash_date > '${from}' AND crash_date <= '${maxDate}T23:59:59' AND latitude between ${bbox[1]} and ${bbox[3]} AND longitude between ${bbox[0]} and ${bbox[2]} AND (number_of_persons_injured > 0 OR number_of_persons_killed > 0)`, $limit: '50000', $offset: String(off), $order: ':id' }); pages.push(p); if (p.rows.length < 50000) break; }
-const agg = new Map(), names = new Map(); let outside = 0, unassigned = 0;
-for (const r of pages.flatMap(p => p.rows)) { const pt = [+r.longitude, +r.latitude], nhd = nhoodOf(pt); if (!nhd) { outside++; continue; } const cnn = corridorOf(pt, nhd); if (!cnn) { unassigned++; continue; }
+// Collisions recorded on a limited-access roadway (FDR Drive, bridges, tunnels, expressways) are not attributed to a
+// surface pedestrian corridor even within 20 m (elevated or separated roadway; found in Phase 10 on East Houston / FDR).
+const LIMITED = /\b(F\.?\s?D\.?\s?R\.?|FRANKLIN D\.? ROOSEVELT|BRIDGE|TUNNEL|EXPRESSWAY|EXPWY|EXPY|HIGHWAY|HWY)\b/i;
+const agg = new Map(), names = new Map(); let outside = 0, unassigned = 0, limited = 0;
+for (const r of pages.flatMap(p => p.rows)) { const pt = [+r.longitude, +r.latitude], nhd = nhoodOf(pt); if (!nhd) { outside++; continue; } if (LIMITED.test(r.on_street_name || '')) { limited++; continue; } const cnn = corridorOf(pt, nhd); if (!cnn) { unassigned++; continue; }
   const killed = +r.number_of_persons_killed || 0, sev = killed > 0 ? 'Fatal' : 'Injury (unspecified severity)', grp = (+r.number_of_pedestrians_injured || 0) + (+r.number_of_pedestrians_killed || 0) > 0 ? 'Vehicle-Pedestrian' : 'Other (no pedestrian casualty)';
   if (r.on_street_name) { const m = names.get(cnn) || new Map(), nm = r.on_street_name.trim().toUpperCase(); m.set(nm, (m.get(nm) || 0) + 1); names.set(cnn, m); }
   const k = [cnn, nhd, sev, grp].join('|'); const e = agg.get(k) || { cnn, nhood: nhd, severity: sev, group: grp, n: 0, killed: 0 }; e.n++; e.killed += killed; agg.set(k, e); }
 for (const f of hinFc.features) { const m = names.get(f.properties.cnn); if (m) { f.properties.street = [...m].sort((a, b) => b[1] - a[1])[0][0]; f.properties.street_basis = 'nom de rue le plus fréquent des collisions rattachées (déduit par CORE)'; } }
 write('hin', hinMeta, hin, hinFc, `Corridors intersecting the study bbox ${bbox.join(',')}, split into per-NTA pieces (id = hash of the corridor's first/last vertex + NTA); length = in-NTA length (geodesic); street name derived from attached collisions.`);
-write('crashes-agg', crMeta, pages, { window: { from, to: maxDate }, assignment: 'nearest VZV priority corridor within 20 m; collisions farther than 20 m from any corridor are not counted', excluded: { outsideStudyArea: outside, unassignedOver20m: unassigned }, rows: [...agg.values()] }, `Collisions with ≥ 1 injured or killed, ${from} → ${maxDate}; counts only.`);
+write('crashes-agg', crMeta, pages, { window: { from, to: maxDate }, assignment: 'nearest VZV priority corridor within 20 m; collisions farther than 20 m from any corridor, or recorded on a limited-access roadway (FDR Drive, bridges, tunnels, expressways), are not counted', excluded: { outsideStudyArea: outside, limitedAccessRoadway: limited, unassignedOver20m: unassigned }, rows: [...agg.values()] }, `Collisions with ≥ 1 injured or killed, ${from} → ${maxDate}; counts only.`);
 
 // 4. Street closures for construction (DOT), active or upcoming.
 const wkMeta = { id: 'i6b5-j7bu', title: 'Street Closures due to Construction Activities by Block', provider: 'NYC Department of Transportation', kind: 'authorised street closures for construction (not permits; no holder recorded)' };
@@ -88,4 +91,4 @@ write('ramps', rpMeta, rp, ramps, 'Ramps inside the three NTAs; 999 = not measur
 
 const manifest = { version: 'core-civ-snapshot-v1', city: 'new-york', generated_at: new Date().toISOString(), study_area: { neighborhoods: NEIGHBORHOODS, bbox }, by: 'scripts/nyc-snapshot.mjs', datasets };
 fs.writeFileSync(path.join(outDir, 'manifest.json'), JSON.stringify(manifest, null, 1) + '\n');
-console.log('manifest written', bbox, `collisions: ${outside} outside the NTAs, ${unassigned} > 20 m from a corridor`);
+console.log('manifest written', bbox, `collisions: ${outside} outside the NTAs, ${limited} on limited-access roadways, ${unassigned} > 20 m from a corridor`);

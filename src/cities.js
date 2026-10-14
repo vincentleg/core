@@ -12,6 +12,7 @@
       portal: { kind: 'socrata', domain: 'data.sf.gov', licence: 'ODC Public Domain Dedication and License (PDDL)', licenceUrl: 'https://opendatacommons.org/licenses/pddl/1-0/', commercialUse: 'oui (PDDL)', attribution: 'Courtoisie : « DataSF »' },
       studyArea: { neighborhoods: ['South of Market', 'Mission', 'Tenderloin'], dataDir: 'data/sf9', walkNetwork: 'data/osm/walk-network.json', buildingsSample: 'data/osm/buildings-sample.json' },
       corridor: { label: 'corridor Folsom / Howard', dataDir: 'data/sf' },
+      motion: { centre: [-122.4120, 37.7700], radiusM: 2300 }, // virtual posts (organisational zones), on the validated network
       labels: { hin: 'réseau HIN 2024 (Vision Zero SF)', hinShort: 'HIN', crashes: 'accidents avec blessés déclarés (TIMS, SFPD/DPH)', works: 'permis de voirie approuvés (SF Public Works)', worksShort: 'permis' },
       domains: { 'road-safety': 'operational', 'street-works': 'operational', flood: 'operational (zone modélisée)', accessibility: 'operational (corridor)', trees: 'operational (corridor)' },
       missionTypes: ['safety-works', 'flood-works', 'decision-safety-works'],
@@ -33,6 +34,7 @@
       portal: { kind: 'socrata', domain: 'data.cityofnewyork.us', licence: 'NYC Open Data Law (Local Law 11 of 2012, amended by Local Law 251 of 2017): public data sets without restrictions on their use; the City may require attribution of source, version and modifications', licenceUrl: 'https://opendata.cityofnewyork.us/overview/', commercialUse: 'oui selon la loi (aucune restriction d’usage) ; texte codifié non relu directement (accès refusé), à confirmer', attribution: 'Source : NYC Open Data (service producteur), date de collecte et modifications CORE indiquées' },
       studyArea: { neighborhoods: ['Chinatown-Two Bridges', 'Lower East Side', 'East Village'], dataDir: 'data/nyc', walkNetwork: 'data/osm/nyc-walk-network.json', buildingsSample: 'data/osm/nyc-buildings-sample.json' },
       corridor: null,
+      motion: { centre: [-73.9880, 40.7195], radiusM: 1300 }, studyLayer: true, // src/city-layer.js
       labels: { hin: 'corridors prioritaires Vision Zero (NYC DOT)', hinShort: 'corridor prioritaire', crashes: 'collisions avec blessés ou tués (NYPD MV-104AN)', works: 'fermetures de rue pour travaux (NYC DOT)', worksShort: 'fermetures' },
       domains: { 'road-safety': 'operational', 'street-works': 'operational (fermetures, pas les permis)', accessibility: 'operational (rampes piétonnes mesurées)', flood: 'non intégré (cartes de ruissellement fournies seulement en fichier)' },
       missionTypes: ['safety-works', 'ramps-works'],

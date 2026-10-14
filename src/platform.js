@@ -25,10 +25,10 @@
   }
 
   // ---------- Navigation ----------
-  const TITLES = { demo: 'Démonstration guidée', problems: 'Problèmes du monde — San Francisco', activity: 'Activité de la civilisation', health: 'Santé des données', intel: 'Intelligence urbaine — San Francisco', agents: 'Organisation des agents', missions: 'Missions', sims: 'Simulations et modèles', decisions: 'Décisions (revue humaine)', data: 'Données et preuves' };
+  const TITLES = { demo: 'Démonstration guidée', cities: 'Villes, enquêtes inter-villes et aide à la décision', problems: 'Problèmes du monde — San Francisco', activity: 'Activité de la civilisation', health: 'Santé des données', intel: 'Intelligence urbaine — San Francisco', agents: 'Organisation des agents', missions: 'Missions', sims: 'Simulations et modèles', decisions: 'Décisions (revue humaine)', data: 'Données et preuves' };
   // Phase 7: five navigation groups; every earlier view stays reachable as a sub-tab.
-  const GROUPS = { world: ['world'], civ: ['agents', 'problems', 'activity'], intel: ['intel'], missions: ['missions', 'sims', 'decisions'], evidence: ['data', 'health'] };
-  const SUB = { agents: 'Organisation', problems: 'Problèmes du monde', activity: 'Activité', missions: 'Missions', sims: 'Simulations', decisions: 'Décisions', data: 'Données & preuves', health: 'Santé des données' };
+  const GROUPS = { world: ['world'], civ: ['agents', 'cities', 'problems', 'activity'], intel: ['intel'], missions: ['missions', 'sims', 'decisions'], evidence: ['data', 'health'] };
+  const SUB = { agents: 'Organisation', cities: 'Villes & enquêtes', problems: 'Problèmes du monde', activity: 'Activité', missions: 'Missions', sims: 'Simulations', decisions: 'Décisions', data: 'Données & preuves', health: 'Santé des données' };
   const groupOf = sec => Object.keys(GROUPS).find(g => GROUPS[g].includes(sec)) || sec;
   function show(sec) {
     if (GROUPS[sec] && sec !== 'world') sec = GROUPS[sec][0];
@@ -41,7 +41,7 @@
     G.CORE_SF_VIEW.closePanel();
     $('ws').hidden = false; document.body.classList.add('ws-open'); $('ws-title').textContent = TITLES[sec];
     const tabs = $('ws-tabs'); if (tabs) { const subs = GROUPS[grp] || []; tabs.innerHTML = subs.length > 1 ? subs.map(k => `<button type="button" role="tab" data-sub="${k}" aria-selected="${k === sec}">${esc(SUB[k])}</button>`).join('') : ''; tabs.querySelectorAll('[data-sub]').forEach(b => b.onclick = () => show(b.dataset.sub)); }
-    ({ demo: renderDemo, problems: renderProblems, activity: renderActivity, health: renderHealth, intel: renderIntel, agents: renderAgents, missions: renderMissions, sims: renderSims, decisions: renderDecisions, data: renderData })[sec]();
+    ({ demo: renderDemo, cities: () => G.CORE_CITIES_VIEW && G.CORE_CITIES_VIEW.render($('ws-body')), problems: renderProblems, activity: renderActivity, health: renderHealth, intel: renderIntel, agents: renderAgents, missions: renderMissions, sims: renderSims, decisions: renderDecisions, data: renderData })[sec]();
   }
 
   // ---------- City Intelligence ----------
@@ -479,7 +479,8 @@
 
   async function init({ map, fly }) {
     P.map = map; P.fly = fly; P.envFn = env;
-    P.registry = G.CORE_ORG.buildRegistry(); P.counts = G.CORE_ORG.counts(P.registry);
+    // Phase 10: the world registry (San Francisco 68 profiles unchanged + New York + global roles).
+    P.registry = G.CORE_ORG.buildWorld ? G.CORE_ORG.buildWorld() : G.CORE_ORG.buildRegistry(); P.counts = G.CORE_ORG.counts(P.registry);
     const [evals, lib, items, state, recorded, cogIndex] = await Promise.all([getJSON('data/agents/evaluations.json'), getJSON('data/knowledge/library.json'), getJSON('data/feeds/items.json'), getJSON('data/feeds/state.json'), getJSON('data/missions/index.json').catch(() => null), getJSON('data/missions/cognitive/index.json').catch(() => null)]);
     P.opsReady = Promise.all([getJSON('data/operations/log.json').then(o => { P.operations = o; }).catch(() => { P.operations = null; }), getJSON('data/civ/index.json').then(o => { P.civIndex = o; }).catch(() => { P.civIndex = null; }), getJSON('data/memory/export.json').then(o => { P.memoryExport = o; }).catch(() => { P.memoryExport = null; })]);
     P.evals = evals; P.K = G.CORE_KNOWLEDGE.load(lib); P.store = { items: items.items }; P.state = state; P.recorded = recorded; P.cogIndex = cogIndex;

@@ -1,10 +1,10 @@
 {
  "version": "core-memory-export-v1",
- "generated_at": "2026-10-14T19:13:34.893Z",
+ "generated_at": "2026-10-14T19:33:26.811Z",
  "chain": {
   "ok": true,
-  "head": "3a31fbb72ffcc25178efc1293b96e325b16f1580e9cb88bc7c8722698ef87f08",
-  "events": 377
+  "head": "9fc14bce3a0a512de110be9581258d4b6971e785e9fa0400bd401293a740d135",
+  "events": 386
  },
  "episodes": [
   {
@@ -3587,7 +3587,7 @@
   },
   {
    "agent": "core.global.coordinator",
-   "mission": "civ:new-york:ramps-works:east-village@2026-10-14",
+   "mission": "civ:new-york:ramps-works:east-village@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "executive",
    "problem": "À East Village, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -3612,11 +3612,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.416Z"
+   "at": "2026-10-14T19:27:35.603Z"
   },
   {
    "agent": "core.new-york.manager",
-   "mission": "civ:new-york:ramps-works:east-village@2026-10-14",
+   "mission": "civ:new-york:ramps-works:east-village@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "coordinator",
    "problem": "À East Village, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -3641,11 +3641,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.417Z"
+   "at": "2026-10-14T19:27:35.603Z"
   },
   {
    "agent": "core.new-york.public-space.lead",
-   "mission": "civ:new-york:ramps-works:east-village@2026-10-14",
+   "mission": "civ:new-york:ramps-works:east-village@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "lead",
    "problem": "À East Village, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -3670,11 +3670,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.417Z"
+   "at": "2026-10-14T19:27:35.604Z"
   },
   {
    "agent": "core.new-york.research.evidence-verifier",
-   "mission": "civ:new-york:ramps-works:east-village@2026-10-14",
+   "mission": "civ:new-york:ramps-works:east-village@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "data-verification",
    "problem": "À East Village, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -3699,11 +3699,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.417Z"
+   "at": "2026-10-14T19:27:35.604Z"
   },
   {
    "agent": "core.new-york.safety.adversarial-reviewer",
-   "mission": "civ:new-york:ramps-works:east-village@2026-10-14",
+   "mission": "civ:new-york:ramps-works:east-village@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "review",
    "problem": "À East Village, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -3728,11 +3728,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.418Z"
+   "at": "2026-10-14T19:27:35.605Z"
   },
   {
    "agent": "core.new-york.governance.gateway",
-   "mission": "civ:new-york:ramps-works:east-village@2026-10-14",
+   "mission": "civ:new-york:ramps-works:east-village@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "gateway",
    "problem": "À East Village, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -3757,11 +3757,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.418Z"
+   "at": "2026-10-14T19:27:35.605Z"
   },
   {
    "agent": "core.new-york.public-space.ramps",
-   "mission": "civ:new-york:ramps-works:east-village@2026-10-14",
+   "mission": "civ:new-york:ramps-works:east-village@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "specialist",
    "problem": "À East Village, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -3796,11 +3796,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.419Z"
+   "at": "2026-10-14T19:27:35.606Z"
   },
   {
    "agent": "core.new-york.mobility.traffic",
-   "mission": "civ:new-york:ramps-works:east-village@2026-10-14",
+   "mission": "civ:new-york:ramps-works:east-village@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "specialist",
    "problem": "À East Village, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -3835,11 +3835,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.419Z"
+   "at": "2026-10-14T19:27:35.606Z"
   },
   {
    "agent": "core.new-york.mobility.lead",
-   "mission": "civ:new-york:ramps-works:east-village@2026-10-14",
+   "mission": "civ:new-york:ramps-works:east-village@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "lead (relais)",
    "problem": "À East Village, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -3864,11 +3864,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.419Z"
+   "at": "2026-10-14T19:27:35.607Z"
   },
   {
    "agent": "core.new-york.civil.works-coordination",
-   "mission": "civ:new-york:ramps-works:east-village@2026-10-14",
+   "mission": "civ:new-york:ramps-works:east-village@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "specialist",
    "problem": "À East Village, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -6131,11 +6131,11 @@
      "error": null,
      "target": {
       "segments": [
-       "pc-88ebe56861:EV",
        "pc-3d2d0da7cb:EV",
        "pc-268c848b02:EV",
        "pc-399eb17562:EV",
-       "pc-ff6dbd5275:EV"
+       "pc-ff6dbd5275:EV",
+       "pc-88ebe56861:EV"
       ]
      }
     }
@@ -6159,11 +6159,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.420Z"
+   "at": "2026-10-14T19:27:35.607Z"
   },
   {
    "agent": "core.new-york.civil.lead",
-   "mission": "civ:new-york:ramps-works:east-village@2026-10-14",
+   "mission": "civ:new-york:ramps-works:east-village@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "lead (relais)",
    "problem": "À East Village, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -6188,11 +6188,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.420Z"
+   "at": "2026-10-14T19:27:35.608Z"
   },
   {
    "agent": "core.global.coordinator",
-   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "executive",
    "problem": "À Lower East Side, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -6217,11 +6217,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.429Z"
+   "at": "2026-10-14T19:27:35.617Z"
   },
   {
    "agent": "core.new-york.manager",
-   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "coordinator",
    "problem": "À Lower East Side, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -6246,11 +6246,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.429Z"
+   "at": "2026-10-14T19:27:35.617Z"
   },
   {
    "agent": "core.new-york.public-space.lead",
-   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "lead",
    "problem": "À Lower East Side, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -6275,11 +6275,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.430Z"
+   "at": "2026-10-14T19:27:35.617Z"
   },
   {
    "agent": "core.new-york.research.evidence-verifier",
-   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "data-verification",
    "problem": "À Lower East Side, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -6304,11 +6304,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.430Z"
+   "at": "2026-10-14T19:27:35.618Z"
   },
   {
    "agent": "core.new-york.safety.adversarial-reviewer",
-   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "review",
    "problem": "À Lower East Side, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -6333,11 +6333,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.430Z"
+   "at": "2026-10-14T19:27:35.618Z"
   },
   {
    "agent": "core.new-york.governance.gateway",
-   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "gateway",
    "problem": "À Lower East Side, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -6362,11 +6362,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.431Z"
+   "at": "2026-10-14T19:27:35.618Z"
   },
   {
    "agent": "core.new-york.public-space.ramps",
-   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "specialist",
    "problem": "À Lower East Side, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -6401,11 +6401,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.431Z"
+   "at": "2026-10-14T19:27:35.619Z"
   },
   {
    "agent": "core.new-york.mobility.traffic",
-   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "specialist",
    "problem": "À Lower East Side, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -6440,11 +6440,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.431Z"
+   "at": "2026-10-14T19:27:35.619Z"
   },
   {
    "agent": "core.new-york.mobility.lead",
-   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "lead (relais)",
    "problem": "À Lower East Side, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -6469,11 +6469,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.432Z"
+   "at": "2026-10-14T19:27:35.620Z"
   },
   {
    "agent": "core.new-york.civil.works-coordination",
-   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "specialist",
    "problem": "À Lower East Side, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -9229,11 +9229,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.432Z"
+   "at": "2026-10-14T19:27:35.620Z"
   },
   {
    "agent": "core.new-york.civil.lead",
-   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "lead (relais)",
    "problem": "À Lower East Side, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -9258,11 +9258,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.432Z"
+   "at": "2026-10-14T19:27:35.620Z"
   },
   {
    "agent": "core.global.coordinator",
-   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14",
+   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "executive",
    "problem": "À Chinatown-Two Bridges, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -9287,11 +9287,11 @@
     "rejected": 1
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.487Z"
+   "at": "2026-10-14T19:27:35.666Z"
   },
   {
    "agent": "core.new-york.manager",
-   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14",
+   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "coordinator",
    "problem": "À Chinatown-Two Bridges, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -9316,11 +9316,11 @@
     "rejected": 1
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.487Z"
+   "at": "2026-10-14T19:27:35.666Z"
   },
   {
    "agent": "core.new-york.public-space.lead",
-   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14",
+   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "lead",
    "problem": "À Chinatown-Two Bridges, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -9345,11 +9345,11 @@
     "rejected": 1
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.488Z"
+   "at": "2026-10-14T19:27:35.667Z"
   },
   {
    "agent": "core.new-york.research.evidence-verifier",
-   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14",
+   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "data-verification",
    "problem": "À Chinatown-Two Bridges, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -9374,11 +9374,11 @@
     "rejected": 1
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.488Z"
+   "at": "2026-10-14T19:27:35.667Z"
   },
   {
    "agent": "core.new-york.safety.adversarial-reviewer",
-   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14",
+   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "review",
    "problem": "À Chinatown-Two Bridges, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -9403,11 +9403,11 @@
     "rejected": 1
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.488Z"
+   "at": "2026-10-14T19:27:35.667Z"
   },
   {
    "agent": "core.new-york.governance.gateway",
-   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14",
+   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "gateway",
    "problem": "À Chinatown-Two Bridges, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -9432,11 +9432,11 @@
     "rejected": 1
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.489Z"
+   "at": "2026-10-14T19:27:35.668Z"
   },
   {
    "agent": "core.new-york.public-space.ramps",
-   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14",
+   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "specialist",
    "problem": "À Chinatown-Two Bridges, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -9471,11 +9471,11 @@
     "rejected": 1
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.489Z"
+   "at": "2026-10-14T19:27:35.668Z"
   },
   {
    "agent": "core.new-york.mobility.traffic",
-   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14",
+   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "specialist",
    "problem": "À Chinatown-Two Bridges, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -9510,11 +9510,11 @@
     "rejected": 1
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.489Z"
+   "at": "2026-10-14T19:27:35.669Z"
   },
   {
    "agent": "core.new-york.mobility.lead",
-   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14",
+   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "lead (relais)",
    "problem": "À Chinatown-Two Bridges, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -9539,11 +9539,11 @@
     "rejected": 1
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.490Z"
+   "at": "2026-10-14T19:27:35.669Z"
   },
   {
    "agent": "core.new-york.civil.works-coordination",
-   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14",
+   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "specialist",
    "problem": "À Chinatown-Two Bridges, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -12159,11 +12159,11 @@
     "rejected": 1
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.490Z"
+   "at": "2026-10-14T19:27:35.669Z"
   },
   {
    "agent": "core.new-york.civil.lead",
-   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14",
+   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14T1925",
    "workflow": "ramps-works",
    "role": "lead (relais)",
    "problem": "À Chinatown-Two Bridges, quelles rampes piétonnes relevées dépassent des seuils d’accessibilité déclarés à proximité de fermetures de rue pour travaux, et quelle coordination examiner ?",
@@ -12188,11 +12188,11 @@
     "rejected": 1
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.490Z"
+   "at": "2026-10-14T19:27:35.670Z"
   },
   {
    "agent": "core.global.coordinator",
-   "mission": "civ:new-york:safety-works:east-village@2026-10-14",
+   "mission": "civ:new-york:safety-works:east-village@2026-10-14T1925",
    "workflow": "safety-works",
    "role": "executive",
    "problem": "Sur les corridors prioritaires Vision Zero de East Village, quels tronçons cumulent des collisions avec blessés ou tués et des fermetures de rue pour travaux à venir, et que faut-il examiner avant ces travaux ?",
@@ -12217,11 +12217,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.498Z"
+   "at": "2026-10-14T19:27:35.678Z"
   },
   {
    "agent": "core.new-york.manager",
-   "mission": "civ:new-york:safety-works:east-village@2026-10-14",
+   "mission": "civ:new-york:safety-works:east-village@2026-10-14T1925",
    "workflow": "safety-works",
    "role": "coordinator",
    "problem": "Sur les corridors prioritaires Vision Zero de East Village, quels tronçons cumulent des collisions avec blessés ou tués et des fermetures de rue pour travaux à venir, et que faut-il examiner avant ces travaux ?",
@@ -12246,11 +12246,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.499Z"
+   "at": "2026-10-14T19:27:35.679Z"
   },
   {
    "agent": "core.new-york.mobility.lead",
-   "mission": "civ:new-york:safety-works:east-village@2026-10-14",
+   "mission": "civ:new-york:safety-works:east-village@2026-10-14T1925",
    "workflow": "safety-works",
    "role": "lead",
    "problem": "Sur les corridors prioritaires Vision Zero de East Village, quels tronçons cumulent des collisions avec blessés ou tués et des fermetures de rue pour travaux à venir, et que faut-il examiner avant ces travaux ?",
@@ -12275,11 +12275,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.499Z"
+   "at": "2026-10-14T19:27:35.679Z"
   },
   {
    "agent": "core.new-york.research.evidence-verifier",
-   "mission": "civ:new-york:safety-works:east-village@2026-10-14",
+   "mission": "civ:new-york:safety-works:east-village@2026-10-14T1925",
    "workflow": "safety-works",
    "role": "data-verification",
    "problem": "Sur les corridors prioritaires Vision Zero de East Village, quels tronçons cumulent des collisions avec blessés ou tués et des fermetures de rue pour travaux à venir, et que faut-il examiner avant ces travaux ?",
@@ -12304,11 +12304,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.499Z"
+   "at": "2026-10-14T19:27:35.679Z"
   },
   {
    "agent": "core.new-york.safety.adversarial-reviewer",
-   "mission": "civ:new-york:safety-works:east-village@2026-10-14",
+   "mission": "civ:new-york:safety-works:east-village@2026-10-14T1925",
    "workflow": "safety-works",
    "role": "review",
    "problem": "Sur les corridors prioritaires Vision Zero de East Village, quels tronçons cumulent des collisions avec blessés ou tués et des fermetures de rue pour travaux à venir, et que faut-il examiner avant ces travaux ?",
@@ -12333,11 +12333,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.500Z"
+   "at": "2026-10-14T19:27:35.679Z"
   },
   {
    "agent": "core.new-york.governance.gateway",
-   "mission": "civ:new-york:safety-works:east-village@2026-10-14",
+   "mission": "civ:new-york:safety-works:east-village@2026-10-14T1925",
    "workflow": "safety-works",
    "role": "gateway",
    "problem": "Sur les corridors prioritaires Vision Zero de East Village, quels tronçons cumulent des collisions avec blessés ou tués et des fermetures de rue pour travaux à venir, et que faut-il examiner avant ces travaux ?",
@@ -12362,11 +12362,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.500Z"
+   "at": "2026-10-14T19:27:35.680Z"
   },
   {
    "agent": "core.new-york.mobility.traffic",
-   "mission": "civ:new-york:safety-works:east-village@2026-10-14",
+   "mission": "civ:new-york:safety-works:east-village@2026-10-14T1925",
    "workflow": "safety-works",
    "role": "specialist",
    "problem": "Sur les corridors prioritaires Vision Zero de East Village, quels tronçons cumulent des collisions avec blessés ou tués et des fermetures de rue pour travaux à venir, et que faut-il examiner avant ces travaux ?",
@@ -12401,11 +12401,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.500Z"
+   "at": "2026-10-14T19:27:35.680Z"
   },
   {
    "agent": "core.new-york.public-space.ramps",
-   "mission": "civ:new-york:safety-works:east-village@2026-10-14",
+   "mission": "civ:new-york:safety-works:east-village@2026-10-14T1925",
    "workflow": "safety-works",
    "role": "specialist",
    "problem": "Sur les corridors prioritaires Vision Zero de East Village, quels tronçons cumulent des collisions avec blessés ou tués et des fermetures de rue pour travaux à venir, et que faut-il examiner avant ces travaux ?",
@@ -12440,11 +12440,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.500Z"
+   "at": "2026-10-14T19:27:35.680Z"
   },
   {
    "agent": "core.new-york.public-space.lead",
-   "mission": "civ:new-york:safety-works:east-village@2026-10-14",
+   "mission": "civ:new-york:safety-works:east-village@2026-10-14T1925",
    "workflow": "safety-works",
    "role": "lead (relais)",
    "problem": "Sur les corridors prioritaires Vision Zero de East Village, quels tronçons cumulent des collisions avec blessés ou tués et des fermetures de rue pour travaux à venir, et que faut-il examiner avant ces travaux ?",
@@ -12469,11 +12469,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.501Z"
+   "at": "2026-10-14T19:27:35.681Z"
   },
   {
    "agent": "core.new-york.civil.works-coordination",
-   "mission": "civ:new-york:safety-works:east-village@2026-10-14",
+   "mission": "civ:new-york:safety-works:east-village@2026-10-14T1925",
    "workflow": "safety-works",
    "role": "specialist",
    "problem": "Sur les corridors prioritaires Vision Zero de East Village, quels tronçons cumulent des collisions avec blessés ou tués et des fermetures de rue pour travaux à venir, et que faut-il examiner avant ces travaux ?",
@@ -12486,11 +12486,11 @@
      "error": null,
      "target": {
       "segments": [
-       "pc-88ebe56861:EV",
        "pc-3d2d0da7cb:EV",
        "pc-268c848b02:EV",
        "pc-399eb17562:EV",
-       "pc-ff6dbd5275:EV"
+       "pc-ff6dbd5275:EV",
+       "pc-88ebe56861:EV"
       ]
      }
     },
@@ -14764,11 +14764,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.501Z"
+   "at": "2026-10-14T19:27:35.681Z"
   },
   {
    "agent": "core.new-york.civil.lead",
-   "mission": "civ:new-york:safety-works:east-village@2026-10-14",
+   "mission": "civ:new-york:safety-works:east-village@2026-10-14T1925",
    "workflow": "safety-works",
    "role": "lead (relais)",
    "problem": "Sur les corridors prioritaires Vision Zero de East Village, quels tronçons cumulent des collisions avec blessés ou tués et des fermetures de rue pour travaux à venir, et que faut-il examiner avant ces travaux ?",
@@ -14793,11 +14793,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.502Z"
+   "at": "2026-10-14T19:27:35.682Z"
   },
   {
    "agent": "core.global.coordinator",
-   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14T1925",
    "workflow": "safety-works",
    "role": "executive",
    "problem": "Sur les corridors prioritaires Vision Zero de Lower East Side, quels tronçons cumulent des collisions avec blessés ou tués et des fermetures de rue pour travaux à venir, et que faut-il examiner avant ces travaux ?",
@@ -14822,11 +14822,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.545Z"
+   "at": "2026-10-14T19:27:35.711Z"
   },
   {
    "agent": "core.new-york.manager",
-   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14T1925",
    "workflow": "safety-works",
    "role": "coordinator",
    "problem": "Sur les corridors prioritaires Vision Zero de Lower East Side, quels tronçons cumulent des collisions avec blessés ou tués et des fermetures de rue pour travaux à venir, et que faut-il examiner avant ces travaux ?",
@@ -14851,11 +14851,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.545Z"
+   "at": "2026-10-14T19:27:35.711Z"
   },
   {
    "agent": "core.new-york.mobility.lead",
-   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14T1925",
    "workflow": "safety-works",
    "role": "lead",
    "problem": "Sur les corridors prioritaires Vision Zero de Lower East Side, quels tronçons cumulent des collisions avec blessés ou tués et des fermetures de rue pour travaux à venir, et que faut-il examiner avant ces travaux ?",
@@ -14880,11 +14880,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.545Z"
+   "at": "2026-10-14T19:27:35.712Z"
   },
   {
    "agent": "core.new-york.research.evidence-verifier",
-   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14T1925",
    "workflow": "safety-works",
    "role": "data-verification",
    "problem": "Sur les corridors prioritaires Vision Zero de Lower East Side, quels tronçons cumulent des collisions avec blessés ou tués et des fermetures de rue pour travaux à venir, et que faut-il examiner avant ces travaux ?",
@@ -14909,11 +14909,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.545Z"
+   "at": "2026-10-14T19:27:35.712Z"
   },
   {
    "agent": "core.new-york.safety.adversarial-reviewer",
-   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14T1925",
    "workflow": "safety-works",
    "role": "review",
    "problem": "Sur les corridors prioritaires Vision Zero de Lower East Side, quels tronçons cumulent des collisions avec blessés ou tués et des fermetures de rue pour travaux à venir, et que faut-il examiner avant ces travaux ?",
@@ -14938,11 +14938,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.546Z"
+   "at": "2026-10-14T19:27:35.712Z"
   },
   {
    "agent": "core.new-york.governance.gateway",
-   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14T1925",
    "workflow": "safety-works",
    "role": "gateway",
    "problem": "Sur les corridors prioritaires Vision Zero de Lower East Side, quels tronçons cumulent des collisions avec blessés ou tués et des fermetures de rue pour travaux à venir, et que faut-il examiner avant ces travaux ?",
@@ -14967,11 +14967,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.546Z"
+   "at": "2026-10-14T19:27:35.712Z"
   },
   {
    "agent": "core.new-york.mobility.traffic",
-   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14T1925",
    "workflow": "safety-works",
    "role": "specialist",
    "problem": "Sur les corridors prioritaires Vision Zero de Lower East Side, quels tronçons cumulent des collisions avec blessés ou tués et des fermetures de rue pour travaux à venir, et que faut-il examiner avant ces travaux ?",
@@ -15006,11 +15006,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.546Z"
+   "at": "2026-10-14T19:27:35.712Z"
   },
   {
    "agent": "core.new-york.public-space.ramps",
-   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14T1925",
    "workflow": "safety-works",
    "role": "specialist",
    "problem": "Sur les corridors prioritaires Vision Zero de Lower East Side, quels tronçons cumulent des collisions avec blessés ou tués et des fermetures de rue pour travaux à venir, et que faut-il examiner avant ces travaux ?",
@@ -15045,11 +15045,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.546Z"
+   "at": "2026-10-14T19:27:35.713Z"
   },
   {
    "agent": "core.new-york.public-space.lead",
-   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14T1925",
    "workflow": "safety-works",
    "role": "lead (relais)",
    "problem": "Sur les corridors prioritaires Vision Zero de Lower East Side, quels tronçons cumulent des collisions avec blessés ou tués et des fermetures de rue pour travaux à venir, et que faut-il examiner avant ces travaux ?",
@@ -15074,11 +15074,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.546Z"
+   "at": "2026-10-14T19:27:35.713Z"
   },
   {
    "agent": "core.new-york.civil.works-coordination",
-   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14T1925",
    "workflow": "safety-works",
    "role": "specialist",
    "problem": "Sur les corridors prioritaires Vision Zero de Lower East Side, quels tronçons cumulent des collisions avec blessés ou tués et des fermetures de rue pour travaux à venir, et que faut-il examiner avant ces travaux ?",
@@ -17834,11 +17834,11 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.547Z"
+   "at": "2026-10-14T19:27:35.713Z"
   },
   {
    "agent": "core.new-york.civil.lead",
-   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14T1925",
    "workflow": "safety-works",
    "role": "lead (relais)",
    "problem": "Sur les corridors prioritaires Vision Zero de Lower East Side, quels tronçons cumulent des collisions avec blessés ou tués et des fermetures de rue pour travaux à venir, et que faut-il examiner avant ces travaux ?",
@@ -17863,7 +17863,7 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:03.547Z"
+   "at": "2026-10-14T19:27:35.713Z"
   },
   {
    "agent": "core.global.coordinator",
@@ -17892,7 +17892,7 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:15.762Z"
+   "at": "2026-10-14T19:27:43.898Z"
   },
   {
    "agent": "core.san-francisco.manager",
@@ -17921,7 +17921,7 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:15.762Z"
+   "at": "2026-10-14T19:27:43.898Z"
   },
   {
    "agent": "core.san-francisco.mobility.lead",
@@ -17950,7 +17950,7 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:15.762Z"
+   "at": "2026-10-14T19:27:43.899Z"
   },
   {
    "agent": "core.san-francisco.research.evidence-verifier",
@@ -17979,7 +17979,7 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:15.763Z"
+   "at": "2026-10-14T19:27:43.900Z"
   },
   {
    "agent": "core.san-francisco.safety.adversarial-reviewer",
@@ -18008,7 +18008,7 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:15.763Z"
+   "at": "2026-10-14T19:27:43.900Z"
   },
   {
    "agent": "core.san-francisco.governance.gateway",
@@ -18037,7 +18037,7 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:15.764Z"
+   "at": "2026-10-14T19:27:43.901Z"
   },
   {
    "agent": "core.san-francisco.mobility.traffic",
@@ -18076,7 +18076,7 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:15.764Z"
+   "at": "2026-10-14T19:27:43.901Z"
   },
   {
    "agent": "core.san-francisco.simulation.scenario-evaluator",
@@ -18115,7 +18115,7 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:15.765Z"
+   "at": "2026-10-14T19:27:43.902Z"
   },
   {
    "agent": "core.san-francisco.simulation.lead",
@@ -18144,7 +18144,7 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:15.765Z"
+   "at": "2026-10-14T19:27:43.903Z"
   },
   {
    "agent": "core.san-francisco.civil.works-coordination",
@@ -18303,7 +18303,7 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:15.765Z"
+   "at": "2026-10-14T19:27:43.905Z"
   },
   {
    "agent": "core.san-francisco.civil.lead",
@@ -18332,7 +18332,7 @@
     "rejected": 0
    },
    "errors": [],
-   "at": "2026-10-14T19:13:15.766Z"
+   "at": "2026-10-14T19:27:43.905Z"
   }
  ],
  "institutional": [
@@ -19663,27 +19663,27 @@
    "status": "reviewed",
    "version": 1,
    "origin": "core.new-york.public-space.lead",
-   "mission": "civ:new-york:ramps-works:east-village@2026-10-14",
+   "mission": "civ:new-york:ramps-works:east-village@2026-10-14T1925",
    "history": [
     {
      "status": "candidate",
      "by": "core.new-york.public-space.lead",
-     "at": "2026-10-14T19:13:03.421Z"
+     "at": "2026-10-14T19:27:35.609Z"
     },
     {
      "status": "verified",
      "by": "core.new-york.research.evidence-verifier",
      "note": "références résolues dans l’instantané",
-     "at": "2026-10-14T19:13:03.421Z"
+     "at": "2026-10-14T19:27:35.609Z"
     },
     {
      "status": "reviewed",
      "by": "core.new-york.safety.adversarial-reviewer",
      "note": "accepté par la revue adversariale",
-     "at": "2026-10-14T19:13:03.422Z"
+     "at": "2026-10-14T19:27:35.609Z"
     }
    ],
-   "at": "2026-10-14T19:13:03.421Z"
+   "at": "2026-10-14T19:27:35.609Z"
   },
   {
    "id": "finding:7519158298e4",
@@ -19730,27 +19730,27 @@
    "status": "reviewed",
    "version": 1,
    "origin": "core.new-york.public-space.lead",
-   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14T1925",
    "history": [
     {
      "status": "candidate",
      "by": "core.new-york.public-space.lead",
-     "at": "2026-10-14T19:13:03.433Z"
+     "at": "2026-10-14T19:27:35.621Z"
     },
     {
      "status": "verified",
      "by": "core.new-york.research.evidence-verifier",
      "note": "références résolues dans l’instantané",
-     "at": "2026-10-14T19:13:03.433Z"
+     "at": "2026-10-14T19:27:35.621Z"
     },
     {
      "status": "reviewed",
      "by": "core.new-york.safety.adversarial-reviewer",
      "note": "accepté par la revue adversariale",
-     "at": "2026-10-14T19:13:03.433Z"
+     "at": "2026-10-14T19:27:35.622Z"
     }
    ],
-   "at": "2026-10-14T19:13:03.433Z"
+   "at": "2026-10-14T19:27:35.621Z"
   },
   {
    "id": "finding:30229c25c011",
@@ -19779,27 +19779,27 @@
    "status": "reviewed",
    "version": 1,
    "origin": "core.new-york.public-space.lead",
-   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14",
+   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14T1925",
    "history": [
     {
      "status": "candidate",
      "by": "core.new-york.public-space.lead",
-     "at": "2026-10-14T19:13:03.491Z"
+     "at": "2026-10-14T19:27:35.670Z"
     },
     {
      "status": "verified",
      "by": "core.new-york.research.evidence-verifier",
      "note": "références résolues dans l’instantané",
-     "at": "2026-10-14T19:13:03.491Z"
+     "at": "2026-10-14T19:27:35.671Z"
     },
     {
      "status": "reviewed",
      "by": "core.new-york.safety.adversarial-reviewer",
      "note": "accepté par la revue adversariale",
-     "at": "2026-10-14T19:13:03.491Z"
+     "at": "2026-10-14T19:27:35.671Z"
     }
    ],
-   "at": "2026-10-14T19:13:03.491Z"
+   "at": "2026-10-14T19:27:35.670Z"
   },
   {
    "id": "finding:c2ed92e29ae6",
@@ -19820,27 +19820,27 @@
    "status": "reviewed",
    "version": 1,
    "origin": "core.new-york.mobility.lead",
-   "mission": "civ:new-york:safety-works:east-village@2026-10-14",
+   "mission": "civ:new-york:safety-works:east-village@2026-10-14T1925",
    "history": [
     {
      "status": "candidate",
      "by": "core.new-york.mobility.lead",
-     "at": "2026-10-14T19:13:03.502Z"
+     "at": "2026-10-14T19:27:35.682Z"
     },
     {
      "status": "verified",
      "by": "core.new-york.research.evidence-verifier",
      "note": "références résolues dans l’instantané",
-     "at": "2026-10-14T19:13:03.502Z"
+     "at": "2026-10-14T19:27:35.682Z"
     },
     {
      "status": "reviewed",
      "by": "core.new-york.safety.adversarial-reviewer",
      "note": "accepté par la revue adversariale",
-     "at": "2026-10-14T19:13:03.503Z"
+     "at": "2026-10-14T19:27:35.683Z"
     }
    ],
-   "at": "2026-10-14T19:13:03.502Z"
+   "at": "2026-10-14T19:27:35.682Z"
   },
   {
    "id": "finding:34e61d544e72",
@@ -19859,27 +19859,27 @@
    "status": "reviewed",
    "version": 1,
    "origin": "core.new-york.mobility.lead",
-   "mission": "civ:new-york:safety-works:east-village@2026-10-14",
+   "mission": "civ:new-york:safety-works:east-village@2026-10-14T1925",
    "history": [
     {
      "status": "candidate",
      "by": "core.new-york.mobility.lead",
-     "at": "2026-10-14T19:13:03.503Z"
+     "at": "2026-10-14T19:27:35.683Z"
     },
     {
      "status": "verified",
      "by": "core.new-york.research.evidence-verifier",
      "note": "références résolues dans l’instantané",
-     "at": "2026-10-14T19:13:03.503Z"
+     "at": "2026-10-14T19:27:35.683Z"
     },
     {
      "status": "reviewed",
      "by": "core.new-york.safety.adversarial-reviewer",
      "note": "accepté par la revue adversariale",
-     "at": "2026-10-14T19:13:03.504Z"
+     "at": "2026-10-14T19:27:35.684Z"
     }
    ],
-   "at": "2026-10-14T19:13:03.503Z"
+   "at": "2026-10-14T19:27:35.683Z"
   },
   {
    "id": "finding:b34fd008b647",
@@ -19898,27 +19898,27 @@
    "status": "reviewed",
    "version": 1,
    "origin": "core.new-york.mobility.lead",
-   "mission": "civ:new-york:safety-works:east-village@2026-10-14",
+   "mission": "civ:new-york:safety-works:east-village@2026-10-14T1925",
    "history": [
     {
      "status": "candidate",
      "by": "core.new-york.mobility.lead",
-     "at": "2026-10-14T19:13:03.505Z"
+     "at": "2026-10-14T19:27:35.684Z"
     },
     {
      "status": "verified",
      "by": "core.new-york.research.evidence-verifier",
      "note": "références résolues dans l’instantané",
-     "at": "2026-10-14T19:13:03.506Z"
+     "at": "2026-10-14T19:27:35.684Z"
     },
     {
      "status": "reviewed",
      "by": "core.new-york.safety.adversarial-reviewer",
      "note": "accepté par la revue adversariale",
-     "at": "2026-10-14T19:13:03.506Z"
+     "at": "2026-10-14T19:27:35.685Z"
     }
    ],
-   "at": "2026-10-14T19:13:03.505Z"
+   "at": "2026-10-14T19:27:35.684Z"
   },
   {
    "id": "finding:ec31aea160c8",
@@ -19937,27 +19937,27 @@
    "status": "reviewed",
    "version": 1,
    "origin": "core.new-york.mobility.lead",
-   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14T1925",
    "history": [
     {
      "status": "candidate",
      "by": "core.new-york.mobility.lead",
-     "at": "2026-10-14T19:13:03.547Z"
+     "at": "2026-10-14T19:27:35.714Z"
     },
     {
      "status": "verified",
      "by": "core.new-york.research.evidence-verifier",
      "note": "références résolues dans l’instantané",
-     "at": "2026-10-14T19:13:03.548Z"
+     "at": "2026-10-14T19:27:35.714Z"
     },
     {
      "status": "reviewed",
      "by": "core.new-york.safety.adversarial-reviewer",
      "note": "accepté par la revue adversariale",
-     "at": "2026-10-14T19:13:03.548Z"
+     "at": "2026-10-14T19:27:35.714Z"
     }
    ],
-   "at": "2026-10-14T19:13:03.547Z"
+   "at": "2026-10-14T19:27:35.714Z"
   },
   {
    "id": "finding:9ed02617edaa",
@@ -19976,27 +19976,27 @@
    "status": "reviewed",
    "version": 1,
    "origin": "core.new-york.mobility.lead",
-   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14",
+   "mission": "civ:new-york:safety-works:lower-east-side@2026-10-14T1925",
    "history": [
     {
      "status": "candidate",
      "by": "core.new-york.mobility.lead",
-     "at": "2026-10-14T19:13:03.548Z"
+     "at": "2026-10-14T19:27:35.714Z"
     },
     {
      "status": "verified",
      "by": "core.new-york.research.evidence-verifier",
      "note": "références résolues dans l’instantané",
-     "at": "2026-10-14T19:13:03.548Z"
+     "at": "2026-10-14T19:27:35.714Z"
     },
     {
      "status": "reviewed",
      "by": "core.new-york.safety.adversarial-reviewer",
      "note": "accepté par la revue adversariale",
-     "at": "2026-10-14T19:13:03.548Z"
+     "at": "2026-10-14T19:27:35.715Z"
     }
    ],
-   "at": "2026-10-14T19:13:03.548Z"
+   "at": "2026-10-14T19:27:35.714Z"
   },
   {
    "id": "finding:766a58efe804",
@@ -20008,7 +20008,7 @@
      "san-francisco:neighborhoods:Tenderloin",
      "san-francisco:crashes-agg:9733000",
      "new-york:neighborhoods:East Village",
-     "new-york:crashes-agg:pc-88ebe56861:EV"
+     "new-york:crashes-agg:pc-3d2d0da7cb:EV"
     ],
     "basis": null,
     "rule": null,
@@ -20017,33 +20017,33 @@
    "status": "reviewed",
    "version": 1,
    "origin": "core.global.research.methodology-reviewer",
-   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
    "history": [
     {
      "status": "candidate",
      "by": "core.global.research.methodology-reviewer",
-     "at": "2026-10-14T19:13:23.905Z"
+     "at": "2026-10-14T19:27:52.037Z"
     },
     {
      "status": "verified",
      "by": "core.san-francisco.research.evidence-verifier",
      "note": "références résolues dans les deux instantanés",
-     "at": "2026-10-14T19:13:23.905Z"
+     "at": "2026-10-14T19:27:52.037Z"
     },
     {
      "status": "reviewed",
      "by": "core.new-york.safety.adversarial-reviewer",
      "note": "revue adversariale (règles déterministes) après avis de comparabilité",
-     "at": "2026-10-14T19:13:23.906Z"
+     "at": "2026-10-14T19:27:52.038Z"
     }
    ],
-   "at": "2026-10-14T19:13:23.905Z"
+   "at": "2026-10-14T19:27:52.037Z"
   },
   {
-   "id": "finding:bde7633f9dad",
+   "id": "finding:9bc657d3800f",
    "kind": "finding",
    "workflow": "cross-city-road-safety",
-   "statement": "Juxtaposition descriptive (non comparable en niveau) : Tenderloin (San Francisco) 399 accidents avec blessé ou tué sur 14.45 km de réseau désigné, dont 8 mortel(s) ; East Village (New York) 475 collisions avec blessé ou tué sur 4.54 km de réseau désigné, dont 4 mortel(s) — 5 ans, définitions différentes.",
+   "statement": "Juxtaposition descriptive (non comparable en niveau) : Tenderloin (San Francisco) 399 accidents avec blessé ou tué sur 14.45 km de réseau désigné, dont 8 mortel(s) ; East Village (New York) 456 collisions avec blessé ou tué sur 4.54 km de réseau désigné, dont 2 mortel(s) — 5 ans, définitions différentes.",
    "body": {
     "evidence": [
      "san-francisco:neighborhoods:Tenderloin",
@@ -20053,11 +20053,11 @@
      "san-francisco:crashes-agg:7563000",
      "san-francisco:crashes-agg:5173000",
      "new-york:neighborhoods:East Village",
-     "new-york:crashes-agg:pc-88ebe56861:EV",
      "new-york:crashes-agg:pc-3d2d0da7cb:EV",
      "new-york:crashes-agg:pc-268c848b02:EV",
      "new-york:crashes-agg:pc-399eb17562:EV",
-     "new-york:crashes-agg:pc-ff6dbd5275:EV"
+     "new-york:crashes-agg:pc-ff6dbd5275:EV",
+     "new-york:crashes-agg:pc-88ebe56861:EV"
     ],
     "basis": null,
     "rule": null,
@@ -20066,27 +20066,27 @@
    "status": "reviewed",
    "version": 1,
    "origin": "core.global.director.road-safety",
-   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
    "history": [
     {
      "status": "candidate",
      "by": "core.global.director.road-safety",
-     "at": "2026-10-14T19:13:23.906Z"
+     "at": "2026-10-14T19:27:52.039Z"
     },
     {
      "status": "verified",
      "by": "core.san-francisco.research.evidence-verifier",
      "note": "références résolues dans les deux instantanés",
-     "at": "2026-10-14T19:13:23.907Z"
+     "at": "2026-10-14T19:27:52.039Z"
     },
     {
      "status": "reviewed",
      "by": "core.new-york.safety.adversarial-reviewer",
      "note": "revue adversariale (règles déterministes) après avis de comparabilité",
-     "at": "2026-10-14T19:13:23.907Z"
+     "at": "2026-10-14T19:27:52.039Z"
     }
    ],
-   "at": "2026-10-14T19:13:23.906Z"
+   "at": "2026-10-14T19:27:52.039Z"
   }
  ],
  "identities": [

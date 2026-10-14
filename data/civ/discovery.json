@@ -1,6 +1,6 @@
 {
  "version": "core-civ-discovery-v1",
- "recorded_at": "2026-10-14T19:20:08.063Z",
+ "recorded_at": "2026-10-14T19:28:01.229Z",
  "by": "scripts/civd.mjs (Node, local)",
  "note": "Signaux = hypothèses de tri issues de la comparaison d’instantanés ; ce ne sont pas des constats. L’instantané publié n’est jamais remplacé automatiquement.",
  "diffs": [
@@ -14,23 +14,12 @@
     "crashWindowChanged": false
    },
    "signals": 0
-  },
-  {
-   "city": "new-york",
-   "baseline": "2026-10-14T19:01:10.585Z",
-   "current": "2026-10-14T19:18:31.612Z",
-   "totals": {
-    "added": 0,
-    "ended": 0,
-    "crashWindowChanged": false
-   },
-   "signals": 0
   }
  ],
  "queue": {
   "byStatus": {
-   "awaiting-human": 8,
-   "queued": 2
+   "awaiting-human": 4,
+   "queued": 6
   },
   "byKind": {
    "investigate": 10
@@ -44,7 +33,7 @@
    "workflow": "ramps-works",
    "nhood": "East Village",
    "status": "awaiting-human",
-   "mission": "civ:new-york:ramps-works:east-village@2026-10-14"
+   "mission": "civ:new-york:ramps-works:east-village@2026-10-14T1925"
   },
   {
    "city": "san-francisco",
@@ -71,34 +60,34 @@
    "city": "new-york",
    "workflow": "ramps-works",
    "nhood": "Lower East Side",
-   "status": "awaiting-human",
-   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14"
+   "status": "queued",
+   "mission": null
   },
   {
    "city": "new-york",
    "workflow": "ramps-works",
    "nhood": "Chinatown-Two Bridges",
-   "status": "awaiting-human",
-   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14"
+   "status": "queued",
+   "mission": null
   },
   {
    "city": "san-francisco",
    "workflow": "flood-works",
    "nhood": "Mission",
-   "status": "awaiting-human",
-   "mission": "civ:flood-works:mission@2026-10-14"
-  },
-  {
-   "city": "new-york",
-   "workflow": "safety-works",
-   "nhood": "East Village",
-   "status": "awaiting-human",
-   "mission": "civ:new-york:safety-works:east-village@2026-10-14"
+   "status": "queued",
+   "mission": null
   },
   {
    "city": "san-francisco",
    "workflow": "flood-works",
    "nhood": "South of Market",
+   "status": "queued",
+   "mission": null
+  },
+  {
+   "city": "new-york",
+   "workflow": "safety-works",
+   "nhood": "East Village",
    "status": "queued",
    "mission": null
   },

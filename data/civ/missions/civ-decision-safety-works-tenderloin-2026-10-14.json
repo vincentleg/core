@@ -10,35 +10,35 @@
  "stages": [
   {
    "stage": "DISCOVERED",
-   "at": "2026-10-14T19:13:15.718Z"
+   "at": "2026-10-14T19:27:43.851Z"
   },
   {
    "stage": "TRIAGED",
-   "at": "2026-10-14T19:13:15.725Z"
+   "at": "2026-10-14T19:27:43.859Z"
   },
   {
    "stage": "ASSIGNED",
-   "at": "2026-10-14T19:13:15.727Z"
+   "at": "2026-10-14T19:27:43.862Z"
   },
   {
    "stage": "INVESTIGATING",
-   "at": "2026-10-14T19:13:15.749Z"
+   "at": "2026-10-14T19:27:43.886Z"
   },
   {
    "stage": "CROSS_DOMAIN_REVIEW",
-   "at": "2026-10-14T19:13:15.752Z"
+   "at": "2026-10-14T19:27:43.888Z"
   },
   {
    "stage": "EVIDENCE_VALIDATION",
-   "at": "2026-10-14T19:13:15.755Z"
+   "at": "2026-10-14T19:27:43.891Z"
   },
   {
    "stage": "PROPOSED_DECISION",
-   "at": "2026-10-14T19:13:15.757Z"
+   "at": "2026-10-14T19:27:43.894Z"
   },
   {
    "stage": "HUMAN_REVIEW",
-   "at": "2026-10-14T19:13:15.758Z"
+   "at": "2026-10-14T19:27:43.896Z"
   }
  ],
  "subtasks": [
@@ -56,7 +56,7 @@
    "depth": 1,
    "state": "succeeded",
    "attempts": 1,
-   "ms": 17,
+   "ms": 19,
    "error": null,
    "findings": 6,
    "site": {
@@ -228,7 +228,7 @@
    "depth": 2,
    "state": "succeeded",
    "attempts": 1,
-   "ms": 0,
+   "ms": 1,
    "error": null,
    "findings": 1,
    "site": {
@@ -245,7 +245,7 @@
   {
    "id": "M1",
    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
-   "at": "2026-10-14T19:13:15.725Z",
+   "at": "2026-10-14T19:27:43.858Z",
    "from": "core.global.coordinator",
    "to": "core.san-francisco.manager",
    "type": "assign",
@@ -258,7 +258,7 @@
   {
    "id": "M2",
    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
-   "at": "2026-10-14T19:13:15.725Z",
+   "at": "2026-10-14T19:27:43.858Z",
    "from": "core.san-francisco.manager",
    "to": "core.san-francisco.mobility.lead",
    "type": "assign",
@@ -271,7 +271,7 @@
   {
    "id": "M3",
    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
-   "at": "2026-10-14T19:13:15.727Z",
+   "at": "2026-10-14T19:27:43.861Z",
    "from": "core.san-francisco.mobility.lead",
    "to": "core.san-francisco.mobility.traffic",
    "type": "delegate",
@@ -282,7 +282,7 @@
   {
    "id": "M4",
    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
-   "at": "2026-10-14T19:13:15.727Z",
+   "at": "2026-10-14T19:27:43.861Z",
    "from": "core.san-francisco.mobility.lead",
    "to": "core.san-francisco.simulation.lead",
    "type": "request",
@@ -293,7 +293,7 @@
   {
    "id": "M5",
    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
-   "at": "2026-10-14T19:13:15.727Z",
+   "at": "2026-10-14T19:27:43.861Z",
    "from": "core.san-francisco.simulation.lead",
    "to": "core.san-francisco.simulation.scenario-evaluator",
    "type": "delegate",
@@ -304,7 +304,7 @@
   {
    "id": "M6",
    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
-   "at": "2026-10-14T19:13:15.747Z",
+   "at": "2026-10-14T19:27:43.883Z",
    "from": "core.san-francisco.mobility.traffic",
    "to": "core.san-francisco.mobility.lead",
    "type": "result",
@@ -336,7 +336,7 @@
   {
    "id": "M7",
    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
-   "at": "2026-10-14T19:13:15.747Z",
+   "at": "2026-10-14T19:27:43.884Z",
    "from": "core.san-francisco.mobility.traffic",
    "to": "core.san-francisco.civil.lead",
    "type": "request",
@@ -347,7 +347,7 @@
   {
    "id": "M8",
    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
-   "at": "2026-10-14T19:13:15.748Z",
+   "at": "2026-10-14T19:27:43.884Z",
    "from": "core.san-francisco.civil.lead",
    "to": "core.san-francisco.civil.works-coordination",
    "type": "delegate",
@@ -358,7 +358,7 @@
   {
    "id": "M9",
    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
-   "at": "2026-10-14T19:13:15.748Z",
+   "at": "2026-10-14T19:27:43.884Z",
    "from": "core.san-francisco.simulation.scenario-evaluator",
    "to": "core.san-francisco.simulation.lead",
    "type": "result",
@@ -390,7 +390,7 @@
   {
    "id": "M10",
    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
-   "at": "2026-10-14T19:13:15.748Z",
+   "at": "2026-10-14T19:27:43.885Z",
    "from": "core.san-francisco.civil.works-coordination",
    "to": "core.san-francisco.civil.lead",
    "type": "result",
@@ -422,7 +422,7 @@
   {
    "id": "M11",
    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
-   "at": "2026-10-14T19:13:15.749Z",
+   "at": "2026-10-14T19:27:43.885Z",
    "from": "core.san-francisco.research.lead",
    "to": "core.san-francisco.research.evidence-verifier",
    "type": "delegate",
@@ -433,7 +433,7 @@
   {
    "id": "M12",
    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
-   "at": "2026-10-14T19:13:15.749Z",
+   "at": "2026-10-14T19:27:43.885Z",
    "from": "core.san-francisco.research.evidence-verifier",
    "to": "core.san-francisco.mobility.lead",
    "type": "challenge",
@@ -446,7 +446,7 @@
   {
    "id": "M13",
    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
-   "at": "2026-10-14T19:13:15.751Z",
+   "at": "2026-10-14T19:27:43.888Z",
    "from": "core.san-francisco.mobility.lead",
    "to": "core.san-francisco.safety.adversarial-reviewer",
    "type": "review-request",
@@ -478,7 +478,7 @@
   {
    "id": "M14",
    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
-   "at": "2026-10-14T19:13:15.754Z",
+   "at": "2026-10-14T19:27:43.891Z",
    "from": "core.san-francisco.safety.adversarial-reviewer",
    "to": "core.san-francisco.mobility.lead",
    "type": "review",
@@ -489,7 +489,7 @@
   {
    "id": "M15",
    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
-   "at": "2026-10-14T19:13:15.756Z",
+   "at": "2026-10-14T19:27:43.893Z",
    "from": "core.san-francisco.governance.gateway",
    "to": "human",
    "type": "decision",
@@ -3195,7 +3195,7 @@
   ]
  },
  "metrics": {
-  "wallMs": 48,
+  "wallMs": 55,
   "subtasks": 3,
   "failed": 0,
   "toolCalls": 4,
@@ -3203,7 +3203,7 @@
   "modelCalls": 0
  },
  "recorded": {
-  "at": "2026-10-14T19:13:34.889Z",
+  "at": "2026-10-14T19:33:26.806Z",
   "by": "scripts/civ.mjs (Node, local)",
   "snapshot": "2026-10-14T16:09:41.363Z"
  }

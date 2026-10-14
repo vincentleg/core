@@ -1,7 +1,7 @@
 {
  "version": "core-civ-snapshot-v1",
  "city": "new-york",
- "generated_at": "2026-10-14T19:01:10.585Z",
+ "generated_at": "2026-10-14T19:25:58.770Z",
  "study_area": {
   "neighborhoods": [
    "Chinatown-Two Bridges",
@@ -24,7 +24,7 @@
    "provider": "NYC Department of City Planning",
    "page": "https://data.cityofnewyork.us/d/9nt8-h7nd",
    "request": "https://data.cityofnewyork.us/resource/9nt8-h7nd.json?%24select=ntaname%2C+the_geom&%24where=ntaname+in+%28%27Chinatown-Two+Bridges%27%2C%27Lower+East+Side%27%2C%27East+Village%27%29",
-   "retrieved_at": "2026-10-14T19:01:07.719Z",
+   "retrieved_at": "2026-10-14T19:25:50.042Z",
    "raw_rows": 3,
    "raw_sha256": "71931155e38913b83ca14a754c8fecd8fc3815738dcabc4c1f277004fef99898",
    "sha256": "fcfe992429408b25f07285b64c65fe6343f37cc2e4e2400ba4daaff6ddad3a25",
@@ -42,10 +42,10 @@
    "provider": "NYC Department of Transportation (Vision Zero View)",
    "page": "https://data.cityofnewyork.us/d/36nr-7fbp",
    "request": "https://data.cityofnewyork.us/resource/36nr-7fbp.json?%24select=the_geom&%24limit=5000",
-   "retrieved_at": "2026-10-14T19:01:08.619Z",
+   "retrieved_at": "2026-10-14T19:25:50.953Z",
    "raw_rows": 8,
    "raw_sha256": "f4b56133c58b023e8ef10472068a4a14decf79857459883bbcf42f990459cdcb",
-   "sha256": "14f60ccd974422d51a7784462f977a073fa89d2a516be70d3fd182aa1f0efeb0",
+   "sha256": "6b23137942fdb3dae7f15ab3167fee5b08061402bbd38dc7a3db0231434944ef",
    "license": {
     "name": "NYC Open Data Law (Local Law 11 of 2012, as amended by Local Law 251 of 2017): no restrictions on use; attribution of source, version and modifications",
     "url": "https://opendata.cityofnewyork.us/overview/"
@@ -60,10 +60,10 @@
    "provider": "NYC Police Department (NYPD)",
    "page": "https://data.cityofnewyork.us/d/h9gi-nx95",
    "request": "https://data.cityofnewyork.us/resource/h9gi-nx95.json?%24select=latitude%2C+longitude%2C+on_street_name%2C+number_of_persons_injured%2C+number_of_persons_killed%2C+number_of_pedestrians_injured%2C+number_of_pedestrians_killed&%24where=crash_date+%3E+%272021-06-11%27+AND+crash_date+%3C%3D+%272026-06-11T23%3A59%3A59%27+AND+latitude+between+40.70554+and+40.73443+AND+longitude+between+-74.00157+and+-73.96403+AND+%28number_of_persons_injured+%3E+0+OR+number_of_persons_killed+%3E+0%29&%24limit=50000&%24offset=0&%24order=%3Aid",
-   "retrieved_at": "2026-10-14T19:01:09.571Z",
+   "retrieved_at": "2026-10-14T19:25:53.013Z",
    "raw_rows": 4337,
    "raw_sha256": "a60722591b81ea266a878bda3743823aa560b05b0a1e340498d63dff7e23acd8",
-   "sha256": "1c667ac1d3330ab5e125d5c38d989838a60e5738f2594d6b3fb935750863b641",
+   "sha256": "de9fa5970a20d408523d937a5f02236521db89bbe6521f9d59e8916ad047820d",
    "license": {
     "name": "NYC Open Data Law (Local Law 11 of 2012, as amended by Local Law 251 of 2017): no restrictions on use; attribution of source, version and modifications",
     "url": "https://opendata.cityofnewyork.us/overview/"
@@ -78,7 +78,7 @@
    "provider": "NYC Department of Transportation",
    "page": "https://data.cityofnewyork.us/d/i6b5-j7bu",
    "request": "https://data.cityofnewyork.us/resource/i6b5-j7bu.json?%24select=the_geom%2C+segmentid%2C+onstreetname%2C+fromstreetname%2C+tostreetname%2C+work_start_date%2C+work_end_date%2C+uniqueid%2C+purpose&%24where=borough_code+%3D+%27M%27+AND+work_end_date+%3E%3D+%272026-01-01%27+AND+within_box%28the_geom%2C+40.73443%2C+-74.00157%2C+40.70554%2C+-73.96403%29&%24limit=20000",
-   "retrieved_at": "2026-10-14T19:01:09.822Z",
+   "retrieved_at": "2026-10-14T19:25:53.249Z",
    "raw_rows": 116,
    "raw_sha256": "e7e2680cc4474f3fa3485528df6fd35b01b7ae3843413deb1d4fdfd0730306ac",
    "sha256": "516ce5fcefba316237184ab3740877c88dc08ad4001c6bf99c13547614c2429d",
@@ -96,7 +96,7 @@
    "provider": "NYC Department of Transportation",
    "page": "https://data.cityofnewyork.us/d/ufzp-rrqu",
    "request": "https://data.cityofnewyork.us/resource/ufzp-rrqu.json?%24select=the_geom%2C+rampid%2C+cornerid%2C+stname1%2C+stname2%2C+geocyclora%2C+ramp_running_slope_total%2C+ramp_cross_slope%2C+lnd_width%2C+lnd_length%2C+lnd_cross_slope%2C+ponding%2C+obstacles_ramp%2C+obstacles_landing%2C+dws_conditions&%24where=within_box%28the_geom%2C+40.73443%2C+-74.00157%2C+40.70554%2C+-73.96403%29&%24limit=20000",
-   "retrieved_at": "2026-10-14T19:01:10.573Z",
+   "retrieved_at": "2026-10-14T19:25:58.757Z",
    "raw_rows": 3713,
    "raw_sha256": "34347b9c308116a3676c9e0885537a16464d8e732a51619d2cd5b94c85b0789d",
    "sha256": "cdb1102125290021c47ca273e5bed4551a6ee10db207e8d21fe9d0ce3114a364",
