@@ -234,3 +234,31 @@ The supervisor uses a persistent hash-chained queue, has no network, shell or mo
 ## D058 — Fonts self-hosted; MapLibre stays on CDN with SRI pending the founder's decision
 
 Self-hosting the fonts removes Google requests (privacy). Vendoring MapLibre would contradict the repository rule against committing dependencies, so it is left to the founder.
+
+## D059 — Functional hierarchy for missions
+
+Missions follow a hierarchy: the CORE executive sets priority, the city coordinator assigns ownership, and a department lead plans, delegates and consolidates the work. Cross-department work goes through the other department's lead. A data verifier challenges sources and an adversarial reviewer rejects unsupported claims. The gateway proposes a decision; only a human decides.
+
+## D060 — Local SQLite memory in four layers
+
+Memory has four layers: identity, knowledge, episodes and institutional. Promotion requires review by an agent other than the author. World findings are approved only by a human. Events are hash-chained. The database stays local (`.core-local/`); only an export is published.
+
+## D061 — Learning from deterministic records only
+
+Leads learn procedures from recorded failures. Model interpreters receive approved lessons that quote validator rejections. Learning never changes permissions, policies, code or model weights.
+
+## D062 — Movement needs a reason
+
+Agents stay at their posts unless a recorded replay or live local work gives them a reason to move. Routes run on the OSM pedestrian network after removing edges that cross building footprints. Occlusion is computed from building prisms.
+
+## D063 — MapLibre vendored as a single verified bundle
+
+MapLibre is now vendored, replacing the CDN decision of D058 at the founder's Phase 9 request. A single pinned browser bundle carries SRI and its licence in `assets/vendor/`. Dependency directories remain forbidden.
+
+## D064 — Hourly retry with a freshness gate
+
+GitHub cron is best-effort, so an hourly retry was added. Scheduled runs only collect when the data is at least 150 minutes old. Commit messages state the real trigger.
+
+## D065 — Local control centre
+
+The control centre binds to the loopback interface only and uses a token. It refuses foreign Host and Origin headers and accepts only allowlisted actions. Human decisions require `human:<name>`. The public `control.html` page is inert.

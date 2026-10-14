@@ -1,6 +1,6 @@
 # Phase 9 — Autonomous Intelligence & Living Civilization: report
 
-Status: **CHECKPOINT (not released) — 2026-10-14.** Implemented and tested locally; not yet deployed, see docs/PHASE_9_CHECKPOINT.md. Baseline `fe8b0fc` (Phase 8). Phase 10 has **not** started.
+Status: **COMPLETE on 2026-10-14**, with the limitations in §K. Resumed from docs/PHASE_9_CHECKPOINT.md. Baseline `fe8b0fc` (Phase 8). Phase 10 has **not** started.
 
 Architecture and deployment: [PHASE_9_ARCHITECTURE.md](PHASE_9_ARCHITECTURE.md).
 
