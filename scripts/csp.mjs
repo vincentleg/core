@@ -12,8 +12,8 @@ const hashes = inline.map(s => `'sha256-${crypto.createHash('sha256').update(s, 
 const TILES = ['https://tiles.openfreemap.org', 'https://s3.amazonaws.com', 'https://gibs.earthdata.nasa.gov'];
 const policy = [
   "default-src 'self'",
-  `script-src 'self' https://unpkg.com ${hashes.join(' ')}`,
-  "style-src 'self' 'unsafe-inline' https://unpkg.com",
+  `script-src 'self' ${hashes.join(' ')}`,
+  "style-src 'self' 'unsafe-inline'",
   "font-src 'self'",
   `img-src 'self' data: blob: ${TILES.join(' ')}`,
   `connect-src 'self' ${TILES.join(' ')} https://data.sf.gov https://earthquake.usgs.gov https://api.weather.gov https://api.github.com http://127.0.0.1:11434 http://localhost:11434 http://127.0.0.1:8080`,

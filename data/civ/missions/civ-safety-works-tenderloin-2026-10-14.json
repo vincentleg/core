@@ -1,0 +1,3138 @@
+{
+ "id": "civ:safety-works:tenderloin@2026-10-14",
+ "version": "core-civ-mission-v1",
+ "workflow": "safety-works",
+ "title": "Sécurité routière × chantiers",
+ "nhood": "Tenderloin",
+ "question": "Sur le réseau à forte accidentalité (HIN 2024) de Tenderloin, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+ "state": "HUMAN_REVIEW",
+ "stages": [
+  {
+   "stage": "DISCOVERED",
+   "at": "2026-10-14T16:39:52.065Z"
+  },
+  {
+   "stage": "TRIAGED",
+   "at": "2026-10-14T16:39:52.067Z"
+  },
+  {
+   "stage": "ASSIGNED",
+   "at": "2026-10-14T16:39:52.070Z"
+  },
+  {
+   "stage": "INVESTIGATING",
+   "at": "2026-10-14T16:39:52.096Z"
+  },
+  {
+   "stage": "CROSS_DOMAIN_REVIEW",
+   "at": "2026-10-14T16:39:52.100Z"
+  },
+  {
+   "stage": "EVIDENCE_VALIDATION",
+   "at": "2026-10-14T16:39:52.102Z"
+  },
+  {
+   "stage": "PROPOSED_DECISION",
+   "at": "2026-10-14T16:40:02.302Z"
+  },
+  {
+   "stage": "HUMAN_REVIEW",
+   "at": "2026-10-14T16:40:02.304Z"
+  }
+ ],
+ "subtasks": [
+  {
+   "id": "S1",
+   "key": "safety.crash-profile|{\"nhood\":\"Tenderloin\"}",
+   "tool": "safety.crash-profile",
+   "target": {
+    "nhood": "Tenderloin"
+   },
+   "agent": "core.san-francisco.mobility.traffic",
+   "code": "CORE-TRF-0057",
+   "requester": "core.san-francisco.mobility.lead",
+   "via": null,
+   "depth": 1,
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 15,
+   "error": null,
+   "findings": 6,
+   "site": {
+    "coord": [
+     -122.417901411,
+     37.785167215
+    ],
+    "label": "OFARRELL ST (CNN 9733000)",
+    "kind": "tronçon HIN cité"
+   }
+  },
+  {
+   "id": "S2",
+   "key": "works.windows|{\"segment\":null,\"pending\":\"top-segment\"}",
+   "tool": "works.windows",
+   "target": {
+    "segment": "9733000"
+   },
+   "agent": "core.san-francisco.civil.works-coordination",
+   "code": "CORE-CIV-0031",
+   "requester": "core.san-francisco.mobility.lead",
+   "via": "core.san-francisco.civil.lead",
+   "depth": 1,
+   "state": "failed",
+   "attempts": 1,
+   "ms": 0,
+   "error": "hors périmètre : l’outil works.windows ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9733000)",
+   "findings": 0
+  },
+  {
+   "id": "S3",
+   "key": "works.telecom|{\"segment\":null,\"pending\":\"top-segment\"}",
+   "tool": "works.telecom",
+   "target": {
+    "segment": "9733000"
+   },
+   "agent": "core.san-francisco.telecom.telecom-works",
+   "code": "CORE-TEL-0032",
+   "requester": "core.san-francisco.mobility.lead",
+   "via": "core.san-francisco.telecom.lead",
+   "depth": 1,
+   "state": "failed",
+   "attempts": 1,
+   "ms": 0,
+   "error": "hors périmètre : l’outil works.telecom ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9733000)",
+   "findings": 0
+  },
+  {
+   "id": "S4",
+   "key": "public-space.sidewalks|{\"segment\":null,\"pending\":\"top-segment\"}",
+   "tool": "public-space.sidewalks",
+   "target": {
+    "segment": "9733000"
+   },
+   "agent": "core.san-francisco.public-space.sidewalks",
+   "code": "CORE-PUB-0036",
+   "requester": "core.san-francisco.mobility.lead",
+   "via": "core.san-francisco.public-space.lead",
+   "depth": 1,
+   "state": "failed",
+   "attempts": 1,
+   "ms": 0,
+   "error": "hors périmètre : l’outil public-space.sidewalks ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9733000)",
+   "findings": 0
+  },
+  {
+   "id": "S5",
+   "key": "flood.exposure|{\"nhood\":\"Tenderloin\"}",
+   "tool": "flood.exposure",
+   "target": {
+    "nhood": "Tenderloin"
+   },
+   "agent": "core.san-francisco.water.water-network",
+   "code": "CORE-WAT-0055",
+   "requester": "core.san-francisco.mobility.lead",
+   "via": "core.san-francisco.water.lead",
+   "depth": 1,
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 16,
+   "error": null,
+   "findings": 2,
+   "site": null
+  },
+  {
+   "id": "S6",
+   "key": "works.area-windows|{\"segments\":[\"9733000\",\"6117000\",\"12718000\",\"7563000\",\"5173000\",\"12717000\",\"5061001\",\"5063000\",\"7117000\",\"6553000\",\"8239000\",\"7114000\",\"6262000\",\"6116000\",\"7116000\",\"12425000\",\"10558000\",\"8125000\",\"6813000\",\"12427000\",\"10562000\",\"5439000\",\"8890000\",\"10552000\",\"9729000\",\"6260000\",\"5176000\",\"8800000\",\"5171000\",\"5058000\",\"10557000\",\"7571000\",\"9732000\",\"5059000\",\"5065000\",\"5174000\",\"5062000\",\"12719000\",\"9734000\",\"12722000\",\"5064000\",\"5177000\",\"5178000\",\"6114000\",\"7564000\",\"7566000\",\"5061002\",\"7115000\",\"12716000\",\"10554000\",\"9728000\",\"6112000\",\"6115000\",\"8121000\",\"6552000\",\"6554000\",\"8891000\",\"8238000\",\"8242000\",\"7565000\",\"6261000\",\"9730000\",\"9726000\",\"12429000\",\"5172000\",\"6110000\",\"10555000\",\"8892000\",\"6263000\",\"8244000\",\"8120000\",\"7112000\",\"12428000\",\"8889000\",\"8240000\",\"8241000\",\"6259000\",\"5060000\",\"8801000\",\"5170000\",\"6111000\",\"12720000\",\"9735000\",\"8893000\",\"8894000\",\"8126000\",\"8128000\",\"7118000\",\"12432000\",\"10637000\",\"8243000\",\"7120000\",\"8130000\",\"8132000\",\"8131000\",\"8133000\",\"8119000\",\"8888000\",\"7113000\",\"5175000\",\"8799000\",\"8802000\",\"8803000\",\"12721000\",\"10550000\",\"10551000\",\"10553000\",\"10556000\",\"8123000\",\"8124000\",\"6264000\",\"6265000\",\"10559000\",\"12430000\",\"9727000\",\"7569000\",\"7570000\",\"6113000\",\"9731000\"]}",
+   "tool": "works.area-windows",
+   "target": {
+    "segments": [
+     "9733000",
+     "6117000",
+     "12718000",
+     "7563000",
+     "5173000",
+     "12717000",
+     "5061001",
+     "5063000",
+     "7117000",
+     "6553000",
+     "8239000",
+     "7114000",
+     "6262000",
+     "6116000",
+     "7116000",
+     "12425000",
+     "10558000",
+     "8125000",
+     "6813000",
+     "12427000",
+     "10562000",
+     "5439000",
+     "8890000",
+     "10552000",
+     "9729000",
+     "6260000",
+     "5176000",
+     "8800000",
+     "5171000",
+     "5058000",
+     "10557000",
+     "7571000",
+     "9732000",
+     "5059000",
+     "5065000",
+     "5174000",
+     "5062000",
+     "12719000",
+     "9734000",
+     "12722000",
+     "5064000",
+     "5177000",
+     "5178000",
+     "6114000",
+     "7564000",
+     "7566000",
+     "5061002",
+     "7115000",
+     "12716000",
+     "10554000",
+     "9728000",
+     "6112000",
+     "6115000",
+     "8121000",
+     "6552000",
+     "6554000",
+     "8891000",
+     "8238000",
+     "8242000",
+     "7565000",
+     "6261000",
+     "9730000",
+     "9726000",
+     "12429000",
+     "5172000",
+     "6110000",
+     "10555000",
+     "8892000",
+     "6263000",
+     "8244000",
+     "8120000",
+     "7112000",
+     "12428000",
+     "8889000",
+     "8240000",
+     "8241000",
+     "6259000",
+     "5060000",
+     "8801000",
+     "5170000",
+     "6111000",
+     "12720000",
+     "9735000",
+     "8893000",
+     "8894000",
+     "8126000",
+     "8128000",
+     "7118000",
+     "12432000",
+     "10637000",
+     "8243000",
+     "7120000",
+     "8130000",
+     "8132000",
+     "8131000",
+     "8133000",
+     "8119000",
+     "8888000",
+     "7113000",
+     "5175000",
+     "8799000",
+     "8802000",
+     "8803000",
+     "12721000",
+     "10550000",
+     "10551000",
+     "10553000",
+     "10556000",
+     "8123000",
+     "8124000",
+     "6264000",
+     "6265000",
+     "10559000",
+     "12430000",
+     "9727000",
+     "7569000",
+     "7570000",
+     "6113000",
+     "9731000"
+    ]
+   },
+   "agent": "core.san-francisco.civil.works-coordination",
+   "code": "CORE-CIV-0031",
+   "requester": "core.san-francisco.mobility.traffic",
+   "via": "core.san-francisco.civil.lead",
+   "depth": 2,
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 2,
+   "error": null,
+   "findings": 1,
+   "site": {
+    "coord": [
+     -122.417901411,
+     37.785167215
+    ],
+    "label": "OFARRELL ST (CNN 9733000)",
+    "kind": "tronçon HIN cité"
+   }
+  }
+ ],
+ "messages": [
+  {
+   "id": "M1",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.067Z",
+   "from": "core.global.coordinator",
+   "to": "core.san-francisco.manager",
+   "type": "assign",
+   "purpose": "Problème découvert (Sécurité routière × chantiers, Tenderloin), priorité 152",
+   "evidence": [
+    "neighborhoods:Tenderloin"
+   ],
+   "outcome": "transmis à la coordination"
+  },
+  {
+   "id": "M2",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.067Z",
+   "from": "core.san-francisco.manager",
+   "to": "core.san-francisco.mobility.lead",
+   "type": "assign",
+   "purpose": "Responsabilité de la mission confiée à CORE-TRF-0010 (Sécurité routière × chantiers)",
+   "evidence": [
+    "neighborhoods:Tenderloin"
+   ],
+   "outcome": "accepté"
+  },
+  {
+   "id": "M3",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.068Z",
+   "from": "core.san-francisco.mobility.lead",
+   "to": "core.san-francisco.mobility.traffic",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S1 : safety.crash-profile",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M4",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.068Z",
+   "from": "core.san-francisco.mobility.lead",
+   "to": "core.san-francisco.civil.lead",
+   "type": "request",
+   "purpose": "Demande d’appui (works.windows) pour Tenderloin",
+   "evidence": [],
+   "outcome": "accepté par la direction"
+  },
+  {
+   "id": "M5",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.069Z",
+   "from": "core.san-francisco.civil.lead",
+   "to": "core.san-francisco.civil.works-coordination",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S2 : works.windows",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M6",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.069Z",
+   "from": "core.san-francisco.mobility.lead",
+   "to": "core.san-francisco.telecom.lead",
+   "type": "request",
+   "purpose": "Demande d’appui (works.telecom) pour Tenderloin",
+   "evidence": [],
+   "outcome": "accepté par la direction"
+  },
+  {
+   "id": "M7",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.069Z",
+   "from": "core.san-francisco.telecom.lead",
+   "to": "core.san-francisco.telecom.telecom-works",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S3 : works.telecom",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M8",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.069Z",
+   "from": "core.san-francisco.mobility.lead",
+   "to": "core.san-francisco.public-space.lead",
+   "type": "request",
+   "purpose": "Demande d’appui (public-space.sidewalks) pour Tenderloin",
+   "evidence": [],
+   "outcome": "accepté par la direction"
+  },
+  {
+   "id": "M9",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.069Z",
+   "from": "core.san-francisco.public-space.lead",
+   "to": "core.san-francisco.public-space.sidewalks",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S4 : public-space.sidewalks",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M10",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.069Z",
+   "from": "core.san-francisco.mobility.lead",
+   "to": "core.san-francisco.water.lead",
+   "type": "request",
+   "purpose": "Demande d’appui (flood.exposure) pour Tenderloin",
+   "evidence": [],
+   "outcome": "accepté par la direction"
+  },
+  {
+   "id": "M11",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.069Z",
+   "from": "core.san-francisco.water.lead",
+   "to": "core.san-francisco.water.water-network",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S5 : flood.exposure",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M12",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.086Z",
+   "from": "core.san-francisco.mobility.traffic",
+   "to": "core.san-francisco.mobility.lead",
+   "type": "result",
+   "purpose": "Résultat S1 (safety.crash-profile)",
+   "evidence": [
+    "neighborhoods:Tenderloin",
+    "crashes-agg:9733000",
+    "crashes-agg:6117000",
+    "crashes-agg:12718000",
+    "crashes-agg:7563000",
+    "crashes-agg:5173000",
+    "crashes-agg:12717000",
+    "crashes-agg:5061001",
+    "crashes-agg:5063000",
+    "crashes-agg:7117000",
+    "crashes-agg:6553000",
+    "crashes-agg:8239000",
+    "crashes-agg:7114000",
+    "crashes-agg:6262000",
+    "crashes-agg:6116000",
+    "crashes-agg:7116000",
+    "crashes-agg:12425000",
+    "crashes-agg:10558000",
+    "crashes-agg:8125000",
+    "crashes-agg:6813000"
+   ],
+   "outcome": "6 constat(s)"
+  },
+  {
+   "id": "M13",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.086Z",
+   "from": "core.san-francisco.mobility.traffic",
+   "to": "core.san-francisco.civil.lead",
+   "type": "request",
+   "purpose": "Demande d’appui (works.area-windows) pour Tenderloin",
+   "evidence": [],
+   "outcome": "accepté par la direction"
+  },
+  {
+   "id": "M14",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.087Z",
+   "from": "core.san-francisco.civil.lead",
+   "to": "core.san-francisco.civil.works-coordination",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S6 : works.area-windows",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M15",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.087Z",
+   "from": "core.san-francisco.water.water-network",
+   "to": "core.san-francisco.water.lead",
+   "type": "result",
+   "purpose": "Résultat S5 (flood.exposure)",
+   "evidence": [
+    "flood-zone:2022",
+    "neighborhoods:Tenderloin",
+    "flood-zone:2022"
+   ],
+   "outcome": "2 constat(s)"
+  },
+  {
+   "id": "M16",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.089Z",
+   "from": "core.san-francisco.civil.works-coordination",
+   "to": "core.san-francisco.civil.lead",
+   "type": "result",
+   "purpose": "Résultat S6 (works.area-windows)",
+   "evidence": [
+    "study-permits:26EXC-01206@9733000",
+    "study-permits:26EXC-01206@6117000",
+    "study-permits:26EXC-04492@12718000",
+    "study-permits:26EXC-04705@12718000",
+    "study-permits:26EXC-01206@5173000",
+    "study-permits:26EXC-04374@5173000",
+    "study-permits:26EXC-02625@5061001",
+    "study-permits:26EXC-01206@5063000",
+    "study-permits:26EXC-01206@7117000",
+    "study-permits:26EXC-01641@8239000",
+    "study-permits:26EXC-01206@7114000",
+    "study-permits:26EXC-01206@6262000",
+    "study-permits:26EXC-01206@6116000",
+    "study-permits:26EXC-01206@7116000",
+    "study-permits:26EXC-01206@10558000",
+    "study-permits:26EXC-01206@8890000",
+    "study-permits:26EXC-04816@8890000",
+    "study-permits:26EXC-05072@10552000",
+    "study-permits:26EXC-01206@9729000",
+    "study-permits:26EXC-01206@8800000"
+   ],
+   "outcome": "1 constat(s)"
+  },
+  {
+   "id": "M17",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.089Z",
+   "from": "core.san-francisco.civil.works-coordination",
+   "to": "core.san-francisco.civil.lead",
+   "type": "error",
+   "purpose": "Échec S2 (works.windows)",
+   "evidence": [],
+   "outcome": "hors périmètre : l’outil works.windows ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9733000)"
+  },
+  {
+   "id": "M18",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.090Z",
+   "from": "core.san-francisco.telecom.telecom-works",
+   "to": "core.san-francisco.telecom.lead",
+   "type": "error",
+   "purpose": "Échec S3 (works.telecom)",
+   "evidence": [],
+   "outcome": "hors périmètre : l’outil works.telecom ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9733000)"
+  },
+  {
+   "id": "M19",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.091Z",
+   "from": "core.san-francisco.public-space.sidewalks",
+   "to": "core.san-francisco.public-space.lead",
+   "type": "error",
+   "purpose": "Échec S4 (public-space.sidewalks)",
+   "evidence": [],
+   "outcome": "hors périmètre : l’outil public-space.sidewalks ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9733000)"
+  },
+  {
+   "id": "M20",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.092Z",
+   "from": "core.san-francisco.research.lead",
+   "to": "core.san-francisco.research.evidence-verifier",
+   "type": "delegate",
+   "purpose": "Vérification de fraîcheur des sources",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M21",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.092Z",
+   "from": "core.san-francisco.research.evidence-verifier",
+   "to": "core.san-francisco.mobility.lead",
+   "type": "challenge",
+   "purpose": "Accidents jusqu’au 2026-08-31 seulement (44 j avant l’instantané) : les accidents récents ne sont pas inclus.",
+   "evidence": [
+    "dataset:crashes-agg"
+   ],
+   "outcome": "confiance abaissée"
+  },
+  {
+   "id": "M22",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.099Z",
+   "from": "core.san-francisco.mobility.lead",
+   "to": "core.san-francisco.safety.adversarial-reviewer",
+   "type": "coverage-gap",
+   "purpose": "Lacune de couverture signalée : works.windows (CORE-CIV-0031)",
+   "evidence": [],
+   "outcome": "hors périmètre : l’outil works.windows ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9733000)"
+  },
+  {
+   "id": "M23",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.099Z",
+   "from": "core.san-francisco.mobility.lead",
+   "to": "core.san-francisco.safety.adversarial-reviewer",
+   "type": "coverage-gap",
+   "purpose": "Lacune de couverture signalée : works.telecom (CORE-TEL-0032)",
+   "evidence": [],
+   "outcome": "hors périmètre : l’outil works.telecom ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9733000)"
+  },
+  {
+   "id": "M24",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.099Z",
+   "from": "core.san-francisco.mobility.lead",
+   "to": "core.san-francisco.safety.adversarial-reviewer",
+   "type": "coverage-gap",
+   "purpose": "Lacune de couverture signalée : public-space.sidewalks (CORE-PUB-0036)",
+   "evidence": [],
+   "outcome": "hors périmètre : l’outil public-space.sidewalks ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9733000)"
+  },
+  {
+   "id": "M25",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.099Z",
+   "from": "core.san-francisco.mobility.lead",
+   "to": "core.san-francisco.safety.adversarial-reviewer",
+   "type": "review-request",
+   "purpose": "Revue adversariale de 15 constat(s) et de la recommandation",
+   "evidence": [
+    "neighborhoods:Tenderloin",
+    "crashes-agg:9733000",
+    "crashes-agg:6117000",
+    "crashes-agg:12718000",
+    "crashes-agg:7563000",
+    "crashes-agg:5173000",
+    "crashes-agg:12717000",
+    "crashes-agg:5061001",
+    "crashes-agg:5063000",
+    "crashes-agg:7117000",
+    "crashes-agg:6553000",
+    "crashes-agg:8239000",
+    "crashes-agg:7114000",
+    "crashes-agg:6262000",
+    "crashes-agg:6116000",
+    "crashes-agg:7116000",
+    "crashes-agg:12425000",
+    "crashes-agg:10558000",
+    "crashes-agg:8125000",
+    "crashes-agg:6813000"
+   ],
+   "outcome": "transmis"
+  },
+  {
+   "id": "M26",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.102Z",
+   "from": "core.san-francisco.safety.adversarial-reviewer",
+   "to": "core.san-francisco.mobility.lead",
+   "type": "review",
+   "purpose": "Revue : 15 accepté(s), 0 rejeté(s) ; recommandation recevable",
+   "evidence": [],
+   "outcome": "recevable"
+  },
+  {
+   "id": "M27",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:39:52.103Z",
+   "from": "core.san-francisco.mobility.lead",
+   "to": "core.san-francisco.public-space.accessibility-analyst",
+   "type": "delegate",
+   "purpose": "Interprétation bornée des constats validés (modèle local)",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M28",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:40:02.300Z",
+   "from": "core.san-francisco.public-space.accessibility-analyst",
+   "to": "core.san-francisco.mobility.lead",
+   "type": "result",
+   "purpose": "Interprétation : 1 énoncé(s) validé(s), 1 rejeté(s)",
+   "evidence": [],
+   "outcome": "impact: effet non démontré présenté comme établi"
+  },
+  {
+   "id": "M29",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "at": "2026-10-14T16:40:02.301Z",
+   "from": "core.san-francisco.governance.gateway",
+   "to": "human",
+   "type": "decision",
+   "purpose": "Proposition : ÉLIGIBLE À LA REVUE HUMAINE",
+   "evidence": [],
+   "outcome": "Accidents jusqu’au 2026-08-31 seulement (44 j avant l’instantané) : les accidents récents ne sont pas inclus."
+  }
+ ],
+ "results": {
+  "safety.crash-profile": {
+   "findings": [
+    {
+     "topic": "safety",
+     "claim": "Tenderloin : 146 tronçon(s) du réseau HIN 2024 ; 119 avec au moins un accident avec blessé déclaré sur 5 ans (399 accidents, dont 41 graves ou mortels).",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "neighborhoods",
+       "ref": "neighborhoods:Tenderloin"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:9733000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:6117000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:12718000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:7563000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:5173000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:12717000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:5061001"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:5063000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:7117000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:6553000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:8239000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:7114000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:6262000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:6116000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:7116000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:12425000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:10558000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:8125000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:6813000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:12427000"
+      }
+     ],
+     "values": {
+      "segments": 146,
+      "withCrashes": 119,
+      "crashes": 399,
+      "severeFatal": 41
+     }
+    },
+    {
+     "topic": "safety",
+     "claim": "OFARRELL ST (CNN 9733000) : 11 accident(s) avec blessé, 3 grave(s)/mortel(s), 3 impliquant un piéton, 15 par km et par an.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:9733000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:9733000"
+      }
+     ],
+     "values": {
+      "cnn": "9733000",
+      "street": "OFARRELL ST",
+      "length_km": 0.146,
+      "crashes": 11,
+      "severe_fatal": 3,
+      "pedestrian": 3,
+      "per_km_year": 15
+     }
+    },
+    {
+     "topic": "safety",
+     "claim": "GEARY ST (CNN 6117000) : 9 accident(s) avec blessé, 2 grave(s)/mortel(s), 3 impliquant un piéton, 12.2 par km et par an.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:6117000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:6117000"
+      }
+     ],
+     "values": {
+      "cnn": "6117000",
+      "street": "GEARY ST",
+      "length_km": 0.147,
+      "crashes": 9,
+      "severe_fatal": 2,
+      "pedestrian": 3,
+      "per_km_year": 12.2
+     }
+    },
+    {
+     "topic": "safety",
+     "claim": "TURK ST (CNN 12718000) : 7 accident(s) avec blessé, 2 grave(s)/mortel(s), 3 impliquant un piéton, 9.6 par km et par an.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:12718000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:12718000"
+      }
+     ],
+     "values": {
+      "cnn": "12718000",
+      "street": "TURK ST",
+      "length_km": 0.146,
+      "crashes": 7,
+      "severe_fatal": 2,
+      "pedestrian": 3,
+      "per_km_year": 9.6
+     }
+    },
+    {
+     "topic": "safety",
+     "claim": "JONES ST (CNN 7563000) : 6 accident(s) avec blessé, 2 grave(s)/mortel(s), 2 impliquant un piéton, 11.4 par km et par an.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:7563000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:7563000"
+      }
+     ],
+     "values": {
+      "cnn": "7563000",
+      "street": "JONES ST",
+      "length_km": 0.105,
+      "crashes": 6,
+      "severe_fatal": 2,
+      "pedestrian": 2,
+      "per_km_year": 11.4
+     }
+    },
+    {
+     "topic": "safety",
+     "claim": "ELLIS ST (CNN 5173000) : 5 accident(s) avec blessé, 2 grave(s)/mortel(s), 4 impliquant un piéton, 6.8 par km et par an.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:5173000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:5173000"
+      }
+     ],
+     "values": {
+      "cnn": "5173000",
+      "street": "ELLIS ST",
+      "length_km": 0.146,
+      "crashes": 5,
+      "severe_fatal": 2,
+      "pedestrian": 4,
+      "per_km_year": 6.8
+     }
+    }
+   ],
+   "rows": [
+    {
+     "cnn": "9733000",
+     "street": "OFARRELL ST",
+     "length_km": 0.146,
+     "crashes": 11,
+     "severe_fatal": 3,
+     "pedestrian": 3,
+     "per_km_year": 15
+    },
+    {
+     "cnn": "6117000",
+     "street": "GEARY ST",
+     "length_km": 0.147,
+     "crashes": 9,
+     "severe_fatal": 2,
+     "pedestrian": 3,
+     "per_km_year": 12.2
+    },
+    {
+     "cnn": "12718000",
+     "street": "TURK ST",
+     "length_km": 0.146,
+     "crashes": 7,
+     "severe_fatal": 2,
+     "pedestrian": 3,
+     "per_km_year": 9.6
+    },
+    {
+     "cnn": "7563000",
+     "street": "JONES ST",
+     "length_km": 0.105,
+     "crashes": 6,
+     "severe_fatal": 2,
+     "pedestrian": 2,
+     "per_km_year": 11.4
+    },
+    {
+     "cnn": "5173000",
+     "street": "ELLIS ST",
+     "length_km": 0.146,
+     "crashes": 5,
+     "severe_fatal": 2,
+     "pedestrian": 4,
+     "per_km_year": 6.8
+    },
+    {
+     "cnn": "12717000",
+     "street": "TURK ST",
+     "length_km": 0.147,
+     "crashes": 3,
+     "severe_fatal": 2,
+     "pedestrian": 0,
+     "per_km_year": 4.1
+    },
+    {
+     "cnn": "5061001",
+     "street": "EDDY ST",
+     "length_km": 0.062,
+     "crashes": 3,
+     "severe_fatal": 2,
+     "pedestrian": 1,
+     "per_km_year": 9.7
+    },
+    {
+     "cnn": "5063000",
+     "street": "EDDY ST",
+     "length_km": 0.147,
+     "crashes": 9,
+     "severe_fatal": 1,
+     "pedestrian": 5,
+     "per_km_year": 12.3
+    },
+    {
+     "cnn": "7117000",
+     "street": "HYDE ST",
+     "length_km": 0.105,
+     "crashes": 7,
+     "severe_fatal": 1,
+     "pedestrian": 2,
+     "per_km_year": 13.3
+    },
+    {
+     "cnn": "6553000",
+     "street": "GROVE ST",
+     "length_km": 0.147,
+     "crashes": 6,
+     "severe_fatal": 1,
+     "pedestrian": 3,
+     "per_km_year": 8.2
+    },
+    {
+     "cnn": "8239000",
+     "street": "LEAVENWORTH ST",
+     "length_km": 0.105,
+     "crashes": 6,
+     "severe_fatal": 1,
+     "pedestrian": 3,
+     "per_km_year": 11.5
+    },
+    {
+     "cnn": "7114000",
+     "street": "HYDE ST",
+     "length_km": 0.105,
+     "crashes": 6,
+     "severe_fatal": 1,
+     "pedestrian": 2,
+     "per_km_year": 11.4
+    },
+    {
+     "cnn": "6262000",
+     "street": "GOLDEN GATE AVE",
+     "length_km": 0.073,
+     "crashes": 6,
+     "severe_fatal": 1,
+     "pedestrian": 2,
+     "per_km_year": 16.4
+    },
+    {
+     "cnn": "6116000",
+     "street": "GEARY ST",
+     "length_km": 0.146,
+     "crashes": 6,
+     "severe_fatal": 1,
+     "pedestrian": 2,
+     "per_km_year": 8.2
+    },
+    {
+     "cnn": "7116000",
+     "street": "HYDE ST",
+     "length_km": 0.105,
+     "crashes": 5,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 9.6
+    },
+    {
+     "cnn": "12425000",
+     "street": "TAYLOR ST",
+     "length_km": 0.09,
+     "crashes": 5,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 11.1
+    },
+    {
+     "cnn": "10558000",
+     "street": "POLK ST",
+     "length_km": 0.052,
+     "crashes": 5,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 19.4
+    },
+    {
+     "cnn": "8125000",
+     "street": "LARKIN ST",
+     "length_km": 0.105,
+     "crashes": 5,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 9.5
+    },
+    {
+     "cnn": "6813000",
+     "street": "HAYES ST",
+     "length_km": 0.147,
+     "crashes": 4,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 5.4
+    },
+    {
+     "cnn": "12427000",
+     "street": "TAYLOR ST",
+     "length_km": 0.104,
+     "crashes": 4,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 7.7
+    },
+    {
+     "cnn": "10562000",
+     "street": "POLK ST",
+     "length_km": 0.053,
+     "crashes": 4,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 15.2
+    },
+    {
+     "cnn": "5439000",
+     "street": "FELL ST",
+     "length_km": 0.181,
+     "crashes": 3,
+     "severe_fatal": 1,
+     "pedestrian": 2,
+     "per_km_year": 3.3
+    },
+    {
+     "cnn": "8890000",
+     "street": "MCALLISTER ST",
+     "length_km": 0.146,
+     "crashes": 3,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 4.1
+    },
+    {
+     "cnn": "10552000",
+     "street": "POLK ST",
+     "length_km": 0.053,
+     "crashes": 3,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 11.4
+    },
+    {
+     "cnn": "9729000",
+     "street": "OFARRELL ST",
+     "length_km": 0.147,
+     "crashes": 3,
+     "severe_fatal": 1,
+     "pedestrian": 2,
+     "per_km_year": 4.1
+    },
+    {
+     "cnn": "6260000",
+     "street": "GOLDEN GATE AVE",
+     "length_km": 0.147,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 2.7
+    },
+    {
+     "cnn": "5176000",
+     "street": "ELLIS ST",
+     "length_km": 0.115,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 2,
+     "per_km_year": 3.5
+    },
+    {
+     "cnn": "8800000",
+     "street": "MASON ST",
+     "length_km": 0.105,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 3.8
+    },
+    {
+     "cnn": "5171000",
+     "street": "ELLIS ST",
+     "length_km": 0.074,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 5.4
+    },
+    {
+     "cnn": "5058000",
+     "street": "EDDY ST",
+     "length_km": 0.073,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 5.5
+    },
+    {
+     "cnn": "10557000",
+     "street": "POLK ST",
+     "length_km": 0.053,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 7.6
+    },
+    {
+     "cnn": "7571000",
+     "street": "JONES ST",
+     "length_km": 0.074,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 5.4
+    },
+    {
+     "cnn": "9732000",
+     "street": "OFARRELL ST",
+     "length_km": 0.052,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 7.7
+    },
+    {
+     "cnn": "5059000",
+     "street": "EDDY ST",
+     "length_km": 0.147,
+     "crashes": 13,
+     "severe_fatal": 0,
+     "pedestrian": 9,
+     "per_km_year": 17.7
+    },
+    {
+     "cnn": "5065000",
+     "street": "EDDY ST",
+     "length_km": 0.146,
+     "crashes": 10,
+     "severe_fatal": 0,
+     "pedestrian": 2,
+     "per_km_year": 13.7
+    },
+    {
+     "cnn": "5174000",
+     "street": "ELLIS ST",
+     "length_km": 0.147,
+     "crashes": 9,
+     "severe_fatal": 0,
+     "pedestrian": 2,
+     "per_km_year": 12.2
+    },
+    {
+     "cnn": "5062000",
+     "street": "EDDY ST",
+     "length_km": 0.146,
+     "crashes": 9,
+     "severe_fatal": 0,
+     "pedestrian": 3,
+     "per_km_year": 12.3
+    },
+    {
+     "cnn": "12719000",
+     "street": "TURK ST",
+     "length_km": 0.146,
+     "crashes": 8,
+     "severe_fatal": 0,
+     "pedestrian": 4,
+     "per_km_year": 10.9
+    },
+    {
+     "cnn": "9734000",
+     "street": "OFARRELL ST",
+     "length_km": 0.147,
+     "crashes": 8,
+     "severe_fatal": 0,
+     "pedestrian": 3,
+     "per_km_year": 10.9
+    },
+    {
+     "cnn": "12722000",
+     "street": "TURK ST",
+     "length_km": 0.148,
+     "crashes": 7,
+     "severe_fatal": 0,
+     "pedestrian": 1,
+     "per_km_year": 9.5
+    }
+   ],
+   "assumptions": [
+    "Accidents rattachés à un tronçon par la clé CNN du jeu (les accidents d’intersection sans tronçon sont exclus).",
+    "Fenêtre de 5 ans 2021-09-01 → 2026-08-31 ; accidents déclarés (sous-déclaration possible)."
+   ]
+  },
+  "flood.exposure": {
+   "findings": [
+    {
+     "topic": "flood",
+     "claim": "Tenderloin : 0 des 135 permis de travaux en cours ou à venir (120 j) sont dans la zone de risque de tempête centennale modélisée (SFPUC 2022), dont 0 d’excavation.",
+     "epistemic": "modeled",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "flood-zone",
+       "ref": "flood-zone:2022"
+      },
+      {
+       "type": "record",
+       "dataset": "neighborhoods",
+       "ref": "neighborhoods:Tenderloin"
+      }
+     ],
+     "values": {
+      "permits": 135,
+      "inZone": 0,
+      "excavation": 0
+     }
+    },
+    {
+     "topic": "flood",
+     "claim": "0 tronçon(s) HIN du quartier traversent cette zone modélisée.",
+     "epistemic": "modeled",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "flood-zone",
+       "ref": "flood-zone:2022"
+      }
+     ],
+     "values": {
+      "hinInZone": 0
+     }
+    }
+   ],
+   "rows": [],
+   "assumptions": [
+    "Zone modélisée (pas d’inondation observée) ; un point de permis représente son tronçon.",
+    "Horizon de 120 jours."
+   ]
+  },
+  "works.area-windows": {
+   "findings": [
+    {
+     "topic": "works",
+     "claim": "70 des 119 tronçons examinés ont des fenêtres de travaux approuvées en cours ou dans les 120 j (89 permis, 10 organisation(s)).",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01206@9733000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01206@6117000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-04492@12718000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-04705@12718000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01206@5173000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-04374@5173000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-02625@5061001"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01206@5063000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01206@7117000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01641@8239000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01206@7114000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01206@6262000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01206@6116000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01206@7116000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01206@10558000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01206@8890000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-04816@8890000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-05072@10552000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01206@9729000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01206@8800000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01206@5171000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01206@5058000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01206@9732000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01206@5062000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-02625@5062000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-04838@5062000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01206@12719000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01206@9734000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-05072@12722000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-05251@5177000"
+      }
+     ],
+     "values": {
+      "segments": 119,
+      "withWorks": 70
+     }
+    }
+   ],
+   "rows": [
+    {
+     "cnn": "9733000",
+     "permits": [
+      "26EXC-01206@9733000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "6117000",
+     "permits": [
+      "26EXC-01206@6117000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "12718000",
+     "permits": [
+      "26EXC-04492@12718000",
+      "26EXC-04705@12718000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric",
+      "San Francisco Water Department"
+     ],
+     "excavation": 2
+    },
+    {
+     "cnn": "5173000",
+     "permits": [
+      "26EXC-01206@5173000",
+      "26EXC-04374@5173000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc.",
+      "R & S Construction Management Inc"
+     ],
+     "excavation": 2
+    },
+    {
+     "cnn": "5061001",
+     "permits": [
+      "26EXC-02625@5061001"
+     ],
+     "orgs": [],
+     "excavation": 1
+    },
+    {
+     "cnn": "5063000",
+     "permits": [
+      "26EXC-01206@5063000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "7117000",
+     "permits": [
+      "26EXC-01206@7117000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "8239000",
+     "permits": [
+      "26EXC-01641@8239000"
+     ],
+     "orgs": [
+      "Ronan Construction Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "7114000",
+     "permits": [
+      "26EXC-01206@7114000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "6262000",
+     "permits": [
+      "26EXC-01206@6262000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "6116000",
+     "permits": [
+      "26EXC-01206@6116000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "7116000",
+     "permits": [
+      "26EXC-01206@7116000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "10558000",
+     "permits": [
+      "26EXC-01206@10558000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "8890000",
+     "permits": [
+      "26EXC-01206@8890000",
+      "26EXC-04816@8890000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc.",
+      "Pacific Gas & Electric"
+     ],
+     "excavation": 2
+    },
+    {
+     "cnn": "10552000",
+     "permits": [
+      "26EXC-05072@10552000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric"
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "9729000",
+     "permits": [
+      "26EXC-01206@9729000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "8800000",
+     "permits": [
+      "26EXC-01206@8800000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "5171000",
+     "permits": [
+      "26EXC-01206@5171000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "5058000",
+     "permits": [
+      "26EXC-01206@5058000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "9732000",
+     "permits": [
+      "26EXC-01206@9732000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "5062000",
+     "permits": [
+      "26EXC-01206@5062000",
+      "26EXC-02625@5062000",
+      "26EXC-04838@5062000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc.",
+      "Pacific Gas & Electric"
+     ],
+     "excavation": 3
+    },
+    {
+     "cnn": "12719000",
+     "permits": [
+      "26EXC-01206@12719000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "9734000",
+     "permits": [
+      "26EXC-01206@9734000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "12722000",
+     "permits": [
+      "26EXC-05072@12722000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric"
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "5177000",
+     "permits": [
+      "26EXC-05251@5177000",
+      "26EXC-01206@5177000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc.",
+      "J. Flores Construction Co."
+     ],
+     "excavation": 2
+    },
+    {
+     "cnn": "6114000",
+     "permits": [
+      "26EXC-04842@6114000",
+      "26EXC-05023@6114000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric"
+     ],
+     "excavation": 2
+    },
+    {
+     "cnn": "5061002",
+     "permits": [
+      "26EXC-02625@5061002"
+     ],
+     "orgs": [],
+     "excavation": 1
+    },
+    {
+     "cnn": "7115000",
+     "permits": [
+      "26EXC-01206@7115000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "9728000",
+     "permits": [
+      "26EXC-05311@9728000",
+      "26EXC-01206@9728000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc.",
+      "Pacific Gas & Electric"
+     ],
+     "excavation": 2
+    },
+    {
+     "cnn": "6115000",
+     "permits": [
+      "26EXC-01206@6115000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "8891000",
+     "permits": [
+      "26EXC-01206@8891000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "8238000",
+     "permits": [
+      "26EXC-01641@8238000"
+     ],
+     "orgs": [
+      "Ronan Construction Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "8242000",
+     "permits": [
+      "26EXC-01641@8242000",
+      "26EXC-01206@8242000",
+      "26E-00589@8242000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc.",
+      "QLM, Inc.",
+      "Ronan Construction Inc."
+     ],
+     "excavation": 3
+    },
+    {
+     "cnn": "9730000",
+     "permits": [
+      "26EXC-01206@9730000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "9726000",
+     "permits": [
+      "26EXC-01206@9726000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "12429000",
+     "permits": [
+      "26EXC-01206@12429000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "5172000",
+     "permits": [
+      "26EXC-01206@5172000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "6110000",
+     "permits": [
+      "26EXC-02181@6110000"
+     ],
+     "orgs": [
+      "Bay Area Lightworks"
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "6263000",
+     "permits": [
+      "26EXC-01206@6263000",
+      "26BW-00015@6263000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc.",
+      "GEI CONSULTANTS, INC."
+     ],
+     "excavation": 2
+    },
+    {
+     "cnn": "8244000",
+     "permits": [
+      "26EXC-01641@8244000",
+      "26EXC-05177@8244000"
+     ],
+     "orgs": [
+      "CableCom",
+      "Ronan Construction Inc."
+     ],
+     "excavation": 2
+    }
+   ],
+   "assumptions": [
+    "Horizon de 120 jours depuis l’instantané (2026-10-14).",
+    "Un permis approuvé n’est pas la preuve que les travaux ont lieu."
+   ]
+  }
+ },
+ "findings": [
+  {
+   "topic": "safety",
+   "claim": "Tenderloin : 146 tronçon(s) du réseau HIN 2024 ; 119 avec au moins un accident avec blessé déclaré sur 5 ans (399 accidents, dont 41 graves ou mortels).",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "neighborhoods",
+     "ref": "neighborhoods:Tenderloin"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9733000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:6117000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:12718000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:7563000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:5173000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:12717000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:5061001"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:5063000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:7117000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:6553000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:8239000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:7114000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:6262000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:6116000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:7116000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:12425000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:10558000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:8125000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:6813000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:12427000"
+    }
+   ],
+   "values": {
+    "segments": 146,
+    "withCrashes": 119,
+    "crashes": 399,
+    "severeFatal": 41
+   }
+  },
+  {
+   "topic": "safety",
+   "claim": "OFARRELL ST (CNN 9733000) : 11 accident(s) avec blessé, 3 grave(s)/mortel(s), 3 impliquant un piéton, 15 par km et par an.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:9733000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9733000"
+    }
+   ],
+   "values": {
+    "cnn": "9733000",
+    "street": "OFARRELL ST",
+    "length_km": 0.146,
+    "crashes": 11,
+    "severe_fatal": 3,
+    "pedestrian": 3,
+    "per_km_year": 15
+   }
+  },
+  {
+   "topic": "safety",
+   "claim": "GEARY ST (CNN 6117000) : 9 accident(s) avec blessé, 2 grave(s)/mortel(s), 3 impliquant un piéton, 12.2 par km et par an.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:6117000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:6117000"
+    }
+   ],
+   "values": {
+    "cnn": "6117000",
+    "street": "GEARY ST",
+    "length_km": 0.147,
+    "crashes": 9,
+    "severe_fatal": 2,
+    "pedestrian": 3,
+    "per_km_year": 12.2
+   }
+  },
+  {
+   "topic": "safety",
+   "claim": "TURK ST (CNN 12718000) : 7 accident(s) avec blessé, 2 grave(s)/mortel(s), 3 impliquant un piéton, 9.6 par km et par an.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:12718000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:12718000"
+    }
+   ],
+   "values": {
+    "cnn": "12718000",
+    "street": "TURK ST",
+    "length_km": 0.146,
+    "crashes": 7,
+    "severe_fatal": 2,
+    "pedestrian": 3,
+    "per_km_year": 9.6
+   }
+  },
+  {
+   "topic": "safety",
+   "claim": "JONES ST (CNN 7563000) : 6 accident(s) avec blessé, 2 grave(s)/mortel(s), 2 impliquant un piéton, 11.4 par km et par an.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:7563000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:7563000"
+    }
+   ],
+   "values": {
+    "cnn": "7563000",
+    "street": "JONES ST",
+    "length_km": 0.105,
+    "crashes": 6,
+    "severe_fatal": 2,
+    "pedestrian": 2,
+    "per_km_year": 11.4
+   }
+  },
+  {
+   "topic": "safety",
+   "claim": "ELLIS ST (CNN 5173000) : 5 accident(s) avec blessé, 2 grave(s)/mortel(s), 4 impliquant un piéton, 6.8 par km et par an.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:5173000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:5173000"
+    }
+   ],
+   "values": {
+    "cnn": "5173000",
+    "street": "ELLIS ST",
+    "length_km": 0.146,
+    "crashes": 5,
+    "severe_fatal": 2,
+    "pedestrian": 4,
+    "per_km_year": 6.8
+   }
+  },
+  {
+   "topic": "flood",
+   "claim": "Tenderloin : 0 des 135 permis de travaux en cours ou à venir (120 j) sont dans la zone de risque de tempête centennale modélisée (SFPUC 2022), dont 0 d’excavation.",
+   "epistemic": "modeled",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "flood-zone",
+     "ref": "flood-zone:2022"
+    },
+    {
+     "type": "record",
+     "dataset": "neighborhoods",
+     "ref": "neighborhoods:Tenderloin"
+    }
+   ],
+   "values": {
+    "permits": 135,
+    "inZone": 0,
+    "excavation": 0
+   }
+  },
+  {
+   "topic": "flood",
+   "claim": "0 tronçon(s) HIN du quartier traversent cette zone modélisée.",
+   "epistemic": "modeled",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "flood-zone",
+     "ref": "flood-zone:2022"
+    }
+   ],
+   "values": {
+    "hinInZone": 0
+   }
+  },
+  {
+   "topic": "works",
+   "claim": "70 des 119 tronçons examinés ont des fenêtres de travaux approuvées en cours ou dans les 120 j (89 permis, 10 organisation(s)).",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01206@9733000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01206@6117000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04492@12718000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04705@12718000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01206@5173000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04374@5173000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-02625@5061001"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01206@5063000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01206@7117000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01641@8239000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01206@7114000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01206@6262000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01206@6116000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01206@7116000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01206@10558000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01206@8890000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04816@8890000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-05072@10552000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01206@9729000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01206@8800000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01206@5171000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01206@5058000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01206@9732000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01206@5062000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-02625@5062000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04838@5062000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01206@12719000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01206@9734000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-05072@12722000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-05251@5177000"
+    }
+   ],
+   "values": {
+    "segments": 119,
+    "withWorks": 70
+   }
+  },
+  {
+   "topic": "cross",
+   "claim": "70 tronçon(s) HIN cumulent des accidents avec blessés (5 ans) et des fenêtres de travaux approuvées dans les 120 j ; 20 avec au moins un accident grave ou mortel.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9733000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:9733000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:6117000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:6117000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:12718000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:12718000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:5173000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:5173000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:5061001"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:5061001"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:5063000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:5063000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:7117000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:7117000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:8239000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:8239000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:7114000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:7114000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:6262000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:6262000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:6116000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:6116000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:7116000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:7116000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:10558000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:10558000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:8890000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:8890000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:10552000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:10552000"
+    }
+   ],
+   "values": {
+    "segments": 70,
+    "severe": 20
+   }
+  },
+  {
+   "topic": "cross",
+   "claim": "OFARRELL ST (CNN 9733000) : 3 accident(s) grave(s)/mortel(s), 11 au total, et 1 permis de travaux (1 organisation(s)) à venir.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:9733000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9733000"
+    }
+   ],
+   "values": {
+    "cnn": "9733000",
+    "street": "OFARRELL ST",
+    "length_km": 0.146,
+    "crashes": 11,
+    "severe_fatal": 3,
+    "pedestrian": 3,
+    "per_km_year": 15,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   }
+  },
+  {
+   "topic": "cross",
+   "claim": "GEARY ST (CNN 6117000) : 2 accident(s) grave(s)/mortel(s), 9 au total, et 1 permis de travaux (1 organisation(s)) à venir.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:6117000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:6117000"
+    }
+   ],
+   "values": {
+    "cnn": "6117000",
+    "street": "GEARY ST",
+    "length_km": 0.147,
+    "crashes": 9,
+    "severe_fatal": 2,
+    "pedestrian": 3,
+    "per_km_year": 12.2,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   }
+  },
+  {
+   "topic": "cross",
+   "claim": "TURK ST (CNN 12718000) : 2 accident(s) grave(s)/mortel(s), 7 au total, et 2 permis de travaux (2 organisation(s)) à venir.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:12718000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:12718000"
+    }
+   ],
+   "values": {
+    "cnn": "12718000",
+    "street": "TURK ST",
+    "length_km": 0.146,
+    "crashes": 7,
+    "severe_fatal": 2,
+    "pedestrian": 3,
+    "per_km_year": 9.6,
+    "permits": 2,
+    "orgs": 2,
+    "excavation": 2
+   }
+  },
+  {
+   "topic": "cross",
+   "claim": "ELLIS ST (CNN 5173000) : 2 accident(s) grave(s)/mortel(s), 5 au total, et 2 permis de travaux (2 organisation(s)) à venir.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:5173000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:5173000"
+    }
+   ],
+   "values": {
+    "cnn": "5173000",
+    "street": "ELLIS ST",
+    "length_km": 0.146,
+    "crashes": 5,
+    "severe_fatal": 2,
+    "pedestrian": 4,
+    "per_km_year": 6.8,
+    "permits": 2,
+    "orgs": 2,
+    "excavation": 2
+   }
+  },
+  {
+   "topic": "cross",
+   "claim": "EDDY ST (CNN 5061001) : 2 accident(s) grave(s)/mortel(s), 3 au total, et 1 permis de travaux (0 organisation(s)) à venir.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:5061001"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:5061001"
+    }
+   ],
+   "values": {
+    "cnn": "5061001",
+    "street": "EDDY ST",
+    "length_km": 0.062,
+    "crashes": 3,
+    "severe_fatal": 2,
+    "pedestrian": 1,
+    "per_km_year": 9.7,
+    "permits": 1,
+    "orgs": 0,
+    "excavation": 1
+   }
+  }
+ ],
+ "rejected": [],
+ "challenges": [
+  {
+   "dataset": "crashes-agg",
+   "level": "warn",
+   "text": "Accidents jusqu’au 2026-08-31 seulement (44 j avant l’instantané) : les accidents récents ne sont pas inclus."
+  },
+  {
+   "dataset": "hin",
+   "level": "info",
+   "text": "Réseau HIN 2024 : désignation administrative fondée sur des années antérieures ; ne mesure pas le risque actuel."
+  },
+  {
+   "dataset": "permits",
+   "level": "info",
+   "text": "Permis collectés il y a 0 j ; statut administratif, pas preuve d’exécution."
+  }
+ ],
+ "conflicts": [
+  {
+   "between": [
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.mobility.lead"
+   ],
+   "about": "works.windows",
+   "text": "hors périmètre : l’outil works.windows ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9733000)"
+  },
+  {
+   "between": [
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.mobility.lead"
+   ],
+   "about": "works.telecom",
+   "text": "hors périmètre : l’outil works.telecom ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9733000)"
+  },
+  {
+   "between": [
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.mobility.lead"
+   ],
+   "about": "public-space.sidewalks",
+   "text": "hors périmètre : l’outil public-space.sidewalks ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9733000)"
+  }
+ ],
+ "recommendation": {
+  "kind": "recommandation (hypothèse à vérifier)",
+  "text": "Pour les 5 tronçons HIN les plus accidentogènes avec chantiers à venir, demander à SFMTA et SF Public Works de vérifier, avant le début des travaux, le plan de circulation piétonne et cycliste temporaire (cheminement, traversées, signalisation). Hypothèse : les chantiers sur ces tronçons méritent une attention particulière ; aucun effet des travaux sur les accidents n’est démontré."
+ },
+ "review": {
+  "by": "core.san-francisco.safety.adversarial-reviewer",
+  "accepted": 15,
+  "rejected": 0,
+  "recommendation": {
+   "ok": true,
+   "issues": []
+  }
+ },
+ "decision": {
+  "by": "core.san-francisco.governance.gateway",
+  "state": "ÉLIGIBLE À LA REVUE HUMAINE",
+  "caveats": [
+   "Accidents jusqu’au 2026-08-31 seulement (44 j avant l’instantané) : les accidents récents ne sont pas inclus."
+  ],
+  "authorizes": "rien — décision humaine requise"
+ },
+ "model": {
+  "calls": 1,
+  "accepted": [
+   {
+    "statement": "Aucun chantier à venir ne se situe dans la zone de risque de tempête centennale (F7), ce qui réduit l'incertitude liée aux impacts climatiques sur les travaux futurs.",
+    "cites": [
+     "F7"
+    ],
+    "reason": null,
+    "agent": "core.san-francisco.public-space.accessibility-analyst"
+   }
+  ],
+  "rejected": [
+   {
+    "statement": "Les tronçons de Tenderloin avec des accidents graves ou mortels (F1) doivent être examinés en priorité, notamment ceux avec des taux élevés d'accidents par km et par an (F2 à F6), car ils présentent un risque accru pour les usagers.",
+    "cites": [
+     "F1",
+     "F2",
+     "F3",
+     "F4",
+     "F5",
+     "F6"
+    ],
+    "reason": "impact: effet non démontré présenté comme établi",
+    "agent": "core.san-francisco.public-space.accessibility-analyst"
+   }
+  ],
+  "lessonsUsed": [],
+  "usage": {
+   "promptTokens": 1112,
+   "outputTokens": 152,
+   "totalMs": 10183,
+   "loadMs": 6,
+   "promptMs": 68,
+   "evalMs": 10025,
+   "contextChars": 2947,
+   "wallMs": 10196,
+   "model": "qwen3:8b"
+  }
+ },
+ "learning": {
+  "proceduresApplied": [],
+  "lessonsProposed": [
+   "procedure:f91a9fec4a46",
+   "procedure:3e7c7e9a9a6a",
+   "procedure:1014305bcaeb",
+   "lesson:28b47e845e88"
+  ]
+ },
+ "owner": "core.san-francisco.mobility.lead",
+ "priority": {
+  "score": 152,
+  "basis": "sévérité 41 × 2 + signal 70 (règle déclarée)"
+ },
+ "errors": [],
+ "site": {
+  "coord": [
+   -122.417901411,
+   37.785167215
+  ],
+  "label": "OFARRELL ST (CNN 9733000)",
+  "kind": "tronçon HIN cité"
+ },
+ "cross": {
+  "rows": [
+   {
+    "cnn": "9733000",
+    "street": "OFARRELL ST",
+    "length_km": 0.146,
+    "crashes": 11,
+    "severe_fatal": 3,
+    "pedestrian": 3,
+    "per_km_year": 15,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "6117000",
+    "street": "GEARY ST",
+    "length_km": 0.147,
+    "crashes": 9,
+    "severe_fatal": 2,
+    "pedestrian": 3,
+    "per_km_year": 12.2,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "12718000",
+    "street": "TURK ST",
+    "length_km": 0.146,
+    "crashes": 7,
+    "severe_fatal": 2,
+    "pedestrian": 3,
+    "per_km_year": 9.6,
+    "permits": 2,
+    "orgs": 2,
+    "excavation": 2
+   },
+   {
+    "cnn": "5173000",
+    "street": "ELLIS ST",
+    "length_km": 0.146,
+    "crashes": 5,
+    "severe_fatal": 2,
+    "pedestrian": 4,
+    "per_km_year": 6.8,
+    "permits": 2,
+    "orgs": 2,
+    "excavation": 2
+   },
+   {
+    "cnn": "5061001",
+    "street": "EDDY ST",
+    "length_km": 0.062,
+    "crashes": 3,
+    "severe_fatal": 2,
+    "pedestrian": 1,
+    "per_km_year": 9.7,
+    "permits": 1,
+    "orgs": 0,
+    "excavation": 1
+   },
+   {
+    "cnn": "5063000",
+    "street": "EDDY ST",
+    "length_km": 0.147,
+    "crashes": 9,
+    "severe_fatal": 1,
+    "pedestrian": 5,
+    "per_km_year": 12.3,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "7117000",
+    "street": "HYDE ST",
+    "length_km": 0.105,
+    "crashes": 7,
+    "severe_fatal": 1,
+    "pedestrian": 2,
+    "per_km_year": 13.3,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "8239000",
+    "street": "LEAVENWORTH ST",
+    "length_km": 0.105,
+    "crashes": 6,
+    "severe_fatal": 1,
+    "pedestrian": 3,
+    "per_km_year": 11.5,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "7114000",
+    "street": "HYDE ST",
+    "length_km": 0.105,
+    "crashes": 6,
+    "severe_fatal": 1,
+    "pedestrian": 2,
+    "per_km_year": 11.4,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "6262000",
+    "street": "GOLDEN GATE AVE",
+    "length_km": 0.073,
+    "crashes": 6,
+    "severe_fatal": 1,
+    "pedestrian": 2,
+    "per_km_year": 16.4,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "6116000",
+    "street": "GEARY ST",
+    "length_km": 0.146,
+    "crashes": 6,
+    "severe_fatal": 1,
+    "pedestrian": 2,
+    "per_km_year": 8.2,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "7116000",
+    "street": "HYDE ST",
+    "length_km": 0.105,
+    "crashes": 5,
+    "severe_fatal": 1,
+    "pedestrian": 1,
+    "per_km_year": 9.6,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "10558000",
+    "street": "POLK ST",
+    "length_km": 0.052,
+    "crashes": 5,
+    "severe_fatal": 1,
+    "pedestrian": 1,
+    "per_km_year": 19.4,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "8890000",
+    "street": "MCALLISTER ST",
+    "length_km": 0.146,
+    "crashes": 3,
+    "severe_fatal": 1,
+    "pedestrian": 1,
+    "per_km_year": 4.1,
+    "permits": 2,
+    "orgs": 2,
+    "excavation": 2
+   },
+   {
+    "cnn": "10552000",
+    "street": "POLK ST",
+    "length_km": 0.053,
+    "crashes": 3,
+    "severe_fatal": 1,
+    "pedestrian": 0,
+    "per_km_year": 11.4,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "9729000",
+    "street": "OFARRELL ST",
+    "length_km": 0.147,
+    "crashes": 3,
+    "severe_fatal": 1,
+    "pedestrian": 2,
+    "per_km_year": 4.1,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "8800000",
+    "street": "MASON ST",
+    "length_km": 0.105,
+    "crashes": 2,
+    "severe_fatal": 1,
+    "pedestrian": 0,
+    "per_km_year": 3.8,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "5171000",
+    "street": "ELLIS ST",
+    "length_km": 0.074,
+    "crashes": 2,
+    "severe_fatal": 1,
+    "pedestrian": 0,
+    "per_km_year": 5.4,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "5058000",
+    "street": "EDDY ST",
+    "length_km": 0.073,
+    "crashes": 2,
+    "severe_fatal": 1,
+    "pedestrian": 1,
+    "per_km_year": 5.5,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "9732000",
+    "street": "OFARRELL ST",
+    "length_km": 0.052,
+    "crashes": 2,
+    "severe_fatal": 1,
+    "pedestrian": 0,
+    "per_km_year": 7.7,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "5062000",
+    "street": "EDDY ST",
+    "length_km": 0.146,
+    "crashes": 9,
+    "severe_fatal": 0,
+    "pedestrian": 3,
+    "per_km_year": 12.3,
+    "permits": 3,
+    "orgs": 2,
+    "excavation": 3
+   },
+   {
+    "cnn": "12719000",
+    "street": "TURK ST",
+    "length_km": 0.146,
+    "crashes": 8,
+    "severe_fatal": 0,
+    "pedestrian": 4,
+    "per_km_year": 10.9,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "9734000",
+    "street": "OFARRELL ST",
+    "length_km": 0.147,
+    "crashes": 8,
+    "severe_fatal": 0,
+    "pedestrian": 3,
+    "per_km_year": 10.9,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "12722000",
+    "street": "TURK ST",
+    "length_km": 0.148,
+    "crashes": 7,
+    "severe_fatal": 0,
+    "pedestrian": 1,
+    "per_km_year": 9.5,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "5177000",
+    "street": "ELLIS ST",
+    "length_km": 0.146,
+    "crashes": 6,
+    "severe_fatal": 0,
+    "pedestrian": 2,
+    "per_km_year": 8.2,
+    "permits": 2,
+    "orgs": 2,
+    "excavation": 2
+   }
+  ]
+ },
+ "metrics": {
+  "wallMs": 10264,
+  "subtasks": 6,
+  "failed": 3,
+  "toolCalls": 7,
+  "messages": 29,
+  "modelCalls": 1
+ },
+ "recorded": {
+  "at": "2026-10-14T16:47:41.203Z",
+  "by": "scripts/civ.mjs (Node, local)",
+  "snapshot": "2026-10-14T16:09:41.363Z"
+ }
+}

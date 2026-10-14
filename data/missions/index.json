@@ -1,13 +1,13 @@
 {
  "version": "core-missions-index-v1",
- "recorded_at": "2026-10-14T14:56:52.594Z",
+ "recorded_at": "2026-10-14T16:47:34.118Z",
  "missions": [
   {
    "id": "mission:b800f920af82",
    "origin": "corridor:7051000",
    "state": "needs-human-review",
    "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-   "fingerprint": "f0e17052086ddff4",
+   "fingerprint": "d82a7dc1f28351de",
    "agents": 10,
    "agentIds": [
     "core.san-francisco.manager",
@@ -25,14 +25,14 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 482
+   "ms": 368
   },
   {
    "id": "mission:5d7886b55a54",
    "origin": "corridor:7039001",
    "state": "needs-human-review",
    "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-   "fingerprint": "5cda9884ee840f1e",
+   "fingerprint": "6fedeed5c3f7a890",
    "agents": 10,
    "agentIds": [
     "core.san-francisco.manager",
@@ -50,14 +50,14 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 127
+   "ms": 112
   },
   {
    "id": "mission:5d2cb2e2f3a3",
    "origin": "corridor:7056000",
    "state": "needs-human-review",
    "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-   "fingerprint": "b17b3d61f27ce27a",
+   "fingerprint": "59900da3e13f9e54",
    "agents": 10,
    "agentIds": [
     "core.san-francisco.manager",
@@ -75,14 +75,14 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 454
+   "ms": 371
   },
   {
    "id": "mission:28fc07fa8a08",
    "origin": "corridor:5661000",
    "state": "needs-evidence",
    "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-   "fingerprint": "97af41f4b20076f6",
+   "fingerprint": "55ed11fbfefd0e86",
    "agents": 10,
    "agentIds": [
     "core.san-francisco.manager",
@@ -100,14 +100,14 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 129
+   "ms": 98
   },
   {
    "id": "mission:4095b1ece637",
    "origin": "corridor:5664000",
    "state": "needs-evidence",
    "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-   "fingerprint": "3c491eeb003d10a7",
+   "fingerprint": "10b122de6d15ec7f",
    "agents": 10,
    "agentIds": [
     "core.san-francisco.manager",
@@ -125,7 +125,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 128
+   "ms": 101
   },
   {
    "id": "mission:ee4a55ff63fb",
@@ -144,14 +144,14 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 5
+   "ms": 3
   },
   {
    "id": "mission:ba5047a9073a",
    "origin": "corridor:5674000",
    "state": "needs-evidence",
    "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-   "fingerprint": "0843816fc5d08133",
+   "fingerprint": "055f292525eb92bb",
    "agents": 10,
    "agentIds": [
     "core.san-francisco.manager",
@@ -169,14 +169,14 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 120
+   "ms": 92
   },
   {
    "id": "mission:c594c2dba81f",
    "origin": "corridor:7037000",
    "state": "needs-evidence",
    "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-   "fingerprint": "a8420845b47be490",
+   "fingerprint": "336cbb5812daacf0",
    "agents": 10,
    "agentIds": [
     "core.san-francisco.manager",
@@ -194,14 +194,14 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 125
+   "ms": 104
   },
   {
    "id": "mission:756645a548a9",
    "origin": "corridor:5678000",
    "state": "needs-human-review",
    "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-   "fingerprint": "b420b7d6219aa901",
+   "fingerprint": "77f49324ae3c7c61",
    "agents": 10,
    "agentIds": [
     "core.san-francisco.manager",
@@ -219,14 +219,14 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 457
+   "ms": 361
   },
   {
    "id": "mission:b5514be8aea7",
    "origin": "corridor:7048000",
    "state": "needs-human-review",
    "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-   "fingerprint": "92a1144bdbf93841",
+   "fingerprint": "61ea4fc25cfe65bb",
    "agents": 10,
    "agentIds": [
     "core.san-francisco.manager",
@@ -244,14 +244,14 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 461
+   "ms": 357
   },
   {
    "id": "mission:2eb75be759c4",
    "origin": "corridor:7041000",
    "state": "needs-human-review",
    "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-   "fingerprint": "c211c745cd739551",
+   "fingerprint": "9ffffe7e9d47f499",
    "agents": 10,
    "agentIds": [
     "core.san-francisco.manager",
@@ -269,14 +269,14 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 465
+   "ms": 359
   },
   {
    "id": "mission:830559f131bd",
    "origin": "question: Quels travaux et quels arbres sont concernés sur Howard entre la 8e et la 9e rue ?",
    "state": "needs-human-review",
    "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-   "fingerprint": "a14bed1b691c3ca8",
+   "fingerprint": "c9e0f1a601475ba2",
    "agents": 9,
    "agentIds": [
     "core.san-francisco.manager",
@@ -293,7 +293,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 515
+   "ms": 365
   }
  ]
 }

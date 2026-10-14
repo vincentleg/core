@@ -45,7 +45,7 @@ test('model adapter: local-only, unavailable model, missing model, bounded conte
 
 test('registry: model-assisted specialists (7 since Phase 5), honest status, tools exist, no self-elevation', () => {
   const c = ORG.counts(registry), llm = registry.agents.filter(a => a.executionMode === 'llm');
-  assert.equal(c.llm, 7); assert.equal(c.executable, 17, 'Phase 5 adds the deterministic data-eligibility reviewer');
+  assert.equal(c.llm, 7); assert.equal(c.executable, 19, 'Phase 5 adds the data-eligibility reviewer; Phase 9 implements the traffic-safety and flood-risk analysts');
   for (const a of llm) { assert.equal(a.status, 'requires-local-model'); assert.ok(a.tools.every(t => T.TOOLS[t]), a.id); assert.equal(a.model.name, 'qwen3:8b'); assert.ok(Object.isFrozen(a)); }
   assert.equal(llm.find(a => a.id.endsWith('evidence-reviewer')).permission, 'review');
   assert.ok(llm.every(a => !a.tools.includes('decision.gateway')), 'no model-assisted agent can reach the gateway as a tool');

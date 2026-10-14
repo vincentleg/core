@@ -1,0 +1,3549 @@
+{
+ "id": "civ:safety-works:south-of-market@2026-10-14",
+ "version": "core-civ-mission-v1",
+ "workflow": "safety-works",
+ "title": "Sécurité routière × chantiers",
+ "nhood": "South of Market",
+ "question": "Sur le réseau à forte accidentalité (HIN 2024) de South of Market, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+ "state": "HUMAN_REVIEW",
+ "stages": [
+  {
+   "stage": "DISCOVERED",
+   "at": "2026-10-14T16:40:02.329Z"
+  },
+  {
+   "stage": "TRIAGED",
+   "at": "2026-10-14T16:40:02.332Z"
+  },
+  {
+   "stage": "ASSIGNED",
+   "at": "2026-10-14T16:40:02.336Z"
+  },
+  {
+   "stage": "INVESTIGATING",
+   "at": "2026-10-14T16:40:02.371Z"
+  },
+  {
+   "stage": "CROSS_DOMAIN_REVIEW",
+   "at": "2026-10-14T16:40:02.373Z"
+  },
+  {
+   "stage": "EVIDENCE_VALIDATION",
+   "at": "2026-10-14T16:40:02.375Z"
+  },
+  {
+   "stage": "PROPOSED_DECISION",
+   "at": "2026-10-14T16:40:32.440Z"
+  },
+  {
+   "stage": "HUMAN_REVIEW",
+   "at": "2026-10-14T16:40:32.444Z"
+  }
+ ],
+ "subtasks": [
+  {
+   "id": "S1",
+   "key": "safety.crash-profile|{\"nhood\":\"South of Market\"}",
+   "tool": "safety.crash-profile",
+   "target": {
+    "nhood": "South of Market"
+   },
+   "agent": "core.san-francisco.mobility.traffic",
+   "code": "CORE-TRF-0057",
+   "requester": "core.san-francisco.mobility.lead",
+   "via": null,
+   "depth": 1,
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 5,
+   "error": null,
+   "findings": 6,
+   "site": {
+    "coord": [
+     -122.411610117,
+     37.773769347
+    ],
+    "label": "FOLSOM ST (CNN 5678000)",
+    "kind": "tronçon HIN cité"
+   }
+  },
+  {
+   "id": "S2",
+   "key": "works.windows|{\"segment\":null,\"pending\":\"top-segment\"}",
+   "tool": "works.windows",
+   "target": {
+    "segment": "5678000"
+   },
+   "agent": "core.san-francisco.civil.works-coordination",
+   "code": "CORE-CIV-0031",
+   "requester": "core.san-francisco.mobility.lead",
+   "via": "core.san-francisco.civil.lead",
+   "depth": 1,
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 1,
+   "error": null,
+   "findings": 2,
+   "skipIfOutsideCorridor": "procedure:f91a9fec4a46",
+   "site": {
+    "coord": [
+     -122.411610117,
+     37.773769346
+    ],
+    "label": "tronçon 5678000",
+    "kind": "tronçon du corridor"
+   }
+  },
+  {
+   "id": "S3",
+   "key": "works.telecom|{\"segment\":null,\"pending\":\"top-segment\"}",
+   "tool": "works.telecom",
+   "target": {
+    "segment": "5678000"
+   },
+   "agent": "core.san-francisco.telecom.telecom-works",
+   "code": "CORE-TEL-0032",
+   "requester": "core.san-francisco.mobility.lead",
+   "via": "core.san-francisco.telecom.lead",
+   "depth": 1,
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 0,
+   "error": null,
+   "findings": 1,
+   "skipIfOutsideCorridor": "procedure:3e7c7e9a9a6a",
+   "site": {
+    "coord": [
+     -122.411610117,
+     37.773769346
+    ],
+    "label": "tronçon 5678000",
+    "kind": "tronçon du corridor"
+   }
+  },
+  {
+   "id": "S4",
+   "key": "public-space.sidewalks|{\"segment\":null,\"pending\":\"top-segment\"}",
+   "tool": "public-space.sidewalks",
+   "target": {
+    "segment": "5678000"
+   },
+   "agent": "core.san-francisco.public-space.sidewalks",
+   "code": "CORE-PUB-0036",
+   "requester": "core.san-francisco.mobility.lead",
+   "via": "core.san-francisco.public-space.lead",
+   "depth": 1,
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 21,
+   "error": null,
+   "findings": 1,
+   "skipIfOutsideCorridor": "procedure:1014305bcaeb",
+   "site": {
+    "coord": [
+     -122.411610117,
+     37.773769346
+    ],
+    "label": "tronçon 5678000",
+    "kind": "tronçon du corridor"
+   }
+  },
+  {
+   "id": "S5",
+   "key": "flood.exposure|{\"nhood\":\"South of Market\"}",
+   "tool": "flood.exposure",
+   "target": {
+    "nhood": "South of Market"
+   },
+   "agent": "core.san-francisco.water.water-network",
+   "code": "CORE-WAT-0055",
+   "requester": "core.san-francisco.mobility.lead",
+   "via": "core.san-francisco.water.lead",
+   "depth": 1,
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 6,
+   "error": null,
+   "findings": 2,
+   "site": {
+    "coord": [
+     -122.411610117,
+     37.773769347
+    ],
+    "label": "FOLSOM ST (CNN 5678000)",
+    "kind": "tronçon HIN cité"
+   }
+  },
+  {
+   "id": "S6",
+   "key": "works.area-windows|{\"segments\":[\"5678000\",\"338000\",\"9100000\",\"9108000\",\"3080000\",\"326000\",\"446000\",\"447000\",\"301000\",\"9099000\",\"7041000\",\"508000\",\"6727000\",\"303000\",\"327000\",\"331000\",\"169000\",\"6722000\",\"332000\",\"7047000\",\"489000\",\"6723000\",\"407000\",\"3078000\",\"3079000\",\"289000\",\"290000\",\"299000\",\"509000\",\"510000\",\"3082000\",\"9101000\",\"516000\",\"7043000\",\"9107000\",\"339000\",\"9102000\",\"368000\",\"405000\",\"406000\",\"408000\",\"255000\",\"9096003\",\"330000\",\"5665000\",\"7044000\",\"370000\",\"487000\",\"337000\",\"9103000\",\"448000\",\"409000\",\"6720000\",\"261000\",\"6718000\",\"9096001\",\"328000\",\"7039001\",\"7042000\",\"7051000\",\"5670000\",\"5674000\",\"6732000\",\"371000\",\"305000\",\"480000\",\"365000\",\"258000\",\"6717000\",\"172000\",\"3282000\",\"329000\",\"334000\",\"336000\",\"7046000\",\"296000\",\"298000\",\"484000\",\"488000\",\"452000\",\"456000\",\"6733000\",\"372000\",\"3286000\",\"3287000\",\"3296001\",\"3298000\",\"7050000\",\"366001\",\"404000\",\"170000\",\"259000\",\"263000\",\"5662000\",\"5663000\",\"3284000\",\"3285000\",\"9096002\",\"251000\",\"335000\",\"9510000\",\"9097000\",\"9098000\",\"5666000\",\"369000\",\"297000\",\"9106000\",\"7053000\",\"5679000\",\"5680000\",\"6735000\",\"486000\",\"513000\",\"450000\",\"455000\",\"6724000\",\"266000\",\"5672000\",\"5673000\",\"5677000\",\"7048000\",\"6731000\",\"304000\",\"3288000\",\"3293000\",\"3294000\",\"457000\",\"458000\"]}",
+   "tool": "works.area-windows",
+   "target": {
+    "segments": [
+     "5678000",
+     "338000",
+     "9100000",
+     "9108000",
+     "3080000",
+     "326000",
+     "446000",
+     "447000",
+     "301000",
+     "9099000",
+     "7041000",
+     "508000",
+     "6727000",
+     "303000",
+     "327000",
+     "331000",
+     "169000",
+     "6722000",
+     "332000",
+     "7047000",
+     "489000",
+     "6723000",
+     "407000",
+     "3078000",
+     "3079000",
+     "289000",
+     "290000",
+     "299000",
+     "509000",
+     "510000",
+     "3082000",
+     "9101000",
+     "516000",
+     "7043000",
+     "9107000",
+     "339000",
+     "9102000",
+     "368000",
+     "405000",
+     "406000",
+     "408000",
+     "255000",
+     "9096003",
+     "330000",
+     "5665000",
+     "7044000",
+     "370000",
+     "487000",
+     "337000",
+     "9103000",
+     "448000",
+     "409000",
+     "6720000",
+     "261000",
+     "6718000",
+     "9096001",
+     "328000",
+     "7039001",
+     "7042000",
+     "7051000",
+     "5670000",
+     "5674000",
+     "6732000",
+     "371000",
+     "305000",
+     "480000",
+     "365000",
+     "258000",
+     "6717000",
+     "172000",
+     "3282000",
+     "329000",
+     "334000",
+     "336000",
+     "7046000",
+     "296000",
+     "298000",
+     "484000",
+     "488000",
+     "452000",
+     "456000",
+     "6733000",
+     "372000",
+     "3286000",
+     "3287000",
+     "3296001",
+     "3298000",
+     "7050000",
+     "366001",
+     "404000",
+     "170000",
+     "259000",
+     "263000",
+     "5662000",
+     "5663000",
+     "3284000",
+     "3285000",
+     "9096002",
+     "251000",
+     "335000",
+     "9510000",
+     "9097000",
+     "9098000",
+     "5666000",
+     "369000",
+     "297000",
+     "9106000",
+     "7053000",
+     "5679000",
+     "5680000",
+     "6735000",
+     "486000",
+     "513000",
+     "450000",
+     "455000",
+     "6724000",
+     "266000",
+     "5672000",
+     "5673000",
+     "5677000",
+     "7048000",
+     "6731000",
+     "304000",
+     "3288000",
+     "3293000",
+     "3294000",
+     "457000",
+     "458000"
+    ]
+   },
+   "agent": "core.san-francisco.civil.works-coordination",
+   "code": "CORE-CIV-0031",
+   "requester": "core.san-francisco.mobility.traffic",
+   "via": "core.san-francisco.civil.lead",
+   "depth": 2,
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 0,
+   "error": null,
+   "findings": 1,
+   "site": {
+    "coord": [
+     -122.411610117,
+     37.773769347
+    ],
+    "label": "FOLSOM ST (CNN 5678000)",
+    "kind": "tronçon HIN cité"
+   }
+  }
+ ],
+ "messages": [
+  {
+   "id": "M1",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:02.331Z",
+   "from": "core.global.coordinator",
+   "to": "core.san-francisco.manager",
+   "type": "assign",
+   "purpose": "Problème découvert (Sécurité routière × chantiers, South of Market), priorité 109",
+   "evidence": [
+    "neighborhoods:South of Market"
+   ],
+   "outcome": "transmis à la coordination"
+  },
+  {
+   "id": "M2",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:02.331Z",
+   "from": "core.san-francisco.manager",
+   "to": "core.san-francisco.mobility.lead",
+   "type": "assign",
+   "purpose": "Responsabilité de la mission confiée à CORE-TRF-0010 (Sécurité routière × chantiers)",
+   "evidence": [
+    "neighborhoods:South of Market"
+   ],
+   "outcome": "accepté"
+  },
+  {
+   "id": "M3",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:02.333Z",
+   "from": "core.san-francisco.mobility.lead",
+   "to": "core.san-francisco.mobility.traffic",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S1 : safety.crash-profile",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M4",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:02.334Z",
+   "from": "core.san-francisco.mobility.lead",
+   "to": "core.san-francisco.civil.lead",
+   "type": "request",
+   "purpose": "Demande d’appui (works.windows) pour South of Market",
+   "evidence": [],
+   "outcome": "accepté par la direction"
+  },
+  {
+   "id": "M5",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:02.334Z",
+   "from": "core.san-francisco.civil.lead",
+   "to": "core.san-francisco.civil.works-coordination",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S2 : works.windows",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M6",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:02.334Z",
+   "from": "core.san-francisco.mobility.lead",
+   "to": "core.san-francisco.telecom.lead",
+   "type": "request",
+   "purpose": "Demande d’appui (works.telecom) pour South of Market",
+   "evidence": [],
+   "outcome": "accepté par la direction"
+  },
+  {
+   "id": "M7",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:02.334Z",
+   "from": "core.san-francisco.telecom.lead",
+   "to": "core.san-francisco.telecom.telecom-works",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S3 : works.telecom",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M8",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:02.335Z",
+   "from": "core.san-francisco.mobility.lead",
+   "to": "core.san-francisco.public-space.lead",
+   "type": "request",
+   "purpose": "Demande d’appui (public-space.sidewalks) pour South of Market",
+   "evidence": [],
+   "outcome": "accepté par la direction"
+  },
+  {
+   "id": "M9",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:02.335Z",
+   "from": "core.san-francisco.public-space.lead",
+   "to": "core.san-francisco.public-space.sidewalks",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S4 : public-space.sidewalks",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M10",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:02.335Z",
+   "from": "core.san-francisco.mobility.lead",
+   "to": "core.san-francisco.water.lead",
+   "type": "request",
+   "purpose": "Demande d’appui (flood.exposure) pour South of Market",
+   "evidence": [],
+   "outcome": "accepté par la direction"
+  },
+  {
+   "id": "M11",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:02.336Z",
+   "from": "core.san-francisco.water.lead",
+   "to": "core.san-francisco.water.water-network",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S5 : flood.exposure",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M12",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:02.342Z",
+   "from": "core.san-francisco.mobility.traffic",
+   "to": "core.san-francisco.mobility.lead",
+   "type": "result",
+   "purpose": "Résultat S1 (safety.crash-profile)",
+   "evidence": [
+    "neighborhoods:South of Market",
+    "crashes-agg:5678000",
+    "crashes-agg:338000",
+    "crashes-agg:9100000",
+    "crashes-agg:9108000",
+    "crashes-agg:3080000",
+    "crashes-agg:326000",
+    "crashes-agg:446000",
+    "crashes-agg:447000",
+    "crashes-agg:301000",
+    "crashes-agg:9099000",
+    "crashes-agg:7041000",
+    "crashes-agg:508000",
+    "crashes-agg:6727000",
+    "crashes-agg:303000",
+    "crashes-agg:327000",
+    "crashes-agg:331000",
+    "crashes-agg:169000",
+    "crashes-agg:6722000",
+    "crashes-agg:332000"
+   ],
+   "outcome": "6 constat(s)"
+  },
+  {
+   "id": "M13",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:02.343Z",
+   "from": "core.san-francisco.mobility.traffic",
+   "to": "core.san-francisco.civil.lead",
+   "type": "request",
+   "purpose": "Demande d’appui (works.area-windows) pour South of Market",
+   "evidence": [],
+   "outcome": "accepté par la direction"
+  },
+  {
+   "id": "M14",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:02.343Z",
+   "from": "core.san-francisco.civil.lead",
+   "to": "core.san-francisco.civil.works-coordination",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S6 : works.area-windows",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M15",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:02.344Z",
+   "from": "core.san-francisco.water.water-network",
+   "to": "core.san-francisco.water.lead",
+   "type": "result",
+   "purpose": "Résultat S5 (flood.exposure)",
+   "evidence": [
+    "flood-zone:2022",
+    "neighborhoods:South of Market",
+    "study-permits:26EXC-04769@302000",
+    "study-permits:26EXC-05185@417000",
+    "study-permits:25EXC-03925@459000",
+    "flood-zone:2022",
+    "hin:6720000",
+    "hin:6721000",
+    "hin:6719000",
+    "hin:300002",
+    "hin:300003",
+    "hin:301000",
+    "hin:302000",
+    "hin:303000",
+    "hin:6722000",
+    "hin:335000"
+   ],
+   "outcome": "2 constat(s)"
+  },
+  {
+   "id": "M16",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:02.344Z",
+   "from": "core.san-francisco.civil.works-coordination",
+   "to": "core.san-francisco.civil.lead",
+   "type": "result",
+   "purpose": "Résultat S6 (works.area-windows)",
+   "evidence": [
+    "study-permits:25EXC-03925@5678000",
+    "study-permits:25EXC-03925@9108000",
+    "study-permits:26BW-00015@446000",
+    "study-permits:26BW-00016@446000",
+    "study-permits:25EXC-03925@447000",
+    "study-permits:26EXC-04469@7041000",
+    "study-permits:25EXC-03925@508000",
+    "study-permits:26EXC-01641@407000",
+    "study-permits:25EXC-03925@407000",
+    "study-permits:26EXC-04009@3078000",
+    "study-permits:26EXC-04631@3079000",
+    "study-permits:25EXC-03925@510000",
+    "study-permits:26EXC-04974@9101000",
+    "study-permits:25EXC-03925@9107000",
+    "study-permits:26EXC-01641@9102000",
+    "study-permits:25EXC-03925@9102000",
+    "study-permits:26EXC-01641@405000",
+    "study-permits:26EXC-05235@405000",
+    "study-permits:25EXC-03925@405000",
+    "study-permits:26EXC-01641@406000"
+   ],
+   "outcome": "1 constat(s)"
+  },
+  {
+   "id": "M17",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:02.346Z",
+   "from": "core.san-francisco.civil.works-coordination",
+   "to": "core.san-francisco.civil.lead",
+   "type": "result",
+   "purpose": "Résultat S2 (works.windows)",
+   "evidence": [
+    "permits:25EXC-03925@5678000",
+    "permits"
+   ],
+   "outcome": "2 constat(s)"
+  },
+  {
+   "id": "M18",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:02.348Z",
+   "from": "core.san-francisco.telecom.telecom-works",
+   "to": "core.san-francisco.telecom.lead",
+   "type": "result",
+   "purpose": "Résultat S3 (works.telecom)",
+   "evidence": [
+    "permits"
+   ],
+   "outcome": "1 constat(s)"
+  },
+  {
+   "id": "M19",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:02.370Z",
+   "from": "core.san-francisco.public-space.sidewalks",
+   "to": "core.san-francisco.public-space.lead",
+   "type": "result",
+   "purpose": "Résultat S4 (public-space.sidewalks)",
+   "evidence": [
+    "sidewalks:8575"
+   ],
+   "outcome": "1 constat(s)"
+  },
+  {
+   "id": "M20",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:02.371Z",
+   "from": "core.san-francisco.research.lead",
+   "to": "core.san-francisco.research.evidence-verifier",
+   "type": "delegate",
+   "purpose": "Vérification de fraîcheur des sources",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M21",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:02.371Z",
+   "from": "core.san-francisco.research.evidence-verifier",
+   "to": "core.san-francisco.mobility.lead",
+   "type": "challenge",
+   "purpose": "Accidents jusqu’au 2026-08-31 seulement (44 j avant l’instantané) : les accidents récents ne sont pas inclus.",
+   "evidence": [
+    "dataset:crashes-agg"
+   ],
+   "outcome": "confiance abaissée"
+  },
+  {
+   "id": "M22",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:02.373Z",
+   "from": "core.san-francisco.mobility.lead",
+   "to": "core.san-francisco.safety.adversarial-reviewer",
+   "type": "review-request",
+   "purpose": "Revue adversariale de 19 constat(s) et de la recommandation",
+   "evidence": [
+    "neighborhoods:South of Market",
+    "crashes-agg:5678000",
+    "crashes-agg:338000",
+    "crashes-agg:9100000",
+    "crashes-agg:9108000",
+    "crashes-agg:3080000",
+    "crashes-agg:326000",
+    "crashes-agg:446000",
+    "crashes-agg:447000",
+    "crashes-agg:301000",
+    "crashes-agg:9099000",
+    "crashes-agg:7041000",
+    "crashes-agg:508000",
+    "crashes-agg:6727000",
+    "crashes-agg:303000",
+    "crashes-agg:327000",
+    "crashes-agg:331000",
+    "crashes-agg:169000",
+    "crashes-agg:6722000",
+    "crashes-agg:332000"
+   ],
+   "outcome": "transmis"
+  },
+  {
+   "id": "M23",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:02.375Z",
+   "from": "core.san-francisco.safety.adversarial-reviewer",
+   "to": "core.san-francisco.mobility.lead",
+   "type": "review",
+   "purpose": "Revue : 19 accepté(s), 0 rejeté(s) ; recommandation recevable",
+   "evidence": [],
+   "outcome": "recevable"
+  },
+  {
+   "id": "M24",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:02.377Z",
+   "from": "core.san-francisco.mobility.lead",
+   "to": "core.san-francisco.public-space.accessibility-analyst",
+   "type": "delegate",
+   "purpose": "Interprétation bornée des constats validés (modèle local)",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M25",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:32.438Z",
+   "from": "core.san-francisco.public-space.accessibility-analyst",
+   "to": "core.san-francisco.mobility.lead",
+   "type": "result",
+   "purpose": "Interprétation : 3 énoncé(s) validé(s), 0 rejeté(s)",
+   "evidence": [],
+   "outcome": "tous validés"
+  },
+  {
+   "id": "M26",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "at": "2026-10-14T16:40:32.439Z",
+   "from": "core.san-francisco.governance.gateway",
+   "to": "human",
+   "type": "decision",
+   "purpose": "Proposition : ÉLIGIBLE À LA REVUE HUMAINE",
+   "evidence": [],
+   "outcome": "Accidents jusqu’au 2026-08-31 seulement (44 j avant l’instantané) : les accidents récents ne sont pas inclus."
+  }
+ ],
+ "results": {
+  "safety.crash-profile": {
+   "findings": [
+    {
+     "topic": "safety",
+     "claim": "South of Market : 203 tronçon(s) du réseau HIN 2024 ; 128 avec au moins un accident avec blessé déclaré sur 5 ans (317 accidents, dont 33 graves ou mortels).",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "neighborhoods",
+       "ref": "neighborhoods:South of Market"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:5678000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:338000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:9100000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:9108000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:3080000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:326000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:446000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:447000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:301000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:9099000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:7041000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:508000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:6727000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:303000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:327000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:331000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:169000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:6722000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:332000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:7047000"
+      }
+     ],
+     "values": {
+      "segments": 203,
+      "withCrashes": 128,
+      "crashes": 317,
+      "severeFatal": 33
+     }
+    },
+    {
+     "topic": "safety",
+     "claim": "FOLSOM ST (CNN 5678000) : 5 accident(s) avec blessé, 2 grave(s)/mortel(s), 1 impliquant un piéton, 5.2 par km et par an.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:5678000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:5678000"
+      }
+     ],
+     "values": {
+      "cnn": "5678000",
+      "street": "FOLSOM ST",
+      "length_km": 0.192,
+      "crashes": 5,
+      "severe_fatal": 2,
+      "pedestrian": 1,
+      "per_km_year": 5.2
+     }
+    },
+    {
+     "topic": "safety",
+     "claim": "06TH ST (CNN 338000) : 4 accident(s) avec blessé, 2 grave(s)/mortel(s), 0 impliquant un piéton, 9.2 par km et par an.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:338000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:338000"
+      }
+     ],
+     "values": {
+      "cnn": "338000",
+      "street": "06TH ST",
+      "length_km": 0.087,
+      "crashes": 4,
+      "severe_fatal": 2,
+      "pedestrian": 0,
+      "per_km_year": 9.2
+     }
+    },
+    {
+     "topic": "safety",
+     "claim": "MISSION ST (CNN 9100000) : 14 accident(s) avec blessé, 1 grave(s)/mortel(s), 5 impliquant un piéton, 10.1 par km et par an.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:9100000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:9100000"
+      }
+     ],
+     "values": {
+      "cnn": "9100000",
+      "street": "MISSION ST",
+      "length_km": 0.277,
+      "crashes": 14,
+      "severe_fatal": 1,
+      "pedestrian": 5,
+      "per_km_year": 10.1
+     }
+    },
+    {
+     "topic": "safety",
+     "claim": "MISSION ST (CNN 9108000) : 8 accident(s) avec blessé, 1 grave(s)/mortel(s), 2 impliquant un piéton, 10.8 par km et par an.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:9108000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:9108000"
+      }
+     ],
+     "values": {
+      "cnn": "9108000",
+      "street": "MISSION ST",
+      "length_km": 0.149,
+      "crashes": 8,
+      "severe_fatal": 1,
+      "pedestrian": 2,
+      "per_km_year": 10.8
+     }
+    },
+    {
+     "topic": "safety",
+     "claim": "BRANNAN ST (CNN 3080000) : 7 accident(s) avec blessé, 1 grave(s)/mortel(s), 1 impliquant un piéton, 5.1 par km et par an.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:3080000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:3080000"
+      }
+     ],
+     "values": {
+      "cnn": "3080000",
+      "street": "BRANNAN ST",
+      "length_km": 0.277,
+      "crashes": 7,
+      "severe_fatal": 1,
+      "pedestrian": 1,
+      "per_km_year": 5.1
+     }
+    }
+   ],
+   "rows": [
+    {
+     "cnn": "5678000",
+     "street": "FOLSOM ST",
+     "length_km": 0.192,
+     "crashes": 5,
+     "severe_fatal": 2,
+     "pedestrian": 1,
+     "per_km_year": 5.2
+    },
+    {
+     "cnn": "338000",
+     "street": "06TH ST",
+     "length_km": 0.087,
+     "crashes": 4,
+     "severe_fatal": 2,
+     "pedestrian": 0,
+     "per_km_year": 9.2
+    },
+    {
+     "cnn": "9100000",
+     "street": "MISSION ST",
+     "length_km": 0.277,
+     "crashes": 14,
+     "severe_fatal": 1,
+     "pedestrian": 5,
+     "per_km_year": 10.1
+    },
+    {
+     "cnn": "9108000",
+     "street": "MISSION ST",
+     "length_km": 0.149,
+     "crashes": 8,
+     "severe_fatal": 1,
+     "pedestrian": 2,
+     "per_km_year": 10.8
+    },
+    {
+     "cnn": "3080000",
+     "street": "BRANNAN ST",
+     "length_km": 0.277,
+     "crashes": 7,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 5.1
+    },
+    {
+     "cnn": "326000",
+     "street": "06TH ST",
+     "length_km": 0.075,
+     "crashes": 5,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 13.4
+    },
+    {
+     "cnn": "446000",
+     "street": "09TH ST",
+     "length_km": 0.121,
+     "crashes": 4,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 6.6
+    },
+    {
+     "cnn": "447000",
+     "street": "09TH ST",
+     "length_km": 0.076,
+     "crashes": 4,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 10.5
+    },
+    {
+     "cnn": "301000",
+     "street": "05TH ST",
+     "length_km": 0.067,
+     "crashes": 4,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 12
+    },
+    {
+     "cnn": "9099000",
+     "street": "MISSION ST",
+     "length_km": 0.181,
+     "crashes": 4,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 4.4
+    },
+    {
+     "cnn": "7041000",
+     "street": "HOWARD ST",
+     "length_km": 0.098,
+     "crashes": 4,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 8.2
+    },
+    {
+     "cnn": "508000",
+     "street": "11TH ST",
+     "length_km": 0.194,
+     "crashes": 4,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 4.1
+    },
+    {
+     "cnn": "6727000",
+     "street": "HARRISON ST",
+     "length_km": 0.102,
+     "crashes": 4,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 7.8
+    },
+    {
+     "cnn": "303000",
+     "street": "05TH ST",
+     "length_km": 0.127,
+     "crashes": 3,
+     "severe_fatal": 1,
+     "pedestrian": 2,
+     "per_km_year": 4.7
+    },
+    {
+     "cnn": "327000",
+     "street": "06TH ST",
+     "length_km": 0.056,
+     "crashes": 3,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 10.7
+    },
+    {
+     "cnn": "331000",
+     "street": "06TH ST",
+     "length_km": 0.066,
+     "crashes": 3,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 9
+    },
+    {
+     "cnn": "169000",
+     "street": "03RD ST",
+     "length_km": 0.067,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 6
+    },
+    {
+     "cnn": "6722000",
+     "street": "HARRISON ST",
+     "length_km": 0.071,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 5.7
+    },
+    {
+     "cnn": "332000",
+     "street": "06TH ST",
+     "length_km": 0.066,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 6
+    },
+    {
+     "cnn": "7047000",
+     "street": "HOWARD ST",
+     "length_km": 0.067,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 6
+    },
+    {
+     "cnn": "489000",
+     "street": "10TH ST",
+     "length_km": 0.077,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 5.2
+    },
+    {
+     "cnn": "6723000",
+     "street": "HARRISON ST",
+     "length_km": 0.067,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 6
+    },
+    {
+     "cnn": "407000",
+     "street": "08TH ST",
+     "length_km": 0.057,
+     "crashes": 1,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 3.5
+    },
+    {
+     "cnn": "3078000",
+     "street": "BRANNAN ST",
+     "length_km": 0.058,
+     "crashes": 1,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 3.5
+    },
+    {
+     "cnn": "3079000",
+     "street": "BRANNAN ST",
+     "length_km": 0.153,
+     "crashes": 1,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 1.3
+    },
+    {
+     "cnn": "289000",
+     "street": "05TH ST",
+     "length_km": 0.073,
+     "crashes": 1,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 2.8
+    },
+    {
+     "cnn": "290000",
+     "street": "05TH ST",
+     "length_km": 0.037,
+     "crashes": 1,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 5.4
+    },
+    {
+     "cnn": "299000",
+     "street": "05TH ST",
+     "length_km": 0.068,
+     "crashes": 1,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 2.9
+    },
+    {
+     "cnn": "509000",
+     "street": "11TH ST",
+     "length_km": 0.066,
+     "crashes": 1,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 3
+    },
+    {
+     "cnn": "510000",
+     "street": "11TH ST",
+     "length_km": 0.059,
+     "crashes": 1,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 3.4
+    },
+    {
+     "cnn": "3082000",
+     "street": "BRANNAN ST",
+     "length_km": 0.067,
+     "crashes": 1,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 3
+    },
+    {
+     "cnn": "9101000",
+     "street": "MISSION ST",
+     "length_km": 0.184,
+     "crashes": 9,
+     "severe_fatal": 0,
+     "pedestrian": 2,
+     "per_km_year": 9.8
+    },
+    {
+     "cnn": "516000",
+     "street": "11TH ST",
+     "length_km": 0.192,
+     "crashes": 7,
+     "severe_fatal": 0,
+     "pedestrian": 1,
+     "per_km_year": 7.3
+    },
+    {
+     "cnn": "7043000",
+     "street": "HOWARD ST",
+     "length_km": 0.066,
+     "crashes": 5,
+     "severe_fatal": 0,
+     "pedestrian": 2,
+     "per_km_year": 15.1
+    },
+    {
+     "cnn": "9107000",
+     "street": "MISSION ST",
+     "length_km": 0.053,
+     "crashes": 5,
+     "severe_fatal": 0,
+     "pedestrian": 0,
+     "per_km_year": 19
+    },
+    {
+     "cnn": "339000",
+     "street": "06TH ST",
+     "length_km": 0.106,
+     "crashes": 5,
+     "severe_fatal": 0,
+     "pedestrian": 0,
+     "per_km_year": 9.5
+    },
+    {
+     "cnn": "9102000",
+     "street": "MISSION ST",
+     "length_km": 0.093,
+     "crashes": 4,
+     "severe_fatal": 0,
+     "pedestrian": 0,
+     "per_km_year": 8.6
+    },
+    {
+     "cnn": "368000",
+     "street": "07TH ST",
+     "length_km": 0.067,
+     "crashes": 4,
+     "severe_fatal": 0,
+     "pedestrian": 0,
+     "per_km_year": 12
+    },
+    {
+     "cnn": "405000",
+     "street": "08TH ST",
+     "length_km": 0.123,
+     "crashes": 4,
+     "severe_fatal": 0,
+     "pedestrian": 3,
+     "per_km_year": 6.5
+    },
+    {
+     "cnn": "406000",
+     "street": "08TH ST",
+     "length_km": 0.068,
+     "crashes": 4,
+     "severe_fatal": 0,
+     "pedestrian": 2,
+     "per_km_year": 11.8
+    }
+   ],
+   "assumptions": [
+    "Accidents rattachés à un tronçon par la clé CNN du jeu (les accidents d’intersection sans tronçon sont exclus).",
+    "Fenêtre de 5 ans 2021-09-01 → 2026-08-31 ; accidents déclarés (sous-déclaration possible)."
+   ]
+  },
+  "flood.exposure": {
+   "findings": [
+    {
+     "topic": "flood",
+     "claim": "South of Market : 3 des 145 permis de travaux en cours ou à venir (120 j) sont dans la zone de risque de tempête centennale modélisée (SFPUC 2022), dont 3 d’excavation.",
+     "epistemic": "modeled",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "flood-zone",
+       "ref": "flood-zone:2022"
+      },
+      {
+       "type": "record",
+       "dataset": "neighborhoods",
+       "ref": "neighborhoods:South of Market"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-04769@302000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-05185@417000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:25EXC-03925@459000"
+      }
+     ],
+     "values": {
+      "permits": 145,
+      "inZone": 3,
+      "excavation": 3
+     }
+    },
+    {
+     "topic": "flood",
+     "claim": "19 tronçon(s) HIN du quartier traversent cette zone modélisée.",
+     "epistemic": "modeled",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "flood-zone",
+       "ref": "flood-zone:2022"
+      },
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:6720000"
+      },
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:6721000"
+      },
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:6719000"
+      },
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:300002"
+      },
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:300003"
+      },
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:301000"
+      },
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:302000"
+      },
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:303000"
+      },
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:6722000"
+      },
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:335000"
+      }
+     ],
+     "values": {
+      "hinInZone": 19
+     }
+    }
+   ],
+   "rows": [
+    {
+     "id": "26EXC-04769@302000",
+     "cnn": "302000",
+     "type": "Excavation",
+     "start": "2026-09-28",
+     "end": "2026-11-11",
+     "agent": "San Francisco Water Department",
+     "at": [
+      -122.40174899114645,
+      37.77875155476884
+     ]
+    },
+    {
+     "id": "26EXC-05185@417000",
+     "cnn": "417000",
+     "type": "Excavation",
+     "start": "2026-10-19",
+     "end": "2026-11-13",
+     "agent": "Pacific Bell Telephone Company",
+     "at": [
+      -122.40465121102335,
+      37.7706795985814
+     ]
+    },
+    {
+     "id": "25EXC-03925@459000",
+     "cnn": "459000",
+     "type": "Excavation",
+     "start": "2025-09-21",
+     "end": "2026-12-03",
+     "agent": "Precision Engineering, Inc.",
+     "at": [
+      -122.40776628008413,
+      37.770670270773294
+     ]
+    }
+   ],
+   "assumptions": [
+    "Zone modélisée (pas d’inondation observée) ; un point de permis représente son tronçon.",
+    "Horizon de 120 jours."
+   ]
+  },
+  "works.area-windows": {
+   "findings": [
+    {
+     "topic": "works",
+     "claim": "43 des 128 tronçons examinés ont des fenêtres de travaux approuvées en cours ou dans les 120 j (59 permis, 7 organisation(s)).",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:25EXC-03925@5678000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:25EXC-03925@9108000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26BW-00015@446000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26BW-00016@446000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:25EXC-03925@447000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-04469@7041000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:25EXC-03925@508000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01641@407000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:25EXC-03925@407000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-04009@3078000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-04631@3079000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:25EXC-03925@510000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-04974@9101000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:25EXC-03925@9107000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01641@9102000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:25EXC-03925@9102000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01641@405000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-05235@405000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:25EXC-03925@405000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01641@406000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:25EXC-03925@406000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01641@408000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:25EXC-03925@408000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01641@9103000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:25EXC-03925@9103000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-04936@448000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:25EXC-03925@448000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-01641@409000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:25EXC-03925@409000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-04880@7039001"
+      }
+     ],
+     "values": {
+      "segments": 128,
+      "withWorks": 43
+     }
+    }
+   ],
+   "rows": [
+    {
+     "cnn": "5678000",
+     "permits": [
+      "25EXC-03925@5678000"
+     ],
+     "orgs": [
+      "Precision Engineering, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "9108000",
+     "permits": [
+      "25EXC-03925@9108000"
+     ],
+     "orgs": [
+      "Precision Engineering, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "446000",
+     "permits": [
+      "26BW-00015@446000",
+      "26BW-00016@446000"
+     ],
+     "orgs": [
+      "GEI CONSULTANTS, INC."
+     ],
+     "excavation": 2
+    },
+    {
+     "cnn": "447000",
+     "permits": [
+      "25EXC-03925@447000"
+     ],
+     "orgs": [
+      "Precision Engineering, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "7041000",
+     "permits": [
+      "26EXC-04469@7041000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric"
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "508000",
+     "permits": [
+      "25EXC-03925@508000"
+     ],
+     "orgs": [
+      "Precision Engineering, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "407000",
+     "permits": [
+      "26EXC-01641@407000",
+      "25EXC-03925@407000"
+     ],
+     "orgs": [
+      "Precision Engineering, Inc.",
+      "Ronan Construction Inc."
+     ],
+     "excavation": 2
+    },
+    {
+     "cnn": "3078000",
+     "permits": [
+      "26EXC-04009@3078000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric"
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "3079000",
+     "permits": [
+      "26EXC-04631@3079000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric"
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "510000",
+     "permits": [
+      "25EXC-03925@510000"
+     ],
+     "orgs": [
+      "Precision Engineering, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "9101000",
+     "permits": [
+      "26EXC-04974@9101000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric"
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "9107000",
+     "permits": [
+      "25EXC-03925@9107000"
+     ],
+     "orgs": [
+      "Precision Engineering, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "9102000",
+     "permits": [
+      "26EXC-01641@9102000",
+      "25EXC-03925@9102000"
+     ],
+     "orgs": [
+      "Precision Engineering, Inc.",
+      "Ronan Construction Inc."
+     ],
+     "excavation": 2
+    },
+    {
+     "cnn": "405000",
+     "permits": [
+      "26EXC-01641@405000",
+      "26EXC-05235@405000",
+      "25EXC-03925@405000"
+     ],
+     "orgs": [
+      "Phase 3 Communications, Inc.",
+      "Precision Engineering, Inc.",
+      "Ronan Construction Inc."
+     ],
+     "excavation": 3
+    },
+    {
+     "cnn": "406000",
+     "permits": [
+      "26EXC-01641@406000",
+      "25EXC-03925@406000"
+     ],
+     "orgs": [
+      "Precision Engineering, Inc.",
+      "Ronan Construction Inc."
+     ],
+     "excavation": 2
+    },
+    {
+     "cnn": "408000",
+     "permits": [
+      "26EXC-01641@408000",
+      "25EXC-03925@408000"
+     ],
+     "orgs": [
+      "Precision Engineering, Inc.",
+      "Ronan Construction Inc."
+     ],
+     "excavation": 2
+    },
+    {
+     "cnn": "9103000",
+     "permits": [
+      "26EXC-01641@9103000",
+      "25EXC-03925@9103000"
+     ],
+     "orgs": [
+      "Precision Engineering, Inc.",
+      "Ronan Construction Inc."
+     ],
+     "excavation": 2
+    },
+    {
+     "cnn": "448000",
+     "permits": [
+      "26EXC-04936@448000",
+      "25EXC-03925@448000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric",
+      "Precision Engineering, Inc."
+     ],
+     "excavation": 2
+    },
+    {
+     "cnn": "409000",
+     "permits": [
+      "26EXC-01641@409000",
+      "25EXC-03925@409000"
+     ],
+     "orgs": [
+      "Precision Engineering, Inc.",
+      "Ronan Construction Inc."
+     ],
+     "excavation": 2
+    },
+    {
+     "cnn": "7039001",
+     "permits": [
+      "26EXC-04880@7039001"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric"
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "7042000",
+     "permits": [
+      "26EXC-04469@7042000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric"
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "7051000",
+     "permits": [
+      "26EXC-04337@7051000",
+      "26EXC-04619@7051000",
+      "26EXC-05114@7051000",
+      "25EXC-03925@7051000"
+     ],
+     "orgs": [
+      "CableCom",
+      "Precision Engineering, Inc.",
+      "R & S Construction Management Inc"
+     ],
+     "excavation": 4
+    },
+    {
+     "cnn": "6732000",
+     "permits": [
+      "26EXC-01641@6732000",
+      "25EXC-03925@6732000"
+     ],
+     "orgs": [
+      "Precision Engineering, Inc.",
+      "Ronan Construction Inc."
+     ],
+     "excavation": 2
+    },
+    {
+     "cnn": "371000",
+     "permits": [
+      "26EXC-04382@371000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric"
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "365000",
+     "permits": [
+      "26EXC-01641@365000"
+     ],
+     "orgs": [
+      "Ronan Construction Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "484000",
+     "permits": [
+      "25EXC-03925@484000"
+     ],
+     "orgs": [
+      "Precision Engineering, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "452000",
+     "permits": [
+      "25EXC-03925@452000"
+     ],
+     "orgs": [
+      "Precision Engineering, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "6733000",
+     "permits": [
+      "26EXC-01641@6733000"
+     ],
+     "orgs": [
+      "Ronan Construction Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "3296001",
+     "permits": [
+      "25EXC-03925@3296001"
+     ],
+     "orgs": [
+      "Precision Engineering, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "3298000",
+     "permits": [
+      "25EXC-03925@3298000"
+     ],
+     "orgs": [
+      "Precision Engineering, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "7050000",
+     "permits": [
+      "26EXC-04469@7050000",
+      "25EXC-03925@7050000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric",
+      "Precision Engineering, Inc."
+     ],
+     "excavation": 2
+    },
+    {
+     "cnn": "366001",
+     "permits": [
+      "26EXC-01641@366001"
+     ],
+     "orgs": [
+      "Ronan Construction Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "404000",
+     "permits": [
+      "26EXC-01641@404000"
+     ],
+     "orgs": [
+      "Ronan Construction Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "9106000",
+     "permits": [
+      "25EXC-03925@9106000"
+     ],
+     "orgs": [
+      "Precision Engineering, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "7053000",
+     "permits": [
+      "25EXC-03925@7053000"
+     ],
+     "orgs": [
+      "Precision Engineering, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "5679000",
+     "permits": [
+      "25EXC-03925@5679000"
+     ],
+     "orgs": [
+      "Precision Engineering, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "486000",
+     "permits": [
+      "25EXC-03925@486000"
+     ],
+     "orgs": [
+      "Precision Engineering, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "450000",
+     "permits": [
+      "25EXC-03925@450000"
+     ],
+     "orgs": [
+      "Precision Engineering, Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "5672000",
+     "permits": [
+      "26EXC-04382@5672000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric"
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "5673000",
+     "permits": [
+      "26EXC-04534@5673000",
+      "26EXC-04382@5673000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric"
+     ],
+     "excavation": 2
+    }
+   ],
+   "assumptions": [
+    "Horizon de 120 jours depuis l’instantané (2026-10-14).",
+    "Un permis approuvé n’est pas la preuve que les travaux ont lieu."
+   ]
+  },
+  "works.windows": {
+   "findings": [
+    {
+     "topic": "works",
+     "claim": "1 fenêtre(s) d’excavation en cours ou à venir sur FOLSOM ST 08TH ST → 09TH ST (Precision Engineering, Inc.).",
+     "epistemic": "observed",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "permits",
+       "ref": "permits:25EXC-03925@5678000",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      }
+     ],
+     "value": 1,
+     "quantities": [
+      {
+       "value": 1,
+       "unit": "count",
+       "quantity": "count",
+       "meaning": "nombre de fenêtres de permis (pas la preuve de travaux)",
+       "scope": "segment"
+      }
+     ]
+    },
+    {
+     "topic": "works-overlap",
+     "claim": "0 chevauchement(s) entre organisations dans les 60 j.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "dataset",
+       "ref": "permits",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      }
+     ],
+     "value": 0,
+     "quantities": [
+      {
+       "value": 0,
+       "unit": "count",
+       "quantity": "count",
+       "meaning": "nombre de paires de fenêtres qui se chevauchent",
+       "scope": "segment"
+      },
+      {
+       "value": 60,
+       "unit": "days",
+       "quantity": "duration",
+       "meaning": "horizon d’analyse"
+      }
+     ]
+    }
+   ],
+   "rows": [],
+   "assumptions": null
+  },
+  "works.telecom": {
+   "findings": [
+    {
+     "topic": "telecom",
+     "claim": "0 fenêtre(s) de titulaires classés télécoms (classement déclaré par nom) : aucune.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "dataset",
+       "ref": "permits",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
+      }
+     ],
+     "value": 0,
+     "quantities": [
+      {
+       "value": 0,
+       "unit": "count",
+       "quantity": "count",
+       "meaning": "fenêtres de titulaires classés télécoms",
+       "scope": "segment"
+      }
+     ]
+    }
+   ],
+   "rows": [],
+   "assumptions": null
+  },
+  "public-space.sidewalks": {
+   "findings": [
+    {
+     "topic": "public-space",
+     "claim": "Trottoir : 10 pi (Both) (étude 2014) ; 0 parc(s) proche(s).",
+     "epistemic": "observed",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "sidewalks",
+       "ref": "sidewalks:8575",
+       "url": "https://data.sf.gov/d/4g86-grxu"
+      }
+     ],
+     "value": 10,
+     "quantities": [
+      {
+       "value": 10,
+       "unit": "ft",
+       "quantity": "width",
+       "meaning": "largeur de trottoir (étude 2014)",
+       "asOf": "2014-01-01",
+       "scope": "segment"
+      },
+      {
+       "value": 0,
+       "unit": "count",
+       "quantity": "count",
+       "meaning": "parcs proches"
+      }
+     ]
+    }
+   ],
+   "rows": [],
+   "assumptions": null
+  }
+ },
+ "findings": [
+  {
+   "topic": "safety",
+   "claim": "South of Market : 203 tronçon(s) du réseau HIN 2024 ; 128 avec au moins un accident avec blessé déclaré sur 5 ans (317 accidents, dont 33 graves ou mortels).",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "neighborhoods",
+     "ref": "neighborhoods:South of Market"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:5678000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:338000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9100000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9108000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:3080000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:326000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:446000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:447000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:301000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9099000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:7041000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:508000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:6727000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:303000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:327000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:331000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:169000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:6722000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:332000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:7047000"
+    }
+   ],
+   "values": {
+    "segments": 203,
+    "withCrashes": 128,
+    "crashes": 317,
+    "severeFatal": 33
+   }
+  },
+  {
+   "topic": "safety",
+   "claim": "FOLSOM ST (CNN 5678000) : 5 accident(s) avec blessé, 2 grave(s)/mortel(s), 1 impliquant un piéton, 5.2 par km et par an.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:5678000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:5678000"
+    }
+   ],
+   "values": {
+    "cnn": "5678000",
+    "street": "FOLSOM ST",
+    "length_km": 0.192,
+    "crashes": 5,
+    "severe_fatal": 2,
+    "pedestrian": 1,
+    "per_km_year": 5.2
+   }
+  },
+  {
+   "topic": "safety",
+   "claim": "06TH ST (CNN 338000) : 4 accident(s) avec blessé, 2 grave(s)/mortel(s), 0 impliquant un piéton, 9.2 par km et par an.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:338000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:338000"
+    }
+   ],
+   "values": {
+    "cnn": "338000",
+    "street": "06TH ST",
+    "length_km": 0.087,
+    "crashes": 4,
+    "severe_fatal": 2,
+    "pedestrian": 0,
+    "per_km_year": 9.2
+   }
+  },
+  {
+   "topic": "safety",
+   "claim": "MISSION ST (CNN 9100000) : 14 accident(s) avec blessé, 1 grave(s)/mortel(s), 5 impliquant un piéton, 10.1 par km et par an.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:9100000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9100000"
+    }
+   ],
+   "values": {
+    "cnn": "9100000",
+    "street": "MISSION ST",
+    "length_km": 0.277,
+    "crashes": 14,
+    "severe_fatal": 1,
+    "pedestrian": 5,
+    "per_km_year": 10.1
+   }
+  },
+  {
+   "topic": "safety",
+   "claim": "MISSION ST (CNN 9108000) : 8 accident(s) avec blessé, 1 grave(s)/mortel(s), 2 impliquant un piéton, 10.8 par km et par an.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:9108000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9108000"
+    }
+   ],
+   "values": {
+    "cnn": "9108000",
+    "street": "MISSION ST",
+    "length_km": 0.149,
+    "crashes": 8,
+    "severe_fatal": 1,
+    "pedestrian": 2,
+    "per_km_year": 10.8
+   }
+  },
+  {
+   "topic": "safety",
+   "claim": "BRANNAN ST (CNN 3080000) : 7 accident(s) avec blessé, 1 grave(s)/mortel(s), 1 impliquant un piéton, 5.1 par km et par an.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:3080000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:3080000"
+    }
+   ],
+   "values": {
+    "cnn": "3080000",
+    "street": "BRANNAN ST",
+    "length_km": 0.277,
+    "crashes": 7,
+    "severe_fatal": 1,
+    "pedestrian": 1,
+    "per_km_year": 5.1
+   }
+  },
+  {
+   "topic": "flood",
+   "claim": "South of Market : 3 des 145 permis de travaux en cours ou à venir (120 j) sont dans la zone de risque de tempête centennale modélisée (SFPUC 2022), dont 3 d’excavation.",
+   "epistemic": "modeled",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "flood-zone",
+     "ref": "flood-zone:2022"
+    },
+    {
+     "type": "record",
+     "dataset": "neighborhoods",
+     "ref": "neighborhoods:South of Market"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04769@302000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-05185@417000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:25EXC-03925@459000"
+    }
+   ],
+   "values": {
+    "permits": 145,
+    "inZone": 3,
+    "excavation": 3
+   }
+  },
+  {
+   "topic": "flood",
+   "claim": "19 tronçon(s) HIN du quartier traversent cette zone modélisée.",
+   "epistemic": "modeled",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "flood-zone",
+     "ref": "flood-zone:2022"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:6720000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:6721000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:6719000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:300002"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:300003"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:301000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:302000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:303000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:6722000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:335000"
+    }
+   ],
+   "values": {
+    "hinInZone": 19
+   }
+  },
+  {
+   "topic": "works",
+   "claim": "43 des 128 tronçons examinés ont des fenêtres de travaux approuvées en cours ou dans les 120 j (59 permis, 7 organisation(s)).",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:25EXC-03925@5678000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:25EXC-03925@9108000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26BW-00015@446000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26BW-00016@446000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:25EXC-03925@447000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04469@7041000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:25EXC-03925@508000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01641@407000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:25EXC-03925@407000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04009@3078000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04631@3079000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:25EXC-03925@510000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04974@9101000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:25EXC-03925@9107000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01641@9102000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:25EXC-03925@9102000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01641@405000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-05235@405000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:25EXC-03925@405000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01641@406000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:25EXC-03925@406000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01641@408000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:25EXC-03925@408000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01641@9103000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:25EXC-03925@9103000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04936@448000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:25EXC-03925@448000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-01641@409000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:25EXC-03925@409000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04880@7039001"
+    }
+   ],
+   "values": {
+    "segments": 128,
+    "withWorks": 43
+   }
+  },
+  {
+   "topic": "works",
+   "claim": "1 fenêtre(s) d’excavation en cours ou à venir sur FOLSOM ST 08TH ST → 09TH ST (Precision Engineering, Inc.).",
+   "epistemic": "observed",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:25EXC-03925@5678000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "value": 1,
+   "quantities": [
+    {
+     "value": 1,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "nombre de fenêtres de permis (pas la preuve de travaux)",
+     "scope": "segment"
+    }
+   ]
+  },
+  {
+   "topic": "works-overlap",
+   "claim": "0 chevauchement(s) entre organisations dans les 60 j.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "dataset",
+     "ref": "permits",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "value": 0,
+   "quantities": [
+    {
+     "value": 0,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "nombre de paires de fenêtres qui se chevauchent",
+     "scope": "segment"
+    },
+    {
+     "value": 60,
+     "unit": "days",
+     "quantity": "duration",
+     "meaning": "horizon d’analyse"
+    }
+   ]
+  },
+  {
+   "topic": "telecom",
+   "claim": "0 fenêtre(s) de titulaires classés télécoms (classement déclaré par nom) : aucune.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "dataset",
+     "ref": "permits",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "value": 0,
+   "quantities": [
+    {
+     "value": 0,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "fenêtres de titulaires classés télécoms",
+     "scope": "segment"
+    }
+   ]
+  },
+  {
+   "topic": "public-space",
+   "claim": "Trottoir : 10 pi (Both) (étude 2014) ; 0 parc(s) proche(s).",
+   "epistemic": "observed",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "sidewalks",
+     "ref": "sidewalks:8575",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "value": 10,
+   "quantities": [
+    {
+     "value": 10,
+     "unit": "ft",
+     "quantity": "width",
+     "meaning": "largeur de trottoir (étude 2014)",
+     "asOf": "2014-01-01",
+     "scope": "segment"
+    },
+    {
+     "value": 0,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "parcs proches"
+    }
+   ]
+  },
+  {
+   "topic": "cross",
+   "claim": "43 tronçon(s) HIN cumulent des accidents avec blessés (5 ans) et des fenêtres de travaux approuvées dans les 120 j ; 10 avec au moins un accident grave ou mortel.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:5678000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:5678000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9108000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:9108000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:446000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:446000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:447000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:447000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:7041000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:7041000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:508000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:508000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:407000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:407000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:3078000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:3078000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:3079000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:3079000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:510000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:510000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9101000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:9101000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9107000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:9107000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9102000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:9102000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:405000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:405000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:406000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:406000"
+    }
+   ],
+   "values": {
+    "segments": 43,
+    "severe": 10
+   }
+  },
+  {
+   "topic": "cross",
+   "claim": "FOLSOM ST (CNN 5678000) : 2 accident(s) grave(s)/mortel(s), 5 au total, et 1 permis de travaux (1 organisation(s)) à venir.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:5678000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:5678000"
+    }
+   ],
+   "values": {
+    "cnn": "5678000",
+    "street": "FOLSOM ST",
+    "length_km": 0.192,
+    "crashes": 5,
+    "severe_fatal": 2,
+    "pedestrian": 1,
+    "per_km_year": 5.2,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   }
+  },
+  {
+   "topic": "cross",
+   "claim": "MISSION ST (CNN 9108000) : 1 accident(s) grave(s)/mortel(s), 8 au total, et 1 permis de travaux (1 organisation(s)) à venir.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:9108000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9108000"
+    }
+   ],
+   "values": {
+    "cnn": "9108000",
+    "street": "MISSION ST",
+    "length_km": 0.149,
+    "crashes": 8,
+    "severe_fatal": 1,
+    "pedestrian": 2,
+    "per_km_year": 10.8,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   }
+  },
+  {
+   "topic": "cross",
+   "claim": "09TH ST (CNN 446000) : 1 accident(s) grave(s)/mortel(s), 4 au total, et 2 permis de travaux (1 organisation(s)) à venir.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:446000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:446000"
+    }
+   ],
+   "values": {
+    "cnn": "446000",
+    "street": "09TH ST",
+    "length_km": 0.121,
+    "crashes": 4,
+    "severe_fatal": 1,
+    "pedestrian": 0,
+    "per_km_year": 6.6,
+    "permits": 2,
+    "orgs": 1,
+    "excavation": 2
+   }
+  },
+  {
+   "topic": "cross",
+   "claim": "09TH ST (CNN 447000) : 1 accident(s) grave(s)/mortel(s), 4 au total, et 1 permis de travaux (1 organisation(s)) à venir.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:447000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:447000"
+    }
+   ],
+   "values": {
+    "cnn": "447000",
+    "street": "09TH ST",
+    "length_km": 0.076,
+    "crashes": 4,
+    "severe_fatal": 1,
+    "pedestrian": 1,
+    "per_km_year": 10.5,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   }
+  },
+  {
+   "topic": "cross",
+   "claim": "HOWARD ST (CNN 7041000) : 1 accident(s) grave(s)/mortel(s), 4 au total, et 1 permis de travaux (1 organisation(s)) à venir.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:7041000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:7041000"
+    }
+   ],
+   "values": {
+    "cnn": "7041000",
+    "street": "HOWARD ST",
+    "length_km": 0.098,
+    "crashes": 4,
+    "severe_fatal": 1,
+    "pedestrian": 0,
+    "per_km_year": 8.2,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   }
+  }
+ ],
+ "rejected": [],
+ "challenges": [
+  {
+   "dataset": "crashes-agg",
+   "level": "warn",
+   "text": "Accidents jusqu’au 2026-08-31 seulement (44 j avant l’instantané) : les accidents récents ne sont pas inclus."
+  },
+  {
+   "dataset": "hin",
+   "level": "info",
+   "text": "Réseau HIN 2024 : désignation administrative fondée sur des années antérieures ; ne mesure pas le risque actuel."
+  },
+  {
+   "dataset": "permits",
+   "level": "info",
+   "text": "Permis collectés il y a 0 j ; statut administratif, pas preuve d’exécution."
+  }
+ ],
+ "conflicts": [],
+ "recommendation": {
+  "kind": "recommandation (hypothèse à vérifier)",
+  "text": "Pour les 5 tronçons HIN les plus accidentogènes avec chantiers à venir, demander à SFMTA et SF Public Works de vérifier, avant le début des travaux, le plan de circulation piétonne et cycliste temporaire (cheminement, traversées, signalisation). Hypothèse : les chantiers sur ces tronçons méritent une attention particulière ; aucun effet des travaux sur les accidents n’est démontré."
+ },
+ "review": {
+  "by": "core.san-francisco.safety.adversarial-reviewer",
+  "accepted": 19,
+  "rejected": 0,
+  "recommendation": {
+   "ok": true,
+   "issues": []
+  }
+ },
+ "decision": {
+  "by": "core.san-francisco.governance.gateway",
+  "state": "ÉLIGIBLE À LA REVUE HUMAINE",
+  "caveats": [
+   "Accidents jusqu’au 2026-08-31 seulement (44 j avant l’instantané) : les accidents récents ne sont pas inclus."
+  ],
+  "authorizes": "rien — décision humaine requise"
+ },
+ "model": {
+  "calls": 1,
+  "accepted": [
+   {
+    "statement": "Les tronçons de South of Market avec des accidents avec blessés (128 tronçons) et des chantiers à venir dans la zone de risque de tempête centennale méritent une attention prioritaire, car ils combinent des risques historiques et des travaux à venir.",
+    "cites": [
+     "F1",
+     "F7"
+    ],
+    "reason": null,
+    "agent": "core.san-francisco.public-space.accessibility-analyst"
+   },
+   {
+    "statement": "Les segments de FOLSOM ST, 06TH ST et MISSION ST présentent des taux d'accidents élevés par km et par an, ce qui soulève des questions sur leur sécurité avant tout chantier.",
+    "cites": [
+     "F2",
+     "F3",
+     "F4",
+     "F5"
+    ],
+    "reason": null,
+    "agent": "core.san-francisco.public-space.accessibility-analyst"
+   },
+   {
+    "statement": "Les incertitudes incluent l'impact des chantiers sur les taux d'accidents et la modélisation des risques climatiques, qui ne sont pas mesurés directement par les constats.",
+    "cites": [
+     "F7",
+     "F8"
+    ],
+    "reason": null,
+    "agent": "core.san-francisco.public-space.accessibility-analyst"
+   }
+  ],
+  "rejected": [],
+  "lessonsUsed": [
+   "lesson:28b47e845e88"
+  ],
+  "usage": {
+   "promptTokens": 1229,
+   "outputTokens": 204,
+   "totalMs": 30058,
+   "loadMs": 7,
+   "promptMs": 57,
+   "evalMs": 14220,
+   "contextChars": 3424,
+   "wallMs": 30061,
+   "model": "qwen3:8b"
+  }
+ },
+ "learning": {
+  "proceduresApplied": [],
+  "lessonsProposed": []
+ },
+ "owner": "core.san-francisco.mobility.lead",
+ "priority": {
+  "score": 109,
+  "basis": "sévérité 33 × 2 + signal 43 (règle déclarée)"
+ },
+ "errors": [],
+ "site": {
+  "coord": [
+   -122.411610117,
+   37.773769347
+  ],
+  "label": "FOLSOM ST (CNN 5678000)",
+  "kind": "tronçon HIN cité"
+ },
+ "cross": {
+  "rows": [
+   {
+    "cnn": "5678000",
+    "street": "FOLSOM ST",
+    "length_km": 0.192,
+    "crashes": 5,
+    "severe_fatal": 2,
+    "pedestrian": 1,
+    "per_km_year": 5.2,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "9108000",
+    "street": "MISSION ST",
+    "length_km": 0.149,
+    "crashes": 8,
+    "severe_fatal": 1,
+    "pedestrian": 2,
+    "per_km_year": 10.8,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "446000",
+    "street": "09TH ST",
+    "length_km": 0.121,
+    "crashes": 4,
+    "severe_fatal": 1,
+    "pedestrian": 0,
+    "per_km_year": 6.6,
+    "permits": 2,
+    "orgs": 1,
+    "excavation": 2
+   },
+   {
+    "cnn": "447000",
+    "street": "09TH ST",
+    "length_km": 0.076,
+    "crashes": 4,
+    "severe_fatal": 1,
+    "pedestrian": 1,
+    "per_km_year": 10.5,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "7041000",
+    "street": "HOWARD ST",
+    "length_km": 0.098,
+    "crashes": 4,
+    "severe_fatal": 1,
+    "pedestrian": 0,
+    "per_km_year": 8.2,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "508000",
+    "street": "11TH ST",
+    "length_km": 0.194,
+    "crashes": 4,
+    "severe_fatal": 1,
+    "pedestrian": 0,
+    "per_km_year": 4.1,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "407000",
+    "street": "08TH ST",
+    "length_km": 0.057,
+    "crashes": 1,
+    "severe_fatal": 1,
+    "pedestrian": 1,
+    "per_km_year": 3.5,
+    "permits": 2,
+    "orgs": 2,
+    "excavation": 2
+   },
+   {
+    "cnn": "3078000",
+    "street": "BRANNAN ST",
+    "length_km": 0.058,
+    "crashes": 1,
+    "severe_fatal": 1,
+    "pedestrian": 0,
+    "per_km_year": 3.5,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "3079000",
+    "street": "BRANNAN ST",
+    "length_km": 0.153,
+    "crashes": 1,
+    "severe_fatal": 1,
+    "pedestrian": 0,
+    "per_km_year": 1.3,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "510000",
+    "street": "11TH ST",
+    "length_km": 0.059,
+    "crashes": 1,
+    "severe_fatal": 1,
+    "pedestrian": 0,
+    "per_km_year": 3.4,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "9101000",
+    "street": "MISSION ST",
+    "length_km": 0.184,
+    "crashes": 9,
+    "severe_fatal": 0,
+    "pedestrian": 2,
+    "per_km_year": 9.8,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "9107000",
+    "street": "MISSION ST",
+    "length_km": 0.053,
+    "crashes": 5,
+    "severe_fatal": 0,
+    "pedestrian": 0,
+    "per_km_year": 19,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "9102000",
+    "street": "MISSION ST",
+    "length_km": 0.093,
+    "crashes": 4,
+    "severe_fatal": 0,
+    "pedestrian": 0,
+    "per_km_year": 8.6,
+    "permits": 2,
+    "orgs": 2,
+    "excavation": 2
+   },
+   {
+    "cnn": "405000",
+    "street": "08TH ST",
+    "length_km": 0.123,
+    "crashes": 4,
+    "severe_fatal": 0,
+    "pedestrian": 3,
+    "per_km_year": 6.5,
+    "permits": 3,
+    "orgs": 3,
+    "excavation": 3
+   },
+   {
+    "cnn": "406000",
+    "street": "08TH ST",
+    "length_km": 0.068,
+    "crashes": 4,
+    "severe_fatal": 0,
+    "pedestrian": 2,
+    "per_km_year": 11.8,
+    "permits": 2,
+    "orgs": 2,
+    "excavation": 2
+   },
+   {
+    "cnn": "408000",
+    "street": "08TH ST",
+    "length_km": 0.069,
+    "crashes": 4,
+    "severe_fatal": 0,
+    "pedestrian": 0,
+    "per_km_year": 11.6,
+    "permits": 2,
+    "orgs": 2,
+    "excavation": 2
+   },
+   {
+    "cnn": "9103000",
+    "street": "MISSION ST",
+    "length_km": 0.118,
+    "crashes": 3,
+    "severe_fatal": 0,
+    "pedestrian": 2,
+    "per_km_year": 5.1,
+    "permits": 2,
+    "orgs": 2,
+    "excavation": 2
+   },
+   {
+    "cnn": "448000",
+    "street": "09TH ST",
+    "length_km": 0.067,
+    "crashes": 3,
+    "severe_fatal": 0,
+    "pedestrian": 0,
+    "per_km_year": 8.9,
+    "permits": 2,
+    "orgs": 2,
+    "excavation": 2
+   },
+   {
+    "cnn": "409000",
+    "street": "08TH ST",
+    "length_km": 0.067,
+    "crashes": 3,
+    "severe_fatal": 0,
+    "pedestrian": 1,
+    "per_km_year": 9,
+    "permits": 2,
+    "orgs": 2,
+    "excavation": 2
+   },
+   {
+    "cnn": "7039001",
+    "street": "HOWARD ST",
+    "length_km": 0.277,
+    "crashes": 3,
+    "severe_fatal": 0,
+    "pedestrian": 1,
+    "per_km_year": 2.2,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "7042000",
+    "street": "HOWARD ST",
+    "length_km": 0.179,
+    "crashes": 3,
+    "severe_fatal": 0,
+    "pedestrian": 0,
+    "per_km_year": 3.3,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "7051000",
+    "street": "HOWARD ST",
+    "length_km": 0.193,
+    "crashes": 3,
+    "severe_fatal": 0,
+    "pedestrian": 1,
+    "per_km_year": 3.1,
+    "permits": 4,
+    "orgs": 3,
+    "excavation": 4
+   },
+   {
+    "cnn": "6732000",
+    "street": "HARRISON ST",
+    "length_km": 0.145,
+    "crashes": 3,
+    "severe_fatal": 0,
+    "pedestrian": 0,
+    "per_km_year": 4.1,
+    "permits": 2,
+    "orgs": 2,
+    "excavation": 2
+   },
+   {
+    "cnn": "371000",
+    "street": "07TH ST",
+    "length_km": 0.193,
+    "crashes": 3,
+    "severe_fatal": 0,
+    "pedestrian": 1,
+    "per_km_year": 3.1,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   },
+   {
+    "cnn": "365000",
+    "street": "07TH ST",
+    "length_km": 0.073,
+    "crashes": 2,
+    "severe_fatal": 0,
+    "pedestrian": 0,
+    "per_km_year": 5.5,
+    "permits": 1,
+    "orgs": 1,
+    "excavation": 1
+   }
+  ]
+ },
+ "metrics": {
+  "wallMs": 30123,
+  "subtasks": 6,
+  "failed": 0,
+  "toolCalls": 7,
+  "messages": 26,
+  "modelCalls": 1
+ },
+ "recorded": {
+  "at": "2026-10-14T16:47:41.205Z",
+  "by": "scripts/civ.mjs (Node, local)",
+  "snapshot": "2026-10-14T16:09:41.363Z"
+ }
+}

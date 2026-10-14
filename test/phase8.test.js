@@ -23,7 +23,7 @@ test('population: every registered profile is placed in one of 13 virtual zones 
   assert.equal([...st.values()].filter(s => s === 'executing' || s === 'queued').length, 0, 'nothing runs without a live source');
   for (const a of reg.agents) { if (st.get(a.id) === 'recorded') assert.ok(f.recorded.has(a.id)); if (a.executionMode === 'coordination-only') assert.notEqual(st.get(a.id), 'available'); }
   const of = k => POP.filter(reg, a => st.get(a.id), k).length;
-  assert.equal(of('all'), 68); assert.equal(of('executable'), 24); assert.equal(of('active'), 0);
+  assert.equal(of('all'), 68); assert.equal(of('executable'), 26, '24 in Phase 8 + 2 implemented in Phase 9'); assert.equal(of('active'), 0);
   const lead = reg.agents.find(a => a.id === 'core.san-francisco.forestry.lead'), team = POP.filter(reg, a => st.get(a.id), `team:${lead.id}`);
   assert.ok(team.some(a => a.id === lead.id) && team.every(a => a.id === lead.id || a.supervisor === lead.id));
   const live = POP.facts({ live: { running: [{ agents: ['core.san-francisco.civil.works-coordination'] }], queued: ['core.san-francisco.telecom.telecom-works'] } });
@@ -33,9 +33,9 @@ test('population: every registered profile is placed in one of 13 virtual zones 
 });
 
 test('pedestrian network: OSM ODbL snapshot, connected, routes stay on mapped pedestrian ways', () => {
-  const w = read('data/osm/walk-network.json');
+  const w = POP.decode(read('data/osm/walk-network.json')); // Phase 9: compact v2 encoding, three neighbourhoods
   assert.equal(w.source.licence, 'ODbL 1.0'); assert.match(w.source.attribution, /OpenStreetMap contributors/);
-  assert.deepEqual(w.kinds, ['sidewalk', 'crossing', 'footway', 'pedestrian', 'path', 'living_street']);
+  assert.deepEqual(w.kinds, ['sidewalk', 'crossing', 'footway', 'pedestrian', 'path', 'living_street']); assert.ok(w.validation.edges_removed_crossing_buildings >= 0);
   assert.ok(w.nodes.length > 5000 && w.edges.every(([a, b, k]) => a < w.nodes.length && b < w.nodes.length && k < w.kinds.length));
   const net = POP.network(w), nodeKeys = new Set(w.nodes.map(n => n.join()));
   const r = net.route([-122.4123, 37.7756], [-122.3965, 37.7855]);

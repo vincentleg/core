@@ -54,9 +54,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:f48f0e24ab50",
-    "fingerprint": "30982a5f14e08a2c",
+    "fingerprint": "be8aefb3f0b057b4",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:10.632Z"
+    "at": "2026-10-14T16:46:49.795Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -110,9 +110,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:43fc2e87aa06",
-    "fingerprint": "435d3db257762d4f",
+    "fingerprint": "f299c25d6e88cd0f",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:10.736Z"
+    "at": "2026-10-14T16:46:49.908Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -166,9 +166,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:9825fcf9f98f",
-    "fingerprint": "25cea1e5c43f8484",
+    "fingerprint": "33c889fb0d1523c4",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:10.834Z"
+    "at": "2026-10-14T16:46:50.008Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -222,9 +222,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:4524067b99fd",
-    "fingerprint": "89da3638ea1987f1",
+    "fingerprint": "bababfb17b4b3d91",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:10.936Z"
+    "at": "2026-10-14T16:46:50.108Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -278,9 +278,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:c9e600633f58",
-    "fingerprint": "399d3f2f910b272c",
+    "fingerprint": "741536b2c4419c64",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:11.035Z"
+    "at": "2026-10-14T16:46:50.216Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -334,9 +334,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:9906298dc0a7",
-    "fingerprint": "d3b39461092aeeb8",
+    "fingerprint": "0e620e503dce8960",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:11.138Z"
+    "at": "2026-10-14T16:46:50.331Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -392,9 +392,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:1f928b0be5c8",
-    "fingerprint": "761148f099fa946a",
+    "fingerprint": "9e397b660e33233c",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:11.236Z"
+    "at": "2026-10-14T16:46:50.433Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -451,9 +451,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:9774378f46cb",
-    "fingerprint": "b32757d47fb75285",
+    "fingerprint": "c7633aa8b12be06d",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:11.353Z"
+    "at": "2026-10-14T16:46:50.554Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -511,9 +511,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:d8e54dad7038",
-    "fingerprint": "2a8d95939d4622fb",
+    "fingerprint": "e0843aeefe3fcd53",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:11.457Z"
+    "at": "2026-10-14T16:46:50.656Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -567,9 +567,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:d7513e2e446b",
-    "fingerprint": "094fdbd282ac17ea",
+    "fingerprint": "e08fa882315ff0da",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:11.553Z"
+    "at": "2026-10-14T16:46:50.759Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -623,9 +623,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:d565f73b2eeb",
-    "fingerprint": "a57d8713e9b3c3ab",
+    "fingerprint": "8690ce7d81b6bfab",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:11.657Z"
+    "at": "2026-10-14T16:46:50.875Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -681,9 +681,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:45cd48415662",
-    "fingerprint": "355bbf234fcc7a24",
+    "fingerprint": "b4084c2a79f3c35a",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:11.757Z"
+    "at": "2026-10-14T16:46:50.979Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -737,9 +737,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:bd0f3e5151db",
-    "fingerprint": "9e8d00556ee30c52",
+    "fingerprint": "d85a9b73424bee20",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:11.861Z"
+    "at": "2026-10-14T16:46:51.101Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -799,9 +799,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:8ff3e57e4d3c",
-    "fingerprint": "c962e7398da52eaf",
+    "fingerprint": "c80f25a166e9bc6f",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:12.270Z"
+    "at": "2026-10-14T16:46:51.508Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -860,9 +860,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:1b31fe158136",
-    "fingerprint": "404f137a34ab6f64",
+    "fingerprint": "9205b263708a62ce",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:12.630Z"
+    "at": "2026-10-14T16:46:51.883Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -918,9 +918,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:02587640ae0d",
-    "fingerprint": "9900bc50348c82c4",
+    "fingerprint": "117127c79299e46c",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:12.735Z"
+    "at": "2026-10-14T16:46:51.994Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -974,9 +974,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:b501b19b7506",
-    "fingerprint": "51bd209bcf2aa83e",
+    "fingerprint": "9fd93a6f262003d6",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:12.842Z"
+    "at": "2026-10-14T16:46:52.102Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -1030,9 +1030,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:65695106b361",
-    "fingerprint": "2f30aef152ed75e1",
+    "fingerprint": "a5ef1d3b32af6cd9",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:12.944Z"
+    "at": "2026-10-14T16:46:52.219Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -1132,9 +1132,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b76df24df98a",
-    "fingerprint": "b22fdcf4fe051370",
+    "fingerprint": "4c86f8c9f12ba5a8",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.790Z"
+    "at": "2026-10-14T16:46:55.074Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -1209,9 +1209,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b980dca837c7",
-    "fingerprint": "f9b098f9ad30a38b",
+    "fingerprint": "e96973224b48ac03",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:16.628Z"
+    "at": "2026-10-14T16:46:55.926Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -1280,9 +1280,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:ae4e5b73fa87",
-    "fingerprint": "d30ef3474af21a45",
+    "fingerprint": "55a9aace1184898b",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:13.994Z"
+    "at": "2026-10-14T16:46:53.281Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -1345,9 +1345,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:d8e54dad7038",
-    "fingerprint": "2a8d95939d4622fb",
+    "fingerprint": "e0843aeefe3fcd53",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:11.457Z"
+    "at": "2026-10-14T16:46:50.656Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -1412,9 +1412,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:8ff3e57e4d3c",
-    "fingerprint": "c962e7398da52eaf",
+    "fingerprint": "c80f25a166e9bc6f",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:12.270Z"
+    "at": "2026-10-14T16:46:51.508Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -1478,9 +1478,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:1b31fe158136",
-    "fingerprint": "404f137a34ab6f64",
+    "fingerprint": "9205b263708a62ce",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:12.630Z"
+    "at": "2026-10-14T16:46:51.883Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -1538,9 +1538,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:4d350215a271",
-    "fingerprint": "54b99e0e6ea47cec",
+    "fingerprint": "18a042ee7f4d29d2",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:13.783Z"
+    "at": "2026-10-14T16:46:53.063Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -1598,9 +1598,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:d66ebf9c2bc1",
-    "fingerprint": "ea85959a4a369dbe",
+    "fingerprint": "c0f2f111ffbc55ae",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:13.887Z"
+    "at": "2026-10-14T16:46:53.169Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -1659,9 +1659,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:ae4e5b73fa87",
-    "fingerprint": "d30ef3474af21a45",
+    "fingerprint": "55a9aace1184898b",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:13.994Z"
+    "at": "2026-10-14T16:46:53.281Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -1788,9 +1788,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b76df24df98a",
-    "fingerprint": "b22fdcf4fe051370",
+    "fingerprint": "4c86f8c9f12ba5a8",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.790Z"
+    "at": "2026-10-14T16:46:55.074Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -1889,9 +1889,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:2561bb404270",
-    "fingerprint": "c247fcba8055f1c2",
+    "fingerprint": "a7da8a85b2a638b0",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:14.485Z"
+    "at": "2026-10-14T16:46:53.750Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -1985,9 +1985,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b980dca837c7",
-    "fingerprint": "f9b098f9ad30a38b",
+    "fingerprint": "e96973224b48ac03",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:16.628Z"
+    "at": "2026-10-14T16:46:55.926Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -2079,9 +2079,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:ae4e5b73fa87",
-    "fingerprint": "d30ef3474af21a45",
+    "fingerprint": "55a9aace1184898b",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:13.994Z"
+    "at": "2026-10-14T16:46:53.281Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -2159,9 +2159,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:8ff3e57e4d3c",
-    "fingerprint": "c962e7398da52eaf",
+    "fingerprint": "c80f25a166e9bc6f",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:12.270Z"
+    "at": "2026-10-14T16:46:51.508Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -2236,9 +2236,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:66f67f4a79e6",
-    "fingerprint": "aabdd8b3e2b50b57",
+    "fingerprint": "3735a218c8a50dff",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:14.362Z"
+    "at": "2026-10-14T16:46:53.641Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -2312,9 +2312,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:47f1dda7338a",
-    "fingerprint": "33a8bb2de4ea2f6a",
+    "fingerprint": "1460c952a5ee14ec",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.424Z"
+    "at": "2026-10-14T16:46:54.698Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -2386,9 +2386,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:d503801b9d8b",
-    "fingerprint": "773595daef1fd026",
+    "fingerprint": "f5d77504bced9b8e",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:16.264Z"
+    "at": "2026-10-14T16:46:55.543Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -2461,9 +2461,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:1b31fe158136",
-    "fingerprint": "404f137a34ab6f64",
+    "fingerprint": "9205b263708a62ce",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:12.630Z"
+    "at": "2026-10-14T16:46:51.883Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -2534,9 +2534,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:4d350215a271",
-    "fingerprint": "54b99e0e6ea47cec",
+    "fingerprint": "18a042ee7f4d29d2",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:13.783Z"
+    "at": "2026-10-14T16:46:53.063Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -2604,9 +2604,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:233e4cf11eb9",
-    "fingerprint": "dafb26f43cae6986",
+    "fingerprint": "7371be4d8cb54558",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:16.159Z"
+    "at": "2026-10-14T16:46:55.438Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -2670,9 +2670,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:61ed8d2c783e",
-    "fingerprint": "a23c6420228a5981",
+    "fingerprint": "29e7d65e156ed89b",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:10.202Z"
+    "at": "2026-10-14T16:46:49.320Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -2736,9 +2736,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:6deaab3ddcfd",
-    "fingerprint": "230e05901c96c89b",
+    "fingerprint": "f5294a0ab83bfc21",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:10.435Z"
+    "at": "2026-10-14T16:46:49.547Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -2804,9 +2804,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:d121906bf283",
-    "fingerprint": "54b1090765ea2ac2",
+    "fingerprint": "5b4602556515253a",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:10.536Z"
+    "at": "2026-10-14T16:46:49.657Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -2872,9 +2872,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:f48f0e24ab50",
-    "fingerprint": "30982a5f14e08a2c",
+    "fingerprint": "be8aefb3f0b057b4",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:10.632Z"
+    "at": "2026-10-14T16:46:49.795Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -2940,9 +2940,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:1f928b0be5c8",
-    "fingerprint": "761148f099fa946a",
+    "fingerprint": "9e397b660e33233c",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:11.236Z"
+    "at": "2026-10-14T16:46:50.433Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -3009,9 +3009,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:3baebfacee45",
-    "fingerprint": "2ab71fc648c38787",
+    "fingerprint": "c891f5ae28c3101d",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:13.319Z"
+    "at": "2026-10-14T16:46:52.596Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -3075,9 +3075,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:92c3df9eade9",
-    "fingerprint": "b212ce411dc21640",
+    "fingerprint": "7bdd6a3f175635d6",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:13.677Z"
+    "at": "2026-10-14T16:46:52.955Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -3144,9 +3144,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:d66ebf9c2bc1",
-    "fingerprint": "ea85959a4a369dbe",
+    "fingerprint": "c0f2f111ffbc55ae",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:13.887Z"
+    "at": "2026-10-14T16:46:53.169Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -3212,9 +3212,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:0ae7d5d9028d",
-    "fingerprint": "80553b3435155bba",
+    "fingerprint": "853a3afe80647ff2",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:14.691Z"
+    "at": "2026-10-14T16:46:53.966Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -3280,9 +3280,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:a2ec8546104c",
-    "fingerprint": "bdea839a60ed2ca8",
+    "fingerprint": "ce3f7dcda1f4690a",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.059Z"
+    "at": "2026-10-14T16:46:54.330Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -3350,9 +3350,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:8ff3e57e4d3c",
-    "fingerprint": "c962e7398da52eaf",
+    "fingerprint": "c80f25a166e9bc6f",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:12.270Z"
+    "at": "2026-10-14T16:46:51.508Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -3414,9 +3414,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:d8e54dad7038",
-    "fingerprint": "2a8d95939d4622fb",
+    "fingerprint": "e0843aeefe3fcd53",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:11.457Z"
+    "at": "2026-10-14T16:46:50.656Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -3477,9 +3477,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:2561bb404270",
-    "fingerprint": "c247fcba8055f1c2",
+    "fingerprint": "a7da8a85b2a638b0",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:14.485Z"
+    "at": "2026-10-14T16:46:53.750Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -3537,9 +3537,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:dee408cd3fbd",
-    "fingerprint": "c4be33d2e14baeee",
+    "fingerprint": "1cc7d59fc2473106",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:14.587Z"
+    "at": "2026-10-14T16:46:53.855Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -3593,9 +3593,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:d259914b8196",
-    "fingerprint": "8e691e7375bd661d",
+    "fingerprint": "7d7e96dc0ad076f7",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:10.315Z"
+    "at": "2026-10-14T16:46:49.442Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -3652,9 +3652,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:9774378f46cb",
-    "fingerprint": "b32757d47fb75285",
+    "fingerprint": "c7633aa8b12be06d",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:11.353Z"
+    "at": "2026-10-14T16:46:50.554Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -3710,9 +3710,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:45cd48415662",
-    "fingerprint": "355bbf234fcc7a24",
+    "fingerprint": "b4084c2a79f3c35a",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:11.757Z"
+    "at": "2026-10-14T16:46:50.979Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -3771,9 +3771,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:1b31fe158136",
-    "fingerprint": "404f137a34ab6f64",
+    "fingerprint": "9205b263708a62ce",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:12.630Z"
+    "at": "2026-10-14T16:46:51.883Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -3829,9 +3829,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:02587640ae0d",
-    "fingerprint": "9900bc50348c82c4",
+    "fingerprint": "117127c79299e46c",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:12.735Z"
+    "at": "2026-10-14T16:46:51.994Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -3947,9 +3947,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b76df24df98a",
-    "fingerprint": "b22fdcf4fe051370",
+    "fingerprint": "4c86f8c9f12ba5a8",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.790Z"
+    "at": "2026-10-14T16:46:55.074Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -4029,9 +4029,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:66f67f4a79e6",
-    "fingerprint": "aabdd8b3e2b50b57",
+    "fingerprint": "3735a218c8a50dff",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:14.362Z"
+    "at": "2026-10-14T16:46:53.641Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -4110,9 +4110,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:0ae7d5d9028d",
-    "fingerprint": "80553b3435155bba",
+    "fingerprint": "853a3afe80647ff2",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:14.691Z"
+    "at": "2026-10-14T16:46:53.966Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -4192,9 +4192,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:3baebfacee45",
-    "fingerprint": "2ab71fc648c38787",
+    "fingerprint": "c891f5ae28c3101d",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:13.319Z"
+    "at": "2026-10-14T16:46:52.596Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -4275,9 +4275,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:ae4e5b73fa87",
-    "fingerprint": "d30ef3474af21a45",
+    "fingerprint": "55a9aace1184898b",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:13.994Z"
+    "at": "2026-10-14T16:46:53.281Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -4352,9 +4352,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:d121906bf283",
-    "fingerprint": "54b1090765ea2ac2",
+    "fingerprint": "5b4602556515253a",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:10.536Z"
+    "at": "2026-10-14T16:46:49.657Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -4433,9 +4433,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:8ff3e57e4d3c",
-    "fingerprint": "c962e7398da52eaf",
+    "fingerprint": "c80f25a166e9bc6f",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:12.270Z"
+    "at": "2026-10-14T16:46:51.508Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -4531,9 +4531,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:2561bb404270",
-    "fingerprint": "c247fcba8055f1c2",
+    "fingerprint": "a7da8a85b2a638b0",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:14.485Z"
+    "at": "2026-10-14T16:46:53.750Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -4620,9 +4620,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:a2ec8546104c",
-    "fingerprint": "bdea839a60ed2ca8",
+    "fingerprint": "ce3f7dcda1f4690a",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.059Z"
+    "at": "2026-10-14T16:46:54.330Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -4705,9 +4705,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:47f1dda7338a",
-    "fingerprint": "33a8bb2de4ea2f6a",
+    "fingerprint": "1460c952a5ee14ec",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.424Z"
+    "at": "2026-10-14T16:46:54.698Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -4783,9 +4783,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:4d350215a271",
-    "fingerprint": "54b99e0e6ea47cec",
+    "fingerprint": "18a042ee7f4d29d2",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:13.783Z"
+    "at": "2026-10-14T16:46:53.063Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -4850,9 +4850,9 @@
     "state": "needs-evidence",
     "label": "analysé — preuves supplémentaires requises",
     "mission": "mission:9774378f46cb",
-    "fingerprint": "b32757d47fb75285",
+    "fingerprint": "c7633aa8b12be06d",
     "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
-    "at": "2026-10-14T14:07:11.353Z"
+    "at": "2026-10-14T16:46:50.554Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -4922,9 +4922,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:d8e54dad7038",
-    "fingerprint": "2a8d95939d4622fb",
+    "fingerprint": "e0843aeefe3fcd53",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:11.457Z"
+    "at": "2026-10-14T16:46:50.656Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -4992,9 +4992,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:8ff3e57e4d3c",
-    "fingerprint": "c962e7398da52eaf",
+    "fingerprint": "c80f25a166e9bc6f",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:12.270Z"
+    "at": "2026-10-14T16:46:51.508Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -5061,9 +5061,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:1b31fe158136",
-    "fingerprint": "404f137a34ab6f64",
+    "fingerprint": "9205b263708a62ce",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:12.630Z"
+    "at": "2026-10-14T16:46:51.883Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -5128,9 +5128,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:3baebfacee45",
-    "fingerprint": "2ab71fc648c38787",
+    "fingerprint": "c891f5ae28c3101d",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:13.319Z"
+    "at": "2026-10-14T16:46:52.596Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -5195,9 +5195,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:d66ebf9c2bc1",
-    "fingerprint": "ea85959a4a369dbe",
+    "fingerprint": "c0f2f111ffbc55ae",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:13.887Z"
+    "at": "2026-10-14T16:46:53.169Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -5262,9 +5262,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:66f67f4a79e6",
-    "fingerprint": "aabdd8b3e2b50b57",
+    "fingerprint": "3735a218c8a50dff",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:14.362Z"
+    "at": "2026-10-14T16:46:53.641Z"
    },
    "assignedAgents": [
     "core.san-francisco.civil.works-coordination",
@@ -5436,9 +5436,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b76df24df98a",
-    "fingerprint": "b22fdcf4fe051370",
+    "fingerprint": "4c86f8c9f12ba5a8",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.790Z"
+    "at": "2026-10-14T16:46:55.074Z"
    },
    "assignedAgents": [
     "core.san-francisco.energy.energy-infrastructure-analyst",
@@ -5509,9 +5509,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b76df24df98a",
-    "fingerprint": "b22fdcf4fe051370",
+    "fingerprint": "4c86f8c9f12ba5a8",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.790Z"
+    "at": "2026-10-14T16:46:55.074Z"
    },
    "assignedAgents": [
     "core.san-francisco.housing.urban-planning-analyst",
@@ -5582,9 +5582,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b76df24df98a",
-    "fingerprint": "b22fdcf4fe051370",
+    "fingerprint": "4c86f8c9f12ba5a8",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.790Z"
+    "at": "2026-10-14T16:46:55.074Z"
    },
    "assignedAgents": [
     "core.san-francisco.public-space.accessibility-analyst",
@@ -5655,9 +5655,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b76df24df98a",
-    "fingerprint": "b22fdcf4fe051370",
+    "fingerprint": "4c86f8c9f12ba5a8",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.790Z"
+    "at": "2026-10-14T16:46:55.074Z"
    },
    "assignedAgents": [
     "core.san-francisco.housing.urban-planning-analyst",
@@ -5728,9 +5728,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b76df24df98a",
-    "fingerprint": "b22fdcf4fe051370",
+    "fingerprint": "4c86f8c9f12ba5a8",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.790Z"
+    "at": "2026-10-14T16:46:55.074Z"
    },
    "assignedAgents": [
     "core.san-francisco.public-space.accessibility-analyst",
@@ -5801,9 +5801,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b76df24df98a",
-    "fingerprint": "b22fdcf4fe051370",
+    "fingerprint": "4c86f8c9f12ba5a8",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.790Z"
+    "at": "2026-10-14T16:46:55.074Z"
    },
    "assignedAgents": [
     "core.san-francisco.public-space.accessibility-analyst",
@@ -5874,9 +5874,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b76df24df98a",
-    "fingerprint": "b22fdcf4fe051370",
+    "fingerprint": "4c86f8c9f12ba5a8",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.790Z"
+    "at": "2026-10-14T16:46:55.074Z"
    },
    "assignedAgents": [
     "core.san-francisco.simulation.scenario-analyst",
@@ -5947,9 +5947,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b76df24df98a",
-    "fingerprint": "b22fdcf4fe051370",
+    "fingerprint": "4c86f8c9f12ba5a8",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.790Z"
+    "at": "2026-10-14T16:46:55.074Z"
    },
    "assignedAgents": [
     "core.san-francisco.research.evidence-reviewer",
@@ -6020,9 +6020,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b76df24df98a",
-    "fingerprint": "b22fdcf4fe051370",
+    "fingerprint": "4c86f8c9f12ba5a8",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.790Z"
+    "at": "2026-10-14T16:46:55.074Z"
    },
    "assignedAgents": [
     "core.san-francisco.research.evidence-reviewer",
@@ -6092,9 +6092,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b76df24df98a",
-    "fingerprint": "b22fdcf4fe051370",
+    "fingerprint": "4c86f8c9f12ba5a8",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.790Z"
+    "at": "2026-10-14T16:46:55.074Z"
    },
    "assignedAgents": [
     "core.san-francisco.housing.urban-planning-analyst",
@@ -6164,9 +6164,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b76df24df98a",
-    "fingerprint": "b22fdcf4fe051370",
+    "fingerprint": "4c86f8c9f12ba5a8",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.790Z"
+    "at": "2026-10-14T16:46:55.074Z"
    },
    "assignedAgents": [
     "core.san-francisco.housing.urban-planning-analyst",
@@ -6236,9 +6236,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b76df24df98a",
-    "fingerprint": "b22fdcf4fe051370",
+    "fingerprint": "4c86f8c9f12ba5a8",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.790Z"
+    "at": "2026-10-14T16:46:55.074Z"
    },
    "assignedAgents": [
     "core.san-francisco.environmental.environmental-analyst",
@@ -6308,9 +6308,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b76df24df98a",
-    "fingerprint": "b22fdcf4fe051370",
+    "fingerprint": "4c86f8c9f12ba5a8",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.790Z"
+    "at": "2026-10-14T16:46:55.074Z"
    },
    "assignedAgents": [
     "core.san-francisco.environmental.environmental-analyst",
@@ -6380,9 +6380,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b76df24df98a",
-    "fingerprint": "b22fdcf4fe051370",
+    "fingerprint": "4c86f8c9f12ba5a8",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.790Z"
+    "at": "2026-10-14T16:46:55.074Z"
    },
    "assignedAgents": [
     "core.san-francisco.energy.energy-infrastructure-analyst",
@@ -6452,9 +6452,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b76df24df98a",
-    "fingerprint": "b22fdcf4fe051370",
+    "fingerprint": "4c86f8c9f12ba5a8",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.790Z"
+    "at": "2026-10-14T16:46:55.074Z"
    },
    "assignedAgents": [
     "core.san-francisco.energy.energy-infrastructure-analyst",
@@ -6524,9 +6524,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b76df24df98a",
-    "fingerprint": "b22fdcf4fe051370",
+    "fingerprint": "4c86f8c9f12ba5a8",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.790Z"
+    "at": "2026-10-14T16:46:55.074Z"
    },
    "assignedAgents": [
     "core.san-francisco.housing.urban-planning-analyst",
@@ -6596,9 +6596,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b76df24df98a",
-    "fingerprint": "b22fdcf4fe051370",
+    "fingerprint": "4c86f8c9f12ba5a8",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.790Z"
+    "at": "2026-10-14T16:46:55.074Z"
    },
    "assignedAgents": [
     "core.san-francisco.housing.urban-planning-analyst",
@@ -6668,9 +6668,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b76df24df98a",
-    "fingerprint": "b22fdcf4fe051370",
+    "fingerprint": "4c86f8c9f12ba5a8",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.790Z"
+    "at": "2026-10-14T16:46:55.074Z"
    },
    "assignedAgents": [
     "core.san-francisco.environmental.environmental-analyst",
@@ -6740,9 +6740,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b76df24df98a",
-    "fingerprint": "b22fdcf4fe051370",
+    "fingerprint": "4c86f8c9f12ba5a8",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.790Z"
+    "at": "2026-10-14T16:46:55.074Z"
    },
    "assignedAgents": [
     "core.san-francisco.energy.energy-infrastructure-analyst",
@@ -6812,9 +6812,9 @@
     "state": "awaiting-human",
     "label": "analysé — revue humaine requise",
     "mission": "mission:b76df24df98a",
-    "fingerprint": "b22fdcf4fe051370",
+    "fingerprint": "4c86f8c9f12ba5a8",
     "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
-    "at": "2026-10-14T14:07:15.790Z"
+    "at": "2026-10-14T16:46:55.074Z"
    },
    "assignedAgents": [
     "core.san-francisco.energy.energy-infrastructure-analyst",

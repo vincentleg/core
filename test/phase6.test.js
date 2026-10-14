@@ -26,11 +26,11 @@ test('coverage states only San Francisco as operational; markers stay inspectabl
   for (const [id, [minz]] of Object.entries(MS.TUNE)) assert.ok(minz <= 16, `${id} must remain visible at street zoom`);
 });
 
-test('demo 2.0: nine steps, one takeaway each, recorded vs live stated', () => {
-  assert.equal(DEMO.STEPS.length, 9);
-  assert.deepEqual(DEMO.STEPS.map(s => s.t), ['Le monde', 'La ville', 'Le problème', 'Les agents', 'La découverte', 'Les preuves', 'Les alternatives', 'La remise en question', 'La décision']);
+test('investor demo (rebuilt in Phase 9): eight steps from a recorded autonomous mission, recorded vs live stated', () => {
+  assert.equal(DEMO.STEPS.length, 8);
+  assert.deepEqual(DEMO.STEPS.map(s => s.t), ['La Terre', 'Le pilote', 'Un problème réel', 'Un responsable assemble son équipe', 'Les agents enquêtent (relecture)', 'Preuves et contestations', 'Une recommandation, avec ses limites', 'La revue humaine']);
   const src = fs.readFileSync(path.join(ROOT, 'src/demo.js'), 'utf8');
-  assert.match(src, /enregistrée/); assert.match(src, /Aucune autorisation/); assert.match(src, /Indisponible ici : le modèle en direct/);
+  assert.match(src, /enregistrée/); assert.match(src, /aucune autorisation/i); assert.match(src, /Aucune décision humaine n’a encore été prise/); assert.match(src, /pas une exécution en direct/);
   assert.doesNotMatch(src, /tonnes|CO2|économies de|\$\d/i, 'no fabricated benefit figures');
 });
 

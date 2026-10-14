@@ -2,12 +2,12 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com 'sha256-grQhkw45sQNnRe8rX9V41tavoBX/nRjZmNN/y7HdSoc='; style-src 'self' 'unsafe-inline' https://unpkg.com; font-src 'self'; img-src 'self' data: blob: https://tiles.openfreemap.org https://s3.amazonaws.com https://gibs.earthdata.nasa.gov; connect-src 'self' https://tiles.openfreemap.org https://s3.amazonaws.com https://gibs.earthdata.nasa.gov https://data.sf.gov https://earthquake.usgs.gov https://api.weather.gov https://api.github.com http://127.0.0.1:11434 http://localhost:11434 http://127.0.0.1:8080; worker-src blob:; child-src blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-grQhkw45sQNnRe8rX9V41tavoBX/nRjZmNN/y7HdSoc='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https://tiles.openfreemap.org https://s3.amazonaws.com https://gibs.earthdata.nasa.gov; connect-src 'self' https://tiles.openfreemap.org https://s3.amazonaws.com https://gibs.earthdata.nasa.gov https://data.sf.gov https://earthquake.usgs.gov https://api.weather.gov https://api.github.com http://127.0.0.1:11434 http://localhost:11434 http://127.0.0.1:8080; worker-src blob:; child-src blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CORE</title>
 <meta name="description" content="CORE — Creation of Reborn Earth : un double numérique de la Terre où des agents spécialisés étudient des problèmes réels à partir de données publiques ; les décisions restent humaines.">
 <link rel="icon" href="assets/brand/core-mark.svg" type="image/svg+xml">
-<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.7.3/dist/maplibre-gl.css" integrity="sha384-gNYNsUmuZqDYiT3gbirWTV5K7rt71RoveS/yXAaU09d4ZUmeDVTD3XoqB6uJAIFR" crossorigin="anonymous">
+<link rel="stylesheet" href="assets/vendor/maplibre-gl-5.7.3/maplibre-gl.css" integrity="sha384-gNYNsUmuZqDYiT3gbirWTV5K7rt71RoveS/yXAaU09d4ZUmeDVTD3XoqB6uJAIFR">
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <style>
 /* Layout: full-screen globe; floating console top-left; layer switches top-right; status bar bottom. Single dark look. */
@@ -341,6 +341,15 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
   .th-timeline { position: relative; height: 18px; border-radius: 3px; background: rgba(255,255,255,.04); } .th-timeline .tl { position: absolute; top: 3px; width: 3px; height: 12px; border-radius: 1px; background: #79c0ff; }
   .tl.start { background: #ffffff; } .tl.source { background: #5cc8ff; } .tl.specialist { background: #7ee787; } .tl.model { background: #f0b72f; } .tl.report { background: #d2a8ff; } .tl.decision { background: #ff8a5c; } .tl.human { background: #ff4d6d; }
   .th-timeline #th-now { position: absolute; top: -2px; width: 2px; height: 22px; background: #fff; }
+  /* ---------- Phase 9: activity layer, occlusion ---------- */
+  .activity { position: fixed; left: 12px; bottom: 56px; width: min(460px, calc(100vw - 24px)); max-height: 34vh; overflow: auto; z-index: 6; padding: 8px 10px; font-size: 12px; }
+  .activity header { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; } .activity.min .act-feed, .activity.min .act-now { display: none; }
+  .act-feed { margin: 6px 0 0; padding-left: 16px; display: grid; gap: 3px; } .act-feed li { line-height: 1.35; }
+  .act-badge { font: 700 9.5px var(--mono, monospace); letter-spacing: .06em; padding: 1px 5px; border-radius: 3px; } .act-badge.rec { background: #f0b72f26; color: #f0b72f; } .act-badge.live { background: #7ee78726; color: #7ee787; } .act-badge.idle { background: #ffffff14; color: #9fb6c9; }
+  .act-feed .t-challenge b, .act-feed .t-coverage-gap b { color: #ff8a5c; } .act-feed .t-decision b { color: #ff4d6d; } .act-feed .t-result b { color: #7ee787; } .act-feed .t-note b { color: #f0b72f; }
+  .agent-av.occluded { opacity: .18; } .agent-av.occluded .tag { display: none; }
+  body.landing .activity, body.ws-open .activity { display: none; } body.demo-on .activity { left: auto; right: 12px; bottom: 64px; width: min(420px, calc(100vw - 24px)); } body.theatre-on .activity { display: none; }
+  @media (max-width: 700px) { .activity { bottom: 100px; max-height: 22vh; } body.card-open .activity { display: none; } }
 </style>
 </head>
 <body class="console-min landing">
@@ -421,7 +430,7 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
     <p><b>Repères 3D (APPROXIMATIF) :</b> Golden Gate Bridge, Salesforce Tower et Transamerica Pyramid sont des modèles procéduraux CORE (dimensions publiées, positions et emprises OSM ; câbles épaissis pour la lisibilité). Ferry Building, Coit Tower et City Hall proviennent de la cartographie OSM. Aucun n’est un relevé.</p>
     <p><b>Simulation séparée :</b> corridor et trafic synthétiques, référence supposée, résultats non calibrés. <b>Observations de trafic validées : aucune.</b></p>
     <p><b>Domaines (Phase 2D) :</b> arbres d’alignement et avis d’abattage (Public Works), permis de construire (DBI), bilans énergétiques déclarés (SF Environment), parcs (Rec & Parks), largeurs de trottoir 2014 (SFMTA) — DataSF, domaine public. Société : aucune donnée intégrée. Aucun gain énergétique, écologique, de trafic ou de coût n’est estimé.</p>
-    <p>Nominatim désactivé : limites globales non garanties par ce site statique. Esri désactivé : droits non vérifiés. Recherche locale sans appel réseau. Moteur MapLibre 5.7.3 (BSD-3-Clause, unpkg) ; polices Google Fonts. <a href="https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCES.md">Inventaire et limitations</a>.</p>
+    <p>Nominatim désactivé : limites globales non garanties par ce site statique. Esri désactivé : droits non vérifiés. Recherche locale sans appel réseau. Moteur MapLibre 5.7.3 (BSD-3-Clause) et polices (SIL OFL) hébergés par CORE. <a href="https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCES.md">Inventaire et limitations</a>.</p>
   </details>
   </div>
 </div>
@@ -501,7 +510,7 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
 
 <div class="panel status" aria-live="polite"><b id="pos">—</b> · zoom <b id="zoom">—</b> · <span id="msg">Chargement de la Terre…</span><span id="net" hidden> · <span class="warn">tuiles partielles (réseau)</span></span></div>
 
-<script src="https://unpkg.com/maplibre-gl@5.7.3/dist/maplibre-gl.js" integrity="sha384-58glfsJ+cxARGnts6etFXqTluJx24YUgVY1WQxNLIfLkwT7yJfBORU1dKLD/YFTG" crossorigin="anonymous"></script>
+<script src="assets/vendor/maplibre-gl-5.7.3/maplibre-gl.js" integrity="sha384-58glfsJ+cxARGnts6etFXqTluJx24YUgVY1WQxNLIfLkwT7yJfBORU1dKLD/YFTG"></script>
 <script src="src/sf-world.js"></script>
 <script src="src/sf-view.js"></script>
 <script src="src/coord.js"></script>
@@ -536,6 +545,7 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
 <script src="src/agent-profile.js"></script>
 <script src="src/problems-view.js"></script>
 <script src="src/population-ui.js"></script>
+<script src="src/civ-activity.js"></script>
 <script src="src/civ.js"></script>
 <script src="src/scheduler.js"></script>
 <script src="src/task-queue.js"></script>

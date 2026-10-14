@@ -29,7 +29,7 @@
 
   // Specialists. tools: ids from src/tools.js. A specialist without tools is registered but unavailable.
   const SPECIALISTS = [
-    { key: 'works-coordination', dept: 'civil', role: 'Analyste de coordination des travaux de voirie', spec: 'Fenêtres de permis d’excavation, chevauchements, contraintes de planification', tools: ['works.windows'], perm: 'analyze', knowledge: ['k-street-use-permits', 'k-coordination-method'] },
+    { key: 'works-coordination', dept: 'civil', role: 'Analyste de coordination des travaux de voirie', spec: 'Fenêtres de permis d’excavation, chevauchements, contraintes de planification', tools: ['works.windows', 'works.area-windows'], perm: 'analyze', knowledge: ['k-street-use-permits', 'k-coordination-method'] },
     { key: 'telecom-works', dept: 'telecom', role: 'Analyste des travaux de télécommunications', spec: 'Permis d’opérateurs télécoms sur la voirie (classement déclaré des titulaires)', tools: ['works.telecom'], perm: 'analyze', knowledge: ['k-street-use-permits'] },
     { key: 'street-trees', dept: 'forestry', role: 'Spécialiste des arbres d’alignement', spec: 'Inventaire des arbres, avis d’abattage, proximité des travaux', tools: ['trees.near-works'], perm: 'analyze', knowledge: ['k-street-trees', 'k-tree-removals', 'k-proximity-indicator'] },
     { key: 'building-permits', dept: 'housing', role: 'Analyste des permis de construire', spec: 'Activité DBI au front des tronçons ; limites du statut « issued »', tools: ['buildings.frontage'], perm: 'analyze', knowledge: ['k-building-permits', 'k-dbi-issued-status'] },
@@ -41,7 +41,7 @@
     { key: 'graph-linker', dept: 'data-science', role: 'Analyste de liaison du graphe', spec: 'Géolocalisation des évènements et liaison au graphe de connaissances', tools: ['graph.link'], perm: 'analyze', knowledge: ['k-graph-bases'] },
     { key: 'scenario-evaluator', dept: 'simulation', role: 'Évaluateur de scénarios', spec: 'Investigation inter-domaines déterministe et alternatives R0–R2', tools: ['scenario.investigate'], perm: 'analyze', knowledge: ['k-coordination-method', 'k-proximity-indicator'] },
     { key: 'knowledge-research', dept: 'regulatory', role: 'Chargé de recherche documentaire', spec: 'Recherche dans la bibliothèque de connaissances approuvée', tools: ['knowledge.retrieve'], perm: 'read', knowledge: ['k-coordination-method', 'k-neutrality'] },
-    { key: 'evidence-verifier', dept: 'research', role: 'Vérificateur de preuves', spec: 'Sommes SHA-256, existence des enregistrements, dates, statut des sources', tools: ['evidence.verify'], perm: 'review', knowledge: ['k-provenance'], independent: true },
+    { key: 'evidence-verifier', dept: 'research', role: 'Vérificateur de preuves', spec: 'Sommes SHA-256, existence des enregistrements, dates, statut des sources', tools: ['evidence.verify', 'data.freshness'], perm: 'review', knowledge: ['k-provenance'], independent: true },
     { key: 'adversarial-reviewer', dept: 'safety', role: 'Réviseur adversarial', spec: 'Désaccords, sensibilités, preuves manquantes', tools: ['adversarial.review'], perm: 'review', knowledge: ['k-proximity-indicator', 'k-dbi-issued-status'], independent: true },
     // Phase 4 — model-assisted specialists: a local open-weight model (Ollama) chooses which permitted deterministic
     // tools to call and writes structured interpretations that are validated against the returned evidence.
@@ -58,9 +58,9 @@
     // Registered but not executable: no tool and/or no data yet. Shown as unavailable, never as active.
     { key: 'geotechnical', dept: 'geotech', role: 'Ingénieur géotechnique (compétence visée)', spec: 'Sols, liquéfaction', tools: [], perm: 'analyze', knowledge: [], gap: 'Aucune donnée de sol ou de sous-sol intégrée.' },
     { key: 'grid', dept: 'electrical', role: 'Ingénieur réseau électrique (compétence visée)', spec: 'Réseau de distribution', tools: [], perm: 'analyze', knowledge: [], gap: 'Aucune donnée de réseau électrique publique intégrée.' },
-    { key: 'water-network', dept: 'water', role: 'Ingénieur réseaux d’eau (compétence visée)', spec: 'Eau potable, assainissement', tools: [], perm: 'analyze', knowledge: [], gap: 'Aucune donnée de réseau d’eau intégrée.' },
+    { key: 'water-network', dept: 'water', role: 'Analyste risque d’inondation et eaux pluviales', spec: 'Zone de risque de tempête centennale (SFPUC 2022, modélisée) croisée avec les travaux de voirie ; aucune donnée de réseau d’eau souterrain', tools: ['flood.exposure'], perm: 'analyze', knowledge: [] },
     { key: 'transit-planner', dept: 'transit', role: 'Planificateur de transports publics (compétence visée)', spec: 'Lignes Muni', tools: [], perm: 'analyze', knowledge: [], gap: 'GTFS non intégré.' },
-    { key: 'traffic', dept: 'mobility', role: 'Ingénieur trafic (compétence visée)', spec: 'Flux et feux', tools: [], perm: 'analyze', knowledge: [], gap: 'Pas de comptages ni de plans de feux observés.' },
+    { key: 'traffic', dept: 'mobility', role: 'Analyste sécurité routière', spec: 'Accidents avec blessés agrégés par tronçon (5 ans) sur le réseau à forte accidentalité (HIN 2024) ; pas de comptages de trafic ni de plans de feux', tools: ['safety.crash-profile'], perm: 'analyze', knowledge: [] },
     { key: 'biodiversity', dept: 'ecology', role: 'Écologue (compétence visée)', spec: 'Biodiversité', tools: [], perm: 'analyze', knowledge: [], gap: 'Aucune donnée de biodiversité intégrée.' },
     { key: 'air-quality', dept: 'environmental', role: 'Analyste qualité de l’air (compétence visée)', spec: 'Exposition aux polluants', tools: [], perm: 'analyze', knowledge: [], gap: 'APEZ identifié mais non intégré ; aucune mesure.' },
     { key: 'urban-design', dept: 'architecture', role: 'Urbaniste-concepteur (compétence visée)', spec: 'Formes urbaines', tools: [], perm: 'analyze', knowledge: [], gap: 'Pas d’outil de conception.' },

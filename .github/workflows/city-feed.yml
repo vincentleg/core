@@ -7,6 +7,7 @@ name: city-feed
 on:
   schedule:
     - cron: '17 */3 * * *'   # every 3 hours at minute 17 (UTC)
+    - cron: '41 * * * *'     # Phase 9: hourly retry; GitHub drops or delays many scheduled events (observed 2026-10-14). The freshness gate below makes these runs exit without collecting while data is younger than 150 min.
   workflow_dispatch: {}
 permissions:
   contents: write
@@ -22,20 +23,28 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: '22'
+      - name: Freshness gate (scheduled runs collect only when published data is 150 min old or more; manual runs always collect)
+        id: gate
+        run: node -e 'const s=require("./data/feeds/state.json"), age=(Date.now()-Date.parse(s.lastSuccessfulUpdate))/60000, run=process.env.GITHUB_EVENT_NAME!=="schedule"||!(age<150); console.log(`data age ${Math.round(age)} min, trigger ${process.env.GITHUB_EVENT_NAME}, collect=${run}`); require("fs").appendFileSync(process.env.GITHUB_OUTPUT, `run=${run}\n`)'
       - name: Collect official sources (rate-limited, failures keep previous items)
+        if: steps.gate.outputs.run == 'true'
         run: node scripts/city-feed.mjs
       - name: Re-record deterministic missions when feed content changed (new or changed items, not last_seen updates)
+        if: steps.gate.outputs.run == 'true'
         run: |
           if node -e 'const s=require("./data/feeds/state.json"); process.exit(s.lastRun.added + s.lastRun.changed > 0 ? 0 : 1)'; then
             node scripts/agents.mjs --question "Quels travaux et quels arbres sont concernés sur Howard entre la 8e et la 9e rue ?" --segment 7051000
           fi
       - name: Tests
+        if: steps.gate.outputs.run == 'true'
         run: node --test test/*.test.js
       - name: Integrity and security gate (blocks the commit on any finding)
+        if: steps.gate.outputs.run == 'true'
         run: |
           git add -A data/feeds data/missions data/agents
           node scripts/integrity-check.mjs --staged
       - name: Commit and push data only
+        if: steps.gate.outputs.run == 'true'
         run: |
           if git diff --cached --quiet; then echo "No change."; exit 0; fi
           git config user.name "core-city-feed[bot]"

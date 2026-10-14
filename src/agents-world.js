@@ -50,7 +50,8 @@
   const STATE_FR = { idle: 'en attente (aucune exécution en cours)', walking: 'déplacement', investigating: 'outil exécuté (relecture)', reasoning: 'interprétation du modèle (enregistrée)', reporting: 'rapport (relecture)', collaborating: 'échange avec un autre agent (relecture)', routing: 'demande routée (relecture)' };
   const M = () => G.CORE_MOTION;
   // Agents sharing a location stand side by side (≈ 5 m apart) instead of on top of each other (display only).
-  const offset = (c, slot) => slot == null ? c : [c[0] + 0.00006 * Math.cos(slot * 2.4), c[1] + 0.000045 * Math.sin(slot * 2.4)];
+  // Co-located agents stand on distinct nearby walkway nodes (valid ground positions), never on geometric offsets.
+  const offset = (c, slot) => slot == null ? c : S.walknet ? S.walknet.spread(c, slot + 1) : c;
   function hubLayer() {
     const map = S.map, data = { type: 'FeatureCollection', features: [{ type: 'Feature', geometry: { type: 'Point', coordinates: S.hub }, properties: { label: 'Poste de coordination virtuel' } }] };
     if (!map.getSource('core-hub')) { map.addSource('core-hub', { type: 'geojson', data }); map.addLayer({ id: 'core-hub', type: 'circle', source: 'core-hub', minzoom: 12, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 12, 6, 17, 26], 'circle-color': 'rgba(92,200,255,0.10)', 'circle-stroke-color': '#5cc8ff', 'circle-stroke-width': 1.2, 'circle-stroke-opacity': 0.7 } });
@@ -155,6 +156,7 @@
   }
   async function startReplay(pred = FLAGSHIP) {
     const P = G.CORE_PLATFORM, rec = await P.loadRecorded(pred); if (!rec) return null; await ensure();
+    if (G.CORE_ACTIVITY && G.CORE_ACTIVITY.state.playing) G.CORE_ACTIVITY.stop();
     if (S.replay) endReplayAgents(); await M().ensure();
     const plan = buildReplay(rec, S.ctx); plan.agents.forEach((id, i) => M().drive(id, { pos: offset(S.hub, i), state: 'idle', note: 'relecture' })); M().dim(plan.agents);
     S.replay = { plan, total: plan.total, pos: 0, t0: performance.now(), speed: 1, playing: !reduced() }; theatre(true);
@@ -205,7 +207,7 @@
     hubLayer();
   }
   // On arrival in the city the whole registered population appears (CORE_MOTION); nothing runs by itself.
-  async function arrive() { if (!G.CORE_PLATFORM || !G.CORE_PLATFORM.state.registry) return; S.arrived = true; await ensure(); if (G.CORE_POPULATION_UI) { G.CORE_POPULATION_UI.init(); G.CORE_POPULATION_UI.render(); } }
+  async function arrive() { if (!G.CORE_PLATFORM || !G.CORE_PLATFORM.state.registry) return; S.arrived = true; await ensure(); if (G.CORE_POPULATION_UI) { G.CORE_POPULATION_UI.init(); G.CORE_POPULATION_UI.render(); } if (G.CORE_ACTIVITY && !S.activityStarted) { S.activityStarted = true; G.CORE_ACTIVITY.init(); G.CORE_ACTIVITY.start(); } }
   function showAll(on) { M().setFilter(on ? 'all' : 'executable'); }
   function init({ map }) {
     S.map = map;

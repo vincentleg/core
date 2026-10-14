@@ -36,7 +36,7 @@ test('registry: persistent identities, honest execution modes, no credentials', 
     for (const k of ['id', 'scope', 'department', 'role', 'specialization', 'competencies', 'knowledge', 'tools', 'permission', 'supervisor', 'executionMode', 'missionHistory', 'evaluationHistory', 'knowledgeVersion', 'status', 'budget']) assert.ok(k in a, `${a.id} has ${k}`);
     assert.ok(Object.isFrozen(a)); assert.ok(ORG.PERMISSIONS.includes(a.permission));
     assert.doesNotMatch(a.role, /\b(PE|licensed|certified|diplômé|agréé)\b/i, 'no invented credentials');
-    if (a.executionMode === 'deterministic') assert.ok(a.tools.every(t => T.TOOLS[t] || ['evidence.verify', 'adversarial.review', 'decision.gateway', 'mission.plan'].includes(t)), `${a.id} tools exist`);
+    if (a.executionMode === 'deterministic') assert.ok(a.tools.every(t => T.TOOLS[t] || require('../src/civ-tools.js').TOOLS[t] || ['evidence.verify', 'adversarial.review', 'decision.gateway', 'mission.plan'].includes(t)), `${a.id} tools exist`); // Phase 9 study-area tools live in src/civ-tools.js
     if (a.executionMode === 'unavailable') { assert.equal(a.tools.length, 0); assert.ok(a.gap); }
   }
   assert.ok(ORG.canUse(registry.agents.find(a => a.tools.includes('works.windows')), 'works.windows', 'analyze'));

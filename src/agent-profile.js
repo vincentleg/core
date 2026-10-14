@@ -10,7 +10,7 @@
   const fmt = iso => (iso ? `${String(iso).slice(0, 16).replace('T', ' ')} UTC` : '—');
   const safeUrl = u => (/^https:\/\//i.test(String(u || '')) ? u : '#');
   const S = { id: null, tab: 'overview', problems: null };
-  const TABS = [['overview', 'Aperçu'], ['mission', 'Mission'], ['org', 'Organisation'], ['knowledge', 'Connaissances'], ['activity', 'Activité'], ['movement', 'Déplacement'], ['safety', 'Sécurité']];
+  const TABS = [['overview', 'Aperçu'], ['mission', 'Mission'], ['org', 'Organisation'], ['knowledge', 'Connaissances'], ['memory', 'Mémoire'], ['activity', 'Activité'], ['movement', 'Déplacement'], ['safety', 'Sécurité']];
   const ENGINE = { deterministic: 'code déterministe (règles), sans modèle', llm: 'modèle local open-weight qwen3:8b (Ollama) pour choisir les outils et interpréter ; calculs par code déterministe', 'coordination-only': 'aucun moteur (profil de coordination)', unavailable: 'aucun moteur (outil ou donnée manquant)' };
   const CAP = { deterministic: 'à règles', llm: 'assisté par modèle', 'coordination-only': 'coordination seule', unavailable: 'indisponible' };
   const PROHIBITED = ['modifier ses propres permissions ou sa politique', 'créer des agents subordonnés', 'accéder à des identifiants ou secrets', 'exécuter des commandes système ou naviguer librement sur le web', 'agir sur une infrastructure réelle, envoyer des messages ou effectuer des achats', 'contourner la passerelle ou l’approbation humaine', 'réécrire le journal d’audit'];
@@ -19,7 +19,9 @@
     const P = G.CORE_PLATFORM.state;
     if (!S.problems) { try { S.problems = (G.CORE_CIV && G.CORE_CIV.state.problems) || await G.CORE_PLATFORM.getJSON('data/problems/registry.json'); if (G.CORE_CIV) G.CORE_CIV.state.problems = S.problems; } catch (_) { S.problems = { problems: [] }; } }
     if (P.opsReady) await P.opsReady;
-    return { P, cog: await G.CORE_PLATFORM.cogRecords(), ops: P.operations, problems: S.problems.problems, reg: P.registry };
+    if (S.operational === undefined) { try { S.operational = await G.CORE_PLATFORM.getJSON('data/agents/operational.json'); } catch (_) { S.operational = null; } }
+    const civ = G.CORE_ACTIVITY ? (await G.CORE_ACTIVITY.load(), G.CORE_ACTIVITY.state.missions) : [];
+    return { P, cog: await G.CORE_PLATFORM.cogRecords(), ops: P.operations, problems: S.problems.problems, reg: P.registry, civ, mem: P.memoryExport, operational: S.operational };
   }
   const agentBtn = (reg, id, extra = '') => { const a = reg.agents.find(x => x.id === id); return a ? `<button type="button" class="linkish" data-open-agent="${esc(id)}">${esc(a.code)}</button> <span class="hint">${esc(a.role)}${extra}</span>` : esc(id); };
 
@@ -29,19 +31,23 @@
     const det = d.P.recorded ? d.P.recorded.missions.filter(m => (m.agentIds || []).includes(id)) : [];
     const ops = d.ops ? d.ops.tasks.filter(t => t.agents.some(x => x.id === id)) : [];
     const probs = d.problems.filter(p => (p.assignedAgents || []).includes(id));
+    const civ = (d.civ || []).filter(m => m.messages.some(x => x.from === id || x.to === id));
+    const episodes = d.mem ? d.mem.episodes.filter(e => e.agent === id) : [], inst = d.mem ? d.mem.institutional.filter(e => e.origin === id || (e.body && e.body.agent === id) || e.history.some(h => h.by === id)) : [];
+    const op = d.operational ? d.operational.agents.find(x => x.id === id) : null;
     const collab = new Map(); const addC = (x, why) => { if (x && x !== id) { if (!collab.has(x)) collab.set(x, new Set()); collab.get(x).add(why); } };
     for (const c of cog) { for (const l of c.r.log) if (l.agent) addC(l.agent, 'mission enregistrée (modèle)'); }
     for (const m of det) for (const x of m.agentIds || []) addC(x, 'mission à règles enregistrée');
     for (const t of ops) for (const x of t.agents) addC(x.id, 'opération locale enregistrée');
     const last = [...cog.map(c => c.r.recorded.at), ...(det.length ? [d.P.recorded.recorded_at] : []), ...ops.map(t => t.updated)].sort().pop() || null;
     const audit = d.ops ? d.ops.events.filter(e => ops.some(t => t.id === e.task)).pop() : null;
-    return { a, M, cog, det, ops, probs, collab, last, audit };
+    for (const m of civ) for (const x of m.messages) for (const y of [x.from, x.to]) addC(y, 'mission autonome enregistrée');
+    return { a, M, cog, det, ops, probs, collab, last, audit, civ, episodes, inst, op };
   }
 
   function overview(d, f) {
     const { a, M } = f, POP = G.CORE_POPULATION, st = M ? M.st : POP.status(a, POP.facts({ cogIndex: d.P.cogIndex, detIndex: d.P.recorded, operations: d.ops }));
     const zone = M ? M.zone.name : POP.ZONES.find(z => z.id === POP.zoneOf(a)).name;
-    const locType = !M ? 'non affiché' : M.mode === 'replay' ? 'lieu journalisé d’une mission enregistrée (relecture)' : M.mode === 'live' ? 'tronçon de la tâche en cours d’exécution locale' : 'illustratif — pas une inspection physique';
+    const locType = !M ? 'non affiché' : M.mode === 'replay' ? 'lieu journalisé d’une mission enregistrée (relecture)' : M.mode === 'live' ? 'tronçon de la tâche en cours d’exécution locale' : M.mode === 'post' ? 'poste virtuel (rattachement illustratif, pas un bureau réel)' : 'lieu de la preuve citée par une mission enregistrée (relecture) — pas une inspection physique';
     return `<p class="pc-role">${esc(a.role)}</p>
       <div class="pc-pills">${pill(CAP[a.executionMode] || a.executionMode, a.executionMode === 'deterministic' || a.executionMode === 'llm' ? 'ok' : a.executionMode === 'unavailable' ? 'warn' : 'info')} ${pill(POP.STATUS[st], st === 'executing' ? 'ok' : 'info')} ${pill(`zone virtuelle : ${zone}`)}</div>
       <table class="tbl"><tbody>
@@ -49,7 +55,8 @@
         <tr><th>Spécialisation</th><td>${esc(a.specialization)}</td></tr>
         <tr><th>Moteur réel</th><td>${esc(ENGINE[a.executionMode])}${a.executionMode === 'llm' && !d.P.local ? ' — <b>non exécuté sur ce site public</b>' : ''}</td></tr>
         <tr><th>Outils autorisés</th><td>${a.tools.length ? a.tools.map(esc).join(', ') : 'aucun'}</td></tr>
-        <tr><th>Travail enregistré</th><td>${f.cog.length} mission(s) avec modèle · ${f.det.length} mission(s) à règles · ${f.ops.length} opération(s) locale(s)${f.cog.length + f.det.length + f.ops.length ? '' : ' — <i>Aucune exécution enregistrée.</i>'}</td></tr>
+        <tr><th>Classe opérationnelle</th><td>${esc(f.op ? f.op.class : '—')}</td></tr>
+        <tr><th>Travail enregistré</th><td>${f.civ.length} mission(s) autonome(s) · ${f.cog.length} mission(s) avec modèle · ${f.det.length} mission(s) à règles · ${f.ops.length} opération(s) locale(s)${f.civ.length + f.cog.length + f.det.length + f.ops.length ? '' : ' — <i>Aucune exécution enregistrée.</i>'}</td></tr>
         <tr><th>Position affichée</th><td>${esc(locType)}${M && M.note ? `<br><span class="hint">${esc(M.note)}</span>` : ''}</td></tr>
         <tr><th>Dernière activité</th><td>${fmt(f.last)}</td></tr></tbody></table>
       <div class="pc-actions"><button type="button" class="small" data-pc="follow">${G.CORE_MOTION && G.CORE_MOTION.state.follow === a.id ? 'Arrêter le suivi' : 'Suivre l’agent'}</button><button type="button" class="small ghost" data-tab="mission">Voir la mission</button><button type="button" class="small ghost" data-tab="org">Collaborateurs</button><button type="button" class="small ghost" data-tab="activity">Preuves</button></div>`;
@@ -58,7 +65,7 @@
     const { a, M } = f, live = M && M.mode === 'live', rep = M && M.mode === 'replay';
     const cur = live ? `${pill('exécution locale réelle', 'ok')} ${esc(M.note)}` : rep ? `${pill('relecture', 'info')} ${esc(M.note)} <span class="hint">— exécution passée enregistrée, pas une activité actuelle</span>` : '<i>Aucune exécution en cours.</i>';
     const probs = f.probs.slice(0, 12);
-    const items = [...f.cog.map(c => `<li class="item"><button type="button" class="linkish" data-replay="${esc(c.r.id)}">Relire : ${esc(c.r.target.question.slice(0, 90))}…</button><span class="m">${fmt(c.r.recorded.at)} · ${esc(c.r.decision.state)} · ${c.calls.length} appel(s) d’outils</span></li>`),
+    const items = [...f.civ.map(m => `<li class="item"><span class="t">${esc(m.title)} — ${esc(m.nhood)} <span class="pill info">autonome</span></span><span class="m">${esc(m.state)} · ${esc(m.decision ? m.decision.state : '')} · responsable ${esc((d.reg.agents.find(a => a.id === m.owner) || {}).code || m.owner)} · ${m.messages.length} échanges</span><span class="m">Participants : ${[...new Set(m.messages.flatMap(x => [x.from, x.to]).filter(x => d.reg.agents.some(a => a.id === x)))].map(x => `<button type="button" class="linkish" data-open-agent="${esc(x)}">${esc(d.reg.agents.find(a => a.id === x).code)}</button>`).join(' ')}</span></li>`), ...f.cog.map(c => `<li class="item"><button type="button" class="linkish" data-replay="${esc(c.r.id)}">Relire : ${esc(c.r.target.question.slice(0, 90))}…</button><span class="m">${fmt(c.r.recorded.at)} · ${esc(c.r.decision.state)} · ${c.calls.length} appel(s) d’outils</span></li>`),
       ...f.ops.slice(0, 8).map(t => `<li class="item"><span class="t">${esc(t.id)} · ${esc(t.title)}</span><span class="m">${esc(t.state)} · mission ${esc(t.result ? t.result.mission : '—')} (empreinte ${esc(t.result ? t.result.fingerprint : '—')}) · début ${fmt(t.started)} · fin ${fmt(t.updated)}</span></li>`),
       ...f.det.slice(0, 6).map(m => `<li class="item"><span class="t">${esc(m.origin)}</span><span class="m">mission à règles ${esc(m.id)} · ${esc(m.decision)}</span></li>`)];
     return `<h4>Affectation actuelle</h4><p>${cur}</p>
@@ -103,10 +110,10 @@
   }
   function movement(d, f) {
     const { M } = f, AW = G.CORE_AGENTS_WORLD, rp = AW && AW.state.replay, steps = rp ? rp.plan.steps.filter(s => s.agent === f.a.id) : [];
-    const type = !M ? '—' : M.mode === 'replay' ? 'lieu journalisé (relecture) : localisation des données utilisées par l’outil' : M.mode === 'live' ? 'tâche exécutée localement en ce moment' : 'illustratif — pas une inspection physique';
+    const type = !M ? '—' : M.mode === 'replay' ? 'lieu journalisé (relecture) : localisation des données utilisées par l’outil' : M.mode === 'live' ? 'tâche exécutée localement en ce moment' : M.mode === 'post' ? 'poste virtuel (rattachement illustratif)' : 'relecture d’activité enregistrée — pas une inspection physique';
     return `<table class="tbl"><tbody><tr><th>Position affichée</th><td>${M ? `${M.pos[1].toFixed(5)}, ${M.pos[0].toFixed(5)}` : '—'}</td></tr><tr><th>Type</th><td>${esc(type)}</td></tr>
       <tr><th>Réseau</th><td>Trottoirs, passages piétons et voies piétonnes cartographiés par OpenStreetMap (ODbL) ; largeur et accessibilité non vérifiées.</td></tr>
-      <tr><th>Vitesse affichée</th><td>${M && M.mode === 'illustrative' ? `marche ×${G.CORE_MOTION.SPEED} (illustratif)` : rp ? `relecture ×${rp.speed}, rythme compressé` : '—'}</td></tr></tbody></table>
+      <tr><th>Vitesse affichée</th><td>${M && M.mode !== 'replay' && M.mode !== 'post' ? `marche ×${G.CORE_MOTION.SPEED} (relecture d’activité enregistrée)` : rp ? `relecture ×${rp.speed}, rythme compressé` : '—'}</td></tr></tbody></table>
       <h4>Historique de trajets enregistrés</h4>${steps.length ? `<ol class="plain">${steps.map(s => `<li>journal +${(s.t / 1000).toFixed(1)} s · ${esc(s.kind)}${s.call ? ` · ${esc(s.call)}` : ''}${s.path ? ` · ${Math.round(s.path.length)} m${s.path.approx ? ' (approximatif)' : ''}` : ''} — ${esc(s.why || '')}</li>`).join('')}</ol>` : `<p class="hint">${f.cog.length ? 'Lancez la relecture d’une de ses missions pour voir ses trajets journalisés.' : 'Aucun trajet enregistré : les déplacements affichés sont illustratifs.'}</p>`}
       <p><button type="button" class="small" data-pc="follow">${G.CORE_MOTION && G.CORE_MOTION.state.follow === f.a.id ? 'Arrêter le suivi' : 'Suivre l’agent'}</button>${G.CORE_MOTION && G.CORE_MOTION.state.prevCam ? ' <button type="button" class="small ghost" data-pc="back">Revenir à la vue précédente</button>' : ''}</p>`;
   }
@@ -118,7 +125,16 @@
       <tr><th>Dernier évènement d’audit</th><td>${f.audit ? `${fmt(f.audit.at)} · ${esc(f.audit.event)} · ${esc(f.audit.task)} · <code>${esc(f.audit.hash.slice(0, 12))}</code> (chaîne SHA-256)` : 'Aucun évènement d’audit enregistré.'}</td></tr></tbody></table>
       <h4>Actions interdites</h4><ul class="plain">${PROHIBITED.map(x => `<li>${esc(x)}</li>`).join('')}</ul>`;
   }
-  const RENDER = { overview, mission, org, knowledge, activity, movement, safety };
+  function memory(d, f) {
+    const op = f.op;
+    return `<p class="hint">Mémoire locale de l’agent (SQLite sur la machine du propriétaire), publiée ici par export. Espace : <code>${esc(op ? op.memoryNamespace : 'mem:' + f.a.code)}</code>${d.mem ? ` · chaîne d’audit ${d.mem.chain && d.mem.chain.ok ? 'intègre' : 'à vérifier'} · export du ${esc(String(d.mem.generated_at).slice(0, 16).replace('T', ' '))} UTC` : ' · aucun export publié'}.</p>
+      <h4>Identité (version ${esc(op ? op.version : '—')})</h4><p class="hint">${op ? `${esc(op.class)} · permission ${esc(op.permission)} · actions autorisées : ${op.allowedActions.map(esc).join(', ') || 'aucune'} · approbations requises : ${op.requiredApprovals.map(esc).join(' ; ')}` : 'Registre opérationnel non publié.'}</p>
+      <h4>Connaissances</h4><p class="hint">${op && op.knowledgeBoundaries.documents.length ? op.knowledgeBoundaries.documents.map(esc).join(', ') : 'Aucun document approuvé.'} · domaines : ${op ? op.knowledgeBoundaries.domains.map(esc).join(', ') || '—' : '—'}</p>
+      <h4>Épisodes (${f.episodes.length})</h4>${f.episodes.length ? `<ul class="plain">${f.episodes.slice(-12).reverse().map(e => `<li>${esc(e.mission)} · rôle ${esc(e.role)} · ${esc(e.outcome || '')}${e.tools && e.tools.length ? ` · outils : ${e.tools.map(t => `${esc(t.tool)} (${esc(t.state)})`).join(', ')}` : ''}${e.errors && e.errors.length ? ` · <span style="color:#ffb3ba">erreur : ${esc(e.errors[0].slice(0, 90))}</span>` : ''}</li>`).join('')}</ul>` : '<p class="hint">Aucun épisode enregistré.</p>'}
+      <h4>Mémoire institutionnelle liée (${f.inst.length})</h4>${f.inst.length ? `<ul class="plain">${f.inst.map(e => `<li><span class="pill ${e.status === 'approved' ? 'ok' : e.status === 'rejected' ? 'fail' : 'info'}">${esc(e.status)}</span> <i>${esc(e.kind)}</i> ${esc(e.statement.slice(0, 200))}<br><span class="hint">${e.history.map(h => `${esc(h.status)} par ${esc(h.by)}`).join(' → ')}</span></li>`).join('')}</ul>` : '<p class="hint">Aucune entrée.</p>'}
+      <p class="hint">Apprentissage borné : procédures et leçons issues d’enregistrements déterministes, vérifiées puis revues par un autre agent ; les constats sur le monde n’entrent en mémoire approuvée qu’après décision humaine. Aucune modification de permission, de politique ou de code.</p>`;
+  }
+  const RENDER = { overview, mission, org, knowledge, memory, activity, movement, safety };
 
   async function open(id, tab) {
     S.id = id; if (tab) S.tab = tab; else if (S.lastId !== id) S.tab = 'overview'; S.lastId = id;

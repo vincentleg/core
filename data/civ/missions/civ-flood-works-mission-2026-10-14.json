@@ -1,0 +1,2619 @@
+{
+ "id": "civ:flood-works:mission@2026-10-14",
+ "version": "core-civ-mission-v1",
+ "workflow": "flood-works",
+ "title": "Risque d’inondation × chantiers",
+ "nhood": "Mission",
+ "question": "Quels chantiers approuvés à venir à Mission sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+ "state": "HUMAN_REVIEW",
+ "stages": [
+  {
+   "stage": "DISCOVERED",
+   "at": "2026-10-14T16:40:18.152Z"
+  },
+  {
+   "stage": "TRIAGED",
+   "at": "2026-10-14T16:40:18.164Z"
+  },
+  {
+   "stage": "ASSIGNED",
+   "at": "2026-10-14T16:40:18.180Z"
+  },
+  {
+   "stage": "INVESTIGATING",
+   "at": "2026-10-14T16:40:18.203Z"
+  },
+  {
+   "stage": "CROSS_DOMAIN_REVIEW",
+   "at": "2026-10-14T16:40:18.207Z"
+  },
+  {
+   "stage": "EVIDENCE_VALIDATION",
+   "at": "2026-10-14T16:40:18.211Z"
+  },
+  {
+   "stage": "PROPOSED_DECISION",
+   "at": "2026-10-14T16:40:47.303Z"
+  },
+  {
+   "stage": "HUMAN_REVIEW",
+   "at": "2026-10-14T16:40:47.305Z"
+  }
+ ],
+ "subtasks": [
+  {
+   "id": "S1",
+   "key": "flood.exposure|{\"nhood\":\"Mission\"}",
+   "tool": "flood.exposure",
+   "target": {
+    "nhood": "Mission"
+   },
+   "agent": "core.san-francisco.water.water-network",
+   "code": "CORE-WAT-0055",
+   "requester": "core.san-francisco.water.lead",
+   "via": null,
+   "depth": 1,
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 12,
+   "error": null,
+   "findings": 2,
+   "site": {
+    "coord": [
+     -122.41288259421977,
+     37.76804820061363
+    ],
+    "label": "permis 26EXC-03490@2140000",
+    "kind": "permis situé dans la zone modélisée"
+   }
+  },
+  {
+   "id": "S2",
+   "key": "resilience.weather-alerts|{\"type\":\"weather-alert-context\"}",
+   "tool": "resilience.weather-alerts",
+   "target": {
+    "type": "weather-alert-context"
+   },
+   "agent": "core.san-francisco.climate.weather-alerts",
+   "code": "CORE-CLI-0038",
+   "requester": "core.san-francisco.water.lead",
+   "via": "core.san-francisco.climate.lead",
+   "depth": 1,
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 12,
+   "error": null,
+   "findings": 1,
+   "site": null
+  },
+  {
+   "id": "S3",
+   "key": "works.windows|{\"segment\":null,\"pending\":\"top-segment\"}",
+   "tool": "works.windows",
+   "target": {
+    "segment": "9115000"
+   },
+   "agent": "core.san-francisco.civil.works-coordination",
+   "code": "CORE-CIV-0031",
+   "requester": "core.san-francisco.water.lead",
+   "via": "core.san-francisco.civil.lead",
+   "depth": 1,
+   "state": "failed",
+   "attempts": 1,
+   "ms": 1,
+   "error": "hors périmètre : l’outil works.windows ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9115000)",
+   "findings": 0
+  },
+  {
+   "id": "S4",
+   "key": "works.telecom|{\"segment\":null,\"pending\":\"top-segment\"}",
+   "tool": "works.telecom",
+   "target": {
+    "segment": "9115000"
+   },
+   "agent": "core.san-francisco.telecom.telecom-works",
+   "code": "CORE-TEL-0032",
+   "requester": "core.san-francisco.water.lead",
+   "via": "core.san-francisco.telecom.lead",
+   "depth": 1,
+   "state": "failed",
+   "attempts": 1,
+   "ms": 0,
+   "error": "hors périmètre : l’outil works.telecom ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9115000)",
+   "findings": 0
+  },
+  {
+   "id": "S5",
+   "key": "resilience.quake-context|{\"segment\":null,\"pending\":\"top-segment\"}",
+   "tool": "resilience.quake-context",
+   "target": {
+    "segment": "9115000"
+   },
+   "agent": "core.san-francisco.climate.seismic-context",
+   "code": "CORE-CLI-0037",
+   "requester": "core.san-francisco.water.lead",
+   "via": "core.san-francisco.climate.lead",
+   "depth": 1,
+   "state": "failed",
+   "attempts": 1,
+   "ms": 0,
+   "error": "précondition de resilience.quake-context non remplie pour cette cible",
+   "findings": 0
+  },
+  {
+   "id": "S6",
+   "key": "safety.crash-profile|{\"nhood\":\"Mission\"}",
+   "tool": "safety.crash-profile",
+   "target": {
+    "nhood": "Mission"
+   },
+   "agent": "core.san-francisco.mobility.traffic",
+   "code": "CORE-TRF-0057",
+   "requester": "core.san-francisco.water.lead",
+   "via": "core.san-francisco.mobility.lead",
+   "depth": 1,
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 13,
+   "error": null,
+   "findings": 6,
+   "site": {
+    "coord": [
+     -122.41288259421977,
+     37.76804820061363
+    ],
+    "label": "permis 26EXC-03490@2140000",
+    "kind": "permis situé dans la zone modélisée"
+   }
+  },
+  {
+   "id": "S7",
+   "key": "works.area-windows|{\"segments\":[\"9115000\",\"13060000\",\"12023000\",\"9121000\",\"715000\",\"6740000\",\"13063000\",\"724000\",\"9125000\",\"9114000\",\"9122002\",\"5691000\",\"720000\",\"12026000\",\"13053000\",\"12024000\",\"12025000\",\"5693000\",\"490000\",\"13064000\",\"726000\",\"5696000\",\"13067000\",\"10671000\",\"13059000\",\"13057002\",\"5686000\",\"9117000\",\"1342000\",\"874000\",\"5685000\",\"515000\",\"13061000\",\"730000\",\"1260000\",\"1348000\",\"10659000\",\"655000\",\"9113000\",\"9116000\",\"9123000\",\"9119000\",\"9124000\",\"5697000\",\"9126000\",\"716000\",\"12021000\",\"12027000\",\"9120000\",\"1345000\",\"9127000\",\"10660000\",\"10661000\",\"10662000\",\"13058000\",\"12029000\",\"5692000\",\"13071000\",\"10673000\",\"785000\",\"714000\",\"732000\",\"12020000\",\"5687000\",\"5688000\",\"5689000\",\"721000\",\"722000\",\"12028000\",\"5694000\",\"1340000\",\"1261000\",\"1263000\",\"876000\",\"881000\",\"9110000\",\"2491000\",\"801000\",\"1346000\",\"9128000\",\"10672000\",\"786000\",\"13054000\",\"4979000\",\"4981000\",\"589000\",\"723000\",\"725000\",\"717000\",\"5695000\",\"5698000\",\"1335000\",\"1337000\",\"1259000\",\"1262000\",\"1106000\",\"1109000\",\"878000\",\"879000\",\"733000\",\"13068000\",\"5700000\",\"784000\",\"13055000\",\"4980000\",\"731000\",\"735000\",\"13057001\",\"6743000\",\"718000\",\"719000\",\"579000\",\"9118000\",\"9122001\",\"5690000\",\"1338000\",\"1339000\",\"1108000\",\"1104000\",\"1105000\",\"873000\",\"1344000\",\"884000\",\"9111001\",\"5682000\",\"5684000\",\"6736000\",\"6739000\",\"511000\",\"13062000\",\"975000\",\"885000\",\"5701002\",\"5701001\",\"4845000\",\"713000\",\"13056000\",\"4982000\",\"727000\",\"729000\",\"734000\",\"736000\",\"657000\",\"585000\",\"588000\"]}",
+   "tool": "works.area-windows",
+   "target": {
+    "segments": [
+     "9115000",
+     "13060000",
+     "12023000",
+     "9121000",
+     "715000",
+     "6740000",
+     "13063000",
+     "724000",
+     "9125000",
+     "9114000",
+     "9122002",
+     "5691000",
+     "720000",
+     "12026000",
+     "13053000",
+     "12024000",
+     "12025000",
+     "5693000",
+     "490000",
+     "13064000",
+     "726000",
+     "5696000",
+     "13067000",
+     "10671000",
+     "13059000",
+     "13057002",
+     "5686000",
+     "9117000",
+     "1342000",
+     "874000",
+     "5685000",
+     "515000",
+     "13061000",
+     "730000",
+     "1260000",
+     "1348000",
+     "10659000",
+     "655000",
+     "9113000",
+     "9116000",
+     "9123000",
+     "9119000",
+     "9124000",
+     "5697000",
+     "9126000",
+     "716000",
+     "12021000",
+     "12027000",
+     "9120000",
+     "1345000",
+     "9127000",
+     "10660000",
+     "10661000",
+     "10662000",
+     "13058000",
+     "12029000",
+     "5692000",
+     "13071000",
+     "10673000",
+     "785000",
+     "714000",
+     "732000",
+     "12020000",
+     "5687000",
+     "5688000",
+     "5689000",
+     "721000",
+     "722000",
+     "12028000",
+     "5694000",
+     "1340000",
+     "1261000",
+     "1263000",
+     "876000",
+     "881000",
+     "9110000",
+     "2491000",
+     "801000",
+     "1346000",
+     "9128000",
+     "10672000",
+     "786000",
+     "13054000",
+     "4979000",
+     "4981000",
+     "589000",
+     "723000",
+     "725000",
+     "717000",
+     "5695000",
+     "5698000",
+     "1335000",
+     "1337000",
+     "1259000",
+     "1262000",
+     "1106000",
+     "1109000",
+     "878000",
+     "879000",
+     "733000",
+     "13068000",
+     "5700000",
+     "784000",
+     "13055000",
+     "4980000",
+     "731000",
+     "735000",
+     "13057001",
+     "6743000",
+     "718000",
+     "719000",
+     "579000",
+     "9118000",
+     "9122001",
+     "5690000",
+     "1338000",
+     "1339000",
+     "1108000",
+     "1104000",
+     "1105000",
+     "873000",
+     "1344000",
+     "884000",
+     "9111001",
+     "5682000",
+     "5684000",
+     "6736000",
+     "6739000",
+     "511000",
+     "13062000",
+     "975000",
+     "885000",
+     "5701002",
+     "5701001",
+     "4845000",
+     "713000",
+     "13056000",
+     "4982000",
+     "727000",
+     "729000",
+     "734000",
+     "736000",
+     "657000",
+     "585000",
+     "588000"
+    ]
+   },
+   "agent": "core.san-francisco.civil.works-coordination",
+   "code": "CORE-CIV-0031",
+   "requester": "core.san-francisco.mobility.traffic",
+   "via": "core.san-francisco.civil.lead",
+   "depth": 2,
+   "state": "succeeded",
+   "attempts": 1,
+   "ms": 0,
+   "error": null,
+   "findings": 1,
+   "site": {
+    "coord": [
+     -122.41288259421977,
+     37.76804820061363
+    ],
+    "label": "permis 26EXC-03490@2140000",
+    "kind": "permis situé dans la zone modélisée"
+   }
+  }
+ ],
+ "messages": [
+  {
+   "id": "M1",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.162Z",
+   "from": "core.global.coordinator",
+   "to": "core.san-francisco.manager",
+   "type": "assign",
+   "purpose": "Problème découvert (Risque d’inondation × chantiers, Mission), priorité 11",
+   "evidence": [
+    "flood-zone:2022"
+   ],
+   "outcome": "transmis à la coordination"
+  },
+  {
+   "id": "M2",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.163Z",
+   "from": "core.san-francisco.manager",
+   "to": "core.san-francisco.water.lead",
+   "type": "assign",
+   "purpose": "Responsabilité de la mission confiée à CORE-WAT-0009 (Risque d’inondation × chantiers)",
+   "evidence": [
+    "flood-zone:2022"
+   ],
+   "outcome": "accepté"
+  },
+  {
+   "id": "M3",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.166Z",
+   "from": "core.san-francisco.water.lead",
+   "to": "core.san-francisco.water.water-network",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S1 : flood.exposure",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M4",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.167Z",
+   "from": "core.san-francisco.water.lead",
+   "to": "core.san-francisco.climate.lead",
+   "type": "request",
+   "purpose": "Demande d’appui (resilience.weather-alerts) pour Mission",
+   "evidence": [],
+   "outcome": "accepté par la direction"
+  },
+  {
+   "id": "M5",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.167Z",
+   "from": "core.san-francisco.climate.lead",
+   "to": "core.san-francisco.climate.weather-alerts",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S2 : resilience.weather-alerts",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M6",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.168Z",
+   "from": "core.san-francisco.water.lead",
+   "to": "core.san-francisco.civil.lead",
+   "type": "request",
+   "purpose": "Demande d’appui (works.windows) pour Mission",
+   "evidence": [],
+   "outcome": "accepté par la direction"
+  },
+  {
+   "id": "M7",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.169Z",
+   "from": "core.san-francisco.civil.lead",
+   "to": "core.san-francisco.civil.works-coordination",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S3 : works.windows",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M8",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.170Z",
+   "from": "core.san-francisco.water.lead",
+   "to": "core.san-francisco.telecom.lead",
+   "type": "request",
+   "purpose": "Demande d’appui (works.telecom) pour Mission",
+   "evidence": [],
+   "outcome": "accepté par la direction"
+  },
+  {
+   "id": "M9",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.171Z",
+   "from": "core.san-francisco.telecom.lead",
+   "to": "core.san-francisco.telecom.telecom-works",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S4 : works.telecom",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M10",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.171Z",
+   "from": "core.san-francisco.water.lead",
+   "to": "core.san-francisco.climate.lead",
+   "type": "request",
+   "purpose": "Demande d’appui (resilience.quake-context) pour Mission",
+   "evidence": [],
+   "outcome": "accepté par la direction"
+  },
+  {
+   "id": "M11",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.173Z",
+   "from": "core.san-francisco.climate.lead",
+   "to": "core.san-francisco.climate.seismic-context",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S5 : resilience.quake-context",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M12",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.173Z",
+   "from": "core.san-francisco.water.lead",
+   "to": "core.san-francisco.mobility.lead",
+   "type": "request",
+   "purpose": "Demande d’appui (safety.crash-profile) pour Mission",
+   "evidence": [],
+   "outcome": "accepté par la direction"
+  },
+  {
+   "id": "M13",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.176Z",
+   "from": "core.san-francisco.mobility.lead",
+   "to": "core.san-francisco.mobility.traffic",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S6 : safety.crash-profile",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M14",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.193Z",
+   "from": "core.san-francisco.water.water-network",
+   "to": "core.san-francisco.water.lead",
+   "type": "result",
+   "purpose": "Résultat S1 (flood.exposure)",
+   "evidence": [
+    "flood-zone:2022",
+    "neighborhoods:Mission",
+    "study-permits:26EXC-03490@2140000",
+    "study-permits:26BW-00016@2140000",
+    "study-permits:26BW-00016@3301000",
+    "study-permits:26IE-00452@12023000",
+    "study-permits:26IE-00452@722000",
+    "flood-zone:2022",
+    "hin:580000",
+    "hin:581000",
+    "hin:582000",
+    "hin:12020000",
+    "hin:5686000",
+    "hin:5687000",
+    "hin:5688000",
+    "hin:5689000",
+    "hin:6740000",
+    "hin:6741000"
+   ],
+   "outcome": "2 constat(s)"
+  },
+  {
+   "id": "M15",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.194Z",
+   "from": "core.san-francisco.climate.weather-alerts",
+   "to": "core.san-francisco.climate.lead",
+   "type": "result",
+   "purpose": "Résultat S2 (resilience.weather-alerts)",
+   "evidence": [
+    "nws-alerts"
+   ],
+   "outcome": "1 constat(s)"
+  },
+  {
+   "id": "M16",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.195Z",
+   "from": "core.san-francisco.mobility.traffic",
+   "to": "core.san-francisco.mobility.lead",
+   "type": "result",
+   "purpose": "Résultat S6 (safety.crash-profile)",
+   "evidence": [
+    "neighborhoods:Mission",
+    "crashes-agg:9115000",
+    "crashes-agg:13060000",
+    "crashes-agg:12023000",
+    "crashes-agg:9121000",
+    "crashes-agg:715000",
+    "crashes-agg:6740000",
+    "crashes-agg:13063000",
+    "crashes-agg:724000",
+    "crashes-agg:9125000",
+    "crashes-agg:9114000",
+    "crashes-agg:9122002",
+    "crashes-agg:5691000",
+    "crashes-agg:720000",
+    "crashes-agg:12026000",
+    "crashes-agg:13053000",
+    "crashes-agg:12024000",
+    "crashes-agg:12025000",
+    "crashes-agg:5693000",
+    "crashes-agg:490000"
+   ],
+   "outcome": "6 constat(s)"
+  },
+  {
+   "id": "M17",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.195Z",
+   "from": "core.san-francisco.mobility.traffic",
+   "to": "core.san-francisco.civil.lead",
+   "type": "request",
+   "purpose": "Demande d’appui (works.area-windows) pour Mission",
+   "evidence": [],
+   "outcome": "accepté par la direction"
+  },
+  {
+   "id": "M18",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.196Z",
+   "from": "core.san-francisco.civil.lead",
+   "to": "core.san-francisco.civil.works-coordination",
+   "type": "delegate",
+   "purpose": "Sous-tâche bornée S7 : works.area-windows",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M19",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.197Z",
+   "from": "core.san-francisco.civil.works-coordination",
+   "to": "core.san-francisco.civil.lead",
+   "type": "result",
+   "purpose": "Résultat S7 (works.area-windows)",
+   "evidence": [
+    "study-permits:26IE-00452@12023000",
+    "study-permits:26EXC-04770@9125000",
+    "study-permits:26EXC-04347@9114000",
+    "study-permits:26EXC-04824@1342000",
+    "study-permits:26BW-00015@515000",
+    "study-permits:26E-00665@9124000",
+    "study-permits:26EXC-04351@1345000",
+    "study-permits:26EXC-04824@1345000",
+    "study-permits:26IE-00452@722000",
+    "study-permits:26EXC-04970@1340000",
+    "study-permits:26EXC-04803@9110000",
+    "study-permits:26EXC-04824@1346000",
+    "study-permits:25EXC-05850@4981000",
+    "study-permits:25EXC-05850@4980000",
+    "study-permits:26EXC-04824@1344000",
+    "study-permits:26EXC-04896@511000",
+    "study-permits:26EXC-05013@511000",
+    "study-permits:25EXC-05850@975000",
+    "study-permits:25EXC-05850@4982000"
+   ],
+   "outcome": "1 constat(s)"
+  },
+  {
+   "id": "M20",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.199Z",
+   "from": "core.san-francisco.civil.works-coordination",
+   "to": "core.san-francisco.civil.lead",
+   "type": "error",
+   "purpose": "Échec S3 (works.windows)",
+   "evidence": [],
+   "outcome": "hors périmètre : l’outil works.windows ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9115000)"
+  },
+  {
+   "id": "M21",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.200Z",
+   "from": "core.san-francisco.telecom.telecom-works",
+   "to": "core.san-francisco.telecom.lead",
+   "type": "error",
+   "purpose": "Échec S4 (works.telecom)",
+   "evidence": [],
+   "outcome": "hors périmètre : l’outil works.telecom ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9115000)"
+  },
+  {
+   "id": "M22",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.201Z",
+   "from": "core.san-francisco.climate.seismic-context",
+   "to": "core.san-francisco.climate.lead",
+   "type": "error",
+   "purpose": "Échec S5 (resilience.quake-context)",
+   "evidence": [],
+   "outcome": "précondition de resilience.quake-context non remplie pour cette cible"
+  },
+  {
+   "id": "M23",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.202Z",
+   "from": "core.san-francisco.research.lead",
+   "to": "core.san-francisco.research.evidence-verifier",
+   "type": "delegate",
+   "purpose": "Vérification de fraîcheur des sources",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M24",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.202Z",
+   "from": "core.san-francisco.research.evidence-verifier",
+   "to": "core.san-francisco.water.lead",
+   "type": "challenge",
+   "purpose": "Zone d’inondation SFPUC de juillet 2022 : modèle de tempête centennale, pas une inondation observée ; trous intérieurs ignorés lors du découpage (léger excès).",
+   "evidence": [
+    "dataset:flood-zone"
+   ],
+   "outcome": "confiance abaissée"
+  },
+  {
+   "id": "M25",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.205Z",
+   "from": "core.san-francisco.water.lead",
+   "to": "core.san-francisco.safety.adversarial-reviewer",
+   "type": "coverage-gap",
+   "purpose": "Lacune de couverture signalée : works.windows (CORE-CIV-0031)",
+   "evidence": [],
+   "outcome": "hors périmètre : l’outil works.windows ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9115000)"
+  },
+  {
+   "id": "M26",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.205Z",
+   "from": "core.san-francisco.water.lead",
+   "to": "core.san-francisco.safety.adversarial-reviewer",
+   "type": "coverage-gap",
+   "purpose": "Lacune de couverture signalée : works.telecom (CORE-TEL-0032)",
+   "evidence": [],
+   "outcome": "hors périmètre : l’outil works.telecom ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9115000)"
+  },
+  {
+   "id": "M27",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.206Z",
+   "from": "core.san-francisco.water.lead",
+   "to": "core.san-francisco.safety.adversarial-reviewer",
+   "type": "coverage-gap",
+   "purpose": "Lacune de couverture signalée : resilience.quake-context (CORE-CLI-0037)",
+   "evidence": [],
+   "outcome": "précondition de resilience.quake-context non remplie pour cette cible"
+  },
+  {
+   "id": "M28",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.207Z",
+   "from": "core.san-francisco.water.lead",
+   "to": "core.san-francisco.safety.adversarial-reviewer",
+   "type": "review-request",
+   "purpose": "Revue adversariale de 11 constat(s) et de la recommandation",
+   "evidence": [
+    "flood-zone:2022",
+    "neighborhoods:Mission",
+    "study-permits:26EXC-03490@2140000",
+    "study-permits:26BW-00016@2140000",
+    "study-permits:26BW-00016@3301000",
+    "study-permits:26IE-00452@12023000",
+    "study-permits:26IE-00452@722000",
+    "flood-zone:2022",
+    "hin:580000",
+    "hin:581000",
+    "hin:582000",
+    "hin:12020000",
+    "hin:5686000",
+    "hin:5687000",
+    "hin:5688000",
+    "hin:5689000",
+    "hin:6740000",
+    "hin:6741000",
+    "nws-alerts",
+    "neighborhoods:Mission"
+   ],
+   "outcome": "transmis"
+  },
+  {
+   "id": "M29",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.210Z",
+   "from": "core.san-francisco.safety.adversarial-reviewer",
+   "to": "core.san-francisco.water.lead",
+   "type": "review",
+   "purpose": "Revue : 11 accepté(s), 0 rejeté(s) ; recommandation recevable",
+   "evidence": [],
+   "outcome": "recevable"
+  },
+  {
+   "id": "M30",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:18.213Z",
+   "from": "core.san-francisco.water.lead",
+   "to": "core.san-francisco.environmental.environmental-analyst",
+   "type": "delegate",
+   "purpose": "Interprétation bornée des constats validés (modèle local)",
+   "evidence": [],
+   "outcome": "assignée"
+  },
+  {
+   "id": "M31",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:47.301Z",
+   "from": "core.san-francisco.environmental.environmental-analyst",
+   "to": "core.san-francisco.water.lead",
+   "type": "result",
+   "purpose": "Interprétation : 2 énoncé(s) validé(s), 1 rejeté(s)",
+   "evidence": [],
+   "outcome": "causal: relation causale ou justification non qualifiée"
+  },
+  {
+   "id": "M32",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "at": "2026-10-14T16:40:47.302Z",
+   "from": "core.san-francisco.governance.gateway",
+   "to": "human",
+   "type": "decision",
+   "purpose": "Proposition : ÉLIGIBLE À LA REVUE HUMAINE",
+   "evidence": [],
+   "outcome": "Zone d’inondation SFPUC de juillet 2022 : modèle de tempête centennale, pas une inondation observée ; trous intérieurs ignorés lors du découpage (léger excès)."
+  }
+ ],
+ "results": {
+  "flood.exposure": {
+   "findings": [
+    {
+     "topic": "flood",
+     "claim": "Mission : 5 des 118 permis de travaux en cours ou à venir (120 j) sont dans la zone de risque de tempête centennale modélisée (SFPUC 2022), dont 3 d’excavation.",
+     "epistemic": "modeled",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "flood-zone",
+       "ref": "flood-zone:2022"
+      },
+      {
+       "type": "record",
+       "dataset": "neighborhoods",
+       "ref": "neighborhoods:Mission"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-03490@2140000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26BW-00016@2140000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26BW-00016@3301000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26IE-00452@12023000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26IE-00452@722000"
+      }
+     ],
+     "values": {
+      "permits": 118,
+      "inZone": 5,
+      "excavation": 3
+     }
+    },
+    {
+     "topic": "flood",
+     "claim": "44 tronçon(s) HIN du quartier traversent cette zone modélisée.",
+     "epistemic": "modeled",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "flood-zone",
+       "ref": "flood-zone:2022"
+      },
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:580000"
+      },
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:581000"
+      },
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:582000"
+      },
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:12020000"
+      },
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:5686000"
+      },
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:5687000"
+      },
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:5688000"
+      },
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:5689000"
+      },
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:6740000"
+      },
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:6741000"
+      }
+     ],
+     "values": {
+      "hinInZone": 44
+     }
+    }
+   ],
+   "rows": [
+    {
+     "id": "26EXC-03490@2140000",
+     "cnn": "2140000",
+     "type": "Excavation",
+     "start": "2026-09-28",
+     "end": "2026-10-26",
+     "agent": "Pacific Gas & Electric",
+     "at": [
+      -122.41288259421977,
+      37.76804820061363
+     ]
+    },
+    {
+     "id": "26BW-00016@2140000",
+     "cnn": "2140000",
+     "type": "Boring",
+     "start": "2026-10-05",
+     "end": "2026-11-24",
+     "agent": "GEI CONSULTANTS, INC.",
+     "at": [
+      -122.41288259421977,
+      37.76804820061363
+     ]
+    },
+    {
+     "id": "26BW-00016@3301000",
+     "cnn": "3301000",
+     "type": "Boring",
+     "start": "2026-10-05",
+     "end": "2026-11-24",
+     "agent": "GEI CONSULTANTS, INC.",
+     "at": [
+      -122.41033349285054,
+      37.76987984191463
+     ]
+    },
+    {
+     "id": "26IE-00452@12023000",
+     "cnn": "12023000",
+     "type": "StrtImprov",
+     "start": null,
+     "end": "2028-09-15",
+     "agent": "Bay-Valley Groundworks Inc",
+     "at": [
+      -122.41726904408145,
+      37.76480106787179
+     ]
+    },
+    {
+     "id": "26IE-00452@722000",
+     "cnn": "722000",
+     "type": "StrtImprov",
+     "start": null,
+     "end": "2028-09-15",
+     "agent": "Bay-Valley Groundworks Inc",
+     "at": [
+      -122.41726904408145,
+      37.76480106787179
+     ]
+    }
+   ],
+   "assumptions": [
+    "Zone modélisée (pas d’inondation observée) ; un point de permis représente son tronçon.",
+    "Horizon de 120 jours."
+   ]
+  },
+  "resilience.weather-alerts": {
+   "findings": [
+    {
+     "topic": "weather",
+     "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte.",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "feed-source",
+       "ref": "nws-alerts",
+       "url": "https://api.weather.gov/alerts/active?zone=CAZ006"
+      }
+     ],
+     "value": 0,
+     "asOf": "2026-10-14T14:56:35.337Z"
+    }
+   ],
+   "rows": [],
+   "assumptions": null
+  },
+  "safety.crash-profile": {
+   "findings": [
+    {
+     "topic": "safety",
+     "claim": "Mission : 253 tronçon(s) du réseau HIN 2024 ; 145 avec au moins un accident avec blessé déclaré sur 5 ans (474 accidents, dont 46 graves ou mortels).",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "neighborhoods",
+       "ref": "neighborhoods:Mission"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:9115000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:13060000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:12023000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:9121000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:715000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:6740000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:13063000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:724000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:9125000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:9114000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:9122002"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:5691000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:720000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:12026000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:13053000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:12024000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:12025000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:5693000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:490000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:13064000"
+      }
+     ],
+     "values": {
+      "segments": 253,
+      "withCrashes": 145,
+      "crashes": 474,
+      "severeFatal": 46
+     }
+    },
+    {
+     "topic": "safety",
+     "claim": "MISSION ST (CNN 9115000) : 14 accident(s) avec blessé, 2 grave(s)/mortel(s), 4 impliquant un piéton, 15.5 par km et par an.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:9115000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:9115000"
+      }
+     ],
+     "values": {
+      "cnn": "9115000",
+      "street": "MISSION ST",
+      "length_km": 0.181,
+      "crashes": 14,
+      "severe_fatal": 2,
+      "pedestrian": 4,
+      "per_km_year": 15.5
+     }
+    },
+    {
+     "topic": "safety",
+     "claim": "VALENCIA ST (CNN 13060000) : 14 accident(s) avec blessé, 2 grave(s)/mortel(s), 4 impliquant un piéton, 15.6 par km et par an.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:13060000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:13060000"
+      }
+     ],
+     "values": {
+      "cnn": "13060000",
+      "street": "VALENCIA ST",
+      "length_km": 0.18,
+      "crashes": 14,
+      "severe_fatal": 2,
+      "pedestrian": 4,
+      "per_km_year": 15.6
+     }
+    },
+    {
+     "topic": "safety",
+     "claim": "SOUTH VAN NESS AVE (CNN 12023000) : 11 accident(s) avec blessé, 2 grave(s)/mortel(s), 2 impliquant un piéton, 12.3 par km et par an.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:12023000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:12023000"
+      }
+     ],
+     "values": {
+      "cnn": "12023000",
+      "street": "SOUTH VAN NESS AVE",
+      "length_km": 0.179,
+      "crashes": 11,
+      "severe_fatal": 2,
+      "pedestrian": 2,
+      "per_km_year": 12.3
+     }
+    },
+    {
+     "topic": "safety",
+     "claim": "MISSION ST (CNN 9121000) : 10 accident(s) avec blessé, 2 grave(s)/mortel(s), 4 impliquant un piéton, 11.2 par km et par an.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:9121000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:9121000"
+      }
+     ],
+     "values": {
+      "cnn": "9121000",
+      "street": "MISSION ST",
+      "length_km": 0.178,
+      "crashes": 10,
+      "severe_fatal": 2,
+      "pedestrian": 4,
+      "per_km_year": 11.2
+     }
+    },
+    {
+     "topic": "safety",
+     "claim": "16TH ST (CNN 715000) : 8 accident(s) avec blessé, 2 grave(s)/mortel(s), 0 impliquant un piéton, 17.9 par km et par an.",
+     "epistemic": "derived",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "hin",
+       "ref": "hin:715000"
+      },
+      {
+       "type": "record",
+       "dataset": "crashes-agg",
+       "ref": "crashes-agg:715000"
+      }
+     ],
+     "values": {
+      "cnn": "715000",
+      "street": "16TH ST",
+      "length_km": 0.089,
+      "crashes": 8,
+      "severe_fatal": 2,
+      "pedestrian": 0,
+      "per_km_year": 17.9
+     }
+    }
+   ],
+   "rows": [
+    {
+     "cnn": "9115000",
+     "street": "MISSION ST",
+     "length_km": 0.181,
+     "crashes": 14,
+     "severe_fatal": 2,
+     "pedestrian": 4,
+     "per_km_year": 15.5
+    },
+    {
+     "cnn": "13060000",
+     "street": "VALENCIA ST",
+     "length_km": 0.18,
+     "crashes": 14,
+     "severe_fatal": 2,
+     "pedestrian": 4,
+     "per_km_year": 15.6
+    },
+    {
+     "cnn": "12023000",
+     "street": "SOUTH VAN NESS AVE",
+     "length_km": 0.179,
+     "crashes": 11,
+     "severe_fatal": 2,
+     "pedestrian": 2,
+     "per_km_year": 12.3
+    },
+    {
+     "cnn": "9121000",
+     "street": "MISSION ST",
+     "length_km": 0.178,
+     "crashes": 10,
+     "severe_fatal": 2,
+     "pedestrian": 4,
+     "per_km_year": 11.2
+    },
+    {
+     "cnn": "715000",
+     "street": "16TH ST",
+     "length_km": 0.089,
+     "crashes": 8,
+     "severe_fatal": 2,
+     "pedestrian": 0,
+     "per_km_year": 17.9
+    },
+    {
+     "cnn": "6740000",
+     "street": "HARRISON ST",
+     "length_km": 0.092,
+     "crashes": 4,
+     "severe_fatal": 2,
+     "pedestrian": 0,
+     "per_km_year": 8.7
+    },
+    {
+     "cnn": "13063000",
+     "street": "VALENCIA ST",
+     "length_km": 0.098,
+     "crashes": 4,
+     "severe_fatal": 2,
+     "pedestrian": 1,
+     "per_km_year": 8.2
+    },
+    {
+     "cnn": "724000",
+     "street": "16TH ST",
+     "length_km": 0.011,
+     "crashes": 2,
+     "severe_fatal": 2,
+     "pedestrian": 1,
+     "per_km_year": 37.9
+    },
+    {
+     "cnn": "9125000",
+     "street": "MISSION ST",
+     "length_km": 0.178,
+     "crashes": 9,
+     "severe_fatal": 1,
+     "pedestrian": 5,
+     "per_km_year": 10.1
+    },
+    {
+     "cnn": "9114000",
+     "street": "MISSION ST",
+     "length_km": 0.178,
+     "crashes": 8,
+     "severe_fatal": 1,
+     "pedestrian": 2,
+     "per_km_year": 9
+    },
+    {
+     "cnn": "9122002",
+     "street": "MISSION ST",
+     "length_km": 0.13,
+     "crashes": 8,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 12.3
+    },
+    {
+     "cnn": "5691000",
+     "street": "FOLSOM ST",
+     "length_km": 0.112,
+     "crashes": 7,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 12.5
+    },
+    {
+     "cnn": "720000",
+     "street": "16TH ST",
+     "length_km": 0.195,
+     "crashes": 6,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 6.2
+    },
+    {
+     "cnn": "12026000",
+     "street": "SOUTH VAN NESS AVE",
+     "length_km": 0.178,
+     "crashes": 6,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 6.7
+    },
+    {
+     "cnn": "13053000",
+     "street": "VALENCIA ST",
+     "length_km": 0.192,
+     "crashes": 6,
+     "severe_fatal": 1,
+     "pedestrian": 3,
+     "per_km_year": 6.2
+    },
+    {
+     "cnn": "12024000",
+     "street": "SOUTH VAN NESS AVE",
+     "length_km": 0.179,
+     "crashes": 5,
+     "severe_fatal": 1,
+     "pedestrian": 2,
+     "per_km_year": 5.6
+    },
+    {
+     "cnn": "12025000",
+     "street": "SOUTH VAN NESS AVE",
+     "length_km": 0.178,
+     "crashes": 5,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 5.6
+    },
+    {
+     "cnn": "5693000",
+     "street": "FOLSOM ST",
+     "length_km": 0.178,
+     "crashes": 5,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 5.6
+    },
+    {
+     "cnn": "490000",
+     "street": "10TH ST",
+     "length_km": 0.193,
+     "crashes": 5,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 5.2
+    },
+    {
+     "cnn": "13064000",
+     "street": "VALENCIA ST",
+     "length_km": 0.178,
+     "crashes": 5,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 5.6
+    },
+    {
+     "cnn": "726000",
+     "street": "16TH ST",
+     "length_km": 0.072,
+     "crashes": 5,
+     "severe_fatal": 1,
+     "pedestrian": 4,
+     "per_km_year": 13.9
+    },
+    {
+     "cnn": "5696000",
+     "street": "FOLSOM ST",
+     "length_km": 0.178,
+     "crashes": 4,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 4.5
+    },
+    {
+     "cnn": "13067000",
+     "street": "VALENCIA ST",
+     "length_km": 0.089,
+     "crashes": 4,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 9
+    },
+    {
+     "cnn": "10671000",
+     "street": "POTRERO AVE",
+     "length_km": 0.142,
+     "crashes": 4,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 5.6
+    },
+    {
+     "cnn": "13059000",
+     "street": "VALENCIA ST",
+     "length_km": 0.089,
+     "crashes": 4,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 8.9
+    },
+    {
+     "cnn": "13057002",
+     "street": "VALENCIA ST",
+     "length_km": 0.104,
+     "crashes": 4,
+     "severe_fatal": 1,
+     "pedestrian": 2,
+     "per_km_year": 7.7
+    },
+    {
+     "cnn": "5686000",
+     "street": "FOLSOM ST",
+     "length_km": 0.026,
+     "crashes": 3,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 23.4
+    },
+    {
+     "cnn": "9117000",
+     "street": "MISSION ST",
+     "length_km": 0.042,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 9.5
+    },
+    {
+     "cnn": "1342000",
+     "street": "24TH ST",
+     "length_km": 0.05,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 2,
+     "per_km_year": 8.1
+    },
+    {
+     "cnn": "874000",
+     "street": "18TH ST",
+     "length_km": 0.095,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 4.2
+    },
+    {
+     "cnn": "5685000",
+     "street": "FOLSOM ST",
+     "length_km": 0.154,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 2.6
+    },
+    {
+     "cnn": "515000",
+     "street": "11TH ST",
+     "length_km": 0.193,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 2.1
+    },
+    {
+     "cnn": "13061000",
+     "street": "VALENCIA ST",
+     "length_km": 0.043,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 9.4
+    },
+    {
+     "cnn": "730000",
+     "street": "16TH ST",
+     "length_km": 0.013,
+     "crashes": 2,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 31.9
+    },
+    {
+     "cnn": "1260000",
+     "street": "23RD ST",
+     "length_km": 0.097,
+     "crashes": 1,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 2.1
+    },
+    {
+     "cnn": "1348000",
+     "street": "24TH ST",
+     "length_km": 0.047,
+     "crashes": 1,
+     "severe_fatal": 1,
+     "pedestrian": 0,
+     "per_km_year": 4.3
+    },
+    {
+     "cnn": "10659000",
+     "street": "POTRERO AVE",
+     "length_km": 0.142,
+     "crashes": 1,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 1.4
+    },
+    {
+     "cnn": "655000",
+     "street": "15TH ST",
+     "length_km": 0.109,
+     "crashes": 1,
+     "severe_fatal": 1,
+     "pedestrian": 1,
+     "per_km_year": 1.8
+    },
+    {
+     "cnn": "9113000",
+     "street": "MISSION ST",
+     "length_km": 0.086,
+     "crashes": 8,
+     "severe_fatal": 0,
+     "pedestrian": 2,
+     "per_km_year": 18.7
+    },
+    {
+     "cnn": "9116000",
+     "street": "MISSION ST",
+     "length_km": 0.181,
+     "crashes": 8,
+     "severe_fatal": 0,
+     "pedestrian": 1,
+     "per_km_year": 8.9
+    }
+   ],
+   "assumptions": [
+    "Accidents rattachés à un tronçon par la clé CNN du jeu (les accidents d’intersection sans tronçon sont exclus).",
+    "Fenêtre de 5 ans 2021-09-01 → 2026-08-31 ; accidents déclarés (sous-déclaration possible)."
+   ]
+  },
+  "works.area-windows": {
+   "findings": [
+    {
+     "topic": "works",
+     "claim": "17 des 145 tronçons examinés ont des fenêtres de travaux approuvées en cours ou dans les 120 j (19 permis, 8 organisation(s)).",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26IE-00452@12023000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-04770@9125000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-04347@9114000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-04824@1342000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26BW-00015@515000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26E-00665@9124000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-04351@1345000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-04824@1345000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26IE-00452@722000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-04970@1340000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-04803@9110000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-04824@1346000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:25EXC-05850@4981000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:25EXC-05850@4980000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-04824@1344000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-04896@511000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:26EXC-05013@511000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:25EXC-05850@975000"
+      },
+      {
+       "type": "record",
+       "dataset": "study-permits",
+       "ref": "study-permits:25EXC-05850@4982000"
+      }
+     ],
+     "values": {
+      "segments": 145,
+      "withWorks": 17
+     }
+    }
+   ],
+   "rows": [
+    {
+     "cnn": "12023000",
+     "permits": [
+      "26IE-00452@12023000"
+     ],
+     "orgs": [
+      "Bay-Valley Groundworks Inc"
+     ],
+     "excavation": 0
+    },
+    {
+     "cnn": "9125000",
+     "permits": [
+      "26EXC-04770@9125000"
+     ],
+     "orgs": [
+      "CableCom"
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "9114000",
+     "permits": [
+      "26EXC-04347@9114000"
+     ],
+     "orgs": [
+      "R & S Construction Management Inc"
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "1342000",
+     "permits": [
+      "26EXC-04824@1342000"
+     ],
+     "orgs": [
+      "Pacific Bell Telephone Company"
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "515000",
+     "permits": [
+      "26BW-00015@515000"
+     ],
+     "orgs": [
+      "GEI CONSULTANTS, INC."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "9124000",
+     "permits": [
+      "26E-00665@9124000"
+     ],
+     "orgs": [
+      "ACE PLUMBING AND ROOTER"
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "1345000",
+     "permits": [
+      "26EXC-04351@1345000",
+      "26EXC-04824@1345000"
+     ],
+     "orgs": [
+      "Pacific Bell Telephone Company",
+      "R & S Construction Management Inc"
+     ],
+     "excavation": 2
+    },
+    {
+     "cnn": "722000",
+     "permits": [
+      "26IE-00452@722000"
+     ],
+     "orgs": [
+      "Bay-Valley Groundworks Inc"
+     ],
+     "excavation": 0
+    },
+    {
+     "cnn": "1340000",
+     "permits": [
+      "26EXC-04970@1340000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric"
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "9110000",
+     "permits": [
+      "26EXC-04803@9110000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric"
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "1346000",
+     "permits": [
+      "26EXC-04824@1346000"
+     ],
+     "orgs": [
+      "Pacific Bell Telephone Company"
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "4981000",
+     "permits": [
+      "25EXC-05850@4981000"
+     ],
+     "orgs": [
+      "Ronan Construction Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "4980000",
+     "permits": [
+      "25EXC-05850@4980000"
+     ],
+     "orgs": [
+      "Ronan Construction Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "1344000",
+     "permits": [
+      "26EXC-04824@1344000"
+     ],
+     "orgs": [
+      "Pacific Bell Telephone Company"
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "511000",
+     "permits": [
+      "26EXC-04896@511000",
+      "26EXC-05013@511000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric"
+     ],
+     "excavation": 2
+    },
+    {
+     "cnn": "975000",
+     "permits": [
+      "25EXC-05850@975000"
+     ],
+     "orgs": [
+      "Ronan Construction Inc."
+     ],
+     "excavation": 1
+    },
+    {
+     "cnn": "4982000",
+     "permits": [
+      "25EXC-05850@4982000"
+     ],
+     "orgs": [
+      "Ronan Construction Inc."
+     ],
+     "excavation": 1
+    }
+   ],
+   "assumptions": [
+    "Horizon de 120 jours depuis l’instantané (2026-10-14).",
+    "Un permis approuvé n’est pas la preuve que les travaux ont lieu."
+   ]
+  }
+ },
+ "findings": [
+  {
+   "topic": "flood",
+   "claim": "Mission : 5 des 118 permis de travaux en cours ou à venir (120 j) sont dans la zone de risque de tempête centennale modélisée (SFPUC 2022), dont 3 d’excavation.",
+   "epistemic": "modeled",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "flood-zone",
+     "ref": "flood-zone:2022"
+    },
+    {
+     "type": "record",
+     "dataset": "neighborhoods",
+     "ref": "neighborhoods:Mission"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-03490@2140000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26BW-00016@2140000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26BW-00016@3301000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26IE-00452@12023000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26IE-00452@722000"
+    }
+   ],
+   "values": {
+    "permits": 118,
+    "inZone": 5,
+    "excavation": 3
+   }
+  },
+  {
+   "topic": "flood",
+   "claim": "44 tronçon(s) HIN du quartier traversent cette zone modélisée.",
+   "epistemic": "modeled",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "flood-zone",
+     "ref": "flood-zone:2022"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:580000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:581000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:582000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:12020000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:5686000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:5687000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:5688000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:5689000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:6740000"
+    },
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:6741000"
+    }
+   ],
+   "values": {
+    "hinInZone": 44
+   }
+  },
+  {
+   "topic": "weather",
+   "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte.",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "feed-source",
+     "ref": "nws-alerts",
+     "url": "https://api.weather.gov/alerts/active?zone=CAZ006"
+    }
+   ],
+   "value": 0,
+   "asOf": "2026-10-14T14:56:35.337Z"
+  },
+  {
+   "topic": "safety",
+   "claim": "Mission : 253 tronçon(s) du réseau HIN 2024 ; 145 avec au moins un accident avec blessé déclaré sur 5 ans (474 accidents, dont 46 graves ou mortels).",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "neighborhoods",
+     "ref": "neighborhoods:Mission"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9115000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:13060000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:12023000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9121000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:715000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:6740000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:13063000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:724000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9125000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9114000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9122002"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:5691000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:720000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:12026000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:13053000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:12024000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:12025000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:5693000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:490000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:13064000"
+    }
+   ],
+   "values": {
+    "segments": 253,
+    "withCrashes": 145,
+    "crashes": 474,
+    "severeFatal": 46
+   }
+  },
+  {
+   "topic": "safety",
+   "claim": "MISSION ST (CNN 9115000) : 14 accident(s) avec blessé, 2 grave(s)/mortel(s), 4 impliquant un piéton, 15.5 par km et par an.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:9115000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9115000"
+    }
+   ],
+   "values": {
+    "cnn": "9115000",
+    "street": "MISSION ST",
+    "length_km": 0.181,
+    "crashes": 14,
+    "severe_fatal": 2,
+    "pedestrian": 4,
+    "per_km_year": 15.5
+   }
+  },
+  {
+   "topic": "safety",
+   "claim": "VALENCIA ST (CNN 13060000) : 14 accident(s) avec blessé, 2 grave(s)/mortel(s), 4 impliquant un piéton, 15.6 par km et par an.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:13060000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:13060000"
+    }
+   ],
+   "values": {
+    "cnn": "13060000",
+    "street": "VALENCIA ST",
+    "length_km": 0.18,
+    "crashes": 14,
+    "severe_fatal": 2,
+    "pedestrian": 4,
+    "per_km_year": 15.6
+   }
+  },
+  {
+   "topic": "safety",
+   "claim": "SOUTH VAN NESS AVE (CNN 12023000) : 11 accident(s) avec blessé, 2 grave(s)/mortel(s), 2 impliquant un piéton, 12.3 par km et par an.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:12023000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:12023000"
+    }
+   ],
+   "values": {
+    "cnn": "12023000",
+    "street": "SOUTH VAN NESS AVE",
+    "length_km": 0.179,
+    "crashes": 11,
+    "severe_fatal": 2,
+    "pedestrian": 2,
+    "per_km_year": 12.3
+   }
+  },
+  {
+   "topic": "safety",
+   "claim": "MISSION ST (CNN 9121000) : 10 accident(s) avec blessé, 2 grave(s)/mortel(s), 4 impliquant un piéton, 11.2 par km et par an.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:9121000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:9121000"
+    }
+   ],
+   "values": {
+    "cnn": "9121000",
+    "street": "MISSION ST",
+    "length_km": 0.178,
+    "crashes": 10,
+    "severe_fatal": 2,
+    "pedestrian": 4,
+    "per_km_year": 11.2
+   }
+  },
+  {
+   "topic": "safety",
+   "claim": "16TH ST (CNN 715000) : 8 accident(s) avec blessé, 2 grave(s)/mortel(s), 0 impliquant un piéton, 17.9 par km et par an.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "hin",
+     "ref": "hin:715000"
+    },
+    {
+     "type": "record",
+     "dataset": "crashes-agg",
+     "ref": "crashes-agg:715000"
+    }
+   ],
+   "values": {
+    "cnn": "715000",
+    "street": "16TH ST",
+    "length_km": 0.089,
+    "crashes": 8,
+    "severe_fatal": 2,
+    "pedestrian": 0,
+    "per_km_year": 17.9
+   }
+  },
+  {
+   "topic": "works",
+   "claim": "17 des 145 tronçons examinés ont des fenêtres de travaux approuvées en cours ou dans les 120 j (19 permis, 8 organisation(s)).",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26IE-00452@12023000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04770@9125000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04347@9114000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04824@1342000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26BW-00015@515000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26E-00665@9124000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04351@1345000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04824@1345000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26IE-00452@722000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04970@1340000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04803@9110000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04824@1346000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:25EXC-05850@4981000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:25EXC-05850@4980000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04824@1344000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-04896@511000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-05013@511000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:25EXC-05850@975000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:25EXC-05850@4982000"
+    }
+   ],
+   "values": {
+    "segments": 145,
+    "withWorks": 17
+   }
+  },
+  {
+   "topic": "cross",
+   "claim": "3 excavation(s) planifiée(s) dans la zone d’inondation modélisée ; 44 tronçon(s) HIN dans la zone ; alertes météo : Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte.",
+   "epistemic": "modeled",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "flood-zone",
+     "ref": "flood-zone:2022"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26EXC-03490@2140000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26BW-00016@2140000"
+    },
+    {
+     "type": "record",
+     "dataset": "study-permits",
+     "ref": "study-permits:26BW-00016@3301000"
+    }
+   ],
+   "values": {
+    "excavation": 3,
+    "hinInZone": 44
+   }
+  }
+ ],
+ "rejected": [],
+ "challenges": [
+  {
+   "dataset": "flood-zone",
+   "level": "warn",
+   "text": "Zone d’inondation SFPUC de juillet 2022 : modèle de tempête centennale, pas une inondation observée ; trous intérieurs ignorés lors du découpage (léger excès)."
+  },
+  {
+   "dataset": "permits",
+   "level": "info",
+   "text": "Permis collectés il y a 0 j ; statut administratif, pas preuve d’exécution."
+  }
+ ],
+ "conflicts": [
+  {
+   "between": [
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.water.lead"
+   ],
+   "about": "works.windows",
+   "text": "hors périmètre : l’outil works.windows ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9115000)"
+  },
+  {
+   "between": [
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.water.lead"
+   ],
+   "about": "works.telecom",
+   "text": "hors périmètre : l’outil works.telecom ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9115000)"
+  },
+  {
+   "between": [
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.water.lead"
+   ],
+   "about": "resilience.quake-context",
+   "text": "précondition de resilience.quake-context non remplie pour cette cible"
+  }
+ ],
+ "recommendation": {
+  "kind": "recommandation (hypothèse à vérifier)",
+  "text": "Pour les 5 chantier(s) situés dans la zone d’inondation modélisée, demander à SF Public Works et au SFPUC de vérifier la protection des fouilles et la gestion des eaux pluviales prévues, en tenant compte des alertes NWS au moment des travaux. Hypothèse : zone modélisée (pas d’inondation observée) ; aucun dommage n’est prévu ni démontré."
+ },
+ "review": {
+  "by": "core.san-francisco.safety.adversarial-reviewer",
+  "accepted": 11,
+  "rejected": 0,
+  "recommendation": {
+   "ok": true,
+   "issues": []
+  }
+ },
+ "decision": {
+  "by": "core.san-francisco.governance.gateway",
+  "state": "ÉLIGIBLE À LA REVUE HUMAINE",
+  "caveats": [
+   "Zone d’inondation SFPUC de juillet 2022 : modèle de tempête centennale, pas une inondation observée ; trous intérieurs ignorés lors du découpage (léger excès)."
+  ],
+  "authorizes": "rien — décision humaine requise"
+ },
+ "model": {
+  "calls": 1,
+  "accepted": [
+   {
+    "statement": "F4 montre que 145 tronçons du réseau HIN 2024 ont au moins un accident avec blessé déclaré sur 5 ans, ce qui soulève des préoccupations liées à la sécurité routière.",
+    "cites": [
+     "F4"
+    ],
+    "reason": null,
+    "agent": "core.san-francisco.environmental.environmental-analyst"
+   },
+   {
+    "statement": "Les constats F3, F5 à F8 soulèvent des incertitudes sur les impacts potentiels des chantiers sur la sécurité routière et les risques liés aux tempêtes, sans preuve d’effet direct ou de causalité établie.",
+    "cites": [
+     "F3",
+     "F5",
+     "F6",
+     "F7",
+     "F8"
+    ],
+    "reason": null,
+    "agent": "core.san-francisco.environmental.environmental-analyst"
+   }
+  ],
+  "rejected": [
+   {
+    "statement": "F1 indique que 5 des 118 permis de travaux en cours ou à venir sont dans la zone de risque de tempête centennale modélisée, dont 3 d’excavation, ce qui mérite attention en raison de la localisation critique.",
+    "cites": [
+     "F1"
+    ],
+    "reason": "causal: relation causale ou justification non qualifiée",
+    "agent": "core.san-francisco.environmental.environmental-analyst"
+   }
+  ],
+  "lessonsUsed": [
+   "lesson:28b47e845e88",
+   "lesson:754ea9b3f19e"
+  ],
+  "usage": {
+   "promptTokens": 1258,
+   "outputTokens": 217,
+   "totalMs": 29082,
+   "loadMs": 13,
+   "promptMs": 52,
+   "evalMs": 14769,
+   "contextChars": 3586,
+   "wallMs": 29087,
+   "model": "qwen3:8b"
+  }
+ },
+ "learning": {
+  "proceduresApplied": [],
+  "lessonsProposed": [
+   "procedure:8b1af852c951",
+   "procedure:08ec7d2d16d6",
+   "procedure:f9482e2c32c0",
+   "lesson:5b74bc5c7e7d"
+  ]
+ },
+ "owner": "core.san-francisco.water.lead",
+ "priority": {
+  "score": 11,
+  "basis": "sévérité 3 × 2 + signal 5 (règle déclarée)"
+ },
+ "errors": [],
+ "site": {
+  "coord": [
+   -122.41288259421977,
+   37.76804820061363
+  ],
+  "label": "permis 26EXC-03490@2140000",
+  "kind": "permis situé dans la zone modélisée"
+ },
+ "cross": {
+  "rows": [
+   {
+    "id": "26EXC-03490@2140000",
+    "cnn": "2140000",
+    "type": "Excavation",
+    "start": "2026-09-28",
+    "end": "2026-10-26",
+    "agent": "Pacific Gas & Electric",
+    "at": [
+     -122.41288259421977,
+     37.76804820061363
+    ]
+   },
+   {
+    "id": "26BW-00016@2140000",
+    "cnn": "2140000",
+    "type": "Boring",
+    "start": "2026-10-05",
+    "end": "2026-11-24",
+    "agent": "GEI CONSULTANTS, INC.",
+    "at": [
+     -122.41288259421977,
+     37.76804820061363
+    ]
+   },
+   {
+    "id": "26BW-00016@3301000",
+    "cnn": "3301000",
+    "type": "Boring",
+    "start": "2026-10-05",
+    "end": "2026-11-24",
+    "agent": "GEI CONSULTANTS, INC.",
+    "at": [
+     -122.41033349285054,
+     37.76987984191463
+    ]
+   },
+   {
+    "id": "26IE-00452@12023000",
+    "cnn": "12023000",
+    "type": "StrtImprov",
+    "start": null,
+    "end": "2028-09-15",
+    "agent": "Bay-Valley Groundworks Inc",
+    "at": [
+     -122.41726904408145,
+     37.76480106787179
+    ]
+   },
+   {
+    "id": "26IE-00452@722000",
+    "cnn": "722000",
+    "type": "StrtImprov",
+    "start": null,
+    "end": "2028-09-15",
+    "agent": "Bay-Valley Groundworks Inc",
+    "at": [
+     -122.41726904408145,
+     37.76480106787179
+    ]
+   }
+  ]
+ },
+ "metrics": {
+  "wallMs": 29200,
+  "subtasks": 7,
+  "failed": 3,
+  "toolCalls": 8,
+  "messages": 32,
+  "modelCalls": 1
+ },
+ "recorded": {
+  "at": "2026-10-14T16:47:41.211Z",
+  "by": "scripts/civ.mjs (Node, local)",
+  "snapshot": "2026-10-14T16:09:41.363Z"
+ }
+}

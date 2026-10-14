@@ -1,7 +1,8 @@
 // CORE — agent motion and population rendering (Phase 8).
-// Every registered profile is discoverable. Three motion sources, always labelled:
-//   • illustrative — seeded walks on mapped OSM pedestrian ways inside the agent's VIRTUAL working zone
-//     (visualisation only: no research, no visit, no work is implied);
+// Every registered profile is discoverable. Phase 9: agents stay at their virtual post unless a source gives them a
+// reason to move — no random wandering. Motion sources, always labelled:
+//   • recorded activity — trips driven by recorded autonomous missions (src/civ-activity.js): to the cited evidence
+//     location and back, on the validated pedestrian network (OSM walkways that cross no building footprint);
 //   • replay — positions driven by agents-world.js from a recorded mission log;
 //   • live — on the founder's machine only, agents of tasks the local supervisor is actually running
 //     (.core-local/live.json, never fetched on the public site).
@@ -53,11 +54,14 @@
     S.loading = (async () => {
       const P = G.CORE_PLATFORM.state; if (!P.registry) return false; if (P.opsReady) await P.opsReady;
       const walk = await (await fetch('data/osm/walk-network.json')).json();
-      S.walk = walk; S.net = POP().network(walk); S.zones = POP().zoneLayout(S.net, [-122.4065, 37.7795]);
-      S.ops = P.operations || null; S.reg = P.registry; S.facts = POP().facts({ cogIndex: P.cogIndex, detIndex: P.recorded, operations: P.operations });
+      S.walk = walk; S.net = POP().network(walk); S.zones = POP().zoneLayout(S.net, [-122.4120, 37.7700], 2300);
+      S.ops = P.operations || null; S.reg = P.registry; S.facts = POP().facts({ cogIndex: P.cogIndex, detIndex: P.recorded, operations: P.operations, civ: P.civIndex && P.civIndex.missions });
+      // Posts: one distinct, valid pedestrian node per agent inside its virtual zone (never inside a building).
+      const used = new Set();
       for (const a of P.registry.agents) {
-        const zid = POP().zoneOf(a), zone = S.zones.find(z => z.id === zid), rnd = POP().prng(a.code), node = zone.nodes[Math.floor(rnd() * zone.nodes.length)];
-        S.agents.set(a.id, { agent: a, zone, rnd, pos: S.net.nodes[node], node, path: null, along: 0, pause: rnd() * 6000, mode: 'illustrative', state: 'idle', note: '', heading: 1, visible: false, st: POP().status(a, S.facts), f: 0 });
+        const zid = POP().zoneOf(a), zone = S.zones.find(z => z.id === zid), rnd = POP().prng(a.code); let node;
+        for (let k = 0; k < 50; k++) { node = zone.nodes[Math.floor(rnd() * zone.nodes.length)]; if (!used.has(node)) break; } used.add(node);
+        S.agents.set(a.id, { agent: a, zone, rnd, post: node, pos: S.net.nodes[node], node, path: null, along: 0, mode: 'post', state: 'idle', note: '', visible: false, st: POP().status(a, S.facts), f: 0 });
       }
       addIcons(); layers(); setFilter(S.filter); S.ready = true; loop(); pollLive();
       return true;
@@ -67,42 +71,83 @@
   const statusOf = a => (S.agents.get(a.id) || {}).st || POP().status(a, S.facts);
   function setFilter(f) {
     S.filter = f; const list = POP().filter(S.reg, statusOf, f); S.shown = new Set(list.map(a => a.id));
-    for (const A of S.agents.values()) A.visible = S.shown.has(A.agent.id) || A.mode !== 'illustrative';
+    for (const A of S.agents.values()) A.visible = S.shown.has(A.agent.id) || A.mode !== 'post';
     zonesData(); geo(true); domSync(true);
     document.dispatchEvent(new CustomEvent('core:population', { detail: { filter: f, shown: S.shown.size } }));
     return S.shown.size;
   }
-  function refreshStatus() { const P = G.CORE_PLATFORM.state; S.facts = POP().facts({ cogIndex: P.cogIndex, detIndex: P.recorded, operations: P.operations, live: S.live, sessionRunning: P.missions.flatMap(m => m.tasks.filter(t => t.state === 'running').map(t => t.agent)) }); for (const A of S.agents.values()) A.st = POP().status(A.agent, S.facts); }
+  function refreshStatus() { const P = G.CORE_PLATFORM.state; S.facts = POP().facts({ cogIndex: P.cogIndex, detIndex: P.recorded, operations: P.operations, civ: P.civIndex && P.civIndex.missions, live: S.live, sessionRunning: P.missions.flatMap(m => m.tasks.filter(t => t.state === 'running').map(t => t.agent)) }); for (const A of S.agents.values()) A.st = POP().status(A.agent, S.facts); S.dirty = true; }
   function zonesData() {
     const short = { governance: 'Gouvernance', mobility: 'Mobilité', infrastructure: 'Infrastructures', environment: 'Environnement', energy: 'Énergie', 'public-safety': 'Risques', accessibility: 'Accessibilité', planning: 'Urbanisme', 'public-health': 'Santé', water: 'Eau', climate: 'Climat', verification: 'Vérification', review: 'Revue' };
     S.map.getSource('pop-zones').setData({ type: 'FeatureCollection', features: S.zones.map(z => ({ type: 'Feature', geometry: { type: 'Point', coordinates: z.anchor }, properties: { id: z.id, name: z.name, short: short[z.id], n: [...S.agents.values()].filter(A => A.visible && A.zone.id === z.id).length } })) });
   }
 
-  // ---------- motion ----------
-  function nextLeg(A) {
-    const z = A.zone, target = z.nodes[Math.floor(A.rnd() * z.nodes.length)];
-    const sp = S.net.shortest(A.node, target); if (!sp || sp.nodes.length < 2) { A.pause = 3000; return; }
-    const coords = sp.nodes.map(i => S.net.nodes[i]); A.path = { coords, cum: coords.map((c, i) => i ? 0 : 0) }; let acc = 0; A.path.cum = coords.map((c, i) => (acc += i ? POP().dist(coords[i - 1], c) : 0));
-    A.path.len = acc; A.along = 0; A.target = target; A.state = 'walking'; A.departed = performance.now();
+  // ---------- motion: agents move only for a reason (recorded activity, replay, live task, return to post) ----------
+  // go(): walk on the validated pedestrian network to a target (snapped to the nearest walkway node, never a straight
+  // line through a block), then call onArrive. Display speed: ×SPEED walking pace, disclosed in the interface.
+  function go(id, target, { purpose = '', state = 'walking', mode = 'travel', onArrive = null, durationMs = null } = {}) {
+    const A = S.agents.get(id); if (!A) return false;
+    const from = S.net.nearest(A.pos).i, to = S.net.nearest(target).i, sp = S.net.shortest(from, to);
+    if (!sp) { A.note = 'aucun itinéraire piéton cartographié : déplacement non animé'; return false; }
+    const coords = sp.nodes.map(i => S.net.nodes[i]); let acc = 0; const cum = coords.map((c, i) => (acc += i ? POP().dist(coords[i - 1], c) : 0));
+    // Optional fixed display duration (replays of recorded activity): the acceleration over a 1.4 m/s walk is stated.
+    A.speedMps = durationMs ? Math.max(WALK, acc / (durationMs / 1000)) : WALK * SPEED;
+    const factor = Math.round(A.speedMps / WALK);
+    A.path = { coords, cum, len: acc }; A.along = 0; A.target = to; A.mode = mode; A.state = coords.length > 1 ? state : 'idle'; A.note = `${purpose}${coords.length > 1 ? ` · ${Math.round(acc)} m sur les trottoirs validés, affichage accéléré ×${factor}` : ''}`; A.onArrive = onArrive; A.visible = true; A.departed = performance.now();
+    if (coords.length < 2) { A.path = null; if (onArrive) onArrive(A); }
+    return true;
   }
   function advance(A, dt) {
-    if (A.mode !== 'illustrative' || reduced()) return;
-    if (A.pause > 0) { A.pause -= dt; if (A.pause <= 0) nextLeg(A); return; }
-    if (!A.path) { nextLeg(A); return; }
-    A.along += WALK * SPEED * dt / 1000; const p = A.path;
-    if (A.along >= p.len) { A.pos = p.coords[p.coords.length - 1]; A.node = A.target; A.path = null; A.state = 'idle'; A.pause = 2500 + A.rnd() * 6000; A.arrived = performance.now(); return; }
+    if (!A.path) return;
+    if (reduced()) A.along = A.path.len; else A.along += (A.speedMps || WALK * SPEED) * dt / 1000;
+    const p = A.path;
+    if (A.along >= p.len) { A.pos = p.coords[p.coords.length - 1]; A.node = A.target; A.path = null; A.state = 'idle'; A.arrived = performance.now(); const cb = A.onArrive; A.onArrive = null; if (cb) cb(A); return; }
     let i = 1; while (i < p.cum.length - 1 && p.cum[i] < A.along) i++;
     const seg = p.cum[i] - p.cum[i - 1] || 1, t = (A.along - p.cum[i - 1]) / seg, a = p.coords[i - 1], b = p.coords[i];
     A.pos = [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]; A.dir = [b[0] - a[0], b[1] - a[1]];
     A.f = Math.floor(A.along / 0.9) % 2;
+  }
+  function toPost(id, note = 'retour au poste virtuel', durationMs = null) { const A = S.agents.get(id); if (!A) return; go(id, S.net.nodes[A.post], { purpose: note, mode: 'travel', durationMs, onArrive: B => { B.mode = 'post'; B.state = 'idle'; B.note = ''; } }); }
+  // Occlusion (exact geometry): an agent is hidden when the 3D segment from the camera to its head (1.7 m) passes
+  // through a building prism (rendered OSM footprint × render_height). MapLibre's own query only covers footprints.
+  const RAD = Math.PI / 180;
+  function buildingIndex() {
+    const m = S.map, list = [], grid = new Map(), CELL = 0.001;
+    let feats = []; try { feats = m.querySourceFeatures('omt', { sourceLayer: 'building' }); } catch (_) { /* style without OSM buildings */ }
+    for (const f of feats) { const h = +f.properties.render_height || 0; if (h < 3) continue;
+      for (const poly of f.geometry.type === 'Polygon' ? [f.geometry.coordinates] : f.geometry.type === 'MultiPolygon' ? f.geometry.coordinates : []) { const r = poly[0]; const xs = r.map(p => p[0]), ys = r.map(p => p[1]), b = { r, h, bb: [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)] }, k = list.push(b) - 1;
+        for (let x = Math.floor(b.bb[0] / CELL); x <= Math.floor(b.bb[2] / CELL); x++) for (let y = Math.floor(b.bb[1] / CELL); y <= Math.floor(b.bb[3] / CELL); y++) { const key = `${x},${y}`; if (!grid.has(key)) grid.set(key, []); grid.get(key).push(k); } } }
+    S.bld = { list, grid, CELL };
+  }
+  const segX = (a, b, c, d) => { const r = [b[0] - a[0], b[1] - a[1]], s2 = [d[0] - c[0], d[1] - c[1]], den = r[0] * s2[1] - r[1] * s2[0]; if (!den) return null; const t = ((c[0] - a[0]) * s2[1] - (c[1] - a[1]) * s2[0]) / den, u = ((c[0] - a[0]) * r[1] - (c[1] - a[1]) * r[0]) / den; return t > 0 && t < 1 && u >= 0 && u <= 1 ? t : null; };
+  function occludedAt(cam, alt, P) {
+    const { list, grid, CELL } = S.bld, seen = new Set(), k = Math.cos(P[1] * RAD);
+    const x0 = Math.min(cam[0], P[0]), x1 = Math.max(cam[0], P[0]), y0 = Math.min(cam[1], P[1]), y1 = Math.max(cam[1], P[1]);
+    if ((x1 - x0) / CELL * (y1 - y0) / CELL > 4000) return false; // camera too far: skip (aggregates or figures at that zoom)
+    for (let x = Math.floor(x0 / CELL); x <= Math.floor(x1 / CELL); x++) for (let y = Math.floor(y0 / CELL); y <= Math.floor(y1 / CELL); y++) for (const i of grid.get(`${x},${y}`) || []) {
+      if (seen.has(i)) continue; seen.add(i); const b = list[i]; if (b.bb[2] < x0 || b.bb[0] > x1 || b.bb[3] < y0 || b.bb[1] > y1) continue;
+      for (let e = 1; e < b.r.length; e++) { const t = segX(cam, P, b.r[e - 1], b.r[e]); if (t === null) continue; const rayH = alt + (1.7 - alt) * t; if (b.h >= rayH) return true; }
+    }
+    void k; return false;
+  }
+  function occlusion() {
+    const m = S.map, pitch = m.getPitch();
+    if (pitch < 20 || m.getZoom() < ZOOM_ZONES) { for (const A of S.agents.values()) { if (A.occ) S.dirty = true; A.occ = false; } return; }
+    const t = performance.now(); if (!S.bld || S.bldAt !== S.moveSeq || (!S.bld.list.length && t - (S.bldTime || 0) > 1000)) { buildingIndex(); S.bldAt = S.moveSeq; S.bldTime = t; }
+    const cam = m.transform.getCameraLngLat().toArray(), c = m.getCenter(), mpp = 40075016.686 * Math.cos(c.lat * RAD) / (512 * 2 ** m.getZoom());
+    const dpx = m.transform.cameraToCenterDistance || 0.5 / Math.tan(0.6435 / 2) * m.getCanvas().clientHeight, alt = dpx * mpp * Math.cos(pitch * RAD);
+    const b = m.getBounds();
+    for (const A of S.agents.values()) { const o = A.visible && A.pos[0] > b.getWest() && A.pos[0] < b.getEast() && A.pos[1] > b.getSouth() && A.pos[1] < b.getNorth() ? occludedAt(cam, alt, A.pos) : false; if (o !== A.occ) S.dirty = true; A.occ = o; }
   }
   function loop() {
     cancelAnimationFrame(S.raf);
     const tick = now => {
       const dt = Math.min(100, now - (S.last || now)); S.last = now; S.frames++;
       const z = S.map.getZoom();
-      if (z >= ZOOM_ZONES || S.follow) for (const A of S.agents.values()) if (A.visible) advance(A, dt);
-      if (z >= ZOOM_ZONES && now - S.lastGeo > (z >= ZOOM_DOM ? 250 : 110)) { geo(); S.lastGeo = now; }
+      if (z >= ZOOM_ZONES || S.follow) for (const A of S.agents.values()) advance(A, dt); else for (const A of S.agents.values()) if (A.path) { A.along = A.path.len; advance(A, 0); }
+      if (now - (S.lastOcc || 0) > 500) { occlusion(); S.lastOcc = now; }
+      // Only push the source when something changed (moving agents or a flagged change): an idle map stops rendering.
+      if (z >= ZOOM_ZONES && (S.dirty || [...S.agents.values()].some(a => a.path)) && now - S.lastGeo > (z >= ZOOM_DOM ? 250 : 110)) { geo(); S.lastGeo = now; S.dirty = false; }
       if (z >= ZOOM_DOM) domFrame(); else if (S.dom.size) domSync(true);
       followFrame();
       if (!document.hidden) S.raf = requestAnimationFrame(tick);
@@ -113,7 +158,7 @@
 
   function geo() {
     const src = S.map.getSource('pop-agents'); if (!src) return;
-    const feats = []; for (const A of S.agents.values()) { if (!A.visible || S.dom.has(A.agent.id)) continue; feats.push({ type: 'Feature', geometry: { type: 'Point', coordinates: A.pos }, properties: { id: A.agent.id, code: A.agent.code, st: A.st, f: A.state === 'walking' ? A.f : 0, sel: A.agent.id === S.selected ? 1 : 0, dim: S.dimOthers && !S.dimOthers.has(A.agent.id) ? 1 : 0 } }); }
+    const feats = []; for (const A of S.agents.values()) { if (!A.visible || S.dom.has(A.agent.id)) continue; feats.push({ type: 'Feature', geometry: { type: 'Point', coordinates: A.pos }, properties: { id: A.agent.id, code: A.agent.code, st: A.st, f: A.state === 'walking' ? A.f : 0, sel: A.agent.id === S.selected ? 1 : 0, dim: (S.dimOthers && !S.dimOthers.has(A.agent.id)) || A.occ ? 1 : 0 } }); }
     src.setData({ type: 'FeatureCollection', features: feats });
   }
 
@@ -135,7 +180,7 @@
     if (clear || z < ZOOM_DOM) { for (const [id, d] of S.dom) { d.marker.remove(); S.dom.delete(id); } if (clear && z >= ZOOM_DOM) S.domAt = 0; else return; }
     const b = map.getBounds(), pad = 0.0006, inView = c => c[0] > b.getWest() - pad && c[0] < b.getEast() + pad && c[1] > b.getSouth() - pad && c[1] < b.getNorth() + pad;
     const cap = lowEnd() ? 20 : 40, centre = map.getCenter();
-    const want = [...S.agents.values()].filter(A => A.visible && inView(A.pos)).sort((x, y) => (y.agent.id === S.selected) - (x.agent.id === S.selected) || (y.mode !== 'illustrative') - (x.mode !== 'illustrative') || POP().dist(x.pos, [centre.lng, centre.lat]) - POP().dist(y.pos, [centre.lng, centre.lat])).slice(0, cap);
+    const want = [...S.agents.values()].filter(A => A.visible && inView(A.pos)).sort((x, y) => (y.agent.id === S.selected) - (x.agent.id === S.selected) || (y.mode !== 'post') - (x.mode !== 'post') || POP().dist(x.pos, [centre.lng, centre.lat]) - POP().dist(y.pos, [centre.lng, centre.lat])).slice(0, cap);
     const ids = new Set(want.map(A => A.agent.id));
     for (const [id, d] of S.dom) if (!ids.has(id)) { d.marker.remove(); S.dom.delete(id); }
     for (const A of want) if (!S.dom.has(A.agent.id)) S.dom.set(A.agent.id, domEl(A));
@@ -149,16 +194,16 @@
       const el = d.el; if (el.dataset.state !== A.state) el.dataset.state = A.state;
       if (A.dir) { const left = A.dir[0] < 0; if (left !== (el.dataset.face === 'l')) el.dataset.face = left ? 'l' : 'r'; }
       el.dataset.mode = A.mode; el.classList.toggle('selected', id === S.selected); el.classList.toggle('dim', !!(S.dimOthers && !S.dimOthers.has(id)));
-      el.classList.toggle('arrive', !!A.arrived && now - A.arrived < 600); el.style.setProperty('--c', COLORS[A.st] || '#8fe0ff');
+      el.classList.toggle('arrive', !!A.arrived && now - A.arrived < 600); el.classList.toggle('occluded', !!A.occ); el.style.setProperty('--c', COLORS[A.st] || '#8fe0ff');
       el.title = `${A.agent.code} · ${MODE_FR[A.mode]}${A.note ? ` — ${A.note}` : ''}`;
     }
   }
-  const MODE_FR = { illustrative: 'déplacement illustratif (visualisation, aucun travail)', replay: 'relecture d’une mission enregistrée', live: 'exécution locale réelle' };
+  const MODE_FR = { post: 'au poste virtuel — aucune activité en cours (position de rattachement illustrative)', travel: 'déplacement motivé par une mission enregistrée (relecture)', work: 'travail enregistré sur le lieu de la preuve (relecture)', coordinate: 'coordination enregistrée (relecture)', replay: 'relecture d’une mission enregistrée', live: 'exécution locale réelle' };
 
   // ---------- replay / live drivers ----------
-  function drive(id, { pos, state, note, dir }) { const A = S.agents.get(id); if (!A) return; if (A.mode === 'illustrative') { A.path = null; } A.mode = A.mode === 'live' ? 'live' : 'replay'; if (dir) A.dir = dir; else if (A.pos && pos && (A.pos[0] !== pos[0] || A.pos[1] !== pos[1])) A.dir = [pos[0] - A.pos[0], pos[1] - A.pos[1]]; A.pos = pos; A.state = state; A.note = note || ''; A.visible = true; A.f = Math.floor(performance.now() / 280) % 2; }
-  function release(id) { const A = S.agents.get(id); if (!A || A.mode === 'illustrative') return; A.mode = 'illustrative'; A.note = ''; A.state = 'idle'; A.pause = 1500; const n = S.net.nearest(A.pos); A.node = n.i; A.pos = S.net.nodes[n.i]; A.visible = S.shown.has(id); }
-  function dim(ids) { S.dimOthers = ids ? new Set(ids) : null; geo(); }
+  function drive(id, { pos, state, note, dir }) { const A = S.agents.get(id); if (!A) return; S.dirty = true; A.path = null; A.mode = A.mode === 'live' ? 'live' : 'replay'; if (dir) A.dir = dir; else if (A.pos && pos && (A.pos[0] !== pos[0] || A.pos[1] !== pos[1])) A.dir = [pos[0] - A.pos[0], pos[1] - A.pos[1]]; A.pos = pos; A.state = state; A.note = note || ''; A.visible = true; A.f = Math.floor(performance.now() / 280) % 2; }
+  function release(id) { const A = S.agents.get(id); if (!A || A.mode === 'post') return; const n = S.net.nearest(A.pos); A.node = n.i; A.pos = S.net.nodes[n.i]; A.visible = S.shown.has(id); toPost(id); }
+  function dim(ids) { S.dimOthers = ids ? new Set(ids) : null; S.dirty = true; geo(); }
   // Live local execution: poll the supervisor status written on this machine (localhost only).
   async function pollLive() {
     clearTimeout(S.liveTimer); if (!G.CORE_PLATFORM.state.local) return;
@@ -193,8 +238,9 @@
   function init({ map }) {
     S.map = map;
     for (const ev of ['dragstart', 'wheel']) map.on(ev, e => { if (e.originalEvent && S.follow) unfollow(false); });
-    map.on('moveend', () => { if (S.ready) domSync(); });
+    map.on('moveend', () => { S.moveSeq = (S.moveSeq || 0) + 1; if (S.ready) domSync(); });
+    map.on('idle', () => { S.moveSeq = (S.moveSeq || 0) + 1; }); // tiles finished loading: rebuild the building index
   }
   function counts() { const c = {}; for (const A of S.agents.values()) c[A.st] = (c[A.st] || 0) + 1; return { total: S.agents.size, shown: S.shown.size, byStatus: c, dom: S.dom.size, live: [...S.agents.values()].filter(A => A.mode === 'live').length, replay: [...S.agents.values()].filter(A => A.mode === 'replay').length }; }
-  G.CORE_MOTION = { init, ensure, setFilter, select, follow, unfollow, drive, release, dim, refreshStatus, counts, pollLive, state: S, COLORS, MODE_FR, ZOOM_DOM, ZOOM_ZONES, SPEED };
+  G.CORE_MOTION = { init, ensure, go, toPost, occlusion, occludedAt, setFilter, select, follow, unfollow, drive, release, dim, refreshStatus, counts, pollLive, state: S, COLORS, MODE_FR, ZOOM_DOM, ZOOM_ZONES, SPEED };
 })();

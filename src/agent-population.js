@@ -37,9 +37,9 @@
     return a.executionMode === 'coordination-only' ? 'coordination' : 'unavailable';
   }
   // facts: { executing:Set, queued:Set, recorded:Set } built from live/local data, recorded missions and operations.
-  function facts({ cogIndex, detIndex, operations, live, sessionRunning = [] }) {
+  function facts({ cogIndex, detIndex, operations, civ = null, live, sessionRunning = [] }) {
     const recorded = new Set([...(cogIndex ? cogIndex.missions.flatMap(m => m.agents) : []), ...(detIndex ? detIndex.missions.flatMap(m => m.agentIds || []) : []),
-      ...(operations ? operations.tasks.filter(t => t.result).flatMap(t => t.agents.map(a => a.id)) : [])]);
+      ...(operations ? operations.tasks.filter(t => t.result).flatMap(t => t.agents.map(a => a.id)) : []), ...(civ ? civ.flatMap(m => m.participants || []) : [])]);
     const executing = new Set([...sessionRunning, ...(live && live.running ? live.running.flatMap(r => r.agents) : [])]);
     const queued = new Set(live && live.queued ? live.queued : []);
     return { recorded, executing, queued };
@@ -63,7 +63,14 @@
   // ---------- Pedestrian network ----------
   const R = 6371008.8, rad = x => x * Math.PI / 180;
   const dist = (a, b) => { const dLat = rad(b[1] - a[1]), dLon = rad(b[0] - a[0]); const h = Math.sin(dLat / 2) ** 2 + Math.cos(rad(a[1])) * Math.cos(rad(b[1])) * Math.sin(dLon / 2) ** 2; return 2 * R * Math.asin(Math.sqrt(h)); };
-  function network(walk) {
+  // v2 files are compact (integer micro-degrees, flat arrays); v1 files carry nodes/edges directly.
+  function decode(walk) {
+    if (walk.nodes) return walk;
+    const nodes = [], edges = []; for (let i = 0; i < walk.n.length; i += 2) nodes.push([(walk.n[i] + walk.base[0]) / 1e6, (walk.n[i + 1] + walk.base[1]) / 1e6]);
+    for (let i = 0; i < walk.e.length; i += 3) edges.push([walk.e[i], walk.e[i + 1], walk.e[i + 2]]); return { ...walk, nodes, edges };
+  }
+  function network(raw) {
+    const walk = decode(raw);
     const n = walk.nodes.length, adj = Array.from({ length: n }, () => []);
     for (const [a, b, k] of walk.edges) { const d = dist(walk.nodes[a], walk.nodes[b]); adj[a].push([b, d, k]); adj[b].push([a, d, k]); }
     const CELL = 0.0015, grid = new Map(), key = (x, y) => `${Math.floor(x / CELL)},${Math.floor(y / CELL)}`;
@@ -81,10 +88,15 @@
     // Route between two coordinates; endpoints farther than 30 m from the network are flagged approximate.
     function route(from, to) {
       const a = nearest(from), b = nearest(to); if (a.i < 0 || b.i < 0) return null; const sp = shortest(a.i, b.i); if (!sp) return null;
-      const coords = sp.nodes.map(i => walk.nodes[i]); if (a.d > 2) coords.unshift(from); if (b.d > 2) coords.push(to);
-      return { coords, length: sp.length + a.d + b.d, approx: a.d > 30 || b.d > 30, kinds: [...new Set(sp.nodes.slice(1).map((v, i) => (adj[sp.nodes[i]].find(e => e[0] === v) || [0, 0, 0])[2]).map(k => walk.kinds[k]))] };
+      // Network-only geometry: the agent starts and stops at the nearest mapped pedestrian node (a valid ground position);
+      // no straight off-network leg is ever drawn (it could cross a building). snapM says how far the target was.
+      const coords = sp.nodes.map(i => walk.nodes[i]);
+      return { coords, length: sp.length, snapM: [Math.round(a.d), Math.round(b.d)], approx: a.d > 30 || b.d > 30, kinds: [...new Set(sp.nodes.slice(1).map((v, i) => (adj[sp.nodes[i]].find(e => e[0] === v) || [0, 0, 0])[2]).map(k => walk.kinds[k]))] };
     }
-    return { nodes: walk.nodes, adj, nearest, shortest, route };
+    // Distinct valid ground positions near a point (BFS over the network): co-located agents stand apart on walkways.
+    function spread(c, k) { const s0 = nearest(c).i; if (s0 < 0) return c; const seenN = new Set([s0]), q = [s0]; let i = 0;
+      while (q.length && i < k) { const u = q.shift(); for (const [v] of adj[u]) if (!seenN.has(v)) { seenN.add(v); q.push(v); } i++; } const order = [...seenN]; return walk.nodes[order[Math.min(k, order.length - 1)]]; }
+    return { nodes: walk.nodes, edges: walk.edges, adj, nearest, shortest, route, spread };
   }
   // Deterministic zone territories: anchors by farthest-point sampling over nodes near the corridor, Voronoi cells.
   function zoneLayout(net, centre, radiusM = 900) {
@@ -96,6 +108,6 @@
     for (const c of cand) { let bz = 0, bd = Infinity; anchors.forEach((a, z) => { const d = dist(net.nodes[c], net.nodes[a]); if (d < bd) { bd = d; bz = z; } }); members[bz].push(c); }
     return ZONES.map((z, k) => ({ ...z, anchor: net.nodes[anchors[k]], anchorNode: anchors[k], nodes: members[k] }));
   }
-  const POP = { ZONES, STATUS, zoneOf, status, facts, filter, FILTERS, prng, dist, network, zoneLayout };
+  const POP = { ZONES, STATUS, zoneOf, status, facts, filter, FILTERS, prng, dist, network, decode, zoneLayout };
   if (typeof module !== 'undefined' && module.exports) module.exports = POP; else root.CORE_POPULATION = POP;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

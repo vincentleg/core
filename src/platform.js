@@ -481,7 +481,7 @@
     P.map = map; P.fly = fly; P.envFn = env;
     P.registry = G.CORE_ORG.buildRegistry(); P.counts = G.CORE_ORG.counts(P.registry);
     const [evals, lib, items, state, recorded, cogIndex] = await Promise.all([getJSON('data/agents/evaluations.json'), getJSON('data/knowledge/library.json'), getJSON('data/feeds/items.json'), getJSON('data/feeds/state.json'), getJSON('data/missions/index.json').catch(() => null), getJSON('data/missions/cognitive/index.json').catch(() => null)]);
-    P.opsReady = getJSON('data/operations/log.json').then(o => { P.operations = o; }).catch(() => { P.operations = null; });
+    P.opsReady = Promise.all([getJSON('data/operations/log.json').then(o => { P.operations = o; }).catch(() => { P.operations = null; }), getJSON('data/civ/index.json').then(o => { P.civIndex = o; }).catch(() => { P.civIndex = null; }), getJSON('data/memory/export.json').then(o => { P.memoryExport = o; }).catch(() => { P.memoryExport = null; })]);
     P.evals = evals; P.K = G.CORE_KNOWLEDGE.load(lib); P.store = { items: items.items }; P.state = state; P.recorded = recorded; P.cogIndex = cogIndex;
     restoreBrowser(); schedule();
     document.querySelectorAll('#appnav [data-sec], #legacy-sec [data-sec]').forEach(b => b.addEventListener('click', () => show(b.dataset.sec)));

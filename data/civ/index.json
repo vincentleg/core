@@ -1,0 +1,266 @@
+{
+ "version": "core-civ-index-v1",
+ "recorded_at": "2026-10-14T16:47:41.213Z",
+ "study_area": {
+  "neighborhoods": [
+   "South of Market",
+   "Mission",
+   "Tenderloin"
+  ],
+  "bbox": [
+   -122.42695,
+   37.74783,
+   -122.39275,
+   37.78829
+  ]
+ },
+ "missions": [
+  {
+   "id": "civ:safety-works:tenderloin@2026-10-14",
+   "participants": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.research.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.public-space.accessibility-analyst",
+    "core.san-francisco.governance.gateway"
+   ],
+   "workflow": "safety-works",
+   "title": "Sécurité routière × chantiers",
+   "nhood": "Tenderloin",
+   "state": "HUMAN_REVIEW",
+   "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "human": null,
+   "owner": "core.san-francisco.mobility.lead",
+   "priority": {
+    "score": 152,
+    "basis": "sévérité 41 × 2 + signal 70 (règle déclarée)"
+   },
+   "metrics": {
+    "wallMs": 10264,
+    "subtasks": 6,
+    "failed": 3,
+    "toolCalls": 7,
+    "messages": 29,
+    "modelCalls": 1
+   },
+   "findings": 15,
+   "messages": 29,
+   "model": {
+    "calls": 1,
+    "accepted": 1,
+    "rejected": 1
+   },
+   "at": "2026-10-14T16:40:02.304Z"
+  },
+  {
+   "id": "civ:safety-works:mission@2026-10-14",
+   "participants": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.research.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.public-space.accessibility-analyst",
+    "core.san-francisco.governance.gateway"
+   ],
+   "workflow": "safety-works",
+   "title": "Sécurité routière × chantiers",
+   "nhood": "Mission",
+   "state": "HUMAN_REVIEW",
+   "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "human": null,
+   "owner": "core.san-francisco.mobility.lead",
+   "priority": {
+    "score": 109,
+    "basis": "sévérité 46 × 2 + signal 17 (règle déclarée)"
+   },
+   "metrics": {
+    "wallMs": 26080,
+    "subtasks": 6,
+    "failed": 3,
+    "toolCalls": 7,
+    "messages": 29,
+    "modelCalls": 1
+   },
+   "findings": 15,
+   "messages": 29,
+   "model": {
+    "calls": 1,
+    "accepted": 2,
+    "rejected": 1
+   },
+   "at": "2026-10-14T16:40:18.127Z"
+  },
+  {
+   "id": "civ:safety-works:south-of-market@2026-10-14",
+   "participants": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.research.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.public-space.accessibility-analyst",
+    "core.san-francisco.governance.gateway"
+   ],
+   "workflow": "safety-works",
+   "title": "Sécurité routière × chantiers",
+   "nhood": "South of Market",
+   "state": "HUMAN_REVIEW",
+   "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "human": null,
+   "owner": "core.san-francisco.mobility.lead",
+   "priority": {
+    "score": 109,
+    "basis": "sévérité 33 × 2 + signal 43 (règle déclarée)"
+   },
+   "metrics": {
+    "wallMs": 30123,
+    "subtasks": 6,
+    "failed": 0,
+    "toolCalls": 7,
+    "messages": 26,
+    "modelCalls": 1
+   },
+   "findings": 19,
+   "messages": 26,
+   "model": {
+    "calls": 1,
+    "accepted": 3,
+    "rejected": 0
+   },
+   "at": "2026-10-14T16:40:32.444Z"
+  },
+  {
+   "id": "civ:flood-works:mission@2026-10-14",
+   "participants": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.research.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.environmental.environmental-analyst",
+    "core.san-francisco.governance.gateway"
+   ],
+   "workflow": "flood-works",
+   "title": "Risque d’inondation × chantiers",
+   "nhood": "Mission",
+   "state": "HUMAN_REVIEW",
+   "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "human": null,
+   "owner": "core.san-francisco.water.lead",
+   "priority": {
+    "score": 11,
+    "basis": "sévérité 3 × 2 + signal 5 (règle déclarée)"
+   },
+   "metrics": {
+    "wallMs": 29200,
+    "subtasks": 7,
+    "failed": 3,
+    "toolCalls": 8,
+    "messages": 32,
+    "modelCalls": 1
+   },
+   "findings": 11,
+   "messages": 32,
+   "model": {
+    "calls": 1,
+    "accepted": 2,
+    "rejected": 1
+   },
+   "at": "2026-10-14T16:40:47.305Z"
+  },
+  {
+   "id": "civ:flood-works:south-of-market@2026-10-14",
+   "participants": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.research.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.environmental.environmental-analyst",
+    "core.san-francisco.governance.gateway"
+   ],
+   "workflow": "flood-works",
+   "title": "Risque d’inondation × chantiers",
+   "nhood": "South of Market",
+   "state": "HUMAN_REVIEW",
+   "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "human": null,
+   "owner": "core.san-francisco.water.lead",
+   "priority": {
+    "score": 9,
+    "basis": "sévérité 3 × 2 + signal 3 (règle déclarée)"
+   },
+   "metrics": {
+    "wallMs": 26001,
+    "subtasks": 7,
+    "failed": 1,
+    "toolCalls": 8,
+    "messages": 30,
+    "modelCalls": 1
+   },
+   "findings": 14,
+   "messages": 30,
+   "model": {
+    "calls": 1,
+    "accepted": 3,
+    "rejected": 0
+   },
+   "at": "2026-10-14T16:40:58.448Z"
+  }
+ ]
+}

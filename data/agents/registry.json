@@ -1058,6 +1058,10 @@
     {
      "id": "works.windows",
      "basis": "declared"
+    },
+    {
+     "id": "works.area-windows",
+     "basis": "declared"
     }
    ],
    "knowledge": [
@@ -1065,7 +1069,8 @@
     "k-coordination-method"
    ],
    "tools": [
-    "works.windows"
+    "works.windows",
+    "works.area-windows"
    ],
    "permission": "analyze",
    "supervisor": "core.san-francisco.civil.lead",
@@ -1546,13 +1551,18 @@
     {
      "id": "evidence.verify",
      "basis": "declared"
+    },
+    {
+     "id": "data.freshness",
+     "basis": "declared"
     }
    ],
    "knowledge": [
     "k-provenance"
    ],
    "tools": [
-    "evidence.verify"
+    "evidence.verify",
+    "data.freshness"
    ],
    "permission": "review",
    "supervisor": "core.san-francisco.research.lead",
@@ -2152,17 +2162,24 @@
     "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
    },
    "department": "water",
-   "role": "Ingénieur réseaux d’eau (compétence visée)",
-   "specialization": "Eau potable, assainissement",
-   "competencies": [],
+   "role": "Analyste risque d’inondation et eaux pluviales",
+   "specialization": "Zone de risque de tempête centennale (SFPUC 2022, modélisée) croisée avec les travaux de voirie ; aucune donnée de réseau d’eau souterrain",
+   "competencies": [
+    {
+     "id": "flood.exposure",
+     "basis": "declared"
+    }
+   ],
    "knowledge": [],
-   "tools": [],
+   "tools": [
+    "flood.exposure"
+   ],
    "permission": "analyze",
    "supervisor": "core.san-francisco.water.lead",
-   "executionMode": "unavailable",
-   "status": "unavailable",
+   "executionMode": "deterministic",
+   "status": "available",
    "independent": false,
-   "gap": "Aucune donnée de réseau d’eau intégrée.",
+   "gap": null,
    "model": null,
    "code": "CORE-WAT-0055"
   },
@@ -2214,17 +2231,24 @@
     "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
    },
    "department": "mobility",
-   "role": "Ingénieur trafic (compétence visée)",
-   "specialization": "Flux et feux",
-   "competencies": [],
+   "role": "Analyste sécurité routière",
+   "specialization": "Accidents avec blessés agrégés par tronçon (5 ans) sur le réseau à forte accidentalité (HIN 2024) ; pas de comptages de trafic ni de plans de feux",
+   "competencies": [
+    {
+     "id": "safety.crash-profile",
+     "basis": "declared"
+    }
+   ],
    "knowledge": [],
-   "tools": [],
+   "tools": [
+    "safety.crash-profile"
+   ],
    "permission": "analyze",
    "supervisor": "core.san-francisco.mobility.lead",
-   "executionMode": "unavailable",
-   "status": "unavailable",
+   "executionMode": "deterministic",
+   "status": "available",
    "independent": false,
-   "gap": "Pas de comptages ni de plans de feux observés.",
+   "gap": null,
    "model": null,
    "code": "CORE-TRF-0057"
   },
@@ -2571,12 +2595,12 @@
    "code": "CORE-SAF-0068"
   }
  ],
- "generated_at": "2026-10-14T14:56:52.594Z",
+ "generated_at": "2026-10-14T16:47:34.118Z",
  "counts": {
   "registered": 68,
-  "executable": 17,
+  "executable": 19,
   "coordinationOnly": 29,
-  "unavailable": 15,
+  "unavailable": 13,
   "departments": 28,
   "llm": 7
  }

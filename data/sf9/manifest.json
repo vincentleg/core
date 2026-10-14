@@ -1,0 +1,110 @@
+{
+ "version": "core-civ-snapshot-v1",
+ "generated_at": "2026-10-14T16:09:41.363Z",
+ "study_area": {
+  "neighborhoods": [
+   "South of Market",
+   "Mission",
+   "Tenderloin"
+  ],
+  "bbox": [
+   -122.42695,
+   37.74783,
+   -122.39275,
+   37.78829
+  ]
+ },
+ "by": "scripts/civ-snapshot.mjs",
+ "datasets": [
+  {
+   "file": "neighborhoods.json",
+   "id": "j2bu-swwd",
+   "title": "Analysis Neighborhoods",
+   "provider": "City and County of San Francisco (DataSF)",
+   "page": "https://data.sf.gov/d/j2bu-swwd",
+   "request": "https://data.sf.gov/resource/j2bu-swwd.json?$query=SELECT%20nhood%2C%20the_geom%20WHERE%20nhood%20in%20('South%20of%20Market'%2C'Mission'%2C'Tenderloin')%20LIMIT%2010",
+   "retrieved_at": "2026-10-14T16:09:38.718Z",
+   "raw_rows": 3,
+   "raw_sha256": "8afc82d87bb8d37f5d853881f8e725cafe7c10a6281bf36091f72170568ed8c7",
+   "sha256": "4c7dfd07d13494a079d228474e62e0881d379fb33d1b1d55da71ab462462caac",
+   "license": {
+    "name": "ODC Public Domain Dedication and License (PDDL)",
+    "url": "https://opendatacommons.org/licenses/pddl/1-0/"
+   },
+   "kind": "administrative geometry",
+   "note": "South of Market, Mission, Tenderloin."
+  },
+  {
+   "file": "hin.json",
+   "id": "enwt-3u8m",
+   "title": "2024 High Injury Network",
+   "provider": "SFMTA / SF Department of Public Health (Vision Zero SF)",
+   "page": "https://data.sf.gov/d/enwt-3u8m",
+   "request": "https://data.sf.gov/resource/enwt-3u8m.json?$query=SELECT%20cnn_sgmt_pkey%2C%20full_street_name%2C%20corrected_length_miles%2C%20geom%20WHERE%20within_box(geom%2C%2037.78829%2C%20-122.42695%2C%2037.74783%2C%20-122.39275)%20LIMIT%205000",
+   "retrieved_at": "2026-10-14T16:09:39.552Z",
+   "raw_rows": 2611,
+   "raw_sha256": "b271f807b383ab13194f0f64434b248db7ffff78c7807a30a9b82e5a3317927e",
+   "sha256": "f061b77eb304bc8fc643bf9a3bb719f6d6e8b793df1357c4de632eaeecda22f4",
+   "license": {
+    "name": "ODC Public Domain Dedication and License (PDDL)",
+    "url": "https://opendatacommons.org/licenses/pddl/1-0/"
+   },
+   "kind": "administrative designation (corridors with a high share of severe and fatal injuries)",
+   "note": "Segments whose geometry intersects the study bbox -122.42695,37.74783,-122.39275,37.78829."
+  },
+  {
+   "file": "crashes-agg.json",
+   "id": "ubvf-ztfx",
+   "title": "Traffic Crashes Resulting in Injury",
+   "provider": "SF Department of Public Health / SFPD (TIMS geocoded)",
+   "page": "https://data.sf.gov/d/ubvf-ztfx",
+   "request": "https://data.sf.gov/resource/ubvf-ztfx.json?$query=SELECT%20cnn_sgmt_fkey%2C%20analysis_neighborhood%2C%20collision_severity%2C%20dph_col_grp_description%2C%20count(*)%20AS%20n%2C%20sum(number_killed)%20AS%20killed%20WHERE%20collision_date%20%3E%3D%20'2021-09-01'%20AND%20collision_date%20%3C%3D%20'2026-08-31T23%3A59%3A59'%20AND%20analysis_neighborhood%20in%20('South%20of%20Market'%2C'Mission'%2C'Tenderloin')%20GROUP%20BY%20cnn_sgmt_fkey%2C%20analysis_neighborhood%2C%20collision_severity%2C%20dph_col_grp_description%20LIMIT%2050000",
+   "retrieved_at": "2026-10-14T16:09:39.818Z",
+   "raw_rows": 1409,
+   "raw_sha256": "5dc10c21f3a6c439a7cee9d58b3b265083b70ae67233f39a548697f70c3469ed",
+   "sha256": "407c62760c229c482e22cf671c595d78252f976a2404d738332658cca986d593",
+   "license": {
+    "name": "ODC Public Domain Dedication and License (PDDL)",
+    "url": "https://opendatacommons.org/licenses/pddl/1-0/"
+   },
+   "kind": "administrative record of reported injury crashes (aggregated by CORE)",
+   "note": "Counts grouped by segment, neighbourhood, severity and collision group, 2021-09-01 → 2026-08-31. No case-level data stored."
+  },
+  {
+   "file": "flood-zone.json",
+   "id": "jzu3-4yxp",
+   "title": "100-Year Storm Flood Risk Zone (July 2022)",
+   "provider": "San Francisco Public Utilities Commission (SFPUC)",
+   "page": "https://data.sf.gov/d/jzu3-4yxp",
+   "request": "https://data.sf.gov/resource/jzu3-4yxp.json?$query=SELECT%20the_geom%2C%20data_as_of%20LIMIT%205",
+   "retrieved_at": "2026-10-14T16:09:40.498Z",
+   "raw_rows": 1,
+   "raw_sha256": "886a05e733e2b44be458c63524923fce40821b9798d9fe319fd38ce3003e98f5",
+   "sha256": "aff2099fd25d24f8c511c61e1eee23a27682a38de1a5e66b5e09bb9b3790d7b1",
+   "license": {
+    "name": "ODC Public Domain Dedication and License (PDDL)",
+    "url": "https://opendatacommons.org/licenses/pddl/1-0/"
+   },
+   "kind": "modeled hazard zone (not observed flooding)",
+   "note": "Outer rings clipped to the study bbox; interior holes dropped (slight over-estimate of the zone, stated in the workflow)."
+  },
+  {
+   "file": "permits.json",
+   "id": "b6tj-gt35",
+   "title": "Street-Use Permits",
+   "provider": "San Francisco Public Works",
+   "page": "https://data.sf.gov/d/b6tj-gt35",
+   "request": "https://data.sf.gov/resource/b6tj-gt35.json?$query=SELECT%20permit_number%2C%20permit_type%2C%20status%2C%20streetname%2C%20cross_street_1%2C%20cross_street_2%2C%20cnn%2C%20agent%2C%20permit_purpose%2C%20approved_date%2C%20permit_start_date%2C%20permit_end_date%2C%20latitude%2C%20longitude%20WHERE%20permit_type%20in%20('Excavation'%2C'ExcStreet'%2C'StrtImprov'%2C'Boring'%2C'Emergency')%20AND%20approved_date%20%3E%3D%20'2026-01-01'%20AND%20latitude%20between%2037.74783%20and%2037.78829%20AND%20longitude%20between%20-122.42695%20and%20-122.39275%20LIMIT%2020000",
+   "retrieved_at": "2026-10-14T16:09:41.320Z",
+   "raw_rows": 2143,
+   "raw_sha256": "bdfe58a89a5fbd066c5da5ba59bbc7b864d40db5d4ce486686413ed781027789",
+   "sha256": "75b95851b369d195fa0ff943c608bc824563a4a5b3bbd058e22915f15c54ffa1",
+   "license": {
+    "name": "ODC Public Domain Dedication and License (PDDL)",
+    "url": "https://opendatacommons.org/licenses/pddl/1-0/"
+   },
+   "kind": "administrative record (permit issued, not proof of work performed)",
+   "note": "Types Excavation, ExcStreet, StrtImprov, Boring, Emergency, approved since 2026-01-01, inside the study bbox; agent organisation kept, personal contacts removed."
+  }
+ ]
+}

@@ -1,0 +1,4040 @@
+{
+ "version": "core-agent-registry-v2",
+ "generated_at": "2026-10-14T16:47:41.252Z",
+ "base": "core-agent-registry-v1",
+ "counts": {
+  "opérationnel autonome": 8,
+  "coordination seule": 22,
+  "spécialiste déterministe exécutable": 18,
+  "assisté par modèle": 7,
+  "enregistré, non implémenté": 13
+ },
+ "hierarchy": {
+  "executive": "core.global.coordinator",
+  "cityCoordinator": "core.san-francisco.manager",
+  "leads": [
+   {
+    "id": "core.san-francisco.architecture.lead",
+    "reports": [
+     "core.san-francisco.architecture.urban-design"
+    ]
+   },
+   {
+    "id": "core.san-francisco.civil.lead",
+    "reports": [
+     "core.san-francisco.civil.works-coordination"
+    ]
+   },
+   {
+    "id": "core.san-francisco.electrical.lead",
+    "reports": [
+     "core.san-francisco.electrical.grid"
+    ]
+   },
+   {
+    "id": "core.san-francisco.energy.lead",
+    "reports": [
+     "core.san-francisco.energy.energy-benchmarks",
+     "core.san-francisco.energy.energy-infrastructure-analyst"
+    ]
+   },
+   {
+    "id": "core.san-francisco.building-systems.lead",
+    "reports": [
+     "core.san-francisco.building-systems.building-systems-eng"
+    ]
+   },
+   {
+    "id": "core.san-francisco.mechanical.lead",
+    "reports": [
+     "core.san-francisco.mechanical.mechanical-systems"
+    ]
+   },
+   {
+    "id": "core.san-francisco.water.lead",
+    "reports": [
+     "core.san-francisco.water.water-network"
+    ]
+   },
+   {
+    "id": "core.san-francisco.mobility.lead",
+    "reports": [
+     "core.san-francisco.mobility.traffic"
+    ]
+   },
+   {
+    "id": "core.san-francisco.transit.lead",
+    "reports": [
+     "core.san-francisco.transit.transit-planner"
+    ]
+   },
+   {
+    "id": "core.san-francisco.ecology.lead",
+    "reports": [
+     "core.san-francisco.ecology.biodiversity"
+    ]
+   },
+   {
+    "id": "core.san-francisco.forestry.lead",
+    "reports": [
+     "core.san-francisco.forestry.street-trees",
+     "core.san-francisco.forestry.urban-forestry-analyst"
+    ]
+   },
+   {
+    "id": "core.san-francisco.environmental.lead",
+    "reports": [
+     "core.san-francisco.environmental.environmental-analyst",
+     "core.san-francisco.environmental.air-quality"
+    ]
+   },
+   {
+    "id": "core.san-francisco.climate.lead",
+    "reports": [
+     "core.san-francisco.climate.seismic-context",
+     "core.san-francisco.climate.weather-alerts"
+    ]
+   },
+   {
+    "id": "core.san-francisco.geotech.lead",
+    "reports": [
+     "core.san-francisco.geotech.geotechnical"
+    ]
+   },
+   {
+    "id": "core.san-francisco.housing.lead",
+    "reports": [
+     "core.san-francisco.housing.building-permits",
+     "core.san-francisco.housing.urban-planning-analyst"
+    ]
+   },
+   {
+    "id": "core.san-francisco.health.lead",
+    "reports": [
+     "core.san-francisco.health.public-health"
+    ]
+   },
+   {
+    "id": "core.san-francisco.economics.lead",
+    "reports": [
+     "core.san-francisco.economics.economist"
+    ]
+   },
+   {
+    "id": "core.san-francisco.administration.lead",
+    "reports": [
+     "core.san-francisco.administration.civic-records"
+    ]
+   },
+   {
+    "id": "core.san-francisco.regulatory.lead",
+    "reports": [
+     "core.san-francisco.regulatory.knowledge-research"
+    ]
+   },
+   {
+    "id": "core.san-francisco.social.lead",
+    "reports": [
+     "core.san-francisco.social.community-impacts"
+    ]
+   },
+   {
+    "id": "core.san-francisco.public-space.lead",
+    "reports": [
+     "core.san-francisco.public-space.sidewalks",
+     "core.san-francisco.public-space.accessibility-analyst"
+    ]
+   },
+   {
+    "id": "core.san-francisco.digital.lead",
+    "reports": [
+     "core.san-francisco.digital.digital-infra"
+    ]
+   },
+   {
+    "id": "core.san-francisco.telecom.lead",
+    "reports": [
+     "core.san-francisco.telecom.telecom-works"
+    ]
+   },
+   {
+    "id": "core.san-francisco.cybersecurity.lead",
+    "reports": [
+     "core.san-francisco.cybersecurity.data-policy-reviewer",
+     "core.san-francisco.cybersecurity.cyber"
+    ]
+   },
+   {
+    "id": "core.san-francisco.data-science.lead",
+    "reports": [
+     "core.san-francisco.data-science.graph-linker"
+    ]
+   },
+   {
+    "id": "core.san-francisco.simulation.lead",
+    "reports": [
+     "core.san-francisco.simulation.scenario-evaluator",
+     "core.san-francisco.simulation.scenario-analyst"
+    ]
+   },
+   {
+    "id": "core.san-francisco.research.lead",
+    "reports": [
+     "core.san-francisco.research.evidence-verifier",
+     "core.san-francisco.research.evidence-reviewer"
+    ]
+   },
+   {
+    "id": "core.san-francisco.safety.lead",
+    "reports": [
+     "core.san-francisco.safety.adversarial-reviewer"
+    ]
+   }
+  ],
+  "reviewers": [
+   "core.san-francisco.research.evidence-verifier",
+   "core.san-francisco.safety.adversarial-reviewer",
+   "core.san-francisco.research.evidence-reviewer"
+  ],
+  "gateway": "core.san-francisco.governance.gateway",
+  "humanAuthority": "human:<nom> (revue et décision)"
+ },
+ "agents": [
+  {
+   "id": "core.global.coordinator",
+   "code": "CORE-CMD-0001",
+   "title": "Coordination globale CORE",
+   "department": null,
+   "specialty": "Routage des villes et politiques communes",
+   "class": "opérationnel autonome",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [],
+    "documents": [
+     "k-neutrality",
+     "k-provenance"
+    ]
+   },
+   "territory": "CORE (toutes villes)",
+   "supervisor": null,
+   "directReports": [
+    "core.san-francisco.manager"
+   ],
+   "collaborators": [
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead"
+   ],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation",
+    "contester une source",
+    "rejeter un constat non étayé",
+    "vérifier les preuves",
+    "proposer une décision à la revue humaine"
+   ],
+   "permission": "govern",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-CMD-0001",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 5,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": "2026-10-14T16:40:58.450Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.manager",
+   "code": "CORE-CTY-0002",
+   "title": "Coordination de la ville — San Francisco",
+   "department": null,
+   "specialty": "Planification de missions, recrutement, synthèse (sans autorité factuelle supérieure)",
+   "class": "opérationnel autonome",
+   "executionMode": "deterministic",
+   "capabilities": [
+    "mission.plan"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [],
+    "documents": [
+     "k-neutrality",
+     "k-provenance"
+    ]
+   },
+   "territory": "San Francisco",
+   "supervisor": "core.global.coordinator",
+   "directReports": [
+    "core.san-francisco.architecture.lead",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.electrical.lead",
+    "core.san-francisco.energy.lead",
+    "core.san-francisco.building-systems.lead",
+    "core.san-francisco.mechanical.lead",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.transit.lead",
+    "core.san-francisco.ecology.lead",
+    "core.san-francisco.forestry.lead",
+    "core.san-francisco.environmental.lead",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.geotech.lead",
+    "core.san-francisco.housing.lead",
+    "core.san-francisco.health.lead",
+    "core.san-francisco.economics.lead",
+    "core.san-francisco.administration.lead",
+    "core.san-francisco.regulatory.lead",
+    "core.san-francisco.social.lead",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.digital.lead",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.cybersecurity.lead",
+    "core.san-francisco.data-science.lead",
+    "core.san-francisco.simulation.lead",
+    "core.san-francisco.research.lead",
+    "core.san-francisco.safety.lead"
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead"
+   ],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-CTY-0002",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 5,
+    "cognitive": 0,
+    "ruleBased": 12,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": "2026-10-14T16:47:34.118Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.architecture.lead",
+   "code": "CORE-ARC-0003",
+   "title": "Direction — Architecture et design urbain",
+   "department": "architecture",
+   "specialty": "Coordination du département ; domaines buildings, public_space",
+   "class": "coordination seule",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "buildings",
+     "public_space"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.architecture.urban-design"
+   ],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-ARC-0003",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.civil.lead",
+   "code": "CORE-CIV-0004",
+   "title": "Direction — Génie civil",
+   "department": "civil",
+   "specialty": "Coordination du département ; domaines infrastructure",
+   "class": "opérationnel autonome",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "infrastructure"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.civil.works-coordination"
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead"
+   ],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-CIV-0004",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 5,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": "2026-10-14T16:40:58.452Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.electrical.lead",
+   "code": "CORE-ELC-0005",
+   "title": "Direction — Génie électrique",
+   "department": "electrical",
+   "specialty": "Coordination du département ; domaines energy, infrastructure",
+   "class": "coordination seule",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "energy",
+     "infrastructure"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.electrical.grid"
+   ],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-ELC-0005",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.energy.lead",
+   "code": "CORE-ENG-0006",
+   "title": "Direction — Systèmes énergétiques",
+   "department": "energy",
+   "specialty": "Coordination du département ; domaines energy",
+   "class": "coordination seule",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "energy"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.energy.energy-benchmarks",
+    "core.san-francisco.energy.energy-infrastructure-analyst"
+   ],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-ENG-0006",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.building-systems.lead",
+   "code": "CORE-BLD-0007",
+   "title": "Direction — Systèmes du bâtiment",
+   "department": "building-systems",
+   "specialty": "Coordination du département ; domaines buildings, energy",
+   "class": "coordination seule",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "buildings",
+     "energy"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.building-systems.building-systems-eng"
+   ],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-BLD-0007",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.mechanical.lead",
+   "code": "CORE-MEC-0008",
+   "title": "Direction — Génie mécanique",
+   "department": "mechanical",
+   "specialty": "Coordination du département ; domaines buildings",
+   "class": "coordination seule",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "buildings"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.mechanical.mechanical-systems"
+   ],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-MEC-0008",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.water.lead",
+   "code": "CORE-WAT-0009",
+   "title": "Direction — Eau et assainissement",
+   "department": "water",
+   "specialty": "Coordination du département ; domaines infrastructure",
+   "class": "opérationnel autonome",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "infrastructure"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.water.water-network"
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead"
+   ],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-WAT-0009",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 5,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": "2026-10-14T16:40:58.450Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.mobility.lead",
+   "code": "CORE-TRF-0010",
+   "title": "Direction — Transports et mobilité",
+   "department": "mobility",
+   "specialty": "Coordination du département ; domaines infrastructure, events, mobility",
+   "class": "opérationnel autonome",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "infrastructure",
+     "events",
+     "mobility"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.mobility.traffic"
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead"
+   ],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-TRF-0010",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 5,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": "2026-10-14T16:40:58.453Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.transit.lead",
+   "code": "CORE-TRN-0011",
+   "title": "Direction — Transports publics",
+   "department": "transit",
+   "specialty": "Coordination du département ; domaines infrastructure, mobility",
+   "class": "coordination seule",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "infrastructure",
+     "mobility"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.transit.transit-planner"
+   ],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-TRN-0011",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.ecology.lead",
+   "code": "CORE-ECO-0012",
+   "title": "Direction — Écologie et biodiversité",
+   "department": "ecology",
+   "specialty": "Coordination du département ; domaines nature",
+   "class": "coordination seule",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "nature"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.ecology.biodiversity"
+   ],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-ECO-0012",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.forestry.lead",
+   "code": "CORE-FOR-0013",
+   "title": "Direction — Foresterie urbaine",
+   "department": "forestry",
+   "specialty": "Coordination du département ; domaines nature",
+   "class": "coordination seule",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "nature"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.forestry.street-trees",
+    "core.san-francisco.forestry.urban-forestry-analyst"
+   ],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-FOR-0013",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.environmental.lead",
+   "code": "CORE-ENV-0014",
+   "title": "Direction — Génie environnemental",
+   "department": "environmental",
+   "specialty": "Coordination du département ; domaines nature, climate",
+   "class": "coordination seule",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "nature",
+     "climate"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.environmental.environmental-analyst",
+    "core.san-francisco.environmental.air-quality"
+   ],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-ENV-0014",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.climate.lead",
+   "code": "CORE-CLI-0015",
+   "title": "Direction — Climat et résilience",
+   "department": "climate",
+   "specialty": "Coordination du département ; domaines events, nature, climate, emergency",
+   "class": "opérationnel autonome",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "events",
+     "nature",
+     "climate",
+     "emergency"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.climate.weather-alerts"
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-CLI-0015",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 2,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": "2026-10-14T16:40:58.451Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.geotech.lead",
+   "code": "CORE-GEO-0016",
+   "title": "Direction — Géologie et géotechnique",
+   "department": "geotech",
+   "specialty": "Coordination du département ; domaines infrastructure, emergency",
+   "class": "coordination seule",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "infrastructure",
+     "emergency"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.geotech.geotechnical"
+   ],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-GEO-0016",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.housing.lead",
+   "code": "CORE-HSG-0017",
+   "title": "Direction — Logement et usage des sols",
+   "department": "housing",
+   "specialty": "Coordination du département ; domaines buildings",
+   "class": "coordination seule",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "buildings"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.housing.building-permits",
+    "core.san-francisco.housing.urban-planning-analyst"
+   ],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-HSG-0017",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.health.lead",
+   "code": "CORE-HLT-0018",
+   "title": "Direction — Santé publique",
+   "department": "health",
+   "specialty": "Coordination du département ; domaines society, health",
+   "class": "coordination seule",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "society",
+     "health"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.health.public-health"
+   ],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-HLT-0018",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.economics.lead",
+   "code": "CORE-ECN-0019",
+   "title": "Direction — Économie et finances",
+   "department": "economics",
+   "specialty": "Coordination du département ; domaines society, economy",
+   "class": "coordination seule",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "society",
+     "economy"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.economics.economist"
+   ],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-ECN-0019",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.administration.lead",
+   "code": "CORE-ADM-0020",
+   "title": "Direction — Administration publique",
+   "department": "administration",
+   "specialty": "Coordination du département ; domaines events, administration",
+   "class": "coordination seule",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "events",
+     "administration"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.administration.civic-records"
+   ],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-ADM-0020",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.regulatory.lead",
+   "code": "CORE-REG-0021",
+   "title": "Direction — Recherche réglementaire et juridique",
+   "department": "regulatory",
+   "specialty": "Coordination du département ; domaines events, administration",
+   "class": "coordination seule",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "events",
+     "administration"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.regulatory.knowledge-research"
+   ],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-REG-0021",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.social.lead",
+   "code": "CORE-SOC-0022",
+   "title": "Direction — Sciences sociales et impacts communautaires",
+   "department": "social",
+   "specialty": "Coordination du département ; domaines society, culture",
+   "class": "coordination seule",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "society",
+     "culture"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.social.community-impacts"
+   ],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-SOC-0022",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.public-space.lead",
+   "code": "CORE-PUB-0023",
+   "title": "Direction — Espace public et accessibilité",
+   "department": "public-space",
+   "specialty": "Coordination du département ; domaines public_space",
+   "class": "opérationnel autonome",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "public_space"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.accessibility-analyst"
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-PUB-0023",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 3,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": "2026-10-14T16:40:32.448Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.digital.lead",
+   "code": "CORE-DIG-0024",
+   "title": "Direction — Infrastructures numériques",
+   "department": "digital",
+   "specialty": "Coordination du département ; domaines infrastructure",
+   "class": "coordination seule",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "infrastructure"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.digital.digital-infra"
+   ],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-DIG-0024",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.telecom.lead",
+   "code": "CORE-TEL-0025",
+   "title": "Direction — Télécommunications",
+   "department": "telecom",
+   "specialty": "Coordination du département ; domaines infrastructure",
+   "class": "opérationnel autonome",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "infrastructure"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.telecom.telecom-works"
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead"
+   ],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-TEL-0025",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 5,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": "2026-10-14T16:40:58.452Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.cybersecurity.lead",
+   "code": "CORE-SEC-0026",
+   "title": "Direction — Cybersécurité",
+   "department": "cybersecurity",
+   "specialty": "Coordination du département ; domaines infrastructure",
+   "class": "coordination seule",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "infrastructure"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.cybersecurity.data-policy-reviewer",
+    "core.san-francisco.cybersecurity.cyber"
+   ],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-SEC-0026",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.data-science.lead",
+   "code": "CORE-DAT-0027",
+   "title": "Direction — Science des données",
+   "department": "data-science",
+   "specialty": "Coordination du département ; domaines transverses",
+   "class": "coordination seule",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.data-science.graph-linker"
+   ],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-DAT-0027",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.simulation.lead",
+   "code": "CORE-SIM-0028",
+   "title": "Direction — Simulation et modélisation",
+   "department": "simulation",
+   "specialty": "Coordination du département ; domaines transverses",
+   "class": "coordination seule",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.simulation.scenario-evaluator",
+    "core.san-francisco.simulation.scenario-analyst"
+   ],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-SIM-0028",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.research.lead",
+   "code": "CORE-RES-0029",
+   "title": "Direction — Recherche et vérification des preuves",
+   "department": "research",
+   "specialty": "Coordination du département ; domaines transverses",
+   "class": "coordination seule",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.evidence-reviewer"
+   ],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-RES-0029",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.safety.lead",
+   "code": "CORE-SAF-0030",
+   "title": "Direction — Sûreté et revue adversariale",
+   "department": "safety",
+   "specialty": "Coordination du département ; domaines transverses",
+   "class": "coordination seule",
+   "executionMode": "coordination-only",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.manager",
+   "directReports": [
+    "core.san-francisco.safety.adversarial-reviewer"
+   ],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation"
+   ],
+   "permission": "propose",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-SAF-0030",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.civil.works-coordination",
+   "code": "CORE-CIV-0031",
+   "title": "Analyste de coordination des travaux de voirie",
+   "department": "civil",
+   "specialty": "Fenêtres de permis d’excavation, chevauchements, contraintes de planification",
+   "class": "spécialiste déterministe exécutable",
+   "executionMode": "deterministic",
+   "capabilities": [
+    "works.windows",
+    "works.area-windows"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [
+     "infrastructure"
+    ],
+    "documents": [
+     "k-coordination-method",
+     "k-street-use-permits"
+    ]
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.civil.lead",
+   "directReports": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead"
+   ],
+   "dependencies": [
+    "study-permits"
+   ],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-CIV-0031",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 5,
+    "cognitive": 0,
+    "ruleBased": 11,
+    "operations": 37
+   },
+   "evidenceProduced": 9,
+   "evaluations": {
+    "passed": 1,
+    "total": 1
+   },
+   "lastGenuineExecution": "2026-10-14T16:47:34.118Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.telecom.telecom-works",
+   "code": "CORE-TEL-0032",
+   "title": "Analyste des travaux de télécommunications",
+   "department": "telecom",
+   "specialty": "Permis d’opérateurs télécoms sur la voirie (classement déclaré des titulaires)",
+   "class": "spécialiste déterministe exécutable",
+   "executionMode": "deterministic",
+   "capabilities": [
+    "works.telecom"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [
+     "infrastructure"
+    ],
+    "documents": [
+     "k-street-use-permits"
+    ]
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.telecom.lead",
+   "directReports": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead"
+   ],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-TEL-0032",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 5,
+    "cognitive": 0,
+    "ruleBased": 11,
+    "operations": 37
+   },
+   "evidenceProduced": 2,
+   "evaluations": {
+    "passed": 1,
+    "total": 1
+   },
+   "lastGenuineExecution": "2026-10-14T16:47:34.118Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.forestry.street-trees",
+   "code": "CORE-FOR-0033",
+   "title": "Spécialiste des arbres d’alignement",
+   "department": "forestry",
+   "specialty": "Inventaire des arbres, avis d’abattage, proximité des travaux",
+   "class": "spécialiste déterministe exécutable",
+   "executionMode": "deterministic",
+   "capabilities": [
+    "trees.near-works"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [
+     "nature"
+    ],
+    "documents": [
+     "k-proximity-indicator",
+     "k-street-trees",
+     "k-tree-removals"
+    ]
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.forestry.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-FOR-0033",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 11,
+    "operations": 37
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 1,
+    "total": 1
+   },
+   "lastGenuineExecution": "2026-10-14T16:47:34.118Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.housing.building-permits",
+   "code": "CORE-HSG-0034",
+   "title": "Analyste des permis de construire",
+   "department": "housing",
+   "specialty": "Activité DBI au front des tronçons ; limites du statut « issued »",
+   "class": "spécialiste déterministe exécutable",
+   "executionMode": "deterministic",
+   "capabilities": [
+    "buildings.frontage"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [
+     "buildings"
+    ],
+    "documents": [
+     "k-building-permits",
+     "k-dbi-issued-status"
+    ]
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.housing.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-HSG-0034",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 11,
+    "operations": 37
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 1,
+    "total": 1
+   },
+   "lastGenuineExecution": "2026-10-14T16:47:34.118Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.energy.energy-benchmarks",
+   "code": "CORE-ENG-0035",
+   "title": "Analyste des bilans énergétiques déclarés",
+   "department": "energy",
+   "specialty": "Rapports de l’ordonnance sur la performance énergétique des bâtiments existants",
+   "class": "spécialiste déterministe exécutable",
+   "executionMode": "deterministic",
+   "capabilities": [
+    "energy.benchmarks"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [
+     "energy"
+    ],
+    "documents": [
+     "k-energy-ordinance"
+    ]
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.energy.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-ENG-0035",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 11,
+    "operations": 37
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 1,
+    "total": 1
+   },
+   "lastGenuineExecution": "2026-10-14T16:47:34.118Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.public-space.sidewalks",
+   "code": "CORE-PUB-0036",
+   "title": "Analyste espace public et trottoirs",
+   "department": "public-space",
+   "specialty": "Largeurs de trottoir (étude 2014), parcs proches",
+   "class": "spécialiste déterministe exécutable",
+   "executionMode": "deterministic",
+   "capabilities": [
+    "public-space.sidewalks"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [
+     "public_space"
+    ],
+    "documents": [
+     "k-sidewalk-widths"
+    ]
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.public-space.lead",
+   "directReports": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-PUB-0036",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 3,
+    "cognitive": 0,
+    "ruleBased": 11,
+    "operations": 37
+   },
+   "evidenceProduced": 1,
+   "evaluations": {
+    "passed": 1,
+    "total": 1
+   },
+   "lastGenuineExecution": "2026-10-14T16:47:34.118Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.climate.seismic-context",
+   "code": "CORE-CLI-0037",
+   "title": "Analyste du contexte sismique",
+   "department": "climate",
+   "specialty": "Séismes USGS proches et actifs du corridor (sans données structurelles)",
+   "class": "spécialiste déterministe exécutable",
+   "executionMode": "deterministic",
+   "capabilities": [
+    "resilience.quake-context"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [
+     "events",
+     "nature",
+     "climate",
+     "emergency"
+    ],
+    "documents": [
+     "k-no-structural-data",
+     "k-usgs-feed"
+    ]
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.climate.lead",
+   "directReports": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-CLI-0037",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 2,
+    "cognitive": 0,
+    "ruleBased": 1,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 1,
+    "total": 1
+   },
+   "lastGenuineExecution": "2026-10-14T16:47:34.118Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.climate.weather-alerts",
+   "code": "CORE-CLI-0038",
+   "title": "Analyste des alertes météorologiques",
+   "department": "climate",
+   "specialty": "Alertes NWS actives pour San Francisco (prévisions, non observations)",
+   "class": "spécialiste déterministe exécutable",
+   "executionMode": "deterministic",
+   "capabilities": [
+    "resilience.weather-alerts"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [
+     "events",
+     "nature",
+     "climate",
+     "emergency"
+    ],
+    "documents": [
+     "k-nws-alerts"
+    ]
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.climate.lead",
+   "directReports": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-CLI-0038",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 2,
+    "cognitive": 0,
+    "ruleBased": 12,
+    "operations": 37
+   },
+   "evidenceProduced": 2,
+   "evaluations": {
+    "passed": 1,
+    "total": 1
+   },
+   "lastGenuineExecution": "2026-10-14T16:47:34.118Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.administration.civic-records",
+   "code": "CORE-ADM-0039",
+   "title": "Analyste des dossiers municipaux",
+   "department": "administration",
+   "specialty": "Législation du Board of Supervisors (Legistar) : type, statut, dates, sans jugement politique",
+   "class": "spécialiste déterministe exécutable",
+   "executionMode": "deterministic",
+   "capabilities": [
+    "civic.legislation"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [
+     "events",
+     "administration"
+    ],
+    "documents": [
+     "k-legistar",
+     "k-neutrality"
+    ]
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.administration.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-ADM-0039",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 1,
+    "total": 1
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.data-science.graph-linker",
+   "code": "CORE-DAT-0040",
+   "title": "Analyste de liaison du graphe",
+   "department": "data-science",
+   "specialty": "Géolocalisation des évènements et liaison au graphe de connaissances",
+   "class": "spécialiste déterministe exécutable",
+   "executionMode": "deterministic",
+   "capabilities": [
+    "graph.link"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [],
+    "documents": [
+     "k-graph-bases"
+    ]
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.data-science.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-DAT-0040",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 11,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 1,
+    "total": 1
+   },
+   "lastGenuineExecution": "2026-10-14T16:47:34.118Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.simulation.scenario-evaluator",
+   "code": "CORE-SIM-0041",
+   "title": "Évaluateur de scénarios",
+   "department": "simulation",
+   "specialty": "Investigation inter-domaines déterministe et alternatives R0–R2",
+   "class": "spécialiste déterministe exécutable",
+   "executionMode": "deterministic",
+   "capabilities": [
+    "scenario.investigate"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [],
+    "documents": [
+     "k-coordination-method",
+     "k-proximity-indicator"
+    ]
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.simulation.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-SIM-0041",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 11,
+    "operations": 37
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 1,
+    "total": 1
+   },
+   "lastGenuineExecution": "2026-10-14T16:47:34.118Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.regulatory.knowledge-research",
+   "code": "CORE-REG-0042",
+   "title": "Chargé de recherche documentaire",
+   "department": "regulatory",
+   "specialty": "Recherche dans la bibliothèque de connaissances approuvée",
+   "class": "spécialiste déterministe exécutable",
+   "executionMode": "deterministic",
+   "capabilities": [
+    "knowledge.retrieve"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [
+     "events",
+     "administration"
+    ],
+    "documents": [
+     "k-coordination-method",
+     "k-neutrality"
+    ]
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.regulatory.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées"
+   ],
+   "permission": "read",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-REG-0042",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 12,
+    "operations": 37
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 1,
+    "total": 1
+   },
+   "lastGenuineExecution": "2026-10-14T16:47:34.118Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.research.evidence-verifier",
+   "code": "CORE-RES-0043",
+   "title": "Vérificateur de preuves",
+   "department": "research",
+   "specialty": "Sommes SHA-256, existence des enregistrements, dates, statut des sources",
+   "class": "spécialiste déterministe exécutable",
+   "executionMode": "deterministic",
+   "capabilities": [
+    "evidence.verify",
+    "data.freshness"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [],
+    "documents": [
+     "k-provenance"
+    ]
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.research.lead",
+   "directReports": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead"
+   ],
+   "dependencies": [
+    "manifest"
+   ],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation",
+    "contester une source",
+    "rejeter un constat non étayé",
+    "vérifier les preuves"
+   ],
+   "permission": "review",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-RES-0043",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 5,
+    "cognitive": 0,
+    "ruleBased": 12,
+    "operations": 37
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 1,
+    "total": 1
+   },
+   "lastGenuineExecution": "2026-10-14T16:47:34.118Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.safety.adversarial-reviewer",
+   "code": "CORE-SAF-0044",
+   "title": "Réviseur adversarial",
+   "department": "safety",
+   "specialty": "Désaccords, sensibilités, preuves manquantes",
+   "class": "spécialiste déterministe exécutable",
+   "executionMode": "deterministic",
+   "capabilities": [
+    "adversarial.review"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [],
+    "documents": [
+     "k-dbi-issued-status",
+     "k-proximity-indicator"
+    ]
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.safety.lead",
+   "directReports": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead"
+   ],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation",
+    "contester une source",
+    "rejeter un constat non étayé",
+    "vérifier les preuves"
+   ],
+   "permission": "review",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-SAF-0044",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 5,
+    "cognitive": 0,
+    "ruleBased": 12,
+    "operations": 37
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 1,
+    "total": 1
+   },
+   "lastGenuineExecution": "2026-10-14T16:47:34.118Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.housing.urban-planning-analyst",
+   "code": "CORE-HSG-0045",
+   "title": "Analyste en urbanisme (assisté par modèle)",
+   "department": "housing",
+   "specialty": "Projets Planning, permis de construire, espace public et travaux au front d’un tronçon",
+   "class": "assisté par modèle",
+   "executionMode": "llm",
+   "capabilities": [
+    "planning.records",
+    "buildings.frontage",
+    "public-space.sidewalks",
+    "works.windows",
+    "knowledge.search"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [
+     "buildings"
+    ],
+    "documents": [
+     "k-building-permits",
+     "k-coordination-method",
+     "k-dbi-issued-status",
+     "k-ds-qvu5-m3a2",
+     "k-provenance",
+     "k-sidewalk-widths"
+    ]
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.housing.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-HSG-0045",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 2,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": "2026-10-14T02:27:24.540Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.environmental.environmental-analyst",
+   "code": "CORE-ENV-0046",
+   "title": "Analyste environnemental (assisté par modèle)",
+   "department": "environmental",
+   "specialty": "Arbres d’alignement, qualité de l’air modélisée, alertes météo, proximité des travaux",
+   "class": "assisté par modèle",
+   "executionMode": "llm",
+   "capabilities": [
+    "trees.near-works",
+    "air.quality",
+    "resilience.weather-alerts",
+    "knowledge.search"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [
+     "nature",
+     "climate"
+    ],
+    "documents": [
+     "k-air-quality-model",
+     "k-nws-alerts",
+     "k-proximity-indicator",
+     "k-street-trees",
+     "k-tree-removals"
+    ]
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.environmental.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-ENV-0046",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 1,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": "2026-10-13T23:56:33.344Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "code": "CORE-ENG-0047",
+   "title": "Analyste énergie et infrastructures (assisté par modèle)",
+   "department": "energy",
+   "specialty": "Bilans énergétiques déclarés, mix du réseau CAISO, travaux d’excavation et télécoms",
+   "class": "assisté par modèle",
+   "executionMode": "llm",
+   "capabilities": [
+    "energy.benchmarks",
+    "grid.mix",
+    "works.windows",
+    "works.telecom",
+    "knowledge.search"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [
+     "energy"
+    ],
+    "documents": [
+     "k-caiso-outlook",
+     "k-coordination-method",
+     "k-energy-ordinance",
+     "k-street-use-permits"
+    ]
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.energy.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-ENG-0047",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 2,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": "2026-10-14T02:27:24.540Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.simulation.scenario-analyst",
+   "code": "CORE-SIM-0048",
+   "title": "Analyste de scénarios (assisté par modèle)",
+   "department": "simulation",
+   "specialty": "Propose des paramètres bornés ; seuls les modèles déterministes validés calculent",
+   "class": "assisté par modèle",
+   "executionMode": "llm",
+   "capabilities": [
+    "scenario.evaluate",
+    "sim.sidewalk-capacity",
+    "knowledge.search"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [],
+    "documents": [
+     "k-coordination-method",
+     "k-proximity-indicator",
+     "k-simulation-integrity"
+    ]
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.simulation.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-SIM-0048",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 3,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": "2026-10-14T03:34:19.326Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.public-space.accessibility-analyst",
+   "code": "CORE-PUB-0049",
+   "title": "Analyste accessibilité et espace public (assisté par modèle)",
+   "department": "public-space",
+   "specialty": "Largeurs de trottoir, cheminement piéton accessible, classes Better Streets Plan, contraintes d’aménagement",
+   "class": "assisté par modèle",
+   "executionMode": "llm",
+   "capabilities": [
+    "public-space.sidewalks",
+    "sim.sidewalk-capacity",
+    "buildings.frontage",
+    "knowledge.search"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [
+     "public_space"
+    ],
+    "documents": [
+     "k-provenance",
+     "k-sidewalk-widths",
+     "k-simulation-integrity"
+    ]
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.public-space.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-PUB-0049",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 2,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": "2026-10-14T03:34:19.326Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.forestry.urban-forestry-analyst",
+   "code": "CORE-FOR-0050",
+   "title": "Analyste en foresterie urbaine (assisté par modèle)",
+   "department": "forestry",
+   "specialty": "Inventaire des arbres, fosses, emplacements de plantation, avis d’abattage, coordination avec les travaux",
+   "class": "assisté par modèle",
+   "executionMode": "llm",
+   "capabilities": [
+    "trees.near-works",
+    "sim.sidewalk-capacity",
+    "works.windows",
+    "knowledge.search"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [
+     "nature"
+    ],
+    "documents": [
+     "k-proximity-indicator",
+     "k-simulation-integrity",
+     "k-street-trees",
+     "k-tree-removals"
+    ]
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.forestry.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-FOR-0050",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 1,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": "2026-10-14T03:34:19.326Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.cybersecurity.data-policy-reviewer",
+   "code": "CORE-SEC-0051",
+   "title": "Réviseur d’éligibilité des données et de vie privée",
+   "department": "cybersecurity",
+   "specialty": "Vérifie que chaque preuve provient d’une source éligible de la politique de données (licence, sensibilité, usage permis)",
+   "class": "spécialiste déterministe exécutable",
+   "executionMode": "deterministic",
+   "capabilities": [
+    "policy.check"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [
+     "infrastructure"
+    ],
+    "documents": [
+     "k-provenance"
+    ]
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.cybersecurity.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation",
+    "contester une source",
+    "rejeter un constat non étayé",
+    "vérifier les preuves"
+   ],
+   "permission": "review",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-SEC-0051",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 2,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": "2026-10-14T03:34:19.326Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.research.evidence-reviewer",
+   "code": "CORE-RES-0052",
+   "title": "Réviseur de preuves indépendant (assisté par modèle)",
+   "department": "research",
+   "specialty": "Contrôle les interprétations des autres agents contre le registre de preuves",
+   "class": "assisté par modèle",
+   "executionMode": "llm",
+   "capabilities": [
+    "evidence.check",
+    "knowledge.search"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [],
+    "documents": [
+     "k-dbi-issued-status",
+     "k-provenance",
+     "k-proximity-indicator",
+     "k-simulation-integrity"
+    ]
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.research.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation",
+    "contester une source",
+    "rejeter un constat non étayé",
+    "vérifier les preuves"
+   ],
+   "permission": "review",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-RES-0052",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 3,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": "2026-10-14T03:34:19.326Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.geotech.geotechnical",
+   "code": "CORE-GEO-0053",
+   "title": "Ingénieur géotechnique (compétence visée)",
+   "department": "geotech",
+   "specialty": "Sols, liquéfaction",
+   "class": "enregistré, non implémenté",
+   "executionMode": "unavailable",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "infrastructure",
+     "emergency"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.geotech.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-GEO-0053",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.electrical.grid",
+   "code": "CORE-ELC-0054",
+   "title": "Ingénieur réseau électrique (compétence visée)",
+   "department": "electrical",
+   "specialty": "Réseau de distribution",
+   "class": "enregistré, non implémenté",
+   "executionMode": "unavailable",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "energy",
+     "infrastructure"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.electrical.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-ELC-0054",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.water.water-network",
+   "code": "CORE-WAT-0055",
+   "title": "Analyste risque d’inondation et eaux pluviales",
+   "department": "water",
+   "specialty": "Zone de risque de tempête centennale (SFPUC 2022, modélisée) croisée avec les travaux de voirie ; aucune donnée de réseau d’eau souterrain",
+   "class": "spécialiste déterministe exécutable",
+   "executionMode": "deterministic",
+   "capabilities": [
+    "flood.exposure"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [
+     "infrastructure"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.water.lead",
+   "directReports": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead"
+   ],
+   "dependencies": [
+    "flood-zone",
+    "study-permits"
+   ],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-WAT-0055",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 5,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 10,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": "2026-10-14T16:40:58.451Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.transit.transit-planner",
+   "code": "CORE-TRN-0056",
+   "title": "Planificateur de transports publics (compétence visée)",
+   "department": "transit",
+   "specialty": "Lignes Muni",
+   "class": "enregistré, non implémenté",
+   "executionMode": "unavailable",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "infrastructure",
+     "mobility"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.transit.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-TRN-0056",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.mobility.traffic",
+   "code": "CORE-TRF-0057",
+   "title": "Analyste sécurité routière",
+   "department": "mobility",
+   "specialty": "Accidents avec blessés agrégés par tronçon (5 ans) sur le réseau à forte accidentalité (HIN 2024) ; pas de comptages de trafic ni de plans de feux",
+   "class": "spécialiste déterministe exécutable",
+   "executionMode": "deterministic",
+   "capabilities": [
+    "safety.crash-profile"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [
+     "infrastructure",
+     "events",
+     "mobility"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.mobility.lead",
+   "directReports": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead"
+   ],
+   "dependencies": [
+    "crashes-agg",
+    "hin"
+   ],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-TRF-0057",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 5,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 30,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": "2026-10-14T16:40:58.453Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.ecology.biodiversity",
+   "code": "CORE-ECO-0058",
+   "title": "Écologue (compétence visée)",
+   "department": "ecology",
+   "specialty": "Biodiversité",
+   "class": "enregistré, non implémenté",
+   "executionMode": "unavailable",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "nature"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.ecology.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-ECO-0058",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.environmental.air-quality",
+   "code": "CORE-ENV-0059",
+   "title": "Analyste qualité de l’air (compétence visée)",
+   "department": "environmental",
+   "specialty": "Exposition aux polluants",
+   "class": "enregistré, non implémenté",
+   "executionMode": "unavailable",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "nature",
+     "climate"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.environmental.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-ENV-0059",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.architecture.urban-design",
+   "code": "CORE-ARC-0060",
+   "title": "Urbaniste-concepteur (compétence visée)",
+   "department": "architecture",
+   "specialty": "Formes urbaines",
+   "class": "enregistré, non implémenté",
+   "executionMode": "unavailable",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "buildings",
+     "public_space"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.architecture.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-ARC-0060",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.mechanical.mechanical-systems",
+   "code": "CORE-MEC-0061",
+   "title": "Ingénieur mécanique (compétence visée)",
+   "department": "mechanical",
+   "specialty": "CVC",
+   "class": "enregistré, non implémenté",
+   "executionMode": "unavailable",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "buildings"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.mechanical.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-MEC-0061",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.building-systems.building-systems-eng",
+   "code": "CORE-BLD-0062",
+   "title": "Ingénieur systèmes du bâtiment (compétence visée)",
+   "department": "building-systems",
+   "specialty": "Enveloppe, systèmes",
+   "class": "enregistré, non implémenté",
+   "executionMode": "unavailable",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "buildings",
+     "energy"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.building-systems.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-BLD-0062",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.health.public-health",
+   "code": "CORE-HLT-0063",
+   "title": "Analyste santé publique (compétence visée)",
+   "department": "health",
+   "specialty": "Indicateurs environnementaux de santé",
+   "class": "enregistré, non implémenté",
+   "executionMode": "unavailable",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "society",
+     "health"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.health.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-HLT-0063",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.economics.economist",
+   "code": "CORE-ECN-0064",
+   "title": "Économiste urbain (compétence visée)",
+   "department": "economics",
+   "specialty": "Coûts, financement",
+   "class": "enregistré, non implémenté",
+   "executionMode": "unavailable",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "society",
+     "economy"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.economics.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-ECN-0064",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.social.community-impacts",
+   "code": "CORE-SOC-0065",
+   "title": "Analyste des impacts communautaires (compétence visée)",
+   "department": "social",
+   "specialty": "Équité, données agrégées",
+   "class": "enregistré, non implémenté",
+   "executionMode": "unavailable",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "society",
+     "culture"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.social.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-SOC-0065",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.digital.digital-infra",
+   "code": "CORE-DIG-0066",
+   "title": "Analyste infrastructures numériques (compétence visée)",
+   "department": "digital",
+   "specialty": "Réseaux numériques",
+   "class": "enregistré, non implémenté",
+   "executionMode": "unavailable",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "infrastructure"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.digital.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-DIG-0066",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.cybersecurity.cyber",
+   "code": "CORE-SEC-0067",
+   "title": "Analyste cybersécurité (compétence visée)",
+   "department": "cybersecurity",
+   "specialty": "Sécurité des systèmes",
+   "class": "enregistré, non implémenté",
+   "executionMode": "unavailable",
+   "capabilities": [],
+   "knowledgeBoundaries": {
+    "domains": [
+     "infrastructure"
+    ],
+    "documents": []
+   },
+   "territory": "San Francisco — South of Market, Mission, Tenderloin et corridor Folsom/Howard",
+   "supervisor": "core.san-francisco.cybersecurity.lead",
+   "directReports": [],
+   "collaborators": [],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés"
+   ],
+   "permission": "analyze",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-SEC-0067",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 0,
+    "cognitive": 0,
+    "ruleBased": 0,
+    "operations": 0
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": null,
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "id": "core.san-francisco.governance.gateway",
+   "code": "CORE-SAF-0068",
+   "title": "Passerelle de décision (gouvernance indépendante)",
+   "department": "safety",
+   "specialty": "Recalcul déterministe, échec fermé, revue humaine obligatoire",
+   "class": "spécialiste déterministe exécutable",
+   "executionMode": "deterministic",
+   "capabilities": [
+    "decision.gateway"
+   ],
+   "knowledgeBoundaries": {
+    "domains": [],
+    "documents": [
+     "k-provenance"
+    ]
+   },
+   "territory": "San Francisco",
+   "supervisor": null,
+   "directReports": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead"
+   ],
+   "dependencies": [],
+   "allowedActions": [
+    "lire les sources autorisées",
+    "exécuter ses outils autorisés",
+    "produire des constats sourcés",
+    "planifier une mission",
+    "déléguer des sous-tâches bornées",
+    "proposer une recommandation",
+    "contester une source",
+    "rejeter un constat non étayé",
+    "vérifier les preuves",
+    "proposer une décision à la revue humaine"
+   ],
+   "permission": "govern",
+   "requiredApprovals": [
+    "toute décision : revue humaine (human:<nom>)",
+    "mémoire institutionnelle : revue par un autre agent ; constats sur le monde : approbation humaine"
+   ],
+   "memoryNamespace": "mem:CORE-SAF-0068",
+   "currentTask": "aucune exécution en cours (enregistrement)",
+   "pastMissions": {
+    "civ": 5,
+    "cognitive": 0,
+    "ruleBased": 12,
+    "operations": 37
+   },
+   "evidenceProduced": 0,
+   "evaluations": {
+    "passed": 0,
+    "total": 0
+   },
+   "lastGenuineExecution": "2026-10-14T16:47:34.118Z",
+   "version": "core-agent-registry-v1@2026-10-13"
+  }
+ ]
+}

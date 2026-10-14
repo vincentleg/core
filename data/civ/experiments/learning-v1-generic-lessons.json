@@ -1,0 +1,361 @@
+{
+ "version": "core-learning-experiment-v1",
+ "at": "2026-10-14T16:29:57.397Z",
+ "snapshot": "2026-10-14T16:09:41.363Z",
+ "procedural": {
+  "agent": "core.san-francisco.mobility.lead",
+  "task": "safety-works / Tenderloin (identique avant et après)",
+  "training": {
+   "task": "safety-works / Mission",
+   "proceduresLearned": [
+    {
+     "id": "procedure:f91a9fec4a46",
+     "statement": "Ne pas exécuter works.windows quand la cible est hors de l’instantané du corridor Folsom/Howard (échec enregistré : hors périmètre : l’outil works.windows ne couvre que l’insta…).",
+     "status": "approved",
+     "history": [
+      {
+       "status": "candidate",
+       "by": "core.san-francisco.mobility.lead",
+       "at": "2026-10-14T16:29:57.436Z"
+      },
+      {
+       "status": "verified",
+       "by": "core.san-francisco.research.evidence-verifier",
+       "note": "échec présent dans l’épisode enregistré",
+       "at": "2026-10-14T16:29:57.437Z"
+      },
+      {
+       "status": "reviewed",
+       "by": "core.san-francisco.safety.adversarial-reviewer",
+       "note": "règle de périmètre cohérente avec la liste des outils du corridor",
+       "at": "2026-10-14T16:29:57.437Z"
+      },
+      {
+       "status": "approved",
+       "by": "core.san-francisco.safety.adversarial-reviewer",
+       "note": "procédure issue d’enregistrements déterministes",
+       "at": "2026-10-14T16:29:57.437Z"
+      }
+     ]
+    },
+    {
+     "id": "procedure:3e7c7e9a9a6a",
+     "statement": "Ne pas exécuter works.telecom quand la cible est hors de l’instantané du corridor Folsom/Howard (échec enregistré : hors périmètre : l’outil works.telecom ne couvre que l’insta…).",
+     "status": "approved",
+     "history": [
+      {
+       "status": "candidate",
+       "by": "core.san-francisco.mobility.lead",
+       "at": "2026-10-14T16:29:57.438Z"
+      },
+      {
+       "status": "verified",
+       "by": "core.san-francisco.research.evidence-verifier",
+       "note": "échec présent dans l’épisode enregistré",
+       "at": "2026-10-14T16:29:57.438Z"
+      },
+      {
+       "status": "reviewed",
+       "by": "core.san-francisco.safety.adversarial-reviewer",
+       "note": "règle de périmètre cohérente avec la liste des outils du corridor",
+       "at": "2026-10-14T16:29:57.438Z"
+      },
+      {
+       "status": "approved",
+       "by": "core.san-francisco.safety.adversarial-reviewer",
+       "note": "procédure issue d’enregistrements déterministes",
+       "at": "2026-10-14T16:29:57.438Z"
+      }
+     ]
+    },
+    {
+     "id": "procedure:1014305bcaeb",
+     "statement": "Ne pas exécuter public-space.sidewalks quand la cible est hors de l’instantané du corridor Folsom/Howard (échec enregistré : hors périmètre : l’outil public-space.sidewalks ne couvre qu…).",
+     "status": "approved",
+     "history": [
+      {
+       "status": "candidate",
+       "by": "core.san-francisco.mobility.lead",
+       "at": "2026-10-14T16:29:57.438Z"
+      },
+      {
+       "status": "verified",
+       "by": "core.san-francisco.research.evidence-verifier",
+       "note": "échec présent dans l’épisode enregistré",
+       "at": "2026-10-14T16:29:57.439Z"
+      },
+      {
+       "status": "reviewed",
+       "by": "core.san-francisco.safety.adversarial-reviewer",
+       "note": "règle de périmètre cohérente avec la liste des outils du corridor",
+       "at": "2026-10-14T16:29:57.439Z"
+      },
+      {
+       "status": "approved",
+       "by": "core.san-francisco.safety.adversarial-reviewer",
+       "note": "procédure issue d’enregistrements déterministes",
+       "at": "2026-10-14T16:29:57.440Z"
+      }
+     ]
+    }
+   ]
+  },
+  "before": {
+   "subtasks": 6,
+   "toolCalls": 7,
+   "failed": 3,
+   "skipped": 0,
+   "messages": 27,
+   "acceptedFindings": 15,
+   "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "proceduresApplied": []
+  },
+  "after": {
+   "subtasks": 6,
+   "toolCalls": 4,
+   "failed": 0,
+   "skipped": 3,
+   "messages": 24,
+   "acceptedFindings": 15,
+   "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "proceduresApplied": [
+    {
+     "procedure": "procedure:f91a9fec4a46",
+     "tool": "works.windows",
+     "effect": "non exécuté (hors périmètre)"
+    },
+    {
+     "procedure": "procedure:3e7c7e9a9a6a",
+     "tool": "works.telecom",
+     "effect": "non exécuté (hors périmètre)"
+    },
+    {
+     "procedure": "procedure:1014305bcaeb",
+     "tool": "public-space.sidewalks",
+     "effect": "non exécuté (hors périmètre)"
+    }
+   ]
+  },
+  "sameFindings": true
+ },
+ "model": {
+  "agentNote": "interprètes assistés par modèle de chaque workflow (accessibility-analyst, environmental-analyst)",
+  "model": "qwen3:8b",
+  "settings": "temperature 0, seed fixe (src/llm.js)",
+  "training": {
+   "task": "safety-works / South of Market",
+   "lessonsUsed": 0,
+   "accepted": [
+    "Les segments de FOLSOM ST (F2), 06TH ST (F3) et MISSION ST (F4, F5) présentent des taux d'accidents élevés par km et par an, nécessitant une analyse approfondie avant les travaux.",
+    "Les incertitudes incluent l'impact des chantiers sur les taux d'accidents et la modélisation des risques climatiques (F7, F8)."
+   ],
+   "rejected": [
+    {
+     "statement": "Les tronçons de South of Market avec des accidents graves ou mortels (F1) et des chantiers à venir dans la zone de risque de tempête centennale (F7) méritent une attention prioritaire en raison de leur potentiel de danger combiné.",
+     "reason": "causal: relation causale ou justification non qualifiée"
+    }
+   ],
+   "usage": {
+    "promptTokens": 1106,
+    "outputTokens": 205,
+    "totalMs": 14847,
+    "loadMs": 6,
+    "promptMs": 50,
+    "evalMs": 14745,
+    "contextChars": 2970,
+    "wallMs": 14851,
+    "model": "qwen3:8b"
+   }
+  },
+  "lessons": [
+   {
+    "id": "lesson:c941827c7616",
+    "statement": "Ne pas affirmer de relation causale (cause, provoque, entraîne) : la qualifier explicitement d’hypothèse et ne l’avancer que si une preuve d’effet est citée.",
+    "history": [
+     {
+      "status": "candidate",
+      "by": "core.san-francisco.public-space.accessibility-analyst",
+      "at": "2026-10-14T16:31:05.948Z"
+     },
+     {
+      "status": "verified",
+      "by": "core.san-francisco.research.evidence-verifier",
+      "note": "rejet présent dans le registre de la mission",
+      "at": "2026-10-14T16:31:05.948Z"
+     },
+     {
+      "status": "reviewed",
+      "by": "core.san-francisco.safety.adversarial-reviewer",
+      "note": "leçon dérivée de la règle du validateur",
+      "at": "2026-10-14T16:31:05.948Z"
+     },
+     {
+      "status": "approved",
+      "by": "core.san-francisco.safety.adversarial-reviewer",
+      "note": "leçon issue d’enregistrements déterministes",
+      "at": "2026-10-14T16:31:05.948Z"
+     }
+    ]
+   }
+  ],
+  "before": [
+   {
+    "task": "safety-works / Mission",
+    "lessonsUsed": 0,
+    "accepted": [
+     "Les 44 tronçons HIN dans la zone de risque de tempête centennale modélisée nécessitent une analyse des impacts potentiels des travaux sur la sécurité routière et l'infrastructure existante.",
+     "Les données sur les accidents et les chantiers sont basées sur des rapports et des modèles, ce qui introduit des incertitudes sur la précision des prédictions et des impacts réels."
+    ],
+    "rejected": [
+     {
+      "statement": "Les tronçons de Mission Street (CNN 9115000 et 9121000) présentent des taux d'accidents élevés (15,5 et 11,2 par km/an) avec des blessés et des piétons impliqués, et doivent être examinés en priorité en raison des chantiers d'excavation à venir.",
+      "reason": "causal: relation causale ou justification non qualifiée"
+     }
+    ],
+    "usage": {
+     "promptTokens": 1123,
+     "outputTokens": 227,
+     "totalMs": 15830,
+     "loadMs": 5,
+     "promptMs": 58,
+     "evalMs": 15749,
+     "contextChars": 2981,
+     "wallMs": 15836,
+     "model": "qwen3:8b"
+    }
+   },
+   {
+    "task": "flood-works / Mission",
+    "lessonsUsed": 0,
+    "accepted": [
+     "F4 et F5 indiquent une forte densité d’accidents sur les routes de Mission, notamment sur la Mission Street, soulignant la nécessité de coordonner les chantiers avec des mesures de sécurité routière.",
+     "F3 signale l’absence d’alerte active NWS pour la zone, réduisant l’incertitude sur les conditions météorologiques immédiates, mais ne dispense pas de surveiller les risques climatiques à long terme."
+    ],
+    "rejected": [
+     {
+      "statement": "F1 montre que 5 permis de travaux en cours ou à venir à Mission sont dans la zone de risque de tempête centennale, avec 3 d’excavation, nécessitant des précautions spécifiques pour éviter des dommages potentiels.",
+      "reason": "impact: effet non démontré présenté comme établi"
+     }
+    ],
+    "usage": {
+     "promptTokens": 1028,
+     "outputTokens": 203,
+     "totalMs": 20864,
+     "loadMs": 6,
+     "promptMs": 6576,
+     "evalMs": 14267,
+     "contextChars": 2764,
+     "wallMs": 20868,
+     "model": "qwen3:8b"
+    }
+   },
+   {
+    "task": "safety-works / Tenderloin",
+    "lessonsUsed": 0,
+    "accepted": [
+     "Aucun chantier à venir ne se situe dans la zone de risque de tempête centennale (F7), ce qui réduit l'incertitude liée aux impacts climatiques sur les travaux futurs."
+    ],
+    "rejected": [
+     {
+      "statement": "Les tronçons de Tenderloin avec des accidents graves ou mortels (F1) doivent être examinés en priorité, notamment ceux avec des taux élevés d'accidents par km et par an (F2 à F6), car ils présentent un risque accru pour les usagers.",
+      "reason": "impact: effet non démontré présenté comme établi"
+     }
+    ],
+    "usage": {
+     "promptTokens": 1112,
+     "outputTokens": 152,
+     "totalMs": 16815,
+     "loadMs": 8,
+     "promptMs": 6670,
+     "evalMs": 10098,
+     "contextChars": 2947,
+     "wallMs": 16819,
+     "model": "qwen3:8b"
+    }
+   }
+  ],
+  "after": [
+   {
+    "task": "safety-works / Mission",
+    "lessonsUsed": 1,
+    "accepted": [],
+    "rejected": [
+     {
+      "statement": "Les 145 tronçons du réseau HIN 2024 avec au moins un accident avec blessé sur 5 ans méritent une attention prioritaire en raison de leur historique accidentel.",
+      "reason": "causal: relation causale ou justification non qualifiée"
+     }
+    ],
+    "usage": {
+     "promptTokens": 1195,
+     "outputTokens": 59,
+     "totalMs": 10835,
+     "loadMs": 7,
+     "promptMs": 6689,
+     "evalMs": 4124,
+     "contextChars": 3215,
+     "wallMs": 10839,
+     "model": "qwen3:8b"
+    }
+   },
+   {
+    "task": "flood-works / Mission",
+    "lessonsUsed": 0,
+    "accepted": [
+     "F4 et F5 indiquent une forte densité d’accidents sur les routes de Mission, notamment sur la Mission Street, soulignant la nécessité de coordonner les chantiers avec des mesures de sécurité routière.",
+     "F3 signale l’absence d’alerte active NWS pour la zone, réduisant l’incertitude sur les conditions météorologiques immédiates, mais ne dispense pas de surveiller les risques climatiques à long terme."
+    ],
+    "rejected": [
+     {
+      "statement": "F1 montre que 5 permis de travaux en cours ou à venir à Mission sont dans la zone de risque de tempête centennale, avec 3 d’excavation, nécessitant des précautions spécifiques pour éviter des dommages potentiels.",
+      "reason": "impact: effet non démontré présenté comme établi"
+     }
+    ],
+    "usage": {
+     "promptTokens": 1028,
+     "outputTokens": 203,
+     "totalMs": 14569,
+     "loadMs": 6,
+     "promptMs": 55,
+     "evalMs": 14472,
+     "contextChars": 2764,
+     "wallMs": 14572,
+     "model": "qwen3:8b"
+    }
+   },
+   {
+    "task": "safety-works / Tenderloin",
+    "lessonsUsed": 1,
+    "accepted": [],
+    "rejected": [
+     {
+      "statement": "Les 119 tronçons du réseau HIN 2024 de Tenderloin avec au moins un accident avec blessé sur 5 ans méritent une attention prioritaire en raison de leur historique accidentel.",
+      "reason": "causal: relation causale ou justification non qualifiée"
+     }
+    ],
+    "usage": {
+     "promptTokens": 1184,
+     "outputTokens": 63,
+     "totalMs": 12162,
+     "loadMs": 6,
+     "promptMs": 7904,
+     "evalMs": 4239,
+     "contextChars": 3181,
+     "wallMs": 12165,
+     "model": "qwen3:8b"
+    }
+   }
+  ],
+  "summary": {
+   "before": {
+    "statements": 8,
+    "rejected": 3,
+    "rejectionRate": 0.375
+   },
+   "after": {
+    "statements": 5,
+    "rejected": 3,
+    "rejectionRate": 0.6
+   }
+  }
+ }
+}

@@ -1,0 +1,5249 @@
+{
+ "version": "core-memory-export-v1",
+ "generated_at": "2026-10-14T16:47:41.213Z",
+ "chain": {
+  "ok": true,
+  "head": "bdb17ab1181608682ff5d16134d782519a0f954e46acdf636849c3e2b5b9322e",
+  "events": 218
+ },
+ "episodes": [
+  {
+   "agent": "core.global.coordinator",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "workflow": "safety-works",
+   "role": "executive",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Tenderloin, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Tenderloin",
+   "tools": [],
+   "collaborators": [
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:02.306Z"
+  },
+  {
+   "agent": "core.san-francisco.manager",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "workflow": "safety-works",
+   "role": "coordinator",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Tenderloin, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Tenderloin",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:02.306Z"
+  },
+  {
+   "agent": "core.san-francisco.mobility.lead",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "workflow": "safety-works",
+   "role": "lead",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Tenderloin, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Tenderloin",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:02.307Z"
+  },
+  {
+   "agent": "core.san-francisco.research.evidence-verifier",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "workflow": "safety-works",
+   "role": "data-verification",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Tenderloin, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Tenderloin",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:02.307Z"
+  },
+  {
+   "agent": "core.san-francisco.safety.adversarial-reviewer",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "workflow": "safety-works",
+   "role": "review",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Tenderloin, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Tenderloin",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:02.307Z"
+  },
+  {
+   "agent": "core.san-francisco.governance.gateway",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "workflow": "safety-works",
+   "role": "gateway",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Tenderloin, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Tenderloin",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:02.308Z"
+  },
+  {
+   "agent": "core.san-francisco.mobility.traffic",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "workflow": "safety-works",
+   "role": "specialist",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Tenderloin, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Tenderloin",
+   "tools": [
+    {
+     "tool": "safety.crash-profile",
+     "state": "succeeded",
+     "findings": 6,
+     "error": null,
+     "target": {
+      "nhood": "Tenderloin"
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 6,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:02.308Z"
+  },
+  {
+   "agent": "core.san-francisco.civil.works-coordination",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "workflow": "safety-works",
+   "role": "specialist",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Tenderloin, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Tenderloin",
+   "tools": [
+    {
+     "tool": "works.windows",
+     "state": "failed",
+     "findings": 0,
+     "error": "hors périmètre : l’outil works.windows ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9733000)",
+     "target": {
+      "segment": "9733000"
+     }
+    },
+    {
+     "tool": "works.area-windows",
+     "state": "succeeded",
+     "findings": 1,
+     "error": null,
+     "target": {
+      "segments": [
+       "9733000",
+       "6117000",
+       "12718000",
+       "7563000",
+       "5173000",
+       "12717000",
+       "5061001",
+       "5063000",
+       "7117000",
+       "6553000",
+       "8239000",
+       "7114000",
+       "6262000",
+       "6116000",
+       "7116000",
+       "12425000",
+       "10558000",
+       "8125000",
+       "6813000",
+       "12427000",
+       "10562000",
+       "5439000",
+       "8890000",
+       "10552000",
+       "9729000",
+       "6260000",
+       "5176000",
+       "8800000",
+       "5171000",
+       "5058000",
+       "10557000",
+       "7571000",
+       "9732000",
+       "5059000",
+       "5065000",
+       "5174000",
+       "5062000",
+       "12719000",
+       "9734000",
+       "12722000",
+       "5064000",
+       "5177000",
+       "5178000",
+       "6114000",
+       "7564000",
+       "7566000",
+       "5061002",
+       "7115000",
+       "12716000",
+       "10554000",
+       "9728000",
+       "6112000",
+       "6115000",
+       "8121000",
+       "6552000",
+       "6554000",
+       "8891000",
+       "8238000",
+       "8242000",
+       "7565000",
+       "6261000",
+       "9730000",
+       "9726000",
+       "12429000",
+       "5172000",
+       "6110000",
+       "10555000",
+       "8892000",
+       "6263000",
+       "8244000",
+       "8120000",
+       "7112000",
+       "12428000",
+       "8889000",
+       "8240000",
+       "8241000",
+       "6259000",
+       "5060000",
+       "8801000",
+       "5170000",
+       "6111000",
+       "12720000",
+       "9735000",
+       "8893000",
+       "8894000",
+       "8126000",
+       "8128000",
+       "7118000",
+       "12432000",
+       "10637000",
+       "8243000",
+       "7120000",
+       "8130000",
+       "8132000",
+       "8131000",
+       "8133000",
+       "8119000",
+       "8888000",
+       "7113000",
+       "5175000",
+       "8799000",
+       "8802000",
+       "8803000",
+       "12721000",
+       "10550000",
+       "10551000",
+       "10553000",
+       "10556000",
+       "8123000",
+       "8124000",
+       "6264000",
+       "6265000",
+       "10559000",
+       "12430000",
+       "9727000",
+       "7569000",
+       "7570000",
+       "6113000",
+       "9731000"
+      ]
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 1,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [
+    "hors périmètre : l’outil works.windows ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9733000)"
+   ],
+   "at": "2026-10-14T16:40:02.309Z"
+  },
+  {
+   "agent": "core.san-francisco.civil.lead",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "workflow": "safety-works",
+   "role": "lead (relais)",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Tenderloin, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Tenderloin",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:02.309Z"
+  },
+  {
+   "agent": "core.san-francisco.telecom.telecom-works",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "workflow": "safety-works",
+   "role": "specialist",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Tenderloin, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Tenderloin",
+   "tools": [
+    {
+     "tool": "works.telecom",
+     "state": "failed",
+     "findings": 0,
+     "error": "hors périmètre : l’outil works.telecom ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9733000)",
+     "target": {
+      "segment": "9733000"
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [
+    "hors périmètre : l’outil works.telecom ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9733000)"
+   ],
+   "at": "2026-10-14T16:40:02.310Z"
+  },
+  {
+   "agent": "core.san-francisco.telecom.lead",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "workflow": "safety-works",
+   "role": "lead (relais)",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Tenderloin, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Tenderloin",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:02.310Z"
+  },
+  {
+   "agent": "core.san-francisco.public-space.sidewalks",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "workflow": "safety-works",
+   "role": "specialist",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Tenderloin, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Tenderloin",
+   "tools": [
+    {
+     "tool": "public-space.sidewalks",
+     "state": "failed",
+     "findings": 0,
+     "error": "hors périmètre : l’outil public-space.sidewalks ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9733000)",
+     "target": {
+      "segment": "9733000"
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [
+    "hors périmètre : l’outil public-space.sidewalks ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9733000)"
+   ],
+   "at": "2026-10-14T16:40:02.310Z"
+  },
+  {
+   "agent": "core.san-francisco.public-space.lead",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "workflow": "safety-works",
+   "role": "lead (relais)",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Tenderloin, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Tenderloin",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:02.311Z"
+  },
+  {
+   "agent": "core.san-francisco.water.water-network",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "workflow": "safety-works",
+   "role": "specialist",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Tenderloin, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Tenderloin",
+   "tools": [
+    {
+     "tool": "flood.exposure",
+     "state": "succeeded",
+     "findings": 2,
+     "error": null,
+     "target": {
+      "nhood": "Tenderloin"
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 2,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:02.311Z"
+  },
+  {
+   "agent": "core.san-francisco.water.lead",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "workflow": "safety-works",
+   "role": "lead (relais)",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Tenderloin, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Tenderloin",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:02.311Z"
+  },
+  {
+   "agent": "core.global.coordinator",
+   "mission": "civ:safety-works:mission@2026-10-14",
+   "workflow": "safety-works",
+   "role": "executive",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Mission, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Mission",
+   "tools": [],
+   "collaborators": [
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:18.129Z"
+  },
+  {
+   "agent": "core.san-francisco.manager",
+   "mission": "civ:safety-works:mission@2026-10-14",
+   "workflow": "safety-works",
+   "role": "coordinator",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Mission, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Mission",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:18.129Z"
+  },
+  {
+   "agent": "core.san-francisco.mobility.lead",
+   "mission": "civ:safety-works:mission@2026-10-14",
+   "workflow": "safety-works",
+   "role": "lead",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Mission, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Mission",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:18.130Z"
+  },
+  {
+   "agent": "core.san-francisco.research.evidence-verifier",
+   "mission": "civ:safety-works:mission@2026-10-14",
+   "workflow": "safety-works",
+   "role": "data-verification",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Mission, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Mission",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:18.130Z"
+  },
+  {
+   "agent": "core.san-francisco.safety.adversarial-reviewer",
+   "mission": "civ:safety-works:mission@2026-10-14",
+   "workflow": "safety-works",
+   "role": "review",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Mission, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Mission",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:18.131Z"
+  },
+  {
+   "agent": "core.san-francisco.governance.gateway",
+   "mission": "civ:safety-works:mission@2026-10-14",
+   "workflow": "safety-works",
+   "role": "gateway",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Mission, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Mission",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:18.131Z"
+  },
+  {
+   "agent": "core.san-francisco.mobility.traffic",
+   "mission": "civ:safety-works:mission@2026-10-14",
+   "workflow": "safety-works",
+   "role": "specialist",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Mission, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Mission",
+   "tools": [
+    {
+     "tool": "safety.crash-profile",
+     "state": "succeeded",
+     "findings": 6,
+     "error": null,
+     "target": {
+      "nhood": "Mission"
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 6,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:18.132Z"
+  },
+  {
+   "agent": "core.san-francisco.civil.works-coordination",
+   "mission": "civ:safety-works:mission@2026-10-14",
+   "workflow": "safety-works",
+   "role": "specialist",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Mission, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Mission",
+   "tools": [
+    {
+     "tool": "works.windows",
+     "state": "failed",
+     "findings": 0,
+     "error": "hors périmètre : l’outil works.windows ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9115000)",
+     "target": {
+      "segment": "9115000"
+     }
+    },
+    {
+     "tool": "works.area-windows",
+     "state": "succeeded",
+     "findings": 1,
+     "error": null,
+     "target": {
+      "segments": [
+       "9115000",
+       "13060000",
+       "12023000",
+       "9121000",
+       "715000",
+       "6740000",
+       "13063000",
+       "724000",
+       "9125000",
+       "9114000",
+       "9122002",
+       "5691000",
+       "720000",
+       "12026000",
+       "13053000",
+       "12024000",
+       "12025000",
+       "5693000",
+       "490000",
+       "13064000",
+       "726000",
+       "5696000",
+       "13067000",
+       "10671000",
+       "13059000",
+       "13057002",
+       "5686000",
+       "9117000",
+       "1342000",
+       "874000",
+       "5685000",
+       "515000",
+       "13061000",
+       "730000",
+       "1260000",
+       "1348000",
+       "10659000",
+       "655000",
+       "9113000",
+       "9116000",
+       "9123000",
+       "9119000",
+       "9124000",
+       "5697000",
+       "9126000",
+       "716000",
+       "12021000",
+       "12027000",
+       "9120000",
+       "1345000",
+       "9127000",
+       "10660000",
+       "10661000",
+       "10662000",
+       "13058000",
+       "12029000",
+       "5692000",
+       "13071000",
+       "10673000",
+       "785000",
+       "714000",
+       "732000",
+       "12020000",
+       "5687000",
+       "5688000",
+       "5689000",
+       "721000",
+       "722000",
+       "12028000",
+       "5694000",
+       "1340000",
+       "1261000",
+       "1263000",
+       "876000",
+       "881000",
+       "9110000",
+       "2491000",
+       "801000",
+       "1346000",
+       "9128000",
+       "10672000",
+       "786000",
+       "13054000",
+       "4979000",
+       "4981000",
+       "589000",
+       "723000",
+       "725000",
+       "717000",
+       "5695000",
+       "5698000",
+       "1335000",
+       "1337000",
+       "1259000",
+       "1262000",
+       "1106000",
+       "1109000",
+       "878000",
+       "879000",
+       "733000",
+       "13068000",
+       "5700000",
+       "784000",
+       "13055000",
+       "4980000",
+       "731000",
+       "735000",
+       "13057001",
+       "6743000",
+       "718000",
+       "719000",
+       "579000",
+       "9118000",
+       "9122001",
+       "5690000",
+       "1338000",
+       "1339000",
+       "1108000",
+       "1104000",
+       "1105000",
+       "873000",
+       "1344000",
+       "884000",
+       "9111001",
+       "5682000",
+       "5684000",
+       "6736000",
+       "6739000",
+       "511000",
+       "13062000",
+       "975000",
+       "885000",
+       "5701002",
+       "5701001",
+       "4845000",
+       "713000",
+       "13056000",
+       "4982000",
+       "727000",
+       "729000",
+       "734000",
+       "736000",
+       "657000",
+       "585000",
+       "588000"
+      ]
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 1,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [
+    "hors périmètre : l’outil works.windows ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9115000)"
+   ],
+   "at": "2026-10-14T16:40:18.132Z"
+  },
+  {
+   "agent": "core.san-francisco.civil.lead",
+   "mission": "civ:safety-works:mission@2026-10-14",
+   "workflow": "safety-works",
+   "role": "lead (relais)",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Mission, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Mission",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:18.132Z"
+  },
+  {
+   "agent": "core.san-francisco.telecom.telecom-works",
+   "mission": "civ:safety-works:mission@2026-10-14",
+   "workflow": "safety-works",
+   "role": "specialist",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Mission, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Mission",
+   "tools": [
+    {
+     "tool": "works.telecom",
+     "state": "failed",
+     "findings": 0,
+     "error": "hors périmètre : l’outil works.telecom ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9115000)",
+     "target": {
+      "segment": "9115000"
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [
+    "hors périmètre : l’outil works.telecom ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9115000)"
+   ],
+   "at": "2026-10-14T16:40:18.133Z"
+  },
+  {
+   "agent": "core.san-francisco.telecom.lead",
+   "mission": "civ:safety-works:mission@2026-10-14",
+   "workflow": "safety-works",
+   "role": "lead (relais)",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Mission, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Mission",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:18.134Z"
+  },
+  {
+   "agent": "core.san-francisco.public-space.sidewalks",
+   "mission": "civ:safety-works:mission@2026-10-14",
+   "workflow": "safety-works",
+   "role": "specialist",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Mission, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Mission",
+   "tools": [
+    {
+     "tool": "public-space.sidewalks",
+     "state": "failed",
+     "findings": 0,
+     "error": "hors périmètre : l’outil public-space.sidewalks ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9115000)",
+     "target": {
+      "segment": "9115000"
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [
+    "hors périmètre : l’outil public-space.sidewalks ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9115000)"
+   ],
+   "at": "2026-10-14T16:40:18.134Z"
+  },
+  {
+   "agent": "core.san-francisco.public-space.lead",
+   "mission": "civ:safety-works:mission@2026-10-14",
+   "workflow": "safety-works",
+   "role": "lead (relais)",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Mission, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Mission",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:18.136Z"
+  },
+  {
+   "agent": "core.san-francisco.water.water-network",
+   "mission": "civ:safety-works:mission@2026-10-14",
+   "workflow": "safety-works",
+   "role": "specialist",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Mission, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Mission",
+   "tools": [
+    {
+     "tool": "flood.exposure",
+     "state": "succeeded",
+     "findings": 2,
+     "error": null,
+     "target": {
+      "nhood": "Mission"
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 2,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:18.136Z"
+  },
+  {
+   "agent": "core.san-francisco.water.lead",
+   "mission": "civ:safety-works:mission@2026-10-14",
+   "workflow": "safety-works",
+   "role": "lead (relais)",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de Mission, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "Mission",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 15,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:18.136Z"
+  },
+  {
+   "agent": "core.global.coordinator",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "workflow": "safety-works",
+   "role": "executive",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de South of Market, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "South of Market",
+   "tools": [],
+   "collaborators": [
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 19,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:32.445Z"
+  },
+  {
+   "agent": "core.san-francisco.manager",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "workflow": "safety-works",
+   "role": "coordinator",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de South of Market, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "South of Market",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 19,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:32.446Z"
+  },
+  {
+   "agent": "core.san-francisco.mobility.lead",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "workflow": "safety-works",
+   "role": "lead",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de South of Market, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "South of Market",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 19,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:32.446Z"
+  },
+  {
+   "agent": "core.san-francisco.research.evidence-verifier",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "workflow": "safety-works",
+   "role": "data-verification",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de South of Market, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "South of Market",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 19,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:32.446Z"
+  },
+  {
+   "agent": "core.san-francisco.safety.adversarial-reviewer",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "workflow": "safety-works",
+   "role": "review",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de South of Market, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "South of Market",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 19,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:32.446Z"
+  },
+  {
+   "agent": "core.san-francisco.governance.gateway",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "workflow": "safety-works",
+   "role": "gateway",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de South of Market, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "South of Market",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 19,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:32.446Z"
+  },
+  {
+   "agent": "core.san-francisco.mobility.traffic",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "workflow": "safety-works",
+   "role": "specialist",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de South of Market, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "South of Market",
+   "tools": [
+    {
+     "tool": "safety.crash-profile",
+     "state": "succeeded",
+     "findings": 6,
+     "error": null,
+     "target": {
+      "nhood": "South of Market"
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 6,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 19,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:32.447Z"
+  },
+  {
+   "agent": "core.san-francisco.civil.works-coordination",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "workflow": "safety-works",
+   "role": "specialist",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de South of Market, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "South of Market",
+   "tools": [
+    {
+     "tool": "works.windows",
+     "state": "succeeded",
+     "findings": 2,
+     "error": null,
+     "target": {
+      "segment": "5678000"
+     }
+    },
+    {
+     "tool": "works.area-windows",
+     "state": "succeeded",
+     "findings": 1,
+     "error": null,
+     "target": {
+      "segments": [
+       "5678000",
+       "338000",
+       "9100000",
+       "9108000",
+       "3080000",
+       "326000",
+       "446000",
+       "447000",
+       "301000",
+       "9099000",
+       "7041000",
+       "508000",
+       "6727000",
+       "303000",
+       "327000",
+       "331000",
+       "169000",
+       "6722000",
+       "332000",
+       "7047000",
+       "489000",
+       "6723000",
+       "407000",
+       "3078000",
+       "3079000",
+       "289000",
+       "290000",
+       "299000",
+       "509000",
+       "510000",
+       "3082000",
+       "9101000",
+       "516000",
+       "7043000",
+       "9107000",
+       "339000",
+       "9102000",
+       "368000",
+       "405000",
+       "406000",
+       "408000",
+       "255000",
+       "9096003",
+       "330000",
+       "5665000",
+       "7044000",
+       "370000",
+       "487000",
+       "337000",
+       "9103000",
+       "448000",
+       "409000",
+       "6720000",
+       "261000",
+       "6718000",
+       "9096001",
+       "328000",
+       "7039001",
+       "7042000",
+       "7051000",
+       "5670000",
+       "5674000",
+       "6732000",
+       "371000",
+       "305000",
+       "480000",
+       "365000",
+       "258000",
+       "6717000",
+       "172000",
+       "3282000",
+       "329000",
+       "334000",
+       "336000",
+       "7046000",
+       "296000",
+       "298000",
+       "484000",
+       "488000",
+       "452000",
+       "456000",
+       "6733000",
+       "372000",
+       "3286000",
+       "3287000",
+       "3296001",
+       "3298000",
+       "7050000",
+       "366001",
+       "404000",
+       "170000",
+       "259000",
+       "263000",
+       "5662000",
+       "5663000",
+       "3284000",
+       "3285000",
+       "9096002",
+       "251000",
+       "335000",
+       "9510000",
+       "9097000",
+       "9098000",
+       "5666000",
+       "369000",
+       "297000",
+       "9106000",
+       "7053000",
+       "5679000",
+       "5680000",
+       "6735000",
+       "486000",
+       "513000",
+       "450000",
+       "455000",
+       "6724000",
+       "266000",
+       "5672000",
+       "5673000",
+       "5677000",
+       "7048000",
+       "6731000",
+       "304000",
+       "3288000",
+       "3293000",
+       "3294000",
+       "457000",
+       "458000"
+      ]
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 3,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 19,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:32.447Z"
+  },
+  {
+   "agent": "core.san-francisco.civil.lead",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "workflow": "safety-works",
+   "role": "lead (relais)",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de South of Market, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "South of Market",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 19,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:32.447Z"
+  },
+  {
+   "agent": "core.san-francisco.telecom.telecom-works",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "workflow": "safety-works",
+   "role": "specialist",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de South of Market, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "South of Market",
+   "tools": [
+    {
+     "tool": "works.telecom",
+     "state": "succeeded",
+     "findings": 1,
+     "error": null,
+     "target": {
+      "segment": "5678000"
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 1,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 19,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:32.447Z"
+  },
+  {
+   "agent": "core.san-francisco.telecom.lead",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "workflow": "safety-works",
+   "role": "lead (relais)",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de South of Market, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "South of Market",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 19,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:32.447Z"
+  },
+  {
+   "agent": "core.san-francisco.public-space.sidewalks",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "workflow": "safety-works",
+   "role": "specialist",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de South of Market, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "South of Market",
+   "tools": [
+    {
+     "tool": "public-space.sidewalks",
+     "state": "succeeded",
+     "findings": 1,
+     "error": null,
+     "target": {
+      "segment": "5678000"
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 1,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 19,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:32.448Z"
+  },
+  {
+   "agent": "core.san-francisco.public-space.lead",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "workflow": "safety-works",
+   "role": "lead (relais)",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de South of Market, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "South of Market",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 19,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:32.448Z"
+  },
+  {
+   "agent": "core.san-francisco.water.water-network",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "workflow": "safety-works",
+   "role": "specialist",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de South of Market, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "South of Market",
+   "tools": [
+    {
+     "tool": "flood.exposure",
+     "state": "succeeded",
+     "findings": 2,
+     "error": null,
+     "target": {
+      "nhood": "South of Market"
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.lead"
+   ],
+   "evidence": 2,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 19,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:32.448Z"
+  },
+  {
+   "agent": "core.san-francisco.water.lead",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "workflow": "safety-works",
+   "role": "lead (relais)",
+   "problem": "Sur le réseau à forte accidentalité (HIN 2024) de South of Market, quels tronçons cumulent des accidents avec blessés et des chantiers approuvés à venir, et que faut-il examiner avant ces travaux ?",
+   "nhood": "South of Market",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.public-space.lead",
+    "core.san-francisco.water.water-network"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 19,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:32.448Z"
+  },
+  {
+   "agent": "core.global.coordinator",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "workflow": "flood-works",
+   "role": "executive",
+   "problem": "Quels chantiers approuvés à venir à Mission sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "Mission",
+   "tools": [],
+   "collaborators": [
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 11,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:47.306Z"
+  },
+  {
+   "agent": "core.san-francisco.manager",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "workflow": "flood-works",
+   "role": "coordinator",
+   "problem": "Quels chantiers approuvés à venir à Mission sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "Mission",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 11,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:47.307Z"
+  },
+  {
+   "agent": "core.san-francisco.water.lead",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "workflow": "flood-works",
+   "role": "lead",
+   "problem": "Quels chantiers approuvés à venir à Mission sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "Mission",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 11,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:47.308Z"
+  },
+  {
+   "agent": "core.san-francisco.research.evidence-verifier",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "workflow": "flood-works",
+   "role": "data-verification",
+   "problem": "Quels chantiers approuvés à venir à Mission sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "Mission",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 11,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:47.309Z"
+  },
+  {
+   "agent": "core.san-francisco.safety.adversarial-reviewer",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "workflow": "flood-works",
+   "role": "review",
+   "problem": "Quels chantiers approuvés à venir à Mission sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "Mission",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 11,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:47.310Z"
+  },
+  {
+   "agent": "core.san-francisco.governance.gateway",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "workflow": "flood-works",
+   "role": "gateway",
+   "problem": "Quels chantiers approuvés à venir à Mission sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "Mission",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 11,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:47.310Z"
+  },
+  {
+   "agent": "core.san-francisco.water.water-network",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "workflow": "flood-works",
+   "role": "specialist",
+   "problem": "Quels chantiers approuvés à venir à Mission sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "Mission",
+   "tools": [
+    {
+     "tool": "flood.exposure",
+     "state": "succeeded",
+     "findings": 2,
+     "error": null,
+     "target": {
+      "nhood": "Mission"
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 2,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 11,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:47.310Z"
+  },
+  {
+   "agent": "core.san-francisco.climate.weather-alerts",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "workflow": "flood-works",
+   "role": "specialist",
+   "problem": "Quels chantiers approuvés à venir à Mission sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "Mission",
+   "tools": [
+    {
+     "tool": "resilience.weather-alerts",
+     "state": "succeeded",
+     "findings": 1,
+     "error": null,
+     "target": {
+      "type": "weather-alert-context"
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 1,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 11,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:47.311Z"
+  },
+  {
+   "agent": "core.san-francisco.climate.lead",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "workflow": "flood-works",
+   "role": "lead (relais)",
+   "problem": "Quels chantiers approuvés à venir à Mission sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "Mission",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 11,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:47.311Z"
+  },
+  {
+   "agent": "core.san-francisco.civil.works-coordination",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "workflow": "flood-works",
+   "role": "specialist",
+   "problem": "Quels chantiers approuvés à venir à Mission sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "Mission",
+   "tools": [
+    {
+     "tool": "works.windows",
+     "state": "failed",
+     "findings": 0,
+     "error": "hors périmètre : l’outil works.windows ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9115000)",
+     "target": {
+      "segment": "9115000"
+     }
+    },
+    {
+     "tool": "works.area-windows",
+     "state": "succeeded",
+     "findings": 1,
+     "error": null,
+     "target": {
+      "segments": [
+       "9115000",
+       "13060000",
+       "12023000",
+       "9121000",
+       "715000",
+       "6740000",
+       "13063000",
+       "724000",
+       "9125000",
+       "9114000",
+       "9122002",
+       "5691000",
+       "720000",
+       "12026000",
+       "13053000",
+       "12024000",
+       "12025000",
+       "5693000",
+       "490000",
+       "13064000",
+       "726000",
+       "5696000",
+       "13067000",
+       "10671000",
+       "13059000",
+       "13057002",
+       "5686000",
+       "9117000",
+       "1342000",
+       "874000",
+       "5685000",
+       "515000",
+       "13061000",
+       "730000",
+       "1260000",
+       "1348000",
+       "10659000",
+       "655000",
+       "9113000",
+       "9116000",
+       "9123000",
+       "9119000",
+       "9124000",
+       "5697000",
+       "9126000",
+       "716000",
+       "12021000",
+       "12027000",
+       "9120000",
+       "1345000",
+       "9127000",
+       "10660000",
+       "10661000",
+       "10662000",
+       "13058000",
+       "12029000",
+       "5692000",
+       "13071000",
+       "10673000",
+       "785000",
+       "714000",
+       "732000",
+       "12020000",
+       "5687000",
+       "5688000",
+       "5689000",
+       "721000",
+       "722000",
+       "12028000",
+       "5694000",
+       "1340000",
+       "1261000",
+       "1263000",
+       "876000",
+       "881000",
+       "9110000",
+       "2491000",
+       "801000",
+       "1346000",
+       "9128000",
+       "10672000",
+       "786000",
+       "13054000",
+       "4979000",
+       "4981000",
+       "589000",
+       "723000",
+       "725000",
+       "717000",
+       "5695000",
+       "5698000",
+       "1335000",
+       "1337000",
+       "1259000",
+       "1262000",
+       "1106000",
+       "1109000",
+       "878000",
+       "879000",
+       "733000",
+       "13068000",
+       "5700000",
+       "784000",
+       "13055000",
+       "4980000",
+       "731000",
+       "735000",
+       "13057001",
+       "6743000",
+       "718000",
+       "719000",
+       "579000",
+       "9118000",
+       "9122001",
+       "5690000",
+       "1338000",
+       "1339000",
+       "1108000",
+       "1104000",
+       "1105000",
+       "873000",
+       "1344000",
+       "884000",
+       "9111001",
+       "5682000",
+       "5684000",
+       "6736000",
+       "6739000",
+       "511000",
+       "13062000",
+       "975000",
+       "885000",
+       "5701002",
+       "5701001",
+       "4845000",
+       "713000",
+       "13056000",
+       "4982000",
+       "727000",
+       "729000",
+       "734000",
+       "736000",
+       "657000",
+       "585000",
+       "588000"
+      ]
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 1,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 11,
+    "rejected": 0
+   },
+   "errors": [
+    "hors périmètre : l’outil works.windows ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9115000)"
+   ],
+   "at": "2026-10-14T16:40:47.311Z"
+  },
+  {
+   "agent": "core.san-francisco.civil.lead",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "workflow": "flood-works",
+   "role": "lead (relais)",
+   "problem": "Quels chantiers approuvés à venir à Mission sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "Mission",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 11,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:47.312Z"
+  },
+  {
+   "agent": "core.san-francisco.telecom.telecom-works",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "workflow": "flood-works",
+   "role": "specialist",
+   "problem": "Quels chantiers approuvés à venir à Mission sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "Mission",
+   "tools": [
+    {
+     "tool": "works.telecom",
+     "state": "failed",
+     "findings": 0,
+     "error": "hors périmètre : l’outil works.telecom ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9115000)",
+     "target": {
+      "segment": "9115000"
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 11,
+    "rejected": 0
+   },
+   "errors": [
+    "hors périmètre : l’outil works.telecom ne couvre que l’instantané du corridor Folsom/Howard (tronçon 9115000)"
+   ],
+   "at": "2026-10-14T16:40:47.312Z"
+  },
+  {
+   "agent": "core.san-francisco.telecom.lead",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "workflow": "flood-works",
+   "role": "lead (relais)",
+   "problem": "Quels chantiers approuvés à venir à Mission sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "Mission",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 11,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:47.313Z"
+  },
+  {
+   "agent": "core.san-francisco.climate.seismic-context",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "workflow": "flood-works",
+   "role": "specialist",
+   "problem": "Quels chantiers approuvés à venir à Mission sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "Mission",
+   "tools": [
+    {
+     "tool": "resilience.quake-context",
+     "state": "failed",
+     "findings": 0,
+     "error": "précondition de resilience.quake-context non remplie pour cette cible",
+     "target": {
+      "segment": "9115000"
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 11,
+    "rejected": 0
+   },
+   "errors": [
+    "précondition de resilience.quake-context non remplie pour cette cible"
+   ],
+   "at": "2026-10-14T16:40:47.317Z"
+  },
+  {
+   "agent": "core.san-francisco.mobility.traffic",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "workflow": "flood-works",
+   "role": "specialist",
+   "problem": "Quels chantiers approuvés à venir à Mission sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "Mission",
+   "tools": [
+    {
+     "tool": "safety.crash-profile",
+     "state": "succeeded",
+     "findings": 6,
+     "error": null,
+     "target": {
+      "nhood": "Mission"
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 6,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 11,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:47.320Z"
+  },
+  {
+   "agent": "core.san-francisco.mobility.lead",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "workflow": "flood-works",
+   "role": "lead (relais)",
+   "problem": "Quels chantiers approuvés à venir à Mission sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "Mission",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 11,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:47.321Z"
+  },
+  {
+   "agent": "core.global.coordinator",
+   "mission": "civ:flood-works:south-of-market@2026-10-14",
+   "workflow": "flood-works",
+   "role": "executive",
+   "problem": "Quels chantiers approuvés à venir à South of Market sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "South of Market",
+   "tools": [],
+   "collaborators": [
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 14,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:58.450Z"
+  },
+  {
+   "agent": "core.san-francisco.manager",
+   "mission": "civ:flood-works:south-of-market@2026-10-14",
+   "workflow": "flood-works",
+   "role": "coordinator",
+   "problem": "Quels chantiers approuvés à venir à South of Market sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "South of Market",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 14,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:58.450Z"
+  },
+  {
+   "agent": "core.san-francisco.water.lead",
+   "mission": "civ:flood-works:south-of-market@2026-10-14",
+   "workflow": "flood-works",
+   "role": "lead",
+   "problem": "Quels chantiers approuvés à venir à South of Market sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "South of Market",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 14,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:58.450Z"
+  },
+  {
+   "agent": "core.san-francisco.research.evidence-verifier",
+   "mission": "civ:flood-works:south-of-market@2026-10-14",
+   "workflow": "flood-works",
+   "role": "data-verification",
+   "problem": "Quels chantiers approuvés à venir à South of Market sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "South of Market",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 14,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:58.450Z"
+  },
+  {
+   "agent": "core.san-francisco.safety.adversarial-reviewer",
+   "mission": "civ:flood-works:south-of-market@2026-10-14",
+   "workflow": "flood-works",
+   "role": "review",
+   "problem": "Quels chantiers approuvés à venir à South of Market sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "South of Market",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 14,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:58.451Z"
+  },
+  {
+   "agent": "core.san-francisco.governance.gateway",
+   "mission": "civ:flood-works:south-of-market@2026-10-14",
+   "workflow": "flood-works",
+   "role": "gateway",
+   "problem": "Quels chantiers approuvés à venir à South of Market sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "South of Market",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 14,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:58.451Z"
+  },
+  {
+   "agent": "core.san-francisco.water.water-network",
+   "mission": "civ:flood-works:south-of-market@2026-10-14",
+   "workflow": "flood-works",
+   "role": "specialist",
+   "problem": "Quels chantiers approuvés à venir à South of Market sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "South of Market",
+   "tools": [
+    {
+     "tool": "flood.exposure",
+     "state": "succeeded",
+     "findings": 2,
+     "error": null,
+     "target": {
+      "nhood": "South of Market"
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 2,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 14,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:58.451Z"
+  },
+  {
+   "agent": "core.san-francisco.climate.weather-alerts",
+   "mission": "civ:flood-works:south-of-market@2026-10-14",
+   "workflow": "flood-works",
+   "role": "specialist",
+   "problem": "Quels chantiers approuvés à venir à South of Market sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "South of Market",
+   "tools": [
+    {
+     "tool": "resilience.weather-alerts",
+     "state": "succeeded",
+     "findings": 1,
+     "error": null,
+     "target": {
+      "type": "weather-alert-context"
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 1,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 14,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:58.451Z"
+  },
+  {
+   "agent": "core.san-francisco.climate.lead",
+   "mission": "civ:flood-works:south-of-market@2026-10-14",
+   "workflow": "flood-works",
+   "role": "lead (relais)",
+   "problem": "Quels chantiers approuvés à venir à South of Market sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "South of Market",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 14,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:58.451Z"
+  },
+  {
+   "agent": "core.san-francisco.civil.works-coordination",
+   "mission": "civ:flood-works:south-of-market@2026-10-14",
+   "workflow": "flood-works",
+   "role": "specialist",
+   "problem": "Quels chantiers approuvés à venir à South of Market sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "South of Market",
+   "tools": [
+    {
+     "tool": "works.windows",
+     "state": "succeeded",
+     "findings": 2,
+     "error": null,
+     "target": {
+      "segment": "5678000"
+     }
+    },
+    {
+     "tool": "works.area-windows",
+     "state": "succeeded",
+     "findings": 1,
+     "error": null,
+     "target": {
+      "segments": [
+       "5678000",
+       "338000",
+       "9100000",
+       "9108000",
+       "3080000",
+       "326000",
+       "446000",
+       "447000",
+       "301000",
+       "9099000",
+       "7041000",
+       "508000",
+       "6727000",
+       "303000",
+       "327000",
+       "331000",
+       "169000",
+       "6722000",
+       "332000",
+       "7047000",
+       "489000",
+       "6723000",
+       "407000",
+       "3078000",
+       "3079000",
+       "289000",
+       "290000",
+       "299000",
+       "509000",
+       "510000",
+       "3082000",
+       "9101000",
+       "516000",
+       "7043000",
+       "9107000",
+       "339000",
+       "9102000",
+       "368000",
+       "405000",
+       "406000",
+       "408000",
+       "255000",
+       "9096003",
+       "330000",
+       "5665000",
+       "7044000",
+       "370000",
+       "487000",
+       "337000",
+       "9103000",
+       "448000",
+       "409000",
+       "6720000",
+       "261000",
+       "6718000",
+       "9096001",
+       "328000",
+       "7039001",
+       "7042000",
+       "7051000",
+       "5670000",
+       "5674000",
+       "6732000",
+       "371000",
+       "305000",
+       "480000",
+       "365000",
+       "258000",
+       "6717000",
+       "172000",
+       "3282000",
+       "329000",
+       "334000",
+       "336000",
+       "7046000",
+       "296000",
+       "298000",
+       "484000",
+       "488000",
+       "452000",
+       "456000",
+       "6733000",
+       "372000",
+       "3286000",
+       "3287000",
+       "3296001",
+       "3298000",
+       "7050000",
+       "366001",
+       "404000",
+       "170000",
+       "259000",
+       "263000",
+       "5662000",
+       "5663000",
+       "3284000",
+       "3285000",
+       "9096002",
+       "251000",
+       "335000",
+       "9510000",
+       "9097000",
+       "9098000",
+       "5666000",
+       "369000",
+       "297000",
+       "9106000",
+       "7053000",
+       "5679000",
+       "5680000",
+       "6735000",
+       "486000",
+       "513000",
+       "450000",
+       "455000",
+       "6724000",
+       "266000",
+       "5672000",
+       "5673000",
+       "5677000",
+       "7048000",
+       "6731000",
+       "304000",
+       "3288000",
+       "3293000",
+       "3294000",
+       "457000",
+       "458000"
+      ]
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 3,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 14,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:58.452Z"
+  },
+  {
+   "agent": "core.san-francisco.civil.lead",
+   "mission": "civ:flood-works:south-of-market@2026-10-14",
+   "workflow": "flood-works",
+   "role": "lead (relais)",
+   "problem": "Quels chantiers approuvés à venir à South of Market sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "South of Market",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 14,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:58.452Z"
+  },
+  {
+   "agent": "core.san-francisco.telecom.telecom-works",
+   "mission": "civ:flood-works:south-of-market@2026-10-14",
+   "workflow": "flood-works",
+   "role": "specialist",
+   "problem": "Quels chantiers approuvés à venir à South of Market sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "South of Market",
+   "tools": [
+    {
+     "tool": "works.telecom",
+     "state": "succeeded",
+     "findings": 1,
+     "error": null,
+     "target": {
+      "segment": "5678000"
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 1,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 14,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:58.452Z"
+  },
+  {
+   "agent": "core.san-francisco.telecom.lead",
+   "mission": "civ:flood-works:south-of-market@2026-10-14",
+   "workflow": "flood-works",
+   "role": "lead (relais)",
+   "problem": "Quels chantiers approuvés à venir à South of Market sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "South of Market",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 14,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:58.452Z"
+  },
+  {
+   "agent": "core.san-francisco.climate.seismic-context",
+   "mission": "civ:flood-works:south-of-market@2026-10-14",
+   "workflow": "flood-works",
+   "role": "specialist",
+   "problem": "Quels chantiers approuvés à venir à South of Market sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "South of Market",
+   "tools": [
+    {
+     "tool": "resilience.quake-context",
+     "state": "failed",
+     "findings": 0,
+     "error": "précondition de resilience.quake-context non remplie pour cette cible",
+     "target": {
+      "segment": "5678000"
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 14,
+    "rejected": 0
+   },
+   "errors": [
+    "précondition de resilience.quake-context non remplie pour cette cible"
+   ],
+   "at": "2026-10-14T16:40:58.452Z"
+  },
+  {
+   "agent": "core.san-francisco.mobility.traffic",
+   "mission": "civ:flood-works:south-of-market@2026-10-14",
+   "workflow": "flood-works",
+   "role": "specialist",
+   "problem": "Quels chantiers approuvés à venir à South of Market sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "South of Market",
+   "tools": [
+    {
+     "tool": "safety.crash-profile",
+     "state": "succeeded",
+     "findings": 6,
+     "error": null,
+     "target": {
+      "nhood": "South of Market"
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.lead"
+   ],
+   "evidence": 6,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 14,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:58.453Z"
+  },
+  {
+   "agent": "core.san-francisco.mobility.lead",
+   "mission": "civ:flood-works:south-of-market@2026-10-14",
+   "workflow": "flood-works",
+   "role": "lead (relais)",
+   "problem": "Quels chantiers approuvés à venir à South of Market sont situés dans la zone de risque de tempête centennale (SFPUC 2022), et quelles précautions de calendrier examiner ?",
+   "nhood": "South of Market",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.water.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.san-francisco.water.water-network",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.climate.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.telecom.lead",
+    "core.san-francisco.climate.seismic-context",
+    "core.san-francisco.mobility.traffic"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "accepted": 14,
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T16:40:58.453Z"
+  }
+ ],
+ "institutional": [
+  {
+   "id": "procedure:f91a9fec4a46",
+   "kind": "procedure",
+   "workflow": "safety-works",
+   "statement": "Ne pas exécuter works.windows quand la cible est hors de l’instantané du corridor Folsom/Howard (échec enregistré : hors périmètre : l’outil works.windows ne couvre que l’insta…).",
+   "body": {
+    "evidence": [
+     "episode:core.san-francisco.civil.works-coordination:civ:safety-works:tenderloin@2026-10-14"
+    ],
+    "basis": "deterministic-records",
+    "rule": {
+     "skipTool": "works.windows",
+     "when": "target-outside-corridor"
+    },
+    "agent": null
+   },
+   "status": "approved",
+   "version": 2,
+   "origin": "core.san-francisco.mobility.lead",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.mobility.lead",
+     "at": "2026-10-14T16:40:02.312Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "échec présent dans l’épisode enregistré",
+     "at": "2026-10-14T16:40:02.312Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "règle de périmètre cohérente avec la liste des outils du corridor",
+     "at": "2026-10-14T16:40:02.313Z"
+    },
+    {
+     "status": "approved",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "procédure issue d’enregistrements déterministes",
+     "at": "2026-10-14T16:40:02.313Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:02.312Z"
+  },
+  {
+   "id": "procedure:3e7c7e9a9a6a",
+   "kind": "procedure",
+   "workflow": "safety-works",
+   "statement": "Ne pas exécuter works.telecom quand la cible est hors de l’instantané du corridor Folsom/Howard (échec enregistré : hors périmètre : l’outil works.telecom ne couvre que l’insta…).",
+   "body": {
+    "evidence": [
+     "episode:core.san-francisco.telecom.telecom-works:civ:safety-works:tenderloin@2026-10-14"
+    ],
+    "basis": "deterministic-records",
+    "rule": {
+     "skipTool": "works.telecom",
+     "when": "target-outside-corridor"
+    },
+    "agent": null
+   },
+   "status": "approved",
+   "version": 2,
+   "origin": "core.san-francisco.mobility.lead",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.mobility.lead",
+     "at": "2026-10-14T16:40:02.314Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "échec présent dans l’épisode enregistré",
+     "at": "2026-10-14T16:40:02.314Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "règle de périmètre cohérente avec la liste des outils du corridor",
+     "at": "2026-10-14T16:40:02.314Z"
+    },
+    {
+     "status": "approved",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "procédure issue d’enregistrements déterministes",
+     "at": "2026-10-14T16:40:02.315Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:02.314Z"
+  },
+  {
+   "id": "procedure:1014305bcaeb",
+   "kind": "procedure",
+   "workflow": "safety-works",
+   "statement": "Ne pas exécuter public-space.sidewalks quand la cible est hors de l’instantané du corridor Folsom/Howard (échec enregistré : hors périmètre : l’outil public-space.sidewalks ne couvre qu…).",
+   "body": {
+    "evidence": [
+     "episode:core.san-francisco.public-space.sidewalks:civ:safety-works:tenderloin@2026-10-14"
+    ],
+    "basis": "deterministic-records",
+    "rule": {
+     "skipTool": "public-space.sidewalks",
+     "when": "target-outside-corridor"
+    },
+    "agent": null
+   },
+   "status": "approved",
+   "version": 2,
+   "origin": "core.san-francisco.mobility.lead",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.mobility.lead",
+     "at": "2026-10-14T16:40:02.315Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "échec présent dans l’épisode enregistré",
+     "at": "2026-10-14T16:40:02.315Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "règle de périmètre cohérente avec la liste des outils du corridor",
+     "at": "2026-10-14T16:40:02.316Z"
+    },
+    {
+     "status": "approved",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "procédure issue d’enregistrements déterministes",
+     "at": "2026-10-14T16:40:02.316Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:02.315Z"
+  },
+  {
+   "id": "lesson:28b47e845e88",
+   "kind": "lesson",
+   "workflow": null,
+   "statement": "Ne pas présenter un effet (danger, dommage, aggravation) comme établi : les constats ne mesurent aucun impact ; le formuler comme une incertitude ou une hypothèse. Formulation rejetée lors d’une mission vérifiée : « car ils présentent un risque accru pour les usagers ». À la place, décrire seulement ce que disent les constats cités, ou écrire explicitement « hypothèse : … ».",
+   "body": {
+    "evidence": [
+     "rejection:civ:safety-works:tenderloin@2026-10-14"
+    ],
+    "basis": "deterministic-records",
+    "rule": null,
+    "agent": null
+   },
+   "status": "approved",
+   "version": 2,
+   "origin": "core.san-francisco.public-space.accessibility-analyst",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.public-space.accessibility-analyst",
+     "at": "2026-10-14T16:40:02.317Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "rejet présent dans le registre de la mission",
+     "at": "2026-10-14T16:40:02.318Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "leçon dérivée de la règle du validateur",
+     "at": "2026-10-14T16:40:02.318Z"
+    },
+    {
+     "status": "approved",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "leçon issue d’enregistrements déterministes",
+     "at": "2026-10-14T16:40:02.318Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:02.317Z"
+  },
+  {
+   "id": "finding:b5c23e4c99cc",
+   "kind": "finding",
+   "workflow": "safety-works",
+   "statement": "70 tronçon(s) HIN cumulent des accidents avec blessés (5 ans) et des fenêtres de travaux approuvées dans les 120 j ; 20 avec au moins un accident grave ou mortel.",
+   "body": {
+    "evidence": [
+     "crashes-agg:9733000",
+     "hin:9733000",
+     "crashes-agg:6117000",
+     "hin:6117000",
+     "crashes-agg:12718000",
+     "hin:12718000",
+     "crashes-agg:5173000",
+     "hin:5173000",
+     "crashes-agg:5061001",
+     "hin:5061001",
+     "crashes-agg:5063000",
+     "hin:5063000",
+     "crashes-agg:7117000",
+     "hin:7117000",
+     "crashes-agg:8239000",
+     "hin:8239000",
+     "crashes-agg:7114000",
+     "hin:7114000",
+     "crashes-agg:6262000",
+     "hin:6262000",
+     "crashes-agg:6116000",
+     "hin:6116000",
+     "crashes-agg:7116000",
+     "hin:7116000",
+     "crashes-agg:10558000",
+     "hin:10558000",
+     "crashes-agg:8890000",
+     "hin:8890000",
+     "crashes-agg:10552000",
+     "hin:10552000"
+    ],
+    "basis": null,
+    "rule": null,
+    "agent": null
+   },
+   "status": "reviewed",
+   "version": 1,
+   "origin": "core.san-francisco.mobility.lead",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.mobility.lead",
+     "at": "2026-10-14T16:40:02.319Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "références résolues dans l’instantané",
+     "at": "2026-10-14T16:40:02.319Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "accepté par la revue adversariale",
+     "at": "2026-10-14T16:40:02.319Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:02.319Z"
+  },
+  {
+   "id": "finding:2c204126bb68",
+   "kind": "finding",
+   "workflow": "safety-works",
+   "statement": "OFARRELL ST (CNN 9733000) : 3 accident(s) grave(s)/mortel(s), 11 au total, et 1 permis de travaux (1 organisation(s)) à venir.",
+   "body": {
+    "evidence": [
+     "hin:9733000",
+     "crashes-agg:9733000"
+    ],
+    "basis": null,
+    "rule": null,
+    "agent": null
+   },
+   "status": "reviewed",
+   "version": 1,
+   "origin": "core.san-francisco.mobility.lead",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.mobility.lead",
+     "at": "2026-10-14T16:40:02.320Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "références résolues dans l’instantané",
+     "at": "2026-10-14T16:40:02.320Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "accepté par la revue adversariale",
+     "at": "2026-10-14T16:40:02.320Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:02.320Z"
+  },
+  {
+   "id": "finding:13742a5255ad",
+   "kind": "finding",
+   "workflow": "safety-works",
+   "statement": "GEARY ST (CNN 6117000) : 2 accident(s) grave(s)/mortel(s), 9 au total, et 1 permis de travaux (1 organisation(s)) à venir.",
+   "body": {
+    "evidence": [
+     "hin:6117000",
+     "crashes-agg:6117000"
+    ],
+    "basis": null,
+    "rule": null,
+    "agent": null
+   },
+   "status": "reviewed",
+   "version": 1,
+   "origin": "core.san-francisco.mobility.lead",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.mobility.lead",
+     "at": "2026-10-14T16:40:02.321Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "références résolues dans l’instantané",
+     "at": "2026-10-14T16:40:02.321Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "accepté par la revue adversariale",
+     "at": "2026-10-14T16:40:02.322Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:02.321Z"
+  },
+  {
+   "id": "finding:2a667923c002",
+   "kind": "finding",
+   "workflow": "safety-works",
+   "statement": "TURK ST (CNN 12718000) : 2 accident(s) grave(s)/mortel(s), 7 au total, et 2 permis de travaux (2 organisation(s)) à venir.",
+   "body": {
+    "evidence": [
+     "hin:12718000",
+     "crashes-agg:12718000"
+    ],
+    "basis": null,
+    "rule": null,
+    "agent": null
+   },
+   "status": "reviewed",
+   "version": 1,
+   "origin": "core.san-francisco.mobility.lead",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.mobility.lead",
+     "at": "2026-10-14T16:40:02.322Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "références résolues dans l’instantané",
+     "at": "2026-10-14T16:40:02.323Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "accepté par la revue adversariale",
+     "at": "2026-10-14T16:40:02.323Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:02.322Z"
+  },
+  {
+   "id": "finding:719bde218068",
+   "kind": "finding",
+   "workflow": "safety-works",
+   "statement": "ELLIS ST (CNN 5173000) : 2 accident(s) grave(s)/mortel(s), 5 au total, et 2 permis de travaux (2 organisation(s)) à venir.",
+   "body": {
+    "evidence": [
+     "hin:5173000",
+     "crashes-agg:5173000"
+    ],
+    "basis": null,
+    "rule": null,
+    "agent": null
+   },
+   "status": "reviewed",
+   "version": 1,
+   "origin": "core.san-francisco.mobility.lead",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.mobility.lead",
+     "at": "2026-10-14T16:40:02.323Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "références résolues dans l’instantané",
+     "at": "2026-10-14T16:40:02.323Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "accepté par la revue adversariale",
+     "at": "2026-10-14T16:40:02.324Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:02.323Z"
+  },
+  {
+   "id": "finding:18e79495c218",
+   "kind": "finding",
+   "workflow": "safety-works",
+   "statement": "EDDY ST (CNN 5061001) : 2 accident(s) grave(s)/mortel(s), 3 au total, et 1 permis de travaux (0 organisation(s)) à venir.",
+   "body": {
+    "evidence": [
+     "hin:5061001",
+     "crashes-agg:5061001"
+    ],
+    "basis": null,
+    "rule": null,
+    "agent": null
+   },
+   "status": "reviewed",
+   "version": 1,
+   "origin": "core.san-francisco.mobility.lead",
+   "mission": "civ:safety-works:tenderloin@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.mobility.lead",
+     "at": "2026-10-14T16:40:02.324Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "références résolues dans l’instantané",
+     "at": "2026-10-14T16:40:02.324Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "accepté par la revue adversariale",
+     "at": "2026-10-14T16:40:02.325Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:02.324Z"
+  },
+  {
+   "id": "lesson:754ea9b3f19e",
+   "kind": "lesson",
+   "workflow": null,
+   "statement": "Ne pas affirmer de relation causale (cause, provoque, entraîne) : la qualifier explicitement d’hypothèse et ne l’avancer que si une preuve d’effet est citée. Formulation rejetée lors d’une mission vérifiée : « en raison des chantiers d'excavation à venir ». À la place, décrire seulement ce que disent les constats cités, ou écrire explicitement « hypothèse : … ».",
+   "body": {
+    "evidence": [
+     "rejection:civ:safety-works:mission@2026-10-14"
+    ],
+    "basis": "deterministic-records",
+    "rule": null,
+    "agent": null
+   },
+   "status": "approved",
+   "version": 2,
+   "origin": "core.san-francisco.public-space.accessibility-analyst",
+   "mission": "civ:safety-works:mission@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.public-space.accessibility-analyst",
+     "at": "2026-10-14T16:40:18.138Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "rejet présent dans le registre de la mission",
+     "at": "2026-10-14T16:40:18.138Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "leçon dérivée de la règle du validateur",
+     "at": "2026-10-14T16:40:18.139Z"
+    },
+    {
+     "status": "approved",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "leçon issue d’enregistrements déterministes",
+     "at": "2026-10-14T16:40:18.140Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:18.138Z"
+  },
+  {
+   "id": "finding:c078a6cad991",
+   "kind": "finding",
+   "workflow": "safety-works",
+   "statement": "17 tronçon(s) HIN cumulent des accidents avec blessés (5 ans) et des fenêtres de travaux approuvées dans les 120 j ; 5 avec au moins un accident grave ou mortel.",
+   "body": {
+    "evidence": [
+     "crashes-agg:12023000",
+     "hin:12023000",
+     "crashes-agg:9125000",
+     "hin:9125000",
+     "crashes-agg:9114000",
+     "hin:9114000",
+     "crashes-agg:1342000",
+     "hin:1342000",
+     "crashes-agg:515000",
+     "hin:515000",
+     "crashes-agg:9124000",
+     "hin:9124000",
+     "crashes-agg:1345000",
+     "hin:1345000",
+     "crashes-agg:722000",
+     "hin:722000",
+     "crashes-agg:1340000",
+     "hin:1340000",
+     "crashes-agg:9110000",
+     "hin:9110000",
+     "crashes-agg:1346000",
+     "hin:1346000",
+     "crashes-agg:4981000",
+     "hin:4981000",
+     "crashes-agg:4980000",
+     "hin:4980000",
+     "crashes-agg:1344000",
+     "hin:1344000",
+     "crashes-agg:511000",
+     "hin:511000"
+    ],
+    "basis": null,
+    "rule": null,
+    "agent": null
+   },
+   "status": "reviewed",
+   "version": 1,
+   "origin": "core.san-francisco.mobility.lead",
+   "mission": "civ:safety-works:mission@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.mobility.lead",
+     "at": "2026-10-14T16:40:18.140Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "références résolues dans l’instantané",
+     "at": "2026-10-14T16:40:18.141Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "accepté par la revue adversariale",
+     "at": "2026-10-14T16:40:18.141Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:18.140Z"
+  },
+  {
+   "id": "finding:c76a30847bc3",
+   "kind": "finding",
+   "workflow": "safety-works",
+   "statement": "SOUTH VAN NESS AVE (CNN 12023000) : 2 accident(s) grave(s)/mortel(s), 11 au total, et 1 permis de travaux (1 organisation(s)) à venir.",
+   "body": {
+    "evidence": [
+     "hin:12023000",
+     "crashes-agg:12023000"
+    ],
+    "basis": null,
+    "rule": null,
+    "agent": null
+   },
+   "status": "reviewed",
+   "version": 1,
+   "origin": "core.san-francisco.mobility.lead",
+   "mission": "civ:safety-works:mission@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.mobility.lead",
+     "at": "2026-10-14T16:40:18.142Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "références résolues dans l’instantané",
+     "at": "2026-10-14T16:40:18.143Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "accepté par la revue adversariale",
+     "at": "2026-10-14T16:40:18.143Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:18.142Z"
+  },
+  {
+   "id": "finding:b9322c8a1642",
+   "kind": "finding",
+   "workflow": "safety-works",
+   "statement": "MISSION ST (CNN 9125000) : 1 accident(s) grave(s)/mortel(s), 9 au total, et 1 permis de travaux (1 organisation(s)) à venir.",
+   "body": {
+    "evidence": [
+     "hin:9125000",
+     "crashes-agg:9125000"
+    ],
+    "basis": null,
+    "rule": null,
+    "agent": null
+   },
+   "status": "reviewed",
+   "version": 1,
+   "origin": "core.san-francisco.mobility.lead",
+   "mission": "civ:safety-works:mission@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.mobility.lead",
+     "at": "2026-10-14T16:40:18.144Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "références résolues dans l’instantané",
+     "at": "2026-10-14T16:40:18.144Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "accepté par la revue adversariale",
+     "at": "2026-10-14T16:40:18.145Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:18.144Z"
+  },
+  {
+   "id": "finding:9f8dcbbb90b8",
+   "kind": "finding",
+   "workflow": "safety-works",
+   "statement": "MISSION ST (CNN 9114000) : 1 accident(s) grave(s)/mortel(s), 8 au total, et 1 permis de travaux (1 organisation(s)) à venir.",
+   "body": {
+    "evidence": [
+     "hin:9114000",
+     "crashes-agg:9114000"
+    ],
+    "basis": null,
+    "rule": null,
+    "agent": null
+   },
+   "status": "reviewed",
+   "version": 1,
+   "origin": "core.san-francisco.mobility.lead",
+   "mission": "civ:safety-works:mission@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.mobility.lead",
+     "at": "2026-10-14T16:40:18.146Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "références résolues dans l’instantané",
+     "at": "2026-10-14T16:40:18.147Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "accepté par la revue adversariale",
+     "at": "2026-10-14T16:40:18.147Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:18.146Z"
+  },
+  {
+   "id": "finding:ad5f97b80b5d",
+   "kind": "finding",
+   "workflow": "safety-works",
+   "statement": "24TH ST (CNN 1342000) : 1 accident(s) grave(s)/mortel(s), 2 au total, et 1 permis de travaux (1 organisation(s)) à venir.",
+   "body": {
+    "evidence": [
+     "hin:1342000",
+     "crashes-agg:1342000"
+    ],
+    "basis": null,
+    "rule": null,
+    "agent": null
+   },
+   "status": "reviewed",
+   "version": 1,
+   "origin": "core.san-francisco.mobility.lead",
+   "mission": "civ:safety-works:mission@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.mobility.lead",
+     "at": "2026-10-14T16:40:18.148Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "références résolues dans l’instantané",
+     "at": "2026-10-14T16:40:18.148Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "accepté par la revue adversariale",
+     "at": "2026-10-14T16:40:18.149Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:18.148Z"
+  },
+  {
+   "id": "finding:94a3eb7a33f0",
+   "kind": "finding",
+   "workflow": "safety-works",
+   "statement": "11TH ST (CNN 515000) : 1 accident(s) grave(s)/mortel(s), 2 au total, et 1 permis de travaux (1 organisation(s)) à venir.",
+   "body": {
+    "evidence": [
+     "hin:515000",
+     "crashes-agg:515000"
+    ],
+    "basis": null,
+    "rule": null,
+    "agent": null
+   },
+   "status": "reviewed",
+   "version": 1,
+   "origin": "core.san-francisco.mobility.lead",
+   "mission": "civ:safety-works:mission@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.mobility.lead",
+     "at": "2026-10-14T16:40:18.149Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "références résolues dans l’instantané",
+     "at": "2026-10-14T16:40:18.150Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "accepté par la revue adversariale",
+     "at": "2026-10-14T16:40:18.150Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:18.149Z"
+  },
+  {
+   "id": "finding:39d27045fd19",
+   "kind": "finding",
+   "workflow": "safety-works",
+   "statement": "43 tronçon(s) HIN cumulent des accidents avec blessés (5 ans) et des fenêtres de travaux approuvées dans les 120 j ; 10 avec au moins un accident grave ou mortel.",
+   "body": {
+    "evidence": [
+     "crashes-agg:5678000",
+     "hin:5678000",
+     "crashes-agg:9108000",
+     "hin:9108000",
+     "crashes-agg:446000",
+     "hin:446000",
+     "crashes-agg:447000",
+     "hin:447000",
+     "crashes-agg:7041000",
+     "hin:7041000",
+     "crashes-agg:508000",
+     "hin:508000",
+     "crashes-agg:407000",
+     "hin:407000",
+     "crashes-agg:3078000",
+     "hin:3078000",
+     "crashes-agg:3079000",
+     "hin:3079000",
+     "crashes-agg:510000",
+     "hin:510000",
+     "crashes-agg:9101000",
+     "hin:9101000",
+     "crashes-agg:9107000",
+     "hin:9107000",
+     "crashes-agg:9102000",
+     "hin:9102000",
+     "crashes-agg:405000",
+     "hin:405000",
+     "crashes-agg:406000",
+     "hin:406000"
+    ],
+    "basis": null,
+    "rule": null,
+    "agent": null
+   },
+   "status": "reviewed",
+   "version": 1,
+   "origin": "core.san-francisco.mobility.lead",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.mobility.lead",
+     "at": "2026-10-14T16:40:32.449Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "références résolues dans l’instantané",
+     "at": "2026-10-14T16:40:32.449Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "accepté par la revue adversariale",
+     "at": "2026-10-14T16:40:32.449Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:32.449Z"
+  },
+  {
+   "id": "finding:a5197910ccfe",
+   "kind": "finding",
+   "workflow": "safety-works",
+   "statement": "FOLSOM ST (CNN 5678000) : 2 accident(s) grave(s)/mortel(s), 5 au total, et 1 permis de travaux (1 organisation(s)) à venir.",
+   "body": {
+    "evidence": [
+     "hin:5678000",
+     "crashes-agg:5678000"
+    ],
+    "basis": null,
+    "rule": null,
+    "agent": null
+   },
+   "status": "reviewed",
+   "version": 1,
+   "origin": "core.san-francisco.mobility.lead",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.mobility.lead",
+     "at": "2026-10-14T16:40:32.449Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "références résolues dans l’instantané",
+     "at": "2026-10-14T16:40:32.449Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "accepté par la revue adversariale",
+     "at": "2026-10-14T16:40:32.450Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:32.449Z"
+  },
+  {
+   "id": "finding:e7ceba230827",
+   "kind": "finding",
+   "workflow": "safety-works",
+   "statement": "MISSION ST (CNN 9108000) : 1 accident(s) grave(s)/mortel(s), 8 au total, et 1 permis de travaux (1 organisation(s)) à venir.",
+   "body": {
+    "evidence": [
+     "hin:9108000",
+     "crashes-agg:9108000"
+    ],
+    "basis": null,
+    "rule": null,
+    "agent": null
+   },
+   "status": "reviewed",
+   "version": 1,
+   "origin": "core.san-francisco.mobility.lead",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.mobility.lead",
+     "at": "2026-10-14T16:40:32.450Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "références résolues dans l’instantané",
+     "at": "2026-10-14T16:40:32.450Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "accepté par la revue adversariale",
+     "at": "2026-10-14T16:40:32.450Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:32.450Z"
+  },
+  {
+   "id": "finding:b499f9cc8219",
+   "kind": "finding",
+   "workflow": "safety-works",
+   "statement": "09TH ST (CNN 446000) : 1 accident(s) grave(s)/mortel(s), 4 au total, et 2 permis de travaux (1 organisation(s)) à venir.",
+   "body": {
+    "evidence": [
+     "hin:446000",
+     "crashes-agg:446000"
+    ],
+    "basis": null,
+    "rule": null,
+    "agent": null
+   },
+   "status": "reviewed",
+   "version": 1,
+   "origin": "core.san-francisco.mobility.lead",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.mobility.lead",
+     "at": "2026-10-14T16:40:32.450Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "références résolues dans l’instantané",
+     "at": "2026-10-14T16:40:32.451Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "accepté par la revue adversariale",
+     "at": "2026-10-14T16:40:32.451Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:32.450Z"
+  },
+  {
+   "id": "finding:2b8bb7829e88",
+   "kind": "finding",
+   "workflow": "safety-works",
+   "statement": "09TH ST (CNN 447000) : 1 accident(s) grave(s)/mortel(s), 4 au total, et 1 permis de travaux (1 organisation(s)) à venir.",
+   "body": {
+    "evidence": [
+     "hin:447000",
+     "crashes-agg:447000"
+    ],
+    "basis": null,
+    "rule": null,
+    "agent": null
+   },
+   "status": "reviewed",
+   "version": 1,
+   "origin": "core.san-francisco.mobility.lead",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.mobility.lead",
+     "at": "2026-10-14T16:40:32.451Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "références résolues dans l’instantané",
+     "at": "2026-10-14T16:40:32.451Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "accepté par la revue adversariale",
+     "at": "2026-10-14T16:40:32.452Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:32.451Z"
+  },
+  {
+   "id": "finding:affb8dd79302",
+   "kind": "finding",
+   "workflow": "safety-works",
+   "statement": "HOWARD ST (CNN 7041000) : 1 accident(s) grave(s)/mortel(s), 4 au total, et 1 permis de travaux (1 organisation(s)) à venir.",
+   "body": {
+    "evidence": [
+     "hin:7041000",
+     "crashes-agg:7041000"
+    ],
+    "basis": null,
+    "rule": null,
+    "agent": null
+   },
+   "status": "reviewed",
+   "version": 1,
+   "origin": "core.san-francisco.mobility.lead",
+   "mission": "civ:safety-works:south-of-market@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.mobility.lead",
+     "at": "2026-10-14T16:40:32.452Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "références résolues dans l’instantané",
+     "at": "2026-10-14T16:40:32.452Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "accepté par la revue adversariale",
+     "at": "2026-10-14T16:40:32.452Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:32.452Z"
+  },
+  {
+   "id": "procedure:8b1af852c951",
+   "kind": "procedure",
+   "workflow": "flood-works",
+   "statement": "Ne pas exécuter works.windows quand la cible est hors de l’instantané du corridor Folsom/Howard (échec enregistré : hors périmètre : l’outil works.windows ne couvre que l’insta…).",
+   "body": {
+    "evidence": [
+     "episode:core.san-francisco.civil.works-coordination:civ:flood-works:mission@2026-10-14"
+    ],
+    "basis": "deterministic-records",
+    "rule": {
+     "skipTool": "works.windows",
+     "when": "target-outside-corridor"
+    },
+    "agent": null
+   },
+   "status": "approved",
+   "version": 2,
+   "origin": "core.san-francisco.water.lead",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.water.lead",
+     "at": "2026-10-14T16:40:47.323Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "échec présent dans l’épisode enregistré",
+     "at": "2026-10-14T16:40:47.324Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "règle de périmètre cohérente avec la liste des outils du corridor",
+     "at": "2026-10-14T16:40:47.324Z"
+    },
+    {
+     "status": "approved",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "procédure issue d’enregistrements déterministes",
+     "at": "2026-10-14T16:40:47.328Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:47.323Z"
+  },
+  {
+   "id": "procedure:08ec7d2d16d6",
+   "kind": "procedure",
+   "workflow": "flood-works",
+   "statement": "Ne pas exécuter works.telecom quand la cible est hors de l’instantané du corridor Folsom/Howard (échec enregistré : hors périmètre : l’outil works.telecom ne couvre que l’insta…).",
+   "body": {
+    "evidence": [
+     "episode:core.san-francisco.telecom.telecom-works:civ:flood-works:mission@2026-10-14"
+    ],
+    "basis": "deterministic-records",
+    "rule": {
+     "skipTool": "works.telecom",
+     "when": "target-outside-corridor"
+    },
+    "agent": null
+   },
+   "status": "approved",
+   "version": 2,
+   "origin": "core.san-francisco.water.lead",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.water.lead",
+     "at": "2026-10-14T16:40:47.332Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "échec présent dans l’épisode enregistré",
+     "at": "2026-10-14T16:40:47.335Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "règle de périmètre cohérente avec la liste des outils du corridor",
+     "at": "2026-10-14T16:40:47.340Z"
+    },
+    {
+     "status": "approved",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "procédure issue d’enregistrements déterministes",
+     "at": "2026-10-14T16:40:47.342Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:47.332Z"
+  },
+  {
+   "id": "procedure:f9482e2c32c0",
+   "kind": "procedure",
+   "workflow": "flood-works",
+   "statement": "Ne pas déléguer resilience.quake-context pour « Risque d’inondation × chantiers » : sa précondition n’est jamais remplie (échec enregistré).",
+   "body": {
+    "evidence": [
+     "episode:core.san-francisco.climate.seismic-context:civ:flood-works:mission@2026-10-14"
+    ],
+    "basis": "deterministic-records",
+    "rule": {
+     "skipTool": "resilience.quake-context",
+     "when": "always"
+    },
+    "agent": null
+   },
+   "status": "approved",
+   "version": 2,
+   "origin": "core.san-francisco.water.lead",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.water.lead",
+     "at": "2026-10-14T16:40:47.349Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "échec présent dans l’épisode enregistré",
+     "at": "2026-10-14T16:40:47.349Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "règle de périmètre cohérente avec la liste des outils du corridor",
+     "at": "2026-10-14T16:40:47.350Z"
+    },
+    {
+     "status": "approved",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "procédure issue d’enregistrements déterministes",
+     "at": "2026-10-14T16:40:47.350Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:47.349Z"
+  },
+  {
+   "id": "lesson:5b74bc5c7e7d",
+   "kind": "lesson",
+   "workflow": null,
+   "statement": "Ne pas affirmer de relation causale (cause, provoque, entraîne) : la qualifier explicitement d’hypothèse et ne l’avancer que si une preuve d’effet est citée. Formulation rejetée lors d’une mission vérifiée : « en raison de la localisation critique ». À la place, décrire seulement ce que disent les constats cités, ou écrire explicitement « hypothèse : … ».",
+   "body": {
+    "evidence": [
+     "rejection:civ:flood-works:mission@2026-10-14"
+    ],
+    "basis": "deterministic-records",
+    "rule": null,
+    "agent": null
+   },
+   "status": "approved",
+   "version": 2,
+   "origin": "core.san-francisco.environmental.environmental-analyst",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.environmental.environmental-analyst",
+     "at": "2026-10-14T16:40:47.350Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "rejet présent dans le registre de la mission",
+     "at": "2026-10-14T16:40:47.350Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "leçon dérivée de la règle du validateur",
+     "at": "2026-10-14T16:40:47.351Z"
+    },
+    {
+     "status": "approved",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "leçon issue d’enregistrements déterministes",
+     "at": "2026-10-14T16:40:47.351Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:47.350Z"
+  },
+  {
+   "id": "finding:30aa397d2ade",
+   "kind": "finding",
+   "workflow": "flood-works",
+   "statement": "3 excavation(s) planifiée(s) dans la zone d’inondation modélisée ; 44 tronçon(s) HIN dans la zone ; alertes météo : Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte.",
+   "body": {
+    "evidence": [
+     "flood-zone:2022",
+     "study-permits:26EXC-03490@2140000",
+     "study-permits:26BW-00016@2140000",
+     "study-permits:26BW-00016@3301000"
+    ],
+    "basis": null,
+    "rule": null,
+    "agent": null
+   },
+   "status": "reviewed",
+   "version": 1,
+   "origin": "core.san-francisco.water.lead",
+   "mission": "civ:flood-works:mission@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.water.lead",
+     "at": "2026-10-14T16:40:47.351Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "références résolues dans l’instantané",
+     "at": "2026-10-14T16:40:47.351Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "accepté par la revue adversariale",
+     "at": "2026-10-14T16:40:47.351Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:47.351Z"
+  },
+  {
+   "id": "finding:633280dc9b91",
+   "kind": "finding",
+   "workflow": "flood-works",
+   "statement": "3 excavation(s) planifiée(s) dans la zone d’inondation modélisée ; 19 tronçon(s) HIN dans la zone ; alertes météo : Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte.",
+   "body": {
+    "evidence": [
+     "flood-zone:2022",
+     "study-permits:26EXC-04769@302000",
+     "study-permits:26EXC-05185@417000",
+     "study-permits:25EXC-03925@459000"
+    ],
+    "basis": null,
+    "rule": null,
+    "agent": null
+   },
+   "status": "reviewed",
+   "version": 1,
+   "origin": "core.san-francisco.water.lead",
+   "mission": "civ:flood-works:south-of-market@2026-10-14",
+   "history": [
+    {
+     "status": "candidate",
+     "by": "core.san-francisco.water.lead",
+     "at": "2026-10-14T16:40:58.453Z"
+    },
+    {
+     "status": "verified",
+     "by": "core.san-francisco.research.evidence-verifier",
+     "note": "références résolues dans l’instantané",
+     "at": "2026-10-14T16:40:58.453Z"
+    },
+    {
+     "status": "reviewed",
+     "by": "core.san-francisco.safety.adversarial-reviewer",
+     "note": "accepté par la revue adversariale",
+     "at": "2026-10-14T16:40:58.454Z"
+    }
+   ],
+   "at": "2026-10-14T16:40:58.453Z"
+  }
+ ],
+ "identities": [
+  {
+   "agent": "core.global.coordinator",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.administration.civic-records",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.administration.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.architecture.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.architecture.urban-design",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.building-systems.building-systems-eng",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.building-systems.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.civil.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.civil.works-coordination",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.climate.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.climate.seismic-context",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.climate.weather-alerts",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.cybersecurity.cyber",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.cybersecurity.data-policy-reviewer",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.cybersecurity.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.data-science.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.digital.digital-infra",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.digital.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.ecology.biodiversity",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.ecology.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.economics.economist",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.economics.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.electrical.grid",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.electrical.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.energy.energy-benchmarks",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.energy.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.environmental.air-quality",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.environmental.environmental-analyst",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.environmental.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.forestry.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.forestry.street-trees",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.forestry.urban-forestry-analyst",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.geotech.geotechnical",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.geotech.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.governance.gateway",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.health.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.health.public-health",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.housing.building-permits",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.housing.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.manager",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.mechanical.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.mechanical.mechanical-systems",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.mobility.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.mobility.traffic",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.public-space.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.public-space.sidewalks",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.regulatory.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.research.evidence-verifier",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.research.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.safety.adversarial-reviewer",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.safety.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.simulation.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.simulation.scenario-evaluator",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.social.community-impacts",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.social.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.telecom.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.telecom.telecom-works",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.transit.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.transit.transit-planner",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.water.lead",
+   "version": "core-agent-registry-v1@2026-10-13"
+  },
+  {
+   "agent": "core.san-francisco.water.water-network",
+   "version": "core-agent-registry-v1@2026-10-13"
+  }
+ ],
+ "knowledge": [
+  {
+   "agent": "core.global.coordinator",
+   "docs": 2
+  },
+  {
+   "agent": "core.san-francisco.administration.civic-records",
+   "docs": 2
+  },
+  {
+   "agent": "core.san-francisco.civil.works-coordination",
+   "docs": 2
+  },
+  {
+   "agent": "core.san-francisco.climate.seismic-context",
+   "docs": 2
+  },
+  {
+   "agent": "core.san-francisco.climate.weather-alerts",
+   "docs": 1
+  },
+  {
+   "agent": "core.san-francisco.cybersecurity.data-policy-reviewer",
+   "docs": 1
+  },
+  {
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "docs": 1
+  },
+  {
+   "agent": "core.san-francisco.energy.energy-benchmarks",
+   "docs": 1
+  },
+  {
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "docs": 4
+  },
+  {
+   "agent": "core.san-francisco.environmental.environmental-analyst",
+   "docs": 5
+  },
+  {
+   "agent": "core.san-francisco.forestry.street-trees",
+   "docs": 3
+  },
+  {
+   "agent": "core.san-francisco.forestry.urban-forestry-analyst",
+   "docs": 4
+  },
+  {
+   "agent": "core.san-francisco.governance.gateway",
+   "docs": 1
+  },
+  {
+   "agent": "core.san-francisco.housing.building-permits",
+   "docs": 2
+  },
+  {
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "docs": 6
+  },
+  {
+   "agent": "core.san-francisco.manager",
+   "docs": 2
+  },
+  {
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "docs": 3
+  },
+  {
+   "agent": "core.san-francisco.public-space.sidewalks",
+   "docs": 1
+  },
+  {
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "docs": 2
+  },
+  {
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "docs": 4
+  },
+  {
+   "agent": "core.san-francisco.research.evidence-verifier",
+   "docs": 1
+  },
+  {
+   "agent": "core.san-francisco.safety.adversarial-reviewer",
+   "docs": 2
+  },
+  {
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "docs": 3
+  },
+  {
+   "agent": "core.san-francisco.simulation.scenario-evaluator",
+   "docs": 2
+  },
+  {
+   "agent": "core.san-francisco.telecom.telecom-works",
+   "docs": 1
+  }
+ ]
+}

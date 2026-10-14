@@ -38,7 +38,7 @@ async function tab(blocked = []) {
 
 try {
   // 1. Map engine unavailable: honest message, corridor stays reachable.
-  let t = await tab(['*unpkg.com/maplibre-gl*']);
+  let t = await tab(['*maplibre-gl-5.7.3/maplibre-gl.js*']); // Phase 9: MapLibre is self-hosted
   await t.call('Page.navigate', { url: 'http://localhost:8000/' }); await t.until('document.readyState === "complete"'); await pause(500);
   check('engine blocked shows message', await t.evaluate('document.querySelector("#msg").textContent.includes("Impossible de charger le moteur")'));
   await t.evaluate('document.querySelector("#pilot-btn").click()'); await t.until('location.pathname.endsWith("corridor.html") && !!globalThis.__CORE_APP');

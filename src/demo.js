@@ -1,4 +1,4 @@
-// CORE — investor demonstration 2.0 (Phase 6). Nine visual steps, each with a camera move, one takeaway, optional
+// CORE — investor demonstration (Phase 6, rebuilt in Phase 9 around a recorded autonomous mission). Eight visual steps, each with a camera move, one takeaway, optional
 // details and a real component opened. Every number shown is read from the loaded data or recomputed
 // (recorded missions are labelled recorded; the simulation runs in the browser). Replaces the earlier guides.
 (function () {
@@ -6,51 +6,46 @@
   const G = globalThis, $ = id => document.getElementById(id);
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const S = { i: -1, facts: null };
-  const PLANNING = m => m.mode === 'fast' && /cheminement/.test(m.question);
   const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fly = (v, ms = 4500) => { const map = G.__CORE_MAP; map.stop(); map.flyTo({ ...v, padding: G.CORE_LAYOUT ? G.CORE_LAYOUT.padding() : undefined, duration: reduced() ? 0 : ms, essential: true }); };
 
-  // Facts for the narrative, computed from real loaded data (no hard-coded results).
+  // Facts for the narrative, computed from real loaded data (no hard-coded results). Phase 9: the flagship is the
+  // highest-priority RECORDED autonomous mission (data/civ), replayed — never presented as live.
   async function facts() {
     if (S.facts) return S.facts;
-    const P = G.CORE_PLATFORM.state, sv = G.CORE_SF_VIEW; await sv.loadData();
-    const ctx = G.CORE_COORD.buildContext({ manifest: sv.state.manifest, data: sv.state.data, verified: sv.state.verified });
-    const sim = G.CORE_SIM_SIDEWALK.run(ctx), sens = G.CORE_SIM_SIDEWALK.sensitivity(ctx), alt = Object.fromEntries(G.CORE_SIM_SIDEWALK.alternatives(ctx).map(a => [a.id, a.totals]));
-    const pm = P.cogIndex && P.cogIndex.missions.find(PLANNING), rec = pm ? await G.CORE_PLATFORM.loadRecorded(PLANNING) : null;
-    const counts = G.CORE_ORG.counts(P.registry), sp = sens.params.find(x => x.param === 'spacingFt'), us = sens.params.find(x => x.param === 'usableFrontageShare');
-    S.facts = { ctx, sim, alt, rec, pm, counts, records: Object.values(sv.state.data).reduce((n, fc) => n + (fc.features ? fc.features.length : 0), 0), datasets: sv.state.manifest.datasets.length, snapshot: ctx.asOf,
-      range: [Math.min(...sp.additional, ...us.additional), Math.max(...sp.additional, ...us.additional)], feed: P.store.items.length };
+    const P = G.CORE_PLATFORM.state, sv = G.CORE_SF_VIEW; await sv.loadData(); if (P.opsReady) await P.opsReady;
+    const A = G.CORE_ACTIVITY; await A.load(); const ix = P.civIndex ? P.civIndex.missions : [];
+    const top = ix.slice().sort((a, b) => (b.priority ? b.priority.score : 0) - (a.priority ? a.priority.score : 0))[0], m = top && A.state.missions.find(x => x.id === top.id);
+    const counts = G.CORE_ORG.counts(P.registry), code = id => (P.registry.agents.find(a => a.id === id) || { code: id }).code;
+    S.facts = { m, counts, code, missions: ix.length, nhoods: P.civIndex ? P.civIndex.study_area.neighborhoods : [], datasets: sv.state.manifest.datasets.length };
     return S.facts;
   }
-
+  const site = f => f.m && f.m.site ? { center: f.m.site.coord, zoom: 16.2, pitch: 58, bearing: -30 } : { center: [-122.413, 37.775], zoom: 14, pitch: 50, bearing: -30 };
   const STEPS = [
-    { t: 'Le monde', take: f => 'CORE vise un double numérique de la Terre ; aujourd’hui, une ville pilote est opérationnelle : San Francisco.',
+    { t: 'La Terre', take: () => 'CORE vise un double numérique de la Terre où des agents spécialisés étudient de vrais problèmes ; aujourd’hui, une ville pilote est opérationnelle : San Francisco.',
       more: () => 'Paris et Tokyo sont des destinations de navigation sans données ni agents. Aucune surveillance planétaire n’est revendiquée.',
       run: () => { G.CORE_PLATFORM.show('world'); const z = Math.max(0.9, Math.min(2.6, Math.log2(Math.min(innerWidth, innerHeight - 52) * 0.42 * 2 * Math.PI / 512))); fly({ center: [-110, 32], zoom: z, pitch: 0, bearing: 0 }, 3500); } },
-    { t: 'La ville', take: f => `San Francisco : ${f.datasets} jeux de données publics DataSF (${f.records} enregistrements, instantané du ${f.snapshot}) sur une ville 3D OpenStreetMap.`,
-      more: () => 'Bâtiments : géométrie et hauteurs OSM (8 m si absentes). Golden Gate, Salesforce Tower et Transamerica : modèles procéduraux étiquetés approximatifs.',
-      run: () => { G.CORE_PLATFORM.show('world'); fly({ center: [-122.418, 37.785], zoom: 12.6, pitch: 55, bearing: -20 }, 6000); } },
-    { t: 'Le problème', take: () => 'Sur le corridor Folsom / Howard, des travaux d’excavation, des arbres et des trottoirs étroits se partagent la même rue.',
-      more: () => 'Densité de registres par tronçon (zoom intermédiaire), puis registres individuels en se rapprochant. Un permis n’est pas la preuve que des travaux ont lieu.',
-      run: () => { G.CORE_PLATFORM.show('world'); fly({ center: [-122.4065, 37.7795], zoom: 14.2, pitch: 58, bearing: -40 }, 4500); } },
-    { t: 'Les agents', take: f => f.pm ? `${f.pm.agents.length} agents choisis par routage pour la question « arbres et accessibilité » — exécution réelle du modèle local, enregistrée (${Math.round(f.pm.metrics.wallMs / 1000)} s, ${f.pm.metrics.modelCalls} appels).` : 'Aucune mission enregistrée disponible.',
-      more: f => `Organisation : ${f.counts.registered} profils, dont ${f.counts.executable} agents à règles et ${f.counts.llm} assistés par modèle (local). Le fil d’exécution ne montre que des évènements réels du journal.`,
-      run: () => G.CORE_PLATFORM.openRecorded(PLANNING) },
-    { t: 'La découverte', take: f => `${f.sim.totals.below_bsp_min} des ${f.sim.totals.blocks} tronçons (tous sur Folsom) ont un trottoir plus étroit que le minimum de leur classe Better Streets Plan (étude 2014).`,
-      more: () => 'Croisement de trois sources publiques : largeurs de trottoir 2014, inventaire des arbres, permis de voirie. Observé, mais daté : un relevé actuel est nécessaire.',
-      run: () => { G.CORE_PLATFORM.state.simCompare = 'none'; G.CORE_PLATFORM.show('sims'); fly({ center: [-122.4045, 37.7805], zoom: 15, pitch: 50, bearing: -44 }, 4000); } },
-    { t: 'Les preuves', take: () => 'Chaque chiffre renvoie à un enregistrement public daté ; l’intégrité des fichiers est vérifiée, ce qui ne prouve pas leur exactitude.',
-      more: () => 'Dates distinguées : collecte par CORE, publication par la source, dates administratives et dates prévues des permis. Politique d’éligibilité appliquée (une source en quarantaine).',
-      run: () => G.CORE_PLATFORM.show('data') },
-    { t: 'Les alternatives', take: f => `Modèle exploratoire exécuté ici : ${f.alt.A3.plantable_now} emplacements plantables maintenant (report des travaux) ; des fosses de 5 ft avec un cheminement de 6 ft n’en laissent que ${f.alt.A2.plantable_now}.`,
-      more: () => 'Carte en mode différence : vert = plus d’emplacements que l’alternative, rouge = moins. Comptes par tronçon, pas de position d’arbre. Aucun bénéfice (carbone, chaleur) n’est calculé.',
-      run: () => { G.CORE_PLATFORM.state.simCompare = 'A2'; G.CORE_PLATFORM.show('sims'); fly({ center: [-122.4065, 37.7795], zoom: 14.8, pitch: 50, bearing: -44 }, 3000); } },
-    { t: 'La remise en question', take: f => f.rec ? `${f.rec.disagreements.length} désaccords entre agents et ${f.rec.rejected.length} sorties du modèle rejetées par le validateur ; selon deux hypothèses, la capacité varie de ${f.range[0]} à ${f.range[1]} emplacements.` : 'Sensibilité et rejets visibles dans la mission.',
-      more: () => 'Le validateur vérifie citations, nombres, unités, portée, dates, lieux et causalité. Il ne garantit pas tout le sens : la revue humaine reste obligatoire.',
-      run: () => G.CORE_PLATFORM.openRecorded(PLANNING) },
-    { t: 'La décision', take: f => f.rec ? `Passerelle : « ${f.rec.decision.state} » — CORE recommande d’obtenir les preuves manquantes (relevé de terrain, réseaux) avant toute plantation. Aucune autorisation.` : 'Revue humaine obligatoire.',
-      more: () => 'Ce qui est réel : données publiques, calculs déterministes, exécutions enregistrées du modèle. Simulé : le scénario exploratoire. Indisponible ici : le modèle en direct (Ollama local). La décision appartient aux humains.',
-      run: async () => { const f = await facts(); fly({ center: [-122.4065, 37.7795], zoom: 14.4, pitch: 50, bearing: -40 }, 3500); if (f.rec) G.CORE_PLATFORM.openDossier(f.rec); } },
+    { t: 'Le pilote', take: f => `San Francisco : ${f.nhoods.join(', ')} et le corridor Folsom / Howard, à partir de données publiques DataSF et OpenStreetMap ; ${f.counts.registered} profils d’agents, dont ${f.counts.executable + f.counts.llm} exécutables.`,
+      more: () => 'Les agents restent à leur poste virtuel tant qu’aucune mission enregistrée ou en cours ne leur donne une raison de se déplacer.',
+      run: () => { G.CORE_PLATFORM.show('world'); fly({ center: [-122.415, 37.772], zoom: 13, pitch: 50, bearing: -20 }, 6000); } },
+    { t: 'Un problème réel', take: f => f.m ? `${f.m.title} — ${f.m.nhood} : ${(f.m.findings.find(x => x.topic === 'cross') || f.m.findings[0]).claim}` : 'Aucune mission autonome enregistrée.',
+      more: f => f.m ? `Sources : accidents avec blessés agrégés (5 ans), réseau HIN 2024, permis de voirie ; zone d’inondation modélisée selon la mission. Lieu cité : ${f.m.site ? f.m.site.label : '—'}.` : '',
+      run: async () => { const f = await facts(); G.CORE_PLATFORM.show('world'); fly(site(f), 4500); } },
+    { t: 'Un responsable assemble son équipe', take: f => f.m ? `${f.code(f.m.owner)} (direction ${f.m.owner.split('.')[2]}) reçoit la mission de la coordination et délègue ${f.m.subtasks.length} sous-tâches bornées, dont ${f.m.subtasks.filter(s => s.via).length} via d’autres directions.` : '',
+      more: f => f.m ? `Chaîne : ${f.code('core.global.coordinator')} (priorité) → ${f.code('core.san-francisco.manager')} (affectation) → ${f.code(f.m.owner)} → spécialistes ; ${f.m.messages.length} échanges enregistrés.` : '',
+      run: async () => { const f = await facts(); if (f.m && G.CORE_MOTION) { await G.CORE_MOTION.ensure(); G.CORE_AGENT_PROFILE.open(f.m.owner, 'org'); } } },
+    { t: 'Les agents enquêtent (relecture)', take: f => f.m ? `Relecture de l’exécution enregistrée le ${String(f.m.recorded.at).slice(0, 10)} : les spécialistes se rendent, sur les trottoirs cartographiés, au lieu des preuves que leurs outils utilisent, puis rendent compte.` : '',
+      more: () => 'Ce n’est pas une exécution en direct ni une inspection physique ; l’ordre des échanges est celui du journal, le rythme est accéléré.',
+      run: async () => { const f = await facts(); G.CORE_AGENT_PROFILE.close(); fly(site(f), 2500); if (f.m) G.CORE_ACTIVITY.playOnly(f.m.id); } },
+    { t: 'Preuves et contestations', take: f => f.m ? `${f.m.findings.length} constats acceptés par la revue adversariale, ${f.m.rejected.length} rejeté(s) ; ${f.m.challenges.filter(c => c.level === 'warn').length} réserve(s) de fraîcheur des données ; ${f.m.model.rejected.length} énoncé(s) du modèle rejeté(s) par le validateur.` : '',
+      more: f => f.m ? f.m.challenges.map(c => c.text).join(' ') : '',
+      run: () => { } },
+    { t: 'Une recommandation, avec ses limites', take: f => f.m && f.m.recommendation ? `${f.m.recommendation.kind} : ${f.m.recommendation.text}` : 'Aucune recommandation.',
+      more: f => f.m ? Object.values(f.m.results).flatMap(r => r.assumptions || []).join(' ') : '',
+      run: () => { } },
+    { t: 'La revue humaine', take: f => f.m ? `Passerelle : « ${f.m.decision.state} ». ${f.m.human ? `Décision humaine : ${f.m.human.decision} par ${f.m.human.reviewer}.` : 'Aucune décision humaine n’a encore été prise : la mission attend la revue du propriétaire.'}` : '',
+      more: () => 'Réel : données publiques, calculs déterministes, échanges et décisions de passerelle enregistrés. Assisté par modèle (local, enregistré) : interprétations validées. Non réel : aucune action sur la ville, aucune autorisation. Le dossier de preuves est téléchargeable.',
+      run: async () => { const f = await facts(); if (f.m) G.CORE_ACTIVITY.dossier(f.m); } },
   ];
 
   function card() {

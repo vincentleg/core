@@ -88,19 +88,9 @@
     "gap": "Aucune donnée de réseau électrique publique intégrée."
    },
    {
-    "agent": "core.san-francisco.water.water-network",
-    "role": "Ingénieur réseaux d’eau (compétence visée)",
-    "gap": "Aucune donnée de réseau d’eau intégrée."
-   },
-   {
     "agent": "core.san-francisco.transit.transit-planner",
     "role": "Planificateur de transports publics (compétence visée)",
     "gap": "GTFS non intégré."
-   },
-   {
-    "agent": "core.san-francisco.mobility.traffic",
-    "role": "Ingénieur trafic (compétence visée)",
-    "gap": "Pas de comptages ni de plans de feux observés."
    },
    {
     "agent": "core.san-francisco.ecology.biodiversity",
@@ -290,7 +280,7 @@
    "tool": "works.telecom",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 1,
+   "ms": 2,
    "records": 4,
    "error": null,
    "findings": [
@@ -403,7 +393,7 @@
    "tool": "buildings.frontage",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 19,
+   "ms": 16,
    "records": 25,
    "error": null,
    "findings": [
@@ -505,7 +495,7 @@
    "tool": "energy.benchmarks",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 30,
+   "ms": 24,
    "records": 4,
    "error": null,
    "findings": [
@@ -564,7 +554,7 @@
    "tool": "public-space.sidewalks",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 32,
+   "ms": 30,
    "records": 1,
    "error": null,
    "findings": [
@@ -644,7 +634,7 @@
    "tool": "graph.link",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 12,
+   "ms": 14,
    "records": 1,
    "error": null,
    "findings": [
@@ -689,7 +679,7 @@
    "tool": "scenario.investigate",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 185,
+   "ms": 153,
    "records": 69,
    "error": null,
    "findings": [
@@ -1525,7 +1515,7 @@
    "tool": "knowledge.retrieve",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 185,
+   "ms": 153,
    "records": 2,
    "error": null,
    "findings": [
@@ -2421,7 +2411,7 @@
    "t": 0,
    "kind": "plan",
    "agent": "core.san-francisco.manager",
-   "text": "Domaines : buildings, energy, infrastructure, nature, public_space ; 10 spécialiste(s) exécutable(s) recruté(s) ; 12 profil(s) pertinent(s) indisponible(s) (pas d’outil ou de données)."
+   "text": "Domaines : buildings, energy, infrastructure, nature, public_space ; 10 spécialiste(s) exécutable(s) recruté(s) ; 10 profil(s) pertinent(s) indisponible(s) (pas d’outil ou de données)."
   },
   {
    "seq": 3,
@@ -2549,7 +2539,7 @@
   },
   {
    "seq": 16,
-   "t": 1,
+   "t": 0,
    "kind": "task",
    "task": "task-2",
    "agent": "core.san-francisco.telecom.telecom-works",
@@ -2559,7 +2549,7 @@
   },
   {
    "seq": 17,
-   "t": 1,
+   "t": 0,
    "kind": "task",
    "task": "task-3",
    "agent": "core.san-francisco.forestry.street-trees",
@@ -2595,7 +2585,7 @@
    "agent": "core.san-francisco.telecom.telecom-works",
    "tool": "works.telecom",
    "state": "succeeded",
-   "text": "1 constat(s), 4 enregistrement(s), 1 ms"
+   "text": "1 constat(s), 4 enregistrement(s), 2 ms"
   },
   {
    "seq": 21,
@@ -2609,7 +2599,7 @@
   },
   {
    "seq": 22,
-   "t": 11,
+   "t": 10,
    "kind": "task",
    "task": "task-3",
    "agent": "core.san-francisco.forestry.street-trees",
@@ -2619,7 +2609,7 @@
   },
   {
    "seq": 23,
-   "t": 11,
+   "t": 10,
    "kind": "task",
    "task": "task-6",
    "agent": "core.san-francisco.public-space.sidewalks",
@@ -2629,17 +2619,17 @@
   },
   {
    "seq": 24,
-   "t": 21,
+   "t": 18,
    "kind": "task",
    "task": "task-4",
    "agent": "core.san-francisco.housing.building-permits",
    "tool": "buildings.frontage",
    "state": "succeeded",
-   "text": "3 constat(s), 25 enregistrement(s), 19 ms"
+   "text": "3 constat(s), 25 enregistrement(s), 16 ms"
   },
   {
    "seq": 25,
-   "t": 21,
+   "t": 18,
    "kind": "task",
    "task": "task-7",
    "agent": "core.san-francisco.climate.weather-alerts",
@@ -2649,17 +2639,17 @@
   },
   {
    "seq": 26,
-   "t": 32,
+   "t": 26,
    "kind": "task",
    "task": "task-5",
    "agent": "core.san-francisco.energy.energy-benchmarks",
    "tool": "energy.benchmarks",
    "state": "succeeded",
-   "text": "1 constat(s), 4 enregistrement(s), 30 ms"
+   "text": "1 constat(s), 4 enregistrement(s), 24 ms"
   },
   {
    "seq": 27,
-   "t": 32,
+   "t": 26,
    "kind": "task",
    "task": "task-8",
    "agent": "core.san-francisco.data-science.graph-linker",
@@ -2669,17 +2659,17 @@
   },
   {
    "seq": 28,
-   "t": 43,
+   "t": 40,
    "kind": "task",
    "task": "task-6",
    "agent": "core.san-francisco.public-space.sidewalks",
    "tool": "public-space.sidewalks",
    "state": "succeeded",
-   "text": "1 constat(s), 1 enregistrement(s), 32 ms"
+   "text": "1 constat(s), 1 enregistrement(s), 30 ms"
   },
   {
    "seq": 29,
-   "t": 43,
+   "t": 40,
    "kind": "task",
    "task": "task-9",
    "agent": "core.san-francisco.simulation.scenario-evaluator",
@@ -2689,7 +2679,7 @@
   },
   {
    "seq": 30,
-   "t": 43,
+   "t": 40,
    "kind": "task",
    "task": "task-7",
    "agent": "core.san-francisco.climate.weather-alerts",
@@ -2699,7 +2689,7 @@
   },
   {
    "seq": 31,
-   "t": 43,
+   "t": 40,
    "kind": "task",
    "task": "task-10",
    "agent": "core.san-francisco.regulatory.knowledge-research",
@@ -2709,82 +2699,82 @@
   },
   {
    "seq": 32,
-   "t": 44,
+   "t": 40,
    "kind": "task",
    "task": "task-8",
    "agent": "core.san-francisco.data-science.graph-linker",
    "tool": "graph.link",
    "state": "succeeded",
-   "text": "1 constat(s), 1 enregistrement(s), 12 ms"
+   "text": "1 constat(s), 1 enregistrement(s), 14 ms"
   },
   {
    "seq": 33,
-   "t": 228,
+   "t": 193,
    "kind": "task",
    "task": "task-9",
    "agent": "core.san-francisco.simulation.scenario-evaluator",
    "tool": "scenario.investigate",
    "state": "succeeded",
-   "text": "2 constat(s), 69 enregistrement(s), 185 ms"
+   "text": "2 constat(s), 69 enregistrement(s), 153 ms"
   },
   {
    "seq": 34,
-   "t": 228,
+   "t": 193,
    "kind": "task",
    "task": "task-10",
    "agent": "core.san-francisco.regulatory.knowledge-research",
    "tool": "knowledge.retrieve",
    "state": "succeeded",
-   "text": "2 constat(s), 2 enregistrement(s), 185 ms"
+   "text": "2 constat(s), 2 enregistrement(s), 153 ms"
   },
   {
    "seq": 35,
-   "t": 229,
+   "t": 193,
    "kind": "mission",
    "state": "reviewing",
    "text": "Mission → reviewing"
   },
   {
    "seq": 36,
-   "t": 229,
+   "t": 194,
    "kind": "review",
    "agent": "core.san-francisco.research.evidence-verifier",
    "text": "Vérification indépendante : 15/15 constats entièrement sourcés."
   },
   {
    "seq": 37,
-   "t": 229,
+   "t": 194,
    "kind": "review",
    "agent": "core.san-francisco.safety.adversarial-reviewer",
    "text": "Revue adversariale : 1 désaccord(s), 2 sensibilité(s), 0 limite(s), 0 tâche(s) non abouties."
   },
   {
    "seq": 38,
-   "t": 229,
+   "t": 194,
    "kind": "synthesis",
    "agent": "core.san-francisco.manager",
    "text": "Synthèse : 11 énoncé(s) sourcé(s) ; action suivante : Proposer à la revue humaine une vérification de terrain coordonnée (R2) sur HOWARD ST 10TH ST → 11TH ST avant l’ouverture des excavations non commencées ; ne pas engager d’intervention coordonnée (R1) tant que tracés, état des arbres et calendrier des façades ne sont pas connus."
   },
   {
    "seq": 39,
-   "t": 454,
+   "t": 371,
    "kind": "gateway",
    "agent": "core.san-francisco.governance.gateway",
    "text": "ÉLIGIBLE À LA REVUE HUMAINE — Passerelle inter-domaines : ÉLIGIBLE À LA REVUE HUMAINE. Proposer à la revue humaine une vérification de terrain coordonnée (R2) sur HOWARD ST 10TH ST → 11TH ST avant l’ouverture des excavations non commencées ; ne pas engager d’intervention coordonnée (R1) tant que tracés, état des arbres et calendrier des façades ne sont pas connus."
   },
   {
    "seq": 40,
-   "t": 454,
+   "t": 371,
    "kind": "mission",
    "state": "needs-human-review",
    "text": "Mission → needs-human-review"
   }
  ],
- "fingerprint": "b17b3d61f27ce27a",
+ "fingerprint": "59900da3e13f9e54",
  "recorded": {
   "by": "scripts/agents.mjs (Node)",
-  "at": "2026-10-14T14:56:52.594Z",
-  "wallMs": 454,
+  "at": "2026-10-14T16:47:34.118Z",
+  "wallMs": 371,
   "snapshot": "2026-10-13T18:25:19.678Z",
   "feedUpdate": "2026-10-14T14:56:35.337Z"
  }

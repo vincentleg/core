@@ -1,0 +1,9 @@
+{
+ "wallMs": 66391,
+ "cpuMs": 496,
+ "concurrency": 2,
+ "rssMB": 108,
+ "machine": "Apple M1 Max, 10 cœurs",
+ "at": "2026-10-14T16:40:58.456Z",
+ "missions": 5
+}

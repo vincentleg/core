@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>CORE — centre de contrôle local</title>
+<link rel="icon" href="assets/brand/core-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<style>
+  :root { --bg: #02060f; --panel: #071423; --ink: #e8f4ff; --muted: #9fb6c9; --line: #1d2f44; --accent: #5cc8ff; --amber: #f0b72f; --red: #ff5c6c; --green: #7ee787; }
+  * { box-sizing: border-box; } body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.5 'IBM Plex Sans', system-ui, sans-serif; }
+  header { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+  header h1 { font-size: 16px; margin: 0; } .badge { font: 600 11px 'IBM Plex Mono', monospace; padding: 2px 8px; border-radius: 4px; background: #5cc8ff22; color: var(--accent); }
+  .badge.red { background: #ff5c6c22; color: var(--red); } .badge.green { background: #7ee78722; color: var(--green); }
+  main { display: grid; grid-template-columns: minmax(280px, 380px) 1fr; gap: 12px; padding: 12px 16px; } @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+  section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; } h2 { font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: #8fb6cf; margin: 4px 0 8px; }
+  button, select, input { font: inherit; color: var(--ink); background: #0d2236; border: 1px solid var(--line); border-radius: 6px; padding: 5px 10px; } button { cursor: pointer; } button:hover { border-color: var(--accent); }
+  button.stop { background: #3a0d14; border-color: var(--red); color: #ffd6da; font-weight: 600; } .row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin: 4px 0; }
+  ul { margin: 0; padding-left: 18px; } li { margin: 3px 0; } .muted { color: var(--muted); font-size: 12.5px; } code { font: 12px 'IBM Plex Mono', monospace; color: var(--amber); }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; } td, th { text-align: left; border-bottom: 1px solid var(--line); padding: 4px 6px; vertical-align: top; }
+  .msg { font-size: 12.5px; border-left: 2px solid var(--line); padding-left: 8px; margin: 4px 0; } .msg b { color: var(--accent); } .t-challenge, .t-coverage-gap { border-color: var(--amber); } .t-decision, .t-human-decision { border-color: var(--green); } .t-error { border-color: var(--red); }
+  .local-only { max-width: 640px; margin: 15vh auto; text-align: center; }
+</style>
+</head>
+<body>
+<div id="nolocal" class="local-only" hidden><h1>Centre de contrôle local</h1><p class="muted">Cette page ne fonctionne que sur la machine du propriétaire, servie par <code>node scripts/control-server.mjs</code> avec son jeton. Le site public ne peut ni lancer d’agents, ni approuver de décisions, ni lire de journaux privés.</p><p><a href="./" style="color:#5cc8ff">← Retour à CORE</a></p></div>
+<div id="app" hidden>
+<header><h1>CORE — centre de contrôle local</h1><span class="badge" id="b-busy">—</span><span class="badge" id="b-stop">—</span><span class="badge" id="b-mem">—</span><span class="badge" id="b-model">—</span>
+  <span style="flex:1"></span><button type="button" class="stop" id="stop">ARRÊT D’URGENCE</button><input id="who" placeholder="human:votre-nom" aria-label="Réviseur humain" size="16"><button type="button" id="resume">Lever l’arrêt</button><button type="button" id="export">Exporter les enregistrements</button></header>
+<main>
+  <div>
+    <section><h2>Problèmes découverts (file de priorité)</h2><div id="problems" class="muted">…</div><div class="row"><select id="team" aria-label="Équipe"><option value="">Équipe…</option><option value="mobility">Mobilité</option><option value="water">Eau</option></select><button type="button" id="start-team">Lancer l’équipe</button><button type="button" id="start-all">Tout lancer</button></div></section>
+    <section style="margin-top:12px"><h2>Missions</h2><div id="missions" class="muted">…</div></section>
+    <section style="margin-top:12px"><h2>Mémoire d’un agent</h2><div class="row"><input id="agent" placeholder="core.san-francisco.mobility.lead" aria-label="Agent" size="34"><button type="button" id="mem">Afficher</button></div><div id="memory" class="muted"></div></section>
+  </div>
+  <div><section><h2>Mission</h2><div id="mission" class="muted">Choisissez une mission.</div></section><section style="margin-top:12px"><h2>Évènements en direct</h2><div id="events" class="muted"></div></section></div>
+</main></div>
+<script>
+'use strict';
+const token = (location.hash.match(/token=([a-f0-9]{48})/) || [])[1]; history.replaceState(null, '', location.pathname);
+const $ = id => document.getElementById(id), esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const api = (path, body) => fetch(path, { method: body ? 'POST' : 'GET', headers: { 'X-Core-Token': token || '', 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined }).then(async r => { const j = await r.json().catch(() => ({})); if (!r.ok) throw new Error(j.error || r.status); return j; });
+let current = null;
+async function refresh() {
+  const s = await api('/api/status');
+  $('b-busy').textContent = s.busy ? `EXÉCUTION EN COURS (${s.busy.problems})` : 'au repos'; $('b-busy').className = 'badge' + (s.busy ? ' green' : '');
+  $('b-stop').textContent = s.stopped ? 'ARRÊT D’URGENCE ACTIF' : 'pas d’arrêt'; $('b-stop').className = 'badge' + (s.stopped ? ' red' : '');
+  $('b-mem').textContent = `mémoire ${s.memory.ok ? 'intègre' : 'CHAÎNE ROMPUE'} · ${s.memory.events || 0} évènements`; $('b-model').textContent = s.model.available ? `modèle local ${s.model.model}` : 'sans modèle';
+  $('problems').innerHTML = `<ul>${s.problems.map(p => `<li><b>${esc(p.title)}</b> — ${esc(p.nhood)} <span class="muted">priorité ${p.priority} (sévérité ${p.severity}, signal ${p.signal})</span> <button type="button" data-start="${esc(p.workflow + '|' + p.nhood)}">Lancer</button></li>`).join('')}</ul>`;
+  $('missions').innerHTML = s.missions.length ? `<ul>${s.missions.map(m => `<li><button type="button" data-open="${esc(m.id)}">${esc(m.title)} · ${esc(m.nhood)}</button> <code>${esc(m.state)}</code> <span class="muted">${esc(m.decision || '')}${m.human ? ` · décision ${esc(m.human.decision)} par ${esc(m.human.reviewer)}` : ''}</span></li>`).join('')}</ul>` : 'Aucune mission.';
+  $('events').innerHTML = s.live && s.live.events ? s.live.events.slice(-25).reverse().map(e => `<div class="msg">${esc(e.at.slice(11, 19))} · ${esc(e.mission.split('@')[0])} · ${esc(e.kind)} ${esc(e.data && (e.data.stage || e.data.type || e.data.tool) || '')} ${e.data && e.data.purpose ? '— ' + esc(e.data.purpose) : ''}</div>`).join('') : 'Aucun évènement.';
+  document.querySelectorAll('[data-start]').forEach(b => b.onclick = () => api('/api/start', { problem: b.dataset.start }).then(refresh).catch(alertErr));
+  document.querySelectorAll('[data-open]').forEach(b => b.onclick = () => openMission(b.dataset.open));
+  if (current) openMission(current, true);
+}
+async function openMission(id, quiet) {
+  current = id; const m = await api('/api/mission?id=' + encodeURIComponent(id));
+  $('mission').innerHTML = `<p><b>${esc(m.title)} — ${esc(m.nhood)}</b> <code>${esc(m.state)}</code><br><span class="muted">Responsable ${esc(m.owner)} · priorité ${esc(m.priority && m.priority.score)} · ${esc(m.decision ? m.decision.state : '')}</span></p>
+    <p class="muted">Étapes : ${m.stages.map(s => esc(s.stage)).join(' → ')}</p>
+    <h2>Sous-tâches</h2><table><tr><th>id</th><th>agent</th><th>outil</th><th>état</th><th>note</th></tr>${m.subtasks.map(s => `<tr><td>${esc(s.id)}</td><td>${esc(s.code)}</td><td>${esc(s.tool)}</td><td>${esc(s.state)}</td><td>${esc(s.error || s.note || (s.findings + ' constat(s)'))}</td></tr>`).join('')}</table>
+    <h2>Échanges (${m.messages.length})</h2>${m.messages.map(x => `<div class="msg t-${esc(x.type)}"><b>${esc(x.type)}</b> ${esc(x.from)} → ${esc(x.to)} · ${esc(x.at.slice(11, 19))}<br>${esc(x.purpose)}${x.outcome ? ` <span class="muted">— ${esc(x.outcome)}</span>` : ''}${x.evidence.length ? `<br><span class="muted">preuves : ${esc(x.evidence.slice(0, 6).join(', '))}</span>` : ''}</div>`).join('')}
+    <h2>Constats acceptés (${m.findings.length}) / rejetés (${m.rejected.length})</h2><ul>${m.findings.map(f => `<li>${esc(f.claim)} <span class="muted">[${esc(f.epistemic)}]</span></li>`).join('')}${m.rejected.map(r => `<li style="color:#ffb3ba">${esc(r.claim)} — ${esc(r.reason)}</li>`).join('')}</ul>
+    <h2>Réserves</h2><ul>${m.challenges.map(c => `<li>${esc(c.text)}</li>`).join('')}</ul>
+    <h2>Recommandation</h2><p>${m.recommendation ? `<i>${esc(m.recommendation.kind)}</i> — ${esc(m.recommendation.text)}` : 'Aucune.'}</p>
+    ${m.model.calls ? `<h2>Interprétation (modèle local)</h2><ul>${m.model.accepted.map(a => `<li>${esc(a.statement)}</li>`).join('')}${m.model.rejected.map(a => `<li style="color:#ffb3ba">${esc(a.statement)} — ${esc(a.reason)}</li>`).join('')}</ul>` : ''}
+    <h2>Apprentissage</h2><p class="muted">Procédures appliquées : ${m.learning.proceduresApplied.length} · leçons proposées : ${m.learning.lessonsProposed.length}</p>
+    ${m.state === 'HUMAN_REVIEW' ? `<h2>Décision humaine</h2><div class="row"><select id="dec"><option value="approve">Approuver</option><option value="reject">Rejeter</option><option value="needs-evidence">Preuves supplémentaires</option></select><input id="note" placeholder="Note (facultative)" size="30"><button type="button" id="decide">Enregistrer la décision</button></div>` : m.human ? `<p>Décision humaine : <b>${esc(m.human.decision)}</b> par ${esc(m.human.reviewer)} le ${esc(m.human.at)}</p>` : ''}`;
+  const d = $('decide'); if (d) d.onclick = () => api('/api/decide', { id, reviewer: $('who').value.trim(), decision: $('dec').value, note: $('note').value }).then(refresh).catch(alertErr);
+}
+const alertErr = e => alert(e.message);
+if (!token) $('nolocal').hidden = false; else { $('app').hidden = false; refresh().catch(e => { $('app').hidden = true; $('nolocal').hidden = false; }); setInterval(() => refresh().catch(() => {}), 2500); }
+$('stop').onclick = () => api('/api/stop', {}).then(refresh).catch(alertErr);
+$('resume').onclick = () => api('/api/resume', { reviewer: $('who').value.trim() }).then(refresh).catch(alertErr);
+$('export').onclick = () => api('/api/export', {}).then(r => { alert(r.note); refresh(); }).catch(alertErr);
+$('start-all').onclick = () => api('/api/start', {}).then(refresh).catch(alertErr);
+$('start-team').onclick = () => $('team').value && api('/api/start', { team: $('team').value }).then(refresh).catch(alertErr);
+$('mem').onclick = () => api('/api/memory?agent=' + encodeURIComponent($('agent').value.trim())).then(r => { $('memory').innerHTML = `<p>Identité : <code>${esc(r.identity && r.identity.code)}</code> ${esc(r.identity && r.identity.role)} (version ${esc(r.identity && r.identity.version)})</p><p>Connaissances : ${r.knowledge.map(k => esc(k.doc + ' v' + k.version)).join(', ') || 'aucune'}</p><p>Épisodes (${r.episodes.length}) :</p><ul>${r.episodes.map(e => `<li>${esc(e.mission)} · ${esc(e.role)} · ${esc(e.outcome || '')}${e.errors.length ? ' · erreurs : ' + esc(e.errors.join(' ; ').slice(0, 120)) : ''}</li>`).join('')}</ul><p>Mémoire institutionnelle :</p><ul>${r.institutional.map(e => `<li><code>${esc(e.status)}</code> ${esc(e.statement)}</li>`).join('') || '<li>aucune</li>'}</ul>`; }).catch(alertErr);
+</script>
+</body>
+</html>
