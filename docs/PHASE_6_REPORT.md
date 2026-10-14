@@ -174,4 +174,15 @@ The 14 Phase 6 checks cover:
 
 - **Repository:** https://github.com/vincentleg/core (branch `main`)
 - **Public site:** https://vincentleg.github.io/core/
-- **Commit and production verification:** recorded in the commit that publishes this report; see the final project state.
+- **Feature commit:** `a201121`. GitHub Pages built it (`built a2011210…`), and production then served the Phase 6 modules.
+- **Production verified** in Chrome 155 against the public URL:
+  - public mode, with no model probe;
+  - coverage layer present;
+  - dock compact by default;
+  - demo with 9 steps, whose step 7 takeaway is computed from data ("54 … 24");
+  - simulation overlay drawing 44 blocks;
+  - execution graph with 37 recorded events;
+  - **0 uncaught errors**.
+- **Public performance after:** zoom-14 overview at 48 circles (Phase 5 production: 682), orbit 59.3 fps, ready 822 ms, 959 KB transferred (compressed).
+- **Final commit:** the one that publishes this paragraph, adding the demo's robustness to rapid navigation (Chrome audit re-run on it: 117/117). Its production build is checked after the push.
+- **Scheduler:** still no `schedule` run at 04:46 UTC (last slot 03:17).

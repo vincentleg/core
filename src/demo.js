@@ -58,15 +58,17 @@
     if (!el) { el = document.createElement('section'); el.id = 'demo2'; el.className = 'panel demo2'; el.setAttribute('aria-live', 'polite'); el.setAttribute('aria-label', 'Démonstration guidée'); document.body.appendChild(el); }
     return el;
   }
-  async function go(i) {
-    S.i = Math.max(0, Math.min(STEPS.length - 1, i)); const s = STEPS[S.i], f = await facts(), el = card();
+  // Rapid navigation: a step superseded by a newer one stops rendering; errors never escape as unhandled rejections.
+  async function go(i) { const token = (S.token = (S.token || 0) + 1); try { await render(i, token); } catch (e) { console.warn('démo', e); } }
+  async function render(i, token) {
+    S.i = Math.max(0, Math.min(STEPS.length - 1, i)); const s = STEPS[S.i], f = await facts(); if (token !== S.token) return; const el = card();
     document.body.classList.add('demo-on'); el.hidden = false;
     el.innerHTML = `<div class="d2-top"><span class="d2-n">${S.i + 1} / ${STEPS.length}</span><b>${esc(s.t)}</b><button type="button" class="ghost small" id="d2-exit" aria-label="Quitter la démonstration">Quitter</button></div>
       <p class="d2-take">${esc(s.take(f))}</p><details><summary>En savoir plus</summary><p class="hint">${esc(s.more(f))}</p></details>
       <div class="d2-nav"><button type="button" class="ghost small" id="d2-prev" ${S.i === 0 ? 'disabled' : ''}>← Précédent</button><span class="d2-dots">${STEPS.map((_, k) => `<i class="${k === S.i ? 'on' : ''}"></i>`).join('')}</span><button type="button" class="small" id="d2-next">${S.i === STEPS.length - 1 ? 'Terminer' : 'Suivant →'}</button></div>`;
     $('d2-prev').onclick = () => go(S.i - 1); $('d2-next').onclick = () => (S.i === STEPS.length - 1 ? stop() : go(S.i + 1)); $('d2-exit').onclick = stop;
     try { await s.run(f); } catch (e) { console.warn('demo step', e); }
-    $('d2-next').focus({ preventScroll: true });
+    if (token === S.token && $('d2-next')) $('d2-next').focus({ preventScroll: true });
   }
   function stop() { const el = $('demo2'); if (el) el.hidden = true; document.body.classList.remove('demo-on'); S.i = -1; }
   function init() {
