@@ -38,5 +38,5 @@ test('layout and camera: padding never interrupts flights; intro spin cannot ove
   const ms = fs.readFileSync(path.join(ROOT, 'src/map-style.js'), 'utf8'), html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
   assert.match(ms, /if \(map\.isMoving\(\)\) \{ map\.once\('moveend', sync\)/);
   assert.match(html, /map\.on\('movestart', e => \{ if \(!e\.coreSpin\) stop\(\); \}\)/);
-  assert.match(html, /<body class="console-min">/, 'world-first: compact dock by default');
+  assert.match(html, /<body class="console-min( landing)?">/, 'world-first: compact dock by default');
 });

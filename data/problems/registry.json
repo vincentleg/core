@@ -1,0 +1,2396 @@
+{
+ "version": "core-problems-registry-v1",
+ "generatedBy": "scripts/problems.mjs",
+ "snapshot": "2026-10-13T18:25:19.678Z",
+ "statuses": {
+  "observed": "lu directement dans un registre public",
+  "potential-risk": "motif détecté de façon déterministe, non confirmé",
+  "hypothesis": "question ouverte sans preuve",
+  "simulated": "sortie d’un modèle non calibré"
+ },
+ "counts": {
+  "observed": 18,
+  "potential-risk": 50,
+  "simulated": 7,
+  "hypothesis": 23
+ },
+ "problems": [
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "sidewalk-below-bsp-min:5665000",
+   "domain": "accessibility",
+   "status": "observed",
+   "segment": "5665000",
+   "place": "FOLSOM ST 05TH ST → FALMOUTH ST",
+   "title": "Trottoir plus étroit que le minimum du Better Streets Plan",
+   "statement": "Largeur mesurée 10 ft (étude 2014) < minimum 12 ft pour la classe « Mixed-use ».",
+   "evidence": [
+    {
+     "ref": "sidewalks:8562",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "caveat": "Mesure de 2014 ; la largeur actuelle peut différer. Le minimum BSP est une règle de conception, pas une norme d’accessibilité."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "sidewalk-below-bsp-min:5666000",
+   "domain": "accessibility",
+   "status": "observed",
+   "segment": "5666000",
+   "place": "FOLSOM ST FALMOUTH ST → 06TH ST",
+   "title": "Trottoir plus étroit que le minimum du Better Streets Plan",
+   "statement": "Largeur mesurée 10 ft (étude 2014) < minimum 12 ft pour la classe « Mixed-use ».",
+   "evidence": [
+    {
+     "ref": "sidewalks:8563",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "caveat": "Mesure de 2014 ; la largeur actuelle peut différer. Le minimum BSP est une règle de conception, pas une norme d’accessibilité."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "sidewalk-below-bsp-min:5667000",
+   "domain": "accessibility",
+   "status": "observed",
+   "segment": "5667000",
+   "place": "FOLSOM ST 06TH ST → HARRIET ST",
+   "title": "Trottoir plus étroit que le minimum du Better Streets Plan",
+   "statement": "Largeur mesurée 10 ft (étude 2014) < minimum 12 ft pour la classe « Commercial Throughway ».",
+   "evidence": [
+    {
+     "ref": "sidewalks:8564",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "caveat": "Mesure de 2014 ; la largeur actuelle peut différer. Le minimum BSP est une règle de conception, pas une norme d’accessibilité."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "sidewalk-below-bsp-min:5668000",
+   "domain": "accessibility",
+   "status": "observed",
+   "segment": "5668000",
+   "place": "FOLSOM ST HARRIET ST → COLUMBIA SQUARE ST",
+   "title": "Trottoir plus étroit que le minimum du Better Streets Plan",
+   "statement": "Largeur mesurée 10 ft (étude 2014) < minimum 12 ft pour la classe « Commercial Throughway ».",
+   "evidence": [
+    {
+     "ref": "sidewalks:8565",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "caveat": "Mesure de 2014 ; la largeur actuelle peut différer. Le minimum BSP est une règle de conception, pas une norme d’accessibilité."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "sidewalk-below-bsp-min:5669000",
+   "domain": "accessibility",
+   "status": "observed",
+   "segment": "5669000",
+   "place": "FOLSOM ST COLUMBIA SQUARE ST → RUSS ST",
+   "title": "Trottoir plus étroit que le minimum du Better Streets Plan",
+   "statement": "Largeur mesurée 10 ft (étude 2014) < minimum 12 ft pour la classe « Commercial Throughway ».",
+   "evidence": [
+    {
+     "ref": "sidewalks:8566",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "caveat": "Mesure de 2014 ; la largeur actuelle peut différer. Le minimum BSP est une règle de conception, pas une norme d’accessibilité."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "sidewalk-below-bsp-min:5670000",
+   "domain": "accessibility",
+   "status": "observed",
+   "segment": "5670000",
+   "place": "FOLSOM ST RUSS ST → SHERMAN ST",
+   "title": "Trottoir plus étroit que le minimum du Better Streets Plan",
+   "statement": "Largeur mesurée 10 ft (étude 2014) < minimum 12 ft pour la classe « Commercial Throughway ».",
+   "evidence": [
+    {
+     "ref": "sidewalks:8567",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "caveat": "Mesure de 2014 ; la largeur actuelle peut différer. Le minimum BSP est une règle de conception, pas une norme d’accessibilité."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "sidewalk-below-bsp-min:5671000",
+   "domain": "accessibility",
+   "status": "observed",
+   "segment": "5671000",
+   "place": "FOLSOM ST SHERMAN ST → MOSS ST",
+   "title": "Trottoir plus étroit que le minimum du Better Streets Plan",
+   "statement": "Largeur mesurée 10 ft (étude 2014) < minimum 12 ft pour la classe « Commercial Throughway ».",
+   "evidence": [
+    {
+     "ref": "sidewalks:8568",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "caveat": "Mesure de 2014 ; la largeur actuelle peut différer. Le minimum BSP est une règle de conception, pas une norme d’accessibilité."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "sidewalk-below-bsp-min:5672000",
+   "domain": "accessibility",
+   "status": "observed",
+   "segment": "5672000",
+   "place": "FOLSOM ST MOSS ST → 07TH ST",
+   "title": "Trottoir plus étroit que le minimum du Better Streets Plan",
+   "statement": "Largeur mesurée 10 ft (étude 2014) < minimum 12 ft pour la classe « Commercial Throughway ».",
+   "evidence": [
+    {
+     "ref": "sidewalks:8569",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "caveat": "Mesure de 2014 ; la largeur actuelle peut différer. Le minimum BSP est une règle de conception, pas une norme d’accessibilité."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "sidewalk-below-bsp-min:5673000",
+   "domain": "accessibility",
+   "status": "observed",
+   "segment": "5673000",
+   "place": "FOLSOM ST 07TH ST → LANGTON ST",
+   "title": "Trottoir plus étroit que le minimum du Better Streets Plan",
+   "statement": "Largeur mesurée 10 ft (étude 2014) < minimum 12 ft pour la classe « Mixed-use ».",
+   "evidence": [
+    {
+     "ref": "sidewalks:8570",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "caveat": "Mesure de 2014 ; la largeur actuelle peut différer. Le minimum BSP est une règle de conception, pas une norme d’accessibilité."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "sidewalk-below-bsp-min:5674000",
+   "domain": "accessibility",
+   "status": "observed",
+   "segment": "5674000",
+   "place": "FOLSOM ST LANGTON ST → HALLAM ST",
+   "title": "Trottoir plus étroit que le minimum du Better Streets Plan",
+   "statement": "Largeur mesurée 10 ft (étude 2014) < minimum 12 ft pour la classe « Mixed-use ».",
+   "evidence": [
+    {
+     "ref": "sidewalks:8571",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "caveat": "Mesure de 2014 ; la largeur actuelle peut différer. Le minimum BSP est une règle de conception, pas une norme d’accessibilité."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "sidewalk-below-bsp-min:5675000",
+   "domain": "accessibility",
+   "status": "observed",
+   "segment": "5675000",
+   "place": "FOLSOM ST HALLAM ST → RAUSCH ST",
+   "title": "Trottoir plus étroit que le minimum du Better Streets Plan",
+   "statement": "Largeur mesurée 10 ft (étude 2014) < minimum 12 ft pour la classe « Mixed-use ».",
+   "evidence": [
+    {
+     "ref": "sidewalks:8572",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "caveat": "Mesure de 2014 ; la largeur actuelle peut différer. Le minimum BSP est une règle de conception, pas une norme d’accessibilité."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "sidewalk-below-bsp-min:5676000",
+   "domain": "accessibility",
+   "status": "observed",
+   "segment": "5676000",
+   "place": "FOLSOM ST RAUSCH ST → RODGERS ST",
+   "title": "Trottoir plus étroit que le minimum du Better Streets Plan",
+   "statement": "Largeur mesurée 10 ft (étude 2014) < minimum 12 ft pour la classe « Mixed-use ».",
+   "evidence": [
+    {
+     "ref": "sidewalks:8573",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "caveat": "Mesure de 2014 ; la largeur actuelle peut différer. Le minimum BSP est une règle de conception, pas une norme d’accessibilité."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "sidewalk-below-bsp-min:5677000",
+   "domain": "accessibility",
+   "status": "observed",
+   "segment": "5677000",
+   "place": "FOLSOM ST RODGERS ST → 08TH ST",
+   "title": "Trottoir plus étroit que le minimum du Better Streets Plan",
+   "statement": "Largeur mesurée 10 ft (étude 2014) < minimum 12 ft pour la classe « Mixed-use ».",
+   "evidence": [
+    {
+     "ref": "sidewalks:8574",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "caveat": "Mesure de 2014 ; la largeur actuelle peut différer. Le minimum BSP est une règle de conception, pas une norme d’accessibilité."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "sidewalk-below-bsp-min:5678000",
+   "domain": "accessibility",
+   "status": "observed",
+   "segment": "5678000",
+   "place": "FOLSOM ST 08TH ST → 09TH ST",
+   "title": "Trottoir plus étroit que le minimum du Better Streets Plan",
+   "statement": "Largeur mesurée 10 ft (étude 2014) < minimum 12 ft pour la classe « Mixed-use ».",
+   "evidence": [
+    {
+     "ref": "sidewalks:8575",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "caveat": "Mesure de 2014 ; la largeur actuelle peut différer. Le minimum BSP est une règle de conception, pas une norme d’accessibilité."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "sidewalk-below-bsp-min:5679000",
+   "domain": "accessibility",
+   "status": "observed",
+   "segment": "5679000",
+   "place": "FOLSOM ST 09TH ST → DORE ST",
+   "title": "Trottoir plus étroit que le minimum du Better Streets Plan",
+   "statement": "Largeur mesurée 10 ft (étude 2014) < minimum 12 ft pour la classe « Mixed-use ».",
+   "evidence": [
+    {
+     "ref": "sidewalks:8576",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "caveat": "Mesure de 2014 ; la largeur actuelle peut différer. Le minimum BSP est une règle de conception, pas une norme d’accessibilité."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "sidewalk-below-bsp-min:5680000",
+   "domain": "accessibility",
+   "status": "observed",
+   "segment": "5680000",
+   "place": "FOLSOM ST DORE ST → 10TH ST",
+   "title": "Trottoir plus étroit que le minimum du Better Streets Plan",
+   "statement": "Largeur mesurée 10 ft (étude 2014) < minimum 12 ft pour la classe « Mixed-use ».",
+   "evidence": [
+    {
+     "ref": "sidewalks:8577",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "caveat": "Mesure de 2014 ; la largeur actuelle peut différer. Le minimum BSP est une règle de conception, pas une norme d’accessibilité."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "sidewalk-below-bsp-min:5681000",
+   "domain": "accessibility",
+   "status": "observed",
+   "segment": "5681000",
+   "place": "FOLSOM ST 10TH ST → JUNIPER ST",
+   "title": "Trottoir plus étroit que le minimum du Better Streets Plan",
+   "statement": "Largeur mesurée 10 ft (étude 2014) < minimum 12 ft pour la classe « Mixed-use ».",
+   "evidence": [
+    {
+     "ref": "sidewalks:8578",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "caveat": "Mesure de 2014 ; la largeur actuelle peut différer. Le minimum BSP est une règle de conception, pas une norme d’accessibilité."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "sidewalk-below-bsp-min:5682000",
+   "domain": "accessibility",
+   "status": "observed",
+   "segment": "5682000",
+   "place": "FOLSOM ST JUNIPER ST → 11TH ST",
+   "title": "Trottoir plus étroit que le minimum du Better Streets Plan",
+   "statement": "Largeur mesurée 10 ft (étude 2014) < minimum 12 ft pour la classe « Mixed-use ».",
+   "evidence": [
+    {
+     "ref": "sidewalks:8579",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "caveat": "Mesure de 2014 ; la largeur actuelle peut différer. Le minimum BSP est une règle de conception, pas une norme d’accessibilité."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "coordination-opportunity:7051000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7051000",
+   "place": "HOWARD ST 08TH ST → 09TH ST",
+   "title": "Opportunité de coordination à venir",
+   "statement": "5 permis concernés, 3 organisations.",
+   "evidence": [
+    {
+     "ref": "permits:25EXC-03925@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-04307@24305000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-04619@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-04337@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-05114@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "coordination-opportunity:7056000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7056000",
+   "place": "HOWARD ST 10TH ST → 11TH ST",
+   "title": "Opportunité de coordination à venir",
+   "statement": "4 permis concernés, 3 organisations.",
+   "evidence": [
+    {
+     "ref": "permits:25EXC-03925@7056000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-04896@24353000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-05013@7056000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-05185@7056000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "coordination-opportunity:7039001",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7039001",
+   "place": "HOWARD ST 04TH ST → 05TH ST",
+   "title": "Opportunité de coordination à venir",
+   "statement": "2 permis concernés, 2 organisations.",
+   "evidence": [
+    {
+     "ref": "permits:25EXC-05123@7039001",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-04880@7039001",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-during-closure:5673000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "5673000",
+   "place": "FOLSOM ST 07TH ST → LANGTON ST",
+   "title": "Fenêtres de permis pendant une fermeture SFMTA",
+   "statement": "2 permis concernés.",
+   "evidence": [
+    {
+     "ref": "permits:26EXC-04382@5673000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-04534@5673000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-during-closure:5678000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "5678000",
+   "place": "FOLSOM ST 08TH ST → 09TH ST",
+   "title": "Fenêtres de permis pendant une fermeture SFMTA",
+   "statement": "2 permis concernés.",
+   "evidence": [
+    {
+     "ref": "permits:25EXC-03925@5678000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-04569@5678000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-during-closure:5679000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "5679000",
+   "place": "FOLSOM ST 09TH ST → DORE ST",
+   "title": "Fenêtres de permis pendant une fermeture SFMTA",
+   "statement": "2 permis concernés.",
+   "evidence": [
+    {
+     "ref": "permits:25EXC-03925@5679000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-04690@5679000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-during-closure:7037000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7037000",
+   "place": "HOWARD ST HAWTHORNE ST → 03RD ST",
+   "title": "Fenêtres de permis pendant une fermeture SFMTA",
+   "statement": "1 permis concernés.",
+   "evidence": [
+    {
+     "ref": "permits:25EXC-05123@7037000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-during-closure:7038000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7038000",
+   "place": "HOWARD ST 03RD ST → 04TH ST",
+   "title": "Fenêtres de permis pendant une fermeture SFMTA",
+   "statement": "1 permis concernés.",
+   "evidence": [
+    {
+     "ref": "permits:25EXC-05123@7038000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-during-closure:7039001",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7039001",
+   "place": "HOWARD ST 04TH ST → 05TH ST",
+   "title": "Fenêtres de permis pendant une fermeture SFMTA",
+   "statement": "1 permis concernés.",
+   "evidence": [
+    {
+     "ref": "permits:25EXC-05123@7039001",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-overlap:7051000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7051000",
+   "place": "HOWARD ST 08TH ST → 09TH ST",
+   "title": "Chevauchement de chantiers entre organisations",
+   "statement": "16 permis concernés, 381 jour(s) de chevauchement cumulé.",
+   "evidence": [
+    {
+     "ref": "permits:21EXC-05822@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:21EXC-05748@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:22EXC-00775@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:22E-00040@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:22EXC-00620@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:22EXC-00780@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-02505@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-02666@24299000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:25EXC-03925@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-01589@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-01630@24305000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-02845@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-overlap:7042000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7042000",
+   "place": "HOWARD ST MARY ST → 06TH ST",
+   "title": "Chevauchement de chantiers entre organisations",
+   "statement": "10 permis concernés, 76 jour(s) de chevauchement cumulé.",
+   "evidence": [
+    {
+     "ref": "permits:23EXC-03114@7042000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:23EXC-03293@23946000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:23EXC-03513@7042000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-00680@7042000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-02018@7042000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-02154@7042000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:25EXC-02572@7042000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:25E-00400@7042000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:25EXC-02914@7042000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:25EXC-03057@7042000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-overlap:7056000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7056000",
+   "place": "HOWARD ST 10TH ST → 11TH ST",
+   "title": "Chevauchement de chantiers entre organisations",
+   "statement": "9 permis concernés, 261 jour(s) de chevauchement cumulé.",
+   "evidence": [
+    {
+     "ref": "permits:21EXC-05376@7056000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:22EXC-01087@24248000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:23EXC-04553@7056000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-00211@24248000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:25EXC-03925@7056000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-02248@24248000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-04896@24353000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-05013@7056000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-05185@7056000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-overlap:7039001",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7039001",
+   "place": "HOWARD ST 04TH ST → 05TH ST",
+   "title": "Chevauchement de chantiers entre organisations",
+   "statement": "8 permis concernés, 230 jour(s) de chevauchement cumulé.",
+   "evidence": [
+    {
+     "ref": "permits:24EXC-00671@7039001",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-02013@7039001",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-02152@7039001",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-02790@23944000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-03589@23944000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-04063@23944000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:25EXC-05123@7039001",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-04880@7039001",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-overlap:5678000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "5678000",
+   "place": "FOLSOM ST 08TH ST → 09TH ST",
+   "title": "Chevauchement de chantiers entre organisations",
+   "statement": "4 permis concernés, 78 jour(s) de chevauchement cumulé.",
+   "evidence": [
+    {
+     "ref": "permits:25EXC-03925@5678000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-03847@5678000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26E-00475@5678000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-04569@5678000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-overlap:7041000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7041000",
+   "place": "HOWARD ST 05TH ST → MARY ST",
+   "title": "Chevauchement de chantiers entre organisations",
+   "statement": "4 permis concernés, 44 jour(s) de chevauchement cumulé.",
+   "evidence": [
+    {
+     "ref": "permits:21EXC-00699@7041000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:21EXC-00747@7041000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:21EXC-02008@7041000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:21EXC-02336@7041000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-overlap:7050000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7050000",
+   "place": "HOWARD ST SUMNER ST → 08TH ST",
+   "title": "Chevauchement de chantiers entre organisations",
+   "statement": "4 permis concernés, 45 jour(s) de chevauchement cumulé.",
+   "evidence": [
+    {
+     "ref": "permits:24EXC-02505@24299000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-02666@7050000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:25EXC-03925@7050000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-04469@7050000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-overlap:7055000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7055000",
+   "place": "HOWARD ST GRACE ST → 10TH ST",
+   "title": "Chevauchement de chantiers entre organisations",
+   "statement": "4 permis concernés, 87 jour(s) de chevauchement cumulé.",
+   "evidence": [
+    {
+     "ref": "permits:21EXC-05376@7055000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:23EXC-01278@7055000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:22EXC-01087@7055000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-00211@7055000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-overlap:5679000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "5679000",
+   "place": "FOLSOM ST 09TH ST → DORE ST",
+   "title": "Chevauchement de chantiers entre organisations",
+   "statement": "3 permis concernés, 209 jour(s) de chevauchement cumulé.",
+   "evidence": [
+    {
+     "ref": "permits:25EXC-03925@5679000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:25EXC-04396@5679000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-04690@5679000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-overlap:7037000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7037000",
+   "place": "HOWARD ST HAWTHORNE ST → 03RD ST",
+   "title": "Chevauchement de chantiers entre organisations",
+   "statement": "3 permis concernés, 58 jour(s) de chevauchement cumulé.",
+   "evidence": [
+    {
+     "ref": "permits:25EXC-05123@7037000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:25EXC-04855@7037000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-01313@7037000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-overlap:7052000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7052000",
+   "place": "HOWARD ST 09TH ST → WASHBURN ST",
+   "title": "Chevauchement de chantiers entre organisations",
+   "statement": "3 permis concernés, 57 jour(s) de chevauchement cumulé.",
+   "evidence": [
+    {
+     "ref": "permits:25EXC-03925@7052000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-01630@24305000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-04307@24305000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-overlap:5660000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "5660000",
+   "place": "FOLSOM ST 02ND ST → HAWTHORNE ST",
+   "title": "Chevauchement de chantiers entre organisations",
+   "statement": "2 permis concernés, 12 jour(s) de chevauchement cumulé.",
+   "evidence": [
+    {
+     "ref": "permits:21EXC-01729@5660000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:21BW-00013@5660000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-overlap:5662000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "5662000",
+   "place": "FOLSOM ST 03RD ST → MABINI ST",
+   "title": "Chevauchement de chantiers entre organisations",
+   "statement": "2 permis concernés, 4 jour(s) de chevauchement cumulé.",
+   "evidence": [
+    {
+     "ref": "permits:24EXC-03026@5662000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:25EXC-01677@5662000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-overlap:5664000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "5664000",
+   "place": "FOLSOM ST 04TH ST → 05TH ST",
+   "title": "Chevauchement de chantiers entre organisations",
+   "statement": "2 permis concernés, 15 jour(s) de chevauchement cumulé.",
+   "evidence": [
+    {
+     "ref": "permits:23EXC-01286@5664000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:23EXC-02585@5664000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-overlap:5665000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "5665000",
+   "place": "FOLSOM ST 05TH ST → FALMOUTH ST",
+   "title": "Chevauchement de chantiers entre organisations",
+   "statement": "2 permis concernés, 29 jour(s) de chevauchement cumulé.",
+   "evidence": [
+    {
+     "ref": "permits:25EXC-04396@5665000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-00638@5665000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-overlap:5671000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "5671000",
+   "place": "FOLSOM ST SHERMAN ST → MOSS ST",
+   "title": "Chevauchement de chantiers entre organisations",
+   "statement": "2 permis concernés, 21 jour(s) de chevauchement cumulé.",
+   "evidence": [
+    {
+     "ref": "permits:22IE-00012@5671000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:22EXC-02642@5671000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-overlap:7035000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7035000",
+   "place": "HOWARD ST 02ND ST → NEW MONTGOMERY ST",
+   "title": "Chevauchement de chantiers entre organisations",
+   "statement": "2 permis concernés, 10 jour(s) de chevauchement cumulé.",
+   "evidence": [
+    {
+     "ref": "permits:21IE-00309@7035000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:21EXC-04124@7035000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-overlap:7036000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7036000",
+   "place": "HOWARD ST NEW MONTGOMERY ST → HAWTHORNE ST",
+   "title": "Chevauchement de chantiers entre organisations",
+   "statement": "2 permis concernés, 28 jour(s) de chevauchement cumulé.",
+   "evidence": [
+    {
+     "ref": "permits:21EXC-04124@7036000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:22EXC-01556@7036000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-overlap:7038000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7038000",
+   "place": "HOWARD ST 03RD ST → 04TH ST",
+   "title": "Chevauchement de chantiers entre organisations",
+   "statement": "2 permis concernés, 86 jour(s) de chevauchement cumulé.",
+   "evidence": [
+    {
+     "ref": "permits:24EXC-00671@24627000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:25EXC-05123@7038000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-overlap:7044000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7044000",
+   "place": "HOWARD ST HARRIET ST → RUSS ST",
+   "title": "Chevauchement de chantiers entre organisations",
+   "statement": "2 permis concernés, 5 jour(s) de chevauchement cumulé.",
+   "evidence": [
+    {
+     "ref": "permits:24EXC-03783@7044000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24E-00667@7044000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-overlap:7049000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7049000",
+   "place": "HOWARD ST RAUSCH ST → SUMNER ST",
+   "title": "Chevauchement de chantiers entre organisations",
+   "statement": "2 permis concernés, 29 jour(s) de chevauchement cumulé.",
+   "evidence": [
+    {
+     "ref": "permits:25EXC-03925@7049000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-04469@7049000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-in-moratorium:5678000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "5678000",
+   "place": "FOLSOM ST 08TH ST → 09TH ST",
+   "title": "Permis débutant pendant un moratoire de chaussée",
+   "statement": "3 permis concernés.",
+   "evidence": [
+    {
+     "ref": "permits:26EXC-03847@5678000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26E-00475@5678000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-04569@5678000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Des dérogations peuvent exister ; ce n’est pas une infraction démontrée."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-in-moratorium:5673000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "5673000",
+   "place": "FOLSOM ST 07TH ST → LANGTON ST",
+   "title": "Permis débutant pendant un moratoire de chaussée",
+   "statement": "2 permis concernés.",
+   "evidence": [
+    {
+     "ref": "permits:26EXC-04382@5673000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-04534@5673000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Des dérogations peuvent exister ; ce n’est pas une infraction démontrée."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-in-moratorium:7042000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7042000",
+   "place": "HOWARD ST MARY ST → 06TH ST",
+   "title": "Permis débutant pendant un moratoire de chaussée",
+   "statement": "2 permis concernés.",
+   "evidence": [
+    {
+     "ref": "permits:26EXC-01798@23946000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-03313@23946000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Des dérogations peuvent exister ; ce n’est pas une infraction démontrée."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-in-moratorium:7043000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7043000",
+   "place": "HOWARD ST 06TH ST → HARRIET ST",
+   "title": "Permis débutant pendant un moratoire de chaussée",
+   "statement": "2 permis concernés.",
+   "evidence": [
+    {
+     "ref": "permits:26EXC-01798@23946000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-03313@23946000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Des dérogations peuvent exister ; ce n’est pas une infraction démontrée."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-in-moratorium:5661000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "5661000",
+   "place": "FOLSOM ST HAWTHORNE ST → 03RD ST",
+   "title": "Permis débutant pendant un moratoire de chaussée",
+   "statement": "1 permis concernés.",
+   "evidence": [
+    {
+     "ref": "permits:26EXC-04121@5661000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Des dérogations peuvent exister ; ce n’est pas une infraction démontrée."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-in-moratorium:5672000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "5672000",
+   "place": "FOLSOM ST MOSS ST → 07TH ST",
+   "title": "Permis débutant pendant un moratoire de chaussée",
+   "statement": "1 permis concernés.",
+   "evidence": [
+    {
+     "ref": "permits:26EXC-04382@5672000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Des dérogations peuvent exister ; ce n’est pas une infraction démontrée."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-in-moratorium:5676000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "5676000",
+   "place": "FOLSOM ST RAUSCH ST → RODGERS ST",
+   "title": "Permis débutant pendant un moratoire de chaussée",
+   "statement": "1 permis concernés.",
+   "evidence": [
+    {
+     "ref": "permits:26EXC-02790@5676000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Des dérogations peuvent exister ; ce n’est pas une infraction démontrée."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-in-moratorium:5679000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "5679000",
+   "place": "FOLSOM ST 09TH ST → DORE ST",
+   "title": "Permis débutant pendant un moratoire de chaussée",
+   "statement": "1 permis concernés.",
+   "evidence": [
+    {
+     "ref": "permits:26EXC-04690@5679000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Des dérogations peuvent exister ; ce n’est pas une infraction démontrée."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "works-in-moratorium:5680000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "5680000",
+   "place": "FOLSOM ST DORE ST → 10TH ST",
+   "title": "Permis débutant pendant un moratoire de chaussée",
+   "statement": "1 permis concernés.",
+   "evidence": [
+    {
+     "ref": "permits:26EXC-02067@5680000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Des dérogations peuvent exister ; ce n’est pas une infraction démontrée."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "repeated-works:7051000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7051000",
+   "place": "HOWARD ST 08TH ST → 09TH ST",
+   "title": "Travaux répétés au même endroit",
+   "statement": "10 permis concernés, 6 organisations.",
+   "evidence": [
+    {
+     "ref": "permits:21EXC-01188@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:21BW-00019@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:21EXC-04295@24305000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:21EXC-05822@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:21EXC-05748@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:22EXC-00775@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:22E-00040@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:22EXC-00620@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:22EXC-00780@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:22E-00170@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "repeated-works:7041000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7041000",
+   "place": "HOWARD ST 05TH ST → MARY ST",
+   "title": "Travaux répétés au même endroit",
+   "statement": "6 permis concernés, 4 organisations.",
+   "evidence": [
+    {
+     "ref": "permits:21EXC-00699@7041000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:21EXC-00747@7041000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:21EXC-02008@7041000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:21EXC-02336@7041000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:21EXC-05142@23947000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:21EXC-06049@7041000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "repeated-works:7044000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7044000",
+   "place": "HOWARD ST HARRIET ST → RUSS ST",
+   "title": "Travaux répétés au même endroit",
+   "statement": "6 permis concernés, 4 organisations.",
+   "evidence": [
+    {
+     "ref": "permits:24EXC-00680@7044000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-02666@7044000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-03123@7044000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-03783@7044000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24E-00667@7044000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-04897@7044000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "repeated-works:7035000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7035000",
+   "place": "HOWARD ST 02ND ST → NEW MONTGOMERY ST",
+   "title": "Travaux répétés au même endroit",
+   "statement": "6 permis concernés, 3 organisations.",
+   "evidence": [
+    {
+     "ref": "permits:23EXC-04757@7035000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-00135@7035000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-00915@7035000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-02331@24540000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-02976@24540000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-03026@7035000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "repeated-works:7039001",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7039001",
+   "place": "HOWARD ST 04TH ST → 05TH ST",
+   "title": "Travaux répétés au même endroit",
+   "statement": "6 permis concernés, 3 organisations.",
+   "evidence": [
+    {
+     "ref": "permits:24EXC-00671@7039001",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-02013@7039001",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-02152@7039001",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-02790@23944000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-03589@23944000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-04063@23944000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "repeated-works:5664000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "5664000",
+   "place": "FOLSOM ST 04TH ST → 05TH ST",
+   "title": "Travaux répétés au même endroit",
+   "statement": "5 permis concernés, 3 organisations.",
+   "evidence": [
+    {
+     "ref": "permits:22EXC-02642@5664000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:22EXC-04474@5664000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:23EXC-01224@5664000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:23EXC-01286@5664000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:23EXC-02585@5664000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "repeated-works:5678000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "5678000",
+   "place": "FOLSOM ST 08TH ST → 09TH ST",
+   "title": "Travaux répétés au même endroit",
+   "statement": "5 permis concernés, 3 organisations.",
+   "evidence": [
+    {
+     "ref": "permits:21EXC-00114@5678000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:21EXC-00615@5678000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:21EXC-03469@5678000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:21EXC-04295@5678000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:21EXC-04991@5678000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "repeated-works:7042000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7042000",
+   "place": "HOWARD ST MARY ST → 06TH ST",
+   "title": "Travaux répétés au même endroit",
+   "statement": "10 permis concernés, 2 organisations.",
+   "evidence": [
+    {
+     "ref": "permits:23EXC-05209@7042000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-00091@7042000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-00680@7042000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-02018@7042000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-02154@7042000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-02666@7042000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-02790@7042000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-03123@7042000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-03589@7042000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-04063@7042000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "repeated-works:7049000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7049000",
+   "place": "HOWARD ST RAUSCH ST → SUMNER ST",
+   "title": "Travaux répétés au même endroit",
+   "statement": "8 permis concernés, 2 organisations.",
+   "evidence": [
+    {
+     "ref": "permits:23EXC-05783@7049000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-00680@7049000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-01814@7049000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-02666@7049000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-03123@7049000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-03716@7049000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:25EXC-00521@7049000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:25EXC-01918@7049000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "repeated-works:7050000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7050000",
+   "place": "HOWARD ST SUMNER ST → 08TH ST",
+   "title": "Travaux répétés au même endroit",
+   "statement": "7 permis concernés, 2 organisations.",
+   "evidence": [
+    {
+     "ref": "permits:23EXC-05783@7050000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-00680@7050000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-01814@7050000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-02505@24299000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-02666@7050000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-03123@7050000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:24EXC-03716@7050000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "repeated-works:7037000",
+   "domain": "infrastructure",
+   "status": "potential-risk",
+   "segment": "7037000",
+   "place": "HOWARD ST HAWTHORNE ST → 03RD ST",
+   "title": "Travaux répétés au même endroit",
+   "statement": "5 permis concernés, 2 organisations.",
+   "evidence": [
+    {
+     "ref": "permits:25EXC-03574@7037000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:25IE-00089@7037000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:25EXC-05123@7037000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:25EXC-04855@7037000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-01313@7037000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "validEvidence": true,
+   "caveat": "Détection déterministe sur des fenêtres administratives ; ce n’est ni un incident constaté ni une infraction."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "planting-deferred:5672000",
+   "domain": "nature",
+   "status": "simulated",
+   "segment": "5672000",
+   "place": "FOLSOM ST MOSS ST → 07TH ST",
+   "title": "Plantation à reporter à cause de travaux planifiés (simulation)",
+   "statement": "3 emplacement(s) simulé(s) à reporter (modèle sidewalk-tree-capacity-v1, non calibré, empreinte 929b8be4d02e6efc).",
+   "evidence": [
+    {
+     "ref": "sidewalks:8569",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    },
+    {
+     "ref": "permits:26EXC-04382@5672000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "caveat": "Résultat d’un modèle exploratoire ; aucun emplacement réel n’a été vérifié."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "planting-deferred:5673000",
+   "domain": "nature",
+   "status": "simulated",
+   "segment": "5673000",
+   "place": "FOLSOM ST 07TH ST → LANGTON ST",
+   "title": "Plantation à reporter à cause de travaux planifiés (simulation)",
+   "statement": "3 emplacement(s) simulé(s) à reporter (modèle sidewalk-tree-capacity-v1, non calibré, empreinte 929b8be4d02e6efc).",
+   "evidence": [
+    {
+     "ref": "sidewalks:8570",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    },
+    {
+     "ref": "permits:26EXC-04382@5673000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "ref": "permits:26EXC-04534@5673000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "caveat": "Résultat d’un modèle exploratoire ; aucun emplacement réel n’a été vérifié."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "planting-deferred:5678000",
+   "domain": "nature",
+   "status": "simulated",
+   "segment": "5678000",
+   "place": "FOLSOM ST 08TH ST → 09TH ST",
+   "title": "Plantation à reporter à cause de travaux planifiés (simulation)",
+   "statement": "8 emplacement(s) simulé(s) à reporter (modèle sidewalk-tree-capacity-v1, non calibré, empreinte 929b8be4d02e6efc).",
+   "evidence": [
+    {
+     "ref": "sidewalks:8575",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    },
+    {
+     "ref": "permits:25EXC-03925@5678000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "caveat": "Résultat d’un modèle exploratoire ; aucun emplacement réel n’a été vérifié."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "planting-deferred:5679000",
+   "domain": "nature",
+   "status": "simulated",
+   "segment": "5679000",
+   "place": "FOLSOM ST 09TH ST → DORE ST",
+   "title": "Plantation à reporter à cause de travaux planifiés (simulation)",
+   "statement": "3 emplacement(s) simulé(s) à reporter (modèle sidewalk-tree-capacity-v1, non calibré, empreinte 929b8be4d02e6efc).",
+   "evidence": [
+    {
+     "ref": "sidewalks:8576",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    },
+    {
+     "ref": "permits:25EXC-03925@5679000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "caveat": "Résultat d’un modèle exploratoire ; aucun emplacement réel n’a été vérifié."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "planting-deferred:7035000",
+   "domain": "nature",
+   "status": "simulated",
+   "segment": "7035000",
+   "place": "HOWARD ST 02ND ST → NEW MONTGOMERY ST",
+   "title": "Plantation à reporter à cause de travaux planifiés (simulation)",
+   "statement": "2 emplacement(s) simulé(s) à reporter (modèle sidewalk-tree-capacity-v1, non calibré, empreinte 929b8be4d02e6efc).",
+   "evidence": [
+    {
+     "ref": "sidewalks:4652",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    },
+    {
+     "ref": "permits:25EXC-05123@7035000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "caveat": "Résultat d’un modèle exploratoire ; aucun emplacement réel n’a été vérifié."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "planting-deferred:7038000",
+   "domain": "nature",
+   "status": "simulated",
+   "segment": "7038000",
+   "place": "HOWARD ST 03RD ST → 04TH ST",
+   "title": "Plantation à reporter à cause de travaux planifiés (simulation)",
+   "statement": "19 emplacement(s) simulé(s) à reporter (modèle sidewalk-tree-capacity-v1, non calibré, empreinte 929b8be4d02e6efc).",
+   "evidence": [
+    {
+     "ref": "sidewalks:4655",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    },
+    {
+     "ref": "permits:25EXC-05123@7038000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "caveat": "Résultat d’un modèle exploratoire ; aucun emplacement réel n’a été vérifié."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "planting-deferred:7041000",
+   "domain": "nature",
+   "status": "simulated",
+   "segment": "7041000",
+   "place": "HOWARD ST 05TH ST → MARY ST",
+   "title": "Plantation à reporter à cause de travaux planifiés (simulation)",
+   "statement": "1 emplacement(s) simulé(s) à reporter (modèle sidewalk-tree-capacity-v1, non calibré, empreinte 929b8be4d02e6efc).",
+   "evidence": [
+    {
+     "ref": "sidewalks:4656",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    },
+    {
+     "ref": "permits:26EXC-04469@7041000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "caveat": "Résultat d’un modèle exploratoire ; aucun emplacement réel n’a été vérifié."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "open-question:cognitive-fast:5975b8035035:Q1",
+   "domain": "accessibility",
+   "status": "hypothesis",
+   "segment": null,
+   "place": "corridor Folsom / Howard",
+   "title": "Question ouverte sans preuve disponible",
+   "statement": "Données sur les dates exactes des travaux planifiés pour les 39 emplacements (E1).",
+   "raisedBy": "core.san-francisco.public-space.accessibility-analyst",
+   "mission": "cognitive-fast:5975b8035035",
+   "evidence": [],
+   "caveat": "Demande d’un agent dans une mission enregistrée ; aucune source CORE ne permet d’y répondre."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "open-question:cognitive-fast:5975b8035035:Q2",
+   "domain": "accessibility",
+   "status": "hypothesis",
+   "segment": null,
+   "place": "corridor Folsom / Howard",
+   "title": "Question ouverte sans preuve disponible",
+   "statement": "Données sur les espacements et parts de linéaire utilisable réels (E3).",
+   "raisedBy": "core.san-francisco.public-space.accessibility-analyst",
+   "mission": "cognitive-fast:5975b8035035",
+   "evidence": [],
+   "caveat": "Demande d’un agent dans une mission enregistrée ; aucune source CORE ne permet d’y répondre."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "open-question:cognitive-fast:5975b8035035:Q3",
+   "domain": "accessibility",
+   "status": "hypothesis",
+   "segment": null,
+   "place": "corridor Folsom / Howard",
+   "title": "Question ouverte sans preuve disponible",
+   "statement": "Données sur les travaux planifiés pour les 39 emplacements à reporter (E1).",
+   "raisedBy": "core.san-francisco.forestry.urban-forestry-analyst",
+   "mission": "cognitive-fast:5975b8035035",
+   "evidence": [],
+   "caveat": "Demande d’un agent dans une mission enregistrée ; aucune source CORE ne permet d’y répondre."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "open-question:cognitive-fast:13f3c2ad6fb1:Q1",
+   "domain": "infrastructure",
+   "status": "hypothesis",
+   "segment": "7051000",
+   "place": "HOWARD ST 08TH ST → 09TH ST",
+   "title": "Question ouverte sans preuve disponible",
+   "statement": "Données sur les impacts énergétiques des excavations sur le tronçon.",
+   "raisedBy": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "mission": "cognitive-fast:13f3c2ad6fb1",
+   "evidence": [],
+   "caveat": "Demande d’un agent dans une mission enregistrée ; aucune source CORE ne permet d’y répondre."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "open-question:cognitive-fast:13f3c2ad6fb1:Q2",
+   "domain": "infrastructure",
+   "status": "hypothesis",
+   "segment": "7051000",
+   "place": "HOWARD ST 08TH ST → 09TH ST",
+   "title": "Question ouverte sans preuve disponible",
+   "statement": "Données sur les permis de construction récents (E9) et leur lien avec les excavations (E4).",
+   "raisedBy": "core.san-francisco.housing.urban-planning-analyst",
+   "mission": "cognitive-fast:13f3c2ad6fb1",
+   "evidence": [],
+   "caveat": "Demande d’un agent dans une mission enregistrée ; aucune source CORE ne permet d’y répondre."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "open-question:cognitive-fast:13f3c2ad6fb1:Q3",
+   "domain": "infrastructure",
+   "status": "hypothesis",
+   "segment": "7051000",
+   "place": "HOWARD ST 08TH ST → 09TH ST",
+   "title": "Question ouverte sans preuve disponible",
+   "statement": "Données géocodées des adresses sur HOWARD ST pour un rattachement précis.",
+   "raisedBy": "core.san-francisco.public-space.accessibility-analyst",
+   "mission": "cognitive-fast:13f3c2ad6fb1",
+   "evidence": [],
+   "caveat": "Demande d’un agent dans une mission enregistrée ; aucune source CORE ne permet d’y répondre."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "open-question:cognitive-fast:13f3c2ad6fb1:Q5",
+   "domain": "infrastructure",
+   "status": "hypothesis",
+   "segment": "7051000",
+   "place": "HOWARD ST 08TH ST → 09TH ST",
+   "title": "Question ouverte sans preuve disponible",
+   "statement": "Confirmation de la compatibilité des excavations avec les normes d’accessibilité (E12, E14).",
+   "raisedBy": "core.san-francisco.housing.urban-planning-analyst",
+   "mission": "cognitive-fast:13f3c2ad6fb1",
+   "evidence": [],
+   "caveat": "Demande d’un agent dans une mission enregistrée ; aucune source CORE ne permet d’y répondre."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "open-question:cognitive-fast:13f3c2ad6fb1:Q6",
+   "domain": "infrastructure",
+   "status": "hypothesis",
+   "segment": "7051000",
+   "place": "HOWARD ST 08TH ST → 09TH ST",
+   "title": "Question ouverte sans preuve disponible",
+   "statement": "Données sur les permis de construction récents pour le tronçon HOWARD ST 08TH ST → 09TH ST (E8).",
+   "raisedBy": "core.san-francisco.public-space.accessibility-analyst",
+   "mission": "cognitive-fast:13f3c2ad6fb1",
+   "evidence": [],
+   "caveat": "Demande d’un agent dans une mission enregistrée ; aucune source CORE ne permet d’y répondre."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "open-question:cognitive-fast:13f3c2ad6fb1:Q7",
+   "domain": "infrastructure",
+   "status": "hypothesis",
+   "segment": "7051000",
+   "place": "HOWARD ST 08TH ST → 09TH ST",
+   "title": "Question ouverte sans preuve disponible",
+   "statement": "Preuve de la relation entre les 7 permis récents (E9) et le tronçon HOWARD ST 08TH ST → 09TH ST (E1).",
+   "raisedBy": "core.san-francisco.public-space.accessibility-analyst",
+   "mission": "cognitive-fast:13f3c2ad6fb1",
+   "evidence": [],
+   "caveat": "Demande d’un agent dans une mission enregistrée ; aucune source CORE ne permet d’y répondre."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "open-question:cognitive-fast:13f3c2ad6fb1:Q8",
+   "domain": "infrastructure",
+   "status": "hypothesis",
+   "segment": "7051000",
+   "place": "HOWARD ST 08TH ST → 09TH ST",
+   "title": "Question ouverte sans preuve disponible",
+   "statement": "Données sur les permis de construction récents pour le tronçon HOWARD ST 08TH ST → 09TH ST (E8).",
+   "raisedBy": "core.san-francisco.simulation.scenario-analyst",
+   "mission": "cognitive-fast:13f3c2ad6fb1",
+   "evidence": [],
+   "caveat": "Demande d’un agent dans une mission enregistrée ; aucune source CORE ne permet d’y répondre."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "open-question:cognitive-fast:13f3c2ad6fb1:Q9",
+   "domain": "infrastructure",
+   "status": "hypothesis",
+   "segment": "7051000",
+   "place": "HOWARD ST 08TH ST → 09TH ST",
+   "title": "Question ouverte sans preuve disponible",
+   "statement": "Données géocodées pour les adresses sur HOWARD ST (E8).",
+   "raisedBy": "core.san-francisco.research.evidence-reviewer",
+   "mission": "cognitive-fast:13f3c2ad6fb1",
+   "evidence": [],
+   "caveat": "Demande d’un agent dans une mission enregistrée ; aucune source CORE ne permet d’y répondre."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "open-question:cognitive-fast:13f3c2ad6fb1:Q10",
+   "domain": "infrastructure",
+   "status": "hypothesis",
+   "segment": "7051000",
+   "place": "HOWARD ST 08TH ST → 09TH ST",
+   "title": "Question ouverte sans preuve disponible",
+   "statement": "Données sur les permis de construction récents pour le tronçon (E9).",
+   "raisedBy": "core.san-francisco.research.evidence-reviewer",
+   "mission": "cognitive-fast:13f3c2ad6fb1",
+   "evidence": [],
+   "caveat": "Demande d’un agent dans une mission enregistrée ; aucune source CORE ne permet d’y répondre."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "open-question:cognitive:13f3c2ad6fb1:Q6",
+   "domain": "infrastructure",
+   "status": "hypothesis",
+   "segment": "7051000",
+   "title": "Question ouverte sans preuve disponible",
+   "statement": "Preuve de l’impact de l’excavation 26EXC-05114 sur le tronçon HOWARD ST 08TH ST → 09TH ST.",
+   "raisedBy": "core.san-francisco.housing.urban-planning-analyst",
+   "mission": "cognitive:13f3c2ad6fb1",
+   "evidence": [],
+   "caveat": "Demande d’un agent dans une mission enregistrée ; aucune source CORE ne permet d’y répondre."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "open-question:cognitive:13f3c2ad6fb1:Q7",
+   "domain": "infrastructure",
+   "status": "hypothesis",
+   "segment": "7051000",
+   "title": "Question ouverte sans preuve disponible",
+   "statement": "Preuve de la relation entre l’excavation 26EXC-05114 et les arbres à ≤ 12 m.",
+   "raisedBy": "core.san-francisco.housing.urban-planning-analyst",
+   "mission": "cognitive:13f3c2ad6fb1",
+   "evidence": [],
+   "caveat": "Demande d’un agent dans une mission enregistrée ; aucune source CORE ne permet d’y répondre."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "open-question:cognitive:13f3c2ad6fb1:Q8",
+   "domain": "infrastructure",
+   "status": "hypothesis",
+   "segment": "7051000",
+   "title": "Question ouverte sans preuve disponible",
+   "statement": "Preuve de l’impact environnemental de l’excavation 26EXC-05114 sur le tronçon HOWARD ST 08TH ST → 09TH ST.",
+   "raisedBy": "core.san-francisco.environmental.environmental-analyst",
+   "mission": "cognitive:13f3c2ad6fb1",
+   "evidence": [],
+   "caveat": "Demande d’un agent dans une mission enregistrée ; aucune source CORE ne permet d’y répondre."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "open-question:cognitive:13f3c2ad6fb1:Q9",
+   "domain": "infrastructure",
+   "status": "hypothesis",
+   "segment": "7051000",
+   "title": "Question ouverte sans preuve disponible",
+   "statement": "Preuve de la relation entre l’excavation 26EXC-05114 et les arbres proches.",
+   "raisedBy": "core.san-francisco.environmental.environmental-analyst",
+   "mission": "cognitive:13f3c2ad6fb1",
+   "evidence": [],
+   "caveat": "Demande d’un agent dans une mission enregistrée ; aucune source CORE ne permet d’y répondre."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "open-question:cognitive:13f3c2ad6fb1:Q10",
+   "domain": "infrastructure",
+   "status": "hypothesis",
+   "segment": "7051000",
+   "title": "Question ouverte sans preuve disponible",
+   "statement": "Preuve de l’impact environnemental de l’excavation 26EXC-05114 sur le tronçon HOWARD ST 08TH ST → 09TH ST.",
+   "raisedBy": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "mission": "cognitive:13f3c2ad6fb1",
+   "evidence": [],
+   "caveat": "Demande d’un agent dans une mission enregistrée ; aucune source CORE ne permet d’y répondre."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "open-question:cognitive:13f3c2ad6fb1:Q11",
+   "domain": "infrastructure",
+   "status": "hypothesis",
+   "segment": "7051000",
+   "title": "Question ouverte sans preuve disponible",
+   "statement": "Preuve de la relation entre l’excavation 26EXC-05114 et les arbres à proximité.",
+   "raisedBy": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "mission": "cognitive:13f3c2ad6fb1",
+   "evidence": [],
+   "caveat": "Demande d’un agent dans une mission enregistrée ; aucune source CORE ne permet d’y répondre."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "open-question:cognitive:13f3c2ad6fb1:Q12",
+   "domain": "infrastructure",
+   "status": "hypothesis",
+   "segment": "7051000",
+   "title": "Question ouverte sans preuve disponible",
+   "statement": "Preuve de l’impact environnemental de l’excavation 26EXC-05114 sur le tronçon HOWARD ST 08TH ST → 09TH ST.",
+   "raisedBy": "core.san-francisco.housing.urban-planning-analyst",
+   "mission": "cognitive:13f3c2ad6fb1",
+   "evidence": [],
+   "caveat": "Demande d’un agent dans une mission enregistrée ; aucune source CORE ne permet d’y répondre."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "open-question:cognitive:13f3c2ad6fb1:Q13",
+   "domain": "infrastructure",
+   "status": "hypothesis",
+   "segment": "7051000",
+   "title": "Question ouverte sans preuve disponible",
+   "statement": "Preuve de la relation entre l’excavation 26EXC-05114 et les arbres situés à proximité.",
+   "raisedBy": "core.san-francisco.housing.urban-planning-analyst",
+   "mission": "cognitive:13f3c2ad6fb1",
+   "evidence": [],
+   "caveat": "Demande d’un agent dans une mission enregistrée ; aucune source CORE ne permet d’y répondre."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "open-question:cognitive:13f3c2ad6fb1:Q14",
+   "domain": "infrastructure",
+   "status": "hypothesis",
+   "segment": "7051000",
+   "title": "Question ouverte sans preuve disponible",
+   "statement": "Quel est l’impact de l’excavation 26EXC-05114 sur le tronçon HOWARD ST 08TH ST → 09TH ST ?",
+   "raisedBy": "core.san-francisco.environmental.environmental-analyst",
+   "mission": "cognitive:13f3c2ad6fb1",
+   "evidence": [],
+   "caveat": "Demande d’un agent dans une mission enregistrée ; aucune source CORE ne permet d’y répondre."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "open-question:cognitive:13f3c2ad6fb1:Q15",
+   "domain": "infrastructure",
+   "status": "hypothesis",
+   "segment": "7051000",
+   "title": "Question ouverte sans preuve disponible",
+   "statement": "Preuve de l’impact spécifique de l’excavation 26EXC-05114 sur le tronçon HOWARD ST 08TH ST → 09TH ST.",
+   "raisedBy": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "mission": "cognitive:13f3c2ad6fb1",
+   "evidence": [],
+   "caveat": "Demande d’un agent dans une mission enregistrée ; aucune source CORE ne permet d’y répondre."
+  },
+  {
+   "city": "san-francisco",
+   "asOf": "2026-10-13T18:25:19.678Z",
+   "id": "open-question:cognitive:13f3c2ad6fb1:Q16",
+   "domain": "infrastructure",
+   "status": "hypothesis",
+   "segment": "7051000",
+   "title": "Question ouverte sans preuve disponible",
+   "statement": "Preuve de la profondeur ou de l’étendue de l’excavation 26EXC-05114.",
+   "raisedBy": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "mission": "cognitive:13f3c2ad6fb1",
+   "evidence": [],
+   "caveat": "Demande d’un agent dans une mission enregistrée ; aucune source CORE ne permet d’y répondre."
+  }
+ ],
+ "gaps": [
+  {
+   "domain": "air-quality",
+   "status": "no-evidence-integrated"
+  },
+  {
+   "domain": "noise",
+   "status": "no-evidence-integrated"
+  },
+  {
+   "domain": "flooding",
+   "status": "no-evidence-integrated"
+  },
+  {
+   "domain": "heat",
+   "status": "no-evidence-integrated"
+  },
+  {
+   "domain": "transit",
+   "status": "no-evidence-integrated"
+  },
+  {
+   "domain": "traffic-safety",
+   "status": "no-evidence-integrated"
+  },
+  {
+   "domain": "energy-grid",
+   "status": "no-evidence-integrated"
+  },
+  {
+   "domain": "water-network",
+   "status": "no-evidence-integrated"
+  },
+  {
+   "domain": "housing",
+   "status": "no-evidence-integrated"
+  },
+  {
+   "domain": "public-health",
+   "status": "no-evidence-integrated"
+  }
+ ],
+ "fingerprint": "cd62c6778d5c0f5b"
+}

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="t">
+  <title id="t">CORE mark</title>
+  <path d="M11.79 79.48 A52 14 -22 0 1 108.21 40.52" fill="none" stroke="#5cc8ff" stroke-width="2.6" stroke-linecap="round" opacity=".45"/>
+  <!-- Original CORE symbol: planet (O) with orbit and satellite point. -->
+  <circle cx="60" cy="60" r="34" fill="none" stroke="#e8f4ff" stroke-width="7"/>
+  <path d="M108.21 40.52 A52 14 -22 0 1 11.79 79.48" fill="none" stroke="#5cc8ff" stroke-width="2.6" stroke-linecap="round"/>
+  <circle cx="108.21" cy="40.52" r="5" fill="#5cc8ff"/>
+  </svg>

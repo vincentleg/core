@@ -58,8 +58,19 @@ try {
     await call('session.subscribe', { events: ['log.entryAdded'] });
   } else { await call('Page.enable'); await call('Runtime.enable'); await call('Log.enable'); }
   await viewport(1440, 1000, false);
+  // ---- Phase 7: opening experience (natural Earth, wordmark, ENTER CORE, skip) ----
   await navigate('http://localhost:8000/');
+  await until('!!(window.CORE_ENTRY && CORE_ENTRY.state.map && __CORE_MAP.loaded())', 240); await pause(1500);
+  check('landing shows the CORE wordmark, tagline and ENTER CORE over the natural Earth', await evaluate(`!document.querySelector('#landing').hidden && document.body.classList.contains('landing') && document.querySelector('#enter-core').textContent.trim() === 'ENTER CORE' && /Creation of Reborn Earth/i.test(document.querySelector('#landing').textContent) && __CORE_MAP.getPaintProperty('natural-earth', 'raster-opacity') === 1 && /NASA/.test(document.querySelector('.landing-credit').textContent)`));
+  await shot('landing');
+  await evaluate(`document.querySelector('#enter-core').click(); 0`); await pause(1200);
+  check('ENTER CORE starts the transition (imagery fading, interface revealed)', await evaluate(`!document.body.classList.contains('landing') && __CORE_MAP.getPaintProperty('natural-earth', 'raster-opacity') < 1`));
+  await until(`(c => Math.abs(c.lng + 122.418) < 0.05 && Math.abs(c.lat - 37.782) < 0.05)(__CORE_MAP.getCenter()) && !__CORE_MAP.isMoving()`, 200);
+  check('the flight ends over San Francisco with the holographic style', await evaluate(`__CORE_MAP.getZoom() > 12 && __CORE_MAP.getPaintProperty('natural-earth', 'raster-opacity') === 0`));
+  await shot('entered');
+  await navigate('http://localhost:8000/#app');
   await until('document.querySelector("#l-buildings") && !document.querySelector("#l-buildings").disabled', 240);
+  check('direct access (#app) skips the landing', await evaluate(`document.querySelector('#landing').hidden && !document.body.classList.contains('landing')`));
   await pause(1800); await shot('globe');
   check('globe loaded', await evaluate('!!document.querySelector(".maplibregl-canvas")'));
   await evaluate('document.querySelector("#l-relief").click()'); await pause(1500);
@@ -212,7 +223,7 @@ try {
 
   // ---- Phase 3: professional platform, City Intelligence, agents, missions, camera ----
   await evaluate(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); 0`); await until('!!(window.CORE_PLATFORM && CORE_PLATFORM.state.ready)', 120);
-  check('navigation exposes the platform sections (incl. guided demo)', await evaluate(`[...document.querySelectorAll('#appnav [data-sec]')].map(b => b.dataset.sec).join() === 'world,demo,intel,agents,missions,sims,decisions,data'`));
+  check('navigation has five sections; earlier views stay reachable', await evaluate(`[...document.querySelectorAll('#appnav [data-sec]')].map(b => b.dataset.sec).join() === 'world,civ,intel,missions,evidence' && ['agents','problems','activity','sims','decisions','data','health','demo'].every(k => document.querySelector('#legacy-sec [data-sec=' + k + ']'))`));
   await evaluate(`document.querySelector('[data-sec=intel]').click(); 0`); await pause(1500);
   check('city intelligence lists real official items with dates and verification', await evaluate(`document.querySelectorAll('#in-list li').length > 20 && document.querySelector('#ws-body').textContent.includes('source officielle') && document.querySelector('#ws-body').textContent.includes('Planification indépendante du navigateur')`));
   const refreshed = await evaluate(`CORE_PLATFORM.refresh(true).then(r => r.checked.length)`);
@@ -313,6 +324,32 @@ try {
   await evaluate(`document.querySelector('#d2-exit').click(); 0`);
   check('dates and scope are labelled (collection vs source dates)', await evaluate(`document.querySelector('#navmeta').textContent.includes('collect') && /UTC/.test(document.querySelector('#navmeta').textContent)`));
   await shot('phase6');
+  // ---- Phase 7: civilisation, avatars, replay, problems, scheduler, health, camera ----
+  await evaluate(`CORE_PLATFORM.show('sims'); 0`); await pause(300);
+  check('sub-views highlight their group and show sub-tabs', await evaluate(`document.querySelector('#appnav [data-sec=missions]').getAttribute('aria-selected') === 'true' && [...document.querySelectorAll('#ws-tabs [data-sub]')].map(b => b.dataset.sub).join() === 'missions,sims,decisions'`));
+  await evaluate(`CORE_PLATFORM.show('world'); CORE_CAMERA.view('mission'); 0`); await pause(4500);
+  await evaluate(`CORE_AGENTS_WORLD.startReplay().then(() => 0)`); await pause(500);
+  check('replay is labelled as a recorded execution, movements as representation', await evaluate(`(t => /RELECTURE/.test(t) && /exécution réelle enregistrée/.test(t) && /pas une inspection physique/.test(t))(document.querySelector('#theatre').textContent)`));
+  check('avatars are exactly the recorded participants of the mission', await evaluate(`(rp => { const ids = [...CORE_AGENTS_WORLD.state.avatars.values()].filter(a => a.visible).map(a => a.agent.id).sort(); return ids.join() === [...rp.plan.agents].sort().join() && rp.plan.agents.every(id => rp.plan.mc.log.some(l => l.agent === id)); })(CORE_AGENTS_WORLD.state.replay)`));
+  check('avatar states come from recorded event kinds; routes are finite', await evaluate(`(rp => rp.plan.steps.every(s => ['tool-call','model-call','report','route'].includes(s.kind) && rp.plan.mc.log.some(l => l.t === s.t && l.agent === s.agent)) && rp.plan.steps.filter(s => s.path).every(s => isFinite(s.path.length) && s.path.coords.length >= 2))(CORE_AGENTS_WORLD.state.replay)`));
+  check('structured messages carry sender, recipient, mission, evidence, result and decision', await evaluate(`(rp => rp.plan.messages.length > 0 && rp.plan.messages.every(m => m.from && m.to && m.mission === rp.plan.mc.id && Array.isArray(m.evidence) && m.result !== undefined && m.decision))(CORE_AGENTS_WORLD.state.replay)`));
+  await evaluate(`CORE_AGENTS_WORLD.play(false); CORE_AGENTS_WORLD.seek(9000); 0`); await pause(300); await shot('replay');
+  check('agents act during the replay (non-idle states at a recorded moment)', await evaluate(`[...CORE_AGENTS_WORLD.state.avatars.values()].some(a => a.visible && a.state !== 'idle')`));
+  await evaluate(`__CORE_MAP.jumpTo({ zoom: 11 }); 0`); await pause(300);
+  check('avatar level of detail hides them at district zoom', await evaluate(`[...document.querySelectorAll('.agent-av')].every(e => e.dataset.lod === 'hidden')`));
+  await evaluate(`CORE_AGENTS_WORLD.follow('core.san-francisco.public-space.accessibility-analyst'); 0`); await pause(1200);
+  check('agent-follow camera centres on the agent', await evaluate(`CORE_AGENTS_WORLD.state.follow === 'core.san-francisco.public-space.accessibility-analyst' && __CORE_MAP.getZoom() >= 16`));
+  await evaluate(`CORE_AGENTS_WORLD.follow('core.san-francisco.public-space.accessibility-analyst'); CORE_AGENTS_WORLD.select('core.san-francisco.public-space.accessibility-analyst'); 0`); await pause(1500);
+  check('agent dossier: machine ID and identity, current work, history, knowledge, accountability', await evaluate(`(t => /CORE-PUB-\\d{4}/.test(t) && ['Travail actuel', 'Responsabilité', 'Identité', 'Connaissances', 'Historique'].every(h => t.includes(h)) && /relecture/.test(t))(document.querySelector('#ag-profile').textContent)`));
+  check('civilisation counts are truthful (registered, executable, running, recorded)', await evaluate(`(t => t.includes(CORE_PLATFORM.state.counts.registered + ' profils enregistrés') && t.includes((CORE_PLATFORM.state.counts.executable + CORE_PLATFORM.state.counts.llm) + ' exécutables') && /\\d+ en cours d’exécution/.test(t))(document.querySelector('#civ-truth').textContent)`));
+  await evaluate(`CORE_AGENTS_WORLD.stopReplay(); CORE_PLATFORM.show('problems'); 0`); await pause(1500);
+  check('problems registry: four knowledge statuses, evidence links, explicit gaps', await evaluate(`(R => R && R.problems.every(p => ['observed','potential-risk','hypothesis','simulated'].includes(p.status)) && R.gaps.length > 0 && document.querySelectorAll('#ws-body .problems .item').length > 0 && /Absence de données ≠ absence de problème/.test(document.querySelector('#ws-body').textContent))(CORE_CIV.state.problems)`));
+  check('scheduler: only humans approve, emergency stop rejects new jobs, audit chain verifies', await evaluate(`(() => { const q = CORE_SCHEDULER.create(); const j = q.enqueue({ label: 'x', requiresApproval: true, run: async () => 1 }); const a = q.approve(j.id, 'core.san-francisco.manager'); q.emergencyStop('audit'); const r = q.enqueue({ label: 'y', run: async () => 1 }); return !a && r.ok === false && q.verify().ok && q.snapshot().counts.stopped === 1; })()`));
+  await evaluate(`CORE_PLATFORM.show('health'); 0`); await pause(4000);
+  check('data health shows snapshot integrity and refresh history or an explicit unavailability', await evaluate(`(t => t.includes('fichier intact') && (/exécutions planifiées/.test(t) || /Historique indisponible/.test(t)))(document.querySelector('#ws-body').textContent)`));
+  await evaluate(`CORE_PLATFORM.show('world'); CORE_CAMERA.view('street'); 0`); await pause(4200);
+  check('camera presets stay within readable limits (pitch ≤ 75°)', await evaluate(`__CORE_MAP.getMaxPitch() === 75 && __CORE_MAP.getPitch() <= 75 && __CORE_MAP.getZoom() > 16.5`));
+  check('content security policy is declared', await evaluate(`!!document.querySelector('meta[http-equiv="Content-Security-Policy"]')`));
   await evaluate('document.querySelector("#sf-close").click()');
   await viewport(390, 844, true); await pause(300);
   check('mobile map fits viewport', await evaluate('document.documentElement.scrollWidth <= innerWidth'));

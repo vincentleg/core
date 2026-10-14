@@ -74,6 +74,9 @@
   ];
 
   const BUDGET = { maxTasks: 4, maxMs: 4000, maxRecords: 20000 };
+  const DEPT_CODE = { architecture: 'ARC', civil: 'CIV', electrical: 'ELC', energy: 'ENG', 'building-systems': 'BLD', mechanical: 'MEC', water: 'WAT', mobility: 'TRF', transit: 'TRN', ecology: 'ECO',
+    forestry: 'FOR', environmental: 'ENV', climate: 'CLI', geotech: 'GEO', housing: 'HSG', health: 'HLT', economics: 'ECN', administration: 'ADM', regulatory: 'REG', social: 'SOC',
+    'public-space': 'PUB', digital: 'DIG', telecom: 'TEL', cybersecurity: 'SEC', 'data-science': 'DAT', simulation: 'SIM', research: 'RES', safety: 'SAF' };
 
   function buildRegistry(city = { id: 'san-francisco', name: 'San Francisco', scope: 'Folsom/Howard 2nd–11th (corridor laboratoire)' }) {
     const agents = [];
@@ -86,7 +89,9 @@
       executionMode: s.mode === 'llm' ? 'llm' : s.tools.length ? 'deterministic' : 'unavailable', status: s.mode === 'llm' ? 'requires-local-model' : s.tools.length ? 'available' : 'unavailable', independent: !!s.independent, gap: s.gap || null,
       model: s.mode === 'llm' ? { provider: 'ollama', name: 'qwen3:8b', role: 'choix des outils et interprétation structurée ; jamais de calcul numérique ni de décision' } : null });
     add({ id: `core.${city.id}.governance.gateway`, scope: { level: 'governance', city: city.id }, department: 'safety', role: 'Passerelle de décision (gouvernance indépendante)', specialization: 'Recalcul déterministe, échec fermé, revue humaine obligatoire', competencies: [], knowledge: ['k-provenance'], tools: ['decision.gateway'], permission: 'govern', supervisor: null, executionMode: 'deterministic', status: 'available', independent: true });
-    return { version: REGISTRY_VERSION, city, departments: DEPARTMENTS, agents };
+    // Phase 7: stable machine identifiers (CORE-<DEPT>-<NNNN>), deterministic from department and registry order.
+    const out = agents.map((a, i) => Object.freeze({ ...a, code: `CORE-${DEPT_CODE[a.department] || (a.scope.level === 'global' ? 'CMD' : a.scope.level === 'city' ? 'CTY' : a.scope.level === 'governance' ? 'GOV' : 'GEN')}-${String(i + 1).padStart(4, '0')}` }));
+    return { version: REGISTRY_VERSION, city, departments: DEPARTMENTS, agents: out };
   }
 
   // Indexes make lookups O(1) whatever the number of profiles (designed for thousands per city).
@@ -108,6 +113,6 @@
   }
   const canUse = (agent, tool, required) => agent.tools.includes(tool) && PERMISSIONS.indexOf(agent.permission) >= PERMISSIONS.indexOf(required);
 
-  const ORG = { REGISTRY_VERSION, PERMISSIONS, DISCLAIMER, DEPARTMENTS, SPECIALISTS, buildRegistry, index, counts, canUse };
+  const ORG = { REGISTRY_VERSION, PERMISSIONS, DISCLAIMER, DEPARTMENTS, DEPT_CODE, SPECIALISTS, buildRegistry, index, counts, canUse };
   if (typeof module !== 'undefined' && module.exports) module.exports = ORG; else root.CORE_ORG = ORG;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

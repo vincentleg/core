@@ -238,7 +238,8 @@
    "permission": "govern",
    "supervisor": null,
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-CMD-0001"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -275,7 +276,8 @@
    "permission": "propose",
    "supervisor": "core.global.coordinator",
    "executionMode": "deterministic",
-   "status": "available"
+   "status": "available",
+   "code": "CORE-CTY-0002"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -301,7 +303,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-ARC-0003"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -327,7 +330,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-CIV-0004"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -353,7 +357,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-ELC-0005"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -379,7 +384,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-ENG-0006"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -405,7 +411,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-BLD-0007"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -431,7 +438,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-MEC-0008"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -457,7 +465,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-WAT-0009"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -483,7 +492,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-TRF-0010"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -509,7 +519,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-TRN-0011"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -535,7 +546,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-ECO-0012"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -561,7 +573,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-FOR-0013"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -587,7 +600,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-ENV-0014"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -613,7 +627,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-CLI-0015"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -639,7 +654,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-GEO-0016"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -665,7 +681,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-HSG-0017"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -691,7 +708,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-HLT-0018"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -717,7 +735,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-ECN-0019"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -743,7 +762,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-ADM-0020"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -769,7 +789,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-REG-0021"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -795,7 +816,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-SOC-0022"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -821,7 +843,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-PUB-0023"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -847,7 +870,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-DIG-0024"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -873,7 +897,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-TEL-0025"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -899,7 +924,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-SEC-0026"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -925,7 +951,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-DAT-0027"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -951,7 +978,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-SIM-0028"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -977,7 +1005,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-RES-0029"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1003,7 +1032,8 @@
    "permission": "propose",
    "supervisor": "core.san-francisco.manager",
    "executionMode": "coordination-only",
-   "status": "registered"
+   "status": "registered",
+   "code": "CORE-SAF-0030"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1043,7 +1073,8 @@
    "status": "available",
    "independent": false,
    "gap": null,
-   "model": null
+   "model": null,
+   "code": "CORE-CIV-0031"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1082,7 +1113,8 @@
    "status": "available",
    "independent": false,
    "gap": null,
-   "model": null
+   "model": null,
+   "code": "CORE-TEL-0032"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1123,7 +1155,8 @@
    "status": "available",
    "independent": false,
    "gap": null,
-   "model": null
+   "model": null,
+   "code": "CORE-FOR-0033"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1163,7 +1196,8 @@
    "status": "available",
    "independent": false,
    "gap": null,
-   "model": null
+   "model": null,
+   "code": "CORE-HSG-0034"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1202,7 +1236,8 @@
    "status": "available",
    "independent": false,
    "gap": null,
-   "model": null
+   "model": null,
+   "code": "CORE-ENG-0035"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1241,7 +1276,8 @@
    "status": "available",
    "independent": false,
    "gap": null,
-   "model": null
+   "model": null,
+   "code": "CORE-PUB-0036"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1281,7 +1317,8 @@
    "status": "available",
    "independent": false,
    "gap": null,
-   "model": null
+   "model": null,
+   "code": "CORE-CLI-0037"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1320,7 +1357,8 @@
    "status": "available",
    "independent": false,
    "gap": null,
-   "model": null
+   "model": null,
+   "code": "CORE-CLI-0038"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1360,7 +1398,8 @@
    "status": "available",
    "independent": false,
    "gap": null,
-   "model": null
+   "model": null,
+   "code": "CORE-ADM-0039"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1399,7 +1438,8 @@
    "status": "available",
    "independent": false,
    "gap": null,
-   "model": null
+   "model": null,
+   "code": "CORE-DAT-0040"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1439,7 +1479,8 @@
    "status": "available",
    "independent": false,
    "gap": null,
-   "model": null
+   "model": null,
+   "code": "CORE-SIM-0041"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1479,7 +1520,8 @@
    "status": "available",
    "independent": false,
    "gap": null,
-   "model": null
+   "model": null,
+   "code": "CORE-REG-0042"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1518,7 +1560,8 @@
    "status": "available",
    "independent": true,
    "gap": null,
-   "model": null
+   "model": null,
+   "code": "CORE-RES-0043"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1558,7 +1601,8 @@
    "status": "available",
    "independent": true,
    "gap": null,
-   "model": null
+   "model": null,
+   "code": "CORE-SAF-0044"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1625,7 +1669,8 @@
     "provider": "ollama",
     "name": "qwen3:8b",
     "role": "choix des outils et interprétation structurée ; jamais de calcul numérique ni de décision"
-   }
+   },
+   "code": "CORE-HSG-0045"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1687,7 +1732,8 @@
     "provider": "ollama",
     "name": "qwen3:8b",
     "role": "choix des outils et interprétation structurée ; jamais de calcul numérique ni de décision"
-   }
+   },
+   "code": "CORE-ENV-0046"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1753,7 +1799,8 @@
     "provider": "ollama",
     "name": "qwen3:8b",
     "role": "choix des outils et interprétation structurée ; jamais de calcul numérique ni de décision"
-   }
+   },
+   "code": "CORE-ENG-0047"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1808,7 +1855,8 @@
     "provider": "ollama",
     "name": "qwen3:8b",
     "role": "choix des outils et interprétation structurée ; jamais de calcul numérique ni de décision"
-   }
+   },
+   "code": "CORE-SIM-0048"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1868,7 +1916,8 @@
     "provider": "ollama",
     "name": "qwen3:8b",
     "role": "choix des outils et interprétation structurée ; jamais de calcul numérique ni de décision"
-   }
+   },
+   "code": "CORE-PUB-0049"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1929,7 +1978,8 @@
     "provider": "ollama",
     "name": "qwen3:8b",
     "role": "choix des outils et interprétation structurée ; jamais de calcul numérique ni de décision"
-   }
+   },
+   "code": "CORE-FOR-0050"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1968,7 +2018,8 @@
    "status": "available",
    "independent": true,
    "gap": null,
-   "model": null
+   "model": null,
+   "code": "CORE-SEC-0051"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -2019,7 +2070,8 @@
     "provider": "ollama",
     "name": "qwen3:8b",
     "role": "choix des outils et interprétation structurée ; jamais de calcul numérique ni de décision"
-   }
+   },
+   "code": "CORE-RES-0052"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -2049,7 +2101,8 @@
    "status": "unavailable",
    "independent": false,
    "gap": "Aucune donnée de sol ou de sous-sol intégrée.",
-   "model": null
+   "model": null,
+   "code": "CORE-GEO-0053"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -2079,7 +2132,8 @@
    "status": "unavailable",
    "independent": false,
    "gap": "Aucune donnée de réseau électrique publique intégrée.",
-   "model": null
+   "model": null,
+   "code": "CORE-ELC-0054"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -2109,7 +2163,8 @@
    "status": "unavailable",
    "independent": false,
    "gap": "Aucune donnée de réseau d’eau intégrée.",
-   "model": null
+   "model": null,
+   "code": "CORE-WAT-0055"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -2139,7 +2194,8 @@
    "status": "unavailable",
    "independent": false,
    "gap": "GTFS non intégré.",
-   "model": null
+   "model": null,
+   "code": "CORE-TRN-0056"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -2169,7 +2225,8 @@
    "status": "unavailable",
    "independent": false,
    "gap": "Pas de comptages ni de plans de feux observés.",
-   "model": null
+   "model": null,
+   "code": "CORE-TRF-0057"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -2199,7 +2256,8 @@
    "status": "unavailable",
    "independent": false,
    "gap": "Aucune donnée de biodiversité intégrée.",
-   "model": null
+   "model": null,
+   "code": "CORE-ECO-0058"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -2229,7 +2287,8 @@
    "status": "unavailable",
    "independent": false,
    "gap": "APEZ identifié mais non intégré ; aucune mesure.",
-   "model": null
+   "model": null,
+   "code": "CORE-ENV-0059"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -2259,7 +2318,8 @@
    "status": "unavailable",
    "independent": false,
    "gap": "Pas d’outil de conception.",
-   "model": null
+   "model": null,
+   "code": "CORE-ARC-0060"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -2289,7 +2349,8 @@
    "status": "unavailable",
    "independent": false,
    "gap": "Aucune donnée d’équipements.",
-   "model": null
+   "model": null,
+   "code": "CORE-MEC-0061"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -2319,7 +2380,8 @@
    "status": "unavailable",
    "independent": false,
    "gap": "Seuls les bilans déclarés sont disponibles.",
-   "model": null
+   "model": null,
+   "code": "CORE-BLD-0062"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -2349,7 +2411,8 @@
    "status": "unavailable",
    "independent": false,
    "gap": "Aucun indicateur agrégé intégré.",
-   "model": null
+   "model": null,
+   "code": "CORE-HLT-0063"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -2379,7 +2442,8 @@
    "status": "unavailable",
    "independent": false,
    "gap": "Aucune donnée de coût ; aucune estimation produite.",
-   "model": null
+   "model": null,
+   "code": "CORE-ECN-0064"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -2409,7 +2473,8 @@
    "status": "unavailable",
    "independent": false,
    "gap": "Aucune donnée sociale intégrée ; jamais de données individuelles.",
-   "model": null
+   "model": null,
+   "code": "CORE-SOC-0065"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -2439,7 +2504,8 @@
    "status": "unavailable",
    "independent": false,
    "gap": "Aucune donnée intégrée.",
-   "model": null
+   "model": null,
+   "code": "CORE-DIG-0066"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -2469,7 +2535,8 @@
    "status": "unavailable",
    "independent": false,
    "gap": "Hors périmètre des données publiques actuelles.",
-   "model": null
+   "model": null,
+   "code": "CORE-SEC-0067"
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -2500,10 +2567,11 @@
    "supervisor": null,
    "executionMode": "deterministic",
    "status": "available",
-   "independent": true
+   "independent": true,
+   "code": "CORE-SAF-0068"
   }
  ],
- "generated_at": "2026-10-14T02:05:17.655Z",
+ "generated_at": "2026-10-14T05:19:33.716Z",
  "counts": {
   "registered": 68,
   "executable": 17,

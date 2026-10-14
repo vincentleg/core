@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 100" role="img" aria-labelledby="t">
+  <title id="t">CORE</title>
+  <path d="M98.64 68.73 A50 13.5 -22 0 1 191.36 31.27" fill="none" stroke="#5cc8ff" stroke-width="2.4" stroke-linecap="round" opacity=".45"/>
+  <!-- Original CORE wordmark (Phase 7). Geometric strokes; the O is a planet with a tilted orbit and a satellite point. -->
+  <g fill="none" stroke="#e8f4ff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M73.4 26.6 A33 33 0 1 0 73.4 73.4"/>
+    <circle cx="145" cy="50" r="33"/>
+    <path d="M206 82 V18 H232 A16 16 0 0 1 232 50 H206 M228 50 L252 82"/>
+    <path d="M318 18 H282 V82 H318 M282 50 H310"/>
+  </g>
+  <path d="M191.36 31.27 A50 13.5 -22 0 1 98.64 68.73" fill="none" stroke="#5cc8ff" stroke-width="2.4" stroke-linecap="round"/>
+  <circle cx="191.36" cy="31.27" r="4.6" fill="#5cc8ff"/>
+  </svg>

@@ -1,5 +1,5 @@
 // CORE — 3D camera navigation (Phase 3). MapLibre's camera is target-centred: bearing (0–360°),
-// pitch (≤ 85°), zoom and pan around a centre point. There is no roll and no free 6-DoF flight; this module
+// pitch (≤ 75°), zoom and pan around a centre point. There is no roll and no free 6-DoF flight; this module
 // adds rotate / tilt / zoom / north / reset / orbit controls and keyboard shortcuts on top of MapLibre's own
 // mouse, trackpad and touch handlers.
 (function () {
@@ -28,7 +28,7 @@
   }
   const ease = opts => S.map.easeTo({ ...opts, duration: S.reduced ? 0 : 450 });
   function rotate(deg) { stopOrbit(); ease({ bearing: S.map.getBearing() + deg }); }
-  function tilt(deg) { stopOrbit(); ease({ pitch: Math.max(0, Math.min(85, S.map.getPitch() + deg)) }); }
+  function tilt(deg) { stopOrbit(); ease({ pitch: Math.max(0, Math.min(75, S.map.getPitch() + deg)) }); }
   function zoom(d) { stopOrbit(); ease({ zoom: S.map.getZoom() + d }); }
   function pan(dx, dy) { stopOrbit(); S.map.panBy([dx, dy], { duration: S.reduced ? 0 : 250 }); }
   function north() { stopOrbit(); ease({ bearing: 0 }); }
@@ -41,6 +41,8 @@
   function init({ map, reduced }) {
     S.map = map; S.reduced = !!reduced;
     document.querySelectorAll('[data-cam]').forEach(b => b.addEventListener('click', () => ACTIONS[b.dataset.cam]()));
+    const sel = document.getElementById('cam-view'); if (sel) sel.addEventListener('change', () => { view(sel.value); sel.value = ''; });
+    map.on('moveend', limitStreetPitch);
     // Any direct user gesture stops the orbit (no fight between user and animation).
     for (const ev of ['mousedown', 'touchstart', 'wheel', 'dragstart']) map.on(ev, e => { if (e.originalEvent) stopOrbit(); });
     document.addEventListener('keydown', e => {
@@ -51,8 +53,22 @@
       if (KEYS[k]) { KEYS[k](); e.preventDefault(); }
     });
   }
+  // Phase 7: camera presets and readable street views (no extreme pitch close to the ground).
+  const globeZoom = () => Math.max(0.9, Math.min(2.6, Math.log2(Math.min(innerWidth, innerHeight - 52) * 0.42 * 2 * Math.PI / 512)));
+  const PRESETS = {
+    globe: () => ({ center: [-110, 32], zoom: globeZoom(), pitch: 0, bearing: 0 }),
+    city: () => ({ center: [-122.432, 37.772], zoom: 12.3, pitch: 50, bearing: -15 }),
+    hood: () => ({ center: [-122.404, 37.7795], zoom: 14.6, pitch: 58, bearing: -40 }),
+    street: () => ({ center: [-122.4123, 37.7756], zoom: 17.2, pitch: 62, bearing: -44 }),
+    mission: () => ({ center: [-122.4065, 37.7795], zoom: 14.2, pitch: 50, bearing: -40 }),
+  };
+  function view(name) {
+    const v = PRESETS[name] && PRESETS[name](); if (!v) return; stopOrbit();
+    S.map.flyTo({ ...v, padding: globalThis.CORE_LAYOUT ? globalThis.CORE_LAYOUT.padding() : undefined, duration: S.reduced ? 0 : 3500, essential: true });
+  }
+  function limitStreetPitch() { const m = S.map; if (m.getZoom() > 17 && m.getPitch() > 70 && !m.isMoving()) m.easeTo({ pitch: 70, duration: S.reduced ? 0 : 300 }); }
   // Orbit around a selected location (used by the platform when a record, item or landmark is selected).
   function focus(lngLat) { S.focus = lngLat || null; }
 
-  globalThis.CORE_CAMERA = { init, rotate, tilt, zoom, pan, north, reset, startOrbit, stopOrbit, focus, state: S };
+  globalThis.CORE_CAMERA = { init, rotate, tilt, zoom, pan, north, reset, startOrbit, stopOrbit, focus, view, PRESETS, state: S };
 })();

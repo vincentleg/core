@@ -5,6 +5,8 @@
   'use strict';
   const G = globalThis, $ = id => document.getElementById(id);
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  // Links from external feeds and documents: only https URLs become clickable (defence in depth with the CSP).
+  const safeUrl = u => (/^https:\/\//i.test(String(u || '')) ? u : '#');
   const KIND = { observation: 'Observation', statistic: 'Statistique agrégée', 'public-notice': 'Avis public', proposal: 'Proposition', 'approved-decision': 'Décision approuvée', 'ongoing-project': 'Projet en cours', 'completed-work': 'Travaux terminés', prediction: 'Prévision / modèle', announcement: 'Annonce d’agence', commentary: 'Commentaire', opinion: 'Opinion', allegation: 'Allégation (non établie)' };
   const EPI = { observed: ['Observé', 'ok'], reported: ['Rapporté', 'info'], derived: ['Dérivé', 'info'], hypothesis: ['Hypothèse', 'warn'], simulated: ['Simulé', 'warn'] };
   const DEC = { 'ÉLIGIBLE À LA REVUE HUMAINE': 'ok', 'PREUVES SUPPLÉMENTAIRES REQUISES': 'warn', REJETÉ: 'fail', 'PRÊT POUR REVUE HUMAINE': 'ok', SUSPENDU: 'warn', BLOQUÉ: 'fail' };
@@ -23,16 +25,23 @@
   }
 
   // ---------- Navigation ----------
-  const TITLES = { demo: 'Démonstration guidée', intel: 'Intelligence urbaine — San Francisco', agents: 'Organisation des agents', missions: 'Missions', sims: 'Simulations et modèles', decisions: 'Décisions (revue humaine)', data: 'Données et preuves' };
+  const TITLES = { demo: 'Démonstration guidée', problems: 'Problèmes du monde — San Francisco', activity: 'Activité de la civilisation', health: 'Santé des données', intel: 'Intelligence urbaine — San Francisco', agents: 'Organisation des agents', missions: 'Missions', sims: 'Simulations et modèles', decisions: 'Décisions (revue humaine)', data: 'Données et preuves' };
+  // Phase 7: five navigation groups; every earlier view stays reachable as a sub-tab.
+  const GROUPS = { world: ['world'], civ: ['agents', 'problems', 'activity'], intel: ['intel'], missions: ['missions', 'sims', 'decisions'], evidence: ['data', 'health'] };
+  const SUB = { agents: 'Organisation', problems: 'Problèmes du monde', activity: 'Activité', missions: 'Missions', sims: 'Simulations', decisions: 'Décisions', data: 'Données & preuves', health: 'Santé des données' };
+  const groupOf = sec => Object.keys(GROUPS).find(g => GROUPS[g].includes(sec)) || sec;
   function show(sec) {
+    if (GROUPS[sec] && sec !== 'world') sec = GROUPS[sec][0];
     P.sec = sec;
     if (sec !== 'sims' && P.map && P.map.getLayer && P.map.getLayer('pf-sim-line')) simVisible(false);
-    document.querySelectorAll('#appnav [data-sec]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.sec === sec)));
+    const grp = groupOf(sec);
+    document.querySelectorAll('#appnav [data-sec]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.sec === grp)));
     if (sec === 'demo') { if (G.CORE_DEMO) G.CORE_DEMO.go(0); return; }
     if (sec === 'world') { $('ws').hidden = true; document.body.classList.remove('ws-open'); return; }
     G.CORE_SF_VIEW.closePanel();
     $('ws').hidden = false; document.body.classList.add('ws-open'); $('ws-title').textContent = TITLES[sec];
-    ({ demo: renderDemo, intel: renderIntel, agents: renderAgents, missions: renderMissions, sims: renderSims, decisions: renderDecisions, data: renderData })[sec]();
+    const tabs = $('ws-tabs'); if (tabs) { const subs = GROUPS[grp] || []; tabs.innerHTML = subs.length > 1 ? subs.map(k => `<button type="button" role="tab" data-sub="${k}" aria-selected="${k === sec}">${esc(SUB[k])}</button>`).join('') : ''; tabs.querySelectorAll('[data-sub]').forEach(b => b.onclick = () => show(b.dataset.sub)); }
+    ({ demo: renderDemo, problems: renderProblems, activity: renderActivity, health: renderHealth, intel: renderIntel, agents: renderAgents, missions: renderMissions, sims: renderSims, decisions: renderDecisions, data: renderData })[sec]();
   }
 
   // ---------- City Intelligence ----------
@@ -89,7 +98,7 @@
         <select id="in-domain" aria-label="Domaine"><option value="all">Tous les domaines</option>${domains.map(d => `<option ${f.domain === d ? 'selected' : ''}>${esc(d)}</option>`).join('')}</select>
         <label class="hint"><input type="checkbox" id="in-corridor" ${f.corridor ? 'checked' : ''}> corridor seulement</label></div>
       <ul class="list" id="in-list">${items.slice(0, 80).map(i => { const l = F.linkToCorridor(i, e.ctx);
-        return `<li class="item"><span class="t"><a href="${esc(i.url)}" target="_blank" rel="noopener">${esc(i.title)}</a></span><span>${esc(i.summary)}</span>
+        return `<li class="item"><span class="t"><a href="${esc(safeUrl(i.url))}" target="_blank" rel="noopener">${esc(i.title)}</a></span><span>${esc(i.summary)}</span>
         <span class="m">${pill(KIND[i.kind] || i.kind, i.kind === 'observation' || i.kind === 'statistic' ? 'ok' : ['prediction', 'commentary', 'opinion', 'allegation'].includes(i.kind) ? 'warn' : 'info')} ${pill(i.verification.status === 'official-source' ? 'source officielle' : i.verification.status === 'registered-open-data' ? 'données ouvertes enregistrées' : 'non vérifiée', F.TRUSTED.includes(i.verification.status) ? 'ok' : 'fail')} ${i.confidence ? `<span title="${esc(i.confidence.limitations)}">confiance ${esc(i.confidence.level)} — ${esc(i.confidence.limitations)}</span>` : ''}
         <span>${esc(i.publisher)}</span><span>publié par la source ${esc(fmt(i.published))}</span>${i.data && i.data.start ? `<span>période prévue ${esc(i.data.start)} → ${esc(i.data.end || '?')}</span>` : ''}<span>collecté par CORE ${esc(fmt(i.retrieved_at))}${i.revision > 1 ? ` · révision ${i.revision}` : ''}</span><span>${i.domains.map(esc).join(', ')}</span>
         ${l ? pill(`tronçon ${l.segment} (${l.basis})`, 'info') : i.geo ? pill('géolocalisé hors corridor') : pill('non géolocalisé')}</span>
@@ -130,7 +139,13 @@
     const byDept = new Map(R.departments.map(d => [d.id, []])); for (const a of R.agents) if (a.department && byDept.has(a.department) && !a.id.endsWith('.lead') && keep(a)) byDept.get(a.department).push(a);
     const st = a => a.executionMode === 'deterministic' ? pill('exécutable (règles)', 'ok') : a.executionMode === 'llm' ? (P.llm && P.llm.available ? pill('assisté par modèle local — disponible', 'ok') : pill('assisté par modèle — modèle indisponible', 'warn')) : a.executionMode === 'unavailable' ? pill('indisponible', 'fail') : pill('coordination', 'info');
     const cogCount = id => (P.cogIndex ? P.cogIndex.missions.filter(m => m.agents.includes(id)).length : 0);
+    const AW = G.CORE_AGENTS_WORLD, recPart = new Set(P.cogIndex ? P.cogIndex.missions.flatMap(m => m.agents) : []), replaying = !!(AW && AW.state.replay);
     $('ws-body').innerHTML = `
+      <div class="civ-truth" id="civ-truth"><b>Ce que vous voyez dans le monde</b><ul>
+        <li><b>${c.registered}</b> profils enregistrés · <b>${c.executable + c.llm}</b> exécutables (${c.executable} à règles, ${c.llm} assistés par modèle)</li>
+        <li><b>${running}</b> en cours d’exécution dans cette session${P.local ? '' : ' (site public : aucune exécution en direct)'}</li>
+        <li><b>${recPart.size}</b> agents ont participé à des missions enregistrées · avatars affichés : ${replaying ? 'participants d’une <b>relecture</b>' : AW && AW.state.showAll ? '<b>positions de repos illustratives</b> de tous les exécutables' : 'participants de la mission phare, <b>en attente</b>'}</li></ul>
+        <div class="toolbar"><select id="civ-mission" aria-label="Mission enregistrée à relire">${(P.cogIndex ? P.cogIndex.missions : []).map(m => `<option value="${esc(m.id)}">${esc(m.mode === 'fast' ? 'rapide' : 'approfondie')} · ${esc(m.question.slice(0, 70))}${m.question.length > 70 ? '…' : ''}</option>`).join('')}</select><button type="button" class="small" id="civ-replay">Relire dans le monde</button><button type="button" class="ghost small" id="civ-all" aria-pressed="${!!(AW && AW.state.showAll)}">${AW && AW.state.showAll ? 'Masquer' : 'Afficher'} tous les exécutables (illustratif)</button></div></div>
       <div class="kpis"><div class="kpi"><b>${c.registered}</b><span>profils enregistrés</span></div><div class="kpi"><b>${c.executable}</b><span>exécutables (règles)</span></div><div class="kpi"><b>${c.llm}</b><span>assistés par modèle (${P.llm && P.llm.available ? 'modèle disponible' : 'modèle indisponible'})</span></div><div class="kpi"><b>${c.coordinationOnly}</b><span>coordination seule</span></div><div class="kpi"><b>${c.unavailable}</b><span>indisponibles</span></div><div class="kpi"><b>${G.CORE_MISSIONS.DEFAULT_OPTS.concurrency}</b><span>exécutions simultanées max.</span></div><div class="kpi"><b>${running}</b><span>tâches actives maintenant</span></div></div>
       <p class="hint">Modèle de langage local : <b>${esc(P.llm ? (P.llm.available ? `${P.llm.model} disponible (Ollama, ${(P.llm.models.find(m => m.name === P.llm.model) || {}).parameters || '?'} paramètres, ${(P.llm.models.find(m => m.name === P.llm.model) || {}).quantization || '?'})` : P.llm.reason) : 'test en cours')}</b>. Il choisit des outils autorisés et rédige des interprétations validées ; il ne calcule aucun chiffre et ne décide rien. ${c.executable} agents à règles fonctionnent sans modèle. Mise en place : <code>node scripts/llm-check.mjs</code>. ${esc(G.CORE_ORG.DISCLAIMER)}</p>
       ${P.cogIndex && P.cogIndex.missions.length ? `<p class="hint">Collaborations enregistrées (modèle réel) : ${P.cogIndex.missions.length} mission(s) — ${P.cogIndex.missions.slice(0, 3).map(m => `${esc(m.question)} → ${esc(m.decision)} (${m.metrics.modelCalls} appels au modèle, ${m.metrics.toolCalls} outils)`).join(' ; ')}</p>` : ''}
@@ -143,7 +158,13 @@
         <li><b>Revue humaine</b> obligatoire ; aucun agent n’autorise ni n’exécute d’action réelle. Les mises à jour de connaissances sont proposées puis approuvées par un humain.</li>
         <li><b>Profils non exécutables</b> : ${c.coordinationOnly} de coordination et ${c.unavailable} indisponibles (donnée ou outil manquant) — ce ne sont pas des agents autonomes.</li></ul></details>
       <div class="toolbar" role="group" aria-label="Filtrer par statut">${[['all', 'Tous'], ['llm', `Assistés par modèle (${c.llm})`], ['deterministic', `À règles (${c.executable})`], ['unavailable', `Indisponibles (${c.unavailable})`]].map(([k, l]) => `<button type="button" class="small ${F === k ? '' : 'ghost'}" data-agfilter="${k}" aria-pressed="${F === k}">${esc(l)}</button>`).join('')}</div>
-      <p class="hint">Hiérarchie : coordination globale → ville (San Francisco) → 28 départements → spécialistes ; vérification et gouvernance indépendantes. Les directions de département sont des profils de coordination, pas des agents exécutables.</p>
+      ${(() => { const by = id => R.agents.find(a => a.id === id) || {}, gl = by('core.global.coordinator'), gw = by('core.san-francisco.governance.gateway'), mg = by('core.san-francisco.manager'), leads = R.agents.filter(a => a.id.endsWith('.lead')), sp = R.agents.filter(a => a.scope.level === 'specialist'), spx = sp.filter(a => a.executionMode === 'deterministic' || a.executionMode === 'llm'), perms = l => [...new Set(l.map(a => a.permission))].join(' · ');
+        return `<table class="tbl hier"><thead><tr><th>Niveau</th><th>Profils</th><th>Permission</th><th>Ce qu’il fait réellement</th></tr></thead><tbody>
+        <tr><td>CORE Command</td><td><code>${esc(gl.code)}</code> coordination globale (non exécutable) · <code>${esc(gw.code)}</code> passerelle (exécutable)</td><td>${esc(perms([gl, gw]))}</td><td>Politiques communes ; la passerelle recalcule tout et peut seulement rendre une décision plus prudente. Aucune autorisation réelle.</td></tr>
+        <tr><td>Coordinateur de mission</td><td><code>${esc(mg.code)}</code> coordination San Francisco (exécutable)</td><td>${esc(mg.permission)}</td><td>Routage déterministe des missions vers les spécialistes ; aucune décision.</td></tr>
+        <tr><td>Directions de domaine</td><td>${leads.length} directions (non exécutables)</td><td>${esc(perms(leads))}</td><td>Profils de coordination.</td></tr>
+        <tr><td>Spécialistes</td><td>${spx.length} exécutables sur ${sp.length}</td><td>${esc(perms(sp))}</td><td>Exécutent des outils autorisés ; les assistés par modèle interprètent, sans calculer.</td></tr></tbody></table>`; })()}
+      <p class="hint">Les permissions sont fixées dans le registre ; un agent ne peut jamais les élever. Les directions de département sont des profils de coordination, pas des agents exécutables.</p>
       <div class="org"><b>Coordination globale CORE</b> → <button type="button" class="agentbtn" data-agent="core.san-francisco.manager">Coordination San Francisco</button>
         ${R.departments.filter(d => F === 'all' || byDept.get(d.id).length).map(d => `<details ${F !== 'all' || byDept.get(d.id).some(a => a.executionMode === 'llm') ? 'open' : ''}><summary>${esc(d.name)} <span class="hint">(${byDept.get(d.id).length})</span></summary>
           <button type="button" class="agentbtn" data-agent="core.san-francisco.${d.id}.lead">Direction — ${esc(d.name)}</button> ${pill('coordination', 'info')}<br>
@@ -152,8 +173,12 @@
       <div id="ag-profile"></div>`;
     $('ws-body').querySelectorAll('[data-agent]').forEach(b => b.onclick = () => profile(b.dataset.agent));
     $('ws-body').querySelectorAll('[data-agfilter]').forEach(b => b.onclick = () => { P.agentFilter = b.dataset.agfilter; renderAgents(); });
+    $('civ-replay').onclick = async () => { const id = $('civ-mission').value; show('world'); if (AW) { if (G.CORE_CAMERA) G.CORE_CAMERA.view('mission'); await AW.startReplay(m => m.id === id); } };
+    $('civ-all').onclick = () => { if (AW) { AW.showAll(!AW.state.showAll); renderAgents(); } };
     if (P.selectedAgent) profile(P.selectedAgent);
   }
+  // Phase 7: open an agent dossier from the world (avatar click) or anywhere else.
+  function openAgent(id) { P.selectedAgent = id; if (P.sec === 'agents' && $('ag-profile')) profile(id); else show('agents'); }
   function profile(id) {
     P.selectedAgent = id;
     const a = P.registry.agents.find(x => x.id === id); if (!a) return;
@@ -166,7 +191,13 @@
     const props = P.K.lib.proposals.filter(p => (p.collections || []).includes(id) || p.proposedBy === id);
     const kEval = a.executionMode === 'llm' && G.CORE_LEARNING ? G.CORE_LEARNING.evaluateRole(P.K, P.registry, id.split('.').pop()) : null;
     if (P.cogIndex) for (const m of P.cogIndex.missions.filter(x => x.agents.includes(id))) hist.push({ id: m.id, origin: m.question, decision: m.decision, how: `collaboration avec modèle réel (${m.model})` });
-    $('ag-profile').innerHTML = `<div class="item"><span class="t">${esc(a.role)}</span><span class="m"><code>${esc(a.id)}</code></span>
+    const AW = G.CORE_AGENTS_WORLD, av = AW && AW.state.avatars.get(id), rp = AW && AW.state.replay;
+    const now = av && av.visible ? `${rp && rp.plan.agents.includes(id) ? pill('relecture', 'info') : pill('en attente', 'info')} ${esc(AW.STATE_FR[av.state] || av.state)}${av.note ? ` — <span class="hint">${esc(av.note)}</span>` : ''}` : `${pill('inactif')} aucune exécution en cours${a.executionMode === 'llm' && !P.local ? ' (site public : le modèle ne s’exécute pas ici)' : ''}`;
+    const sup = []; for (let x = a; x && x.supervisor; x = P.registry.agents.find(y => y.id === x.supervisor)) { const y = P.registry.agents.find(z => z.id === x.supervisor); if (!y || sup.includes(y)) break; sup.push(y); }
+    $('ag-profile').innerHTML = `<div class="item dossier-agent"><span class="t"><code class="mid">${esc(a.code)}</code> ${esc(a.role)}</span><span class="m"><code>${esc(a.id)}</code></span>
+      <h4>Travail actuel</h4><p>${now}${av && av.visible ? ` <button type="button" class="ghost small" id="ag-follow">${AW.state.follow === id ? 'Arrêter de suivre' : 'Suivre dans le monde'}</button>` : ''}</p>
+      <h4>Responsabilité</h4><p class="hint">Rend compte à : ${sup.length ? sup.map(y => `<code>${esc(y.code)}</code> ${esc(y.role)}`).join(' → ') : 'aucun (sommet)'} · décisions : passerelle déterministe puis revue humaine · permission <b>${esc(a.permission)}</b>, non modifiable par l’agent.</p>
+      <h4>Identité</h4>
       <table class="tbl"><tbody>
       <tr><th>Portée</th><td>${esc(Object.values(a.scope).join(' · '))}</td></tr><tr><th>Département</th><td>${esc(a.department || '—')}</td></tr>
       <tr><th>Spécialisation</th><td>${esc(a.specialization)}</td></tr><tr><th>Compétences</th><td>${a.competencies.map(c => `${esc(c.id)} (${esc(c.basis === 'declared' ? 'déclarée' : c.basis)})`).join(', ') || '—'}</td></tr>
@@ -174,16 +205,17 @@
       <tr><th>Superviseur</th><td>${esc(a.supervisor || '—')}</td></tr><tr><th>Mode d’exécution</th><td>${esc(a.executionMode)}${a.gap ? ` — ${esc(a.gap)}` : ''}</td></tr>
       <tr><th>Statut</th><td>${esc(a.status)}</td></tr>${a.model ? `<tr><th>Modèle</th><td>${esc(a.model.provider)} · ${esc(a.model.name)} — ${P.llm && P.llm.available ? pill('disponible', 'ok') : pill('indisponible', 'warn')}<br><span class="hint">${esc(a.model.role)}</span></td></tr>` : ''}<tr><th>Budget</th><td>${a.budget.maxTasks} tâches · ${a.budget.maxMs} ms · ${a.budget.maxRecords} enregistrements</td></tr>
       <tr><th>Version des connaissances</th><td>${esc(P.K.lib.version)} — collection de ${docs.length} document(s) approuvé(s)</td></tr></tbody></table>
-      <b>Collection de connaissances</b><ul>${docs.map(d => { const fr = KN.freshness(d, new Date().toISOString()), src = P.K.sources.get(d.source) || {}; return `<li><a href="${esc(d.url)}" target="_blank" rel="noopener">${esc(d.title)}</a> v${d.version}${d.history && d.history.length ? ` (${d.history.length} version(s) antérieure(s))` : ''} · ${esc(src.name || d.source)} · licence ${esc(src.license || '?')} · récupéré ${esc(d.retrieved_at)} · ${fr.stale ? pill('à actualiser', 'warn') : pill('à jour', 'ok')} · confiance : ${esc(d.confidence)} · limites : ${esc(d.limitations || '—')}${a.knowledge.includes(d.id) ? '' : ' ' + pill('ajouté par apprentissage approuvé', 'info')}</li>`; }).join('') || '<li>aucune</li>'}</ul>
+      <h4>Connaissances</h4><b>Collection de connaissances</b><ul>${docs.map(d => { const fr = KN.freshness(d, new Date().toISOString()), src = P.K.sources.get(d.source) || {}; return `<li><a href="${esc(safeUrl(d.url))}" target="_blank" rel="noopener">${esc(d.title)}</a> v${d.version}${d.history && d.history.length ? ` (${d.history.length} version(s) antérieure(s))` : ''} · ${esc(src.name || d.source)} · licence ${esc(src.license || '?')} · récupéré ${esc(d.retrieved_at)} · ${fr.stale ? pill('à actualiser', 'warn') : pill('à jour', 'ok')} · confiance : ${esc(d.confidence)} · limites : ${esc(d.limitations || '—')}${a.knowledge.includes(d.id) ? '' : ' ' + pill('ajouté par apprentissage approuvé', 'info')}</li>`; }).join('') || '<li>aucune</li>'}</ul>
       ${kEval ? `<b>Évaluation des connaissances du rôle</b> ${pill(`${Math.round(kEval.score * 100)} %`, kEval.score === 1 ? 'ok' : 'warn')}<ul>${kEval.results.map(r => `<li>${r.pass ? pill('réussie', 'ok') : pill('échec', 'fail')} ${esc(r.question)}</li>`).join('')}</ul>` : ''}
       ${props.length ? `<b>Apprentissage contrôlé</b><ul>${props.map(p => `<li>${pill(p.status, p.status === 'approved' ? 'ok' : p.status === 'pending' ? 'warn' : 'fail')} ${esc(p.docId)} — ${esc(p.reason)} · proposé par ${esc(p.proposedBy)}${p.reviewer ? ` · décidé par ${esc(p.reviewer)}` : ''}${(p.evaluation || []).filter(x => id.endsWith(x.agent)).map(x => ` · évaluation ${Math.round(x.before.score * 100)} % → ${Math.round(x.after.score * 100)} %`).join('')}</li>`).join('')}</ul>` : ''}
       <b>Sources de données autorisées (via ses outils)</b> <span class="hint">${[...new Set(a.tools.map(t => TOOL_SOURCES[t]).filter(Boolean))].map(esc).join(' · ') || 'aucune'}</span><br>
-      <b>Contributions dans les missions enregistrées</b> ${contrib.length ? `<ul>${contrib.map(x => `<li>${pill(x.mode === 'deep' ? 'mode approfondi' : 'mode rapide')} ${esc(x.q.slice(0, 90))}… — ${x.calls} appel(s) d’outils (${x.tools.map(esc).join(', ') || '—'}), ${x.evidence} preuve(s) produite(s), ${pill(`${x.acc.length} énoncé(s) accepté(s)`, 'ok')} ${x.rej.length ? pill(`${x.rej.length} rejeté(s)`, 'fail') : ''}${x.dOut.length ? ` · ${x.dOut.length} désaccord(s) émis` : ''}${x.dIn.length ? ` · ${x.dIn.length} reçu(s)` : ''}${x.peers.length ? ` · avec ${x.peers.map(p => esc(p.split('.').pop())).join(', ')}` : ''}
+      <h4>Historique</h4><b>Contributions dans les missions enregistrées</b> ${contrib.length ? `<ul>${contrib.map(x => `<li>${pill(x.mode === 'deep' ? 'mode approfondi' : 'mode rapide')} ${esc(x.q.slice(0, 90))}… — ${x.calls} appel(s) d’outils (${x.tools.map(esc).join(', ') || '—'}), ${x.evidence} preuve(s) produite(s), ${pill(`${x.acc.length} énoncé(s) accepté(s)`, 'ok')} ${x.rej.length ? pill(`${x.rej.length} rejeté(s)`, 'fail') : ''}${x.dOut.length ? ` · ${x.dOut.length} désaccord(s) émis` : ''}${x.dIn.length ? ` · ${x.dIn.length} reçu(s)` : ''}${x.peers.length ? ` · avec ${x.peers.map(p => esc(p.split('.').pop())).join(', ')}` : ''}
         ${x.acc.length ? `<details><summary>Énoncés acceptés (${x.acc.length})</summary><ul>${x.acc.slice(0, 6).map(b => `<li>${esc(b.statement)} <span class="hint">[${b.cites.map(esc).join(', ')}]</span></li>`).join('')}</ul></details>` : ''}${x.rej.length ? `<details><summary>Sorties rejetées (${x.rej.length})</summary><ul>${x.rej.slice(0, 6).map(r => `<li>${esc((r.statement || r.item).slice(0, 140))} — ${pill(r.reason.slice(0, 90), 'fail')}</li>`).join('')}</ul></details>` : ''}</li>`).join('')}</ul>` : '<span class="hint">aucune contribution enregistrée</span>'}<br>
       <b>Évaluations</b> ${ev.length ? `<ul>${ev.map(r => `<li>${r.pass ? pill('réussie', 'ok') : pill('échec', 'fail')} ${esc(r.case)} — ${esc(r.date)}</li>`).join('')}</ul>` : '<span class="hint">aucune (pas d’outil exécutable)</span>'}
       ${a.executionMode === 'deterministic' ? '<button type="button" class="ghost small" id="ag-reeval">Réévaluer maintenant</button>' : ''}
       <b>Historique de missions</b> ${hist.length ? `<ul>${hist.slice(0, 12).map(h => `<li>${pill(h.how)} ${esc(h.origin)} — ${esc(h.decision)}</li>`).join('')}</ul>` : '<span class="hint">aucune</span>'}
       <p class="hint">${esc(a.disclaimer)}</p></div>`;
+    const fb = $('ag-follow'); if (fb) fb.onclick = () => { show('world'); AW.follow(id); };
     const rb = $('ag-reeval'); if (rb) rb.onclick = async () => { P.liveEvals = G.CORE_EVALS.evaluate(await env(), P.registry); profile(id); };
   }
 
@@ -319,6 +351,10 @@
   }
 
   // ---------- Simulations, Decisions, Data ----------
+  async function renderProblems() { if (G.CORE_CIV) return G.CORE_CIV.renderProblems($('ws-body'), await env()); $('ws-body').innerHTML = '<p class="hint">Module indisponible.</p>'; }
+  async function renderActivity() { if (G.CORE_CIV) return G.CORE_CIV.renderActivity($('ws-body'), await env()); $('ws-body').innerHTML = '<p class="hint">Module indisponible.</p>'; }
+  async function renderHealth() { if (G.CORE_CIV) return G.CORE_CIV.renderHealth($('ws-body'), await env()); $('ws-body').innerHTML = '<p class="hint">Module indisponible.</p>'; }
+
   // ---------- Simulations (Phase 5: interactive, reproducible, browser-executed) ----------
   // Spatial view of the simulation. Positions are aggregated PER BLOCK (the model computes counts, not tree
   // coordinates): a band whose width scales with plantable positions, a "+N" label at the block midpoint, and the
@@ -421,7 +457,7 @@
       <table class="tbl"><thead><tr><th>Jeu</th><th>Enr.</th><th>Récupéré</th><th>SHA-256</th></tr></thead><tbody>${man.datasets.map(d => { const k = d.file.replace('.geojson', ''); return `<tr><td><a href="${esc(d.page)}" target="_blank" rel="noopener">${esc(d.title)}</a></td><td>${d.features}</td><td>${esc(fmt(d.retrieved_at))}</td><td>${sv.state.verified[k] === 'ok' ? pill('fichier intact (SHA-256)', 'ok') : pill(sv.state.verified[k] || '?', 'warn')}</td></tr>`; }).join('')}</tbody></table>
       <button type="button" class="ghost small" id="dt-inspect">Ouvrir l’inspecteur des registres</button>
       <h3 style="margin:0;font-size:13px">Bibliothèque de connaissances (${KN.approved(P.K).length} documents approuvés, ${P.K.lib.proposals.length} proposition(s))</h3>
-      <table class="tbl"><thead><tr><th>Document</th><th>Source</th><th>v</th><th>Fraîcheur</th></tr></thead><tbody>${KN.approved(P.K).map(d => { const fr = KN.freshness(d, new Date().toISOString()); return `<tr><td><a href="${esc(d.url)}" target="_blank" rel="noopener">${esc(d.title)}</a><br><span class="hint">${esc(d.confidence)}${d.limitations ? ' · ' + esc(d.limitations) : ''}</span></td><td>${esc(P.K.sources.get(d.source).name)}<br><span class="hint">${esc(P.K.sources.get(d.source).license)}</span></td><td>${d.version}</td><td>${fr.stale ? pill('à actualiser', 'warn') : pill(`${fr.ageDays} j`, 'ok')}</td></tr>`; }).join('')}</tbody></table>
+      <table class="tbl"><thead><tr><th>Document</th><th>Source</th><th>v</th><th>Fraîcheur</th></tr></thead><tbody>${KN.approved(P.K).map(d => { const fr = KN.freshness(d, new Date().toISOString()); return `<tr><td><a href="${esc(safeUrl(d.url))}" target="_blank" rel="noopener">${esc(d.title)}</a><br><span class="hint">${esc(d.confidence)}${d.limitations ? ' · ' + esc(d.limitations) : ''}</span></td><td>${esc(P.K.sources.get(d.source).name)}<br><span class="hint">${esc(P.K.sources.get(d.source).license)}</span></td><td>${d.version}</td><td>${fr.stale ? pill('à actualiser', 'warn') : pill(`${fr.ageDays} j`, 'ok')}</td></tr>`; }).join('')}</tbody></table>
       <p><b>Contradictions détectées :</b> ${contra.map(c => `${esc(c.key)} : ${c.values.join(' vs ')} (${esc(c.a)} / ${esc(c.b)}) — ${pill(c.status, c.status === 'conflict' ? 'fail' : 'ok')}`).join(' ; ') || 'aucune'}</p>
       <p class="hint">Mises à jour : un agent peut proposer, seul un relecteur humain (<code>human:…</code>) approuve ; une proposition touchant aux règles de sûreté ou permissions d’un agent est rejetée. Chaque version est conservée et restaurable (<code>node scripts/learn.mjs --rollback</code>).</p>
       ${G.CORE_DATA_POLICY ? (() => { const E = Object.entries(G.CORE_DATA_POLICY.ENTRIES); return `<h3 style="margin:0;font-size:13px">Politique d’éligibilité des données (${E.filter(([, x]) => x.status === 'eligible').length} éligibles, ${E.filter(([, x]) => x.status === 'quarantined').length} en quarantaine, ${E.filter(([, x]) => x.status === 'excluded').length} exclues — vérifiée ${esc(G.CORE_DATA_POLICY.VERIFIED)})</h3><details><summary>Détail par source</summary><table class="tbl"><thead><tr><th>Source</th><th>Licence / base d’usage</th><th>Usage commercial · attribution</th><th>Sensibilité</th><th>Usage permis · portée</th><th>Statut</th></tr></thead><tbody>${E.map(([k, x]) => `<tr><td><code>${esc(k)}</code><br>${esc(x.publisher)}</td><td>${esc(x.licence)}</td><td>${esc(x.commercialUse)}<br><span class="hint">${esc(x.attribution)}</span></td><td>${esc(x.sensitivity)}</td><td>${esc(x.allowedUse)}<br><span class="hint">${esc(x.scope)} · ${esc(x.retention)}</span>${x.notes ? `<br><span class="hint">${esc(x.notes)}</span>` : ''}</td><td>${pill(x.status, x.status === 'eligible' ? 'ok' : x.status === 'quarantined' ? 'warn' : 'fail')}</td></tr>`).join('')}</tbody></table></details>`; })() : ''}
@@ -437,12 +473,12 @@
   }
 
   async function init({ map, fly }) {
-    P.map = map; P.fly = fly;
+    P.map = map; P.fly = fly; P.envFn = env;
     P.registry = G.CORE_ORG.buildRegistry(); P.counts = G.CORE_ORG.counts(P.registry);
     const [evals, lib, items, state, recorded, cogIndex] = await Promise.all([getJSON('data/agents/evaluations.json'), getJSON('data/knowledge/library.json'), getJSON('data/feeds/items.json'), getJSON('data/feeds/state.json'), getJSON('data/missions/index.json').catch(() => null), getJSON('data/missions/cognitive/index.json').catch(() => null)]);
     P.evals = evals; P.K = G.CORE_KNOWLEDGE.load(lib); P.store = { items: items.items }; P.state = state; P.recorded = recorded; P.cogIndex = cogIndex;
     restoreBrowser(); schedule();
-    document.querySelectorAll('#appnav [data-sec]').forEach(b => b.addEventListener('click', () => show(b.dataset.sec)));
+    document.querySelectorAll('#appnav [data-sec], #legacy-sec [data-sec]').forEach(b => b.addEventListener('click', () => show(b.dataset.sec)));
     $('ws-close').onclick = () => show('world');
     new MutationObserver(() => { if (!$('sf-panel').hidden && !$('ws').hidden) { $('ws').hidden = true; document.body.classList.remove('ws-open'); document.querySelectorAll('#appnav [data-sec]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.sec === 'world'))); P.sec = 'world'; } }).observe($('sf-panel'), { attributes: true, attributeFilter: ['hidden'] });
     // Public mode: on the public site the page never tries to reach any localhost model endpoint.
@@ -455,5 +491,5 @@
     P.ready = true;
   }
 
-  G.CORE_PLATFORM = { init, show, launch, refresh, state: P, openRecorded, openDossier, loadRecorded, simEnforce };
+  G.CORE_PLATFORM = { init, show, launch, refresh, state: P, openRecorded, openDossier, loadRecorded, simEnforce, openAgent };
 })();

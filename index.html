@@ -2,11 +2,12 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com 'sha256-UuJqpc9eH8avXx6dpFvZ2g+dfjzpZQJsbRv8ZS09o+Y='; style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob: https://tiles.openfreemap.org https://s3.amazonaws.com https://gibs.earthdata.nasa.gov; connect-src 'self' https://tiles.openfreemap.org https://s3.amazonaws.com https://gibs.earthdata.nasa.gov https://data.sf.gov https://earthquake.usgs.gov https://api.weather.gov https://api.github.com http://127.0.0.1:11434 http://localhost:11434 http://127.0.0.1:8080; worker-src blob:; child-src blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<link rel="icon" href="data:,">
 <title>CORE</title>
-<meta name="description" content="CORE : une Terre parallèle où des agents testent des milliers de solutions avant qu'elles touchent le monde réel.">
-<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.7.3/dist/maplibre-gl.css">
+<meta name="description" content="CORE — Creation of Reborn Earth : un double numérique de la Terre où des agents spécialisés étudient des problèmes réels à partir de données publiques ; les décisions restent humaines.">
+<link rel="icon" href="assets/brand/core-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.7.3/dist/maplibre-gl.css" integrity="sha384-gNYNsUmuZqDYiT3gbirWTV5K7rt71RoveS/yXAaU09d4ZUmeDVTD3XoqB6uJAIFR" crossorigin="anonymous">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -256,36 +257,94 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
     body.demo-on .ws, body.demo-on .data { display: none; } .demo2 { left: 12px; right: 12px; width: auto; }
   }
   @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+  /* ---------- Phase 7: entry experience, brand, five-section navigation ---------- */
+  .landing { position: fixed; inset: 0; z-index: 30; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; pointer-events: none;
+    background: radial-gradient(ellipse at 50% 42%, rgba(2,6,15,0) 0, rgba(2,6,15,0) 34%, rgba(2,6,15,.55) 62%, rgba(2,6,15,.92) 100%); transition: opacity .6s ease; }
+  .landing.gone { opacity: 0; } .landing[hidden] { display: none; }
+  .landing-inner { pointer-events: auto; text-align: center; padding: 0 20px 7vh; max-width: 640px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .landing-mark { width: min(300px, 70vw); height: auto; }
+  .landing-tag { margin: 0; font: 500 13px var(--body); letter-spacing: .32em; text-transform: uppercase; color: #9fb6c9; }
+  .landing-lead { margin: 6px 0 4px; font: 400 16px/1.5 var(--body); color: #d6e6f2; }
+  .landing-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .landing .enter { font: 600 14px var(--body); letter-spacing: .24em; padding: 13px 28px; border-radius: 999px; background: #e8f4ff; color: #04101f; border: 0; box-shadow: 0 0 0 1px #5cc8ff55, 0 8px 30px rgba(92,200,255,.25); }
+  .landing .enter:hover { background: #ffffff; } .landing .ghost { border-radius: 999px; padding: 12px 20px; }
+  .landing-note { margin: 4px 0 0; font-size: 12px; color: #8ba3b8; } .landing-credit { position: absolute; right: 14px; bottom: 10px; margin: 0; font-size: 11px; color: #6f8597; pointer-events: auto; }
+  body.landing #appnav, body.landing .console, body.landing .layers, body.landing .cam, body.landing .status, body.landing .maplibregl-ctrl-bottom-right, body.landing .maplibregl-ctrl-bottom-left { opacity: 0; pointer-events: none; }
+  #appnav, .console, .layers, .cam, .status { transition: opacity .6s ease .3s; }
+  #appnav .mark img { display: block; filter: none; } #appnav .mark { display: flex; align-items: center; gap: 8px; }
+  .ws-tabs { display: flex; gap: 2px; padding: 0 16px; border-bottom: 1px solid var(--line); } .ws-tabs:empty { display: none; }
+  .ws-tabs button { background: transparent; color: var(--muted); border: 0; border-bottom: 2px solid transparent; border-radius: 0; padding: 6px 10px; font: 500 12.5px var(--body); }
+  .ws-tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: #79c0ff; }
+  #cam-view { width: auto; padding: 4px 6px; font-size: 12px; background: transparent; border-color: var(--line); }
+  @media (prefers-reduced-motion: reduce) { .landing, #appnav, .console, .layers, .cam, .status { transition: none; } }
+  /* ---------- Phase 7: agent avatars, mission theatre ---------- */
+  .agent-av { --s: 1; position: relative; width: 34px; height: 64px; padding: 0; border: 0; background: transparent; cursor: pointer; transform-origin: 50% 100%; }
+  .agent-av svg { width: 100%; height: 100%; overflow: visible; transform: scale(var(--s)); transform-origin: 50% 92%; filter: drop-shadow(0 0 4px rgba(92,200,255,.65)); }
+  .agent-av .head, .agent-av .torso { fill: rgba(140,220,255,.30); stroke: #8fe0ff; stroke-width: 1.4; }
+  .agent-av line { stroke: #8fe0ff; stroke-width: 2.4; stroke-linecap: round; } .agent-av .ring { fill: rgba(92,200,255,.12); stroke: #5cc8ff; stroke-width: .8; }
+  .agent-av .scan { fill: none; stroke: #f0b72f; stroke-width: 1; opacity: 0; } .agent-av .beam { stroke: #f0b72f; stroke-width: 1.4; opacity: 0; }
+  .agent-av .arm, .agent-av .leg { transform-box: fill-box; transform-origin: 50% 0; }
+  .agent-av .tag { position: absolute; left: 50%; top: -14px; transform: translateX(-50%); font: 600 9.5px var(--mono, monospace); color: #bfe9ff; background: rgba(2,8,18,.78); padding: 1px 4px; border-radius: 3px; white-space: nowrap; pointer-events: none; }
+  .agent-av[data-lod="far"] .tag { display: none; } .agent-av[data-lod="far"] svg { transform: scale(.62); } .agent-av[data-lod="hidden"] { display: none; }
+  body.agents-many .agent-av:not(.selected):not(:hover):not(:focus-visible) .tag { display: none; }
+  .agent-av.selected .ring { stroke: #f0b72f; stroke-width: 1.6; } .agent-av.selected .tag { color: #02050b; background: #f0b72f; }
+  .agent-av[data-state="idle"] .body { animation: av-breathe 3.2s ease-in-out infinite; }
+  .agent-av[data-state="walking"] .leg.l, .agent-av[data-state="walking"] .arm.r { animation: av-swing .7s ease-in-out infinite alternate; }
+  .agent-av[data-state="walking"] .leg.r, .agent-av[data-state="walking"] .arm.l { animation: av-swing .7s ease-in-out infinite alternate-reverse; }
+  .agent-av[data-state="investigating"] .arm.r { transform: rotate(-70deg); } .agent-av[data-state="investigating"] .scan { opacity: 1; animation: av-scan 1.2s ease-out infinite; }
+  .agent-av[data-state="reasoning"] .head { fill: rgba(240,183,47,.45); animation: av-think 1.4s ease-in-out infinite; }
+  .agent-av[data-state="reporting"] .beam { opacity: 1; animation: av-beam 1s linear infinite; } .agent-av[data-state="reporting"] .arm.l, .agent-av[data-state="reporting"] .arm.r { transform: rotate(150deg); }
+  .agent-av[data-state="collaborating"] .arm.r { animation: av-wave .6s ease-in-out infinite alternate; } .agent-av[data-state="collaborating"] .ring { stroke: #f0b72f; }
+  .agent-av[data-state="routing"] .ring { stroke-dasharray: 3 2; }
+  @keyframes av-breathe { 50% { transform: translateY(-1px); } } @keyframes av-swing { from { transform: rotate(-24deg); } to { transform: rotate(24deg); } }
+  @keyframes av-scan { from { r: 3; opacity: 1; } to { r: 12; opacity: 0; } } @keyframes av-think { 50% { fill: rgba(240,183,47,.15); } }
+  @keyframes av-beam { 50% { opacity: .2; } } @keyframes av-wave { from { transform: rotate(-110deg); } to { transform: rotate(-150deg); } }
+  body.tab-hidden .agent-av *, body.tab-hidden .agent-av { animation-play-state: paused !important; }
+  @media (prefers-reduced-motion: reduce) { .agent-av * { animation: none !important; } }
+  .theatre { position: fixed; left: 50%; transform: translateX(-50%); bottom: 64px; width: min(760px, calc(100vw - 32px)); z-index: 6; padding: 10px 12px; display: grid; gap: 8px; max-height: 48vh; overflow: auto; }
+  .theatre[hidden] { display: none; } body.ws-open .theatre { left: 16px; transform: none; width: min(700px, calc(100vw - var(--insp-w, 440px) - 48px)); } .th-banner { font-size: 12px; color: #d8c58c; } .th-banner b { color: #f0b72f; letter-spacing: .08em; }
+  .th-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; } .th-row input[type=range] { flex: 1; min-width: 140px; } .th-row select { width: auto; flex: none; }
+  .th-msgs { margin: 6px 0 0; padding-left: 18px; display: grid; gap: 6px; font-size: 12px; } .th-msgs li { display: grid; gap: 1px; } .th-msgs .m-h { font: 11px var(--mono, monospace); color: #8fb6cf; }
+  @media (max-width: 700px) { .theatre { bottom: 58px; max-height: 40vh; } body.ws-open .theatre { display: none; } body.theatre-on .console { display: none; } .landing-lead { font-size: 14.5px; } }
+  .civ-truth { border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; margin-bottom: 10px; } .civ-truth ul { margin: 4px 0 8px; padding-left: 18px; }
+  .dossier-agent h4 { margin: 12px 0 4px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: #8fb6cf; } code.mid { color: #f0b72f; }
+  .brand b { font: 600 15px var(--body); letter-spacing: .04em; } .brand span { white-space: nowrap; }
+  .tbl.hier td:first-child { white-space: nowrap; font-weight: 600; } .tbl.hier code, code.mid { white-space: nowrap; }
 </style>
 </head>
-<body class="console-min">
+<body class="console-min landing">
+<section id="landing" class="landing" aria-label="Bienvenue dans CORE">
+  <div class="landing-inner">
+    <img src="assets/brand/core-wordmark.svg" alt="CORE" class="landing-mark" width="300">
+    <p class="landing-tag">Creation of Reborn Earth</p>
+    <p class="landing-lead">Un double numérique de la Terre où des agents spécialisés étudient des problèmes réels à partir de données publiques — les décisions restent humaines.</p>
+    <div class="landing-actions"><button type="button" id="enter-core" class="enter">ENTER CORE</button><button type="button" id="landing-skip" class="ghost">Accès direct</button></div>
+    <p class="landing-note">Pilote opérationnel : San Francisco · données publiques · missions d’IA enregistrées · coût d’exploitation nul</p>
+  </div>
+  <p class="landing-credit">Imagerie de la Terre : NASA Blue Marble via GIBS</p>
+</section>
 <nav id="appnav" aria-label="Navigation principale">
-  <span class="mark">CORE<small>San Francisco</small></span>
+  <span class="mark"><img src="assets/brand/core-wordmark.svg" alt="CORE" height="18"><small>San Francisco</small></span>
   <div role="tablist" aria-label="Sections" style="display:flex">
     <button type="button" role="tab" data-sec="world" aria-selected="true">Monde</button>
-    <button type="button" role="tab" data-sec="demo" aria-selected="false">Démo</button>
-    <button type="button" role="tab" data-sec="intel" aria-selected="false">Intelligence urbaine</button>
-    <button type="button" role="tab" data-sec="agents" aria-selected="false">Agents</button>
+    <button type="button" role="tab" data-sec="civ" aria-selected="false">Civilisation</button>
+    <button type="button" role="tab" data-sec="intel" aria-selected="false">Intelligence</button>
     <button type="button" role="tab" data-sec="missions" aria-selected="false">Missions</button>
-    <button type="button" role="tab" data-sec="sims" aria-selected="false">Simulations</button>
-    <button type="button" role="tab" data-sec="decisions" aria-selected="false">Décisions</button>
-    <button type="button" role="tab" data-sec="data" aria-selected="false">Données &amp; preuves</button>
+    <button type="button" role="tab" data-sec="evidence" aria-selected="false">Preuves</button>
   </div>
   <span class="navmeta" id="navmeta">—</span>
 </nav>
 <div id="map" role="region" aria-label="Globe 3D de CORE"></div>
-<section class="panel ws" id="ws" hidden aria-live="polite"><header><h2 id="ws-title"></h2><button type="button" class="ghost small" id="ws-close">Fermer</button></header><div class="wsbody" id="ws-body"></div></section>
+<div id="legacy-sec" hidden><button type="button" data-sec="agents">agents</button><button type="button" data-sec="problems">problems</button><button type="button" data-sec="activity">activity</button><button type="button" data-sec="sims">sims</button><button type="button" data-sec="decisions">decisions</button><button type="button" data-sec="data">data</button><button type="button" data-sec="health">health</button><button type="button" data-sec="demo">demo</button></div>
+<section class="panel ws" id="ws" hidden aria-live="polite"><header><h2 id="ws-title"></h2><button type="button" class="ghost small" id="ws-close">Fermer</button></header><div class="ws-tabs" id="ws-tabs" role="tablist"></div><div class="wsbody" id="ws-body"></div></section>
 <div class="panel sim-badge" id="sim-badge" hidden role="status">Scénario hypothétique — modèle exploratoire non calibré (sidewalk-tree-capacity-v1)</div>
 <div class="panel cam" role="toolbar" aria-label="Caméra 3D">
+  <select id="cam-view" aria-label="Vues prédéfinies"><option value="">Vues…</option><option value="globe">Globe</option><option value="city">Ville</option><option value="hood">Quartier · SoMa</option><option value="street">Rue · Howard 8e–9e</option><option value="mission">Corridor de mission</option></select>
   <button type="button" class="ghost" data-cam="rotl" title="Pivoter à gauche (Q)" aria-label="Pivoter à gauche">⟲</button>
   <button type="button" class="ghost" data-cam="rotr" title="Pivoter à droite (E)" aria-label="Pivoter à droite">⟳</button>
-  <button type="button" class="ghost" data-cam="orbit" aria-pressed="false" title="Orbite 360° autour du centre ou de la sélection (O)" aria-label="Orbite 360 degrés">Orbite</button>
-  <button type="button" class="ghost" data-cam="tiltu" title="Incliner (R)" aria-label="Incliner davantage">⤒</button>
-  <button type="button" class="ghost" data-cam="tiltd" title="Redresser (F)" aria-label="Redresser">⤓</button>
-  <button type="button" class="ghost opt" data-cam="zin" title="Zoom avant (+)" aria-label="Zoom avant">+</button>
-  <button type="button" class="ghost opt" data-cam="zout" title="Zoom arrière (−)" aria-label="Zoom arrière">−</button>
+  <button type="button" class="ghost" data-cam="orbit" aria-pressed="false" title="Orbite 360° (O)" aria-label="Orbite 360 degrés">Orbite</button>
   <button type="button" class="ghost" data-cam="north" title="Nord en haut (N)" aria-label="Nord en haut">N</button>
-  <button type="button" class="ghost" data-cam="reset" title="Vue de référence (0)" aria-label="Réinitialiser la vue">Vue</button>
+  <button type="button" class="ghost" data-cam="reset" title="Vue de référence (0)" aria-label="Réinitialiser la vue">⌂</button>
   <button type="button" class="ghost opt" data-cam="help" aria-expanded="false" aria-controls="cam-help" title="Aide navigation">?</button>
 </div>
 <div class="panel" id="cam-help" hidden role="note"><b>Navigation 3D</b><br>
@@ -295,7 +354,7 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
   Limites : caméra MapLibre centrée sur une cible (cap 360°, inclinaison ≤ 85°) — pas de vol libre à 6 degrés de liberté ni de roulis.</div>
 
 <div class="panel console">
-  <div class="brand"><b>CORE</b><span>Creation Of Reborn Earth</span><button type="button" class="ghost small" id="console-toggle" aria-expanded="false" aria-controls="console-body">Déplier</button></div>
+  <div class="brand"><b>Explorer</b><span>Pilote San Francisco</span><button type="button" class="ghost small" id="console-toggle" aria-expanded="false" aria-controls="console-body">Déplier</button></div>
   <p class="dock-lead">Intelligence urbaine fondée sur des données publiques et des agents vérifiés. Pilote opérationnel : <b>San Francisco</b>. Les décisions restent humaines.</p>
   <form id="search" role="search">
     <input id="q" type="search" placeholder="Ville, quartier de SF, repère ou lat, lon" aria-label="Recherche locale : ville, quartier ou repère de San Francisco, ou latitude, longitude" maxlength="120" autocomplete="off">
@@ -411,7 +470,7 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
 
 <div class="panel status" aria-live="polite"><b id="pos">—</b> · zoom <b id="zoom">—</b> · <span id="msg">Chargement de la Terre…</span><span id="net" hidden> · <span class="warn">tuiles partielles (réseau)</span></span></div>
 
-<script src="https://unpkg.com/maplibre-gl@5.7.3/dist/maplibre-gl.js"></script>
+<script src="https://unpkg.com/maplibre-gl@5.7.3/dist/maplibre-gl.js" integrity="sha384-58glfsJ+cxARGnts6etFXqTluJx24YUgVY1WQxNLIfLkwT7yJfBORU1dKLD/YFTG" crossorigin="anonymous"></script>
 <script src="src/sf-world.js"></script>
 <script src="src/sf-view.js"></script>
 <script src="src/coord.js"></script>
@@ -439,6 +498,10 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
 <script src="src/evals.js"></script>
 <script src="src/camera.js"></script>
 <script src="src/map-style.js"></script>
+<script src="src/entry.js"></script>
+<script src="src/agents-world.js"></script>
+<script src="src/civ.js"></script>
+<script src="src/scheduler.js"></script>
 <script src="src/demo.js"></script>
 <script src="src/platform.js"></script>
 <script>
@@ -462,6 +525,8 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
     sources: {
       omt: { type: 'vector', url: 'https://tiles.openfreemap.org/planet' },
       hill: { type: 'raster-dem', tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'], encoding: 'terrarium', tileSize: 256, maxzoom: 14, attribution: 'Terrain : Mapzen / AWS · <a href="https://github.com/tilezen/joerd/blob/master/docs/attribution.md">Sources et crédits</a>' },
+      // NASA Blue Marble (public, open sharing; acknowledgement requested) — opening view only, fades into the CORE style.
+      nasa: { type: 'raster', tiles: ['https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpeg'], tileSize: 256, maxzoom: 8, attribution: 'Imagerie : NASA GIBS (Blue Marble)' },
       dem: { type: 'raster-dem', tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'], encoding: 'terrarium', tileSize: 256, maxzoom: 14, attribution: 'Terrain : Mapzen / AWS · <a href="https://github.com/tilezen/joerd/blob/master/docs/attribution.md">Sources et crédits</a>' },
     },
     // Atmosphere around the globe; fades out at city scale (MapLibre 5 sky).
@@ -473,31 +538,35 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
       { id: 'park', type: 'fill', source: 'omt', 'source-layer': 'landcover', filter: ['in', ['get', 'class'], ['literal', ['wood', 'grass', 'farmland']]], paint: { 'fill-color': '#0d2b28', 'fill-opacity': ['interpolate', ['linear'], ['zoom'], 4, 0.35, 12, 0.7] } },
       { id: 'water', type: 'fill', source: 'omt', 'source-layer': 'water', paint: { 'fill-color': SEA } },
       { id: 'parks-city', type: 'fill', source: 'omt', 'source-layer': 'park', minzoom: 11, paint: { 'fill-color': '#123a2f', 'fill-opacity': 0.55 } },
+      { id: 'natural-earth', type: 'raster', source: 'nasa', maxzoom: 9, paint: { 'raster-opacity': 0, 'raster-fade-duration': 0 } },
       { id: 'coast', type: 'line', source: 'omt', 'source-layer': 'water', paint: { 'line-color': CYAN, 'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0.8, 10, 0.35], 'line-width': ['interpolate', ['linear'], ['zoom'], 0, 0.6, 10, 1.2] } },
       { id: 'border', type: 'line', source: 'omt', 'source-layer': 'boundary', filter: ['all', ['<=', ['number', ['get', 'admin_level'], 99], 2], ['!=', ['get', 'maritime'], 1]], paint: { 'line-color': CYAN, 'line-opacity': 0.45, 'line-width': 0.8 } },
       { id: 'region', type: 'line', source: 'omt', 'source-layer': 'boundary', minzoom: 3, filter: ['==', ['get', 'admin_level'], 4], paint: { 'line-color': CYAN_DIM, 'line-opacity': 0.3, 'line-width': 0.6, 'line-dasharray': [2, 2] } },
-      { id: 'road-glow', type: 'line', source: 'omt', 'source-layer': 'transportation', filter: ['!=', ['get', 'class'], 'rail'], layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': CYAN, 'line-opacity': ['case', MAJOR, 0.2, 0.05], 'line-blur': 4, 'line-width': roadW(3) } },
-      { id: 'road', type: 'line', source: 'omt', 'source-layer': 'transportation', filter: ['!=', ['get', 'class'], 'rail'], layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': ['case', MAJOR, CYAN, CYAN_DIM], 'line-opacity': ['case', MAJOR, 0.85, 0.5], 'line-width': roadW(1) } },
+      { id: 'road-glow', type: 'line', source: 'omt', 'source-layer': 'transportation', filter: ['!=', ['get', 'class'], 'rail'], layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': CYAN, 'line-opacity': ['case', MAJOR, 0.1, 0], 'line-blur': 4, 'line-width': roadW(2.4) } },
+      { id: 'road', type: 'line', source: 'omt', 'source-layer': 'transportation', filter: ['!=', ['get', 'class'], 'rail'], layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': ['case', MAJOR, '#5fcfee', CYAN_DIM], 'line-opacity': ['case', MAJOR, 0.7, 0.38], 'line-width': roadW(0.9) } },
       { id: 'rail', type: 'line', source: 'omt', 'source-layer': 'transportation', minzoom: 10, filter: ['==', ['get', 'class'], 'rail'], paint: { 'line-color': '#aa8cff', 'line-opacity': 0.6, 'line-width': 1, 'line-dasharray': [3, 2] } },
       { id: 'footprint', type: 'line', source: 'omt', 'source-layer': 'building', minzoom: 14, paint: { 'line-color': CYAN, 'line-opacity': 0.22, 'line-width': 0.6 } },
       { id: 'building', type: 'fill-extrusion', source: 'omt', 'source-layer': 'building', minzoom: 13, paint: {
         // Height ramp (OSM render_height; 8 m when absent — display assumption): low-rise slate → towers in light cyan.
-        'fill-extrusion-color': ['interpolate', ['linear'], ['max', 0, ['number', ['get', 'render_height'], 8]], 0, '#16283b', 15, '#1c3651', 40, '#21557a', 100, '#2f86b3', 180, '#62c3e6', 260, '#b6ecff'],
+        // Two material families (by feature id) share the height ramp, so blocks of the same height do not look identical.
+        'fill-extrusion-color': ['case', ['==', ['%', ['coalesce', ['id'], 0], 3], 0],
+          ['interpolate', ['linear'], ['max', 0, ['number', ['get', 'render_height'], 8]], 0, '#1a2b40', 15, '#203a57', 40, '#285b80', 100, '#378bb7', 180, '#6cc6e8', 260, '#bdeeff'],
+          ['interpolate', ['linear'], ['max', 0, ['number', ['get', 'render_height'], 8]], 0, '#16283b', 15, '#1c3651', 40, '#21557a', 100, '#2f86b3', 180, '#62c3e6', 260, '#b6ecff']],
         'fill-extrusion-height': ['max', 0, ['number', ['get', 'render_height'], 8]], 'fill-extrusion-base': ['min', ['max', 0, ['number', ['get', 'render_height'], 8]], ['max', 0, ['number', ['get', 'render_min_height'], 0]]],
         'fill-extrusion-opacity': 0.9, 'fill-extrusion-vertical-gradient': true } },
       { id: 'place', type: 'symbol', source: 'omt', 'source-layer': 'place', filter: ['in', ['get', 'class'], ['literal', ['city', 'town', 'country', 'continent']]], layout: { 'text-field': name, 'text-font': ['Noto Sans Regular'], 'text-size': ['match', ['get', 'class'], 'country', 10.5, 'continent', 11, 12], 'text-transform': 'none', 'text-letter-spacing': ['match', ['get', 'class'], ['country', 'continent'], 0.12, 0.02] }, paint: { 'text-color': ['match', ['get', 'class'], ['country', 'continent'], '#7fa7c4', '#cfeeff'], 'text-halo-color': VOID, 'text-halo-width': 1.2, 'text-opacity': ['interpolate', ['linear'], ['zoom'], 1, 0.75, 4, 0.9] } },
-      { id: 'street-name', type: 'symbol', source: 'omt', 'source-layer': 'transportation_name', minzoom: 15, layout: { 'symbol-placement': 'line', 'text-field': name, 'text-font': ['Noto Sans Regular'], 'text-size': 11 }, paint: { 'text-color': '#8fd8f0', 'text-halo-color': VOID, 'text-halo-width': 1.5 } },
+      { id: 'street-name', type: 'symbol', source: 'omt', 'source-layer': 'transportation_name', minzoom: 15, layout: { 'symbol-placement': 'line', 'text-field': name, 'text-font': ['Noto Sans Regular'], 'text-size': 10.5, 'symbol-spacing': 420, 'text-padding': 6 }, paint: { 'text-color': '#8fd8f0', 'text-halo-color': VOID, 'text-halo-width': 1.5 } },
     ],
   };
 
   let map;
-  try { map = new maplibregl.Map({ container: 'map', style, center: [-98, 30], zoom: globeZoom(), maxPitch: 85, attributionControl: { compact: true } }); } catch (error) { msg('Carte indisponible : WebGL ou connexion. Le corridor reste accessible.'); return; }
+  try { map = new maplibregl.Map({ container: 'map', style, center: [-98, 30], zoom: globeZoom(), maxPitch: 75, attributionControl: { compact: true } }); } catch (error) { msg('Carte indisponible : WebGL ou connexion. Le corridor reste accessible.'); return; }
   globalThis.__CORE_MAP = map; // inspection hook for browser audits
   map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'bottom-right');
   map.on('style.load', () => { try { map.setProjection({ type: 'globe' }); } catch (e) { console.warn(e); } });
   // MapLibre ≥5.7.2 fires load even when a TileJSON fails: never let the hint hide a source warning.
   let sourceError = false;
-  map.on('load', () => { if (window.CORE_SF_VIEW) CORE_SF_VIEW.init({ map, msg, fly: (v, ms) => fly(v, ms) }); if (window.CORE_COORD_VIEW) CORE_COORD_VIEW.init({ map }); if (window.CORE_CITY_VIEW) CORE_CITY_VIEW.init({ map }); if (window.CORE_CAMERA) CORE_CAMERA.init({ map, reduced }); if (window.CORE_MAPSTYLE) CORE_MAPSTYLE.init({ map, reduced }); if (window.CORE_PLATFORM) CORE_PLATFORM.init({ map, fly: (v, ms) => fly(v, ms) }); });
+  map.on('load', () => { if (window.CORE_SF_VIEW) CORE_SF_VIEW.init({ map, msg, fly: (v, ms) => fly(v, ms) }); if (window.CORE_COORD_VIEW) CORE_COORD_VIEW.init({ map }); if (window.CORE_CITY_VIEW) CORE_CITY_VIEW.init({ map }); if (window.CORE_CAMERA) CORE_CAMERA.init({ map, reduced }); if (window.CORE_MAPSTYLE) CORE_MAPSTYLE.init({ map, reduced }); if (window.CORE_ENTRY) CORE_ENTRY.init({ map }); if (window.CORE_AGENTS_WORLD) CORE_AGENTS_WORLD.init({ map }); if (window.CORE_PLATFORM) CORE_PLATFORM.init({ map, fly: (v, ms) => fly(v, ms) }); });
   map.on('load', () => { ['l-trame', 'l-relief', 'l-buildings'].forEach(id => { $(id).disabled = false; }); if (!sourceError) msg('Glisser pour tourner · clic droit pour incliner · molette pour zoomer'); });
   // Source-level failures (TileJSON, style) replace the status message. Tile failures (often transient during
   // fast flights) get their own indicator so they never erase user feedback; it clears once the map settles.
