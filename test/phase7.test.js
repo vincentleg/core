@@ -84,7 +84,11 @@ test('replay: strict recorded order, states from recorded events, routes on the 
     const groups = ['investigation', 'deliberation', 'revision', 'scenario', 'review'].reduce((n, b) => n + new Set(mc.board.filter(x => x.phase === b).map(x => x.agent)).size, 0);
     assert.equal(plan.messages.length, groups + (mc.responses || []).length + (mc.specialistRequests || []).length + (mc.requests || []).length + (mc.decision ? 1 : 0));
     assert.ok(plan.messages.every(x => x.mission === mc.id));
-    assert.ok(plan.links.length <= (mc.disagreements || []).length);
+    // Phase 8: typed links, each traced to its recorded source.
+    assert.ok(plan.links.filter(l => l.type === 'disagreement').every(l => mc.disagreements.some(d => d.id === l.id && d.between[1] === l.from && d.between[0] === l.to)));
+    for (const l of plan.links.filter(x => x.type === 'request' || x.type === 'evidence')) { const q = mc.requests.find(r => r.id === l.id); assert.ok(q && q.fulfilledBy && q.fulfilledBy !== q.agent); assert.deepEqual(l.type === 'request' ? [l.from, l.to] : [l.to, l.from], [q.agent, q.fulfilledBy]); }
+    assert.ok(plan.links.filter(l => l.type === 'review').every(l => mc.board.some(b => b.phase === 'review' && b.agent === l.from) && mc.board.some(b => b.phase !== 'review' && b.agent === l.to)));
+    assert.ok(plan.links.every(l => ['disagreement', 'request', 'evidence', 'review'].includes(l.type)));
   }
 });
 

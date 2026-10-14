@@ -14,3 +14,6 @@ __pycache__/
 data/raw/
 data/results.local.json
 .cache/
+
+# Local supervisor state (Phase 8): queue, live status, STOP file
+.core-local/

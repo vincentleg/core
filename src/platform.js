@@ -139,13 +139,14 @@
     const byDept = new Map(R.departments.map(d => [d.id, []])); for (const a of R.agents) if (a.department && byDept.has(a.department) && !a.id.endsWith('.lead') && keep(a)) byDept.get(a.department).push(a);
     const st = a => a.executionMode === 'deterministic' ? pill('exécutable (règles)', 'ok') : a.executionMode === 'llm' ? (P.llm && P.llm.available ? pill('assisté par modèle local — disponible', 'ok') : pill('assisté par modèle — modèle indisponible', 'warn')) : a.executionMode === 'unavailable' ? pill('indisponible', 'fail') : pill('coordination', 'info');
     const cogCount = id => (P.cogIndex ? P.cogIndex.missions.filter(m => m.agents.includes(id)).length : 0);
-    const AW = G.CORE_AGENTS_WORLD, recPart = new Set(P.cogIndex ? P.cogIndex.missions.flatMap(m => m.agents) : []), replaying = !!(AW && AW.state.replay);
+    const AW = G.CORE_AGENTS_WORLD, recPart = new Set([...(P.cogIndex ? P.cogIndex.missions.flatMap(m => m.agents) : []), ...(P.recorded ? P.recorded.missions.flatMap(m => m.agentIds || []) : []), ...(P.operations ? P.operations.tasks.filter(t => t.result).flatMap(t => t.agents.map(a => a.id)) : [])]), replaying = !!(AW && AW.state.replay);
     $('ws-body').innerHTML = `
-      <div class="civ-truth" id="civ-truth"><b>Ce que vous voyez dans le monde</b><ul>
-        <li><b>${c.registered}</b> profils enregistrés · <b>${c.executable + c.llm}</b> exécutables (${c.executable} à règles, ${c.llm} assistés par modèle)</li>
-        <li><b>${running}</b> en cours d’exécution dans cette session${P.local ? '' : ' (site public : aucune exécution en direct)'}</li>
-        <li><b>${recPart.size}</b> agents ont participé à des missions enregistrées · avatars affichés : ${replaying ? 'participants d’une <b>relecture</b>' : AW && AW.state.showAll ? '<b>positions de repos illustratives</b> de tous les exécutables' : 'participants de la mission phare, <b>en attente</b>'}</li></ul>
-        <div class="toolbar"><select id="civ-mission" aria-label="Mission enregistrée à relire">${(P.cogIndex ? P.cogIndex.missions : []).map(m => `<option value="${esc(m.id)}">${esc(m.mode === 'fast' ? 'rapide' : 'approfondie')} · ${esc(m.question.slice(0, 70))}${m.question.length > 70 ? '…' : ''}</option>`).join('')}</select><button type="button" class="small" id="civ-replay">Relire dans le monde</button><button type="button" class="ghost small" id="civ-all" aria-pressed="${!!(AW && AW.state.showAll)}">${AW && AW.state.showAll ? 'Masquer' : 'Afficher'} tous les exécutables (illustratif)</button></div></div>
+      <div class="civ-truth" id="civ-truth"><b>Tableau de bord de la civilisation (données chargées)</b>${(() => { const ops = P.operations, live = G.CORE_MOTION && G.CORE_MOTION.state.live, liveRun = live && !live.stopped ? (live.running || []).length : 0, queued = live && live.counts ? (live.counts.intake || 0) + (live.counts.classified || 0) + (live.counts.assigned || 0) : 0, probs = G.CORE_CIV && G.CORE_CIV.state.problems;
+        return `<div class="kpis"><div class="kpi"><b>${c.registered}</b><span>profils enregistrés</span></div><div class="kpi"><b>${c.executable + c.llm}</b><span>exécutables (${c.executable} règles · ${c.llm} modèle)</span></div><div class="kpi"><b>${running + liveRun}</b><span>en cours d’exécution${P.local ? '' : ' (site public : aucune)'}</span></div>
+          <div class="kpi"><b>${queued}</b><span>tâches en file (superviseur local)</span></div><div class="kpi"><b>${(P.cogIndex ? P.cogIndex.missions.length : 0) + (P.recorded ? P.recorded.missions.length : 0) + (ops ? ops.tasks.filter(t => t.result).length : 0)}</b><span>missions / opérations enregistrées</span></div><div class="kpi"><b>${recPart.size}</b><span>agents avec travail enregistré</span></div>
+          <div class="kpi"><b>${G.CORE_POPULATION ? G.CORE_POPULATION.ZONES.length : 0}</b><span>domaines de travail virtuels</span></div><div class="kpi"><b>0</b><span>résultats vérifiés sur le terrain</span></div><div class="kpi"><b>${probs ? probs.problems.length : '…'}</b><span>problèmes non résolus (aucune décision humaine)</span></div></div>`; })()}
+        <p class="hint">Avatars : ${replaying ? 'participants d’une <b>relecture</b> enregistrée ; les autres sont atténués' : 'toute la population, déplacements <b>illustratifs</b> dans des zones virtuelles'} — voir la barre « Population » sur la carte.</p>
+        <div class="toolbar"><select id="civ-mission" aria-label="Mission enregistrée à relire">${(P.cogIndex ? P.cogIndex.missions : []).map(m => `<option value="${esc(m.id)}">${esc(m.mode === 'fast' ? 'rapide' : 'approfondie')} · ${esc(m.question.slice(0, 70))}${m.question.length > 70 ? '…' : ''}</option>`).join('')}</select><button type="button" class="small" id="civ-replay">Relire dans le monde</button></div></div>
       <div class="kpis"><div class="kpi"><b>${c.registered}</b><span>profils enregistrés</span></div><div class="kpi"><b>${c.executable}</b><span>exécutables (règles)</span></div><div class="kpi"><b>${c.llm}</b><span>assistés par modèle (${P.llm && P.llm.available ? 'modèle disponible' : 'modèle indisponible'})</span></div><div class="kpi"><b>${c.coordinationOnly}</b><span>coordination seule</span></div><div class="kpi"><b>${c.unavailable}</b><span>indisponibles</span></div><div class="kpi"><b>${G.CORE_MISSIONS.DEFAULT_OPTS.concurrency}</b><span>exécutions simultanées max.</span></div><div class="kpi"><b>${running}</b><span>tâches actives maintenant</span></div></div>
       <p class="hint">Modèle de langage local : <b>${esc(P.llm ? (P.llm.available ? `${P.llm.model} disponible (Ollama, ${(P.llm.models.find(m => m.name === P.llm.model) || {}).parameters || '?'} paramètres, ${(P.llm.models.find(m => m.name === P.llm.model) || {}).quantization || '?'})` : P.llm.reason) : 'test en cours')}</b>. Il choisit des outils autorisés et rédige des interprétations validées ; il ne calcule aucun chiffre et ne décide rien. ${c.executable} agents à règles fonctionnent sans modèle. Mise en place : <code>node scripts/llm-check.mjs</code>. ${esc(G.CORE_ORG.DISCLAIMER)}</p>
       ${P.cogIndex && P.cogIndex.missions.length ? `<p class="hint">Collaborations enregistrées (modèle réel) : ${P.cogIndex.missions.length} mission(s) — ${P.cogIndex.missions.slice(0, 3).map(m => `${esc(m.question)} → ${esc(m.decision)} (${m.metrics.modelCalls} appels au modèle, ${m.metrics.toolCalls} outils)`).join(' ; ')}</p>` : ''}
@@ -174,11 +175,12 @@
     $('ws-body').querySelectorAll('[data-agent]').forEach(b => b.onclick = () => profile(b.dataset.agent));
     $('ws-body').querySelectorAll('[data-agfilter]').forEach(b => b.onclick = () => { P.agentFilter = b.dataset.agfilter; renderAgents(); });
     $('civ-replay').onclick = async () => { const id = $('civ-mission').value; show('world'); if (AW) { if (G.CORE_CAMERA) G.CORE_CAMERA.view('mission'); await AW.startReplay(m => m.id === id); } };
-    $('civ-all').onclick = () => { if (AW) { AW.showAll(!AW.state.showAll); renderAgents(); } };
     if (P.selectedAgent) profile(P.selectedAgent);
   }
   // Phase 7: open an agent dossier from the world (avatar click) or anywhere else.
-  function openAgent(id) { P.selectedAgent = id; if (P.sec === 'agents' && $('ag-profile')) profile(id); else show('agents'); }
+  // Phase 8: any agent opens its own floating profile card; the Organisation dossier stays available from that card.
+  function openAgent(id) { P.selectedAgent = id; if (G.CORE_AGENT_PROFILE) G.CORE_AGENT_PROFILE.open(id); else if (P.sec === 'agents' && $('ag-profile')) profile(id); else show('agents'); }
+  function openAgentDossier(id) { P.selectedAgent = id; if (P.sec === 'agents' && $('ag-profile')) profile(id); else show('agents'); }
   function profile(id) {
     P.selectedAgent = id;
     const a = P.registry.agents.find(x => x.id === id); if (!a) return;
@@ -476,6 +478,7 @@
     P.map = map; P.fly = fly; P.envFn = env;
     P.registry = G.CORE_ORG.buildRegistry(); P.counts = G.CORE_ORG.counts(P.registry);
     const [evals, lib, items, state, recorded, cogIndex] = await Promise.all([getJSON('data/agents/evaluations.json'), getJSON('data/knowledge/library.json'), getJSON('data/feeds/items.json'), getJSON('data/feeds/state.json'), getJSON('data/missions/index.json').catch(() => null), getJSON('data/missions/cognitive/index.json').catch(() => null)]);
+    P.opsReady = getJSON('data/operations/log.json').then(o => { P.operations = o; }).catch(() => { P.operations = null; });
     P.evals = evals; P.K = G.CORE_KNOWLEDGE.load(lib); P.store = { items: items.items }; P.state = state; P.recorded = recorded; P.cogIndex = cogIndex;
     restoreBrowser(); schedule();
     document.querySelectorAll('#appnav [data-sec], #legacy-sec [data-sec]').forEach(b => b.addEventListener('click', () => show(b.dataset.sec)));
@@ -491,5 +494,5 @@
     P.ready = true;
   }
 
-  G.CORE_PLATFORM = { init, show, launch, refresh, state: P, openRecorded, openDossier, loadRecorded, simEnforce, openAgent };
+  G.CORE_PLATFORM = { init, show, launch, refresh, state: P, openRecorded, openDossier, loadRecorded, simEnforce, openAgent, openAgentDossier, cogRecords, TOOL_SOURCES, getJSON };
 })();

@@ -35,6 +35,7 @@
   const offNet = c => { for (const f of S.ctx.segments.values()) if (G.CORE_COORD.distanceToGeometry(c, f.geometry) <= 30) return false; return true; };
   // Dijkstra on ≤ 100 nodes; returns coordinates and whether any leg is approximate.
   function route(from, to) {
+    if (S.walknet) { const r = S.walknet.route(from, to); if (r) return { coords: r.coords, approx: r.approx, length: r.length, network: 'osm' }; }
     const a = nearestNode(from), b = nearestNode(to), D = new Map([[a, 0]]), prev = new Map(), Q = new Set(S.net.nodes.keys());
     while (Q.size) { let u = null, du = Infinity; for (const q of Q) { const d = D.has(q) ? D.get(q) : Infinity; if (d < du) { du = d; u = q; } } if (u === null || u === b) break; Q.delete(u);
       for (const e of S.net.adj.get(u)) { const nd = du + e.len; if (nd < (D.has(e.to) ? D.get(e.to) : Infinity)) { D.set(e.to, nd); prev.set(e.to, { from: u, e }); } } }
@@ -45,38 +46,17 @@
   const along = (coords, f) => { const L = coords.slice(1).map((c, i) => dist(coords[i], c)), T = L.reduce((a, b) => a + b, 0) || 1; let d = f * T; for (let i = 0; i < L.length; i++) { if (d <= L[i] || i === L.length - 1) { const t = L[i] ? Math.min(1, d / L[i]) : 1; return [coords[i][0] + (coords[i + 1][0] - coords[i][0]) * t, coords[i][1] + (coords[i + 1][1] - coords[i][1]) * t]; } d -= L[i]; } return coords[coords.length - 1]; };
   const mid = g => { const c = g.type === 'MultiLineString' ? g.coordinates.flat() : g.coordinates; return along(c, 0.5); };
 
-  // ---------- Avatars ----------
-  const AVATAR = `<svg viewBox="-16 -50 32 60" aria-hidden="true"><ellipse class="ring" cx="0" cy="6" rx="11" ry="3.2"/><g class="body"><circle class="head" cx="0" cy="-38" r="5.5"/><path class="torso" d="M-5.5 -30 Q0 -32 5.5 -30 L4.5 -12 Q0 -10 -4.5 -12 Z"/>
-    <g class="arm l"><line x1="-6" y1="-28" x2="-9" y2="-15"/></g><g class="arm r"><line x1="6" y1="-28" x2="9" y2="-15"/></g><g class="leg l"><line x1="-2.5" y1="-12" x2="-3.5" y2="5"/></g><g class="leg r"><line x1="2.5" y1="-12" x2="3.5" y2="5"/></g></g><circle class="scan" cx="0" cy="6" r="4"/><line class="beam" x1="0" y1="-46" x2="0" y2="-62"/></svg>`;
-  function avatar(agent) {
-    if (S.avatars.has(agent.id)) return S.avatars.get(agent.id);
-    const el = document.createElement('button'); el.type = 'button'; el.className = 'agent-av'; el.dataset.agent = agent.id; el.dataset.state = 'idle';
-    el.setAttribute('aria-label', `${agent.code} — ${agent.role}`); el.innerHTML = AVATAR + `<span class="tag">${esc(agent.code)}</span>`;
-    el.addEventListener('click', ev => { ev.stopPropagation(); select(agent.id); });
-    const marker = new maplibregl.Marker({ element: el, anchor: 'bottom' });
-    const a = { agent, el, marker, pos: null, state: 'idle', visible: false }; S.avatars.set(agent.id, a); return a;
-  }
+  // ---------- Avatars: rendered by CORE_MOTION (one avatar system for population, replay and live) ----------
+  const STATE_FR = { idle: 'en attente (aucune exécution en cours)', walking: 'déplacement', investigating: 'outil exécuté (relecture)', reasoning: 'interprétation du modèle (enregistrée)', reporting: 'rapport (relecture)', collaborating: 'échange avec un autre agent (relecture)', routing: 'demande routée (relecture)' };
+  const M = () => G.CORE_MOTION;
   // Agents sharing a location stand side by side (≈ 5 m apart) instead of on top of each other (display only).
-  function place(a, c) { if (a.slot != null) { const ang = a.slot * 2.4; c = [c[0] + 0.00006 * Math.cos(ang), c[1] + 0.000045 * Math.sin(ang)]; } a.pos = c; a.marker.setLngLat(c); if (!a.visible) { a.marker.addTo(S.map); a.visible = true; } }
-  function setState(a, st, note) { if (a.state !== st) { a.state = st; a.el.dataset.state = st; } a.note = note || ''; a.el.title = `${a.agent.code} · ${STATE_FR[st] || st}${note ? ` — ${note}` : ''}`; }
-  const STATE_FR = { idle: 'en attente (aucune exécution en cours)', walking: 'déplacement (relecture)', investigating: 'outil exécuté (relecture)', reasoning: 'interprétation du modèle (enregistrée)', reporting: 'rapport (relecture)', collaborating: 'échange avec un autre agent (relecture)', routing: 'demande routée (relecture)' };
-  function lod() { const z = S.map.getZoom(), cls = z < 11.5 ? 'hidden' : z < 14.6 ? 'far' : 'near'; for (const a of S.avatars.values()) { a.el.dataset.lod = cls; a.el.style.setProperty('--s', Math.max(0.7, Math.min(1.7, 0.9 + (z - 15.5) * 0.35)).toFixed(2)); } }
-
-  // Idle presence: participants of the flagship recorded mission stand near the virtual coordination point.
-  // With "show all", every executable profile is placed on illustrative rest positions (labelled as such).
-  function idleLayout(ids, label) {
-    // Rest positions on the street lines nearest to the coordination point (never inside a block), ≈ 4 per block.
-    const segs = [...S.ctx.segments.values()].map(f => ({ c: f.geometry.type === 'MultiLineString' ? f.geometry.coordinates.flat() : f.geometry.coordinates })).map(x => ({ ...x, d: dist(along(x.c, 0.5), S.hub) })).sort((a, b) => a.d - b.d);
-    ids.forEach((id, i) => { const ag = S.reg.byId.get(id); if (!ag) return; const a = avatar(ag); a.slot = null;
-      const seg = segs[Math.floor(i / 4) % segs.length]; place(a, along(seg.c, 0.14 + 0.24 * (i % 4))); setState(a, 'idle', label); });
-    document.body.classList.toggle('agents-many', ids.length > 8); lod();
-  }
+  const offset = (c, slot) => slot == null ? c : [c[0] + 0.00006 * Math.cos(slot * 2.4), c[1] + 0.000045 * Math.sin(slot * 2.4)];
   function hubLayer() {
     const map = S.map, data = { type: 'FeatureCollection', features: [{ type: 'Feature', geometry: { type: 'Point', coordinates: S.hub }, properties: { label: 'Poste de coordination virtuel' } }] };
     if (!map.getSource('core-hub')) { map.addSource('core-hub', { type: 'geojson', data }); map.addLayer({ id: 'core-hub', type: 'circle', source: 'core-hub', minzoom: 12, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 12, 6, 17, 26], 'circle-color': 'rgba(92,200,255,0.10)', 'circle-stroke-color': '#5cc8ff', 'circle-stroke-width': 1.2, 'circle-stroke-opacity': 0.7 } });
       map.addLayer({ id: 'core-hub-label', type: 'symbol', source: 'core-hub', minzoom: 13.5, layout: { 'text-field': ['get', 'label'], 'text-font': ['Noto Sans Regular'], 'text-size': 11, 'text-offset': [0, 2.4] }, paint: { 'text-color': '#9fdcff', 'text-halo-color': '#02050b', 'text-halo-width': 1.4 } }); }
     if (!map.getSource('agent-route')) { map.addSource('agent-route', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } }); map.addLayer({ id: 'agent-route', type: 'line', source: 'agent-route', paint: { 'line-color': ['match', ['get', 'part'], 'done', '#e3b341', '#5cc8ff'], 'line-width': 3, 'line-dasharray': [2, 1.5], 'line-opacity': 0.9 } });
-      map.addSource('agent-link', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } }); map.addLayer({ id: 'agent-link', type: 'line', source: 'agent-link', paint: { 'line-color': '#f0b72f', 'line-width': 1.6, 'line-dasharray': [1, 1.2] } }); }
+      map.addSource('agent-link', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } }); map.addLayer({ id: 'agent-link', type: 'line', source: 'agent-link', paint: { 'line-color': ['match', ['get', 'type'], 'disagreement', '#ff8a5c', 'request', '#5cc8ff', 'evidence', '#7ee787', 'review', '#d2a8ff', '#f0b72f'], 'line-width': 2, 'line-dasharray': [1, 1.2], 'line-opacity': 0.9 } }); }
   }
 
   // ---------- Replay of a recorded mission ----------
@@ -113,9 +93,24 @@
       free.set(l.agent, start + walk + hold); posOf.set(l.agent, to);
     }
     // Collaboration links (recorded disputes) drawn at the time of the disputing agent's recorded report.
-    const links = (mc.disagreements || []).map(d => { const s = steps.find(x => x.kind === 'report' && x.agent === d.between[1] && x.t >= 0); return s ? { from: d.between[1], to: d.between[0], at: s.start, until: s.end + 1500, text: d.statement, id: d.id } : null; }).filter(Boolean);
-    const total = Math.max(...steps.map(s => s.end), 1000) + 1000;
-    return { mc, steps, links, total, messages: messages(mc, steps), agents: [...new Set(steps.map(s => s.agent))] };
+    // Typed collaboration links, each from a recorded record: disagreement (mc.disagreements), request and evidence
+    // transfer (mc.requests fulfilled by another agent), review (review-phase report to the agents it checked).
+    const rep = (agent, phase) => steps.find(x => x.kind === 'report' && x.agent === agent && (!phase || (x.text || '').startsWith(phase)));
+    const links = [];
+    for (const d of mc.disagreements || []) { const s = rep(d.between[1]); if (s) links.push({ type: 'disagreement', from: d.between[1], to: d.between[0], at: s.start, until: s.end + 1500, text: d.statement, id: d.id }); }
+    for (const q of mc.requests || []) { if (!q.fulfilledBy || q.fulfilledBy === q.agent) continue; const s = rep(q.agent, q.phase); if (!s) continue;
+      links.push({ type: 'request', from: q.agent, to: q.fulfilledBy, at: s.start, until: s.start + 1400, text: q.need, id: q.id });
+      links.push({ type: 'evidence', from: q.fulfilledBy, to: q.agent, at: s.start + 1400, until: s.start + 2800, text: `réponse via ${q.tool || 'outil'} (${q.status})`, id: q.id }); }
+    const reviewer = mc.board.filter(b => b.phase === 'review').map(b => b.agent)[0], rs = reviewer && rep(reviewer, 'review');
+    if (rs) for (const a of [...new Set(mc.board.filter(b => b.phase !== 'review').map(b => b.agent))]) if (a !== reviewer) links.push({ type: 'review', from: reviewer, to: a, at: rs.start, until: rs.end + 1200, text: 'revue des énoncés (phase review enregistrée)', id: 'review' });
+    const TL = { 'tool-call': 'source', route: 'specialist', report: 'report', 'model-call': 'model' };
+    const timeline = mc.log.map(l => { const s = l.agent ? steps.find(x => x.t === l.t && x.agent === l.agent && x.kind === l.kind) : null;
+      const type = l.kind === 'stage' ? (l.stage === 'received' ? 'start' : l.stage === 'gateway' ? 'decision' : null) : l.kind === 'mission' ? 'human' : TL[l.kind];
+      return type ? { type, t: l.t, at: s ? s.start : null, agent: l.agent || null, text: l.text } : null; }).filter(Boolean);
+    let lastAt = 0; for (const e of timeline) { if (e.at == null) e.at = lastAt; lastAt = Math.max(lastAt, e.at); }
+    const total = Math.max(...steps.map(s => s.end), lastAt, 1000) + 1000;
+    for (const e of timeline) if (e.type === 'human' || e.type === 'decision') e.at = Math.max(e.at, total - 1000);
+    return { mc, steps, links, timeline, total, messages: messages(mc, steps), agents: [...new Set(steps.map(s => s.agent))] };
   }
   // Structured messages, derived only from recorded data.
   function messages(mc, steps) {
@@ -136,19 +131,19 @@
     const rp = S.replay; if (!rp) return;
     const now = rp.playing ? rp.pos + (performance.now() - rp.t0) * rp.speed : rp.pos;
     const t = Math.min(now, rp.total); if (rp.playing && t >= rp.total) { rp.playing = false; rp.pos = rp.total; }
+    const slot = new Map(rp.plan.agents.map((id, i) => [id, i]));
     for (const id of rp.plan.agents) {
-      const a = S.avatars.get(id); if (!a) continue;
-      const cur = rp.plan.steps.filter(s => s.agent === id && s.start <= t).pop();
-      if (!cur) { place(a, S.hub); setState(a, 'idle', 'pas encore actif dans la relecture'); continue; }
-      if (t < cur.walkEnd && cur.path) { place(a, along(cur.path.coords, (t - cur.start) / (cur.walkEnd - cur.start))); setState(a, 'walking', cur.path.approx ? 'trajet partiellement approximatif' : 'trajet sur le réseau du corridor'); }
-      else if (t < cur.end) { place(a, cur.to); setState(a, cur.state, `${cur.call || ''} ${cur.why || ''} · journal +${(cur.t / 1000).toFixed(1)} s`.trim()); }
-      else { place(a, cur.to); setState(a, 'idle', 'en attente dans la relecture'); }
+      const cur = rp.plan.steps.filter(s => s.agent === id && s.start <= t).pop(), sl = slot.get(id);
+      if (!cur) { M().drive(id, { pos: offset(S.hub, sl), state: 'idle', note: 'pas encore actif dans la relecture' }); continue; }
+      if (t < cur.walkEnd && cur.path) M().drive(id, { pos: offset(along(cur.path.coords, (t - cur.start) / (cur.walkEnd - cur.start)), sl), state: 'walking', note: cur.path.approx ? 'relecture — trajet partiellement approximatif' : `relecture — trajet sur ${cur.path.network === 'osm' ? 'les trottoirs et passages OSM' : 'le réseau du corridor'}` });
+      else if (t < cur.end) M().drive(id, { pos: offset(cur.to, sl), state: cur.state, note: `${cur.call || ''} ${cur.why || ''} · journal +${(cur.t / 1000).toFixed(1)} s`.trim() });
+      else M().drive(id, { pos: offset(cur.to, sl), state: 'idle', note: 'en attente dans la relecture' });
     }
-    const lk = rp.plan.links.filter(l => l.at <= t && t <= l.until).map(l => { const A = S.avatars.get(l.from), B = S.avatars.get(l.to); return A && B && A.pos && B.pos ? { type: 'Feature', geometry: { type: 'LineString', coordinates: [A.pos, B.pos] }, properties: {} } : null; }).filter(Boolean);
-    for (const l of rp.plan.links) { if (l.at <= t && t <= l.until) { const A = S.avatars.get(l.from); if (A) setState(A, 'collaborating', `${l.id} : ${l.text.slice(0, 80)}`); } }
+    const posOf = id => (M().state.agents.get(id) || {}).pos, act = rp.plan.links.filter(l => l.at <= t && t <= l.until);
+    const lk = act.map(l => { const A = posOf(l.from), B = posOf(l.to); return A && B ? { type: 'Feature', geometry: { type: 'LineString', coordinates: [A, B] }, properties: { type: l.type } } : null; }).filter(Boolean);
+    for (const l of act) if (l.type === 'disagreement') { const A = M().state.agents.get(l.from); if (A) { A.state = 'collaborating'; A.note = `${l.id} : ${l.text.slice(0, 80)}`; } }
     S.map.getSource('agent-link').setData({ type: 'FeatureCollection', features: lk });
     if (S.selected) routeFor(S.selected, t);
-    if (S.follow) { const a = S.avatars.get(S.follow); if (a && a.pos && !S.map.isMoving()) S.map.jumpTo({ center: a.pos }); }
     theatreUpdate(t);
     rp.lastT = t;
     if (rp.playing) S.raf = requestAnimationFrame(frame);
@@ -160,16 +155,16 @@
   }
   async function startReplay(pred = FLAGSHIP) {
     const P = G.CORE_PLATFORM, rec = await P.loadRecorded(pred); if (!rec) return null; await ensure();
-    for (const a of S.avatars.values()) if (a.visible) { a.marker.remove(); a.visible = false; }
-    const plan = buildReplay(rec, S.ctx); plan.agents.forEach((id, i) => { const ag = S.reg.byId.get(id); if (ag) { const a = avatar(ag); a.slot = i; place(a, S.hub); } });
-    document.body.classList.remove('agents-many');
-    S.replay = { plan, total: plan.total, pos: 0, t0: performance.now(), speed: 1, playing: !reduced() }; theatre(true); lod();
+    if (S.replay) endReplayAgents(); await M().ensure();
+    const plan = buildReplay(rec, S.ctx); plan.agents.forEach((id, i) => M().drive(id, { pos: offset(S.hub, i), state: 'idle', note: 'relecture' })); M().dim(plan.agents);
+    S.replay = { plan, total: plan.total, pos: 0, t0: performance.now(), speed: 1, playing: !reduced() }; theatre(true);
     cancelAnimationFrame(S.raf); if (reduced()) { S.replay.pos = plan.total; frame(); } else S.raf = requestAnimationFrame(frame);
     return S.replay;
   }
   function play(on) { const rp = S.replay; if (!rp) return; if (on && !rp.playing) { if (rp.pos >= rp.total) rp.pos = 0; rp.t0 = performance.now(); rp.playing = true; S.raf = requestAnimationFrame(frame); } else if (!on && rp.playing) { rp.pos = Math.min(rp.total, rp.pos + (performance.now() - rp.t0) * rp.speed); rp.playing = false; frame(); } theatreUpdate(rp.pos); }
   function seek(ms) { const rp = S.replay; if (!rp) return; rp.pos = Math.max(0, Math.min(rp.total, ms)); rp.t0 = performance.now(); frame(); }
-  function stopReplay() { cancelAnimationFrame(S.raf); S.replay = null; theatre(false); S.follow = null; if (S.map.getSource('agent-route')) { S.map.getSource('agent-route').setData({ type: 'FeatureCollection', features: [] }); S.map.getSource('agent-link').setData({ type: 'FeatureCollection', features: [] }); } arrive(); }
+  function endReplayAgents() { for (const id of S.replay.plan.agents) M().release(id); M().dim(null); }
+  function stopReplay() { cancelAnimationFrame(S.raf); if (S.replay) endReplayAgents(); S.replay = null; theatre(false); M().unfollow(false); if (S.map.getSource('agent-route')) { S.map.getSource('agent-route').setData({ type: 'FeatureCollection', features: [] }); S.map.getSource('agent-link').setData({ type: 'FeatureCollection', features: [] }); } }
 
   // ---------- Mission theatre (replay controls + structured messages) ----------
   function theatre(on) {
@@ -179,13 +174,17 @@
     el.hidden = false; document.body.classList.add('theatre-on');
     el.innerHTML = `<div class="th-banner"><b>RELECTURE</b> — exécution réelle enregistrée le ${esc(String(mc.recorded.at).slice(0, 16).replace('T', ' '))} UTC (${esc(mc.model.name)}, mode ${esc(mc.mode)}). Ordre réel des évènements, rythme compressé pour l’affichage. Les déplacements représentent les données utilisées par les outils, pas une inspection physique.</div>
       <div class="th-row"><button type="button" class="small" id="th-play">${rp.playing ? 'Pause' : 'Lecture'}</button><input type="range" id="th-seek" min="0" max="${Math.round(rp.total)}" value="0" aria-label="Position dans la relecture"><select id="th-speed" aria-label="Vitesse"><option value="0.5">×0,5</option><option value="1" selected>×1</option><option value="2">×2</option><option value="4">×4</option></select><span class="hint" id="th-clock"></span><button type="button" class="ghost small" id="th-close">Fermer</button></div>
+      <div class="th-legend"><span class="lk disagreement">désaccord</span><span class="lk request">demande</span><span class="lk evidence">transfert de preuve</span><span class="lk review">revue</span> — chaque lien correspond à un enregistrement du journal</div>
+      <div class="th-timeline" id="th-timeline" aria-label="Chronologie des évènements enregistrés">${rp.plan.timeline.map(e => `<i class="tl ${e.type}" style="left:${(100 * e.at / rp.total).toFixed(2)}%" title="${esc(TL_FR[e.type])} · journal +${(e.t / 1000).toFixed(1)} s${e.agent ? ` · ${esc((S.reg.byId.get(e.agent) || {}).code || '')}` : ''} — ${esc(String(e.text).slice(0, 90))}"></i>`).join('')}<b id="th-now"></b></div>
       <details id="th-msgs-box"><summary>Messages structurés (${rp.plan.messages.length}) — dérivés du journal</summary><ol class="th-msgs" id="th-msgs"></ol></details>`;
     $('th-play').onclick = () => play(!S.replay.playing); $('th-seek').oninput = e => seek(+e.target.value); $('th-speed').onchange = e => { const r2 = S.replay; r2.pos = Math.min(r2.total, r2.pos + (r2.playing ? (performance.now() - r2.t0) * r2.speed : 0)); r2.t0 = performance.now(); r2.speed = +e.target.value; }; $('th-close').onclick = stopReplay;
   }
+  const TL_FR = { start: 'Mission démarrée', source: 'Source consultée (outil)', specialist: 'Spécialiste consulté', model: 'Interprétation du modèle', report: 'Rapport : énoncés acceptés/rejetés', decision: 'Décision proposée (passerelle)', human: 'Approbation humaine requise' };
   function theatreUpdate(t) {
     const rp = S.replay; if (!rp || !$('th-clock')) return;
+    const now = $('th-now'); if (now) now.style.left = `${(100 * t / rp.total).toFixed(2)}%`;
     const recT = rp.plan.steps.filter(s => s.start <= t).reduce((m, s) => Math.max(m, s.t), 0);
-    $('th-clock').textContent = `journal +${(recT / 1000).toFixed(0)} s / ${(rp.plan.mc.metrics.wallMs / 1000).toFixed(0)} s`;
+    $('th-clock').textContent = `journal +${(recT / 1000).toFixed(0)} s / ${(rp.plan.mc.metrics.wallMs / 1000).toFixed(0)} s · vitesse ×${rp.speed}`;
     if (document.activeElement !== $('th-seek')) $('th-seek').value = Math.round(t);
     $('th-play').textContent = rp.playing ? 'Pause' : 'Lecture';
     const shown = rp.plan.messages.filter(m => m.at <= t), box = $('th-msgs');
@@ -193,12 +192,8 @@
   }
 
   // ---------- Selection, dossier, follow ----------
-  function select(id) {
-    S.selected = id; for (const a of S.avatars.values()) a.el.classList.toggle('selected', a.agent.id === id);
-    if (S.replay) routeFor(id, S.replay.lastT || 0);
-    if (G.CORE_PLATFORM.openAgent) G.CORE_PLATFORM.openAgent(id);
-  }
-  function follow(id) { S.follow = S.follow === id ? null : id; const a = S.avatars.get(id); if (S.follow && a && a.pos) S.map.easeTo({ center: a.pos, zoom: Math.max(S.map.getZoom(), 16.4), pitch: 58, duration: reduced() ? 0 : 900 }); return !!S.follow; }
+  function select(id) { if (S.replay) routeFor(id, S.replay.lastT || 0); M().select(id); }
+  function follow(id) { return M().follow(id); }
 
   // ---------- Lifecycle ----------
   async function ensure() {
@@ -206,23 +201,18 @@
     S.ctx = G.CORE_COORD.buildContext({ manifest: sv.state.manifest, data: sv.state.data, verified: sv.state.verified }); S.data = sv.state.data;
     S.reg = G.CORE_ORG.index(G.CORE_PLATFORM.state.registry); S.net = buildNet(S.ctx);
     const all = [...S.net.nodes.values()], c = [all.reduce((n, p) => n + p[0], 0) / all.length, all.reduce((n, p) => n + p[1], 0) / all.length]; S.hub = S.net.nodes.get(nearestNode(c));
+    if (G.CORE_POPULATION) { await M().ensure(); S.walknet = M().state.net; }
     hubLayer();
   }
-  // On arrival in the city: flagship participants stand idle at the coordination point (nothing runs).
-  async function arrive() {
-    if (!G.CORE_PLATFORM || !G.CORE_PLATFORM.state.registry) return; S.arrived = true;
-    await ensure(); const P = G.CORE_PLATFORM.state, m = P.cogIndex && P.cogIndex.missions.find(FLAGSHIP);
-    for (const a of S.avatars.values()) if (a.visible) { a.marker.remove(); a.visible = false; }
-    if (S.showAll) idleLayout(P.registry.agents.filter(a => a.executionMode === 'deterministic' || a.executionMode === 'llm').map(a => a.id), 'position de repos illustrative — aucune exécution en cours');
-    else if (m) idleLayout(m.agents, 'en attente — aucune exécution en cours');
-  }
-  function showAll(on) { S.showAll = !!on; if (!S.replay) arrive(); }
+  // On arrival in the city the whole registered population appears (CORE_MOTION); nothing runs by itself.
+  async function arrive() { if (!G.CORE_PLATFORM || !G.CORE_PLATFORM.state.registry) return; S.arrived = true; await ensure(); if (G.CORE_POPULATION_UI) { G.CORE_POPULATION_UI.init(); G.CORE_POPULATION_UI.render(); } }
+  function showAll(on) { M().setFilter(on ? 'all' : 'executable'); }
   function init({ map }) {
-    S.map = map; map.on('zoom', lod);
+    S.map = map;
     // Direct access (#app, skip, search): place idle participants the first time the city is in view.
     map.on('moveend', () => { if (!S.arrived && !S.replay && map.getZoom() >= 12 && Math.abs(map.getCenter().lng + 122.42) < 0.2 && Math.abs(map.getCenter().lat - 37.77) < 0.15) arrive().catch(() => {}); });
     document.addEventListener('visibilitychange', () => document.body.classList.toggle('tab-hidden', document.hidden));
-    map.on('dragstart', () => { S.follow = null; });
   }
+  Object.defineProperty(S, 'avatars', { get: () => (G.CORE_MOTION ? G.CORE_MOTION.state.agents : new Map()) });
   G.CORE_AGENTS_WORLD = { init, arrive, startReplay, stopReplay, play, seek, select, follow, showAll, buildNet, route, state: S, STATE_FR, _buildReplay: buildReplay };
 })();

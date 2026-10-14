@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com 'sha256-UuJqpc9eH8avXx6dpFvZ2g+dfjzpZQJsbRv8ZS09o+Y='; style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob: https://tiles.openfreemap.org https://s3.amazonaws.com https://gibs.earthdata.nasa.gov; connect-src 'self' https://tiles.openfreemap.org https://s3.amazonaws.com https://gibs.earthdata.nasa.gov https://data.sf.gov https://earthquake.usgs.gov https://api.weather.gov https://api.github.com http://127.0.0.1:11434 http://localhost:11434 http://127.0.0.1:8080; worker-src blob:; child-src blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com 'sha256-grQhkw45sQNnRe8rX9V41tavoBX/nRjZmNN/y7HdSoc='; style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob: https://tiles.openfreemap.org https://s3.amazonaws.com https://gibs.earthdata.nasa.gov; connect-src 'self' https://tiles.openfreemap.org https://s3.amazonaws.com https://gibs.earthdata.nasa.gov https://data.sf.gov https://earthquake.usgs.gov https://api.weather.gov https://api.github.com http://127.0.0.1:11434 http://localhost:11434 http://127.0.0.1:8080; worker-src blob:; child-src blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CORE</title>
 <meta name="description" content="CORE — Creation of Reborn Earth : un double numérique de la Terre où des agents spécialisés étudient des problèmes réels à partir de données publiques ; les décisions restent humaines.">
@@ -278,26 +278,34 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
   #cam-view { width: auto; padding: 4px 6px; font-size: 12px; background: transparent; border-color: var(--line); }
   @media (prefers-reduced-motion: reduce) { .landing, #appnav, .console, .layers, .cam, .status { transition: none; } }
   /* ---------- Phase 7: agent avatars, mission theatre ---------- */
-  .agent-av { --s: 1; position: relative; width: 34px; height: 64px; padding: 0; border: 0; background: transparent; cursor: pointer; transform-origin: 50% 100%; }
-  .agent-av svg { width: 100%; height: 100%; overflow: visible; transform: scale(var(--s)); transform-origin: 50% 92%; filter: drop-shadow(0 0 4px rgba(92,200,255,.65)); }
-  .agent-av .head, .agent-av .torso { fill: rgba(140,220,255,.30); stroke: #8fe0ff; stroke-width: 1.4; }
-  .agent-av line { stroke: #8fe0ff; stroke-width: 2.4; stroke-linecap: round; } .agent-av .ring { fill: rgba(92,200,255,.12); stroke: #5cc8ff; stroke-width: .8; }
+  /* ---------- Phase 8: articulated holographic avatars (near zoom; WebGL figures further out) ---------- */
+  .agent-av { --c: #8fe0ff; position: relative; width: 38px; height: 68px; padding: 0; border: 0; background: transparent; cursor: pointer; will-change: transform; }
+  .agent-av svg { width: 100%; height: 100%; overflow: visible; }
+  .agent-av .fig { transform-box: view-box; transform-origin: 0 0; transition: transform .25s ease; }
+  .agent-av[data-face="l"] .fig { transform: scaleX(-1); }
+  .agent-av .halo { fill: color-mix(in srgb, var(--c) 22%, transparent); stroke: var(--c); stroke-width: .7; stroke-opacity: .6; }
+  .agent-av .head, .agent-av .torso, .agent-av .neck { fill: color-mix(in srgb, var(--c) 30%, transparent); stroke: var(--c); stroke-width: 1.3; }
+  .agent-av .core { stroke: #f2fcff; stroke-width: 1.2; opacity: .55; }
+  .agent-av line { stroke: var(--c); stroke-width: 2.4; stroke-linecap: round; } .agent-av .foot { stroke-width: 1.8; } .agent-av circle:not(.head):not(.scan) { fill: var(--c); }
   .agent-av .scan { fill: none; stroke: #f0b72f; stroke-width: 1; opacity: 0; } .agent-av .beam { stroke: #f0b72f; stroke-width: 1.4; opacity: 0; }
   .agent-av .arm, .agent-av .leg { transform-box: fill-box; transform-origin: 50% 0; }
   .agent-av .tag { position: absolute; left: 50%; top: -14px; transform: translateX(-50%); font: 600 9.5px var(--mono, monospace); color: #bfe9ff; background: rgba(2,8,18,.78); padding: 1px 4px; border-radius: 3px; white-space: nowrap; pointer-events: none; }
-  .agent-av[data-lod="far"] .tag { display: none; } .agent-av[data-lod="far"] svg { transform: scale(.62); } .agent-av[data-lod="hidden"] { display: none; }
-  body.agents-many .agent-av:not(.selected):not(:hover):not(:focus-visible) .tag { display: none; }
-  .agent-av.selected .ring { stroke: #f0b72f; stroke-width: 1.6; } .agent-av.selected .tag { color: #02050b; background: #f0b72f; }
+  .agent-av[data-state="walking"]::before { content: ""; position: absolute; left: 50%; bottom: 2px; width: 26px; height: 3px; transform: translateX(-100%); background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--c) 55%, transparent)); border-radius: 2px; }
+  .agent-av[data-face="l"][data-state="walking"]::before { transform: none; background: linear-gradient(270deg, transparent, color-mix(in srgb, var(--c) 55%, transparent)); }
+  .agent-av.selected .halo { stroke: #f0b72f; stroke-width: 1.8; stroke-opacity: 1; } .agent-av.selected .tag { color: #02050b; background: #f0b72f; }
+  .agent-av.dim { opacity: .28; } .agent-av.arrive svg { animation: av-arrive .5s ease-out; }
+  .agent-av[data-mode="illustrative"] .tag::after { content: " ·illustr."; opacity: .6; font-weight: 400; }
   .agent-av[data-state="idle"] .body { animation: av-breathe 3.2s ease-in-out infinite; }
-  .agent-av[data-state="walking"] .leg.l, .agent-av[data-state="walking"] .arm.r { animation: av-swing .7s ease-in-out infinite alternate; }
-  .agent-av[data-state="walking"] .leg.r, .agent-av[data-state="walking"] .arm.l { animation: av-swing .7s ease-in-out infinite alternate-reverse; }
+  .agent-av[data-state="walking"] .body { animation: av-bob .45s ease-in-out infinite alternate; }
+  .agent-av[data-state="walking"] .leg.l, .agent-av[data-state="walking"] .arm.r { animation: av-swing .45s ease-in-out infinite alternate; }
+  .agent-av[data-state="walking"] .leg.r, .agent-av[data-state="walking"] .arm.l { animation: av-swing .45s ease-in-out infinite alternate-reverse; }
   .agent-av[data-state="investigating"] .arm.r { transform: rotate(-70deg); } .agent-av[data-state="investigating"] .scan { opacity: 1; animation: av-scan 1.2s ease-out infinite; }
   .agent-av[data-state="reasoning"] .head { fill: rgba(240,183,47,.45); animation: av-think 1.4s ease-in-out infinite; }
   .agent-av[data-state="reporting"] .beam { opacity: 1; animation: av-beam 1s linear infinite; } .agent-av[data-state="reporting"] .arm.l, .agent-av[data-state="reporting"] .arm.r { transform: rotate(150deg); }
-  .agent-av[data-state="collaborating"] .arm.r { animation: av-wave .6s ease-in-out infinite alternate; } .agent-av[data-state="collaborating"] .ring { stroke: #f0b72f; }
-  .agent-av[data-state="routing"] .ring { stroke-dasharray: 3 2; }
-  @keyframes av-breathe { 50% { transform: translateY(-1px); } } @keyframes av-swing { from { transform: rotate(-24deg); } to { transform: rotate(24deg); } }
-  @keyframes av-scan { from { r: 3; opacity: 1; } to { r: 12; opacity: 0; } } @keyframes av-think { 50% { fill: rgba(240,183,47,.15); } }
+  .agent-av[data-state="collaborating"] .arm.r { animation: av-wave .6s ease-in-out infinite alternate; } .agent-av[data-state="collaborating"] .halo { stroke: #ff8a5c; }
+  .agent-av[data-state="routing"] .halo { stroke-dasharray: 3 2; }
+  @keyframes av-breathe { 50% { transform: translateY(-1px); } } @keyframes av-swing { from { transform: rotate(-26deg); } to { transform: rotate(26deg); } } @keyframes av-bob { from { transform: translateY(0); } to { transform: translateY(-1.2px); } }
+  @keyframes av-scan { from { r: 3; opacity: 1; } to { r: 12; opacity: 0; } } @keyframes av-think { 50% { fill: rgba(240,183,47,.15); } } @keyframes av-arrive { from { transform: translateY(-3px); } to { transform: none; } }
   @keyframes av-beam { 50% { opacity: .2; } } @keyframes av-wave { from { transform: rotate(-110deg); } to { transform: rotate(-150deg); } }
   body.tab-hidden .agent-av *, body.tab-hidden .agent-av { animation-play-state: paused !important; }
   @media (prefers-reduced-motion: reduce) { .agent-av * { animation: none !important; } }
@@ -310,6 +318,28 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
   .dossier-agent h4 { margin: 12px 0 4px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: #8fb6cf; } code.mid { color: #f0b72f; }
   .brand b { font: 600 15px var(--body); letter-spacing: .04em; } .brand span { white-space: nowrap; }
   .tbl.hier td:first-child { white-space: nowrap; font-weight: 600; } .tbl.hier code, code.mid { white-space: nowrap; }
+  /* ---------- Phase 8: agent / problem cards, population bar, replay timeline ---------- */
+  .agent-card { position: fixed; right: 12px; top: calc(var(--navh, 52px) + 12px); width: min(400px, calc(100vw - 24px)); max-height: calc(100vh - var(--navh, 52px) - 90px); z-index: 8; display: flex; flex-direction: column; padding: 0; overflow: hidden; }
+  .agent-card[hidden] { display: none; } .agent-card header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; padding: 12px 14px 6px; }
+  .agent-card h3 { margin: 2px 0 0; font: 600 15px var(--body); } .pc-tabs { display: flex; flex-wrap: wrap; gap: 2px; padding: 0 10px; border-bottom: 1px solid var(--line); }
+  .pc-tabs button { background: transparent; border: 0; border-bottom: 2px solid transparent; border-radius: 0; color: var(--muted); padding: 6px 7px; font: 500 12px var(--body); }
+  .pc-tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: #79c0ff; }
+  .pc-body { overflow: auto; padding: 10px 14px 14px; font-size: 13px; } .pc-body h4 { margin: 12px 0 4px; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: #8fb6cf; }
+  .pc-role { margin: 0 0 6px; } .pc-pills { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; } .pc-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  ul.plain { margin: 0; padding-left: 16px; } .linkish { background: none; border: 0; padding: 0; color: #79c0ff; font: 600 12.5px var(--mono, monospace); cursor: pointer; text-align: left; } .linkish:hover { text-decoration: underline; }
+  body.card-open .layers { right: calc(min(400px, 100vw - 24px) + 24px); }
+  .pop-bar { position: fixed; left: 50%; transform: translateX(-50%); top: calc(var(--navh, 52px) + 10px); z-index: 6; padding: 6px 10px; display: grid; gap: 4px; max-width: min(860px, calc(100vw - 680px)); font-size: 12px; }
+  .pop-bar:empty, body.landing .pop-bar { display: none; } .pb-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; } .pop-bar .pb-row select { width: auto !important; max-width: 170px; padding: 3px 6px; font-size: 12px; } .pop-bar .pb-row.hint { font-size: 11px; line-height: 1.35; }
+  .pb-mode { font: 700 10.5px var(--mono, monospace); letter-spacing: .08em; padding: 1px 6px; border-radius: 3px; background: #5cc8ff22; color: #9fe3ff; } .pb-mode[data-mode="live"] { background: #7ee78733; color: #7ee787; } .pb-mode[data-mode="replay"] { background: #f0b72f33; color: #f0b72f; }
+  .pb-legend { display: none; } .pop-bar:hover .pb-legend, .pop-bar:focus-within .pb-legend { display: inline-flex; flex-wrap: wrap; gap: 6px; } .pb-legend i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--c); margin-right: 2px; }
+  .pb-prob { display: inline-flex; gap: 4px; align-items: center; } body.ws-open .pop-bar, body.theatre-on.card-open .pop-bar { display: none; }
+  @media (max-width: 1100px) { .pop-bar { left: 12px; right: 12px; transform: none; max-width: none; top: auto; bottom: 100px; } .pb-legend { display: none; } }
+  @media (max-width: 700px) { .agent-card { top: auto; bottom: 56px; right: 8px; left: 8px; width: auto; max-height: 55vh; } body.card-open .pop-bar, body.card-open .theatre { display: none; } .pop-bar .pb-row.hint { display: none; } }
+  .th-legend { font-size: 11.5px; color: var(--muted); } .th-legend .lk { margin-right: 8px; } .th-legend .lk::before { content: ""; display: inline-block; width: 14px; height: 0; border-top: 2px dashed; margin-right: 4px; vertical-align: middle; }
+  .lk.disagreement { color: #ff8a5c; } .lk.request { color: #5cc8ff; } .lk.evidence { color: #7ee787; } .lk.review { color: #d2a8ff; }
+  .th-timeline { position: relative; height: 18px; border-radius: 3px; background: rgba(255,255,255,.04); } .th-timeline .tl { position: absolute; top: 3px; width: 3px; height: 12px; border-radius: 1px; background: #79c0ff; }
+  .tl.start { background: #ffffff; } .tl.source { background: #5cc8ff; } .tl.specialist { background: #7ee787; } .tl.model { background: #f0b72f; } .tl.report { background: #d2a8ff; } .tl.decision { background: #ff8a5c; } .tl.human { background: #ff4d6d; }
+  .th-timeline #th-now { position: absolute; top: -2px; width: 2px; height: 22px; background: #fff; }
 </style>
 </head>
 <body class="console-min landing">
@@ -499,9 +529,15 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
 <script src="src/camera.js"></script>
 <script src="src/map-style.js"></script>
 <script src="src/entry.js"></script>
+<script src="src/agent-population.js"></script>
+<script src="src/agent-motion.js"></script>
 <script src="src/agents-world.js"></script>
+<script src="src/agent-profile.js"></script>
+<script src="src/problems-view.js"></script>
+<script src="src/population-ui.js"></script>
 <script src="src/civ.js"></script>
 <script src="src/scheduler.js"></script>
+<script src="src/task-queue.js"></script>
 <script src="src/demo.js"></script>
 <script src="src/platform.js"></script>
 <script>
@@ -566,7 +602,7 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
   map.on('style.load', () => { try { map.setProjection({ type: 'globe' }); } catch (e) { console.warn(e); } });
   // MapLibre ≥5.7.2 fires load even when a TileJSON fails: never let the hint hide a source warning.
   let sourceError = false;
-  map.on('load', () => { if (window.CORE_SF_VIEW) CORE_SF_VIEW.init({ map, msg, fly: (v, ms) => fly(v, ms) }); if (window.CORE_COORD_VIEW) CORE_COORD_VIEW.init({ map }); if (window.CORE_CITY_VIEW) CORE_CITY_VIEW.init({ map }); if (window.CORE_CAMERA) CORE_CAMERA.init({ map, reduced }); if (window.CORE_MAPSTYLE) CORE_MAPSTYLE.init({ map, reduced }); if (window.CORE_ENTRY) CORE_ENTRY.init({ map }); if (window.CORE_AGENTS_WORLD) CORE_AGENTS_WORLD.init({ map }); if (window.CORE_PLATFORM) CORE_PLATFORM.init({ map, fly: (v, ms) => fly(v, ms) }); });
+  map.on('load', () => { if (window.CORE_SF_VIEW) CORE_SF_VIEW.init({ map, msg, fly: (v, ms) => fly(v, ms) }); if (window.CORE_COORD_VIEW) CORE_COORD_VIEW.init({ map }); if (window.CORE_CITY_VIEW) CORE_CITY_VIEW.init({ map }); if (window.CORE_CAMERA) CORE_CAMERA.init({ map, reduced }); if (window.CORE_MAPSTYLE) CORE_MAPSTYLE.init({ map, reduced }); if (window.CORE_ENTRY) CORE_ENTRY.init({ map }); if (window.CORE_MOTION) CORE_MOTION.init({ map }); if (window.CORE_PROBLEMS_VIEW) CORE_PROBLEMS_VIEW.init({ map }); if (window.CORE_AGENTS_WORLD) CORE_AGENTS_WORLD.init({ map }); if (window.CORE_PLATFORM) CORE_PLATFORM.init({ map, fly: (v, ms) => fly(v, ms) }); });
   map.on('load', () => { ['l-trame', 'l-relief', 'l-buildings'].forEach(id => { $(id).disabled = false; }); if (!sourceError) msg('Glisser pour tourner · clic droit pour incliner · molette pour zoomer'); });
   // Source-level failures (TileJSON, style) replace the status message. Tile failures (often transient during
   // fast flights) get their own indicator so they never erase user feedback; it clears once the map settles.

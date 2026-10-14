@@ -23,10 +23,12 @@
       <ul class="list problems">${list.slice(0, 80).map(p => `<li class="item"><span class="t">${pill(ST[p.status][0], ST[p.status][1])} ${esc(p.title)}</span>
         <span class="m">${esc(p.place || '—')} · domaine ${esc(p.domain)}${p.raisedBy ? ` · soulevé par ${esc(p.raisedBy.split('.').pop())}` : ''}</span><span>${esc(p.statement)}</span>
         <span class="hint">Preuves : ${p.evidence.length ? p.evidence.slice(0, 6).map(e => `<a href="${esc(safeUrl(e.url))}" target="_blank" rel="noopener">${esc(e.ref)}</a>`).join(', ') + (p.evidence.length > 6 ? ` +${p.evidence.length - 6}` : '') : 'aucune (question ouverte)'} · ${esc(p.caveat)}</span>
-        ${p.segment ? `<button type="button" class="ghost small" data-pseg="${esc(p.segment)}">Voir sur la carte</button>` : ''}</li>`).join('')}</ul>
+        <span class="m">${esc(p.investigation ? p.investigation.label : '')} · ${(p.assignedAgents || []).length} agent(s) assigné(s) · sévérité ${esc(p.severity ? p.severity.level : '—')}</span>
+        <span><button type="button" class="ghost small" data-popen="${esc(p.id)}">Ouvrir (agents, preuves)</button></span></li>`).join('')}</ul>
       ${list.length > 80 ? `<p class="hint">${list.length - 80} autres entrées dans <code>data/problems/registry.json</code>.</p>` : ''}
       <h3>Domaines sans preuve intégrée</h3><p class="hint">Absence de données ≠ absence de problème : ${R.gaps.map(g => esc(g.domain)).join(', ')}.</p>`;
     el.querySelectorAll('[data-pfilter]').forEach(b => b.onclick = () => { C.filter = b.dataset.pfilter; renderProblems(el); });
+    el.querySelectorAll('[data-popen]').forEach(b => b.onclick = async () => { G.CORE_PLATFORM.show('world'); if (G.CORE_PROBLEMS_VIEW) { await G.CORE_PROBLEMS_VIEW.show(true); G.CORE_PROBLEMS_VIEW.open(b.dataset.popen); } });
     el.querySelectorAll('[data-pseg]').forEach(b => b.onclick = () => { const sv = G.CORE_SF_VIEW, f = sv.state.data && sv.state.data.corridor.features.find(x => String(x.properties.cnn) === b.dataset.pseg); G.CORE_PLATFORM.show('world'); if (f) { const c = f.geometry.coordinates.flat(Infinity), xs = c.filter((_, i) => i % 2 === 0), ys = c.filter((_, i) => i % 2 === 1); G.CORE_PLATFORM.state.map.flyTo({ center: [xs.reduce((a, v) => a + v, 0) / xs.length, ys.reduce((a, v) => a + v, 0) / ys.length], zoom: 17, pitch: 55, duration: 2500 }); } });
   }
 
