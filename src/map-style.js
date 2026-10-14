@@ -88,7 +88,7 @@
     coverage(map); legend(); watchPanels(map);
     // The compact attribution starts collapsed (its ⓘ button still opens all credits).
     map.once('idle', () => { const a = document.querySelector('.maplibregl-ctrl-attrib.maplibregl-compact'); if (a) a.classList.remove('maplibregl-compact-show'); });
-    const tick = () => { tune(map); density(map); };
+    const tick = () => { tune(map); density(map); if (G.CORE_PLATFORM && G.CORE_PLATFORM.simEnforce) G.CORE_PLATFORM.simEnforce(); };
     map.on('idle', tick); map.on('sourcedata', e => { if (e.isSourceLoaded) tick(); });
   }
   G.CORE_LAYOUT = LAYOUT;

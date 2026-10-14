@@ -354,6 +354,8 @@
   }
   // While a simulation is displayed, record markers are hidden (and restored exactly as they were) so the scenario reads clearly.
   const RECORD_LAYERS = ['sf-permits', 'sf-large', 'sf-moratoria-point', 'sf-closures-point', 'city-bp', 'city-bp-cluster', 'city-bp-count', 'city-removals', 'city-energy', 'city-trees', 'core-density'];
+  // Record layers created after the overlay was shown (data loaded later) are hidden too, and restored with the others.
+  function simEnforce() { const map = P.map; if (!P.simHidden || !map) return; for (const id of RECORD_LAYERS) { if (!map.getLayer(id)) continue; if (!(id in P.simHidden)) P.simHidden[id] = map.getLayoutProperty(id, 'visibility') || 'visible'; if (map.getLayoutProperty(id, 'visibility') !== 'none') map.setLayoutProperty(id, 'visibility', 'none'); } }
   function simVisible(on) {
     const map = P.map;
     if (on && !P.simHidden) { P.simHidden = {}; for (const id of RECORD_LAYERS) if (map.getLayer(id)) { P.simHidden[id] = map.getLayoutProperty(id, 'visibility') || 'visible'; map.setLayoutProperty(id, 'visibility', 'none'); } }
@@ -453,5 +455,5 @@
     P.ready = true;
   }
 
-  G.CORE_PLATFORM = { init, show, launch, refresh, state: P, openRecorded, openDossier, loadRecorded };
+  G.CORE_PLATFORM = { init, show, launch, refresh, state: P, openRecorded, openDossier, loadRecorded, simEnforce };
 })();

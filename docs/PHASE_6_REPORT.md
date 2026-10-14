@@ -184,5 +184,5 @@ The 14 Phase 6 checks cover:
   - execution graph with 37 recorded events;
   - **0 uncaught errors**.
 - **Public performance after:** zoom-14 overview at 48 circles (Phase 5 production: 682), orbit 59.3 fps, ready 822 ms, 959 KB transferred (compressed).
-- **Final commit:** the one that publishes this paragraph, adding the demo's robustness to rapid navigation (Chrome audit re-run on it: 117/117). Its production build is checked after the push.
+- **Final commits:** `70a7dce` (demo robust to rapid navigation) and the following polish commit (record layers stay hidden while a scenario is shown, including layers created later; navigation bar no longer wraps). Chrome audit re-run on the final code: 117/117.
 - **Scheduler:** still no `schedule` run at 04:46 UTC (last slot 03:17).
