@@ -66,7 +66,19 @@
   const clip = (s, n = 280) => { const t = String(s || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(); return t.length > n ? t.slice(0, n - 1) + '…' : t; };
   // Personal contact details never enter the store (emails and phone numbers in agency text are redacted).
   const scrub = t => String(t ?? '').replace(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g, '[contact masqué]').replace(/\(?\b\d{3}\)?[ .-]\d{3}[ .-]\d{4}\b/g, '[téléphone masqué]');
-  const iso = v => { const t = Date.parse(v); return Number.isFinite(t) ? new Date(t).toISOString() : null; };
+  // Timestamps without a zone (Socrata floating timestamps, date-only RSS dates) are San Francisco wall-clock
+  // times: read them as America/Los_Angeles on every machine (a UTC CI runner must give the same instant).
+  const HAS_ZONE = /(Z|[+-]\d{2}:?\d{2}|\b(GMT|UTC|UT|PST|PDT|EST|EDT|CST|CDT|MST|MDT)\b)\s*$/i;
+  const offsetMin = (t, tz) => { const m = new Intl.DateTimeFormat('en-US', { timeZone: tz, timeZoneName: 'shortOffset' }).formatToParts(new Date(t)).find(p => p.type === 'timeZoneName').value.match(/GMT([+-]\d+)?(?::(\d+))?/); return m && m[1] ? Math.sign(+m[1]) * (Math.abs(+m[1]) * 60 + (+m[2] || 0)) : 0; };
+  function iso(v) {
+    if (typeof v === 'number') return Number.isFinite(v) ? new Date(v).toISOString() : null;
+    const s = String(v || '').trim(), t = Date.parse(s); if (!Number.isFinite(t)) return null;
+    if (HAS_ZONE.test(s)) return new Date(t).toISOString();
+    const localWall = /^\d{4}-\d{2}-\d{2}$/.test(s) ? t : t - new Date(t).getTimezoneOffset() * 60000; // wall-clock time as if UTC (bare ISO dates already parse as UTC)
+    let utc = localWall - offsetMin(localWall, 'America/Los_Angeles') * 60000;
+    utc = localWall - offsetMin(utc, 'America/Los_Angeles') * 60000; // second pass settles DST edges
+    return new Date(utc).toISOString();
+  }
 
   function verify(item) {
     const checks = [];
@@ -236,6 +248,6 @@
     return rows.filter(it => it && !seen.has(it.id) && seen.add(it.id));
   }
 
-  const FEEDS = { request, itemsFrom, KINDS, SOURCES, OFFICIAL_HOSTS, OPEN_DATA_HOSTS, TRUSTED, confidenceOf, statementKind, parseCsv, classify, normalize: N, merge, verify, linkToCorridor, suggest, parseRss, health, dueSources, kmFromSF, hash };
+  const FEEDS = { iso, request, itemsFrom, KINDS, SOURCES, OFFICIAL_HOSTS, OPEN_DATA_HOSTS, TRUSTED, confidenceOf, statementKind, parseCsv, classify, normalize: N, merge, verify, linkToCorridor, suggest, parseRss, health, dueSources, kmFromSF, hash };
   if (typeof module !== 'undefined' && module.exports) module.exports = FEEDS; else root.CORE_FEEDS = FEEDS;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

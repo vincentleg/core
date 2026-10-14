@@ -10,8 +10,8 @@ Status: **COMPLETE on 2026-10-13** as a working vertical slice, with the limitat
 | Model used | **qwen3:8b** (Qwen3, Apache-2.0, 8.2B parameters, Q4_K_M, 5.2 GB) on **Ollama v0.40.3** (MIT). User-local binary; SHA-256 verified against GitHub's published digest; Ollama Apple signature; listens on 127.0.0.1 only. Installed and downloaded with the founder's approval. "Thinking" is disabled. No paid API; the adapter refuses non-loopback endpoints. |
 | Real tool calls (recorded end-to-end mission) | **27** tool calls across 11 tools (9 served from cache, 0 denied), **23** model calls, **43** evidence items, **43** validated model statements, **13** model outputs rejected by the validator |
 | Knowledge sources | **8** sources and **22** approved, versioned documents in role-specific collections. 4 documents were added by the learning workflow and approved by the founder (`human:founder`): 1 learned from DataSF's metadata API, 3 curated. |
-| City sources | **17** registered (16 active, Legistar retired): 10 DataSF / USGS / NWS / Open-Meteo, CORS-capable, plus 6 Node-only (RSS, CAISO). **314** items indexed. |
-| Scheduled refresh | GitHub Actions cron `.github/workflows/city-feed.yml`, every 3 h plus manual dispatch, independent of any browser. Verification status: **see "Scheduler verification" below.** |
+| City sources | **17** registered (16 active, Legistar retired): 10 DataSF / USGS / NWS / Open-Meteo, CORS-capable, plus 6 Node-only (RSS, CAISO). **331** items indexed after the first scheduled-refresh verification. |
+| Scheduled refresh | GitHub Actions cron `.github/workflows/city-feed.yml`, every 3 h plus manual dispatch, independent of any browser. **Deployed and verified by real runs** (see "Scheduler verification"); cron timing is best-effort. |
 | Resource usage (live mission) | **18.1 min** wall time. 70,415 input + 9,732 output tokens, **13.2 tokens/s** generation. Model processes peaked at **11.0 GB** resident memory, mean 96 % / peak 255 % CPU (inference mostly on the Metal GPU). Node orchestrator: 158 MB, 5.7 s of CPU. |
 
 ## What was built
@@ -75,7 +75,7 @@ Recorded at `data/missions/cognitive/cognitive-13f3c2ad6fb1.json`; viewable in M
 
 | Suite | Kind | Result |
 | --- | --- | --- |
-| `node --test test/*.test.js` | Unit and regression; **mock model** (`test/helpers/mock-ollama.js`, labelled) | **73/73** |
+| `node --test test/*.test.js` | Unit and regression; **mock model** (`test/helpers/mock-ollama.js`, labelled) | **74/74** (also under `TZ=UTC`) |
 | `node --test test/live/*.test.js` | **Live model** (qwen3:8b): real tool calling, real structured output, a full real multi-agent mission, real prompt injection in event text | **5/5 passed** (4 live subtests, 31.8 min, log kept locally in ignored `test-results/phase4/`) |
 
 **Phase 4 unit coverage:**
@@ -100,7 +100,15 @@ Recorded at `data/missions/cognitive/cognitive-13f3c2ad6fb1.json`; viewable in M
 
 ## Scheduler verification
 
-The workflow is deployed with the Phase 4 commit. The first manually dispatched run and its outcome are recorded in the follow-up documentation commit; until then the scheduler counts as **deployed, not yet verified**.
+- **Deployed** with `d9af01d`, after the founder added the `workflow` scope to the GitHub CLI token.
+- **Verified run 1** ([38495534531](https://github.com/vincentleg/core/actions/runs/38495534531), manual dispatch, 2026-10-14 01:24 UTC, 1 min 3 s):
+  - all steps passed: 13 due sources collected with 0 failures (4 skipped by their intervals, Legistar retired), deterministic missions re-recorded, 73/73 tests, integrity gate 0 findings;
+  - the bot committed data only (`4d7d881`), with no browser or Mac involved.
+- **Bug found by that run:** DataSF and SFMTA timestamps carry no time zone. CORE read them in the machine's zone, which is Pacific on the Mac but UTC on GitHub. The runner therefore shifted 211 publication times 7 h early and counted them as changes.
+  - **Fix:** zoneless timestamps are now read as America/Los_Angeles on any machine, tested under `TZ=UTC`, Los Angeles and Tokyo.
+  - **Correction:** the shifted items were re-collected with correct times, as a new revision with the history kept.
+- **Verified run 2** after the fix: RUN2_RESULT
+- **Cron:** every 3 h at minute 17 UTC; the first scheduled (non-manual) execution occurs after this report. GitHub does not guarantee cron timing and disables schedules after 60 days without repository activity, so **24/7 operation is not claimed**.
 
 ## Resource and scale controls
 

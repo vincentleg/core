@@ -144,7 +144,7 @@
       }
      ],
      "value": 0,
-     "asOf": "2026-10-14T01:24:30.092Z",
+     "asOf": "2026-10-14T01:27:15.713Z",
      "agent": "core.san-francisco.climate.weather-alerts",
      "tool": "resilience.weather-alerts"
     }
@@ -192,7 +192,7 @@
    "tool": "knowledge.retrieve",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 1,
+   "ms": 0,
    "records": 2,
    "error": null,
    "findings": [
@@ -296,7 +296,7 @@
     }
    ],
    "value": 0,
-   "asOf": "2026-10-14T01:24:30.092Z",
+   "asOf": "2026-10-14T01:27:15.713Z",
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts"
   },
@@ -660,24 +660,24 @@
   },
   {
    "seq": 16,
-   "t": 2,
+   "t": 1,
    "kind": "task",
    "task": "task-4",
    "agent": "core.san-francisco.regulatory.knowledge-research",
    "tool": "knowledge.retrieve",
    "state": "succeeded",
-   "text": "2 constat(s), 2 enregistrement(s), 1 ms"
+   "text": "2 constat(s), 2 enregistrement(s), 0 ms"
   },
   {
    "seq": 17,
-   "t": 2,
+   "t": 1,
    "kind": "mission",
    "state": "reviewing",
    "text": "Mission → reviewing"
   },
   {
    "seq": 18,
-   "t": 2,
+   "t": 1,
    "kind": "review",
    "agent": "core.san-francisco.research.evidence-verifier",
    "text": "Vérification indépendante : 7/7 constats entièrement sourcés."
@@ -714,9 +714,9 @@
  "fingerprint": "16bcf0ae69b48d15",
  "recorded": {
   "by": "scripts/agents.mjs (Node)",
-  "at": "2026-10-14T01:25:06.984Z",
+  "at": "2026-10-14T01:27:51.059Z",
   "wallMs": 4,
   "snapshot": "2026-10-13T18:25:19.678Z",
-  "feedUpdate": "2026-10-14T01:24:30.092Z"
+  "feedUpdate": "2026-10-14T01:27:15.713Z"
  }
 }

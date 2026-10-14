@@ -197,3 +197,11 @@ test('validator details found with the real model: schema-checked tool arguments
   assert.match(link, /m de l’axe du tronçon/, 'a distance is never presented as a length');
 });
 
+test('zoneless timestamps are read as San Francisco time on any machine (UTC CI runner = Pacific Mac)', () => {
+  const { execFileSync } = require('node:child_process');
+  const probe = tz => execFileSync('node', ['-e', 'const F=require("./src/feeds.js");console.log(["2026-10-07T09:32:00.000","Friday, October 9, 2026","2026-10-13","2026-01-15T09:00:00","Tue, 22 Sep 2026 23:05:55 +0000"].map(F.iso).join(" "))'], { cwd: ROOT, env: { ...process.env, TZ: tz }, encoding: 'utf8' }).trim();
+  const la = probe('America/Los_Angeles');
+  assert.equal(la, '2026-10-07T16:32:00.000Z 2026-10-09T07:00:00.000Z 2026-10-13T07:00:00.000Z 2026-01-15T17:00:00.000Z 2026-09-22T23:05:55.000Z');
+  assert.equal(probe('UTC'), la); assert.equal(probe('Asia/Tokyo'), la);
+});
+
