@@ -39,7 +39,7 @@
     { key: 'weather-alerts', dept: 'climate', role: 'Analyste des alertes météorologiques', spec: 'Alertes NWS actives pour San Francisco (prévisions, non observations)', tools: ['resilience.weather-alerts'], perm: 'analyze', knowledge: ['k-nws-alerts'] },
     { key: 'civic-records', dept: 'administration', role: 'Analyste des dossiers municipaux', spec: 'Législation du Board of Supervisors (Legistar) : type, statut, dates, sans jugement politique', tools: ['civic.legislation'], perm: 'analyze', knowledge: ['k-legistar', 'k-neutrality'] },
     { key: 'graph-linker', dept: 'data-science', role: 'Analyste de liaison du graphe', spec: 'Géolocalisation des évènements et liaison au graphe de connaissances', tools: ['graph.link'], perm: 'analyze', knowledge: ['k-graph-bases'] },
-    { key: 'scenario-evaluator', dept: 'simulation', role: 'Évaluateur de scénarios', spec: 'Investigation inter-domaines déterministe et alternatives R0–R2', tools: ['scenario.investigate'], perm: 'analyze', knowledge: ['k-coordination-method', 'k-proximity-indicator'] },
+    { key: 'scenario-evaluator', dept: 'simulation', role: 'Évaluateur de scénarios', spec: 'Investigation inter-domaines déterministe et alternatives R0–R2', tools: ['scenario.investigate', 'decision.interventions'], perm: 'analyze', knowledge: ['k-coordination-method', 'k-proximity-indicator'] },
     { key: 'knowledge-research', dept: 'regulatory', role: 'Chargé de recherche documentaire', spec: 'Recherche dans la bibliothèque de connaissances approuvée', tools: ['knowledge.retrieve'], perm: 'read', knowledge: ['k-coordination-method', 'k-neutrality'] },
     { key: 'evidence-verifier', dept: 'research', role: 'Vérificateur de preuves', spec: 'Sommes SHA-256, existence des enregistrements, dates, statut des sources', tools: ['evidence.verify', 'data.freshness'], perm: 'review', knowledge: ['k-provenance'], independent: true },
     { key: 'adversarial-reviewer', dept: 'safety', role: 'Réviseur adversarial', spec: 'Désaccords, sensibilités, preuves manquantes', tools: ['adversarial.review'], perm: 'review', knowledge: ['k-proximity-indicator', 'k-dbi-issued-status'], independent: true },
@@ -94,6 +94,30 @@
     return { version: REGISTRY_VERSION, city, departments: DEPARTMENTS, agents: out };
   }
 
+  // Phase 10: the world registry. San Francisco keeps its 68 profiles and codes (built first); New York gets a SMALL
+  // organisation containing only what its integrated data supports; the global level gains the roles that cross-city
+  // work actually executes. Codes continue the global numbering (CORE-<DEPT>-0069…). Nothing here is decorative:
+  // every executable profile has an implemented tool and is exercised by recorded missions or tests.
+  const NYC = { id: 'new-york', name: 'New York', scope: 'Chinatown-Two Bridges, Lower East Side, East Village (Manhattan)' };
+  function buildWorld() {
+    const sf = buildRegistry(), agents = sf.agents.slice(), extra = [];
+    const add = a => extra.push({ disclaimer: DISCLAIMER, missionHistory: [], evaluationHistory: [], knowledgeVersion: null, budget: BUDGET, independent: false, gap: null, model: null, ...a });
+    add({ id: 'core.global.director.road-safety', scope: { level: 'global-domain' }, department: null, role: 'Direction mondiale — Sécurité routière', specialization: 'Coordination d’analyses comparatives entre villes ; aucune autorité sur des villes réelles', competencies: [{ id: 'cross-city-coordination', basis: 'declared' }], knowledge: ['k-neutrality', 'k-provenance'], tools: ['mission.plan'], permission: 'propose', supervisor: 'core.global.coordinator', executionMode: 'deterministic', status: 'available' });
+    add({ id: 'core.global.research.methodology-reviewer', scope: { level: 'global-domain' }, department: 'research', role: 'Réviseur méthodologique inter-villes', specialization: 'Vérifie la comparabilité des définitions, méthodes, périodes et géographies avant toute comparaison', competencies: [{ id: 'comparability.review', basis: 'declared' }], knowledge: ['k-provenance'], tools: ['comparability.review'], permission: 'review', supervisor: 'core.global.coordinator', executionMode: 'deterministic', status: 'available', independent: true });
+    const c = `core.${NYC.id}`;
+    add({ id: `${c}.manager`, scope: { level: 'city', city: NYC.id, area: NYC.scope }, department: null, role: 'Coordination de la ville — New York', specialization: 'Affectation des missions de la zone d’étude new-yorkaise (sans autorité sur la ville)', competencies: [{ id: 'mission-planning', basis: 'declared' }], knowledge: ['k-neutrality', 'k-provenance'], tools: ['mission.plan'], permission: 'propose', supervisor: 'core.global.coordinator', executionMode: 'deterministic', status: 'available' });
+    for (const d of ['mobility', 'civil', 'public-space', 'research', 'safety']) { const dep = DEPARTMENTS.find(x => x.id === d); add({ id: `${c}.${d}.lead`, scope: { level: 'department', city: NYC.id }, department: d, role: `Direction — ${dep.name} (New York)`, specialization: `Coordination du département à New York ; domaines ${dep.domains.join(', ') || 'transverses'}`, competencies: [], knowledge: [], tools: [], permission: 'propose', supervisor: `${c}.manager`, executionMode: 'coordination-only', status: 'registered' }); }
+    const spec = (dept, key, role, sp, tools, perm, extra2 = {}) => add({ id: `${c}.${dept}.${key}`, scope: { level: 'specialist', city: NYC.id, area: NYC.scope }, department: dept, role, specialization: sp, competencies: tools.map(t => ({ id: t, basis: 'declared' })), knowledge: [], tools, permission: perm, supervisor: `${c}.${dept}.lead`, executionMode: 'deterministic', status: 'available', ...extra2 });
+    spec('mobility', 'traffic', 'Analyste sécurité routière (New York)', 'Collisions avec blessés ou tués (NYPD) agrégées sur les corridors prioritaires Vision Zero', ['safety.crash-profile'], 'analyze');
+    spec('civil', 'works-coordination', 'Analyste des fermetures pour travaux (New York)', 'Fermetures de rue autorisées pour travaux (NYC DOT), fenêtres et proximité', ['works.area-windows', 'works.near-points'], 'analyze');
+    spec('public-space', 'ramps', 'Analyste accessibilité des rampes piétonnes (New York)', 'Relevé des rampes (pentes, paliers, obstacles, bandes d’éveil) comparé aux seuils déclarés', ['accessibility.ramps'], 'analyze');
+    spec('research', 'evidence-verifier', 'Vérificateur de preuves et de fraîcheur (New York)', 'Fraîcheur, nature et décalage des jeux new-yorkais', ['data.freshness'], 'review', { independent: true });
+    spec('safety', 'adversarial-reviewer', 'Réviseur adversarial (New York)', 'Rejette les constats non étayés et le langage causal ou décisionnel', ['adversarial.review'], 'review', { independent: true });
+    add({ id: `${c}.governance.gateway`, scope: { level: 'governance', city: NYC.id }, department: 'safety', role: 'Passerelle de décision — New York (gouvernance indépendante)', specialization: 'Proposition à la revue humaine ; n’autorise rien', competencies: [], knowledge: ['k-provenance'], tools: ['decision.gateway'], permission: 'govern', supervisor: null, executionMode: 'deterministic', status: 'available', independent: true });
+    extra.forEach((a, i) => agents.push(Object.freeze({ ...a, code: `CORE-${a.scope.level === 'global-domain' && !a.department ? 'DIR' : DEPT_CODE[a.department] || (a.scope.level === 'city' ? 'CTY' : 'GEN')}-${String(sf.agents.length + i + 1).padStart(4, '0')}` })));
+    return { version: 'core-agent-registry-v3-world', cities: [sf.city, NYC], city: sf.city, departments: DEPARTMENTS, agents };
+  }
+
   // Indexes make lookups O(1) whatever the number of profiles (designed for thousands per city).
   function index(registry) {
     const byId = new Map(), byDept = new Map(), byTool = new Map(), byDomain = new Map();
@@ -113,6 +137,6 @@
   }
   const canUse = (agent, tool, required) => agent.tools.includes(tool) && PERMISSIONS.indexOf(agent.permission) >= PERMISSIONS.indexOf(required);
 
-  const ORG = { REGISTRY_VERSION, PERMISSIONS, DISCLAIMER, DEPARTMENTS, DEPT_CODE, SPECIALISTS, buildRegistry, index, counts, canUse };
+  const ORG = { REGISTRY_VERSION, PERMISSIONS, DISCLAIMER, DEPARTMENTS, DEPT_CODE, SPECIALISTS, buildRegistry, buildWorld, index, counts, canUse };
   if (typeof module !== 'undefined' && module.exports) module.exports = ORG; else root.CORE_ORG = ORG;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

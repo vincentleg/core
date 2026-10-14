@@ -9,10 +9,15 @@
 // test areas, one per neighbourhood, for automated route-vs-building tests). Only geometry and the way kind are stored.
 import fs from 'node:fs';
 import crypto from 'node:crypto';
-const man = JSON.parse(fs.readFileSync('data/sf9/manifest.json', 'utf8')), [W, S, E, N] = man.study_area.bbox;
+// Phase 10: --city <id> (src/cities.js) selects the study area, output files and test areas.
+const argv = process.argv.slice(2), cityId = argv.includes('--city') ? argv[argv.indexOf('--city') + 1] : 'san-francisco';
+const CFG = { 'san-francisco': { manifest: 'data/sf9/manifest.json', out: 'data/osm/walk-network.json', sample: 'data/osm/buildings-sample.json', areas: { soma: [-122.4110, 37.7750, -122.4060, 37.7785], mission: [-122.4245, 37.7630, -122.4195, 37.7665], tenderloin: [-122.4150, 37.7825, -122.4100, 37.7860] } },
+  'new-york': { manifest: 'data/nyc/manifest.json', out: 'data/osm/nyc-walk-network.json', sample: 'data/osm/nyc-buildings-sample.json', areas: { chinatown: [-73.9985, 40.7130, -73.9935, 40.7165], 'lower-east-side': [-73.9890, 40.7170, -73.9840, 40.7205], 'east-village': [-73.9880, 40.7255, -73.9830, 40.7290] } } }[cityId];
+if (!CFG) { console.error('unknown city'); process.exit(1); }
+const man = JSON.parse(fs.readFileSync(CFG.manifest, 'utf8')), [W, S, E, N] = man.study_area.bbox;
 const UA = { 'User-Agent': 'CORE-prototype (https://github.com/vincentleg/core)', 'Content-Type': 'application/x-www-form-urlencoded' };
-const args = process.argv.slice(2), at = k => args.indexOf(k);
-async function overpass(q) { const r = await fetch('https://overpass-api.de/api/interpreter', { method: 'POST', headers: UA, body: 'data=' + encodeURIComponent(q) }); const t = await r.text(); if (!r.ok || t[0] !== '{') throw Error(`Overpass unavailable (${r.status})`); return t; }
+const args = argv, at = k => args.indexOf(k);
+async function overpass(q) { for (let k = 1; ; k++) { const r = await fetch('https://overpass-api.de/api/interpreter', { method: 'POST', headers: UA, body: 'data=' + encodeURIComponent(q) }); const t = await r.text(); if (r.ok && t[0] === '{') return t; if (k >= 5) throw Error(`Overpass unavailable (${r.status})`); await new Promise(x => setTimeout(x, 30000 * k)); } } // polite backoff (public service)
 const WALK_Q = `[out:json][timeout:120];way["highway"~"^(footway|pedestrian|path|living_street)$"](${S},${W},${N},${E});out geom;`;
 let walkRaw, bldRaws;
 if (at('--input') >= 0) { walkRaw = fs.readFileSync(args[at('--input') + 1], 'utf8'); bldRaws = args.slice(at('--buildings') + 1).filter(a => !a.startsWith('--')).map(f => fs.readFileSync(f, 'utf8')); }
@@ -51,9 +56,9 @@ const out = { version: 'core-walk-network-v2', encoding: 'n: flat [x,y] integers
   kinds: KINDS, stats: { ways, nodes: outNodes.length, edges: outEdges.length, dropped_nodes: nodes.length - outNodes.length },
   caveat: 'Mapped geometry, not a field survey: width, surface, curb ramps and obstructions are unknown; accessibility is not asserted.',
   n: outNodes.flatMap(p => [Math.round(p[0] * 1e6) - base[0], Math.round(p[1] * 1e6) - base[1]]), e: outEdges.flat() };
-fs.mkdirSync('data/osm', { recursive: true }); fs.writeFileSync('data/osm/walk-network.json', JSON.stringify(out));
+fs.mkdirSync('data/osm', { recursive: true }); out.city = cityId; fs.writeFileSync(CFG.out, JSON.stringify(out));
 // Building sample for tests: three 400 m boxes, one per neighbourhood.
-const AREAS = { soma: [-122.4110, 37.7750, -122.4060, 37.7785], mission: [-122.4245, 37.7630, -122.4195, 37.7665], tenderloin: [-122.4150, 37.7825, -122.4100, 37.7860] };
+const AREAS = CFG.areas;
 const sample = Object.fromEntries(Object.entries(AREAS).map(([k, [w, s, e, n]]) => [k, { bbox: [w, s, e, n], buildings: buildings.filter(b => b.bb[2] >= w && b.bb[0] <= e && b.bb[3] >= s && b.bb[1] <= n).map(b => b.ring.map(p => [+p[0].toFixed(6), +p[1].toFixed(6)])) }]));
-fs.writeFileSync('data/osm/buildings-sample.json', JSON.stringify({ version: 'core-buildings-sample-v1', source: out.source.attribution + ' (ODbL 1.0), OSM building footprints', osm_base: JSON.parse(bldRaws[0]).osm3s.timestamp_osm_base, areas: sample }));
-console.log(`walk network: ${ways} ways → ${outNodes.length} nodes, ${outEdges.length} edges; ${removed} edge(s) removed for crossing one of ${buildings.length} buildings; sample ${Object.entries(sample).map(([k, v]) => `${k}:${v.buildings.length}`).join(' ')}`);
+fs.writeFileSync(CFG.sample, JSON.stringify({ version: 'core-buildings-sample-v1', source: out.source.attribution + ' (ODbL 1.0), OSM building footprints', osm_base: JSON.parse(bldRaws[0]).osm3s.timestamp_osm_base, areas: sample }));
+console.log(`${CFG.out}: ${ways} ways → ${outNodes.length} nodes, ${outEdges.length} edges; ${removed} edge(s) removed for crossing one of ${buildings.length} buildings; sample ${Object.entries(sample).map(([k, v]) => `${k}:${v.buildings.length}`).join(' ')}`);
