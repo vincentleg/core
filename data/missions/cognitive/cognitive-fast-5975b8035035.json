@@ -569,315 +569,7 @@
   },
   {
    "id": "E7",
-   "claim": "Alternatives (recalcul déterministe) : A0 0 plantables maintenant / 0 au total, 0 tronçons sans cheminement suffisant ; A1 339 plantables maintenant / 339 au total, 0 tronçons sans cheminement suffisant ; A2 74 plantables maintenant / 74 au total, 23 tronçons sans cheminement suffisant ; A3 216 plantables maintenant / 339 au total, 0 tronçons sans cheminement suffisant.",
-   "epistemic": "simulated",
-   "evidence": [
-    {
-     "type": "dataset",
-     "ref": "sidewalks",
-     "url": "https://data.sf.gov/d/4g86-grxu"
-    },
-    {
-     "type": "dataset",
-     "ref": "street-trees",
-     "url": "https://data.sf.gov/d/tkzw-k3nq"
-    }
-   ],
-   "topic": "simulation",
-   "limitation": true,
-   "contradicts": null,
-   "quantities": [
-    {
-     "value": 0,
-     "unit": "count",
-     "quantity": "count",
-     "meaning": "emplacements plantables maintenant (A0)",
-     "nature": "modelled"
-    },
-    {
-     "value": 0,
-     "unit": "count",
-     "quantity": "count",
-     "meaning": "emplacements au total (A0)",
-     "nature": "modelled"
-    },
-    {
-     "value": 0,
-     "unit": "count",
-     "quantity": "count",
-     "meaning": "tronçons sans cheminement suffisant (A0)",
-     "nature": "modelled"
-    },
-    {
-     "value": 339,
-     "unit": "count",
-     "quantity": "count",
-     "meaning": "emplacements plantables maintenant (A1)",
-     "nature": "modelled"
-    },
-    {
-     "value": 339,
-     "unit": "count",
-     "quantity": "count",
-     "meaning": "emplacements au total (A1)",
-     "nature": "modelled"
-    },
-    {
-     "value": 0,
-     "unit": "count",
-     "quantity": "count",
-     "meaning": "tronçons sans cheminement suffisant (A1)",
-     "nature": "modelled"
-    },
-    {
-     "value": 74,
-     "unit": "count",
-     "quantity": "count",
-     "meaning": "emplacements plantables maintenant (A2)",
-     "nature": "modelled"
-    },
-    {
-     "value": 74,
-     "unit": "count",
-     "quantity": "count",
-     "meaning": "emplacements au total (A2)",
-     "nature": "modelled"
-    },
-    {
-     "value": 23,
-     "unit": "count",
-     "quantity": "count",
-     "meaning": "tronçons sans cheminement suffisant (A2)",
-     "nature": "modelled"
-    },
-    {
-     "value": 216,
-     "unit": "count",
-     "quantity": "count",
-     "meaning": "emplacements plantables maintenant (A3)",
-     "nature": "modelled"
-    },
-    {
-     "value": 339,
-     "unit": "count",
-     "quantity": "count",
-     "meaning": "emplacements au total (A3)",
-     "nature": "modelled"
-    },
-    {
-     "value": 0,
-     "unit": "count",
-     "quantity": "count",
-     "meaning": "tronçons sans cheminement suffisant (A3)",
-     "nature": "modelled"
-    }
-   ],
-   "tool": "sim.sidewalk-capacity",
-   "agent": "core.san-francisco.simulation.scenario-analyst",
-   "call": 9,
-   "computed": "deterministic"
-  },
-  {
-   "id": "E8",
-   "claim": "Sensibilité : selon l’espacement (15–40 ft) les emplacements varient de 339 à 22 ; selon la part de linéaire utilisable (0.3–0.9) de 52 à 763 ; avec un cheminement de 8 ft, 23 tronçons deviennent insuffisants. Ces deux hypothèses dominent l’incertitude.",
-   "epistemic": "simulated",
-   "evidence": [
-    {
-     "type": "dataset",
-     "ref": "sidewalks",
-     "url": "https://data.sf.gov/d/4g86-grxu"
-    },
-    {
-     "type": "dataset",
-     "ref": "street-trees",
-     "url": "https://data.sf.gov/d/tkzw-k3nq"
-    }
-   ],
-   "topic": "simulation",
-   "limitation": true,
-   "contradicts": null,
-   "quantities": [
-    {
-     "value": 339,
-     "unit": "count",
-     "quantity": "count",
-     "meaning": "emplacements selon l’espacement",
-     "nature": "modelled"
-    },
-    {
-     "value": 22,
-     "unit": "count",
-     "quantity": "count",
-     "meaning": "emplacements selon l’espacement",
-     "nature": "modelled"
-    },
-    {
-     "value": 52,
-     "unit": "count",
-     "quantity": "count",
-     "meaning": "emplacements selon la part utilisable",
-     "nature": "modelled"
-    },
-    {
-     "value": 763,
-     "unit": "count",
-     "quantity": "count",
-     "meaning": "emplacements selon la part utilisable",
-     "nature": "modelled"
-    },
-    {
-     "value": 15,
-     "unit": "ft",
-     "quantity": "distance",
-     "meaning": "espacement minimal testé"
-    },
-    {
-     "value": 40,
-     "unit": "ft",
-     "quantity": "distance",
-     "meaning": "espacement maximal testé"
-    },
-    {
-     "value": 0.3,
-     "unit": "fraction",
-     "quantity": "share",
-     "meaning": "part utilisable minimale"
-    },
-    {
-     "value": 0.9,
-     "unit": "fraction",
-     "quantity": "share",
-     "meaning": "part utilisable maximale"
-    },
-    {
-     "value": 8,
-     "unit": "ft",
-     "quantity": "width",
-     "meaning": "cheminement maximal testé"
-    },
-    {
-     "value": 23,
-     "unit": "count",
-     "quantity": "count",
-     "meaning": "tronçons insuffisants avec ce cheminement",
-     "nature": "modelled"
-    }
-   ],
-   "tool": "sim.sidewalk-capacity",
-   "agent": "core.san-francisco.simulation.scenario-analyst",
-   "call": 9,
-   "computed": "deterministic"
-  },
-  {
-   "id": "E9",
-   "claim": "Observé (étude de trottoirs 2014, classes Better Streets Plan) : 18 tronçons ont une largeur inférieure au minimum de leur classe, tous sur FOLSOM ST (10 ft pour un minimum de 12 ft).",
-   "epistemic": "observed",
-   "evidence": [
-    {
-     "type": "record",
-     "dataset": "sidewalks",
-     "ref": "sidewalks:8562",
-     "url": "https://data.sf.gov/d/4g86-grxu"
-    },
-    {
-     "type": "record",
-     "dataset": "sidewalks",
-     "ref": "sidewalks:8563",
-     "url": "https://data.sf.gov/d/4g86-grxu"
-    },
-    {
-     "type": "record",
-     "dataset": "sidewalks",
-     "ref": "sidewalks:8564",
-     "url": "https://data.sf.gov/d/4g86-grxu"
-    },
-    {
-     "type": "record",
-     "dataset": "sidewalks",
-     "ref": "sidewalks:8565",
-     "url": "https://data.sf.gov/d/4g86-grxu"
-    },
-    {
-     "type": "record",
-     "dataset": "sidewalks",
-     "ref": "sidewalks:8566",
-     "url": "https://data.sf.gov/d/4g86-grxu"
-    },
-    {
-     "type": "record",
-     "dataset": "sidewalks",
-     "ref": "sidewalks:8567",
-     "url": "https://data.sf.gov/d/4g86-grxu"
-    },
-    {
-     "type": "record",
-     "dataset": "sidewalks",
-     "ref": "sidewalks:8568",
-     "url": "https://data.sf.gov/d/4g86-grxu"
-    },
-    {
-     "type": "record",
-     "dataset": "sidewalks",
-     "ref": "sidewalks:8569",
-     "url": "https://data.sf.gov/d/4g86-grxu"
-    },
-    {
-     "type": "record",
-     "dataset": "sidewalks",
-     "ref": "sidewalks:8570",
-     "url": "https://data.sf.gov/d/4g86-grxu"
-    },
-    {
-     "type": "record",
-     "dataset": "sidewalks",
-     "ref": "sidewalks:8571",
-     "url": "https://data.sf.gov/d/4g86-grxu"
-    },
-    {
-     "type": "record",
-     "dataset": "sidewalks",
-     "ref": "sidewalks:8572",
-     "url": "https://data.sf.gov/d/4g86-grxu"
-    },
-    {
-     "type": "record",
-     "dataset": "sidewalks",
-     "ref": "sidewalks:8573",
-     "url": "https://data.sf.gov/d/4g86-grxu"
-    }
-   ],
-   "topic": "public-space",
-   "limitation": false,
-   "contradicts": null,
-   "quantities": [
-    {
-     "value": 18,
-     "unit": "count",
-     "quantity": "count",
-     "meaning": "tronçons sous le minimum BSP"
-    },
-    {
-     "value": 10,
-     "unit": "ft",
-     "quantity": "width",
-     "meaning": "largeur de trottoir (2014)",
-     "asOf": "2014-01-01"
-    },
-    {
-     "value": 12,
-     "unit": "ft",
-     "quantity": "width",
-     "meaning": "largeur minimale BSP"
-    }
-   ],
-   "tool": "sim.sidewalk-capacity",
-   "agent": "core.san-francisco.simulation.scenario-analyst",
-   "call": 9,
-   "computed": "deterministic"
-  },
-  {
-   "id": "E10",
-   "claim": "37 référence(s) de preuve sur 37 proviennent de 3 source(s) éligibles de la politique de données (vérifiée 2026-10-14).",
+   "claim": "21 référence(s) de preuve sur 21 proviennent de 3 source(s) éligibles de la politique de données (vérifiée 2026-10-14).",
    "epistemic": "derived",
    "evidence": [
     {
@@ -891,7 +583,7 @@
    "contradicts": null,
    "quantities": [
     {
-     "value": 37,
+     "value": 21,
      "unit": "count",
      "quantity": "count",
      "meaning": "références de preuve vérifiées"
@@ -915,7 +607,7 @@
    "computed": "deterministic"
   },
   {
-   "id": "E11",
+   "id": "E8",
    "claim": "E1 : 2/2 référence(s) vérifiée(s) contre les données vérifiées ; statut épistémique « simulated ».",
    "epistemic": "derived",
    "evidence": [
@@ -940,7 +632,7 @@
    "computed": "deterministic"
   },
   {
-   "id": "E12",
+   "id": "E9",
    "claim": "E2 : 2/2 référence(s) vérifiée(s) contre les données vérifiées ; statut épistémique « simulated ».",
    "epistemic": "derived",
    "evidence": [
@@ -965,7 +657,7 @@
    "computed": "deterministic"
   },
   {
-   "id": "E13",
+   "id": "E10",
    "claim": "E3 : 2/2 référence(s) vérifiée(s) contre les données vérifiées ; statut épistémique « simulated ».",
    "epistemic": "derived",
    "evidence": [
@@ -990,7 +682,7 @@
    "computed": "deterministic"
   },
   {
-   "id": "E14",
+   "id": "E11",
    "claim": "E4 : 12/12 référence(s) vérifiée(s) contre les données vérifiées ; statut épistémique « observed ».",
    "epistemic": "derived",
    "evidence": [
@@ -1077,7 +769,7 @@
    "computed": "deterministic"
   },
   {
-   "id": "E15",
+   "id": "E12",
    "claim": "E5 : 1/1 référence(s) vérifiée(s) contre les données vérifiées ; statut épistémique « reported ».",
    "epistemic": "derived",
    "evidence": [
@@ -1105,7 +797,7 @@
    "tool": "sim.sidewalk-capacity",
    "args": {},
    "state": "ok",
-   "ms": 56,
+   "ms": 57,
    "evidence": [
     "E1",
     "E2",
@@ -1258,12 +950,9 @@
     }
    },
    "state": "ok",
-   "ms": 55,
+   "ms": 6,
    "evidence": [
-    "E6",
-    "E7",
-    "E8",
-    "E9"
+    "E6"
    ],
    "error": null,
    "cached": false,
@@ -1300,7 +989,7 @@
    "state": "ok",
    "ms": 2,
    "evidence": [
-    "E10"
+    "E7"
    ],
    "error": null,
    "cached": false
@@ -1322,11 +1011,11 @@
    "state": "ok",
    "ms": 0,
    "evidence": [
+    "E8",
+    "E9",
+    "E10",
     "E11",
-    "E12",
-    "E13",
-    "E14",
-    "E15"
+    "E12"
    ],
    "error": null,
    "cached": false
@@ -1369,6 +1058,19 @@
    "error": null,
    "cached": true,
    "reused": true
+  },
+  {
+   "seq": 16,
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "onBehalfOf": "core.san-francisco.research.evidence-reviewer",
+   "tool": "evidence.check",
+   "args": {},
+   "state": "ok",
+   "ms": 0,
+   "evidence": [],
+   "error": null,
+   "cached": true,
+   "reused": true
   }
  ],
  "modelCalls": [
@@ -1383,10 +1085,10 @@
    "usage": {
     "promptTokens": 1027,
     "outputTokens": 391,
-    "totalMs": 29790,
-    "loadMs": 8,
-    "promptMs": 1638,
-    "evalMs": 28053,
+    "totalMs": 35363,
+    "loadMs": 2317,
+    "promptMs": 6526,
+    "evalMs": 26509,
     "contextChars": 3362
    },
    "model": "qwen3:8b",
@@ -1405,10 +1107,10 @@
    "usage": {
     "promptTokens": 1026,
     "outputTokens": 278,
-    "totalMs": 21318,
-    "loadMs": 5,
-    "promptMs": 1778,
-    "evalMs": 19527,
+    "totalMs": 20250,
+    "loadMs": 9,
+    "promptMs": 1681,
+    "evalMs": 18550,
     "contextChars": 3353
    },
    "model": "qwen3:8b",
@@ -1427,10 +1129,10 @@
    "usage": {
     "promptTokens": 1162,
     "outputTokens": 427,
-    "totalMs": 34007,
-    "loadMs": 16,
-    "promptMs": 2869,
-    "evalMs": 31107,
+    "totalMs": 32659,
+    "loadMs": 10,
+    "promptMs": 2455,
+    "evalMs": 30185,
     "contextChars": 3842
    },
    "model": "qwen3:8b",
@@ -1449,10 +1151,10 @@
    "usage": {
     "promptTokens": 1290,
     "outputTokens": 322,
-    "totalMs": 27554,
-    "loadMs": 12,
-    "promptMs": 4073,
-    "evalMs": 23437,
+    "totalMs": 26246,
+    "loadMs": 7,
+    "promptMs": 3478,
+    "evalMs": 22716,
     "contextChars": 4240
    },
    "model": "qwen3:8b",
@@ -1471,10 +1173,10 @@
    "usage": {
     "promptTokens": 1242,
     "outputTokens": 386,
-    "totalMs": 31531,
-    "loadMs": 7,
-    "promptMs": 3107,
-    "evalMs": 28365,
+    "totalMs": 30819,
+    "loadMs": 8,
+    "promptMs": 2766,
+    "evalMs": 27958,
     "contextChars": 4058
    },
    "model": "qwen3:8b",
@@ -1493,10 +1195,10 @@
    "usage": {
     "promptTokens": 1442,
     "outputTokens": 588,
-    "totalMs": 51279,
-    "loadMs": 12,
-    "promptMs": 5490,
-    "evalMs": 45752,
+    "totalMs": 46633,
+    "loadMs": 6,
+    "promptMs": 4653,
+    "evalMs": 41912,
     "contextChars": 4721
    },
    "model": "qwen3:8b",
@@ -1511,19 +1213,19 @@
    "structured": true,
    "toolsOffered": [],
    "ok": true,
-   "cacheKey": "90f123b57a1bc13d",
+   "cacheKey": "b6e2262f0d7c595d",
    "usage": {
-    "promptTokens": 2407,
-    "outputTokens": 313,
-    "totalMs": 35645,
-    "loadMs": 12,
-    "promptMs": 12636,
-    "evalMs": 22773,
-    "contextChars": 7568
+    "promptTokens": 2126,
+    "outputTokens": 564,
+    "totalMs": 49566,
+    "loadMs": 7,
+    "promptMs": 9101,
+    "evalMs": 40394,
+    "contextChars": 6784
    },
    "model": "qwen3:8b",
    "toolCallsRequested": [],
-   "output": "{\n  \"assessments\": [\n    {\"statement\": \"Concern: 18 tronçons sur FOLSOM ST ont un trottoir plus étroit que le minimum Better Streets Plan (E4).\", \"kind\": \"concern\", \"cites\": [\"E4\"],\"confidence\": \"medium\"},\n    {\"statement\": \"Interpretation: 93 emplacements d’arbres supplémentaires sont compatibles avec un cheminement de 4 ft (E1).\", \"kind\": \"concern\", \"cites\": [\"E1\"], \"confidence\": \"medium\"}\n  ],\n  \"evidence_requests\": [\n    {\"need\": \"preuve de la validité des 93 emplacements (E1)\", \"tool\": \"evidence_check\", \"reason\": \"E1 est simulé et non validé (E5)\"}\n  ],\n  \"responses\": [\n    {\"to\": \"A9\", \"stance\": \"dispute\", \"statement\": \"E1 est simulé et non validé (E5).\", \"cites\": [\"E1\", \"E5\"]},\n    {\"to\": \"A1\", \"stance\": \"dispute\", \"statement\": \"E1 est simulé et non validé (E5).\", \"cites\": [\"E1\", \"E5\"]}\n  ],\n  \"parameter_proposals\": [],\n  \"specialist_requests\": [],\n  \"simulation_requests\": [],\n  \"abstain\": \"\"\n}",
+   "output": "{\n  \"assessments\": [\n    {\"statement\": \"Interpretation: 93 emplacements d’arbres supplémentaires sont compatibles avec un cheminement de 4 ft (E1).\", \"kind\": \"interpretation\", \"cites\": [\"E1\"],\"confidence\": \"low\"},\n    {\"statement\": \"Hypothèse: Les 39 emplacements à reporter pour travaux planifiés sont hypothétiques (E1).\", \"kind\": \"hypothesis\", \"cites\": [\"E1\"],\"confidence\": \"low\"},\n    {\"statement\": \"Concern: 18 tronçons sur FOLSOM ST ont un trottoir plus étroit que le minimum Better Streets Plan (E4).\", \"kind\": \"concern\", \"cites\": [\"E4\"],\"confidence\": \"high\"},\n    {\"statement\": \"Interpretation: 93 emplacements d’arbres supplémentaires sont compatibles avec un cheminement de 4 ft (E1).\", \"kind\": \"interpretation\", \"cites\": [\"E1\"],\"confidence\": \"low\"}\n  ],\n  \"evidence_requests\": [\n    {\"need\": \"preuve de la validité des 93 emplacements (E1, E5)\", \"tool\": \"evidence_check\", \"reason\": \"simulated, non validated\"},\n    {\"need\": \"preuve de la relation entre espacement et emplacements (E3)\", \"tool\": \"evidence_check\", \"reason\": \"hypothétique\"}\n  ],\n  \"responses\": [\n    {\"to\": \"A1\", \"stance\": \"dispute\", \"statement\": \"E1 indique 93 emplacements, mais ne confirme pas leur validité (E5).\", \"cites\": [\"E1\", \"E5\"]},\n    {\"to\": \"A8\", \"stance\": \"dispute\", \"statement\": \"E1 indique 39 emplacements à reporter, mais ne confirme pas leur hypothétique (E5).\", \"cites\": [\"E1\", \"E5\"]},\n    {\"to\": \"A9\", \"stance\": \"agree\", \"statement\": \"E1 et E5 montrent que les 93 emplacements sont simulés et non validés.\", \"cites\": [\"E1\", \"E5\"]}\n  ],\n  \"parameter_proposals\": [],\n  \"specialist_requests\": [],\n  \"simulation_requests\": [],\n  \"abstain\": \"Les preuves ne suffisent pas pour conclure sur les emplacements et leur validité.\"\n}",
    "doneReason": "stop"
   }
  ],
@@ -1720,12 +1422,12 @@
    "id": "A14",
    "agent": "core.san-francisco.research.evidence-reviewer",
    "phase": "review",
-   "kind": "concern",
-   "statement": "Concern: 18 tronçons sur FOLSOM ST ont un trottoir plus étroit que le minimum Better Streets Plan (E4).",
+   "kind": "interpretation",
+   "statement": "Interpretation: 93 emplacements d’arbres supplémentaires sont compatibles avec un cheminement de 4 ft (E1).",
    "cites": [
-    "E4"
+    "E1"
    ],
-   "confidence": "medium",
+   "confidence": "low",
    "revises": null,
    "epistemic": "model-interpretation",
    "validated": true
@@ -1734,12 +1436,40 @@
    "id": "A15",
    "agent": "core.san-francisco.research.evidence-reviewer",
    "phase": "review",
+   "kind": "hypothesis",
+   "statement": "Hypothèse: Les 39 emplacements à reporter pour travaux planifiés sont hypothétiques (E1).",
+   "cites": [
+    "E1"
+   ],
+   "confidence": "low",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A16",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "phase": "review",
    "kind": "concern",
+   "statement": "Concern: 18 tronçons sur FOLSOM ST ont un trottoir plus étroit que le minimum Better Streets Plan (E4).",
+   "cites": [
+    "E4"
+   ],
+   "confidence": "high",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A17",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "phase": "review",
+   "kind": "interpretation",
    "statement": "Interpretation: 93 emplacements d’arbres supplémentaires sont compatibles avec un cheminement de 4 ft (E1).",
    "cites": [
     "E1"
    ],
-   "confidence": "medium",
+   "confidence": "low",
    "revises": null,
    "epistemic": "model-interpretation",
    "validated": true
@@ -1871,9 +1601,9 @@
   {
    "id": "R5",
    "agent": "core.san-francisco.research.evidence-reviewer",
-   "to": "A9",
+   "to": "A1",
    "stance": "dispute",
-   "statement": "E1 est simulé et non validé (E5).",
+   "statement": "E1 indique 93 emplacements, mais ne confirme pas leur validité (E5).",
    "cites": [
     "E1",
     "E5"
@@ -1884,9 +1614,22 @@
   {
    "id": "R6",
    "agent": "core.san-francisco.research.evidence-reviewer",
-   "to": "A1",
+   "to": "A8",
    "stance": "dispute",
-   "statement": "E1 est simulé et non validé (E5).",
+   "statement": "E1 indique 39 emplacements à reporter, mais ne confirme pas leur hypothétique (E5).",
+   "cites": [
+    "E1",
+    "E5"
+   ],
+   "phase": "review",
+   "validated": true
+  },
+  {
+   "id": "R7",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "to": "A9",
+   "stance": "agree",
+   "statement": "E1 et E5 montrent que les 93 emplacements sont simulés et non validés.",
    "cites": [
     "E1",
     "E5"
@@ -1932,8 +1675,8 @@
     "core.san-francisco.public-space.accessibility-analyst",
     "core.san-francisco.research.evidence-reviewer"
    ],
-   "about": "A9",
-   "statement": "E1 est simulé et non validé (E5).",
+   "about": "A1",
+   "statement": "E1 indique 93 emplacements, mais ne confirme pas leur validité (E5).",
    "cites": [
     "E1",
     "E5"
@@ -1944,11 +1687,11 @@
   {
    "id": "D4",
    "between": [
-    "core.san-francisco.public-space.accessibility-analyst",
+    "core.san-francisco.forestry.urban-forestry-analyst",
     "core.san-francisco.research.evidence-reviewer"
    ],
-   "about": "A1",
-   "statement": "E1 est simulé et non validé (E5).",
+   "about": "A8",
+   "statement": "E1 indique 39 emplacements à reporter, mais ne confirme pas leur hypothétique (E5).",
    "cites": [
     "E1",
     "E5"
@@ -2041,8 +1784,19 @@
   {
    "id": "Q8",
    "agent": "core.san-francisco.research.evidence-reviewer",
-   "need": "preuve de la validité des 93 emplacements (E1)",
-   "reason": "E1 est simulé et non validé (E5)",
+   "need": "preuve de la validité des 93 emplacements (E1, E5)",
+   "reason": "simulated, non validated",
+   "tool": "evidence.check",
+   "phase": "review",
+   "status": "fulfilled",
+   "fulfilledBy": "core.san-francisco.research.evidence-reviewer",
+   "evidence": []
+  },
+  {
+   "id": "Q9",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "need": "preuve de la relation entre espacement et emplacements (E3)",
+   "reason": "hypothétique",
    "tool": "evidence.check",
    "phase": "review",
    "status": "fulfilled",
@@ -2058,10 +1812,7 @@
    "value": 15,
    "reason": "E3: espacement 15–40 ft influence le nombre d’emplacements.",
    "evidence": [
-    "E6",
-    "E7",
-    "E8",
-    "E9"
+    "E6"
    ],
    "state": "ok",
    "tool": "sim.sidewalk-capacity"
@@ -2090,6 +1841,11 @@
    "agent": "core.san-francisco.public-space.accessibility-analyst",
    "phase": "revision",
    "reason": "Les simulations ne sont pas validées (E5)."
+  },
+  {
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "phase": "review",
+   "reason": "Les preuves ne suffisent pas pour conclure sur les emplacements et leur validité."
   }
  ],
  "reviewer": {
@@ -2098,12 +1854,12 @@
     "id": "A14",
     "agent": "core.san-francisco.research.evidence-reviewer",
     "phase": "review",
-    "kind": "concern",
-    "statement": "Concern: 18 tronçons sur FOLSOM ST ont un trottoir plus étroit que le minimum Better Streets Plan (E4).",
+    "kind": "interpretation",
+    "statement": "Interpretation: 93 emplacements d’arbres supplémentaires sont compatibles avec un cheminement de 4 ft (E1).",
     "cites": [
-     "E4"
+     "E1"
     ],
-    "confidence": "medium",
+    "confidence": "low",
     "revises": null,
     "epistemic": "model-interpretation",
     "validated": true
@@ -2112,12 +1868,40 @@
     "id": "A15",
     "agent": "core.san-francisco.research.evidence-reviewer",
     "phase": "review",
+    "kind": "hypothesis",
+    "statement": "Hypothèse: Les 39 emplacements à reporter pour travaux planifiés sont hypothétiques (E1).",
+    "cites": [
+     "E1"
+    ],
+    "confidence": "low",
+    "revises": null,
+    "epistemic": "model-interpretation",
+    "validated": true
+   },
+   {
+    "id": "A16",
+    "agent": "core.san-francisco.research.evidence-reviewer",
+    "phase": "review",
     "kind": "concern",
+    "statement": "Concern: 18 tronçons sur FOLSOM ST ont un trottoir plus étroit que le minimum Better Streets Plan (E4).",
+    "cites": [
+     "E4"
+    ],
+    "confidence": "high",
+    "revises": null,
+    "epistemic": "model-interpretation",
+    "validated": true
+   },
+   {
+    "id": "A17",
+    "agent": "core.san-francisco.research.evidence-reviewer",
+    "phase": "review",
+    "kind": "interpretation",
     "statement": "Interpretation: 93 emplacements d’arbres supplémentaires sont compatibles avec un cheminement de 4 ft (E1).",
     "cites": [
      "E1"
     ],
-    "confidence": "medium",
+    "confidence": "low",
     "revises": null,
     "epistemic": "model-interpretation",
     "validated": true
@@ -2127,9 +1911,9 @@
    {
     "id": "R5",
     "agent": "core.san-francisco.research.evidence-reviewer",
-    "to": "A9",
+    "to": "A1",
     "stance": "dispute",
-    "statement": "E1 est simulé et non validé (E5).",
+    "statement": "E1 indique 93 emplacements, mais ne confirme pas leur validité (E5).",
     "cites": [
      "E1",
      "E5"
@@ -2140,9 +1924,22 @@
    {
     "id": "R6",
     "agent": "core.san-francisco.research.evidence-reviewer",
-    "to": "A1",
+    "to": "A8",
     "stance": "dispute",
-    "statement": "E1 est simulé et non validé (E5).",
+    "statement": "E1 indique 39 emplacements à reporter, mais ne confirme pas leur hypothétique (E5).",
+    "cites": [
+     "E1",
+     "E5"
+    ],
+    "phase": "review",
+    "validated": true
+   },
+   {
+    "id": "R7",
+    "agent": "core.san-francisco.research.evidence-reviewer",
+    "to": "A9",
+    "stance": "agree",
+    "statement": "E1 et E5 montrent que les 93 emplacements sont simulés et non validés.",
     "cites": [
      "E1",
      "E5"
@@ -2155,8 +1952,19 @@
    {
     "id": "Q8",
     "agent": "core.san-francisco.research.evidence-reviewer",
-    "need": "preuve de la validité des 93 emplacements (E1)",
-    "reason": "E1 est simulé et non validé (E5)",
+    "need": "preuve de la validité des 93 emplacements (E1, E5)",
+    "reason": "simulated, non validated",
+    "tool": "evidence.check",
+    "phase": "review",
+    "status": "fulfilled",
+    "fulfilledBy": "core.san-francisco.research.evidence-reviewer",
+    "evidence": []
+   },
+   {
+    "id": "Q9",
+    "agent": "core.san-francisco.research.evidence-reviewer",
+    "need": "preuve de la relation entre espacement et emplacements (E3)",
+    "reason": "hypothétique",
     "tool": "evidence.check",
     "phase": "review",
     "status": "fulfilled",
@@ -2176,10 +1984,10 @@
    "knowledge": "core-knowledge-library-v1"
   },
   "evidence": {
-   "total": 15,
+   "total": 12,
    "byEpistemic": {
-    "simulated": 6,
-    "observed": 2,
+    "simulated": 4,
+    "observed": 1,
     "reported": 1,
     "derived": 6
    },
@@ -2289,6 +2097,39 @@
     ],
     "confidence": "low",
     "label": "Interprétation du modèle (validée contre les preuves ; non autoritative)"
+   },
+   {
+    "id": "A14",
+    "agent": "core.san-francisco.research.evidence-reviewer",
+    "kind": "interpretation",
+    "statement": "Interpretation: 93 emplacements d’arbres supplémentaires sont compatibles avec un cheminement de 4 ft (E1).",
+    "cites": [
+     "E1"
+    ],
+    "confidence": "low",
+    "label": "Interprétation du modèle (validée contre les preuves ; non autoritative)"
+   },
+   {
+    "id": "A15",
+    "agent": "core.san-francisco.research.evidence-reviewer",
+    "kind": "hypothesis",
+    "statement": "Hypothèse: Les 39 emplacements à reporter pour travaux planifiés sont hypothétiques (E1).",
+    "cites": [
+     "E1"
+    ],
+    "confidence": "low",
+    "label": "Interprétation du modèle (validée contre les preuves ; non autoritative)"
+   },
+   {
+    "id": "A17",
+    "agent": "core.san-francisco.research.evidence-reviewer",
+    "kind": "interpretation",
+    "statement": "Interpretation: 93 emplacements d’arbres supplémentaires sont compatibles avec un cheminement de 4 ft (E1).",
+    "cites": [
+     "E1"
+    ],
+    "confidence": "low",
+    "label": "Interprétation du modèle (validée contre les preuves ; non autoritative)"
    }
   ],
   "concerns": [
@@ -2326,19 +2167,11 @@
     ]
    },
    {
-    "id": "A14",
+    "id": "A16",
     "agent": "core.san-francisco.research.evidence-reviewer",
     "statement": "Concern: 18 tronçons sur FOLSOM ST ont un trottoir plus étroit que le minimum Better Streets Plan (E4).",
     "cites": [
      "E4"
-    ]
-   },
-   {
-    "id": "A15",
-    "agent": "core.san-francisco.research.evidence-reviewer",
-    "statement": "Interpretation: 93 emplacements d’arbres supplémentaires sont compatibles avec un cheminement de 4 ft (E1).",
-    "cites": [
-     "E1"
     ]
    }
   ],
@@ -2379,8 +2212,8 @@
      "core.san-francisco.public-space.accessibility-analyst",
      "core.san-francisco.research.evidence-reviewer"
     ],
-    "about": "A9",
-    "statement": "E1 est simulé et non validé (E5).",
+    "about": "A1",
+    "statement": "E1 indique 93 emplacements, mais ne confirme pas leur validité (E5).",
     "cites": [
      "E1",
      "E5"
@@ -2391,11 +2224,11 @@
    {
     "id": "D4",
     "between": [
-     "core.san-francisco.public-space.accessibility-analyst",
+     "core.san-francisco.forestry.urban-forestry-analyst",
      "core.san-francisco.research.evidence-reviewer"
     ],
-    "about": "A1",
-    "statement": "E1 est simulé et non validé (E5).",
+    "about": "A8",
+    "statement": "E1 indique 39 emplacements à reporter, mais ne confirme pas leur hypothétique (E5).",
     "cites": [
      "E1",
      "E5"
@@ -2488,8 +2321,19 @@
    {
     "id": "Q8",
     "agent": "core.san-francisco.research.evidence-reviewer",
-    "need": "preuve de la validité des 93 emplacements (E1)",
-    "reason": "E1 est simulé et non validé (E5)",
+    "need": "preuve de la validité des 93 emplacements (E1, E5)",
+    "reason": "simulated, non validated",
+    "tool": "evidence.check",
+    "phase": "review",
+    "status": "fulfilled",
+    "fulfilledBy": "core.san-francisco.research.evidence-reviewer",
+    "evidence": []
+   },
+   {
+    "id": "Q9",
+    "agent": "core.san-francisco.research.evidence-reviewer",
+    "need": "preuve de la relation entre espacement et emplacements (E3)",
+    "reason": "hypothétique",
     "tool": "evidence.check",
     "phase": "review",
     "status": "fulfilled",
@@ -2507,7 +2351,7 @@
  },
  "decision": {
   "state": "PREUVES SUPPLÉMENTAIRES REQUISES",
-  "reason": "Informations supplémentaires requises : 3 demande(s) de preuve ouverte(s), 4 désaccord(s) non résolu(s), 6 réserve(s) du réviseur.",
+  "reason": "Informations supplémentaires requises : 3 demande(s) de preuve ouverte(s), 4 désaccord(s) non résolu(s), 5 réserve(s) du réviseur.",
   "checks": [
    {
     "id": "contract",
@@ -2549,7 +2393,7 @@
     "id": "simulation",
     "label": "simulation sidewalk-tree-capacity-v1 recalculée à l’identique (empreinte dans la preuve)",
     "pass": true,
-    "detail": "8 preuve(s) de simulation"
+    "detail": "5 preuve(s) de simulation"
    },
    {
     "id": "open-requests",
@@ -2561,13 +2405,13 @@
     "id": "disputes",
     "label": "désaccords résolus",
     "pass": false,
-    "detail": "A1: E1 est simulé, pas validé (E5). ; A6: E1 est simulé, pas validé (E5). ; A9: E1 est simulé et non validé (E5). ; A1: E1 est simulé et non validé (E5)."
+    "detail": "A1: E1 est simulé, pas validé (E5). ; A6: E1 est simulé, pas validé (E5). ; A1: E1 indique 93 emplacements, mais ne confirme pas leur validité (E5). ; A8: E1 indique 39 emplacements à reporter, mais ne confirme pas leur hypothétique (E5)."
    },
    {
     "id": "concerns",
     "label": "aucune réserve du réviseur",
     "pass": false,
-    "detail": "18 tronçons ont un trottoir plus étroit que le minimum Better Streets Plan, tous sur FOLSOM ST (E4). ; E4 montre que 18 tronçons sur FOLSOM ST ont une largeur inférieure au minimum de leur classe. ; 18 tronçons sur FOLSOM ST ont un trottoir plus étroit que le minimum Better Streets Plan (E4). ; Concern: 18 tronçons sur FOLSOM ST ont un trottoir plus étroit que le minimum Better Streets Plan (E4). ; Concern: 18 tronçons sur FOLSOM ST ont un trottoir plus étroit que le minimum Better Streets Plan (E4). ; Interpretation: 93 emplacements d’arbres supplémentaires sont compatibles avec un cheminement de 4 ft (E1)."
+    "detail": "18 tronçons ont un trottoir plus étroit que le minimum Better Streets Plan, tous sur FOLSOM ST (E4). ; E4 montre que 18 tronçons sur FOLSOM ST ont une largeur inférieure au minimum de leur classe. ; 18 tronçons sur FOLSOM ST ont un trottoir plus étroit que le minimum Better Streets Plan (E4). ; Concern: 18 tronçons sur FOLSOM ST ont un trottoir plus étroit que le minimum Better Streets Plan (E4). ; Concern: 18 tronçons sur FOLSOM ST ont un trottoir plus étroit que le minimum Better Streets Plan (E4)."
    },
    {
     "id": "knowledge-gaps",
@@ -2583,7 +2427,7 @@
  "log": [
   {
    "seq": 1,
-   "t": 0,
+   "t": 1,
    "kind": "stage",
    "stage": "received",
    "text": "Mission reçue (mode rapide) : Où le corridor Folsom / Howard peut-il accueillir des arbres d’alignement supplémentaires sans réduire le cheminement piéton accessible, et lesquels faut-il reporter à cause des travaux planifiés ?"
@@ -2597,35 +2441,35 @@
   },
   {
    "seq": 3,
-   "t": 7,
+   "t": 8,
    "kind": "stage",
    "stage": "classification",
    "text": "Question : domaines accessibility, infrastructure, nature, public_space"
   },
   {
    "seq": 4,
-   "t": 7,
+   "t": 8,
    "kind": "stage",
    "stage": "geolocation",
    "text": "Association géographique (déterministe)"
   },
   {
    "seq": 5,
-   "t": 7,
+   "t": 8,
    "kind": "stage",
    "stage": "selection",
    "text": "Routage : Analyste accessibilité et espace public (assisté par modèle), Analyste en foresterie urbaine (assisté par modèle) + analyste de scénarios + réviseurs (preuves, éligibilité des données) ; 3 spécialité(s) pertinente(s) non exécutable(s)."
   },
   {
    "seq": 6,
-   "t": 7,
+   "t": 8,
    "kind": "stage",
    "stage": "investigation",
    "text": "Preuves rassemblées par routage déterministe des outils, puis une interprétation par spécialiste"
   },
   {
    "seq": 7,
-   "t": 64,
+   "t": 66,
    "kind": "tool-call",
    "agent": "core.san-francisco.public-space.accessibility-analyst",
    "tool": "sim.sidewalk-capacity",
@@ -2634,7 +2478,7 @@
   },
   {
    "seq": 8,
-   "t": 65,
+   "t": 67,
    "kind": "tool-call",
    "agent": "core.san-francisco.public-space.accessibility-analyst",
    "tool": "knowledge.search",
@@ -2643,7 +2487,7 @@
   },
   {
    "seq": 9,
-   "t": 65,
+   "t": 67,
    "kind": "tool-call",
    "agent": "core.san-francisco.forestry.urban-forestry-analyst",
    "tool": "sim.sidewalk-capacity",
@@ -2652,7 +2496,7 @@
   },
   {
    "seq": 10,
-   "t": 65,
+   "t": 67,
    "kind": "tool-call",
    "agent": "core.san-francisco.forestry.urban-forestry-analyst",
    "tool": "knowledge.search",
@@ -2661,7 +2505,7 @@
   },
   {
    "seq": 11,
-   "t": 65,
+   "t": 67,
    "kind": "tool-call",
    "agent": "core.san-francisco.simulation.scenario-analyst",
    "tool": "sim.sidewalk-capacity",
@@ -2670,7 +2514,7 @@
   },
   {
    "seq": 12,
-   "t": 65,
+   "t": 67,
    "kind": "tool-call",
    "agent": "core.san-francisco.simulation.scenario-analyst",
    "tool": "knowledge.search",
@@ -2679,91 +2523,91 @@
   },
   {
    "seq": 13,
-   "t": 29860,
+   "t": 35436,
    "kind": "model-call",
    "agent": "core.san-francisco.public-space.accessibility-analyst",
-   "text": "investigation/rapport : 1027 jetons d’entrée, 391 de sortie, 29790 ms"
+   "text": "investigation/rapport : 1027 jetons d’entrée, 391 de sortie, 35363 ms"
   },
   {
    "seq": 14,
-   "t": 29865,
+   "t": 35442,
    "kind": "report",
    "agent": "core.san-francisco.public-space.accessibility-analyst",
    "text": "investigation : 2 énoncé(s), 0 réponse(s), 2 demande(s) de preuve, 0 paramètre(s) acceptés ; 1 rejeté(s) par le validateur."
   },
   {
    "seq": 15,
-   "t": 51188,
+   "t": 55697,
    "kind": "model-call",
    "agent": "core.san-francisco.forestry.urban-forestry-analyst",
-   "text": "investigation/rapport : 1026 jetons d’entrée, 278 de sortie, 21318 ms"
+   "text": "investigation/rapport : 1026 jetons d’entrée, 278 de sortie, 20250 ms"
   },
   {
    "seq": 16,
-   "t": 51190,
+   "t": 55698,
    "kind": "report",
    "agent": "core.san-francisco.forestry.urban-forestry-analyst",
    "text": "investigation : 2 énoncé(s), 0 réponse(s), 1 demande(s) de preuve, 0 paramètre(s) acceptés ; 1 rejeté(s) par le validateur."
   },
   {
    "seq": 17,
-   "t": 51190,
+   "t": 55698,
    "kind": "stage",
    "stage": "deliberation",
    "text": "Chaque spécialiste examine les énoncés des autres : accord, désaccord, précision, demande de preuve"
   },
   {
    "seq": 18,
-   "t": 85204,
+   "t": 88363,
    "kind": "model-call",
    "agent": "core.san-francisco.public-space.accessibility-analyst",
-   "text": "deliberation/rapport : 1162 jetons d’entrée, 427 de sortie, 34007 ms"
+   "text": "deliberation/rapport : 1162 jetons d’entrée, 427 de sortie, 32659 ms"
   },
   {
    "seq": 19,
-   "t": 85205,
+   "t": 88364,
    "kind": "report",
    "agent": "core.san-francisco.public-space.accessibility-analyst",
    "text": "deliberation : 2 énoncé(s), 0 réponse(s), 1 demande(s) de preuve, 0 paramètre(s) acceptés ; 3 rejeté(s) par le validateur."
   },
   {
    "seq": 20,
-   "t": 112765,
+   "t": 114614,
    "kind": "model-call",
    "agent": "core.san-francisco.forestry.urban-forestry-analyst",
-   "text": "deliberation/rapport : 1290 jetons d’entrée, 322 de sortie, 27554 ms"
+   "text": "deliberation/rapport : 1290 jetons d’entrée, 322 de sortie, 26246 ms"
   },
   {
    "seq": 21,
-   "t": 112766,
+   "t": 114615,
    "kind": "report",
    "agent": "core.san-francisco.forestry.urban-forestry-analyst",
    "text": "deliberation : 2 énoncé(s), 2 réponse(s), 1 demande(s) de preuve, 0 paramètre(s) acceptés ; 0 rejeté(s) par le validateur."
   },
   {
    "seq": 22,
-   "t": 112766,
+   "t": 114615,
    "kind": "route",
    "agent": "core.san-francisco.public-space.accessibility-analyst",
    "text": "Q1 non satisfaisable : Données sur les dates exactes des travaux planifiés pour les 39 emplacements (E1)."
   },
   {
    "seq": 23,
-   "t": 112766,
+   "t": 114615,
    "kind": "route",
    "agent": "core.san-francisco.public-space.accessibility-analyst",
    "text": "Q2 non satisfaisable : Données sur les espacements et parts de linéaire utilisable réels (E3)."
   },
   {
    "seq": 24,
-   "t": 112766,
+   "t": 114615,
    "kind": "route",
    "agent": "core.san-francisco.forestry.urban-forestry-analyst",
    "text": "Q3 non satisfaisable : Données sur les travaux planifiés pour les 39 emplacements à reporter (E1)."
   },
   {
    "seq": 25,
-   "t": 112766,
+   "t": 114615,
    "kind": "tool-call",
    "agent": "core.san-francisco.research.evidence-reviewer",
    "tool": "evidence.check",
@@ -2772,7 +2616,7 @@
   },
   {
    "seq": 26,
-   "t": 112766,
+   "t": 114616,
    "kind": "tool-call",
    "agent": "core.san-francisco.research.evidence-reviewer",
    "tool": "evidence.check",
@@ -2781,58 +2625,58 @@
   },
   {
    "seq": 27,
-   "t": 112766,
+   "t": 114616,
    "kind": "stage",
    "stage": "revision",
    "text": "Révision par les agents contestés"
   },
   {
    "seq": 28,
-   "t": 144302,
+   "t": 145440,
    "kind": "model-call",
    "agent": "core.san-francisco.public-space.accessibility-analyst",
-   "text": "revision/rapport : 1242 jetons d’entrée, 386 de sortie, 31531 ms"
+   "text": "revision/rapport : 1242 jetons d’entrée, 386 de sortie, 30819 ms"
   },
   {
    "seq": 29,
-   "t": 144302,
+   "t": 145440,
    "kind": "report",
    "agent": "core.san-francisco.public-space.accessibility-analyst",
    "text": "revision : 2 énoncé(s), 0 réponse(s), 1 demande(s) de preuve, 0 paramètre(s) acceptés ; 3 rejeté(s) par le validateur."
   },
   {
    "seq": 30,
-   "t": 144303,
+   "t": 145440,
    "kind": "stage",
    "stage": "scenario",
    "text": "Scénarios : paramètres proposés par le modèle, résultats recalculés par les modèles déterministes"
   },
   {
    "seq": 31,
-   "t": 195587,
+   "t": 192077,
    "kind": "model-call",
    "agent": "core.san-francisco.simulation.scenario-analyst",
-   "text": "scenario/rapport : 1442 jetons d’entrée, 588 de sortie, 51279 ms"
+   "text": "scenario/rapport : 1442 jetons d’entrée, 588 de sortie, 46633 ms"
   },
   {
    "seq": 32,
-   "t": 195589,
+   "t": 192079,
    "kind": "report",
    "agent": "core.san-francisco.simulation.scenario-analyst",
    "text": "scenario : 3 énoncé(s), 2 réponse(s), 1 demande(s) de preuve, 2 paramètre(s) acceptés ; 2 rejeté(s) par le validateur."
   },
   {
    "seq": 33,
-   "t": 195644,
+   "t": 192085,
    "kind": "tool-call",
    "agent": "core.san-francisco.simulation.scenario-analyst",
    "tool": "sim.sidewalk-capacity",
    "state": "ok",
-   "text": "sim.sidewalk-capacity {\"params\":{\"spacingFt\":15}} → E6, E7, E8, E9"
+   "text": "sim.sidewalk-capacity {\"params\":{\"spacingFt\":15}} → E6"
   },
   {
    "seq": 34,
-   "t": 195644,
+   "t": 192085,
    "kind": "tool-call",
    "agent": "core.san-francisco.simulation.scenario-analyst",
    "tool": "sim.sidewalk-capacity",
@@ -2841,46 +2685,46 @@
   },
   {
    "seq": 35,
-   "t": 195644,
+   "t": 192086,
    "kind": "stage",
    "stage": "verification",
    "text": "Vérification : références (déterministe), éligibilité des données (déterministe), puis réviseur assisté par modèle"
   },
   {
    "seq": 36,
-   "t": 195647,
+   "t": 192088,
    "kind": "tool-call",
    "agent": "core.san-francisco.cybersecurity.data-policy-reviewer",
    "tool": "policy.check",
    "state": "ok",
-   "text": "policy.check → E10"
+   "text": "policy.check → E7"
   },
   {
    "seq": 37,
-   "t": 195647,
+   "t": 192088,
    "kind": "tool-call",
    "agent": "core.san-francisco.research.evidence-reviewer",
    "tool": "evidence.check",
    "state": "ok",
-   "text": "evidence.check {\"ids\":[\"E1\",\"E2\",\"E3\",\"E4\",\"E5\"]} → E11, E12, E13, E14, E15"
+   "text": "evidence.check {\"ids\":[\"E1\",\"E2\",\"E3\",\"E4\",\"E5\"]} → E8, E9, E10, E11, E12"
   },
   {
    "seq": 38,
-   "t": 231317,
+   "t": 241660,
    "kind": "model-call",
    "agent": "core.san-francisco.research.evidence-reviewer",
-   "text": "review/rapport : 2407 jetons d’entrée, 313 de sortie, 35645 ms"
+   "text": "review/rapport : 2126 jetons d’entrée, 564 de sortie, 49566 ms"
   },
   {
    "seq": 39,
-   "t": 231317,
+   "t": 241660,
    "kind": "report",
    "agent": "core.san-francisco.research.evidence-reviewer",
-   "text": "review : 2 énoncé(s), 2 réponse(s), 1 demande(s) de preuve, 0 paramètre(s) acceptés ; 0 rejeté(s) par le validateur."
+   "text": "review : 4 énoncé(s), 3 réponse(s), 2 demande(s) de preuve, 0 paramètre(s) acceptés ; 0 rejeté(s) par le validateur."
   },
   {
    "seq": 40,
-   "t": 231317,
+   "t": 241661,
    "kind": "tool-call",
    "agent": "core.san-francisco.research.evidence-reviewer",
    "tool": "evidence.check",
@@ -2889,7 +2733,7 @@
   },
   {
    "seq": 41,
-   "t": 231317,
+   "t": 241661,
    "kind": "tool-call",
    "agent": "core.san-francisco.research.evidence-reviewer",
    "tool": "evidence.check",
@@ -2898,7 +2742,7 @@
   },
   {
    "seq": 42,
-   "t": 231318,
+   "t": 241661,
    "kind": "tool-call",
    "agent": "core.san-francisco.research.evidence-reviewer",
    "tool": "evidence.check",
@@ -2907,65 +2751,74 @@
   },
   {
    "seq": 43,
-   "t": 231318,
+   "t": 241661,
+   "kind": "tool-call",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "tool": "evidence.check",
+   "state": "ok",
+   "text": "evidence.check → aucune preuve (cache) (demande de evidence-reviewer)"
+  },
+  {
+   "seq": 44,
+   "t": 241661,
    "kind": "stage",
    "stage": "brief",
    "text": "Note de décision assemblée de façon déterministe"
   },
   {
-   "seq": 44,
-   "t": 231318,
+   "seq": 45,
+   "t": 241661,
    "kind": "stage",
    "stage": "gateway",
    "text": "Passerelle cognitive : recalcul des outils et revalidation de chaque sortie du modèle"
   },
   {
-   "seq": 45,
-   "t": 231393,
+   "seq": 46,
+   "t": 241705,
    "kind": "mission",
    "state": "needs-evidence",
-   "text": "PREUVES SUPPLÉMENTAIRES REQUISES — Informations supplémentaires requises : 3 demande(s) de preuve ouverte(s), 4 désaccord(s) non résolu(s), 6 réserve(s) du réviseur."
+   "text": "PREUVES SUPPLÉMENTAIRES REQUISES — Informations supplémentaires requises : 3 demande(s) de preuve ouverte(s), 4 désaccord(s) non résolu(s), 5 réserve(s) du réviseur."
   }
  ],
  "metrics": {
-  "wallMs": 231393,
+  "wallMs": 241706,
   "modelCalls": 7,
   "failedModelCalls": 0,
-  "promptTokens": 9596,
-  "outputTokens": 2705,
-  "modelMs": 231124,
-  "tokensPerSecond": 13.6,
-  "toolCalls": 15,
-  "cachedToolCalls": 8,
+  "promptTokens": 9315,
+  "outputTokens": 2956,
+  "modelMs": 241536,
+  "tokensPerSecond": 14.2,
+  "toolCalls": 16,
+  "cachedToolCalls": 9,
   "deniedToolCalls": 0,
   "perAgent": {
    "core.san-francisco.public-space.accessibility-analyst": {
     "modelCalls": 3,
     "promptTokens": 3431,
     "outputTokens": 1204,
-    "modelMs": 95328,
+    "modelMs": 98841,
     "toolCalls": 2
    },
    "core.san-francisco.forestry.urban-forestry-analyst": {
     "modelCalls": 2,
     "promptTokens": 2316,
     "outputTokens": 600,
-    "modelMs": 48872,
+    "modelMs": 46496,
     "toolCalls": 2
    },
    "core.san-francisco.simulation.scenario-analyst": {
     "modelCalls": 1,
     "promptTokens": 1442,
     "outputTokens": 588,
-    "modelMs": 51279,
+    "modelMs": 46633,
     "toolCalls": 4
    },
    "core.san-francisco.research.evidence-reviewer": {
     "modelCalls": 1,
-    "promptTokens": 2407,
-    "outputTokens": 313,
-    "modelMs": 35645,
-    "toolCalls": 6
+    "promptTokens": 2126,
+    "outputTokens": 564,
+    "modelMs": 49566,
+    "toolCalls": 7
    },
    "core.san-francisco.cybersecurity.data-policy-reviewer": {
     "modelCalls": 0,
@@ -2976,7 +2829,7 @@
    }
   }
  },
- "_t0": 1791945196047,
+ "_t0": 1791948859355,
  "places": [
   "Folsom",
   "Howard"
@@ -3029,35 +2882,11 @@
    "typeOk": true,
    "evidence": 2,
    "resolved": 2
-  },
-  {
-   "claim": "Alternatives (recalcul déterministe) : A0 0 plantables maintenant / 0 au total, 0 tronçons sans cheminement suffisant ; A1 339 plantables maintenant / 339 au total, 0 tronçons sans cheminement suffisant ; A2 74 plantables maintenant / 74 au total, 23 tronçons sans cheminement suffisant ; A3 216 plantables maintenant / 339 au total, 0 tronçons sans cheminement suffisant.",
-   "agent": "core.san-francisco.simulation.scenario-analyst",
-   "epistemic": "simulated",
-   "typeOk": true,
-   "evidence": 2,
-   "resolved": 2
-  },
-  {
-   "claim": "Sensibilité : selon l’espacement (15–40 ft) les emplacements varient de 339 à 22 ; selon la part de linéaire utilisable (0.3–0.9) de 52 à 763 ; avec un cheminement de 8 ft, 23 tronçons deviennent insuffisants. Ces deux hypothèses dominent l’incertitude.",
-   "agent": "core.san-francisco.simulation.scenario-analyst",
-   "epistemic": "simulated",
-   "typeOk": true,
-   "evidence": 2,
-   "resolved": 2
-  },
-  {
-   "claim": "Observé (étude de trottoirs 2014, classes Better Streets Plan) : 18 tronçons ont une largeur inférieure au minimum de leur classe, tous sur FOLSOM ST (10 ft pour un minimum de 12 ft).",
-   "agent": "core.san-francisco.simulation.scenario-analyst",
-   "epistemic": "observed",
-   "typeOk": true,
-   "evidence": 12,
-   "resolved": 12
   }
  ],
  "recorded": {
   "by": "scripts/cognitive.mjs (Node, live local model)",
-  "at": "2026-10-14T02:33:16.017Z",
+  "at": "2026-10-14T03:34:19.326Z",
   "snapshot": "2026-10-13T18:25:19.678Z",
   "feedUpdate": "2026-10-14T02:03:28.797Z",
   "knowledge": "core-knowledge-library-v1",
@@ -3081,17 +2910,17 @@
     }
    },
    "ollama": {
-    "samples": 231,
-    "peakRssMB": 10258,
-    "meanCpuPct": 131,
-    "peakCpuPct": 243
+    "samples": 241,
+    "peakRssMB": 7382,
+    "meanCpuPct": 106,
+    "peakCpuPct": 165
    },
    "node": {
-    "cpuUserMs": 683,
-    "cpuSystemMs": 634,
-    "rssMB": 72
+    "cpuUserMs": 509,
+    "cpuSystemMs": 531,
+    "rssMB": 88
    },
-   "wallMs": 231394
+   "wallMs": 241706
   }
  }
 }

@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-14",
+  "chrome": {
+    "browser": "Chrome 155.0.8059.40 headless (CDP), local server",
+    "checks": 101,
+    "passed": 101,
+    "failed": 0
+  },
+  "chromeNegative": {
+    "checks": 12,
+    "passed": 12
+  },
+  "publicSite": {
+    "url": "https://vincentleg.github.io/core/",
+    "browser": "Chrome 155 headless",
+    "checks": [
+      "platform ready",
+      "public mode (no localhost model probe)",
+      "329 feed items",
+      "sidewalk simulation computed in browser (fingerprint 929b8be4d02e6efc = Node)",
+      "guided demo opens recorded live mission",
+      "decision dossier renders"
+    ],
+    "uncaughtErrors": 0
+  },
+  "firefox": {
+    "status": "not run",
+    "reason": "Firefox 122 headless hangs at startup on this machine (no BiDi listener after 30 s), as in Phase 4"
+  },
+  "safari": "not tested"
+}

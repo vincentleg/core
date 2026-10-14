@@ -1,0 +1,90 @@
+{
+ "tuned": {
+  "date": "2026-10-14",
+  "cases": 32,
+  "correct": 32,
+  "byClass": {
+   "valid statements": {
+    "cases": 10,
+    "correct": 10
+   },
+   "meaning": {
+    "cases": 7,
+    "correct": 7
+   },
+   "unit": {
+    "cases": 2,
+    "correct": 2
+   },
+   "scope": {
+    "cases": 2,
+    "correct": 2
+   },
+   "observed-vs-modelled": {
+    "cases": 2,
+    "correct": 2
+   },
+   "temporal": {
+    "cases": 2,
+    "correct": 2
+   },
+   "geography": {
+    "cases": 2,
+    "correct": 2
+   },
+   "causal": {
+    "cases": 3,
+    "correct": 3
+   },
+   "numbers": {
+    "cases": 2,
+    "correct": 2
+   }
+  },
+  "failures": []
+ },
+ "heldOut": {
+  "date": "2026-10-14",
+  "cases": 20,
+  "correct": 20,
+  "byClass": {
+   "valid statements": {
+    "cases": 6,
+    "correct": 6
+   },
+   "meaning": {
+    "cases": 4,
+    "correct": 4
+   },
+   "unit": {
+    "cases": 1,
+    "correct": 1
+   },
+   "scope": {
+    "cases": 1,
+    "correct": 1
+   },
+   "observed-vs-modelled": {
+    "cases": 1,
+    "correct": 1
+   },
+   "temporal": {
+    "cases": 1,
+    "correct": 1
+   },
+   "geography": {
+    "cases": 2,
+    "correct": 2
+   },
+   "causal": {
+    "cases": 3,
+    "correct": 3
+   },
+   "numbers": {
+    "cases": 1,
+    "correct": 1
+   }
+  },
+  "failures": []
+ }
+}

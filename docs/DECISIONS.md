@@ -139,3 +139,26 @@ A free GitHub Actions cron (every 3 hours) collects the sources, re-records the 
 
 `scripts/integrity-check.mjs` runs from repository-local hooks (pre-commit; pre-push together with the tests) and has no bypass. False positives get exact, reasoned exceptions in `.integrity-allowlist.json`. This fixes the Phase 3 process error, where a scan reported matches and the commit still ran in the same chained command.
 
+## D035 — Fast mode by default; deep mode preserved
+
+Model-assisted missions route tools deterministically and put the shared context first, so the local runtime reuses the prompt prefix. The same validator and gateway apply as in deep mode. Measured: 1,004 s → 342–371 s, and 23 → 9 calls, on the same event.
+
+## D036 — Typed evidence and deterministic semantic checks
+
+Tool findings carry typed quantities (value, unit, quantity, meaning, scope, nature, date). Statements are rejected for wrong meaning, unit, scope, modelled-as-measured, stale-as-current, unknown places or unhedged causality. Only these classes are claimed.
+
+## D037 — Specializations ≠ profiles; routing with a relevance floor
+
+There are 32 specializations, each executable only through a real runtime; the rest state their gap. A mission team has at most 3 model-assisted specialists, each scoring at least half the best match, plus mandatory reviewers.
+
+## D038 — Exploratory simulation of sidewalk accessibility × tree capacity
+
+`sidewalk-tree-capacity-v1` computes geometric capacity under declared, bounded assumptions. It computes no benefits, is uncalibrated, and is labelled exploratory.
+
+## D039 — Enforced data-eligibility policy; Open-Meteo quarantined
+
+Every source has rights, sensitivity and allowed-use fields. Ineligible sources are neither collected nor accepted as evidence. Open-Meteo's free API is non-commercial only, and paid plans are excluded, so the source is quarantined.
+
+## D040 — Public deployment on GitHub Pages
+
+The site deploys from `main` at the repository root with `.nojekyll`. It is free for public repositories with no metered billing; it suits a project or prototype site and not a commercial SaaS. The public site never contacts a model endpoint and shows recorded real runs.

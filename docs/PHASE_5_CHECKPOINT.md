@@ -1,3 +1,5 @@
+> **Superseded:** Phase 5 was resumed and completed on 2026-10-14 — see PHASE_5_REPORT.md.
+
 # Phase 5 — checkpoint (WIP, stopped at the founder's request, 2026-10-14)
 
 ## Done (in code, 83/83 Node tests passing with mock model)

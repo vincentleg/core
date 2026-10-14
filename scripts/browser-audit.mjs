@@ -206,7 +206,7 @@ try {
 
   // ---- Phase 3: professional platform, City Intelligence, agents, missions, camera ----
   await evaluate(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); 0`); await until('!!(window.CORE_PLATFORM && CORE_PLATFORM.state.ready)', 120);
-  check('navigation exposes the seven platform sections', await evaluate(`[...document.querySelectorAll('#appnav [data-sec]')].map(b => b.dataset.sec).join() === 'world,intel,agents,missions,sims,decisions,data'`));
+  check('navigation exposes the platform sections (incl. guided demo)', await evaluate(`[...document.querySelectorAll('#appnav [data-sec]')].map(b => b.dataset.sec).join() === 'world,demo,intel,agents,missions,sims,decisions,data'`));
   await evaluate(`document.querySelector('[data-sec=intel]').click(); 0`); await pause(1500);
   check('city intelligence lists real official items with dates and verification', await evaluate(`document.querySelectorAll('#in-list li').length > 20 && document.querySelector('#ws-body').textContent.includes('source officielle') && document.querySelector('#ws-body').textContent.includes('Planification indépendante du navigateur')`));
   const refreshed = await evaluate(`CORE_PLATFORM.refresh(true).then(r => r.checked.length)`);

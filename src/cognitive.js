@@ -207,7 +207,7 @@ Réponds en français, de façon concise et factuelle.`;
     for (const p of rep.parameter_proposals || []) {
       const b = T.SCENARIO_BOUNDS[p.param] || (SIMS.MODEL.params[p.param] && [SIMS.MODEL.params[p.param].min, SIMS.MODEL.params[p.param].max]);
       if (!b || !Number.isFinite(p.value) || p.value < b[0] || p.value > b[1]) { mc.rejected.push({ agent: agent.id, phase, item: 'parameter', statement: `${p.param}=${p.value}`, reason: b ? `hors du domaine validé [${b[0]}, ${b[1]}]` : 'paramètre non pris en charge' }); continue; }
-      const x = { id: `P${mc.proposals.length + 1}`, agent: agent.id, param: p.param, value: Math.round(p.value), reason: String(p.reason || '').slice(0, 240), evidence: [] };
+      const x = { id: `P${mc.proposals.length + 1}`, agent: agent.id, param: p.param, value: SIMS.MODEL.params[p.param] && SIMS.MODEL.params[p.param].unit === 'fraction' ? p.value : Math.round(p.value) /* fractions are not rounded */, reason: String(p.reason || '').slice(0, 240), evidence: [] };
       mc.proposals.push(x); out.proposals.push(x);
     }
     for (const q of rep.specialist_requests || []) { const sp = SPZ.byId(q.specialization); if (!sp) { mc.rejected.push({ agent: agent.id, phase, item: 'specialist-request', reason: 'spécialité inconnue' }); continue; } mc.specialistRequests.push({ id: `S${mc.specialistRequests.length + 1}`, agent: agent.id, specialization: sp.id, runtime: sp.runtime, reason: String(q.reason || '').slice(0, 200), status: sp.runtime === 'none' ? 'unavailable' : 'open', gap: sp.gap || null }); }
