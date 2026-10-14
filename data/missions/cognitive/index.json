@@ -2,6 +2,67 @@
  "version": "core-cognitive-index-v1",
  "missions": [
   {
+   "id": "cognitive-fast:5975b8035035",
+   "mode": "fast",
+   "question": "Où le corridor Folsom / Howard peut-il accueillir des arbres d’alignement supplémentaires sans réduire le cheminement piéton accessible, et lesquels faut-il reporter à cause des travaux planifiés ?",
+   "item": null,
+   "segment": null,
+   "state": "needs-evidence",
+   "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
+   "agents": [
+    "core.san-francisco.public-space.accessibility-analyst",
+    "core.san-francisco.forestry.urban-forestry-analyst",
+    "core.san-francisco.simulation.scenario-analyst",
+    "core.san-francisco.research.evidence-reviewer",
+    "core.san-francisco.cybersecurity.data-policy-reviewer"
+   ],
+   "model": "ollama:qwen3:8b",
+   "recorded_at": "2026-10-14T02:33:16.017Z",
+   "metrics": {
+    "wallMs": 231393,
+    "modelCalls": 7,
+    "cachedModelCalls": 0,
+    "toolCalls": 15,
+    "promptTokens": 9596,
+    "outputTokens": 2705,
+    "accepted": 15,
+    "rejected": 10,
+    "disagreements": 4,
+    "requests": 8
+   }
+  },
+  {
+   "id": "cognitive-fast:13f3c2ad6fb1",
+   "mode": "fast",
+   "question": "Que change « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » pour HOWARD ST 08TH ST → 09TH ST ?",
+   "item": "datasf-street-use:26EXC-05114@7051000",
+   "segment": "7051000",
+   "state": "needs-evidence",
+   "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
+   "agents": [
+    "core.san-francisco.energy.energy-infrastructure-analyst",
+    "core.san-francisco.housing.urban-planning-analyst",
+    "core.san-francisco.public-space.accessibility-analyst",
+    "core.san-francisco.simulation.scenario-analyst",
+    "core.san-francisco.research.evidence-reviewer",
+    "core.san-francisco.cybersecurity.data-policy-reviewer"
+   ],
+   "model": "ollama:qwen3:8b",
+   "recorded_at": "2026-10-14T02:27:24.540Z",
+   "metrics": {
+    "wallMs": 341609,
+    "modelCalls": 9,
+    "cachedModelCalls": 0,
+    "toolCalls": 22,
+    "promptTokens": 17671,
+    "outputTokens": 4078,
+    "accepted": 25,
+    "rejected": 8,
+    "disagreements": 2,
+    "requests": 10
+   }
+  },
+  {
    "id": "cognitive:13f3c2ad6fb1",
    "question": "Que change « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » pour HOWARD ST 08TH ST → 09TH ST ?",
    "item": "datasf-street-use:26EXC-05114@7051000",

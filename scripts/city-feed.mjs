@@ -10,6 +10,7 @@ import path from 'node:path';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const F = require('../src/feeds.js');
+const POLICY = require('../src/data-policy.js');
 const C = require('../src/coord.js');
 
 const OUT = 'data/feeds', UA = 'CORE-city-intel/1.0 (+https://github.com/vincentleg/core)';
@@ -22,7 +23,11 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 async function pass() {
   const store = { items: read('items.json', { items: [] }).items, sources: read('state.json', { sources: {} }).sources };
   const now = new Date(), nowIso = now.toISOString(), run = { started: nowIso, added: 0, changed: 0, failed: [], skipped: [] };
-  const due = force ? F.SOURCES : F.dueSources(store, now.getTime());
+  // Data policy (Phase 5): only eligible, enabled sources are requested; items of other sources are purged.
+  const allowed = s => s.enabled !== false && POLICY.eligible(`feed:${s.id}`);
+  const purged = store.items.filter(i => !POLICY.eligible(`feed:${i.source}`)).length; store.items = store.items.filter(i => POLICY.eligible(`feed:${i.source}`));
+  if (purged) console.log(`policy: ${purged} item(s) from non-eligible sources purged`);
+  const due = (force ? F.SOURCES : F.dueSources(store, now.getTime())).filter(allowed);
   for (const s of F.SOURCES) if (!due.includes(s)) run.skipped.push(s.id);
   for (const s of due) {
     const st = store.sources[s.id] = store.sources[s.id] || {};

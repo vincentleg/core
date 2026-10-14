@@ -23,14 +23,14 @@
   }
 
   // ---------- Navigation ----------
-  const TITLES = { intel: 'Intelligence urbaine — San Francisco', agents: 'Organisation des agents', missions: 'Missions', sims: 'Simulations et modèles', decisions: 'Décisions (revue humaine)', data: 'Données et preuves' };
+  const TITLES = { demo: 'Démonstration guidée', intel: 'Intelligence urbaine — San Francisco', agents: 'Organisation des agents', missions: 'Missions', sims: 'Simulations et modèles', decisions: 'Décisions (revue humaine)', data: 'Données et preuves' };
   function show(sec) {
     P.sec = sec;
     document.querySelectorAll('#appnav [data-sec]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.sec === sec)));
     if (sec === 'world') { $('ws').hidden = true; document.body.classList.remove('ws-open'); return; }
     G.CORE_SF_VIEW.closePanel();
     $('ws').hidden = false; document.body.classList.add('ws-open'); $('ws-title').textContent = TITLES[sec];
-    ({ intel: renderIntel, agents: renderAgents, missions: renderMissions, sims: renderSims, decisions: renderDecisions, data: renderData })[sec]();
+    ({ demo: renderDemo, intel: renderIntel, agents: renderAgents, missions: renderMissions, sims: renderSims, decisions: renderDecisions, data: renderData })[sec]();
   }
 
   // ---------- City Intelligence ----------
@@ -40,7 +40,8 @@
   }
   async function refresh(force = false) {
     const F = G.CORE_FEEDS, now = new Date(), merged = { items: P.store.items, sources: { ...P.state.sources, ...P.browser.sources } };
-    const due = (force ? F.SOURCES.filter(s => s.browser) : F.dueSources(merged, now.getTime(), true));
+    const eligible = s => s.enabled !== false && (!G.CORE_DATA_POLICY || G.CORE_DATA_POLICY.eligible(`feed:${s.id}`)); // data policy (Phase 5)
+    const due = (force ? F.SOURCES.filter(s => s.browser) : F.dueSources(merged, now.getTime(), true)).filter(eligible);
     const cnns = [...(await env()).ctx.segments.keys()]; const res = { added: 0, changed: 0, failed: [], checked: due.map(s => s.id) };
     for (const s of due) {
       const st = P.browser.sources[s.id] = P.browser.sources[s.id] || {}; st.lastAttempt = now.toISOString();
@@ -126,6 +127,7 @@
       <div class="kpis"><div class="kpi"><b>${c.registered}</b><span>profils enregistrés</span></div><div class="kpi"><b>${c.executable}</b><span>exécutables (règles)</span></div><div class="kpi"><b>${c.llm}</b><span>assistés par modèle (${P.llm && P.llm.available ? 'modèle disponible' : 'modèle indisponible'})</span></div><div class="kpi"><b>${c.coordinationOnly}</b><span>coordination seule</span></div><div class="kpi"><b>${c.unavailable}</b><span>indisponibles</span></div><div class="kpi"><b>${G.CORE_MISSIONS.DEFAULT_OPTS.concurrency}</b><span>exécutions simultanées max.</span></div><div class="kpi"><b>${running}</b><span>tâches actives maintenant</span></div></div>
       <p class="hint">Modèle de langage local : <b>${esc(P.llm ? (P.llm.available ? `${P.llm.model} disponible (Ollama, ${(P.llm.models.find(m => m.name === P.llm.model) || {}).parameters || '?'} paramètres, ${(P.llm.models.find(m => m.name === P.llm.model) || {}).quantization || '?'})` : P.llm.reason) : 'test en cours')}</b>. Il choisit des outils autorisés et rédige des interprétations validées ; il ne calcule aucun chiffre et ne décide rien. ${c.executable} agents à règles fonctionnent sans modèle. Mise en place : <code>node scripts/llm-check.mjs</code>. ${esc(G.CORE_ORG.DISCLAIMER)}</p>
       ${P.cogIndex && P.cogIndex.missions.length ? `<p class="hint">Collaborations enregistrées (modèle réel) : ${P.cogIndex.missions.length} mission(s) — ${P.cogIndex.missions.slice(0, 3).map(m => `${esc(m.question)} → ${esc(m.decision)} (${m.metrics.modelCalls} appels au modèle, ${m.metrics.toolCalls} outils)`).join(' ; ')}</p>` : ''}
+      ${G.CORE_SPECIALIZATIONS ? (() => { const SZ = G.CORE_SPECIALIZATIONS, k = SZ.counts(); return `<details><summary>Spécialisations professionnelles : ${k.specializations} dans ${k.domains} domaines — ${k['model-assisted']} assistées par modèle, ${k.deterministic} à règles, ${k.none} non exécutables</summary><p class="hint">Une spécialisation n’est exécutable que par un runtime réel ; les autres sont listées avec la preuve manquante. Le routage d’une mission choisit au plus 3 spécialistes assistés par modèle et ajoute les réviseurs obligatoires.</p><table class="tbl"><thead><tr><th>Domaine</th><th>Spécialisations</th></tr></thead><tbody>${SZ.DOMAINS.map(d => `<tr><td>${esc(d.name)}</td><td>${SZ.SPECS.filter(x => x.domain === d.id).map(x => `${esc(x.title)} ${x.runtime === 'model-assisted' ? pill('modèle', 'ok') : x.runtime === 'deterministic' ? pill('règles', 'info') : pill('non exécutable', 'warn')}${x.gap ? ` <span class="hint">${esc(x.gap)}</span>` : ''}`).join('<br>') || '—'}</td></tr>`).join('')}</tbody></table></details>`; })() : ''}
       <div class="org"><b>Coordination globale CORE</b> → <button type="button" class="agentbtn" data-agent="core.san-francisco.manager">Coordination San Francisco</button>
         ${R.departments.map(d => `<details ${byDept.get(d.id).some(a => a.executionMode === 'deterministic' || a.executionMode === 'llm') ? 'open' : ''}><summary>${esc(d.name)} <span class="hint">(${byDept.get(d.id).length})</span></summary>
           <button type="button" class="agentbtn" data-agent="core.san-francisco.${d.id}.lead">Direction — ${esc(d.name)}</button> ${pill('coordination', 'info')}<br>
@@ -215,8 +217,55 @@
     $('ms-tab-cog').onclick = () => { P.msTab = 'cog'; renderMissions(); };
     const cg = $('cg-launch'); if (cg) cg.onclick = () => launchCognitive(cur ? cur.origin : null);
     const cc = $('cg-cancel'); if (cc) cc.onclick = () => G.CORE_COGNITIVE.cancel(P.cogCurrent);
+    const cd = $('cg-dossier'); if (cd) cd.onclick = () => openDossier(P.cogCurrent);
     $('ws-body').querySelectorAll('[data-cogrec]').forEach(b => b.onclick = async () => { P.cogCurrent = await getJSON(`data/missions/cognitive/${b.dataset.cogrec.replace(':', '-')}.json`); P.cogRecorded = true; if (P.cogCurrent.target.segment) highlight({ segment: P.cogCurrent.target.segment }); renderMissions(); });
     const rr = $('ms-rerun'); if (rr) rr.onclick = async () => { const rec = P.recordedMission; const m = await launch(rec.origin); P.rerunCheck = m.fingerprint === rec.fingerprint ? pill('empreinte identique à l’enregistrement', 'ok') : pill('empreinte différente (instantané ou veille modifiés)', 'warn'); P.view = 'recorded'; renderMissions(); };
+  }
+
+  // ---------- Decision dossier (Phase 5) ----------
+  async function openDossier(mc) {
+    const e = await env(), D = G.CORE_DOSSIER, sim = mc.target.type === 'corridor-planning' ? G.CORE_SIM_SIDEWALK.run(e.ctx, P.simParams || {}) : null, d = D.build(mc, { simulation: sim });
+    P.dossier = d; if (P.sec !== 'missions') show('missions');
+    const li = (a, f = x => esc(x)) => a.length ? `<ul>${a.map(x => `<li>${f(x)}</li>`).join('')}</ul>` : '<p class="hint">Aucun.</p>';
+    const tag = x => `${pill('interprétation du modèle', 'warn')} <b>${esc(x.id)}</b> ${esc(x.by)} : ${esc(x.text)} <span class="hint">[${x.cites.map(esc).join(', ')}]</span>`;
+    $('ws-body').innerHTML = `<div class="toolbar"><button type="button" class="ghost small" id="dz-back">← Retour à la mission</button><button type="button" class="ghost small" id="dz-md">Exporter (Markdown)</button><button type="button" class="ghost small" id="dz-json">Exporter (JSON)</button></div>
+      <div class="item"><span class="t">Dossier de décision — ${esc(d.issue.question)}</span><span class="m">${esc(d.execution)} · mode ${esc(d.mode)} · ${esc(d.model || '')}</span>
+        <span class="m">Lieu : ${esc(d.issue.location)} · instantané ${esc(d.dates.snapshot || '—')} · veille ${esc(fmt(d.dates.feedUpdate))} · ${d.validation.pass ? pill('dossier conforme aux contrôles', 'ok') : pill(`${d.validation.problems.length} problème(s) de validation`, 'fail')}</span></div>
+      ${d.decision ? `<section class="decision"><b>Passerelle</b> ${pill(d.decision.state, DEC[d.decision.state])}<p>${esc(d.decision.reason)}</p><p class="caveat">${esc(d.humanReview)}</p></section>` : ''}
+      <details open><summary>1. Observations vérifiées (${d.observations.length}) — calculées par du code sur des données publiques</summary>${li(d.observations, o => `<b>${esc(o.id)}</b> (${esc(o.nature)}) ${esc(o.text)}`)}</details>
+      <details open><summary>2. Spécialistes (${d.specialists.length}) et preuves consultées (${d.evidenceConsulted.total}, dont ${d.evidenceConsulted.cited} citées)</summary>${li(d.specialists, x => `${esc(x.role)} — ${x.statements} énoncé(s) retenu(s)`)}</details>
+      <details open><summary>3. Hypothèses concurrentes (${d.hypotheses.length})</summary>${li(d.hypotheses, tag)}</details>
+      <details><summary>4. Interprétations (${d.interpretations.length})</summary>${li(d.interpretations, tag)}</details>
+      <details open><summary>5. Désaccords entre spécialistes (${d.disagreements.length})</summary>${li(d.disagreements, x => `<b>${esc(x.id)}</b> ${esc(x.between.join(' vs '))} sur ${esc(x.about)} : ${esc(x.text)} ${pill(x.resolved ? 'résolu' : 'non résolu', x.resolved ? 'ok' : 'warn')}`)}</details>
+      <details open><summary>6. Simulations (calculs déterministes reproductibles)</summary>${li(d.simulations, x => `<b>${esc(x.id)}</b> ${esc(x.text)}`)}</details>
+      <details><summary>7. Hypothèses de modélisation et incertitudes</summary>${li([...d.assumptions, ...d.uncertainty])}</details>
+      <details open><summary>8. Risques et réserves (${d.risks.length})</summary>${li(d.risks, x => `${tag({ ...x, by: x.by })}`)}</details>
+      <details open><summary>9. Preuves manquantes (${d.missingEvidence.length})</summary>${li(d.missingEvidence)}</details>
+      <details open><summary>10. Prochaines étapes et revue humaine</summary>${li(d.nextSteps)}<p class="hint">${esc(d.validation.rule)}${d.validation.problems.length ? ` Problèmes : ${d.validation.problems.map(esc).join(' ; ')}` : ''}</p></details>`;
+    const dl = (txt, type, name) => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([txt], { type })); a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); };
+    $('dz-back').onclick = () => renderMissions();
+    $('dz-md').onclick = () => dl(D.toMarkdown(d), 'text/markdown', `dossier-${d.mission.replace(/[:]/g, '-')}.md`);
+    $('dz-json').onclick = () => dl(JSON.stringify(d, null, 2), 'application/json', `dossier-${d.mission.replace(/[:]/g, '-')}.json`);
+  }
+
+  // ---------- Guided investor demonstration (Phase 5): every step calls the real components ----------
+  const DEMO = [
+    { t: 'La ville', d: 'Carte 3D réelle de San Francisco (OpenStreetMap, relief) et corridor Folsom / Howard où CORE intègre les données publiques de DataSF.', run: () => { show('world'); P.fly({ center: [-122.4065, 37.7795], zoom: 15.2, pitch: 60, bearing: -44 }, 3500); } },
+    { t: 'Un évènement réel détecté', d: 'La veille urbaine collecte des sources officielles (actualisation planifiée par GitHub Actions). Ici, les éléments rattachés au corridor, avec date, source, confiance et limites.', run: () => { P.filter.corridor = true; show('intel'); } },
+    { t: 'Une équipe de spécialistes assemblée', d: 'Pour le permis d’excavation 26EXC-05114 (Howard 8e–9e), le routage choisit les spécialités pertinentes. Exécution réelle du modèle local qwen3:8b, enregistrée.', run: () => openRecorded(m => m.item === 'datasf-street-use:26EXC-05114@7051000' && m.mode === 'fast') },
+    { t: 'Preuves, désaccords, rejets', d: 'Chaque chiffre vient d’un outil déterministe (E#). Les interprétations du modèle sont validées (sens, unités, portée, causalité) ; les sorties rejetées sont visibles.', run: () => openRecorded(m => m.item === 'datasf-street-use:26EXC-05114@7051000' && m.mode === 'fast', '.list') },
+    { t: 'Nouvelle question : arbres et accessibilité', d: 'Investigation pluridisciplinaire : où planter sans réduire le cheminement piéton accessible, et quoi reporter à cause des travaux ? Exécution réelle enregistrée.', run: () => openRecorded(m => m.mode === 'fast' && /cheminement/.test(m.question)) },
+    { t: 'Simulation interactive', d: 'Modèle exploratoire non calibré exécuté dans votre navigateur. Changez le cheminement minimal ou l’espacement : les résultats, la carte et la sensibilité se recalculent.', run: () => { show('sims'); P.fly({ center: [-122.4065, 37.7795], zoom: 14.6, pitch: 45, bearing: -44 }, 2500); } },
+    { t: 'Dossier de décision', d: 'Observations, hypothèses, désaccords, simulations, incertitudes, preuves manquantes et revue humaine — exportable.', run: async () => { const m = await loadRecorded(x => x.mode === 'fast' && /cheminement/.test(x.question)); if (m) openDossier(m); } },
+    { t: 'Ce qui est réel', d: 'Sur ce site public : données publiques réelles, calculs déterministes exécutés dans le navigateur, missions du modèle enregistrées lors d’exécutions réelles. L’exécution en direct du modèle nécessite Ollama local. Rien n’est autorisé ni exécuté dans le monde réel.', run: () => show('agents') },
+  ];
+  async function loadRecorded(pred) { const m = P.cogIndex && P.cogIndex.missions.find(pred); if (!m) return null; const rec = await getJSON(`data/missions/cognitive/${m.id.replace(':', '-')}.json`); return rec; }
+  async function openRecorded(pred, scrollSel) { const rec = await loadRecorded(pred); if (!rec) return; P.cogCurrent = rec; P.cogRecorded = true; P.msTab = 'cog'; show('missions'); if (rec.target.segment) highlight({ segment: rec.target.segment }); if (scrollSel) setTimeout(() => { const el = [...document.querySelectorAll('#ws-body details')].find(x => /Interprétations du modèle/.test(x.textContent)); if (el) el.scrollIntoView(); }, 300); }
+  function renderDemo() {
+    const i = P.demoStep || 0;
+    $('ws-body').innerHTML = `<p class="hint">Démonstration en ${DEMO.length} étapes. Chaque étape ouvre de vrais composants de CORE ; rien n’est animé artificiellement. ${P.local ? '' : 'Site public : missions du modèle enregistrées, calculs exécutés dans le navigateur.'}</p>
+      ${DEMO.map((s, k) => `<div class="demo-step ${k === i ? 'now' : ''}"><b>${k + 1}. ${esc(s.t)}</b><p>${esc(s.d)}</p><button type="button" class="small ${k === i ? '' : 'ghost'}" data-step="${k}">${k === i ? 'Ouvrir cette étape' : 'Aller à cette étape'}</button></div>`).join('')}`;
+    $('ws-body').querySelectorAll('[data-step]').forEach(b => b.onclick = async () => { const k = +b.dataset.step; P.demoStep = Math.min(k + 1, DEMO.length - 1); await DEMO[k].run(); });
   }
 
   // ---------- Model-assisted collaboration (Phase 4) ----------
@@ -241,11 +290,45 @@
   }
 
   // ---------- Simulations, Decisions, Data ----------
-  function renderSims() {
-    const M = G.CORE_SIM.MODELS;
-    $('ws-body').innerHTML = `<table class="tbl"><thead><tr><th>Modèle</th><th>Domaine</th><th>Nature</th><th>Statut</th></tr></thead><tbody>${Object.entries(M).map(([id, m]) => `<tr><td><code>${esc(id)}</code><br><span class="hint">${esc(m.note)}</span></td><td>${esc(m.domain)}</td><td>${esc(m.kind || '—')}</td><td>${m.status === 'working' ? pill('opérationnel', 'ok') : m.status === 'unavailable' ? pill('indisponible', 'fail') : pill(m.status, 'warn')}</td></tr>`).join('')}</tbody></table>
-      <div class="toolbar"><button type="button" class="ghost small" id="sm-coord">Coordination des travaux (S0–S4)</button><button type="button" class="ghost small" id="sm-city">Investigation inter-domaines (R0–R2)</button><a class="pill info" href="corridor.html">Démo de trafic synthétique (non calibrée)</a></div>
-      <p class="hint">Aucun modèle physique, énergétique, écologique ni de trafic réel n’est calibré ; ces domaines sont déclarés indisponibles plutôt que simulés.</p>`;
+  // ---------- Simulations (Phase 5: interactive, reproducible, browser-executed) ----------
+  function simLayer(rows) {
+    const map = P.map, data = { type: 'FeatureCollection', features: rows.map(r => ({ type: 'Feature', geometry: P.ctx.segments.get(r.cnn).geometry, properties: { status: !r.accessible ? 'blocked' : r.deferred_for_works ? 'deferred' : r.plantable_now ? 'plantable' : 'full', below: r.below_bsp_min } })) };
+    if (!map.getSource('pf-sim')) {
+      map.addSource('pf-sim', { type: 'geojson', data });
+      map.addLayer({ id: 'pf-sim-line', type: 'line', source: 'pf-sim', layout: { 'line-cap': 'round' }, paint: { 'line-width': ['interpolate', ['linear'], ['zoom'], 12, 3, 17, 12], 'line-opacity': 0.9,
+        'line-color': ['match', ['get', 'status'], 'plantable', '#3fb950', 'deferred', '#e3b341', 'blocked', '#f85149', '#6e7681'] } });
+    } else map.getSource('pf-sim').setData(data);
+  }
+  async function renderSims() {
+    const e = await env(), S = G.CORE_SIM_SIDEWALK, M = G.CORE_SIM.MODELS, md = S.MODEL;
+    P.simParams = P.simParams || Object.fromEntries(Object.entries(md.params).map(([k, d]) => [k, d.value]));
+    let r, err = null; try { r = S.run(e.ctx, P.simParams); } catch (x) { err = x.message; }
+    P.simResult = r;
+    const alt = r ? S.alternatives(e.ctx, P.simParams) : [], sens = r ? S.sensitivity(e.ctx, P.simParams) : null, t = r && r.totals;
+    $('ws-body').innerHTML = `
+      <div class="item"><span class="t">${esc(md.id)} v${esc(md.version)} — trottoirs accessibles × capacité de plantation × travaux</span>
+        <span class="m">${pill('exploratoire, non calibré', 'warn')} ${pill('exécuté dans ce navigateur', 'ok')} instantané ${esc(e.ctx.asOf)} · ${esc(md.scope)}</span>
+        <span class="hint">Calcule des emplacements géométriquement possibles sous hypothèses déclarées. Ne calcule pas : ${md.notComputed.map(esc).join(', ')}.</span></div>
+      <div class="simgrid">${Object.entries(md.params).map(([k, d]) => `<label class="simparam"><span>${esc(k)} = <b id="sv-${k}">${P.simParams[k]}</b> ${esc(d.unit)}</span>
+        <input type="range" data-param="${k}" min="${d.min}" max="${d.max}" step="${d.unit === 'fraction' ? 0.05 : d.unit === 'jours' ? 15 : 1}" value="${P.simParams[k]}" aria-label="${esc(k)}"><span class="hint">${esc(d.basis)}</span></label>`).join('')}
+        <div class="toolbar"><button type="button" class="ghost small" id="sm-reset">Valeurs par défaut</button><button type="button" class="ghost small" id="sm-verify">Revérifier (recalcul)</button><button type="button" class="ghost small" id="sm-export">Exporter (JSON)</button><span id="sm-verified" class="hint"></span></div></div>
+      ${err ? `<p class="caveat">${esc(err)}</p>` : `
+      <div class="kpis"><div class="kpi"><b>${t.plantable_now}</b><span>emplacements plantables maintenant (modèle)</span></div><div class="kpi"><b>${t.deferred_for_works}</b><span>à reporter pour travaux planifiés</span></div><div class="kpi"><b>${t.not_accessible_with_basin}</b><span>tronçons sans cheminement suffisant</span></div><div class="kpi"><b>${t.below_bsp_min}/${t.blocks}</b><span>trottoirs sous le minimum BSP (observé, 2014)</span></div><div class="kpi"><b>${t.living_trees}</b><span>arbres vivants inventoriés</span></div></div>
+      <p class="hint">Empreinte <code id="sm-fp">${esc(r.fingerprint)}</code> — mêmes données et paramètres ⇒ même résultat. Carte : ${pill('plantable', 'ok')} ${pill('à reporter', 'warn')} ${pill('cheminement insuffisant', 'fail')} gris = capacité atteinte.</p>
+      <details open><summary>Alternatives (recalculées avec les paramètres actuels)</summary><table class="tbl"><thead><tr><th>Alternative</th><th>Plantables maintenant</th><th>Total</th><th>Reportés</th><th>Tronçons insuffisants</th></tr></thead><tbody>${alt.map(a => `<tr><td><b>${esc(a.id)}</b> ${esc(G.CORE_SIM_SIDEWALK.ALTERNATIVES[a.id].label)}</td><td>${a.totals.plantable_now}</td><td>${a.totals.additional_positions}</td><td>${a.totals.deferred_for_works}</td><td>${a.totals.not_accessible_with_basin}</td></tr>`).join('')}</tbody></table></details>
+      <details open><summary>Sensibilité (un paramètre à la fois, bornes du domaine)</summary><table class="tbl"><thead><tr><th>Paramètre</th><th>Bornes</th><th>Emplacements</th><th>Plantables maintenant</th><th>Tronçons insuffisants</th></tr></thead><tbody>${sens.params.map(x => `<tr><td>${esc(x.param)}</td><td>${x.low}–${x.high} ${esc(x.unit)}</td><td>${x.additional.join(' → ')}</td><td>${x.plantable_now.join(' → ')}</td><td>${x.not_accessible.join(' → ')}</td></tr>`).join('')}</tbody></table>
+        <p class="hint">L’espacement et la part de linéaire utilisable dominent l’incertitude : le résultat est un ordre de grandeur pour prioriser des relevés, pas une capacité de plantation.</p></details>
+      <details><summary>Tronçons (${r.rows.length}) — chaque ligne cite ses enregistrements sources</summary><table class="tbl"><thead><tr><th>Tronçon</th><th>Trottoir (2014)</th><th>Classe BSP min/reco</th><th>Arbres</th><th>+ plantables / reportés</th></tr></thead><tbody>${r.rows.map(x => `<tr><td>${esc(x.street)} ${esc(x.from)} → ${esc(x.to)}<br><span class="hint">${x.length_m} m · ${esc(x.sources.sidewalk)}</span></td><td>${x.width_ft} ft${x.below_bsp_min ? ' ' + pill('< min', 'warn') : ''}</td><td>${esc(x.bsp_class)} ${x.bsp_min_ft}/${x.bsp_recommended_ft} ft</td><td>${x.living_trees}${x.stumps ? ` (+${x.stumps} souche)` : ''}</td><td>${x.plantable_now} / ${x.deferred_for_works}${!x.accessible ? ' ' + pill('cheminement', 'fail') : ''}</td></tr>`).join('')}</tbody></table></details>
+      <details><summary>Hypothèses, limites et preuves nécessaires pour un usage opérationnel</summary><ul>${md.assumptions.map(a => `<li>${esc(a)}</li>`).join('')}</ul><p>${esc(md.applicability)}</p><ul>${md.neededForOperationalUse.map(a => `<li>${esc(a)}</li>`).join('')}</ul><p class="hint">Entrées : ${md.inputs.map(i => `<a href="https://data.sf.gov/d/${esc(i.id)}" target="_blank" rel="noopener">${esc(i.dataset)}</a>`).join(', ')} (ODC-PDDL).</p></details>`}
+      <h3 style="margin:10px 0 4px;font-size:13px">Registre des modèles</h3>
+      <table class="tbl"><thead><tr><th>Modèle</th><th>Domaine</th><th>Nature</th><th>Statut</th></tr></thead><tbody>${Object.entries(M).map(([id, m]) => `<tr><td><code>${esc(id)}</code><br><span class="hint">${esc(m.note)}</span></td><td>${esc(m.domain)}</td><td>${esc(m.kind || '—')}</td><td>${m.status === 'working' ? pill('opérationnel', 'ok') : m.status === 'unavailable' ? pill('indisponible', 'fail') : pill(m.status, 'warn')}</td></tr>`).join('')}</tbody></table>
+      <div class="toolbar"><button type="button" class="ghost small" id="sm-coord">Coordination des travaux (S0–S4)</button><button type="button" class="ghost small" id="sm-city">Investigation inter-domaines (R0–R2)</button><a class="pill info" href="corridor.html">Démo de trafic synthétique (non calibrée)</a></div>`;
+    if (r) { simLayer(r.rows); }
+    let pend = null;
+    $('ws-body').querySelectorAll('[data-param]').forEach(inp => inp.oninput = () => { P.simParams[inp.dataset.param] = Number(inp.value); $(`sv-${inp.dataset.param}`).textContent = inp.value; clearTimeout(pend); pend = setTimeout(renderSims, 180); });
+    $('sm-reset').onclick = () => { P.simParams = null; renderSims(); };
+    $('sm-verify').onclick = () => { const v = S.verify(e.ctx, P.simResult); $('sm-verified').innerHTML = v.pass ? pill(`recalcul identique (${v.fingerprint})`, 'ok') : pill(`échec : ${v.error || v.fingerprint}`, 'fail'); };
+    $('sm-export').onclick = () => { const blob = new Blob([JSON.stringify({ model: md, result: P.simResult }, null, 2)], { type: 'application/json' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${md.id}-${P.simResult.fingerprint}.json`; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); };
     $('sm-coord').onclick = () => { show('world'); G.CORE_SF_VIEW.openPanel(); G.CORE_SF_VIEW.selectTab('agents'); };
     $('sm-city').onclick = () => { show('world'); G.CORE_SF_VIEW.openPanel(); G.CORE_SF_VIEW.selectTab('city'); };
   }
@@ -273,6 +356,7 @@
       <table class="tbl"><thead><tr><th>Document</th><th>Source</th><th>v</th><th>Fraîcheur</th></tr></thead><tbody>${KN.approved(P.K).map(d => { const fr = KN.freshness(d, new Date().toISOString()); return `<tr><td><a href="${esc(d.url)}" target="_blank" rel="noopener">${esc(d.title)}</a><br><span class="hint">${esc(d.confidence)}${d.limitations ? ' · ' + esc(d.limitations) : ''}</span></td><td>${esc(P.K.sources.get(d.source).name)}<br><span class="hint">${esc(P.K.sources.get(d.source).license)}</span></td><td>${d.version}</td><td>${fr.stale ? pill('à actualiser', 'warn') : pill(`${fr.ageDays} j`, 'ok')}</td></tr>`; }).join('')}</tbody></table>
       <p><b>Contradictions détectées :</b> ${contra.map(c => `${esc(c.key)} : ${c.values.join(' vs ')} (${esc(c.a)} / ${esc(c.b)}) — ${pill(c.status, c.status === 'conflict' ? 'fail' : 'ok')}`).join(' ; ') || 'aucune'}</p>
       <p class="hint">Mises à jour : un agent peut proposer, seul un relecteur humain (<code>human:…</code>) approuve ; une proposition touchant aux règles de sûreté ou permissions d’un agent est rejetée. Chaque version est conservée et restaurable (<code>node scripts/learn.mjs --rollback</code>).</p>
+      ${G.CORE_DATA_POLICY ? (() => { const E = Object.entries(G.CORE_DATA_POLICY.ENTRIES); return `<h3 style="margin:0;font-size:13px">Politique d’éligibilité des données (${E.filter(([, x]) => x.status === 'eligible').length} éligibles, ${E.filter(([, x]) => x.status === 'quarantined').length} en quarantaine, ${E.filter(([, x]) => x.status === 'excluded').length} exclues — vérifiée ${esc(G.CORE_DATA_POLICY.VERIFIED)})</h3><details><summary>Détail par source</summary><table class="tbl"><thead><tr><th>Source</th><th>Licence / base d’usage</th><th>Sensibilité</th><th>Usage permis</th><th>Statut</th></tr></thead><tbody>${E.map(([k, x]) => `<tr><td><code>${esc(k)}</code><br>${esc(x.publisher)}</td><td>${esc(x.licence)}</td><td>${esc(x.sensitivity)}</td><td>${esc(x.allowedUse)}${x.notes ? `<br><span class="hint">${esc(x.notes)}</span>` : ''}</td><td>${pill(x.status, x.status === 'eligible' ? 'ok' : x.status === 'quarantined' ? 'warn' : 'fail')}</td></tr>`).join('')}</tbody></table></details>`; })() : ''}
       <h3 style="margin:0;font-size:13px">Apprentissage contrôlé (${P.K.lib.proposals.length} proposition(s))</h3>
       <table class="tbl"><thead><tr><th>Proposition</th><th>Origine</th><th>Évaluation avant → après</th><th>Décision</th></tr></thead><tbody>${P.K.lib.proposals.map(p => `<tr><td>${esc(p.id)} · ${esc(p.docId)}<br><span class="hint">${esc(p.reason)}</span></td><td>${esc(p.proposedBy)}${p.provenance && p.provenance.fetched ? `<br><a href="${esc(p.provenance.fetched)}" target="_blank" rel="noopener">source autorisée</a> · ${esc(p.provenance.license || '')}` : ''}${p.validation ? `<br>${p.validation.checks.map(c => pill(c.id, c.pass ? 'ok' : 'fail')).join(' ')}` : ''}</td><td>${(p.evaluation || []).map(x => `${esc(x.agent)} : ${Math.round(x.before.score * 100)} % → ${Math.round(x.after.score * 100)} %`).join('<br>')}</td><td>${pill(p.status, p.status === 'approved' ? 'ok' : p.status === 'pending' ? 'warn' : 'fail')}${p.importance ? ` ${pill(p.importance)}` : ''}${p.reviewer ? `<br>${esc(p.reviewer)}` : ''}</td></tr>`).join('') || '<tr><td colspan="4">Aucune.</td></tr>'}</tbody></table>`;
     $('dt-inspect').onclick = () => { show('world'); sv.openPanel(); sv.selectTab('records'); };
@@ -292,7 +376,11 @@
     document.querySelectorAll('#appnav [data-sec]').forEach(b => b.addEventListener('click', () => show(b.dataset.sec)));
     $('ws-close').onclick = () => show('world');
     new MutationObserver(() => { if (!$('sf-panel').hidden && !$('ws').hidden) { $('ws').hidden = true; document.body.classList.remove('ws-open'); document.querySelectorAll('#appnav [data-sec]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.sec === 'world'))); P.sec = 'world'; } }).observe($('sf-panel'), { attributes: true, attributeFilter: ['hidden'] });
-    G.CORE_LLM.probe(G.CORE_LLM.PROVIDERS.ollama).then(r => { P.llm = r; });
+    // Public mode: on the public site the page never tries to reach any localhost model endpoint.
+    P.local = ['localhost', '127.0.0.1', '[::1]', '::1'].includes(location.hostname);
+    if (P.local) G.CORE_LLM.probe(G.CORE_LLM.PROVIDERS.ollama).then(r => { P.llm = r; });
+    else { P.llm = { available: false, public: true, reason: 'site public : l’analyse assistée par modèle s’exécute uniquement sur une machine avec Ollama local (les missions affichées sont des exécutions réelles enregistrées)' }; if (!localStorage.getItem(LS)) { P.browser.intervalMin = 0; schedule(); } }
+    document.body.classList.toggle('public-site', !P.local);
     G.CORE_SF_VIEW.loadData().then(updateMeta).catch(() => {}); updateMeta();
     P.ready = true;
   }

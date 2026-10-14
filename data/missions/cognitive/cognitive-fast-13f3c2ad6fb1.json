@@ -1,0 +1,4094 @@
+{
+ "id": "cognitive-fast:13f3c2ad6fb1",
+ "version": "core-cognitive-mission-v2",
+ "origin": {
+  "type": "item",
+  "item": "datasf-street-use:26EXC-05114@7051000"
+ },
+ "target": {
+  "type": "item-context",
+  "segment": "7051000",
+  "item": "datasf-street-use:26EXC-05114@7051000",
+  "question": "Que change « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » pour HOWARD ST 08TH ST → 09TH ST ?",
+  "domains": [
+   "infrastructure"
+  ],
+  "label": "HOWARD ST 08TH ST → 09TH ST"
+ },
+ "state": "needs-evidence",
+ "stage": "gateway",
+ "provider": {
+  "id": "ollama",
+  "kind": "llm",
+  "label": "Ollama (local)",
+  "baseUrl": "http://127.0.0.1:11434",
+  "probePath": "/api/tags",
+  "model": "qwen3:8b",
+  "license": "Apache-2.0 (Qwen3)"
+ },
+ "model": {
+  "provider": "ollama",
+  "name": "qwen3:8b",
+  "available": true,
+  "reason": "modèle local disponible",
+  "details": {
+   "name": "qwen3:8b",
+   "sizeBytes": 5225388164,
+   "family": "qwen3",
+   "parameters": "8.2B",
+   "quantization": "Q4_K_M"
+  }
+ },
+ "mode": "fast",
+ "routing": {
+  "team": [
+   {
+    "id": "energy-infrastructure",
+    "profile": "energy-infrastructure-analyst",
+    "score": 8,
+    "why": [
+     "infrastructure",
+     "excavation"
+    ]
+   },
+   {
+    "id": "urban-planning",
+    "profile": "urban-planning-analyst",
+    "score": 4,
+    "why": [
+     "urbanism",
+     "buildings"
+    ]
+   },
+   {
+    "id": "accessibility",
+    "profile": "accessibility-analyst",
+    "score": 2,
+    "why": [
+     "public_space"
+    ]
+   }
+  ],
+  "scenario": "scenario-analysis",
+  "reviewers": [
+   "evidence-review",
+   "data-eligibility"
+  ],
+  "deterministic": [
+   "works-coordination",
+   "building-permits"
+  ],
+  "gaps": [
+   {
+    "id": "structural",
+    "title": "Ingénierie structurelle",
+    "gap": "Aucune donnée structurelle ou d’inspection publique intégrée."
+   },
+   {
+    "id": "ecology",
+    "title": "Écologie urbaine",
+    "gap": "Aucune donnée de biodiversité intégrée."
+   }
+  ],
+  "considered": 4,
+  "rule": "≤ 3 spécialistes assistés par modèle choisis par score de domaines et de vocabulaire ; réviseurs obligatoires ajoutés."
+ },
+ "agents": [
+  "core.san-francisco.energy.energy-infrastructure-analyst",
+  "core.san-francisco.housing.urban-planning-analyst",
+  "core.san-francisco.public-space.accessibility-analyst",
+  "core.san-francisco.simulation.scenario-analyst",
+  "core.san-francisco.research.evidence-reviewer",
+  "core.san-francisco.cybersecurity.data-policy-reviewer"
+ ],
+ "unavailable": [
+  {
+   "agent": "structural",
+   "role": "Ingénierie structurelle",
+   "gap": "Aucune donnée structurelle ou d’inspection publique intégrée."
+  },
+  {
+   "agent": "ecology",
+   "role": "Écologie urbaine",
+   "gap": "Aucune donnée de biodiversité intégrée."
+  }
+ ],
+ "evidence": [
+  {
+   "id": "E1",
+   "claim": "L’élément « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » est rattaché au tronçon HOWARD ST 08TH ST → 09TH ST (observed (CNN field)) ; son point publié est à 17 m de l’axe du tronçon.",
+   "epistemic": "observed",
+   "evidence": [
+    {
+     "type": "feed",
+     "ref": "datasf-street-use:26EXC-05114@7051000",
+     "url": "https://data.sf.gov/resource/b6tj-gt35.json?permit_number=26EXC-05114"
+    }
+   ],
+   "topic": "graph",
+   "limitation": false,
+   "contradicts": null,
+   "quantities": [
+    {
+     "value": 17,
+     "unit": "m",
+     "quantity": "distance",
+     "meaning": "distance entre le point publié de l’élément et l’axe du tronçon",
+     "scope": "segment"
+    }
+   ],
+   "tool": "graph.link",
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "call": 1,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E2",
+   "claim": "4 bâtiment(s) avec bilan énergétique déclaré à proximité (contexte ; aucun modèle d’économie).",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "energy-benchmarks",
+     "ref": "energy-benchmarks:3729/097@2025",
+     "url": "https://data.sf.gov/d/96ck-qcfe"
+    },
+    {
+     "type": "record",
+     "dataset": "energy-benchmarks",
+     "ref": "energy-benchmarks:3728/007@2025",
+     "url": "https://data.sf.gov/d/96ck-qcfe"
+    },
+    {
+     "type": "record",
+     "dataset": "energy-benchmarks",
+     "ref": "energy-benchmarks:3729/086@2025",
+     "url": "https://data.sf.gov/d/96ck-qcfe"
+    },
+    {
+     "type": "record",
+     "dataset": "energy-benchmarks",
+     "ref": "energy-benchmarks:3730/038@2025",
+     "url": "https://data.sf.gov/d/96ck-qcfe"
+    }
+   ],
+   "topic": "energy",
+   "limitation": false,
+   "contradicts": null,
+   "quantities": [
+    {
+     "value": 4,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "bâtiments avec bilan déclaré",
+     "nature": "self-reported"
+    }
+   ],
+   "tool": "energy.benchmarks",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "call": 2,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E3",
+   "claim": "Réseau CAISO (Californie, 2026-10-13 18:20 heure du Pacifique) : 15 % de renouvelables hors grande hydraulique sur 27805 MW ; échelle de l’État, pas de San Francisco.",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "feed",
+     "ref": "caiso-fuelmix:caiso@2026-10-13",
+     "url": "https://www.caiso.com/todays-outlook"
+    }
+   ],
+   "topic": "energy",
+   "limitation": true,
+   "contradicts": null,
+   "quantities": [
+    {
+     "value": 15,
+     "unit": "%",
+     "quantity": "share",
+     "meaning": "part des renouvelables du réseau",
+     "scope": "zone CAISO (Californie)"
+    },
+    {
+     "value": 27805,
+     "unit": "mw",
+     "quantity": "power",
+     "meaning": "production instantanée du réseau",
+     "scope": "zone CAISO (Californie)"
+    }
+   ],
+   "tool": "grid.mix",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "call": 3,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E4",
+   "claim": "5 fenêtre(s) d’excavation en cours ou à venir sur HOWARD ST 08TH ST → 09TH ST (CableCom, Precision Engineering, Inc., R & S Construction Management Inc).",
+   "epistemic": "observed",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:25EXC-03925@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04307@24305000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04619@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04337@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-05114@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "topic": "works",
+   "limitation": false,
+   "contradicts": null,
+   "quantities": [
+    {
+     "value": 5,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "nombre de fenêtres de permis (pas la preuve de travaux)",
+     "scope": "segment"
+    }
+   ],
+   "tool": "works.windows",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "call": 4,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E5",
+   "claim": "8 chevauchement(s) entre organisations dans les 60 j.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:25EXC-03925@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04307@24305000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:25EXC-03925@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04619@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:25EXC-03925@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04337@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:25EXC-03925@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-05114@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04307@24305000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04619@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04307@24305000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-05114@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04619@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04337@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04337@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-05114@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "topic": "works-overlap",
+   "limitation": false,
+   "contradicts": null,
+   "quantities": [
+    {
+     "value": 8,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "nombre de paires de fenêtres qui se chevauchent",
+     "scope": "segment"
+    },
+    {
+     "value": 60,
+     "unit": "days",
+     "quantity": "duration",
+     "meaning": "horizon d’analyse"
+    }
+   ],
+   "tool": "works.windows",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "call": 4,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E6",
+   "claim": "2 fenêtre(s) de titulaires classés télécoms (classement déclaré par nom) : CableCom.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04619@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-05114@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "topic": "telecom",
+   "limitation": false,
+   "contradicts": null,
+   "quantities": [
+    {
+     "value": 2,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "fenêtres de titulaires classés télécoms",
+     "scope": "segment"
+    }
+   ],
+   "tool": "works.telecom",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "call": 5,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E7",
+   "claim": "Street-Use Permits (b6tj-gt35) (v1, DataSF open data portal, licence ODC-PDDL (per dataset), récupéré 2026-10-13) : Public Works street-space permits including excavation, street improvement, boring and emergency permits. Each record has a permit number, type, status, CNN location, holder organisation and authorized start/end dates. A permit authorizes a window; it does not prove that work happened.",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "knowledge",
+     "ref": "k-street-use-permits",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "topic": "knowledge",
+   "limitation": false,
+   "contradicts": null,
+   "quantities": [],
+   "tool": "knowledge.search",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "call": 6,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E8",
+   "claim": "0 dossier(s) de projet Planning ouverts en 30 j avec une adresse sur HOWARD ST (aucun) parmi 94 à l’échelle de la ville ; adresses non géocodées, rattachement à la rue seulement.",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "feed-source",
+     "ref": "datasf-planning",
+     "url": "https://data.sf.gov/d/qvu5-m3a2"
+    }
+   ],
+   "topic": "urbanism",
+   "limitation": true,
+   "contradicts": null,
+   "quantities": [],
+   "tool": "planning.records",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "call": 7,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E9",
+   "claim": "7 permis de construire récent(s) (≤ 365 j) au front du tronçon ; 45 au total.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202607064565",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202606163324",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202605201599",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202605201598",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202603278469",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202603177768",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202502100018",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    }
+   ],
+   "topic": "buildings",
+   "limitation": false,
+   "contradicts": null,
+   "quantities": [
+    {
+     "value": 7,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "permis de construire récents"
+    },
+    {
+     "value": 45,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "permis de construire au front"
+    },
+    {
+     "value": 365,
+     "unit": "days",
+     "quantity": "duration",
+     "meaning": "fenêtre de récence"
+    }
+   ],
+   "tool": "buildings.frontage",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "call": 8,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E10",
+   "claim": "2 semblent intérieurs ou d’enseigne : lien avec le trottoir incertain.",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202605201599",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202502100018",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    }
+   ],
+   "topic": "buildings",
+   "limitation": false,
+   "contradicts": "buildings",
+   "quantities": [
+    {
+     "value": 2,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "permis apparemment intérieurs"
+    }
+   ],
+   "tool": "buildings.frontage",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "call": 8,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E11",
+   "claim": "Le statut DBI « issued » n’indique pas un chantier en cours (connaissance approuvée k-dbi-issued-status).",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "knowledge",
+     "ref": "k-dbi-issued-status"
+    }
+   ],
+   "topic": "buildings",
+   "limitation": false,
+   "contradicts": null,
+   "quantities": [],
+   "tool": "buildings.frontage",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "call": 8,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E12",
+   "claim": "Trottoir : 12 pi (W) (étude 2014) ; 0 parc(s) proche(s).",
+   "epistemic": "observed",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "sidewalks",
+     "ref": "sidewalks:13077",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "topic": "public-space",
+   "limitation": false,
+   "contradicts": null,
+   "quantities": [
+    {
+     "value": 12,
+     "unit": "ft",
+     "quantity": "width",
+     "meaning": "largeur de trottoir (étude 2014)",
+     "asOf": "2014-01-01",
+     "scope": "segment"
+    },
+    {
+     "value": 0,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "parcs proches"
+    }
+   ],
+   "tool": "public-space.sidewalks",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "call": 9,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E13",
+   "claim": "Simulation exploratoire non calibrée sidewalk-tree-capacity-v1 (empreinte 929b8be4d02e6efc) sur 44 tronçons : 93 emplacements d’arbres supplémentaires compatibles avec un cheminement de 4 ft, dont 39 à reporter pour travaux planifiés ; 18 tronçons ont un trottoir plus étroit que le minimum Better Streets Plan (donnée 2014).",
+   "epistemic": "simulated",
+   "evidence": [
+    {
+     "type": "dataset",
+     "ref": "sidewalks",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    },
+    {
+     "type": "dataset",
+     "ref": "street-trees",
+     "url": "https://data.sf.gov/d/tkzw-k3nq"
+    }
+   ],
+   "topic": "simulation",
+   "limitation": true,
+   "contradicts": null,
+   "quantities": [
+    {
+     "value": 93,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "emplacements supplémentaires (borne géométrique, modèle non calibré)",
+     "nature": "modelled"
+    },
+    {
+     "value": 39,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "emplacements à reporter pour travaux",
+     "nature": "modelled"
+    },
+    {
+     "value": 18,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "tronçons sous le minimum BSP (observé en 2014)",
+     "asOf": "2014-01-01"
+    },
+    {
+     "value": 44,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "tronçons analysés"
+    },
+    {
+     "value": 4,
+     "unit": "ft",
+     "quantity": "width",
+     "meaning": "largeur minimale du cheminement (paramètre)"
+    }
+   ],
+   "tool": "sim.sidewalk-capacity",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "call": 13,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E14",
+   "claim": "HOWARD ST 08TH ST → 09TH ST : trottoir 12 ft (classe Mixed-use, minimum 12 ft, recommandé 15 ft, étude 2014) ; cheminement restant 9 ft avec une fosse de 3 ft ; 15 arbres vivants, 0 emplacements supplémentaires, 0 à reporter.",
+   "epistemic": "simulated",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "sidewalks",
+     "ref": "sidewalks:13077",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "topic": "simulation",
+   "limitation": true,
+   "contradicts": null,
+   "quantities": [
+    {
+     "value": 12,
+     "unit": "ft",
+     "quantity": "width",
+     "meaning": "largeur de trottoir (étude 2014)",
+     "asOf": "2014-01-01",
+     "scope": "segment"
+    },
+    {
+     "value": 12,
+     "unit": "ft",
+     "quantity": "width",
+     "meaning": "largeur minimale BSP de la classe"
+    },
+    {
+     "value": 15,
+     "unit": "ft",
+     "quantity": "width",
+     "meaning": "largeur recommandée BSP"
+    },
+    {
+     "value": 9,
+     "unit": "ft",
+     "quantity": "width",
+     "meaning": "cheminement restant après fosse (modélisé)",
+     "nature": "modelled"
+    },
+    {
+     "value": 3,
+     "unit": "ft",
+     "quantity": "width",
+     "meaning": "largeur de fosse (paramètre)"
+    },
+    {
+     "value": 15,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "arbres vivants"
+    },
+    {
+     "value": 0,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "emplacements supplémentaires",
+     "nature": "modelled"
+    },
+    {
+     "value": 0,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "emplacements à reporter",
+     "nature": "modelled"
+    }
+   ],
+   "tool": "sim.sidewalk-capacity",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "call": 13,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E15",
+   "claim": "Recalcul déterministe (rayon arbres 12 m, horizon 60 j, report 21 j) : épisodes d’exposition R0 2, R1 2, R2 2 ; arbres à ≤ rayon 2 ; recommandation R2 ; passerelle ÉLIGIBLE À LA REVUE HUMAINE.",
+   "epistemic": "simulated",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "corridor",
+     "ref": "corridor:7051000",
+     "url": "https://data.sf.gov/d/3psu-pn9h"
+    }
+   ],
+   "topic": "scenario",
+   "limitation": false,
+   "contradicts": null,
+   "quantities": [
+    {
+     "value": 12,
+     "unit": "m",
+     "quantity": "radius",
+     "meaning": "rayon arbres (paramètre)"
+    },
+    {
+     "value": 60,
+     "unit": "days",
+     "quantity": "duration",
+     "meaning": "horizon (paramètre)"
+    },
+    {
+     "value": 21,
+     "unit": "days",
+     "quantity": "duration",
+     "meaning": "report (paramètre)"
+    },
+    {
+     "value": 2,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "épisodes d’exposition R0 (modèle déterministe non calibré)",
+     "nature": "modelled"
+    },
+    {
+     "value": 2,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "épisodes d’exposition R1 (modèle déterministe non calibré)",
+     "nature": "modelled"
+    },
+    {
+     "value": 2,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "épisodes d’exposition R2 (modèle déterministe non calibré)",
+     "nature": "modelled"
+    },
+    {
+     "value": 2,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "arbres dans le rayon"
+    }
+   ],
+   "tool": "scenario.evaluate",
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "call": 19,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E16",
+   "claim": "Recalcul déterministe (rayon arbres 12 m, horizon 60 j, report 21 j) : épisodes d’exposition R0 2, R1 2, R2 2 ; arbres à ≤ rayon 2 ; recommandation R2 ; passerelle ÉLIGIBLE À LA REVUE HUMAINE.",
+   "epistemic": "simulated",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "corridor",
+     "ref": "corridor:7051000",
+     "url": "https://data.sf.gov/d/3psu-pn9h"
+    }
+   ],
+   "topic": "scenario",
+   "limitation": false,
+   "contradicts": null,
+   "quantities": [
+    {
+     "value": 12,
+     "unit": "m",
+     "quantity": "radius",
+     "meaning": "rayon arbres (paramètre)"
+    },
+    {
+     "value": 60,
+     "unit": "days",
+     "quantity": "duration",
+     "meaning": "horizon (paramètre)"
+    },
+    {
+     "value": 21,
+     "unit": "days",
+     "quantity": "duration",
+     "meaning": "report (paramètre)"
+    },
+    {
+     "value": 2,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "épisodes d’exposition R0 (modèle déterministe non calibré)",
+     "nature": "modelled"
+    },
+    {
+     "value": 2,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "épisodes d’exposition R1 (modèle déterministe non calibré)",
+     "nature": "modelled"
+    },
+    {
+     "value": 2,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "épisodes d’exposition R2 (modèle déterministe non calibré)",
+     "nature": "modelled"
+    },
+    {
+     "value": 2,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "arbres dans le rayon"
+    }
+   ],
+   "tool": "scenario.evaluate",
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "call": 20,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E17",
+   "claim": "47 référence(s) de preuve sur 47 proviennent de 11 source(s) éligibles de la politique de données (vérifiée 2026-10-14).",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "policy",
+     "ref": "core-data-policy",
+     "url": "https://github.com/vincentleg/core/blob/main/docs/PHASE_5_DATA_POLICY.md"
+    }
+   ],
+   "topic": "policy",
+   "limitation": false,
+   "contradicts": null,
+   "quantities": [
+    {
+     "value": 47,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "références de preuve vérifiées"
+    },
+    {
+     "value": 0,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "références non éligibles"
+    },
+    {
+     "value": 11,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "sources distinctes"
+    }
+   ],
+   "tool": "policy.check",
+   "agent": "core.san-francisco.cybersecurity.data-policy-reviewer",
+   "call": 21,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E18",
+   "claim": "E3 : 1/1 référence(s) vérifiée(s) contre les données vérifiées ; statut épistémique « reported ».",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "feed",
+     "ref": "caiso-fuelmix:caiso@2026-10-13",
+     "url": "https://www.caiso.com/todays-outlook"
+    }
+   ],
+   "topic": "verification",
+   "limitation": false,
+   "contradicts": null,
+   "quantities": [],
+   "tool": "evidence.check",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "call": 22,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E19",
+   "claim": "E4 : 5/5 référence(s) vérifiée(s) contre les données vérifiées ; statut épistémique « observed ».",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:25EXC-03925@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04307@24305000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04619@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04337@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-05114@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "topic": "verification",
+   "limitation": false,
+   "contradicts": null,
+   "quantities": [],
+   "tool": "evidence.check",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "call": 22,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E20",
+   "claim": "E6 : 2/2 référence(s) vérifiée(s) contre les données vérifiées ; statut épistémique « derived ».",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04619@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-05114@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "topic": "verification",
+   "limitation": false,
+   "contradicts": null,
+   "quantities": [],
+   "tool": "evidence.check",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "call": 22,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E21",
+   "claim": "E7 : 1/1 référence(s) vérifiée(s) contre les données vérifiées ; statut épistémique « reported ».",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "knowledge",
+     "ref": "k-street-use-permits",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "topic": "verification",
+   "limitation": false,
+   "contradicts": null,
+   "quantities": [],
+   "tool": "evidence.check",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "call": 22,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E22",
+   "claim": "E8 : 1/1 référence(s) vérifiée(s) contre les données vérifiées ; statut épistémique « reported ».",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "feed-source",
+     "ref": "datasf-planning",
+     "url": "https://data.sf.gov/d/qvu5-m3a2"
+    }
+   ],
+   "topic": "verification",
+   "limitation": false,
+   "contradicts": null,
+   "quantities": [],
+   "tool": "evidence.check",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "call": 22,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E23",
+   "claim": "E9 : 7/7 référence(s) vérifiée(s) contre les données vérifiées ; statut épistémique « derived ».",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202607064565",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202606163324",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202605201599",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202605201598",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202603278469",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202603177768",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202502100018",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    }
+   ],
+   "topic": "verification",
+   "limitation": false,
+   "contradicts": null,
+   "quantities": [],
+   "tool": "evidence.check",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "call": 22,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E24",
+   "claim": "E10 : 2/2 référence(s) vérifiée(s) contre les données vérifiées ; statut épistémique « derived ».",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202605201599",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    },
+    {
+     "type": "record",
+     "dataset": "building-permits",
+     "ref": "building-permits:202502100018",
+     "url": "https://data.sf.gov/d/i98e-djp9"
+    }
+   ],
+   "topic": "verification",
+   "limitation": false,
+   "contradicts": null,
+   "quantities": [],
+   "tool": "evidence.check",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "call": 22,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E25",
+   "claim": "E11 : 1/1 référence(s) vérifiée(s) contre les données vérifiées ; statut épistémique « reported ».",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "knowledge",
+     "ref": "k-dbi-issued-status"
+    }
+   ],
+   "topic": "verification",
+   "limitation": false,
+   "contradicts": null,
+   "quantities": [],
+   "tool": "evidence.check",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "call": 22,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E26",
+   "claim": "E5 : 16/16 référence(s) vérifiée(s) contre les données vérifiées ; statut épistémique « derived ».",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:25EXC-03925@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04307@24305000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:25EXC-03925@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04619@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:25EXC-03925@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04337@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:25EXC-03925@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-05114@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04307@24305000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04619@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04307@24305000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-05114@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04619@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04337@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-04337@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    },
+    {
+     "type": "record",
+     "dataset": "permits",
+     "ref": "permits:26EXC-05114@7051000",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
+    }
+   ],
+   "topic": "verification",
+   "limitation": false,
+   "contradicts": null,
+   "quantities": [],
+   "tool": "evidence.check",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "call": 22,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E27",
+   "claim": "E12 : 1/1 référence(s) vérifiée(s) contre les données vérifiées ; statut épistémique « observed ».",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "sidewalks",
+     "ref": "sidewalks:13077",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "topic": "verification",
+   "limitation": false,
+   "contradicts": null,
+   "quantities": [],
+   "tool": "evidence.check",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "call": 22,
+   "computed": "deterministic"
+  },
+  {
+   "id": "E28",
+   "claim": "E14 : 1/1 référence(s) vérifiée(s) contre les données vérifiées ; statut épistémique « simulated ».",
+   "epistemic": "derived",
+   "evidence": [
+    {
+     "type": "record",
+     "dataset": "sidewalks",
+     "ref": "sidewalks:13077",
+     "url": "https://data.sf.gov/d/4g86-grxu"
+    }
+   ],
+   "topic": "verification",
+   "limitation": false,
+   "contradicts": null,
+   "quantities": [],
+   "tool": "evidence.check",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "call": 22,
+   "computed": "deterministic"
+  }
+ ],
+ "toolCalls": [
+  {
+   "seq": 1,
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "onBehalfOf": null,
+   "tool": "graph.link",
+   "args": {},
+   "state": "ok",
+   "ms": 0,
+   "evidence": [
+    "E1"
+   ],
+   "error": null,
+   "cached": false
+  },
+  {
+   "seq": 2,
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "onBehalfOf": null,
+   "tool": "energy.benchmarks",
+   "args": {},
+   "state": "ok",
+   "ms": 22,
+   "evidence": [
+    "E2"
+   ],
+   "error": null,
+   "cached": false
+  },
+  {
+   "seq": 3,
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "onBehalfOf": null,
+   "tool": "grid.mix",
+   "args": {},
+   "state": "ok",
+   "ms": 0,
+   "evidence": [
+    "E3"
+   ],
+   "error": null,
+   "cached": false
+  },
+  {
+   "seq": 4,
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "onBehalfOf": null,
+   "tool": "works.windows",
+   "args": {},
+   "state": "ok",
+   "ms": 1,
+   "evidence": [
+    "E4",
+    "E5"
+   ],
+   "error": null,
+   "cached": false
+  },
+  {
+   "seq": 5,
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "onBehalfOf": null,
+   "tool": "works.telecom",
+   "args": {},
+   "state": "ok",
+   "ms": 0,
+   "evidence": [
+    "E6"
+   ],
+   "error": null,
+   "cached": false
+  },
+  {
+   "seq": 6,
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "onBehalfOf": null,
+   "tool": "knowledge.search",
+   "args": {
+    "query": "Que change « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » pour HOWARD ST 08TH ST → 09TH ST ?"
+   },
+   "state": "ok",
+   "ms": 1,
+   "evidence": [
+    "E7"
+   ],
+   "error": null,
+   "cached": false
+  },
+  {
+   "seq": 7,
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "onBehalfOf": null,
+   "tool": "planning.records",
+   "args": {},
+   "state": "ok",
+   "ms": 0,
+   "evidence": [
+    "E8"
+   ],
+   "error": null,
+   "cached": false
+  },
+  {
+   "seq": 8,
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "onBehalfOf": null,
+   "tool": "buildings.frontage",
+   "args": {},
+   "state": "ok",
+   "ms": 14,
+   "evidence": [
+    "E9",
+    "E10",
+    "E11"
+   ],
+   "error": null,
+   "cached": false
+  },
+  {
+   "seq": 9,
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "onBehalfOf": null,
+   "tool": "public-space.sidewalks",
+   "args": {},
+   "state": "ok",
+   "ms": 16,
+   "evidence": [
+    "E12"
+   ],
+   "error": null,
+   "cached": false
+  },
+  {
+   "seq": 10,
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "onBehalfOf": null,
+   "tool": "works.windows",
+   "args": {},
+   "state": "ok",
+   "ms": 0,
+   "evidence": [
+    "E4",
+    "E5"
+   ],
+   "error": null,
+   "cached": true,
+   "reused": true
+  },
+  {
+   "seq": 11,
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "onBehalfOf": null,
+   "tool": "knowledge.search",
+   "args": {
+    "query": "Que change « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » pour HOWARD ST 08TH ST → 09TH ST ?"
+   },
+   "state": "ok",
+   "ms": 0,
+   "evidence": [
+    "E7"
+   ],
+   "error": null,
+   "cached": true,
+   "reused": true
+  },
+  {
+   "seq": 12,
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "onBehalfOf": null,
+   "tool": "public-space.sidewalks",
+   "args": {},
+   "state": "ok",
+   "ms": 0,
+   "evidence": [
+    "E12"
+   ],
+   "error": null,
+   "cached": true,
+   "reused": true
+  },
+  {
+   "seq": 13,
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "onBehalfOf": null,
+   "tool": "sim.sidewalk-capacity",
+   "args": {},
+   "state": "ok",
+   "ms": 6,
+   "evidence": [
+    "E13",
+    "E14"
+   ],
+   "error": null,
+   "cached": false,
+   "params": {
+    "basinWidthFt": 3,
+    "clearPathMinFt": 4,
+    "spacingFt": 25,
+    "usableFrontageShare": 0.6,
+    "avoidWorksDays": 120
+   }
+  },
+  {
+   "seq": 14,
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "onBehalfOf": null,
+   "tool": "buildings.frontage",
+   "args": {},
+   "state": "ok",
+   "ms": 0,
+   "evidence": [
+    "E9",
+    "E10",
+    "E11"
+   ],
+   "error": null,
+   "cached": true,
+   "reused": true
+  },
+  {
+   "seq": 15,
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "onBehalfOf": null,
+   "tool": "knowledge.search",
+   "args": {
+    "query": "Que change « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » pour HOWARD ST 08TH ST → 09TH ST ?"
+   },
+   "state": "ok",
+   "ms": 0,
+   "evidence": [
+    "E7"
+   ],
+   "error": null,
+   "cached": true,
+   "reused": true
+  },
+  {
+   "seq": 16,
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "onBehalfOf": null,
+   "tool": "sim.sidewalk-capacity",
+   "args": {},
+   "state": "ok",
+   "ms": 0,
+   "evidence": [
+    "E13",
+    "E14"
+   ],
+   "error": null,
+   "cached": true,
+   "reused": true,
+   "params": {
+    "basinWidthFt": 3,
+    "clearPathMinFt": 4,
+    "spacingFt": 25,
+    "usableFrontageShare": 0.6,
+    "avoidWorksDays": 120
+   }
+  },
+  {
+   "seq": 17,
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "onBehalfOf": null,
+   "tool": "knowledge.search",
+   "args": {
+    "query": "Que change « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » pour HOWARD ST 08TH ST → 09TH ST ?"
+   },
+   "state": "ok",
+   "ms": 0,
+   "evidence": [
+    "E7"
+   ],
+   "error": null,
+   "cached": true,
+   "reused": true
+  },
+  {
+   "seq": 18,
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "onBehalfOf": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "tool": "planning.records",
+   "args": {},
+   "state": "ok",
+   "ms": 0,
+   "evidence": [
+    "E8"
+   ],
+   "error": null,
+   "cached": true,
+   "reused": true
+  },
+  {
+   "seq": 19,
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "onBehalfOf": null,
+   "tool": "scenario.evaluate",
+   "args": {},
+   "state": "ok",
+   "ms": 223,
+   "evidence": [
+    "E15"
+   ],
+   "error": null,
+   "cached": false,
+   "cityDecision": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "params": {}
+  },
+  {
+   "seq": 20,
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "onBehalfOf": null,
+   "tool": "scenario.evaluate",
+   "args": {
+    "params": {
+     "treeBufferM": 12
+    }
+   },
+   "state": "ok",
+   "ms": 171,
+   "evidence": [
+    "E16"
+   ],
+   "error": null,
+   "cached": false,
+   "cityDecision": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "params": {
+    "treeBufferM": 12
+   }
+  },
+  {
+   "seq": 21,
+   "agent": "core.san-francisco.cybersecurity.data-policy-reviewer",
+   "onBehalfOf": null,
+   "tool": "policy.check",
+   "args": {},
+   "state": "ok",
+   "ms": 1,
+   "evidence": [
+    "E17"
+   ],
+   "error": null,
+   "cached": false
+  },
+  {
+   "seq": 22,
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "onBehalfOf": null,
+   "tool": "evidence.check",
+   "args": {
+    "ids": [
+     "E3",
+     "E4",
+     "E6",
+     "E7",
+     "E8",
+     "E9",
+     "E10",
+     "E11",
+     "E5",
+     "E12",
+     "E14"
+    ]
+   },
+   "state": "ok",
+   "ms": 1,
+   "evidence": [
+    "E18",
+    "E19",
+    "E20",
+    "E21",
+    "E22",
+    "E23",
+    "E24",
+    "E25",
+    "E26",
+    "E27",
+    "E28"
+   ],
+   "error": null,
+   "cached": false
+  }
+ ],
+ "modelCalls": [
+  {
+   "seq": 1,
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "phase": "investigation/rapport",
+   "structured": true,
+   "toolsOffered": [],
+   "ok": true,
+   "cacheKey": "762c66b198c2bb24",
+   "usage": {
+    "promptTokens": 1475,
+    "outputTokens": 403,
+    "totalMs": 36804,
+    "loadMs": 8,
+    "promptMs": 7796,
+    "evalMs": 28926,
+    "contextChars": 4357
+   },
+   "model": "qwen3:8b",
+   "toolCallsRequested": [],
+   "output": "{\n  \"assessments\": [\n    {\n      \"statement\": \"L’excavation 26EXC-05114 affecte le tronçon HOWARD ST 08TH ST → 09TH ST, avec 4 bâtiments proches (E2).\",\n      \"kind\": \"interpretation\",\n      \"cites\": [\"E2\", \"E4\", \"E7\", \"E14\", \"E12\", \"E13\"],\n      \"confidence\": \"medium\"\n    },\n    {\n      \"statement\": \"Le réseau CAISO indique 15 % de renouvelables en Californie, sans lien direct avec San Francisco (E3).\",\n      \"kind\": \"hypothesis\",\n      \"cites\": [\"E3\"],\n      \"confidence\": \"low\"\n    },\n    {\n      \"statement\": \"CableCom est titulaire de 2 permis télécoms sur le tronçon (E6), avec 5 excavations en cours (E4).\",\n      \"kind\": \"concern\",\n      \"cites\": [\"E4\", \"E6\", \"E7\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"evidence_requests\": [\n    {\n      \"need\": \"Données sur les impacts énergétiques des excavations sur le tronçon.\",\n      \"tool\": \"none\",\n      \"reason\": \"Aucune preuve sur les liens énergétiques entre excavations et consommation.\"\n    }\n  ],\n  \"responses\": [],\n  \"parameter_proposals\": [],\n  \"specialist_requests\": [\n    {\n      \"specialization\": \"urban-planning\",\n      \"reason\": \"Analyse des impacts des excavations sur l’aménagement du trottoir et des espaces verts.\"\n    }\n  ],\n  \"simulation_requests\": [],\n  \"abstain\": \"\"\n}",
+   "doneReason": "stop"
+  },
+  {
+   "seq": 2,
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "phase": "investigation/rapport",
+   "structured": true,
+   "toolsOffered": [],
+   "ok": true,
+   "cacheKey": "c489d5bc0ed56269",
+   "usage": {
+    "promptTokens": 1482,
+    "outputTokens": 319,
+    "totalMs": 24940,
+    "loadMs": 10,
+    "promptMs": 2021,
+    "evalMs": 22891,
+    "contextChars": 4354
+   },
+   "model": "qwen3:8b",
+   "toolCallsRequested": [],
+   "output": "{\n  \"assessments\": [\n    {\n      \"statement\": \"Aucun projet Planning ouvert en 30 j sur HOWARD ST (E8).\",\n      \"kind\": \"interpretation\",\n      \"cites\": [\"E8\", \"E9\", \"E10\", \"E11\", \"E4\", \"E5\"],\n      \"confidence\": \"low\"\n    },\n    {\n      \"statement\": \"5 fenêtres d’excavation en cours ou à venir sur le tronçon (E4).\",\n      \"kind\": \"hypothesis\",\n      \"cites\": [\"E4\", \"E5\", \"E7\"],\n      \"confidence\": \"medium\"\n    },\n    {\n      \"statement\": \"Le statut DBI « issued » ne signifie pas un chantier actif (E11).\",\n      \"kind\": \"concern\",\n      \"cites\": [\"E11\", \"E7\"],\n      \"confidence\": \"high\"\n    }\n  ],\n  \"evidence_requests\": [\n    {\n      \"need\": \"Données sur les permis de construction récents (E9) et leur lien avec les excavations (E4).\",\n      \"tool\": \"none\",\n      \"reason\": \"Corrélation entre permis et travaux non confirmée.\"\n    }\n  ],\n  \"responses\": [],\n  \"parameter_proposals\": [],\n  \"specialist_requests\": [],\n  \"simulation_requests\": [],\n  \"abstain\": \"\"\n}",
+   "doneReason": "stop"
+  },
+  {
+   "seq": 3,
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "phase": "investigation/rapport",
+   "structured": true,
+   "toolsOffered": [],
+   "ok": true,
+   "cacheKey": "407f84a88ac4d4fc",
+   "usage": {
+    "promptTokens": 1485,
+    "outputTokens": 344,
+    "totalMs": 27120,
+    "loadMs": 7,
+    "promptMs": 1838,
+    "evalMs": 25264,
+    "contextChars": 4370
+   },
+   "model": "qwen3:8b",
+   "toolCallsRequested": [],
+   "output": "{\n  \"assessments\": [\n    {\n      \"statement\": \"Le trottoir de HOWARD ST 08TH ST → 09TH ST est de 12 pi (E12), inférieur au minimum recommandé de 15 pi (E14).\",\n      \"kind\": \"interpretation\",\n      \"cites\": [\"E12\", \"E14\"],\n      \"confidence\": \"high\"\n    },\n    {\n      \"statement\": \"3 fenêtres d’excavation sont en cours ou planifiées sur le tronçon (E4), pouvant affecter l’espace public.\",\n      \"kind\": \"hypothesis\",\n      \"cites\": [\"E4\"],\n      \"confidence\": \"medium\"\n    },\n    {\n      \"statement\": \"Aucun permis de construction récent n’a été signalé pour les travaux sur le tronçon (E8), mais 7 permis récents existent à proximité (E9).\",\n      \"kind\": \"concern\",\n      \"cites\": [\"E8\", \"E9\"],\n      \"confidence\": \"medium\"\n    }\n  ],\n  \"evidence_requests\": [\n    {\n      \"need\": \"Données géocodées des adresses sur HOWARD ST pour un rattachement précis.\",\n      \"tool\": \"none\",\n      \"reason\": \"E8 mentionne des adresses non géocodées.\"\n    }\n  ],\n  \"responses\": [],\n  \"parameter_proposals\": [],\n  \"specialist_requests\": [],\n  \"simulation_requests\": [],\n  \"abstain\": \"\"\n}",
+   "doneReason": "stop"
+  },
+  {
+   "seq": 4,
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "phase": "deliberation/rapport",
+   "structured": true,
+   "toolsOffered": [],
+   "ok": true,
+   "cacheKey": "8a8885c4564b68a7",
+   "usage": {
+    "promptTokens": 1807,
+    "outputTokens": 454,
+    "totalMs": 35606,
+    "loadMs": 8,
+    "promptMs": 4368,
+    "evalMs": 31219,
+    "contextChars": 5350
+   },
+   "model": "qwen3:8b",
+   "toolCallsRequested": [],
+   "output": "{\n  \"assessments\": [\n    {\"statement\": \"Le trottoir de HOWARD ST 08TH ST → 09TH ST est de 12 pi (E12), inférieur au minimum recommandé de 15 pi (E14).\", \"kind\": \"interpretation\", \"cites\": [\"E12\", \"E14\"],\"confidence\": \"low\"},\n    {\"statement\": \"Aucun permis de construction récent n’a été signalé pour les travaux sur le tronçon (E8), mais 7 permis récents existent à proximité (E9).\", \"kind\": \"hypothesis\", \"cites\": [\"E8\", \"E9\"], \"confidence\": \"medium\"}\n  ],\n  \"evidence_requests\": [\n    {\"need\": \"Données sur les permis de construction récents pour le tronçon HOWARD ST 08TH ST → 09TH ST\", \"tool\": \"planning_records\", \"reason\": \"Pour valider l'hypothèse sur les permis récents\"}\n  ],\n  \"responses\": [\n    {\"to\": \"A6\", \"stance\": \"refine\", \"statement\": \"Le trottoir de 12 pi (E12) est conforme à l’étude 2014, mais inférieur au minimum recommandé de 15 pi (E14).\", \"cites\": [\"E12\", \"E14\"]},\n    {\"to\": \"A7\", \"stance\": \"dispute\", \"statement\": \"7 permis de construction récents existent à proximité (E9), mais aucun n’est directement lié au tronçon (E8).\", \"cites\": [\"E8\", \"E9\"]}\n  ],\n  \"parameter_proposals\": [],\n  \"specialist_requests\": [{\"specialization\": \"urban-planning\", \"reason\": \"Analyse des permis de construction récents pour le tronçon HOWARD ST 08TH ST → 09TH ST\"}],\n  \"simulation_requests\": [],\n  \"abstain\": \"\"\n}",
+   "doneReason": "stop"
+  },
+  {
+   "seq": 5,
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "phase": "deliberation/rapport",
+   "structured": true,
+   "toolsOffered": [],
+   "ok": true,
+   "cacheKey": "11eb842e47de8d77",
+   "usage": {
+    "promptTokens": 1902,
+    "outputTokens": 513,
+    "totalMs": 40797,
+    "loadMs": 7,
+    "promptMs": 4680,
+    "evalMs": 36101,
+    "contextChars": 5681
+   },
+   "model": "qwen3:8b",
+   "toolCallsRequested": [],
+   "output": "{\n  \"assessments\": [\n    {\"statement\": \"L’excavation 26EXC-05114 affecte le tronçon HOWARD ST 08TH ST → 09TH ST (E1).\", \"kind\": \"interpretation\", \"cites\": [\"E1\"],\"confidence\": \"high\"},\n    {\"statement\": \"Le trottoir de 12 pi (E12) est inférieur au minimum recommandé de 15 pi (E14).\", \"kind\": \"concern\", \"cites\": [\"E12\", \"E14\"], \"confidence\": \"medium\"},\n    {\"statement\": \"Le projet 26EXC-05114 est en cours (E4), avec un statut APPROVED (E7).\", \"kind\": \"hypothesis\", \"cites\": [\"E4\", \"E7\"], \"confidence\": \"high\"}\n  ],\n  \"evidence_requests\": [\n    {\"need\": \"Confirmation de la compatibilité des excavations avec les normes d’accessibilité (E12, E14).\", \"tool\": \"none\", \"reason\": \"Aucune preuve de conformité ou d’adaptation des travaux.\"}\n  ],\n  \"responses\": [\n    {\"to\": \"A1\", \"stance\": \"agree\", \"statement\": \"Le réseau CAISO indique 15 % de renouvelables en Californie, sans lien direct avec San Francisco (E3).\", \"cites\": [\"E3\"]},\n    {\"to\": \"A2\", \"stance\": \"dispute\", \"statement\": \"CableCom est titulaire de 2 permis télécoms sur le tronçon (E6), avec 5 excavations en cours (E4).\", \"cites\": [\"E4\", \"E6\"]},\n    {\"to\": \"A6\", \"stance\": \"agree\", \"statement\": \"Le trottoir de HOWARD ST 08TH ST → 09TH ST est de 12 pi (E12), inférieur au minimum recommandé de 15 pi (E14).\", \"cites\": [\"E12\", \"E14\"]}\n  ],\n  \"parameter_proposals\": [],\n  \"specialist_requests\": [],\n  \"simulation_requests\": [],\n  \"abstain\": \"\"\n}",
+   "doneReason": "stop"
+  },
+  {
+   "seq": 6,
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "phase": "deliberation/rapport",
+   "structured": true,
+   "toolsOffered": [],
+   "ok": true,
+   "cacheKey": "05a6a307da430cd4",
+   "usage": {
+    "promptTokens": 1989,
+    "outputTokens": 491,
+    "totalMs": 39529,
+    "loadMs": 7,
+    "promptMs": 5056,
+    "evalMs": 34458,
+    "contextChars": 5905
+   },
+   "model": "qwen3:8b",
+   "toolCallsRequested": [],
+   "output": "{\n  \"assessments\": [\n    {\"statement\": \"Le trottoir de 12 pi (E12) est inférieur au minimum recommandé de 15 pi (E14).\", \"kind\": \"interpretation\", \"cites\": [\"E12\", \"E14\"],\"confidence\": \"low\"},\n    {\"statement\": \"Le statut DBI « issued » ne signifie pas un chantier actif (E11).\", \"kind\": \"hypothesis\", \"cites\": [\"E11\"], \"confidence\": \"medium\"},\n    {\"statement\": \"Aucun permis de construction récent n’a été signalé pour les travaux sur le tronçon (E8), mais 7 permis récents existent à proximité (E9).\", \"kind\": \"concern\", \"cites\": [\"E8\", \"E9\"], \"confidence\": \"low\"},\n    {\"statement\": \"5 fenêtres d’excavation en cours ou à venir sur le tronçon (E4).\", \"kind\": \"interpretation\", \"cites\": [\"E4\"], \"confidence\": \"high\"}\n  ],\n  \"evidence_requests\": [\n    {\"need\": \"Données sur les permis de construction récents pour le tronçon HOWARD ST 08TH ST → 09TH ST (E8).\", \"tool\": \"none\", \"reason\": \"Aucune donnée géocodée ou spécifique au tronçon.\"}\n  ],\n  \"responses\": [\n    {\"to\": \"A8\", \"stance\": \"refine\", \"statement\": \"Le trottoir de 12 pi (E12) est inférieur au minimum recommandé de 15 pi (E14).\", \"cites\": [\"E12\", \"E14\"]},\n    {\"to\": \"A10\", \"stance\": \"agree\", \"statement\": \"Le trottoir de 12 pi (E12) est inférieur au minimum recommandé de 15 pi (E14).\", \"cites\": [\"E12\", \"E14\"]}\n  ],\n  \"parameter_proposals\": [],\n  \"specialist_requests\": [],\n  \"simulation_requests\": [],\n  \"abstain\": \"\"\n}",
+   "doneReason": "stop"
+  },
+  {
+   "seq": 7,
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "phase": "revision/rapport",
+   "structured": true,
+   "toolsOffered": [],
+   "ok": true,
+   "cacheKey": "8e3bdc813c48d760",
+   "usage": {
+    "promptTokens": 1782,
+    "outputTokens": 452,
+    "totalMs": 35128,
+    "loadMs": 6,
+    "promptMs": 3729,
+    "evalMs": 31385,
+    "contextChars": 5291
+   },
+   "model": "qwen3:8b",
+   "toolCallsRequested": [],
+   "output": "{\n  \"assessments\": [\n    {\"statement\": \"Le trottoir de HOWARD ST 08TH ST → 09TH ST est de 12 pi (E12), inférieur au minimum recommandé de 15 pi (E14).\", \"kind\": \"interpretation\", \"cites\": [\"E12\", \"E14\"],\"confidence\": \"low\"},\n    {\"statement\": \"Aucun permis de construction récent n’a été signalé pour les travaux sur le tronçon (E8), mais 7 permis récents existent à proximité (E9).\", \"kind\": \"hypothesis\", \"cites\": [\"E8\", \"E9\"], \"confidence\": \"medium\"},\n    {\"statement\": \"Le statut DBI « issued » ne signifie pas un chantier actif (E11).\", \"kind\": \"concern\", \"cites\": [\"E11\"], \"confidence\": \"high\"},\n    {\"statement\": \"5 fenêtres d’excavation en cours ou à venir sur le tronçon (E4).\", \"kind\": \"interpretation\", \"cites\": [\"E4\"], \"confidence\": \"high\"}\n  ],\n  \"evidence_requests\": [\n    {\"need\": \"Preuve de la relation entre les 7 permis récents (E9) et le tronçon HOWARD ST 08TH ST → 09TH ST (E1).\", \"tool\": \"none\", \"reason\": \"E8 indique aucun permis sur le tronçon, mais E9 mentionne des permis à proximité.\"}\n  ],\n  \"responses\": [\n    {\"to\": \"A7\", \"stance\": \"dispute\", \"statement\": \"7 permis de construction récents existent à proximité (E9), mais aucun n’est directement lié au tronçon (E8).\", \"cites\": [\"E8\", \"E9\"]}\n  ],\n  \"parameter_proposals\": [],\n  \"specialist_requests\": [],\n  \"simulation_requests\": [],\n  \"abstain\": \"\"\n}",
+   "doneReason": "stop"
+  },
+  {
+   "seq": 8,
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "phase": "scenario/rapport",
+   "structured": true,
+   "toolsOffered": [],
+   "ok": true,
+   "cacheKey": "1a4e1caef8e81c1a",
+   "usage": {
+    "promptTokens": 2329,
+    "outputTokens": 587,
+    "totalMs": 48479,
+    "loadMs": 7,
+    "promptMs": 7525,
+    "evalMs": 40939,
+    "contextChars": 6833
+   },
+   "model": "qwen3:8b",
+   "toolCallsRequested": [],
+   "output": "{\n  \"assessments\": [\n    {\"statement\": \"Le trottoir de 12 pi (E12) est inférieur au minimum recommandé de 15 pi (E14).\", \"kind\": \"concern\", \"cites\": [\"E12\", \"E14\"],\"confidence\": \"low\"},\n    {\"statement\": \"Le statut DBI « issued » ne signifie pas un chantier actif (E11).\", \"kind\": \"interpretation\", \"cites\": [\"E11\"], \"confidence\": \"medium\"},\n    {\"statement\": \"Aucun permis de construction récent n’a été signalé pour les travaux sur le tronçon (E8), mais 7 permis récents existent à proximité (E9).\", \"kind\": \"hypothesis\", \"cites\": [\"E8\", \"E9\"], \"confidence\": \"low\"}\n  ],\n  \"evidence_requests\": [\n    {\"need\": \"Données sur les permis de construction récents pour le tronçon HOWARD ST 08TH ST → 09TH ST (E8).\", \"tool\": \"none\", \"reason\": \"Aucune donnée géocodée ou précise sur les permis de construction directement liés au tronçon.\"}\n  ],\n  \"responses\": [\n    {\"to\": \"A1\", \"stance\": \"agree\", \"statement\": \"Le réseau CAISO indique 15 % de renouvelables en Californie, sans lien direct avec San Francisco (E3).\", \"cites\": [\"E3\"]},\n    {\"to\": \"A2\", \"stance\": \"refine\", \"statement\": \"CableCom est titulaire de 2 permis télécoms sur le tronçon (E6), avec 5 excavations en cours (E4).\", \"cites\": [\"E4\", \"E6\"]},\n    {\"to\": \"A3\", \"stance\": \"agree\", \"statement\": \"Aucun projet Planning ouvert en 30 j sur HOWARD ST (E8).\", \"cites\": [\"E8\"]}\n  ],\n  \"parameter_proposals\": [\n    {\"param\": \"treeBufferM\", \"value\": 12, \"reason\": \"Recommandation R2 (E15) pour un rayon d’exposition arbres de 12 m.\"},\n    {\"param\": \"frontageM\", \"value\": 3, \"reason\": \"Fosse de 3 ft (E14) pour un cheminement restant de 9 ft.\"}\n  ],\n  \"specialist_requests\": [],\n  \"simulation_requests\": [],\n  \"abstain\": \"\"\n}",
+   "doneReason": "stop"
+  },
+  {
+   "seq": 9,
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "phase": "review/rapport",
+   "structured": true,
+   "toolsOffered": [],
+   "ok": true,
+   "cacheKey": "108d679853a00f74",
+   "usage": {
+    "promptTokens": 3420,
+    "outputTokens": 515,
+    "totalMs": 51987,
+    "loadMs": 6,
+    "promptMs": 14884,
+    "evalMs": 37039,
+    "contextChars": 9949
+   },
+   "model": "qwen3:8b",
+   "toolCallsRequested": [],
+   "output": "{\n  \"assessments\": [\n    {\"statement\": \"E3 ne mentionne pas San Francisco, donc ne peut être utilisé pour affirmer un lien avec la ville.\", \"kind\": \"interpretation\", \"cites\": [\"E3\"],\"confidence\": \"low\"},\n    {\"statement\": \"E4 indique 5 excavations, mais ne précise pas si elles sont toutes sur le tronçon.\", \"kind\": \"hypothesis\", \"cites\": [\"E4\"],\"confidence\": \"medium\"},\n    {\"statement\": \"E14 indique un trottoir de 12 pi, mais ne précise pas si c'est le minimum ou le recommandé.\", \"kind\": \"concern\", \"cites\": [\"E12\",\"E14\"],\"confidence\": \"high\"},\n    {\"statement\": \"E8 indique 0 projet Planning ouvert, mais ne précise pas si les adresses sont géocodées.\", \"kind\": \"concern\", \"cites\": [\"E8\"],\"confidence\": \"medium\"}\n  ],\n  \"evidence_requests\": [\n    {\"need\": \"Données géocodées pour les adresses sur HOWARD ST (E8).\", \"tool\": \"none\", \"reason\": \"Pour valider le rattachement des adresses au tronçon.\"},\n    {\"need\": \"Données sur les permis de construction récents pour le tronçon (E9).\", \"tool\": \"none\", \"reason\": \"Pour valider la localisation des permis.\"}\n  ],\n  \"responses\": [\n    {\"to\": \"A1\", \"stance\": \"agree\", \"statement\": \"E3 indique 15 % de renouvelables en Californie, sans mention de San Francisco.\", \"cites\": [\"E3\"]},\n    {\"to\": \"A2\", \"stance\": \"dispute\", \"statement\": \"E4 indique 5 excavations, mais ne précise pas leur localisation exacte.\", \"cites\": [\"E4\"]},\n    {\"to\": \"A3\", \"stance\": \"agree\", \"statement\": \"E8 indique 0 projet Planning ouvert sur HOWARD ST.\", \"cites\": [\"E8\"]}\n  ],\n  \"parameter_proposals\": [],\n  \"specialist_requests\": [],\n  \"simulation_requests\": [],\n  \"abstain\": \"\"\n}",
+   "doneReason": "stop"
+  }
+ ],
+ "board": [
+  {
+   "id": "A1",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "phase": "investigation",
+   "kind": "hypothesis",
+   "statement": "Le réseau CAISO indique 15 % de renouvelables en Californie, sans lien direct avec San Francisco (E3).",
+   "cites": [
+    "E3"
+   ],
+   "confidence": "low",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A2",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "phase": "investigation",
+   "kind": "concern",
+   "statement": "CableCom est titulaire de 2 permis télécoms sur le tronçon (E6), avec 5 excavations en cours (E4).",
+   "cites": [
+    "E4",
+    "E6",
+    "E7"
+   ],
+   "confidence": "high",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A3",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "phase": "investigation",
+   "kind": "interpretation",
+   "statement": "Aucun projet Planning ouvert en 30 j sur HOWARD ST (E8).",
+   "cites": [
+    "E8",
+    "E9",
+    "E10",
+    "E11",
+    "E4",
+    "E5"
+   ],
+   "confidence": "low",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A4",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "phase": "investigation",
+   "kind": "hypothesis",
+   "statement": "5 fenêtres d’excavation en cours ou à venir sur le tronçon (E4).",
+   "cites": [
+    "E4",
+    "E5",
+    "E7"
+   ],
+   "confidence": "medium",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A5",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "phase": "investigation",
+   "kind": "concern",
+   "statement": "Le statut DBI « issued » ne signifie pas un chantier actif (E11).",
+   "cites": [
+    "E11",
+    "E7"
+   ],
+   "confidence": "high",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A6",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "phase": "investigation",
+   "kind": "interpretation",
+   "statement": "Le trottoir de HOWARD ST 08TH ST → 09TH ST est de 12 pi (E12), inférieur au minimum recommandé de 15 pi (E14).",
+   "cites": [
+    "E12",
+    "E14"
+   ],
+   "confidence": "high",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A7",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "phase": "investigation",
+   "kind": "concern",
+   "statement": "Aucun permis de construction récent n’a été signalé pour les travaux sur le tronçon (E8), mais 7 permis récents existent à proximité (E9).",
+   "cites": [
+    "E8",
+    "E9"
+   ],
+   "confidence": "medium",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A8",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "phase": "deliberation",
+   "kind": "interpretation",
+   "statement": "Le trottoir de HOWARD ST 08TH ST → 09TH ST est de 12 pi (E12), inférieur au minimum recommandé de 15 pi (E14).",
+   "cites": [
+    "E12",
+    "E14"
+   ],
+   "confidence": "low",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A9",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "phase": "deliberation",
+   "kind": "hypothesis",
+   "statement": "Aucun permis de construction récent n’a été signalé pour les travaux sur le tronçon (E8), mais 7 permis récents existent à proximité (E9).",
+   "cites": [
+    "E8",
+    "E9"
+   ],
+   "confidence": "medium",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A10",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "phase": "deliberation",
+   "kind": "concern",
+   "statement": "Le trottoir de 12 pi (E12) est inférieur au minimum recommandé de 15 pi (E14).",
+   "cites": [
+    "E12",
+    "E14"
+   ],
+   "confidence": "medium",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A11",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "phase": "deliberation",
+   "kind": "interpretation",
+   "statement": "Le trottoir de 12 pi (E12) est inférieur au minimum recommandé de 15 pi (E14).",
+   "cites": [
+    "E12",
+    "E14"
+   ],
+   "confidence": "low",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A12",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "phase": "deliberation",
+   "kind": "hypothesis",
+   "statement": "Le statut DBI « issued » ne signifie pas un chantier actif (E11).",
+   "cites": [
+    "E11"
+   ],
+   "confidence": "medium",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A13",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "phase": "deliberation",
+   "kind": "concern",
+   "statement": "Aucun permis de construction récent n’a été signalé pour les travaux sur le tronçon (E8), mais 7 permis récents existent à proximité (E9).",
+   "cites": [
+    "E8",
+    "E9"
+   ],
+   "confidence": "low",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A14",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "phase": "deliberation",
+   "kind": "interpretation",
+   "statement": "5 fenêtres d’excavation en cours ou à venir sur le tronçon (E4).",
+   "cites": [
+    "E4"
+   ],
+   "confidence": "high",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A15",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "phase": "revision",
+   "kind": "interpretation",
+   "statement": "Le trottoir de HOWARD ST 08TH ST → 09TH ST est de 12 pi (E12), inférieur au minimum recommandé de 15 pi (E14).",
+   "cites": [
+    "E12",
+    "E14"
+   ],
+   "confidence": "low",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A16",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "phase": "revision",
+   "kind": "hypothesis",
+   "statement": "Aucun permis de construction récent n’a été signalé pour les travaux sur le tronçon (E8), mais 7 permis récents existent à proximité (E9).",
+   "cites": [
+    "E8",
+    "E9"
+   ],
+   "confidence": "medium",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A17",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "phase": "revision",
+   "kind": "concern",
+   "statement": "Le statut DBI « issued » ne signifie pas un chantier actif (E11).",
+   "cites": [
+    "E11"
+   ],
+   "confidence": "high",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A18",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "phase": "revision",
+   "kind": "interpretation",
+   "statement": "5 fenêtres d’excavation en cours ou à venir sur le tronçon (E4).",
+   "cites": [
+    "E4"
+   ],
+   "confidence": "high",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A19",
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "phase": "scenario",
+   "kind": "concern",
+   "statement": "Le trottoir de 12 pi (E12) est inférieur au minimum recommandé de 15 pi (E14).",
+   "cites": [
+    "E12",
+    "E14"
+   ],
+   "confidence": "low",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A20",
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "phase": "scenario",
+   "kind": "interpretation",
+   "statement": "Le statut DBI « issued » ne signifie pas un chantier actif (E11).",
+   "cites": [
+    "E11"
+   ],
+   "confidence": "medium",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A21",
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "phase": "scenario",
+   "kind": "hypothesis",
+   "statement": "Aucun permis de construction récent n’a été signalé pour les travaux sur le tronçon (E8), mais 7 permis récents existent à proximité (E9).",
+   "cites": [
+    "E8",
+    "E9"
+   ],
+   "confidence": "low",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A22",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "phase": "review",
+   "kind": "interpretation",
+   "statement": "E3 ne mentionne pas San Francisco, donc ne peut être utilisé pour affirmer un lien avec la ville.",
+   "cites": [
+    "E3"
+   ],
+   "confidence": "low",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A23",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "phase": "review",
+   "kind": "hypothesis",
+   "statement": "E4 indique 5 excavations, mais ne précise pas si elles sont toutes sur le tronçon.",
+   "cites": [
+    "E4"
+   ],
+   "confidence": "medium",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A24",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "phase": "review",
+   "kind": "concern",
+   "statement": "E14 indique un trottoir de 12 pi, mais ne précise pas si c'est le minimum ou le recommandé.",
+   "cites": [
+    "E12",
+    "E14"
+   ],
+   "confidence": "high",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  },
+  {
+   "id": "A25",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "phase": "review",
+   "kind": "concern",
+   "statement": "E8 indique 0 projet Planning ouvert, mais ne précise pas si les adresses sont géocodées.",
+   "cites": [
+    "E8"
+   ],
+   "confidence": "medium",
+   "revises": null,
+   "epistemic": "model-interpretation",
+   "validated": true
+  }
+ ],
+ "rejected": [
+  {
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "phase": "investigation",
+   "item": "assessment",
+   "statement": "L’excavation 26EXC-05114 affecte le tronçon HOWARD ST 08TH ST → 09TH ST, avec 4 bâtiments proches (E2).",
+   "reason": "[causal] relation causale affirmée sans hypothèse explicite ni preuve d’effet"
+  },
+  {
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "phase": "investigation",
+   "item": "assessment",
+   "statement": "3 fenêtres d’excavation sont en cours ou planifiées sur le tronçon (E4), pouvant affecter l’espace public.",
+   "reason": "[numbers] nombres absents des preuves citées : 3"
+  },
+  {
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "phase": "deliberation",
+   "item": "assessment",
+   "statement": "L’excavation 26EXC-05114 affecte le tronçon HOWARD ST 08TH ST → 09TH ST (E1).",
+   "reason": "[causal] relation causale affirmée sans hypothèse explicite ni preuve d’effet"
+  },
+  {
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "phase": "deliberation",
+   "item": "assessment",
+   "statement": "Le projet 26EXC-05114 est en cours (E4), avec un statut APPROVED (E7).",
+   "reason": "[decision-language] langage de décision ou d’autorisation interdit"
+  },
+  {
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "phase": "deliberation",
+   "item": "response",
+   "statement": "CableCom est titulaire de 2 permis télécoms sur le tronçon (E6), avec 5 excavations en cours (E4).",
+   "reason": "réponse sans contenu nouveau (répétition de l’énoncé)"
+  },
+  {
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "phase": "revision",
+   "item": "response",
+   "statement": "7 permis de construction récents existent à proximité (E9), mais aucun n’est directement lié au tronçon (E8).",
+   "reason": "réponse à soi-même"
+  },
+  {
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "phase": "scenario",
+   "item": "response",
+   "statement": "CableCom est titulaire de 2 permis télécoms sur le tronçon (E6), avec 5 excavations en cours (E4).",
+   "reason": "réponse sans contenu nouveau (répétition de l’énoncé)"
+  },
+  {
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "phase": "scenario",
+   "item": "parameter",
+   "statement": "frontageM=3",
+   "reason": "hors du domaine validé [20, 80]"
+  }
+ ],
+ "responses": [
+  {
+   "id": "R1",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "to": "A6",
+   "stance": "refine",
+   "statement": "Le trottoir de 12 pi (E12) est conforme à l’étude 2014, mais inférieur au minimum recommandé de 15 pi (E14).",
+   "cites": [
+    "E12",
+    "E14"
+   ],
+   "phase": "deliberation",
+   "validated": true
+  },
+  {
+   "id": "R2",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "to": "A7",
+   "stance": "dispute",
+   "statement": "7 permis de construction récents existent à proximité (E9), mais aucun n’est directement lié au tronçon (E8).",
+   "cites": [
+    "E8",
+    "E9"
+   ],
+   "phase": "deliberation",
+   "validated": true
+  },
+  {
+   "id": "R3",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "to": "A1",
+   "stance": "agree",
+   "statement": "Le réseau CAISO indique 15 % de renouvelables en Californie, sans lien direct avec San Francisco (E3).",
+   "cites": [
+    "E3"
+   ],
+   "phase": "deliberation",
+   "validated": true
+  },
+  {
+   "id": "R4",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "to": "A6",
+   "stance": "agree",
+   "statement": "Le trottoir de HOWARD ST 08TH ST → 09TH ST est de 12 pi (E12), inférieur au minimum recommandé de 15 pi (E14).",
+   "cites": [
+    "E12",
+    "E14"
+   ],
+   "phase": "deliberation",
+   "validated": true
+  },
+  {
+   "id": "R5",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "to": "A8",
+   "stance": "refine",
+   "statement": "Le trottoir de 12 pi (E12) est inférieur au minimum recommandé de 15 pi (E14).",
+   "cites": [
+    "E12",
+    "E14"
+   ],
+   "phase": "deliberation",
+   "validated": true
+  },
+  {
+   "id": "R6",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "to": "A10",
+   "stance": "agree",
+   "statement": "Le trottoir de 12 pi (E12) est inférieur au minimum recommandé de 15 pi (E14).",
+   "cites": [
+    "E12",
+    "E14"
+   ],
+   "phase": "deliberation",
+   "validated": true
+  },
+  {
+   "id": "R7",
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "to": "A1",
+   "stance": "agree",
+   "statement": "Le réseau CAISO indique 15 % de renouvelables en Californie, sans lien direct avec San Francisco (E3).",
+   "cites": [
+    "E3"
+   ],
+   "phase": "scenario",
+   "validated": true
+  },
+  {
+   "id": "R8",
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "to": "A3",
+   "stance": "agree",
+   "statement": "Aucun projet Planning ouvert en 30 j sur HOWARD ST (E8).",
+   "cites": [
+    "E8"
+   ],
+   "phase": "scenario",
+   "validated": true
+  },
+  {
+   "id": "R9",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "to": "A1",
+   "stance": "agree",
+   "statement": "E3 indique 15 % de renouvelables en Californie, sans mention de San Francisco.",
+   "cites": [
+    "E3"
+   ],
+   "phase": "review",
+   "validated": true
+  },
+  {
+   "id": "R10",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "to": "A2",
+   "stance": "dispute",
+   "statement": "E4 indique 5 excavations, mais ne précise pas leur localisation exacte.",
+   "cites": [
+    "E4"
+   ],
+   "phase": "review",
+   "validated": true
+  },
+  {
+   "id": "R11",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "to": "A3",
+   "stance": "agree",
+   "statement": "E8 indique 0 projet Planning ouvert sur HOWARD ST.",
+   "cites": [
+    "E8"
+   ],
+   "phase": "review",
+   "validated": true
+  }
+ ],
+ "disagreements": [
+  {
+   "id": "D1",
+   "between": [
+    "core.san-francisco.public-space.accessibility-analyst",
+    "core.san-francisco.energy.energy-infrastructure-analyst"
+   ],
+   "about": "A7",
+   "statement": "7 permis de construction récents existent à proximité (E9), mais aucun n’est directement lié au tronçon (E8).",
+   "cites": [
+    "E8",
+    "E9"
+   ],
+   "resolved": false,
+   "response": "R2"
+  },
+  {
+   "id": "D2",
+   "between": [
+    "core.san-francisco.energy.energy-infrastructure-analyst",
+    "core.san-francisco.research.evidence-reviewer"
+   ],
+   "about": "A2",
+   "statement": "E4 indique 5 excavations, mais ne précise pas leur localisation exacte.",
+   "cites": [
+    "E4"
+   ],
+   "resolved": false,
+   "response": "R10"
+  }
+ ],
+ "requests": [
+  {
+   "id": "Q1",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "need": "Données sur les impacts énergétiques des excavations sur le tronçon.",
+   "reason": "Aucune preuve sur les liens énergétiques entre excavations et consommation.",
+   "tool": null,
+   "phase": "investigation",
+   "status": "unfulfillable",
+   "fulfilledBy": null,
+   "evidence": [],
+   "note": "aucun outil CORE ne fournit cette preuve"
+  },
+  {
+   "id": "Q2",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "need": "Données sur les permis de construction récents (E9) et leur lien avec les excavations (E4).",
+   "reason": "Corrélation entre permis et travaux non confirmée.",
+   "tool": null,
+   "phase": "investigation",
+   "status": "unfulfillable",
+   "fulfilledBy": null,
+   "evidence": [],
+   "note": "aucun outil CORE ne fournit cette preuve"
+  },
+  {
+   "id": "Q3",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "need": "Données géocodées des adresses sur HOWARD ST pour un rattachement précis.",
+   "reason": "E8 mentionne des adresses non géocodées.",
+   "tool": null,
+   "phase": "investigation",
+   "status": "unfulfillable",
+   "fulfilledBy": null,
+   "evidence": [],
+   "note": "aucun outil CORE ne fournit cette preuve"
+  },
+  {
+   "id": "Q4",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "need": "Données sur les permis de construction récents pour le tronçon HOWARD ST 08TH ST → 09TH ST",
+   "reason": "Pour valider l'hypothèse sur les permis récents",
+   "tool": "planning.records",
+   "phase": "deliberation",
+   "status": "fulfilled",
+   "fulfilledBy": "core.san-francisco.housing.urban-planning-analyst",
+   "evidence": [
+    "E8"
+   ]
+  },
+  {
+   "id": "Q5",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "need": "Confirmation de la compatibilité des excavations avec les normes d’accessibilité (E12, E14).",
+   "reason": "Aucune preuve de conformité ou d’adaptation des travaux.",
+   "tool": null,
+   "phase": "deliberation",
+   "status": "unfulfillable",
+   "fulfilledBy": null,
+   "evidence": [],
+   "note": "aucun outil CORE ne fournit cette preuve"
+  },
+  {
+   "id": "Q6",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "need": "Données sur les permis de construction récents pour le tronçon HOWARD ST 08TH ST → 09TH ST (E8).",
+   "reason": "Aucune donnée géocodée ou spécifique au tronçon.",
+   "tool": null,
+   "phase": "deliberation",
+   "status": "unfulfillable",
+   "fulfilledBy": null,
+   "evidence": [],
+   "note": "aucun outil CORE ne fournit cette preuve"
+  },
+  {
+   "id": "Q7",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "need": "Preuve de la relation entre les 7 permis récents (E9) et le tronçon HOWARD ST 08TH ST → 09TH ST (E1).",
+   "reason": "E8 indique aucun permis sur le tronçon, mais E9 mentionne des permis à proximité.",
+   "tool": null,
+   "phase": "revision",
+   "status": "unfulfillable",
+   "fulfilledBy": null,
+   "evidence": [],
+   "note": "aucun outil CORE ne fournit cette preuve"
+  },
+  {
+   "id": "Q8",
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "need": "Données sur les permis de construction récents pour le tronçon HOWARD ST 08TH ST → 09TH ST (E8).",
+   "reason": "Aucune donnée géocodée ou précise sur les permis de construction directement liés au tronçon.",
+   "tool": null,
+   "phase": "scenario",
+   "status": "unfulfillable",
+   "fulfilledBy": null,
+   "evidence": [],
+   "note": "aucun outil CORE ne fournit cette preuve"
+  },
+  {
+   "id": "Q9",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "need": "Données géocodées pour les adresses sur HOWARD ST (E8).",
+   "reason": "Pour valider le rattachement des adresses au tronçon.",
+   "tool": null,
+   "phase": "review",
+   "status": "unfulfillable",
+   "fulfilledBy": null,
+   "evidence": [],
+   "note": "aucun outil CORE ne fournit cette preuve"
+  },
+  {
+   "id": "Q10",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "need": "Données sur les permis de construction récents pour le tronçon (E9).",
+   "reason": "Pour valider la localisation des permis.",
+   "tool": null,
+   "phase": "review",
+   "status": "unfulfillable",
+   "fulfilledBy": null,
+   "evidence": [],
+   "note": "aucun outil CORE ne fournit cette preuve"
+  }
+ ],
+ "proposals": [
+  {
+   "id": "P1",
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "param": "treeBufferM",
+   "value": 12,
+   "reason": "Recommandation R2 (E15) pour un rayon d’exposition arbres de 12 m.",
+   "evidence": [
+    "E16"
+   ],
+   "state": "ok",
+   "tool": "scenario.evaluate"
+  }
+ ],
+ "knowledgeGaps": [],
+ "specialistRequests": [
+  {
+   "id": "S1",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "specialization": "urban-planning",
+   "runtime": "model-assisted",
+   "reason": "Analyse des impacts des excavations sur l’aménagement du trottoir et des espaces verts.",
+   "status": "already-in-team",
+   "gap": null
+  },
+  {
+   "id": "S2",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "specialization": "urban-planning",
+   "runtime": "model-assisted",
+   "reason": "Analyse des permis de construction récents pour le tronçon HOWARD ST 08TH ST → 09TH ST",
+   "status": "open",
+   "gap": null
+  }
+ ],
+ "simRequests": [],
+ "abstentions": [],
+ "reviewer": {
+  "assessments": [
+   {
+    "id": "A22",
+    "agent": "core.san-francisco.research.evidence-reviewer",
+    "phase": "review",
+    "kind": "interpretation",
+    "statement": "E3 ne mentionne pas San Francisco, donc ne peut être utilisé pour affirmer un lien avec la ville.",
+    "cites": [
+     "E3"
+    ],
+    "confidence": "low",
+    "revises": null,
+    "epistemic": "model-interpretation",
+    "validated": true
+   },
+   {
+    "id": "A23",
+    "agent": "core.san-francisco.research.evidence-reviewer",
+    "phase": "review",
+    "kind": "hypothesis",
+    "statement": "E4 indique 5 excavations, mais ne précise pas si elles sont toutes sur le tronçon.",
+    "cites": [
+     "E4"
+    ],
+    "confidence": "medium",
+    "revises": null,
+    "epistemic": "model-interpretation",
+    "validated": true
+   },
+   {
+    "id": "A24",
+    "agent": "core.san-francisco.research.evidence-reviewer",
+    "phase": "review",
+    "kind": "concern",
+    "statement": "E14 indique un trottoir de 12 pi, mais ne précise pas si c'est le minimum ou le recommandé.",
+    "cites": [
+     "E12",
+     "E14"
+    ],
+    "confidence": "high",
+    "revises": null,
+    "epistemic": "model-interpretation",
+    "validated": true
+   },
+   {
+    "id": "A25",
+    "agent": "core.san-francisco.research.evidence-reviewer",
+    "phase": "review",
+    "kind": "concern",
+    "statement": "E8 indique 0 projet Planning ouvert, mais ne précise pas si les adresses sont géocodées.",
+    "cites": [
+     "E8"
+    ],
+    "confidence": "medium",
+    "revises": null,
+    "epistemic": "model-interpretation",
+    "validated": true
+   }
+  ],
+  "responses": [
+   {
+    "id": "R9",
+    "agent": "core.san-francisco.research.evidence-reviewer",
+    "to": "A1",
+    "stance": "agree",
+    "statement": "E3 indique 15 % de renouvelables en Californie, sans mention de San Francisco.",
+    "cites": [
+     "E3"
+    ],
+    "phase": "review",
+    "validated": true
+   },
+   {
+    "id": "R10",
+    "agent": "core.san-francisco.research.evidence-reviewer",
+    "to": "A2",
+    "stance": "dispute",
+    "statement": "E4 indique 5 excavations, mais ne précise pas leur localisation exacte.",
+    "cites": [
+     "E4"
+    ],
+    "phase": "review",
+    "validated": true
+   },
+   {
+    "id": "R11",
+    "agent": "core.san-francisco.research.evidence-reviewer",
+    "to": "A3",
+    "stance": "agree",
+    "statement": "E8 indique 0 projet Planning ouvert sur HOWARD ST.",
+    "cites": [
+     "E8"
+    ],
+    "phase": "review",
+    "validated": true
+   }
+  ],
+  "requests": [
+   {
+    "id": "Q9",
+    "agent": "core.san-francisco.research.evidence-reviewer",
+    "need": "Données géocodées pour les adresses sur HOWARD ST (E8).",
+    "reason": "Pour valider le rattachement des adresses au tronçon.",
+    "tool": null,
+    "phase": "review",
+    "status": "unfulfillable",
+    "fulfilledBy": null,
+    "evidence": [],
+    "note": "aucun outil CORE ne fournit cette preuve"
+   },
+   {
+    "id": "Q10",
+    "agent": "core.san-francisco.research.evidence-reviewer",
+    "need": "Données sur les permis de construction récents pour le tronçon (E9).",
+    "reason": "Pour valider la localisation des permis.",
+    "tool": null,
+    "phase": "review",
+    "status": "unfulfillable",
+    "fulfilledBy": null,
+    "evidence": [],
+    "note": "aucun outil CORE ne fournit cette preuve"
+   }
+  ],
+  "proposals": []
+ },
+ "brief": {
+  "question": "Que change « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » pour HOWARD ST 08TH ST → 09TH ST ?",
+  "location": "HOWARD ST 08TH ST → 09TH ST",
+  "event": "datasf-street-use:26EXC-05114@7051000",
+  "sources": {
+   "snapshot": "2026-10-13",
+   "feedUpdate": "2026-10-14T02:03:28.797Z",
+   "knowledge": "core-knowledge-library-v1"
+  },
+  "evidence": {
+   "total": 28,
+   "byEpistemic": {
+    "observed": 3,
+    "reported": 5,
+    "derived": 16,
+    "simulated": 4
+   },
+   "unresolved": 0
+  },
+  "interpretations": [
+   {
+    "id": "A1",
+    "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+    "kind": "hypothesis",
+    "statement": "Le réseau CAISO indique 15 % de renouvelables en Californie, sans lien direct avec San Francisco (E3).",
+    "cites": [
+     "E3"
+    ],
+    "confidence": "low",
+    "label": "Interprétation du modèle (validée contre les preuves ; non autoritative)"
+   },
+   {
+    "id": "A3",
+    "agent": "core.san-francisco.housing.urban-planning-analyst",
+    "kind": "interpretation",
+    "statement": "Aucun projet Planning ouvert en 30 j sur HOWARD ST (E8).",
+    "cites": [
+     "E8",
+     "E9",
+     "E10",
+     "E11",
+     "E4",
+     "E5"
+    ],
+    "confidence": "low",
+    "label": "Interprétation du modèle (validée contre les preuves ; non autoritative)"
+   },
+   {
+    "id": "A4",
+    "agent": "core.san-francisco.housing.urban-planning-analyst",
+    "kind": "hypothesis",
+    "statement": "5 fenêtres d’excavation en cours ou à venir sur le tronçon (E4).",
+    "cites": [
+     "E4",
+     "E5",
+     "E7"
+    ],
+    "confidence": "medium",
+    "label": "Interprétation du modèle (validée contre les preuves ; non autoritative)"
+   },
+   {
+    "id": "A6",
+    "agent": "core.san-francisco.public-space.accessibility-analyst",
+    "kind": "interpretation",
+    "statement": "Le trottoir de HOWARD ST 08TH ST → 09TH ST est de 12 pi (E12), inférieur au minimum recommandé de 15 pi (E14).",
+    "cites": [
+     "E12",
+     "E14"
+    ],
+    "confidence": "high",
+    "label": "Interprétation du modèle (validée contre les preuves ; non autoritative)"
+   },
+   {
+    "id": "A8",
+    "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+    "kind": "interpretation",
+    "statement": "Le trottoir de HOWARD ST 08TH ST → 09TH ST est de 12 pi (E12), inférieur au minimum recommandé de 15 pi (E14).",
+    "cites": [
+     "E12",
+     "E14"
+    ],
+    "confidence": "low",
+    "label": "Interprétation du modèle (validée contre les preuves ; non autoritative)"
+   },
+   {
+    "id": "A9",
+    "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+    "kind": "hypothesis",
+    "statement": "Aucun permis de construction récent n’a été signalé pour les travaux sur le tronçon (E8), mais 7 permis récents existent à proximité (E9).",
+    "cites": [
+     "E8",
+     "E9"
+    ],
+    "confidence": "medium",
+    "label": "Interprétation du modèle (validée contre les preuves ; non autoritative)"
+   },
+   {
+    "id": "A11",
+    "agent": "core.san-francisco.public-space.accessibility-analyst",
+    "kind": "interpretation",
+    "statement": "Le trottoir de 12 pi (E12) est inférieur au minimum recommandé de 15 pi (E14).",
+    "cites": [
+     "E12",
+     "E14"
+    ],
+    "confidence": "low",
+    "label": "Interprétation du modèle (validée contre les preuves ; non autoritative)"
+   },
+   {
+    "id": "A12",
+    "agent": "core.san-francisco.public-space.accessibility-analyst",
+    "kind": "hypothesis",
+    "statement": "Le statut DBI « issued » ne signifie pas un chantier actif (E11).",
+    "cites": [
+     "E11"
+    ],
+    "confidence": "medium",
+    "label": "Interprétation du modèle (validée contre les preuves ; non autoritative)"
+   },
+   {
+    "id": "A14",
+    "agent": "core.san-francisco.public-space.accessibility-analyst",
+    "kind": "interpretation",
+    "statement": "5 fenêtres d’excavation en cours ou à venir sur le tronçon (E4).",
+    "cites": [
+     "E4"
+    ],
+    "confidence": "high",
+    "label": "Interprétation du modèle (validée contre les preuves ; non autoritative)"
+   },
+   {
+    "id": "A15",
+    "agent": "core.san-francisco.public-space.accessibility-analyst",
+    "kind": "interpretation",
+    "statement": "Le trottoir de HOWARD ST 08TH ST → 09TH ST est de 12 pi (E12), inférieur au minimum recommandé de 15 pi (E14).",
+    "cites": [
+     "E12",
+     "E14"
+    ],
+    "confidence": "low",
+    "label": "Interprétation du modèle (validée contre les preuves ; non autoritative)"
+   },
+   {
+    "id": "A16",
+    "agent": "core.san-francisco.public-space.accessibility-analyst",
+    "kind": "hypothesis",
+    "statement": "Aucun permis de construction récent n’a été signalé pour les travaux sur le tronçon (E8), mais 7 permis récents existent à proximité (E9).",
+    "cites": [
+     "E8",
+     "E9"
+    ],
+    "confidence": "medium",
+    "label": "Interprétation du modèle (validée contre les preuves ; non autoritative)"
+   },
+   {
+    "id": "A18",
+    "agent": "core.san-francisco.public-space.accessibility-analyst",
+    "kind": "interpretation",
+    "statement": "5 fenêtres d’excavation en cours ou à venir sur le tronçon (E4).",
+    "cites": [
+     "E4"
+    ],
+    "confidence": "high",
+    "label": "Interprétation du modèle (validée contre les preuves ; non autoritative)"
+   },
+   {
+    "id": "A20",
+    "agent": "core.san-francisco.simulation.scenario-analyst",
+    "kind": "interpretation",
+    "statement": "Le statut DBI « issued » ne signifie pas un chantier actif (E11).",
+    "cites": [
+     "E11"
+    ],
+    "confidence": "medium",
+    "label": "Interprétation du modèle (validée contre les preuves ; non autoritative)"
+   },
+   {
+    "id": "A21",
+    "agent": "core.san-francisco.simulation.scenario-analyst",
+    "kind": "hypothesis",
+    "statement": "Aucun permis de construction récent n’a été signalé pour les travaux sur le tronçon (E8), mais 7 permis récents existent à proximité (E9).",
+    "cites": [
+     "E8",
+     "E9"
+    ],
+    "confidence": "low",
+    "label": "Interprétation du modèle (validée contre les preuves ; non autoritative)"
+   },
+   {
+    "id": "A22",
+    "agent": "core.san-francisco.research.evidence-reviewer",
+    "kind": "interpretation",
+    "statement": "E3 ne mentionne pas San Francisco, donc ne peut être utilisé pour affirmer un lien avec la ville.",
+    "cites": [
+     "E3"
+    ],
+    "confidence": "low",
+    "label": "Interprétation du modèle (validée contre les preuves ; non autoritative)"
+   },
+   {
+    "id": "A23",
+    "agent": "core.san-francisco.research.evidence-reviewer",
+    "kind": "hypothesis",
+    "statement": "E4 indique 5 excavations, mais ne précise pas si elles sont toutes sur le tronçon.",
+    "cites": [
+     "E4"
+    ],
+    "confidence": "medium",
+    "label": "Interprétation du modèle (validée contre les preuves ; non autoritative)"
+   }
+  ],
+  "concerns": [
+   {
+    "id": "A2",
+    "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+    "statement": "CableCom est titulaire de 2 permis télécoms sur le tronçon (E6), avec 5 excavations en cours (E4).",
+    "cites": [
+     "E4",
+     "E6",
+     "E7"
+    ]
+   },
+   {
+    "id": "A5",
+    "agent": "core.san-francisco.housing.urban-planning-analyst",
+    "statement": "Le statut DBI « issued » ne signifie pas un chantier actif (E11).",
+    "cites": [
+     "E11",
+     "E7"
+    ]
+   },
+   {
+    "id": "A7",
+    "agent": "core.san-francisco.public-space.accessibility-analyst",
+    "statement": "Aucun permis de construction récent n’a été signalé pour les travaux sur le tronçon (E8), mais 7 permis récents existent à proximité (E9).",
+    "cites": [
+     "E8",
+     "E9"
+    ]
+   },
+   {
+    "id": "A10",
+    "agent": "core.san-francisco.housing.urban-planning-analyst",
+    "statement": "Le trottoir de 12 pi (E12) est inférieur au minimum recommandé de 15 pi (E14).",
+    "cites": [
+     "E12",
+     "E14"
+    ]
+   },
+   {
+    "id": "A13",
+    "agent": "core.san-francisco.public-space.accessibility-analyst",
+    "statement": "Aucun permis de construction récent n’a été signalé pour les travaux sur le tronçon (E8), mais 7 permis récents existent à proximité (E9).",
+    "cites": [
+     "E8",
+     "E9"
+    ]
+   },
+   {
+    "id": "A17",
+    "agent": "core.san-francisco.public-space.accessibility-analyst",
+    "statement": "Le statut DBI « issued » ne signifie pas un chantier actif (E11).",
+    "cites": [
+     "E11"
+    ]
+   },
+   {
+    "id": "A19",
+    "agent": "core.san-francisco.simulation.scenario-analyst",
+    "statement": "Le trottoir de 12 pi (E12) est inférieur au minimum recommandé de 15 pi (E14).",
+    "cites": [
+     "E12",
+     "E14"
+    ]
+   },
+   {
+    "id": "A24",
+    "agent": "core.san-francisco.research.evidence-reviewer",
+    "statement": "E14 indique un trottoir de 12 pi, mais ne précise pas si c'est le minimum ou le recommandé.",
+    "cites": [
+     "E12",
+     "E14"
+    ]
+   },
+   {
+    "id": "A25",
+    "agent": "core.san-francisco.research.evidence-reviewer",
+    "statement": "E8 indique 0 projet Planning ouvert, mais ne précise pas si les adresses sont géocodées.",
+    "cites": [
+     "E8"
+    ]
+   }
+  ],
+  "disagreements": [
+   {
+    "id": "D1",
+    "between": [
+     "core.san-francisco.public-space.accessibility-analyst",
+     "core.san-francisco.energy.energy-infrastructure-analyst"
+    ],
+    "about": "A7",
+    "statement": "7 permis de construction récents existent à proximité (E9), mais aucun n’est directement lié au tronçon (E8).",
+    "cites": [
+     "E8",
+     "E9"
+    ],
+    "resolved": false,
+    "response": "R2"
+   },
+   {
+    "id": "D2",
+    "between": [
+     "core.san-francisco.energy.energy-infrastructure-analyst",
+     "core.san-francisco.research.evidence-reviewer"
+    ],
+    "about": "A2",
+    "statement": "E4 indique 5 excavations, mais ne précise pas leur localisation exacte.",
+    "cites": [
+     "E4"
+    ],
+    "resolved": false,
+    "response": "R10"
+   }
+  ],
+  "evidenceRequests": [
+   {
+    "id": "Q1",
+    "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+    "need": "Données sur les impacts énergétiques des excavations sur le tronçon.",
+    "reason": "Aucune preuve sur les liens énergétiques entre excavations et consommation.",
+    "tool": null,
+    "phase": "investigation",
+    "status": "unfulfillable",
+    "fulfilledBy": null,
+    "evidence": [],
+    "note": "aucun outil CORE ne fournit cette preuve"
+   },
+   {
+    "id": "Q2",
+    "agent": "core.san-francisco.housing.urban-planning-analyst",
+    "need": "Données sur les permis de construction récents (E9) et leur lien avec les excavations (E4).",
+    "reason": "Corrélation entre permis et travaux non confirmée.",
+    "tool": null,
+    "phase": "investigation",
+    "status": "unfulfillable",
+    "fulfilledBy": null,
+    "evidence": [],
+    "note": "aucun outil CORE ne fournit cette preuve"
+   },
+   {
+    "id": "Q3",
+    "agent": "core.san-francisco.public-space.accessibility-analyst",
+    "need": "Données géocodées des adresses sur HOWARD ST pour un rattachement précis.",
+    "reason": "E8 mentionne des adresses non géocodées.",
+    "tool": null,
+    "phase": "investigation",
+    "status": "unfulfillable",
+    "fulfilledBy": null,
+    "evidence": [],
+    "note": "aucun outil CORE ne fournit cette preuve"
+   },
+   {
+    "id": "Q4",
+    "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+    "need": "Données sur les permis de construction récents pour le tronçon HOWARD ST 08TH ST → 09TH ST",
+    "reason": "Pour valider l'hypothèse sur les permis récents",
+    "tool": "planning.records",
+    "phase": "deliberation",
+    "status": "fulfilled",
+    "fulfilledBy": "core.san-francisco.housing.urban-planning-analyst",
+    "evidence": [
+     "E8"
+    ]
+   },
+   {
+    "id": "Q5",
+    "agent": "core.san-francisco.housing.urban-planning-analyst",
+    "need": "Confirmation de la compatibilité des excavations avec les normes d’accessibilité (E12, E14).",
+    "reason": "Aucune preuve de conformité ou d’adaptation des travaux.",
+    "tool": null,
+    "phase": "deliberation",
+    "status": "unfulfillable",
+    "fulfilledBy": null,
+    "evidence": [],
+    "note": "aucun outil CORE ne fournit cette preuve"
+   },
+   {
+    "id": "Q6",
+    "agent": "core.san-francisco.public-space.accessibility-analyst",
+    "need": "Données sur les permis de construction récents pour le tronçon HOWARD ST 08TH ST → 09TH ST (E8).",
+    "reason": "Aucune donnée géocodée ou spécifique au tronçon.",
+    "tool": null,
+    "phase": "deliberation",
+    "status": "unfulfillable",
+    "fulfilledBy": null,
+    "evidence": [],
+    "note": "aucun outil CORE ne fournit cette preuve"
+   },
+   {
+    "id": "Q7",
+    "agent": "core.san-francisco.public-space.accessibility-analyst",
+    "need": "Preuve de la relation entre les 7 permis récents (E9) et le tronçon HOWARD ST 08TH ST → 09TH ST (E1).",
+    "reason": "E8 indique aucun permis sur le tronçon, mais E9 mentionne des permis à proximité.",
+    "tool": null,
+    "phase": "revision",
+    "status": "unfulfillable",
+    "fulfilledBy": null,
+    "evidence": [],
+    "note": "aucun outil CORE ne fournit cette preuve"
+   },
+   {
+    "id": "Q8",
+    "agent": "core.san-francisco.simulation.scenario-analyst",
+    "need": "Données sur les permis de construction récents pour le tronçon HOWARD ST 08TH ST → 09TH ST (E8).",
+    "reason": "Aucune donnée géocodée ou précise sur les permis de construction directement liés au tronçon.",
+    "tool": null,
+    "phase": "scenario",
+    "status": "unfulfillable",
+    "fulfilledBy": null,
+    "evidence": [],
+    "note": "aucun outil CORE ne fournit cette preuve"
+   },
+   {
+    "id": "Q9",
+    "agent": "core.san-francisco.research.evidence-reviewer",
+    "need": "Données géocodées pour les adresses sur HOWARD ST (E8).",
+    "reason": "Pour valider le rattachement des adresses au tronçon.",
+    "tool": null,
+    "phase": "review",
+    "status": "unfulfillable",
+    "fulfilledBy": null,
+    "evidence": [],
+    "note": "aucun outil CORE ne fournit cette preuve"
+   },
+   {
+    "id": "Q10",
+    "agent": "core.san-francisco.research.evidence-reviewer",
+    "need": "Données sur les permis de construction récents pour le tronçon (E9).",
+    "reason": "Pour valider la localisation des permis.",
+    "tool": null,
+    "phase": "review",
+    "status": "unfulfillable",
+    "fulfilledBy": null,
+    "evidence": [],
+    "note": "aucun outil CORE ne fournit cette preuve"
+   }
+  ],
+  "scenario": {
+   "baseline": [
+    "E15"
+   ],
+   "cityDecision": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "proposals": [
+    {
+     "id": "P1",
+     "agent": "core.san-francisco.simulation.scenario-analyst",
+     "param": "treeBufferM",
+     "value": 12,
+     "reason": "Recommandation R2 (E15) pour un rayon d’exposition arbres de 12 m.",
+     "evidence": [
+      "E16"
+     ],
+     "state": "ok",
+     "tool": "scenario.evaluate"
+    }
+   ],
+   "label": "Calculs déterministes (modèles validés) ; paramètres éventuellement proposés par le modèle"
+  },
+  "assumptions": null,
+  "missingData": [
+   "tracé réel des tranchées (les points de permis sont à l’adresse ou au tronçon)",
+   "état sanitaire et zones racinaires des arbres",
+   "calendrier et emprise des travaux de bâtiment sur le trottoir",
+   "accord des titulaires sur un report ou une fenêtre commune"
+  ],
+  "uncertainty": [
+   "Rayon autour des arbres divisé par deux",
+   "Arbres faisant l’objet d’un avis d’abattage exclus"
+  ],
+  "rejectedModelOutputs": 8,
+  "knowledgeGaps": [],
+  "humanReview": "Revue humaine obligatoire. Aucun agent ni modèle ne peut autoriser ni exécuter une action physique, juridique ou politique."
+ },
+ "decision": {
+  "state": "PREUVES SUPPLÉMENTAIRES REQUISES",
+  "reason": "Informations supplémentaires requises : 9 demande(s) de preuve ouverte(s), 2 désaccord(s) non résolu(s), 9 réserve(s) du réviseur.",
+  "checks": [
+   {
+    "id": "contract",
+    "label": "mission complète",
+    "pass": true,
+    "detail": null
+   },
+   {
+    "id": "permissions",
+    "label": "chaque outil exécuté était autorisé pour son agent",
+    "pass": true,
+    "detail": null
+   },
+   {
+    "id": "recompute",
+    "label": "chaque preuve est identique au recalcul déterministe",
+    "pass": true,
+    "detail": null
+   },
+   {
+    "id": "sourced",
+    "label": "chaque preuve référence des données vérifiées",
+    "pass": true,
+    "detail": null
+   },
+   {
+    "id": "model-outputs",
+    "label": "chaque sortie du modèle retenue est citée, sans nombre inventé ni langage de décision",
+    "pass": true,
+    "detail": null
+   },
+   {
+    "id": "model-rejections",
+    "label": "sorties du modèle rejetées par le validateur (exclues de la note)",
+    "pass": true,
+    "detail": "8"
+   },
+   {
+    "id": "city-gateway",
+    "label": "passerelle inter-domaines recalculée (issueCityDecision)",
+    "pass": true,
+    "detail": "ÉLIGIBLE À LA REVUE HUMAINE"
+   },
+   {
+    "id": "open-requests",
+    "label": "demandes de preuves satisfaites",
+    "pass": false,
+    "detail": "Q1 Données sur les impacts énergétiques des excavations sur le tronçon. ; Q2 Données sur les permis de construction récents (E9) et leur lien avec les excavations (E4). ; Q3 Données géocodées des adresses sur HOWARD ST pour un rattachement précis. ; Q5 Confirmation de la compatibilité des excavations avec les normes d’accessibilité (E12, E14). ; Q6 Données sur les permis de construction récents pour le tronçon HOWARD ST 08TH ST → 09TH ST (E8). ; Q7 Preuve de la relation entre les 7 permis récents (E9) et le tronçon HOWARD ST 08TH ST → 09TH ST (E1). ; Q8 Données sur les permis de construction récents pour le tronçon HOWARD ST 08TH ST → 09TH ST (E8). ; Q9 Données géocodées pour les adresses sur HOWARD ST (E8). ; Q10 Données sur les permis de construction récents pour le tronçon (E9)."
+   },
+   {
+    "id": "disputes",
+    "label": "désaccords résolus",
+    "pass": false,
+    "detail": "A7: 7 permis de construction récents existent à proximité (E9), mais aucun n’est directement lié au tronçon (E8). ; A2: E4 indique 5 excavations, mais ne précise pas leur localisation exacte."
+   },
+   {
+    "id": "concerns",
+    "label": "aucune réserve du réviseur",
+    "pass": false,
+    "detail": "CableCom est titulaire de 2 permis télécoms sur le tronçon (E6), avec 5 excavations en cours (E4). ; Le statut DBI « issued » ne signifie pas un chantier actif (E11). ; Aucun permis de construction récent n’a été signalé pour les travaux sur le tronçon (E8), mais 7 permis récents existent à proximité (E9). ; Le trottoir de 12 pi (E12) est inférieur au minimum recommandé de 15 pi (E14). ; Aucun permis de construction récent n’a été signalé pour les travaux sur le tronçon (E8), mais 7 permis récents existent à proximité (E9). ; Le statut DBI « issued » ne signifie pas un chantier actif (E11). ; Le trottoir de 12 pi (E12) est inférieur au minimum recommandé de 15 pi (E14). ; E14 indique un trottoir de 12 pi, mais ne précise pas si c'est le minimum ou le recommandé. ; E8 indique 0 projet Planning ouvert, mais ne précise pas si les adresses sont géocodées."
+   },
+   {
+    "id": "knowledge-gaps",
+    "label": "aucune lacune de connaissances",
+    "pass": true,
+    "detail": null
+   }
+  ],
+  "authorizes": false,
+  "modelCanOnlyAddCaution": true,
+  "humanReview": "Revue humaine obligatoire ; CORE n’exécute rien."
+ },
+ "log": [
+  {
+   "seq": 1,
+   "t": 0,
+   "kind": "stage",
+   "stage": "received",
+   "text": "Mission reçue (mode rapide) : Que change « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » pour HOWARD ST 08TH ST → 09TH ST ?"
+  },
+  {
+   "seq": 2,
+   "t": 0,
+   "kind": "stage",
+   "stage": "model-check",
+   "text": "Vérification du modèle local"
+  },
+  {
+   "seq": 3,
+   "t": 7,
+   "kind": "stage",
+   "stage": "classification",
+   "text": "DataSF · Street-Use Permits (récents, corridor) · approved-decision · official-source · domaines infrastructure"
+  },
+  {
+   "seq": 4,
+   "t": 7,
+   "kind": "stage",
+   "stage": "geolocation",
+   "text": "Association géographique (déterministe)"
+  },
+  {
+   "seq": 5,
+   "t": 7,
+   "kind": "tool-call",
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "tool": "graph.link",
+   "state": "ok",
+   "text": "graph.link → E1"
+  },
+  {
+   "seq": 6,
+   "t": 16,
+   "kind": "stage",
+   "stage": "selection",
+   "text": "Routage : Analyste énergie et infrastructures (assisté par modèle), Analyste en urbanisme (assisté par modèle), Analyste accessibilité et espace public (assisté par modèle) + analyste de scénarios + réviseurs (preuves, éligibilité des données) ; 2 spécialité(s) pertinente(s) non exécutable(s)."
+  },
+  {
+   "seq": 7,
+   "t": 16,
+   "kind": "stage",
+   "stage": "investigation",
+   "text": "Preuves rassemblées par routage déterministe des outils, puis une interprétation par spécialiste"
+  },
+  {
+   "seq": 8,
+   "t": 38,
+   "kind": "tool-call",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "tool": "energy.benchmarks",
+   "state": "ok",
+   "text": "energy.benchmarks → E2"
+  },
+  {
+   "seq": 9,
+   "t": 38,
+   "kind": "tool-call",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "tool": "grid.mix",
+   "state": "ok",
+   "text": "grid.mix → E3"
+  },
+  {
+   "seq": 10,
+   "t": 39,
+   "kind": "tool-call",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "tool": "works.windows",
+   "state": "ok",
+   "text": "works.windows → E4, E5"
+  },
+  {
+   "seq": 11,
+   "t": 39,
+   "kind": "tool-call",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "tool": "works.telecom",
+   "state": "ok",
+   "text": "works.telecom → E6"
+  },
+  {
+   "seq": 12,
+   "t": 40,
+   "kind": "tool-call",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "tool": "knowledge.search",
+   "state": "ok",
+   "text": "knowledge.search {\"query\":\"Que change « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » pour HOWARD ST 08TH ST → 09TH ST ?\"} → E7"
+  },
+  {
+   "seq": 13,
+   "t": 40,
+   "kind": "tool-call",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "tool": "planning.records",
+   "state": "ok",
+   "text": "planning.records → E8"
+  },
+  {
+   "seq": 14,
+   "t": 54,
+   "kind": "tool-call",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "tool": "buildings.frontage",
+   "state": "ok",
+   "text": "buildings.frontage → E9, E10, E11"
+  },
+  {
+   "seq": 15,
+   "t": 70,
+   "kind": "tool-call",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "tool": "public-space.sidewalks",
+   "state": "ok",
+   "text": "public-space.sidewalks → E12"
+  },
+  {
+   "seq": 16,
+   "t": 70,
+   "kind": "tool-call",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "tool": "works.windows",
+   "state": "ok",
+   "text": "works.windows → E4, E5 (cache)"
+  },
+  {
+   "seq": 17,
+   "t": 70,
+   "kind": "tool-call",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "tool": "knowledge.search",
+   "state": "ok",
+   "text": "knowledge.search {\"query\":\"Que change « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » pour HOWARD ST 08TH ST → 09TH ST ?\"} → E7 (cache)"
+  },
+  {
+   "seq": 18,
+   "t": 70,
+   "kind": "tool-call",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "tool": "public-space.sidewalks",
+   "state": "ok",
+   "text": "public-space.sidewalks → E12 (cache)"
+  },
+  {
+   "seq": 19,
+   "t": 76,
+   "kind": "tool-call",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "tool": "sim.sidewalk-capacity",
+   "state": "ok",
+   "text": "sim.sidewalk-capacity → E13, E14"
+  },
+  {
+   "seq": 20,
+   "t": 76,
+   "kind": "tool-call",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "tool": "buildings.frontage",
+   "state": "ok",
+   "text": "buildings.frontage → E9, E10, E11 (cache)"
+  },
+  {
+   "seq": 21,
+   "t": 76,
+   "kind": "tool-call",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "tool": "knowledge.search",
+   "state": "ok",
+   "text": "knowledge.search {\"query\":\"Que change « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » pour HOWARD ST 08TH ST → 09TH ST ?\"} → E7 (cache)"
+  },
+  {
+   "seq": 22,
+   "t": 76,
+   "kind": "tool-call",
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "tool": "sim.sidewalk-capacity",
+   "state": "ok",
+   "text": "sim.sidewalk-capacity → E13, E14 (cache)"
+  },
+  {
+   "seq": 23,
+   "t": 76,
+   "kind": "tool-call",
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "tool": "knowledge.search",
+   "state": "ok",
+   "text": "knowledge.search {\"query\":\"Que change « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » pour HOWARD ST 08TH ST → 09TH ST ?\"} → E7 (cache)"
+  },
+  {
+   "seq": 24,
+   "t": 36885,
+   "kind": "model-call",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "text": "investigation/rapport : 1475 jetons d’entrée, 403 de sortie, 36804 ms"
+  },
+  {
+   "seq": 25,
+   "t": 36895,
+   "kind": "report",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "text": "investigation : 2 énoncé(s), 0 réponse(s), 1 demande(s) de preuve, 0 paramètre(s) acceptés ; 1 rejeté(s) par le validateur."
+  },
+  {
+   "seq": 26,
+   "t": 61844,
+   "kind": "model-call",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "text": "investigation/rapport : 1482 jetons d’entrée, 319 de sortie, 24940 ms"
+  },
+  {
+   "seq": 27,
+   "t": 61845,
+   "kind": "report",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "text": "investigation : 3 énoncé(s), 0 réponse(s), 1 demande(s) de preuve, 0 paramètre(s) acceptés ; 0 rejeté(s) par le validateur."
+  },
+  {
+   "seq": 28,
+   "t": 88971,
+   "kind": "model-call",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "text": "investigation/rapport : 1485 jetons d’entrée, 344 de sortie, 27120 ms"
+  },
+  {
+   "seq": 29,
+   "t": 88972,
+   "kind": "report",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "text": "investigation : 2 énoncé(s), 0 réponse(s), 1 demande(s) de preuve, 0 paramètre(s) acceptés ; 1 rejeté(s) par le validateur."
+  },
+  {
+   "seq": 30,
+   "t": 88972,
+   "kind": "stage",
+   "stage": "deliberation",
+   "text": "Chaque spécialiste examine les énoncés des autres : accord, désaccord, précision, demande de preuve"
+  },
+  {
+   "seq": 31,
+   "t": 124583,
+   "kind": "model-call",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "text": "deliberation/rapport : 1807 jetons d’entrée, 454 de sortie, 35606 ms"
+  },
+  {
+   "seq": 32,
+   "t": 124583,
+   "kind": "report",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "text": "deliberation : 2 énoncé(s), 2 réponse(s), 1 demande(s) de preuve, 0 paramètre(s) acceptés ; 0 rejeté(s) par le validateur."
+  },
+  {
+   "seq": 33,
+   "t": 165384,
+   "kind": "model-call",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "text": "deliberation/rapport : 1902 jetons d’entrée, 513 de sortie, 40797 ms"
+  },
+  {
+   "seq": 34,
+   "t": 165384,
+   "kind": "report",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "text": "deliberation : 1 énoncé(s), 2 réponse(s), 1 demande(s) de preuve, 0 paramètre(s) acceptés ; 3 rejeté(s) par le validateur."
+  },
+  {
+   "seq": 35,
+   "t": 204917,
+   "kind": "model-call",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "text": "deliberation/rapport : 1989 jetons d’entrée, 491 de sortie, 39529 ms"
+  },
+  {
+   "seq": 36,
+   "t": 204918,
+   "kind": "report",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "text": "deliberation : 4 énoncé(s), 2 réponse(s), 1 demande(s) de preuve, 0 paramètre(s) acceptés ; 0 rejeté(s) par le validateur."
+  },
+  {
+   "seq": 37,
+   "t": 204918,
+   "kind": "route",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "text": "Q1 non satisfaisable : Données sur les impacts énergétiques des excavations sur le tronçon."
+  },
+  {
+   "seq": 38,
+   "t": 204918,
+   "kind": "route",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "text": "Q2 non satisfaisable : Données sur les permis de construction récents (E9) et leur lien avec les excavations (E4)."
+  },
+  {
+   "seq": 39,
+   "t": 204918,
+   "kind": "route",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "text": "Q3 non satisfaisable : Données géocodées des adresses sur HOWARD ST pour un rattachement précis."
+  },
+  {
+   "seq": 40,
+   "t": 204918,
+   "kind": "tool-call",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "tool": "planning.records",
+   "state": "ok",
+   "text": "planning.records → E8 (cache) (demande de energy-infrastructure-analyst)"
+  },
+  {
+   "seq": 41,
+   "t": 204918,
+   "kind": "route",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "text": "Q5 non satisfaisable : Confirmation de la compatibilité des excavations avec les normes d’accessibilité (E12, E14)."
+  },
+  {
+   "seq": 42,
+   "t": 204918,
+   "kind": "route",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "text": "Q6 non satisfaisable : Données sur les permis de construction récents pour le tronçon HOWARD ST 08TH ST → 09TH ST (E8)."
+  },
+  {
+   "seq": 43,
+   "t": 204918,
+   "kind": "stage",
+   "stage": "revision",
+   "text": "Révision par les agents contestés"
+  },
+  {
+   "seq": 44,
+   "t": 240050,
+   "kind": "model-call",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "text": "revision/rapport : 1782 jetons d’entrée, 452 de sortie, 35128 ms"
+  },
+  {
+   "seq": 45,
+   "t": 240051,
+   "kind": "report",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "text": "revision : 4 énoncé(s), 0 réponse(s), 1 demande(s) de preuve, 0 paramètre(s) acceptés ; 1 rejeté(s) par le validateur."
+  },
+  {
+   "seq": 46,
+   "t": 240051,
+   "kind": "stage",
+   "stage": "scenario",
+   "text": "Scénarios : paramètres proposés par le modèle, résultats recalculés par les modèles déterministes"
+  },
+  {
+   "seq": 47,
+   "t": 240274,
+   "kind": "tool-call",
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "tool": "scenario.evaluate",
+   "state": "ok",
+   "text": "scenario.evaluate → E15"
+  },
+  {
+   "seq": 48,
+   "t": 288805,
+   "kind": "model-call",
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "text": "scenario/rapport : 2329 jetons d’entrée, 587 de sortie, 48479 ms"
+  },
+  {
+   "seq": 49,
+   "t": 288806,
+   "kind": "report",
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "text": "scenario : 3 énoncé(s), 2 réponse(s), 1 demande(s) de preuve, 1 paramètre(s) acceptés ; 2 rejeté(s) par le validateur."
+  },
+  {
+   "seq": 50,
+   "t": 288977,
+   "kind": "tool-call",
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "tool": "scenario.evaluate",
+   "state": "ok",
+   "text": "scenario.evaluate {\"params\":{\"treeBufferM\":12}} → E16"
+  },
+  {
+   "seq": 51,
+   "t": 288977,
+   "kind": "stage",
+   "stage": "verification",
+   "text": "Vérification : références (déterministe), éligibilité des données (déterministe), puis réviseur assisté par modèle"
+  },
+  {
+   "seq": 52,
+   "t": 288979,
+   "kind": "tool-call",
+   "agent": "core.san-francisco.cybersecurity.data-policy-reviewer",
+   "tool": "policy.check",
+   "state": "ok",
+   "text": "policy.check → E17"
+  },
+  {
+   "seq": 53,
+   "t": 288980,
+   "kind": "tool-call",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "tool": "evidence.check",
+   "state": "ok",
+   "text": "evidence.check {\"ids\":[\"E3\",\"E4\",\"E6\",\"E7\",\"E8\",\"E9\",\"E10\",\"E11\",\"E5\",\"E12\",\"E14\"]} → E18, E19, E20, E21, E22, E23, E24, E25, E26, E27, E28"
+  },
+  {
+   "seq": 54,
+   "t": 340970,
+   "kind": "model-call",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "text": "review/rapport : 3420 jetons d’entrée, 515 de sortie, 51987 ms"
+  },
+  {
+   "seq": 55,
+   "t": 340971,
+   "kind": "report",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "text": "review : 4 énoncé(s), 3 réponse(s), 2 demande(s) de preuve, 0 paramètre(s) acceptés ; 0 rejeté(s) par le validateur."
+  },
+  {
+   "seq": 56,
+   "t": 340972,
+   "kind": "route",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "text": "Q7 non satisfaisable : Preuve de la relation entre les 7 permis récents (E9) et le tronçon HOWARD ST 08TH ST → 09TH ST (E1)."
+  },
+  {
+   "seq": 57,
+   "t": 340972,
+   "kind": "route",
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "text": "Q8 non satisfaisable : Données sur les permis de construction récents pour le tronçon HOWARD ST 08TH ST → 09TH ST (E8)."
+  },
+  {
+   "seq": 58,
+   "t": 340972,
+   "kind": "route",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "text": "Q9 non satisfaisable : Données géocodées pour les adresses sur HOWARD ST (E8)."
+  },
+  {
+   "seq": 59,
+   "t": 340972,
+   "kind": "route",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "text": "Q10 non satisfaisable : Données sur les permis de construction récents pour le tronçon (E9)."
+  },
+  {
+   "seq": 60,
+   "t": 340972,
+   "kind": "stage",
+   "stage": "brief",
+   "text": "Note de décision assemblée de façon déterministe"
+  },
+  {
+   "seq": 61,
+   "t": 341145,
+   "kind": "stage",
+   "stage": "gateway",
+   "text": "Passerelle cognitive : recalcul des outils et revalidation de chaque sortie du modèle"
+  },
+  {
+   "seq": 62,
+   "t": 341609,
+   "kind": "mission",
+   "state": "needs-evidence",
+   "text": "PREUVES SUPPLÉMENTAIRES REQUISES — Informations supplémentaires requises : 9 demande(s) de preuve ouverte(s), 2 désaccord(s) non résolu(s), 9 réserve(s) du réviseur."
+  }
+ ],
+ "metrics": {
+  "wallMs": 341609,
+  "modelCalls": 9,
+  "failedModelCalls": 0,
+  "promptTokens": 17671,
+  "outputTokens": 4078,
+  "modelMs": 340390,
+  "tokensPerSecond": 14.1,
+  "toolCalls": 22,
+  "cachedToolCalls": 8,
+  "deniedToolCalls": 0,
+  "perAgent": {
+   "core.san-francisco.energy.energy-infrastructure-analyst": {
+    "modelCalls": 2,
+    "promptTokens": 3282,
+    "outputTokens": 857,
+    "modelMs": 72410,
+    "toolCalls": 5
+   },
+   "core.san-francisco.housing.urban-planning-analyst": {
+    "modelCalls": 2,
+    "promptTokens": 3384,
+    "outputTokens": 832,
+    "modelMs": 65737,
+    "toolCalls": 6
+   },
+   "core.san-francisco.public-space.accessibility-analyst": {
+    "modelCalls": 3,
+    "promptTokens": 5256,
+    "outputTokens": 1287,
+    "modelMs": 101777,
+    "toolCalls": 4
+   },
+   "core.san-francisco.simulation.scenario-analyst": {
+    "modelCalls": 1,
+    "promptTokens": 2329,
+    "outputTokens": 587,
+    "modelMs": 48479,
+    "toolCalls": 4
+   },
+   "core.san-francisco.research.evidence-reviewer": {
+    "modelCalls": 1,
+    "promptTokens": 3420,
+    "outputTokens": 515,
+    "modelMs": 51987,
+    "toolCalls": 1
+   },
+   "core.san-francisco.data-science.graph-linker": {
+    "modelCalls": 0,
+    "promptTokens": 0,
+    "outputTokens": 0,
+    "modelMs": 0,
+    "toolCalls": 1
+   },
+   "core.san-francisco.cybersecurity.data-policy-reviewer": {
+    "modelCalls": 0,
+    "promptTokens": 0,
+    "outputTokens": 0,
+    "modelMs": 0,
+    "toolCalls": 1
+   }
+  }
+ },
+ "_t0": 1791944844570,
+ "places": [
+  "Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST)",
+  "Folsom",
+  "Howard"
+ ],
+ "baseline": {
+  "call": 19,
+  "evidence": [
+   "E15"
+  ],
+  "cityDecision": "ÉLIGIBLE À LA REVUE HUMAINE"
+ },
+ "verification": [
+  {
+   "claim": "L’élément « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » est rattaché au tronçon HOWARD ST 08TH ST → 09TH ST (observed (CNN field)) ; son point publié est à 17 m de l’axe du tronçon.",
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "epistemic": "observed",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "4 bâtiment(s) avec bilan énergétique déclaré à proximité (contexte ; aucun modèle d’économie).",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "epistemic": "reported",
+   "typeOk": true,
+   "evidence": 4,
+   "resolved": 4
+  },
+  {
+   "claim": "Réseau CAISO (Californie, 2026-10-13 18:20 heure du Pacifique) : 15 % de renouvelables hors grande hydraulique sur 27805 MW ; échelle de l’État, pas de San Francisco.",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "epistemic": "reported",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "5 fenêtre(s) d’excavation en cours ou à venir sur HOWARD ST 08TH ST → 09TH ST (CableCom, Precision Engineering, Inc., R & S Construction Management Inc).",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "epistemic": "observed",
+   "typeOk": true,
+   "evidence": 5,
+   "resolved": 5
+  },
+  {
+   "claim": "8 chevauchement(s) entre organisations dans les 60 j.",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "epistemic": "derived",
+   "typeOk": true,
+   "evidence": 16,
+   "resolved": 16
+  },
+  {
+   "claim": "2 fenêtre(s) de titulaires classés télécoms (classement déclaré par nom) : CableCom.",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "epistemic": "derived",
+   "typeOk": true,
+   "evidence": 2,
+   "resolved": 2
+  },
+  {
+   "claim": "Street-Use Permits (b6tj-gt35) (v1, DataSF open data portal, licence ODC-PDDL (per dataset), récupéré 2026-10-13) : Public Works street-space permits including excavation, street improvement, boring and emergency permits. Each record has a permit number, type, status, CNN location, holder organisation and authorized start/end dates. A permit authorizes a window; it does not prove that work happened.",
+   "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "epistemic": "reported",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "0 dossier(s) de projet Planning ouverts en 30 j avec une adresse sur HOWARD ST (aucun) parmi 94 à l’échelle de la ville ; adresses non géocodées, rattachement à la rue seulement.",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "epistemic": "reported",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "7 permis de construire récent(s) (≤ 365 j) au front du tronçon ; 45 au total.",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "epistemic": "derived",
+   "typeOk": true,
+   "evidence": 7,
+   "resolved": 7
+  },
+  {
+   "claim": "2 semblent intérieurs ou d’enseigne : lien avec le trottoir incertain.",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "epistemic": "derived",
+   "typeOk": true,
+   "evidence": 2,
+   "resolved": 2
+  },
+  {
+   "claim": "Le statut DBI « issued » n’indique pas un chantier en cours (connaissance approuvée k-dbi-issued-status).",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "epistemic": "reported",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "Trottoir : 12 pi (W) (étude 2014) ; 0 parc(s) proche(s).",
+   "agent": "core.san-francisco.housing.urban-planning-analyst",
+   "epistemic": "observed",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "Simulation exploratoire non calibrée sidewalk-tree-capacity-v1 (empreinte 929b8be4d02e6efc) sur 44 tronçons : 93 emplacements d’arbres supplémentaires compatibles avec un cheminement de 4 ft, dont 39 à reporter pour travaux planifiés ; 18 tronçons ont un trottoir plus étroit que le minimum Better Streets Plan (donnée 2014).",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "epistemic": "simulated",
+   "typeOk": true,
+   "evidence": 2,
+   "resolved": 2
+  },
+  {
+   "claim": "HOWARD ST 08TH ST → 09TH ST : trottoir 12 ft (classe Mixed-use, minimum 12 ft, recommandé 15 ft, étude 2014) ; cheminement restant 9 ft avec une fosse de 3 ft ; 15 arbres vivants, 0 emplacements supplémentaires, 0 à reporter.",
+   "agent": "core.san-francisco.public-space.accessibility-analyst",
+   "epistemic": "simulated",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "Recalcul déterministe (rayon arbres 12 m, horizon 60 j, report 21 j) : épisodes d’exposition R0 2, R1 2, R2 2 ; arbres à ≤ rayon 2 ; recommandation R2 ; passerelle ÉLIGIBLE À LA REVUE HUMAINE.",
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "epistemic": "simulated",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "Recalcul déterministe (rayon arbres 12 m, horizon 60 j, report 21 j) : épisodes d’exposition R0 2, R1 2, R2 2 ; arbres à ≤ rayon 2 ; recommandation R2 ; passerelle ÉLIGIBLE À LA REVUE HUMAINE.",
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "epistemic": "simulated",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  }
+ ],
+ "recorded": {
+  "by": "scripts/cognitive.mjs (Node, live local model)",
+  "at": "2026-10-14T02:27:24.540Z",
+  "snapshot": "2026-10-13T18:25:19.678Z",
+  "feedUpdate": "2026-10-14T02:03:28.797Z",
+  "knowledge": "core-knowledge-library-v1",
+  "resources": {
+   "machine": {
+    "cpu": "Apple M1 Max",
+    "cores": 10,
+    "memGB": 32
+   },
+   "model": {
+    "provider": "ollama",
+    "name": "qwen3:8b",
+    "available": true,
+    "reason": "modèle local disponible",
+    "details": {
+     "name": "qwen3:8b",
+     "sizeBytes": 5225388164,
+     "family": "qwen3",
+     "parameters": "8.2B",
+     "quantization": "Q4_K_M"
+    }
+   },
+   "ollama": {
+    "samples": 340,
+    "peakRssMB": 9478,
+    "meanCpuPct": 106,
+    "peakCpuPct": 251
+   },
+   "node": {
+    "cpuUserMs": 2478,
+    "cpuSystemMs": 875,
+    "rssMB": 203
+   },
+   "wallMs": 341611
+  }
+ }
+}

@@ -2,6 +2,8 @@
 //   node scripts/cognitive.mjs                      newest verified corridor event (default)
 //   node scripts/cognitive.mjs --item <feedItemId>  a specific City Intelligence item
 //   node scripts/cognitive.mjs --suggestion <key>   a recorded mission suggestion (e.g. corridor:7056000)
+//   node scripts/cognitive.mjs --planning "question" corridor-wide planning question (sidewalk × trees simulation)
+//   --mode fast|deep (default fast) · --cache (reuse identical model responses from .cache/llm; off for benchmarks)
 // Requires a local Ollama server with qwen3:8b (node scripts/llm-check.mjs). Never falls back to canned output.
 // Writes data/missions/cognitive/<id>.json and data/missions/cognitive/index.json, with measured resource usage.
 import fs from 'node:fs';
@@ -23,7 +25,8 @@ const probe = await LLM.probe(LLM.PROVIDERS.ollama);
 if (!probe.available) { console.error(`Modèle local indisponible : ${probe.reason}. Voir node scripts/llm-check.mjs. Aucune réponse simulée n’est produite.`); process.exit(2); }
 
 let origin;
-if (opt('--item')) origin = { type: 'item', item: opt('--item') };
+if (opt('--planning')) origin = { type: 'corridor-planning', text: opt('--planning') };
+else if (opt('--item')) origin = { type: 'item', item: opt('--item') };
 else if (opt('--suggestion')) origin = { type: 'suggestion', suggestion: feedState.suggestions.find(s => s.key === opt('--suggestion')) };
 else {
   const corridorSources = ['datasf-street-use', 'datasf-building', 'datasf-tree-removals', 'datasf-closures'];
@@ -39,9 +42,11 @@ const samples = [];
 const sampler = setInterval(() => { const p = pids(); if (!p.length) return; try { const rows = execFileSync('ps', ['-o', 'pid=,%cpu=,rss=', '-p', p.join(',')], { encoding: 'utf8', env: { ...process.env, LC_ALL: 'C' } }).trim().split('\n').map(l => l.trim().split(/\s+/).map(Number)); samples.push({ t: Date.now(), cpu: rows.reduce((n, r) => n + r[1], 0), rssMB: Math.round(rows.reduce((n, r) => n + r[2], 0) / 1024) }); } catch (_) { /* process ended */ } }, 1000);
 const cpu0 = process.cpuUsage(), t0 = Date.now();
 
-const mc = COG.newCognitive(origin, env);
+const mode = opt('--mode') || 'fast', mc = COG.newCognitive(origin, env, { mode });
+// Content-addressed cache of model responses on disk (gitignored). Only with --cache; cached calls are labelled.
+const cache = args.includes('--cache') ? { dir: '.cache/llm', get(k) { const f = `${this.dir}/${k}.json`; return fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : null; }, set(k, v) { fs.mkdirSync(this.dir, { recursive: true }); fs.writeFileSync(`${this.dir}/${k}.json`, JSON.stringify(v)); } } : null;
 console.log(`${mc.id} — ${mc.target.question}`);
-await COG.run(mc, env, { registry, onEvent: e => { if (['stage', 'tool-call', 'report', 'route', 'mission'].includes(e.kind)) console.log(`  [${e.kind}] ${e.agent ? e.agent.split('.').pop() + ' · ' : ''}${e.text}`); } });
+await COG.run(mc, env, { registry, cache, onEvent: e => { if (['stage', 'tool-call', 'report', 'route', 'mission'].includes(e.kind)) console.log(`  [${e.kind}] ${e.agent ? e.agent.split('.').pop() + ' · ' : ''}${e.text}`); } });
 clearInterval(sampler);
 const cpu = process.cpuUsage(cpu0), wall = Date.now() - t0;
 const resources = { machine: { cpu: os.cpus()[0].model, cores: os.cpus().length, memGB: Math.round(os.totalmem() / 2 ** 30) }, model: mc.model,
@@ -49,12 +54,13 @@ const resources = { machine: { cpu: os.cpus()[0].model, cores: os.cpus().length,
   node: { cpuUserMs: Math.round(cpu.user / 1000), cpuSystemMs: Math.round(cpu.system / 1000), rssMB: Math.round(process.memoryUsage().rss / 2 ** 20) }, wallMs: wall };
 const { opts, cancelled, ...record } = mc;
 record.recorded = { by: 'scripts/cognitive.mjs (Node, live local model)', at: env.now, snapshot: manifest.generated_at, feedUpdate: feedState.lastSuccessfulUpdate, knowledge: env.knowledge.lib.version, resources };
-fs.mkdirSync('data/missions/cognitive', { recursive: true });
-const file = `data/missions/cognitive/${mc.id.replace(':', '-')}.json`;
+const dir = opt('--record-dir') || 'data/missions/cognitive'; // benchmarks can record outside the published data
+fs.mkdirSync(dir, { recursive: true });
+const file = `${dir}/${mc.id.replace(':', '-')}.json`;
 fs.writeFileSync(file, JSON.stringify(record, null, 1) + '\n');
-const idxFile = 'data/missions/cognitive/index.json', idx = fs.existsSync(idxFile) ? JSON.parse(fs.readFileSync(idxFile, 'utf8')) : { version: 'core-cognitive-index-v1', missions: [] };
+const idxFile = `${dir}/index.json`, idx = fs.existsSync(idxFile) ? JSON.parse(fs.readFileSync(idxFile, 'utf8')) : { version: 'core-cognitive-index-v1', missions: [] };
 idx.missions = idx.missions.filter(m => m.id !== mc.id);
-idx.missions.unshift({ id: mc.id, question: mc.target.question, item: mc.target.item, segment: mc.target.segment, state: mc.state, decision: mc.decision && mc.decision.state, agents: mc.agents, model: `${mc.model.provider}:${mc.model.name}`, recorded_at: env.now,
-  metrics: { wallMs: mc.metrics.wallMs, modelCalls: mc.metrics.modelCalls, toolCalls: mc.metrics.toolCalls, promptTokens: mc.metrics.promptTokens, outputTokens: mc.metrics.outputTokens, accepted: mc.board.length, rejected: mc.rejected.length, disagreements: mc.disagreements.length, requests: mc.requests.length } });
+idx.missions.unshift({ id: mc.id, mode: mc.mode, question: mc.target.question, item: mc.target.item, segment: mc.target.segment, state: mc.state, decision: mc.decision && mc.decision.state, agents: mc.agents, model: `${mc.model.provider}:${mc.model.name}`, recorded_at: env.now,
+  metrics: { wallMs: mc.metrics.wallMs, modelCalls: mc.metrics.modelCalls, cachedModelCalls: mc.modelCalls.filter(c => c.cached).length, toolCalls: mc.metrics.toolCalls, promptTokens: mc.metrics.promptTokens, outputTokens: mc.metrics.outputTokens, accepted: mc.board.length, rejected: mc.rejected.length, disagreements: mc.disagreements.length, requests: mc.requests.length } });
 fs.writeFileSync(idxFile, JSON.stringify(idx, null, 1) + '\n');
 console.log(`\n${mc.state} — ${mc.decision ? mc.decision.state : ''}\nmodèle ${mc.metrics.modelCalls} appels, ${mc.metrics.promptTokens}+${mc.metrics.outputTokens} jetons, ${mc.metrics.tokensPerSecond} jetons/s ; outils ${mc.metrics.toolCalls} (refusés ${mc.metrics.deniedToolCalls}, cache ${mc.metrics.cachedToolCalls}) ; énoncés acceptés ${mc.board.length}, rejetés ${mc.rejected.length}\nressources ${JSON.stringify(resources.ollama)} ; durée ${Math.round(wall / 1000)} s → ${file}`);

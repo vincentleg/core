@@ -62,7 +62,7 @@
    "tool": "resilience.quake-context",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 1,
+   "ms": 3,
    "records": 1,
    "error": null,
    "findings": [
@@ -78,6 +78,20 @@
       }
      ],
      "value": 3.32,
+     "quantities": [
+      {
+       "value": 3.32,
+       "unit": "magnitude",
+       "quantity": "index",
+       "meaning": "magnitude du séisme"
+      },
+      {
+       "value": 3.37,
+       "unit": "km",
+       "quantity": "depth",
+       "meaning": "profondeur du foyer"
+      }
+     ],
      "agent": "core.san-francisco.climate.seismic-context",
      "tool": "resilience.quake-context"
     },
@@ -99,6 +113,14 @@
       }
      ],
      "value": 93,
+     "quantities": [
+      {
+       "value": 93,
+       "unit": "km",
+       "quantity": "distance",
+       "meaning": "distance de l’épicentre au corridor"
+      }
+     ],
      "agent": "core.san-francisco.climate.seismic-context",
      "tool": "resilience.quake-context"
     },
@@ -128,7 +150,7 @@
    "tool": "resilience.weather-alerts",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 1,
+   "ms": 3,
    "records": 0,
    "error": null,
    "findings": [
@@ -144,7 +166,7 @@
       }
      ],
      "value": 0,
-     "asOf": "2026-10-14T01:43:12.749Z",
+     "asOf": "2026-10-14T02:03:28.797Z",
      "agent": "core.san-francisco.climate.weather-alerts",
      "tool": "resilience.weather-alerts"
     }
@@ -160,7 +182,7 @@
    "tool": "graph.link",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 1,
+   "ms": 3,
    "records": 1,
    "error": null,
    "findings": [
@@ -177,6 +199,7 @@
      ],
      "value": null,
      "link": null,
+     "quantities": [],
      "agent": "core.san-francisco.data-science.graph-linker",
      "tool": "graph.link"
     }
@@ -192,7 +215,7 @@
    "tool": "knowledge.retrieve",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 1,
+   "ms": 2,
    "records": 2,
    "error": null,
    "findings": [
@@ -246,6 +269,20 @@
     }
    ],
    "value": 3.32,
+   "quantities": [
+    {
+     "value": 3.32,
+     "unit": "magnitude",
+     "quantity": "index",
+     "meaning": "magnitude du séisme"
+    },
+    {
+     "value": 3.37,
+     "unit": "km",
+     "quantity": "depth",
+     "meaning": "profondeur du foyer"
+    }
+   ],
    "agent": "core.san-francisco.climate.seismic-context",
    "tool": "resilience.quake-context"
   },
@@ -267,6 +304,14 @@
     }
    ],
    "value": 93,
+   "quantities": [
+    {
+     "value": 93,
+     "unit": "km",
+     "quantity": "distance",
+     "meaning": "distance de l’épicentre au corridor"
+    }
+   ],
    "agent": "core.san-francisco.climate.seismic-context",
    "tool": "resilience.quake-context"
   },
@@ -296,7 +341,7 @@
     }
    ],
    "value": 0,
-   "asOf": "2026-10-14T01:43:12.749Z",
+   "asOf": "2026-10-14T02:03:28.797Z",
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts"
   },
@@ -313,6 +358,7 @@
    ],
    "value": null,
    "link": null,
+   "quantities": [],
    "agent": "core.san-francisco.data-science.graph-linker",
    "tool": "graph.link"
   },
@@ -522,28 +568,28 @@
  "log": [
   {
    "seq": 1,
-   "t": 3,
+   "t": 0,
    "kind": "mission",
    "state": "planning",
    "text": "Mission → planning"
   },
   {
    "seq": 2,
-   "t": 3,
+   "t": 1,
    "kind": "plan",
    "agent": "core.san-francisco.manager",
    "text": "Domaines : emergency ; 4 spécialiste(s) exécutable(s) recruté(s) ; 1 profil(s) pertinent(s) indisponible(s) (pas d’outil ou de données)."
   },
   {
    "seq": 3,
-   "t": 3,
+   "t": 1,
    "kind": "mission",
    "state": "assigned",
    "text": "Mission → assigned"
   },
   {
    "seq": 4,
-   "t": 3,
+   "t": 1,
    "kind": "task",
    "task": "task-1",
    "agent": "core.san-francisco.climate.seismic-context",
@@ -553,7 +599,7 @@
   },
   {
    "seq": 5,
-   "t": 3,
+   "t": 1,
    "kind": "task",
    "task": "task-2",
    "agent": "core.san-francisco.climate.weather-alerts",
@@ -563,7 +609,7 @@
   },
   {
    "seq": 6,
-   "t": 3,
+   "t": 1,
    "kind": "task",
    "task": "task-3",
    "agent": "core.san-francisco.data-science.graph-linker",
@@ -573,7 +619,7 @@
   },
   {
    "seq": 7,
-   "t": 3,
+   "t": 1,
    "kind": "task",
    "task": "task-4",
    "agent": "core.san-francisco.regulatory.knowledge-research",
@@ -583,14 +629,14 @@
   },
   {
    "seq": 8,
-   "t": 3,
+   "t": 1,
    "kind": "mission",
    "state": "running",
    "text": "Mission → running"
   },
   {
    "seq": 9,
-   "t": 3,
+   "t": 1,
    "kind": "task",
    "task": "task-1",
    "agent": "core.san-francisco.climate.seismic-context",
@@ -600,7 +646,7 @@
   },
   {
    "seq": 10,
-   "t": 3,
+   "t": 1,
    "kind": "task",
    "task": "task-2",
    "agent": "core.san-francisco.climate.weather-alerts",
@@ -610,7 +656,7 @@
   },
   {
    "seq": 11,
-   "t": 3,
+   "t": 1,
    "kind": "task",
    "task": "task-3",
    "agent": "core.san-francisco.data-science.graph-linker",
@@ -626,7 +672,7 @@
    "agent": "core.san-francisco.climate.seismic-context",
    "tool": "resilience.quake-context",
    "state": "succeeded",
-   "text": "3 constat(s), 1 enregistrement(s), 1 ms"
+   "text": "3 constat(s), 1 enregistrement(s), 3 ms"
   },
   {
    "seq": 13,
@@ -646,7 +692,7 @@
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts",
    "state": "succeeded",
-   "text": "1 constat(s), 0 enregistrement(s), 1 ms"
+   "text": "1 constat(s), 0 enregistrement(s), 3 ms"
   },
   {
    "seq": 15,
@@ -656,56 +702,56 @@
    "agent": "core.san-francisco.data-science.graph-linker",
    "tool": "graph.link",
    "state": "succeeded",
-   "text": "1 constat(s), 1 enregistrement(s), 1 ms"
+   "text": "1 constat(s), 1 enregistrement(s), 3 ms"
   },
   {
    "seq": 16,
-   "t": 5,
+   "t": 6,
    "kind": "task",
    "task": "task-4",
    "agent": "core.san-francisco.regulatory.knowledge-research",
    "tool": "knowledge.retrieve",
    "state": "succeeded",
-   "text": "2 constat(s), 2 enregistrement(s), 1 ms"
+   "text": "2 constat(s), 2 enregistrement(s), 2 ms"
   },
   {
    "seq": 17,
-   "t": 5,
+   "t": 6,
    "kind": "mission",
    "state": "reviewing",
    "text": "Mission → reviewing"
   },
   {
    "seq": 18,
-   "t": 5,
+   "t": 6,
    "kind": "review",
    "agent": "core.san-francisco.research.evidence-verifier",
    "text": "Vérification indépendante : 7/7 constats entièrement sourcés."
   },
   {
    "seq": 19,
-   "t": 5,
+   "t": 7,
    "kind": "review",
    "agent": "core.san-francisco.safety.adversarial-reviewer",
    "text": "Revue adversariale : 0 désaccord(s), 0 sensibilité(s), 1 limite(s), 0 tâche(s) non abouties."
   },
   {
    "seq": 20,
-   "t": 5,
+   "t": 7,
    "kind": "synthesis",
    "agent": "core.san-francisco.manager",
    "text": "Synthèse : 4 énoncé(s) sourcé(s) ; action suivante : Aucune action proposée : surveiller les révisions USGS ; une évaluation d’impact exigerait des données structurelles et géotechniques non disponibles."
   },
   {
    "seq": 21,
-   "t": 9,
+   "t": 8,
    "kind": "gateway",
    "agent": "core.san-francisco.governance.gateway",
    "text": "PREUVES SUPPLÉMENTAIRES REQUISES — Aucune action proposée : surveiller les révisions USGS ; une évaluation d’impact exigerait des données structurelles et géotechniques non disponibles. Limites : Aucune donnée structurelle, géotechnique ou d’inspection : aucun impact ne peut être évalué."
   },
   {
    "seq": 22,
-   "t": 9,
+   "t": 8,
    "kind": "mission",
    "state": "needs-evidence",
    "text": "Mission → needs-evidence"
@@ -714,9 +760,9 @@
  "fingerprint": "16bcf0ae69b48d15",
  "recorded": {
   "by": "scripts/agents.mjs (Node)",
-  "at": "2026-10-14T01:43:22.861Z",
-  "wallMs": 9,
+  "at": "2026-10-14T02:05:17.655Z",
+  "wallMs": 8,
   "snapshot": "2026-10-13T18:25:19.678Z",
-  "feedUpdate": "2026-10-14T01:43:12.749Z"
+  "feedUpdate": "2026-10-14T02:03:28.797Z"
  }
 }

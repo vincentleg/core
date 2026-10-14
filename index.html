@@ -205,6 +205,8 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
   ol.stages li.done { color: inherit; border-color: #3fb950; }
   ol.stages li.now { border-color: #e3b341; color: #e3b341; }
   .item.superseded { opacity: .55; }
+  .simgrid { display: grid; gap: 6px; } .simparam { display: grid; gap: 2px; font-size: 12px; } .simparam input { width: 100%; }
+  .demo-step { border-left: 3px solid var(--line); padding: 6px 10px; margin: 6px 0; } .demo-step.now { border-color: #e3b341; }
   abbr { text-decoration: underline dotted; cursor: help; }
 </style>
 </head>
@@ -213,6 +215,7 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
   <span class="mark">CORE<small>San Francisco</small></span>
   <div role="tablist" aria-label="Sections" style="display:flex">
     <button type="button" role="tab" data-sec="world" aria-selected="true">Monde</button>
+    <button type="button" role="tab" data-sec="demo" aria-selected="false">Démo</button>
     <button type="button" role="tab" data-sec="intel" aria-selected="false">Intelligence urbaine</button>
     <button type="button" role="tab" data-sec="agents" aria-selected="false">Agents</button>
     <button type="button" role="tab" data-sec="missions" aria-selected="false">Missions</button>
@@ -369,6 +372,11 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
 <script src="src/tools.js"></script>
 <script src="src/missions.js"></script>
 <script src="src/llm.js"></script>
+<script src="src/semantic.js"></script>
+<script src="src/sim-sidewalk.js"></script>
+<script src="src/specializations.js"></script>
+<script src="src/data-policy.js"></script>
+<script src="src/dossier.js"></script>
 <script src="src/learning.js"></script>
 <script src="src/cognitive.js"></script>
 <script src="src/cognitive-view.js"></script>

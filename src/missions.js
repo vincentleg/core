@@ -30,12 +30,13 @@
       const link = F.linkToCorridor(it, env.ctx);
       return { type: 'item-context', segment: link ? link.segment : null, item: it.id, question: link ? `Que change « ${it.title} » pour ${segLabel(env, link.segment)} ?` : `Que signifie « ${it.title} » pour la ville ?`, domains: it.domains };
     }
+    if (origin.type === 'corridor-planning') return { type: 'corridor-planning', segment: null, item: null, question: String(origin.text || '').slice(0, 300), domains: ['accessibility', 'infrastructure', 'nature', 'public_space'] };
     if (origin.type === 'question') return { type: 'question', segment: origin.segment || null, item: null, question: String(origin.text || '').slice(0, 300), domains: F.classify(origin.text) };
     throw new TypeError('origine de mission inconnue');
   }
   function plan(registry, m) {
     const idx = ORG.index(registry), domains = [...new Set([...(m.domains || []), ...(m.segment ? SEGMENT_DOMAINS : [])])].sort();
-    const independent = new Set(['evidence.verify', 'adversarial.review', 'decision.gateway', 'mission.plan']);
+    const independent = new Set(['evidence.verify', 'adversarial.review', 'decision.gateway', 'mission.plan', 'policy.check']); // independent reviewers are not recruited as specialists
     const picked = new Map(); // tool → agent (first qualified, deterministic order)
     for (const a of registry.agents) {
       if (a.executionMode !== 'deterministic' || a.status !== 'available') continue;

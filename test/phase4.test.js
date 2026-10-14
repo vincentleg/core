@@ -27,7 +27,7 @@ function makeEnv() {
 }
 const env = makeEnv(), registry = ORG.buildRegistry();
 const suggestion = env.feedState.suggestions.find(s => s.key === 'corridor:7056000');
-const runMock = async (behaviour, e = env) => { const mock = mockOllama({ behaviour }), mc = COG.newCognitive({ type: 'suggestion', suggestion }, e); await COG.run(mc, e, { registry, fetchImpl: mock.fetchImpl }); return { mc, mock }; };
+const runMock = async (behaviour, e = env) => { const mock = mockOllama({ behaviour }), mc = COG.newCognitive({ type: 'suggestion', suggestion }, e, { mode: 'deep' }); await COG.run(mc, e, { registry, fetchImpl: mock.fetchImpl }); return { mc, mock }; };
 
 test('model adapter: local-only, unavailable model, missing model, bounded context, structured output', async () => {
   const remote = { ...L.PROVIDERS.ollama, baseUrl: 'https://api.example.com' };
@@ -43,9 +43,9 @@ test('model adapter: local-only, unavailable model, missing model, bounded conte
   assert.throws(() => L.parseStructured('{"assessments":[]}', COG.REPORT_SCHEMA), /requis/);
 });
 
-test('registry: five model-assisted specialists, honest status, tools exist, no self-elevation', () => {
+test('registry: model-assisted specialists (7 since Phase 5), honest status, tools exist, no self-elevation', () => {
   const c = ORG.counts(registry), llm = registry.agents.filter(a => a.executionMode === 'llm');
-  assert.equal(c.llm, 5); assert.equal(c.executable, 16, 'deterministic executable count unchanged');
+  assert.equal(c.llm, 7); assert.equal(c.executable, 17, 'Phase 5 adds the deterministic data-eligibility reviewer');
   for (const a of llm) { assert.equal(a.status, 'requires-local-model'); assert.ok(a.tools.every(t => T.TOOLS[t]), a.id); assert.equal(a.model.name, 'qwen3:8b'); assert.ok(Object.isFrozen(a)); }
   assert.equal(llm.find(a => a.id.endsWith('evidence-reviewer')).permission, 'review');
   assert.ok(llm.every(a => !a.tools.includes('decision.gateway')), 'no model-assisted agent can reach the gateway as a tool');
@@ -87,7 +87,7 @@ test('tool permission boundaries: an agent cannot run a tool outside its profile
   const env2 = mc.toolCalls.filter(t => t.tool === 'works.telecom' && t.agent.endsWith('environmental-analyst'));
   assert.ok(env2.length && env2.every(t => t.state === 'denied'));
   const fake = { ...registry.agents.find(a => a.id.endsWith('environmental-analyst')) };
-  const m = COG.newCognitive({ type: 'suggestion', suggestion }, env);
+  const m = COG.newCognitive({ type: 'suggestion', suggestion }, env, { mode: 'deep' });
   assert.equal(COG.execTool(m, env, registry, fake, 'scenario.evaluate', {}).state, 'denied');
   assert.match(COG.execTool(m, env, registry, registry.agents.find(a => a.id.endsWith('scenario-analyst')), 'scenario.evaluate', { params: { treeBufferM: 99 } }).error, /hors du domaine validé/);
 });
@@ -105,7 +105,7 @@ test('cognitive gateway: recomputes tools and re-validates model outputs; tamper
 });
 
 test('model unavailable: no simulated answers; deterministic missions unaffected', async () => {
-  const mc = COG.newCognitive({ type: 'suggestion', suggestion }, env);
+  const mc = COG.newCognitive({ type: 'suggestion', suggestion }, env, { mode: 'deep' });
   await COG.run(mc, env, { registry, fetchImpl: mockOllama({ available: false }).fetchImpl });
   assert.equal(mc.state, 'model-unavailable'); assert.equal(mc.board.length, 0); assert.equal(mc.modelCalls.length, 0);
 });
@@ -188,7 +188,7 @@ test('security gate: integrity scanner fails on secrets and has no bypass flag',
 test('validator details found with the real model: schema-checked tool arguments, no echo responses, unambiguous distances', () => {
   assert.deepEqual(COG.cleanArgs('works.windows', { location: 'SoMa', 3: 'x' }), { args: {}, dropped: ['3', 'location'] });
   assert.deepEqual(COG.cleanArgs('knowledge.search', { query: 'arbres', extra: 1 }), { args: { query: 'arbres' }, dropped: ['extra'] });
-  const mc = COG.newCognitive({ type: 'suggestion', suggestion }, env), a = registry.agents.find(x => x.id.endsWith('environmental-analyst')), b = registry.agents.find(x => x.id.endsWith('energy-infrastructure-analyst'));
+  const mc = COG.newCognitive({ type: 'suggestion', suggestion }, env, { mode: 'deep' }), a = registry.agents.find(x => x.id.endsWith('environmental-analyst')), b = registry.agents.find(x => x.id.endsWith('energy-infrastructure-analyst'));
   COG.execTool(mc, env, registry, a, 'trees.near-works', {});
   COG.accept(mc, a, 'investigation', { assessments: [{ statement: 'Des arbres inventoriés sont proches des points de permis (E1).', kind: 'interpretation', cites: ['E1'], confidence: 'medium' }] });
   COG.accept(mc, b, 'deliberation', { responses: [{ to: 'A1', stance: 'refine', statement: 'Des arbres inventoriés sont proches des points de permis (E1).', cites: ['E1'] }] });

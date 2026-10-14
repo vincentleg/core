@@ -1,0 +1,317 @@
+{
+ "note": "HELD-OUT semantic set written after the validator was tuned on semantic-cases.json; results are reported as obtained, without further tuning.",
+ "evidence": {
+  "E1": {
+   "claim": "L’élément « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » est rattaché au tronçon HOWARD ST 08TH ST → 09TH ST (observed (CNN field)) ; son point publié est à 17 m de l’axe du tronçon.",
+   "quantities": [
+    {
+     "value": 17,
+     "unit": "m",
+     "quantity": "distance",
+     "meaning": "distance entre le point publié et l’axe du tronçon",
+     "scope": "segment"
+    }
+   ]
+  },
+  "E2": {
+   "claim": "5 fenêtre(s) d’excavation en cours ou à venir sur HOWARD ST 08TH ST → 09TH ST (CableCom, Precision Engineering, Inc.).",
+   "quantities": [
+    {
+     "value": 5,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "nombre de fenêtres de permis",
+     "scope": "segment"
+    }
+   ]
+  },
+  "E3": {
+   "claim": "15 arbre(s) inventorié(s) sur le tronçon ; 2 à ≤ 12 m d’un point de permis d’excavation (indicateur de proximité).",
+   "quantities": [
+    {
+     "value": 15,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "arbres inventoriés"
+    },
+    {
+     "value": 2,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "arbres proches"
+    },
+    {
+     "value": 12,
+     "unit": "m",
+     "quantity": "radius",
+     "meaning": "rayon de proximité"
+    }
+   ]
+  },
+  "E4": {
+   "claim": "Trottoir : 12 pi (W) (étude 2014) ; 0 parc(s) proche(s).",
+   "quantities": [
+    {
+     "value": 12,
+     "unit": "ft",
+     "quantity": "width",
+     "meaning": "largeur de trottoir (étude 2014)",
+     "asOf": "2014-01-01",
+     "scope": "segment"
+    },
+    {
+     "value": 0,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "parcs proches"
+    }
+   ]
+  },
+  "E5": {
+   "claim": "Qualité de l’air modélisée (CAMS via Open-Meteo) : US AQI 56, PM2,5 9.5 µg/m³ ; valeur de modèle, pas une mesure.",
+   "quantities": [
+    {
+     "value": 56,
+     "unit": "index",
+     "quantity": "index",
+     "meaning": "indice US AQI modélisé",
+     "nature": "modelled",
+     "scope": "SoMa (maille du modèle CAMS)"
+    },
+    {
+     "value": 9.5,
+     "unit": "ug/m3",
+     "quantity": "concentration",
+     "meaning": "PM2,5 modélisées",
+     "nature": "modelled",
+     "scope": "SoMa (maille du modèle CAMS)"
+    }
+   ]
+  },
+  "E6": {
+   "claim": "Réseau CAISO (Californie, 2026-10-13 16:05) : 80 % de renouvelables hors grande hydraulique sur 28028 MW ; échelle de l’État.",
+   "quantities": [
+    {
+     "value": 80,
+     "unit": "%",
+     "quantity": "share",
+     "meaning": "part des renouvelables du réseau",
+     "scope": "zone CAISO (Californie)"
+    },
+    {
+     "value": 28028,
+     "unit": "mw",
+     "quantity": "power",
+     "meaning": "production du réseau",
+     "scope": "zone CAISO (Californie)"
+    }
+   ]
+  },
+  "E7": {
+   "claim": "Recalcul déterministe : épisodes d’exposition R0 4, R1 2, R2 0.",
+   "quantities": [
+    {
+     "value": 4,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "épisodes R0",
+     "nature": "modelled"
+    },
+    {
+     "value": 2,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "épisodes R1",
+     "nature": "modelled"
+    },
+    {
+     "value": 0,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "épisodes R2",
+     "nature": "modelled"
+    }
+   ]
+  }
+ },
+ "target": {
+  "label": "HOWARD ST 08TH ST → 09TH ST"
+ },
+ "cases": [
+  {
+   "id": "h-ok-1",
+   "statement": "Deux arbres se trouvent dans le rayon de 12 m autour des permis (E3).",
+   "cites": [
+    "E3"
+   ],
+   "expect": "accept"
+  },
+  {
+   "id": "h-ok-2",
+   "statement": "La part renouvelable du réseau californien était de 80 % (E6).",
+   "cites": [
+    "E6"
+   ],
+   "expect": "accept"
+  },
+  {
+   "id": "h-ok-3",
+   "statement": "Selon le modèle CAMS, les PM2,5 seraient de 9.5 µg/m³ (E5).",
+   "cites": [
+    "E5"
+   ],
+   "expect": "accept"
+  },
+  {
+   "id": "h-ok-4",
+   "kind": "hypothesis",
+   "statement": "Si les fenêtres se chevauchent, la coordination pourrait réduire le nombre d’ouvertures de chaussée (E2).",
+   "cites": [
+    "E2"
+   ],
+   "expect": "accept"
+  },
+  {
+   "id": "h-ok-5",
+   "statement": "Le relevé de 2014 donne 12 pi de trottoir côté ouest (E4).",
+   "cites": [
+    "E4"
+   ],
+   "expect": "accept"
+  },
+  {
+   "id": "h-ok-6",
+   "statement": "Le rattachement repose sur le champ CNN, avec un point publié à 17 m de l’axe (E1).",
+   "cites": [
+    "E1"
+   ],
+   "expect": "accept"
+  },
+  {
+   "id": "h-meaning-1",
+   "statement": "La tranchée fait 17 m de profondeur (E1).",
+   "cites": [
+    "E1"
+   ],
+   "expect": "reject",
+   "class": "meaning"
+  },
+  {
+   "id": "h-meaning-2",
+   "statement": "Le trottoir est haut de 12 pi (E4).",
+   "cites": [
+    "E4"
+   ],
+   "expect": "reject",
+   "class": "meaning"
+  },
+  {
+   "id": "h-meaning-3",
+   "statement": "Le chantier s’étend sur une longueur de 12 m autour des arbres (E3).",
+   "cites": [
+    "E3"
+   ],
+   "expect": "reject",
+   "class": "meaning"
+  },
+  {
+   "id": "h-meaning-4",
+   "statement": "Les 5 fenêtres couvrent une surface de 5 m² (E2).",
+   "cites": [
+    "E2"
+   ],
+   "expect": "reject",
+   "class": "meaning"
+  },
+  {
+   "id": "h-unit-1",
+   "statement": "Le point publié est à 17 pieds de l’axe (E1).",
+   "cites": [
+    "E1"
+   ],
+   "expect": "reject",
+   "class": "unit"
+  },
+  {
+   "id": "h-scope-1",
+   "statement": "À San Francisco, la production électrique atteint 28028 MW (E6).",
+   "cites": [
+    "E6"
+   ],
+   "expect": "reject",
+   "class": "scope"
+  },
+  {
+   "id": "h-model-1",
+   "statement": "Les relevés montrent un AQI de 56 sur Howard (E5).",
+   "cites": [
+    "E5"
+   ],
+   "expect": "reject",
+   "class": "observed-vs-modelled"
+  },
+  {
+   "id": "h-temporal-1",
+   "statement": "En ce moment, le trottoir fait 12 pi (E4).",
+   "cites": [
+    "E4"
+   ],
+   "expect": "reject",
+   "class": "temporal"
+  },
+  {
+   "id": "h-geo-1",
+   "statement": "Sur Harrison, 15 arbres sont inventoriés (E3).",
+   "cites": [
+    "E3"
+   ],
+   "expect": "reject",
+   "class": "geography"
+  },
+  {
+   "id": "h-geo-2",
+   "statement": "Le trottoir de Bryant Street mesure 12 pi selon l’étude de 2014 (E4).",
+   "cites": [
+    "E4"
+   ],
+   "expect": "reject",
+   "class": "geography"
+  },
+  {
+   "id": "h-causal-1",
+   "statement": "Le chantier provoque la dégradation des 2 arbres (E3).",
+   "cites": [
+    "E3"
+   ],
+   "expect": "reject",
+   "class": "causal"
+  },
+  {
+   "id": "h-causal-2",
+   "statement": "Les excavations entraînent une hausse de l’AQI à 56 (E5).",
+   "cites": [
+    "E5"
+   ],
+   "expect": "reject",
+   "class": "causal"
+  },
+  {
+   "id": "h-causal-3",
+   "statement": "La baisse des épisodes de 4 à 0 est due à la coordination (E7).",
+   "cites": [
+    "E7"
+   ],
+   "expect": "reject",
+   "class": "causal"
+  },
+  {
+   "id": "h-numbers-1",
+   "statement": "Il y a 20 arbres sur le tronçon (E3).",
+   "cites": [
+    "E3"
+   ],
+   "expect": "reject",
+   "class": "numbers"
+  }
+ ]
+}

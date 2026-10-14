@@ -7,4 +7,4 @@
 - Veille : 17 sources (16 actives), 331 éléments ; GitHub Actions toutes les 3 h, déployé et vérifié par exécution réelle.
 - Passerelle de sécurité : crochets pre-commit/pre-push, sans contournement ; 74 tests Node (modèle simulé) ; 5/5 tests réels.
 - Navigateurs : Chrome 155 101/101 ; Firefox non relancé (blocage au démarrage) ; Safari non testé.
-- Phase 5 non commencée : uniquement sur demande explicite du fondateur.
+- Phase 5 EN COURS (interrompue) : voir docs/PHASE_5_CHECKPOINT.md ; Phase 6 non commencée.

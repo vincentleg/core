@@ -15,6 +15,8 @@
       note: 'Compte les arbres inventoriés à moins de d mètres du point publié d’un permis d’excavation. Le point du permis n’est pas le tracé de la tranchée.' },
     'evidence-completeness-v1': { domain: 'cross-domain', kind: 'checklist of required evidence', calibrated: false, status: 'working',
       note: 'Part des preuves requises disponibles dans l’instantané pour une décision donnée.' },
+    'sidewalk-tree-capacity-v1': { domain: 'public_space', kind: 'geometric capacity under declared assumptions (accessibility × urban forestry × works coordination)', calibrated: false, status: 'exploratory',
+      note: 'Emplacements d’arbres supplémentaires compatibles avec un cheminement piéton accessible, et report là où des travaux sont planifiés (src/sim-sidewalk.js). Aucun bénéfice (canopée, chaleur, carbone) n’est calculé.' },
     'energy-model': { domain: 'energy', status: 'unavailable', note: 'Aucun modèle énergétique validé : aucune économie d’énergie n’est simulée.' },
     'ecology-model': { domain: 'nature', status: 'unavailable', note: 'Aucun modèle écologique ou de santé des arbres : aucun dommage ni bénéfice n’est estimé.' },
     'traffic-model-real': { domain: 'infrastructure', status: 'unavailable', note: 'Pas de comptages ni de plans de feux observés : aucun effet trafic réel.' },

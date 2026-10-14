@@ -1,0 +1,424 @@
+{
+ "note": "Adversarial semantic evaluation set (Phase 5). Evidence mirrors real CORE tool outputs. expect: accept | reject; class: the error class a rejection must report.",
+ "evidence": {
+  "E1": {
+   "claim": "L’élément « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » est rattaché au tronçon HOWARD ST 08TH ST → 09TH ST (observed (CNN field)) ; son point publié est à 17 m de l’axe du tronçon.",
+   "quantities": [
+    {
+     "value": 17,
+     "unit": "m",
+     "quantity": "distance",
+     "meaning": "distance entre le point publié et l’axe du tronçon",
+     "scope": "segment"
+    }
+   ]
+  },
+  "E2": {
+   "claim": "5 fenêtre(s) d’excavation en cours ou à venir sur HOWARD ST 08TH ST → 09TH ST (CableCom, Precision Engineering, Inc.).",
+   "quantities": [
+    {
+     "value": 5,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "nombre de fenêtres de permis",
+     "scope": "segment"
+    }
+   ]
+  },
+  "E3": {
+   "claim": "15 arbre(s) inventorié(s) sur le tronçon ; 2 à ≤ 12 m d’un point de permis d’excavation (indicateur de proximité).",
+   "quantities": [
+    {
+     "value": 15,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "arbres inventoriés"
+    },
+    {
+     "value": 2,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "arbres proches"
+    },
+    {
+     "value": 12,
+     "unit": "m",
+     "quantity": "radius",
+     "meaning": "rayon de proximité"
+    }
+   ]
+  },
+  "E4": {
+   "claim": "Trottoir : 12 pi (W) (étude 2014) ; 0 parc(s) proche(s).",
+   "quantities": [
+    {
+     "value": 12,
+     "unit": "ft",
+     "quantity": "width",
+     "meaning": "largeur de trottoir (étude 2014)",
+     "asOf": "2014-01-01",
+     "scope": "segment"
+    },
+    {
+     "value": 0,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "parcs proches"
+    }
+   ]
+  },
+  "E5": {
+   "claim": "Qualité de l’air modélisée (CAMS via Open-Meteo) : US AQI 56, PM2,5 9.5 µg/m³ ; valeur de modèle, pas une mesure.",
+   "quantities": [
+    {
+     "value": 56,
+     "unit": "index",
+     "quantity": "index",
+     "meaning": "indice US AQI modélisé",
+     "nature": "modelled",
+     "scope": "SoMa (maille du modèle CAMS)"
+    },
+    {
+     "value": 9.5,
+     "unit": "ug/m3",
+     "quantity": "concentration",
+     "meaning": "PM2,5 modélisées",
+     "nature": "modelled",
+     "scope": "SoMa (maille du modèle CAMS)"
+    }
+   ]
+  },
+  "E6": {
+   "claim": "Réseau CAISO (Californie, 2026-10-13 16:05) : 80 % de renouvelables hors grande hydraulique sur 28028 MW ; échelle de l’État.",
+   "quantities": [
+    {
+     "value": 80,
+     "unit": "%",
+     "quantity": "share",
+     "meaning": "part des renouvelables du réseau",
+     "scope": "zone CAISO (Californie)"
+    },
+    {
+     "value": 28028,
+     "unit": "mw",
+     "quantity": "power",
+     "meaning": "production du réseau",
+     "scope": "zone CAISO (Californie)"
+    }
+   ]
+  },
+  "E7": {
+   "claim": "Recalcul déterministe : épisodes d’exposition R0 4, R1 2, R2 0.",
+   "quantities": [
+    {
+     "value": 4,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "épisodes R0",
+     "nature": "modelled"
+    },
+    {
+     "value": 2,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "épisodes R1",
+     "nature": "modelled"
+    },
+    {
+     "value": 0,
+     "unit": "count",
+     "quantity": "count",
+     "meaning": "épisodes R2",
+     "nature": "modelled"
+    }
+   ]
+  }
+ },
+ "target": {
+  "label": "HOWARD ST 08TH ST → 09TH ST"
+ },
+ "cases": [
+  {
+   "id": "ok-distance",
+   "statement": "Le point du permis est à 17 m de l’axe du tronçon (E1).",
+   "cites": [
+    "E1"
+   ],
+   "expect": "accept"
+  },
+  {
+   "id": "ok-count",
+   "statement": "Cinq fenêtres de permis sont prévues sur ce tronçon, soit 5 fenêtres au total (E2).",
+   "cites": [
+    "E2"
+   ],
+   "expect": "accept"
+  },
+  {
+   "id": "ok-trees",
+   "statement": "2 des 15 arbres inventoriés sont à moins de 12 m d’un point de permis (E3).",
+   "cites": [
+    "E3"
+   ],
+   "expect": "accept"
+  },
+  {
+   "id": "ok-sidewalk-dated",
+   "statement": "L’étude de 2014 indique un trottoir de 12 pi de largeur (E4).",
+   "cites": [
+    "E4"
+   ],
+   "expect": "accept"
+  },
+  {
+   "id": "ok-modelled",
+   "statement": "L’indice US AQI modélisé est de 56, une valeur de modèle et non une mesure (E5).",
+   "cites": [
+    "E5"
+   ],
+   "expect": "accept"
+  },
+  {
+   "id": "ok-caiso-scope",
+   "statement": "Le réseau CAISO affichait 80 % de renouvelables à l’échelle de la Californie (E6).",
+   "cites": [
+    "E6"
+   ],
+   "expect": "accept"
+  },
+  {
+   "id": "ok-hedged-causal",
+   "kind": "hypothesis",
+   "statement": "Les travaux pourraient affecter les 2 arbres proches, hypothèse à vérifier sur le terrain (E3).",
+   "cites": [
+    "E3"
+   ],
+   "expect": "accept"
+  },
+  {
+   "id": "ok-scenario",
+   "statement": "Le recalcul déterministe donne 4 épisodes en R0 contre 0 en R2 (E7).",
+   "cites": [
+    "E7"
+   ],
+   "expect": "accept"
+  },
+  {
+   "id": "ok-negated-causal",
+   "statement": "Aucune preuve n’indique que les travaux affectent la qualité de l’air (E5).",
+   "cites": [
+    "E5"
+   ],
+   "expect": "accept"
+  },
+  {
+   "id": "ok-howard",
+   "statement": "Sur Howard, 5 fenêtres de permis sont recensées (E2).",
+   "cites": [
+    "E2"
+   ],
+   "expect": "accept"
+  },
+  {
+   "id": "meaning-depth",
+   "statement": "L’excavation atteint une profondeur de 17 m (E1).",
+   "cites": [
+    "E1"
+   ],
+   "expect": "reject",
+   "class": "meaning"
+  },
+  {
+   "id": "meaning-depth-2",
+   "statement": "Une profondeur de 17 m de l’axe du tronçon est indiquée (E1).",
+   "cites": [
+    "E1"
+   ],
+   "expect": "reject",
+   "class": "meaning"
+  },
+  {
+   "id": "meaning-length",
+   "statement": "Le tronçon mesure 17 m de longueur (E1).",
+   "cites": [
+    "E1"
+   ],
+   "expect": "reject",
+   "class": "meaning"
+  },
+  {
+   "id": "meaning-width-as-length",
+   "statement": "Le trottoir a une longueur de 12 pi (E4).",
+   "cites": [
+    "E4"
+   ],
+   "expect": "reject",
+   "class": "meaning"
+  },
+  {
+   "id": "meaning-radius-as-depth",
+   "statement": "Les racines sont touchées jusqu’à une profondeur de 12 m (E3).",
+   "cites": [
+    "E3"
+   ],
+   "expect": "reject",
+   "class": "meaning"
+  },
+  {
+   "id": "meaning-count-as-distance",
+   "statement": "Les arbres se trouvent à une distance de 15 m du chantier (E3).",
+   "cites": [
+    "E3"
+   ],
+   "expect": "reject",
+   "class": "meaning"
+  },
+  {
+   "id": "unit-m-for-ft",
+   "statement": "Le trottoir mesure 12 m de largeur (E4).",
+   "cites": [
+    "E4"
+   ],
+   "expect": "reject",
+   "class": "unit"
+  },
+  {
+   "id": "unit-km",
+   "statement": "Le permis est à 17 km de l’axe (E1).",
+   "cites": [
+    "E1"
+   ],
+   "expect": "reject",
+   "class": "unit"
+  },
+  {
+   "id": "unit-pct-for-mw",
+   "statement": "La production atteint 80 MW de renouvelables (E6).",
+   "cites": [
+    "E6"
+   ],
+   "expect": "reject",
+   "class": "meaning"
+  },
+  {
+   "id": "scope-caiso-sf",
+   "statement": "San Francisco est alimentée à 80 % par des renouvelables (E6).",
+   "cites": [
+    "E6"
+   ],
+   "expect": "reject",
+   "class": "scope"
+  },
+  {
+   "id": "scope-caiso-city",
+   "statement": "La ville consomme 28028 MW (E6).",
+   "cites": [
+    "E6"
+   ],
+   "expect": "reject",
+   "class": "scope"
+  },
+  {
+   "id": "modelled-as-measured",
+   "statement": "Les capteurs ont mesuré un indice AQI de 56 (E5).",
+   "cites": [
+    "E5"
+   ],
+   "expect": "reject",
+   "class": "observed-vs-modelled"
+  },
+  {
+   "id": "modelled-as-observed",
+   "statement": "On a observé des PM2,5 à 9.5 µg/m³ dans la rue (E5).",
+   "cites": [
+    "E5"
+   ],
+   "expect": "reject",
+   "class": "observed-vs-modelled"
+  },
+  {
+   "id": "temporal-current",
+   "statement": "Le trottoir mesure actuellement 12 pi de largeur (E4).",
+   "cites": [
+    "E4"
+   ],
+   "expect": "reject",
+   "class": "temporal"
+  },
+  {
+   "id": "temporal-today",
+   "statement": "Aujourd’hui la largeur du trottoir est de 12 pi (E4).",
+   "cites": [
+    "E4"
+   ],
+   "expect": "reject",
+   "class": "temporal"
+  },
+  {
+   "id": "geo-folsom",
+   "statement": "Sur Folsom, 5 fenêtres de permis sont recensées (E2).",
+   "cites": [
+    "E2"
+   ],
+   "expect": "reject",
+   "class": "geography"
+  },
+  {
+   "id": "geo-mission",
+   "statement": "Les travaux de Mission Street concernent 15 arbres (E3).",
+   "cites": [
+    "E3"
+   ],
+   "expect": "reject",
+   "class": "geography"
+  },
+  {
+   "id": "causal-assert",
+   "statement": "Les travaux endommagent les 2 arbres proches (E3).",
+   "cites": [
+    "E3"
+   ],
+   "expect": "reject",
+   "class": "causal"
+  },
+  {
+   "id": "causal-pollution",
+   "statement": "Les travaux augmentent la pollution locale (E5).",
+   "cites": [
+    "E5"
+   ],
+   "expect": "reject",
+   "class": "causal"
+  },
+  {
+   "id": "causal-interp-hedge-wrong-kind",
+   "kind": "interpretation",
+   "statement": "Les travaux pourraient réduire la largeur utile du trottoir (E4).",
+   "cites": [
+    "E4"
+   ],
+   "expect": "reject",
+   "class": "causal"
+  },
+  {
+   "id": "precision-false",
+   "statement": "Le point est à 17.25 m de l’axe (E1).",
+   "cites": [
+    "E1"
+   ],
+   "expect": "reject",
+   "class": "numbers",
+   "note": "False precision: the more precise number is absent from the cited evidence, so the number-provenance rule rejects it."
+  },
+  {
+   "id": "precision-trees",
+   "statement": "Environ 2.0 arbres sont proches (E3).",
+   "cites": [
+    "E3"
+   ],
+   "expect": "reject",
+   "class": "numbers",
+   "note": "False precision: the more precise number is absent from the cited evidence, so the number-provenance rule rejects it."
+  }
+ ]
+}

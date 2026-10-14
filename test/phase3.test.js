@@ -30,7 +30,7 @@ test('registry: persistent identities, honest execution modes, no credentials', 
   assert.equal(c.registered, registry.agents.length);
   assert.equal(new Set(registry.agents.map(a => a.id)).size, c.registered, 'unique ids');
   assert.deepEqual(file.agents.map(a => a.id), registry.agents.map(a => a.id), 'persisted registry matches code');
-  assert.equal(c.departments, 28); assert.equal(c.llm, 5); // Phase 4: model-assisted specialists (need a local model at run time)
+  assert.equal(c.departments, 28); assert.equal(c.llm, 7); // Phase 4: model-assisted specialists (need a local model at run time)
   assert.ok(c.executable >= 10 && c.unavailable >= 10);
   for (const a of registry.agents) {
     for (const k of ['id', 'scope', 'department', 'role', 'specialization', 'competencies', 'knowledge', 'tools', 'permission', 'supervisor', 'executionMode', 'missionHistory', 'evaluationHistory', 'knowledgeVersion', 'status', 'budget']) assert.ok(k in a, `${a.id} has ${k}`);

@@ -13,3 +13,4 @@ __pycache__/
 .venv/
 data/raw/
 data/results.local.json
+.cache/
