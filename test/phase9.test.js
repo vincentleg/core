@@ -27,8 +27,9 @@ const env = corridorEnv(), cx = studyCx(), registry = ORG.buildRegistry();
 const quiet = fn => { const w = process.emitWarning; process.emitWarning = () => {}; try { return fn(); } finally { process.emitWarning = w; } };
 
 test('organisation: five honest classes summing to 68; new executable profiles have real tools', () => {
+  // Phase 10: the published registry is the world registry (68 San Francisco profiles + 14 Phase 10 profiles; see phase10.test.js).
   const op = read('data/agents/operational.json'), c = op.counts;
-  assert.equal(op.agents.length, 68); assert.equal(Object.values(c).reduce((a, b) => a + b, 0), 68);
+  assert.equal(op.agents.filter(a => registry.agents.some(x => x.id === a.id)).length, 68); assert.ok(op.agents.slice(0, 68).every((a, i) => a.id === registry.agents[i].id && a.code === registry.agents[i].code)); assert.equal(Object.values(c).reduce((a, b) => a + b, 0), op.agents.length);
   const counts = ORG.counts(registry); assert.equal(counts.executable, 19); assert.equal(counts.llm, 7); assert.equal(counts.unavailable, 13);
   for (const k of ['safety.crash-profile', 'flood.exposure', 'data.freshness', 'works.area-windows']) assert.ok(CT.TOOLS[k], k);
   for (const a of op.agents.filter(a => a.class === 'opérationnel autonome')) assert.ok(a.pastMissions.civ > 0, `${a.code} operational only with recorded autonomous work`);
@@ -97,8 +98,8 @@ test('learning: measured improvement on an identical task (procedural) and hones
 test('recorded autonomous missions: participants exist, permissions hold, evidence resolves, model statements re-validate', () => {
   const idx = read('data/civ/index.json'); assert.ok(idx.missions.length >= 4 && new Set(idx.missions.map(m => m.workflow)).size >= 2);
   const byId = new Map(registry.agents.map(a => [a.id, a]));
-  for (const e of idx.missions) {
-    const m = read(`data/civ/missions/${e.id.replace(/[:@]/g, '-')}.json`);
+  for (const e of idx.missions.filter(e => (e.city || 'san-francisco') === 'san-francisco' && e.scope !== 'world')) { // other cities and world missions: phase10.test.js
+    const m = read(`data/civ/missions/${e.file || e.id.replace(/[:@]/g, '-') + '.json'}`);
     assert.ok(['HUMAN_REVIEW', 'APPROVED', 'REJECTED', 'NEEDS_MORE_EVIDENCE'].includes(m.state));
     for (const x of m.messages) for (const id of [x.from, x.to]) assert.ok(byId.has(id) || id === 'human' || /^human:/.test(id), id);
     for (const s of m.subtasks) { const def = CT.TOOLS[s.tool] || require('../src/tools.js').TOOLS[s.tool]; assert.ok(ORG.canUse(byId.get(s.agent), s.tool, def.permission), `${s.code} → ${s.tool}`); }

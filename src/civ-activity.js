@@ -16,7 +16,7 @@
   async function load() {
     if (S.index) return S.index;
     try { S.index = await (await fetch('data/civ/index.json', { cache: 'no-cache' })).json(); } catch (_) { S.index = { missions: [] }; }
-    S.missions = (await Promise.all(S.index.missions.map(m => fetch(`data/civ/missions/${m.id.replace(/[:@]/g, '-')}.json`).then(r => r.ok ? r.json() : null).catch(() => null)))).filter(Boolean);
+    S.missions = (await Promise.all(S.index.missions.map(m => fetch(`data/civ/missions/${m.file || m.id.replace(/[:@]/g, '-') + '.json'}`).then(r => r.ok ? r.json() : null).catch(() => null)))).filter(Boolean);
     return S.index;
   }
   function layer() {

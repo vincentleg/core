@@ -1,5 +1,7 @@
 // CORE civilisation runtime — CLI (local only).
 //   node scripts/civ.mjs run [--model] [--concurrency N] [--record]   discover problems, run missions autonomously to human review
+//   node scripts/civ.mjs decision <city> <neighbourhood> [--record]          intervention comparison (decision intelligence) to human review
+//   node scripts/civ.mjs world <city>/<nhood> <city>/<nhood> [--record]     cross-city investigation (global director) to human review
 //   node scripts/civ.mjs status                                         missions, states, memory chain
 //   node scripts/civ.mjs decide <missionId> --reviewer human:<name> --decision approve|reject|needs-evidence [--note "…"] [--record]
 //   node scripts/civ.mjs record                                         publish recordings (still needs a human commit)
@@ -19,6 +21,12 @@ if (cmd === 'run') {
   for (const m of r.missions) console.log(`${m.id}: ${m.state} · ${m.decision ? m.decision.state : '—'} · ${m.metrics.subtasks} sous-tâches, ${m.metrics.messages} messages, ${m.metrics.modelCalls} appel(s) modèle`);
   console.log(JSON.stringify(r.metrics));
   if (args.includes('--record')) { fs.mkdirSync('data/civ', { recursive: true }); fs.writeFileSync('data/civ/run-metrics.json', JSON.stringify({ ...r.metrics, at: new Date().toISOString(), missions: r.missions.length }, null, 1) + '\n'); console.log(rt.record()); }
+} else if (cmd === 'decision' || cmd === 'world') {
+  const r = cmd === 'world' ? await rt.runFocused('world', { pairs: args.slice(1, 3).map(x => x.split('/')) }) : await rt.runFocused('city', { city: args[1], workflow: 'decision-safety-works', nhood: args[2] });
+  if (r.refused) { console.error(r.refused); process.exit(1); }
+  console.log(`${r.id}: ${r.state} · ${r.decision ? r.decision.state : '—'} · ${r.metrics.subtasks} sous-tâches, ${r.metrics.messages} messages${r.memoryReused ? `, ${r.memoryReused.length} entrée(s) de mémoire réutilisée(s)` : ''}`);
+  if (r.errors.length) console.log('errors:', r.errors.join(' | '));
+  if (args.includes('--record')) console.log(rt.record());
 } else if (cmd === 'decide') { const m = rt.decide(args[1], opt('--reviewer'), opt('--decision'), opt('--note') || ''); console.log(m.id, m.state); if (args.includes('--record')) console.log(rt.record()); }
 else if (cmd === 'record') console.log(rt.record());
 else { for (const m of rt.missions()) console.log(m.id, m.state, m.decision ? m.decision.state : ''); console.log('memory chain', JSON.stringify(rt.memory.verify())); }

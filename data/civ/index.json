@@ -1,6 +1,6 @@
 {
  "version": "core-civ-index-v1",
- "recorded_at": "2026-10-14T16:47:41.213Z",
+ "recorded_at": "2026-10-14T19:13:34.890Z",
  "study_area": {
   "neighborhoods": [
    "South of Market",
@@ -14,9 +14,43 @@
    37.78829
   ]
  },
+ "study_areas": {
+  "san-francisco": {
+   "neighborhoods": [
+    "South of Market",
+    "Mission",
+    "Tenderloin"
+   ],
+   "bbox": [
+    -122.42695,
+    37.74783,
+    -122.39275,
+    37.78829
+   ]
+  },
+  "new-york": {
+   "neighborhoods": [
+    "Chinatown-Two Bridges",
+    "Lower East Side",
+    "East Village"
+   ],
+   "bbox": [
+    -74.00157,
+    40.70554,
+    -73.96403,
+    40.73443
+   ]
+  }
+ },
  "missions": [
   {
    "id": "civ:safety-works:tenderloin@2026-10-14",
+   "file": "civ-safety-works-tenderloin-2026-10-14.json",
+   "city": "san-francisco",
+   "cities": [
+    "san-francisco"
+   ],
+   "scope": "city",
    "participants": [
     "core.global.coordinator",
     "core.san-francisco.manager",
@@ -56,6 +90,7 @@
     "modelCalls": 1
    },
    "findings": 15,
+   "memoryReused": 0,
    "messages": 29,
    "model": {
     "calls": 1,
@@ -66,6 +101,12 @@
   },
   {
    "id": "civ:safety-works:mission@2026-10-14",
+   "file": "civ-safety-works-mission-2026-10-14.json",
+   "city": "san-francisco",
+   "cities": [
+    "san-francisco"
+   ],
+   "scope": "city",
    "participants": [
     "core.global.coordinator",
     "core.san-francisco.manager",
@@ -105,6 +146,7 @@
     "modelCalls": 1
    },
    "findings": 15,
+   "memoryReused": 0,
    "messages": 29,
    "model": {
     "calls": 1,
@@ -115,6 +157,12 @@
   },
   {
    "id": "civ:safety-works:south-of-market@2026-10-14",
+   "file": "civ-safety-works-south-of-market-2026-10-14.json",
+   "city": "san-francisco",
+   "cities": [
+    "san-francisco"
+   ],
+   "scope": "city",
    "participants": [
     "core.global.coordinator",
     "core.san-francisco.manager",
@@ -154,6 +202,7 @@
     "modelCalls": 1
    },
    "findings": 19,
+   "memoryReused": 0,
    "messages": 26,
    "model": {
     "calls": 1,
@@ -164,6 +213,12 @@
   },
   {
    "id": "civ:flood-works:mission@2026-10-14",
+   "file": "civ-flood-works-mission-2026-10-14.json",
+   "city": "san-francisco",
+   "cities": [
+    "san-francisco"
+   ],
+   "scope": "city",
    "participants": [
     "core.global.coordinator",
     "core.san-francisco.manager",
@@ -204,6 +259,7 @@
     "modelCalls": 1
    },
    "findings": 11,
+   "memoryReused": 0,
    "messages": 32,
    "model": {
     "calls": 1,
@@ -214,6 +270,12 @@
   },
   {
    "id": "civ:flood-works:south-of-market@2026-10-14",
+   "file": "civ-flood-works-south-of-market-2026-10-14.json",
+   "city": "san-francisco",
+   "cities": [
+    "san-francisco"
+   ],
+   "scope": "city",
    "participants": [
     "core.global.coordinator",
     "core.san-francisco.manager",
@@ -254,6 +316,7 @@
     "modelCalls": 1
    },
    "findings": 14,
+   "memoryReused": 0,
    "messages": 30,
    "model": {
     "calls": 1,
@@ -261,6 +324,366 @@
     "rejected": 0
    },
    "at": "2026-10-14T16:40:58.448Z"
+  },
+  {
+   "id": "civ:new-york:ramps-works:east-village@2026-10-14",
+   "file": "civ-new-york-ramps-works-east-village-2026-10-14.json",
+   "city": "new-york",
+   "cities": [
+    "new-york"
+   ],
+   "scope": "city",
+   "participants": [
+    "core.global.coordinator",
+    "core.new-york.manager",
+    "core.new-york.public-space.lead",
+    "core.new-york.public-space.ramps",
+    "core.new-york.mobility.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.lead",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway"
+   ],
+   "workflow": "ramps-works",
+   "title": "Accessibilité des rampes × chantiers",
+   "nhood": "East Village",
+   "state": "HUMAN_REVIEW",
+   "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "human": null,
+   "owner": "core.new-york.public-space.lead",
+   "priority": {
+    "score": 174,
+    "basis": "sévérité 58 × 2 + signal 58 (règle déclarée)"
+   },
+   "metrics": {
+    "wallMs": 64,
+    "subtasks": 4,
+    "failed": 0,
+    "toolCalls": 5,
+    "messages": 18,
+    "modelCalls": 0
+   },
+   "findings": 10,
+   "memoryReused": 0,
+   "messages": 18,
+   "model": {
+    "calls": 0,
+    "accepted": 0,
+    "rejected": 0
+   },
+   "at": "2026-10-14T19:13:03.414Z"
+  },
+  {
+   "id": "civ:new-york:ramps-works:lower-east-side@2026-10-14",
+   "file": "civ-new-york-ramps-works-lower-east-side-2026-10-14.json",
+   "city": "new-york",
+   "cities": [
+    "new-york"
+   ],
+   "scope": "city",
+   "participants": [
+    "core.global.coordinator",
+    "core.new-york.manager",
+    "core.new-york.public-space.lead",
+    "core.new-york.public-space.ramps",
+    "core.new-york.mobility.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.lead",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway"
+   ],
+   "workflow": "ramps-works",
+   "title": "Accessibilité des rampes × chantiers",
+   "nhood": "Lower East Side",
+   "state": "HUMAN_REVIEW",
+   "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "human": null,
+   "owner": "core.new-york.public-space.lead",
+   "priority": {
+    "score": 96,
+    "basis": "sévérité 32 × 2 + signal 32 (règle déclarée)"
+   },
+   "metrics": {
+    "wallMs": 65,
+    "subtasks": 4,
+    "failed": 0,
+    "toolCalls": 5,
+    "messages": 18,
+    "modelCalls": 0
+   },
+   "findings": 6,
+   "memoryReused": 0,
+   "messages": 18,
+   "model": {
+    "calls": 0,
+    "accepted": 0,
+    "rejected": 0
+   },
+   "at": "2026-10-14T19:13:03.427Z"
+  },
+  {
+   "id": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14",
+   "file": "civ-new-york-ramps-works-chinatown-two-bridges-2026-10-14.json",
+   "city": "new-york",
+   "cities": [
+    "new-york"
+   ],
+   "scope": "city",
+   "participants": [
+    "core.global.coordinator",
+    "core.new-york.manager",
+    "core.new-york.public-space.lead",
+    "core.new-york.public-space.ramps",
+    "core.new-york.mobility.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.lead",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway"
+   ],
+   "workflow": "ramps-works",
+   "title": "Accessibilité des rampes × chantiers",
+   "nhood": "Chinatown-Two Bridges",
+   "state": "HUMAN_REVIEW",
+   "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "human": null,
+   "owner": "core.new-york.public-space.lead",
+   "priority": {
+    "score": 18,
+    "basis": "sévérité 6 × 2 + signal 6 (règle déclarée)"
+   },
+   "metrics": {
+    "wallMs": 57,
+    "subtasks": 4,
+    "failed": 0,
+    "toolCalls": 5,
+    "messages": 18,
+    "modelCalls": 0
+   },
+   "findings": 5,
+   "memoryReused": 0,
+   "messages": 18,
+   "model": {
+    "calls": 0,
+    "accepted": 0,
+    "rejected": 0
+   },
+   "at": "2026-10-14T19:13:03.485Z"
+  },
+  {
+   "id": "civ:new-york:safety-works:east-village@2026-10-14",
+   "file": "civ-new-york-safety-works-east-village-2026-10-14.json",
+   "city": "new-york",
+   "cities": [
+    "new-york"
+   ],
+   "scope": "city",
+   "participants": [
+    "core.global.coordinator",
+    "core.new-york.manager",
+    "core.new-york.mobility.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.public-space.lead",
+    "core.new-york.public-space.ramps",
+    "core.new-york.civil.lead",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway"
+   ],
+   "workflow": "safety-works",
+   "title": "Sécurité routière × chantiers",
+   "nhood": "East Village",
+   "state": "HUMAN_REVIEW",
+   "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "human": null,
+   "owner": "core.new-york.mobility.lead",
+   "priority": {
+    "score": 10,
+    "basis": "sévérité 4 × 2 + signal 2 (règle déclarée)"
+   },
+   "metrics": {
+    "wallMs": 62,
+    "subtasks": 4,
+    "failed": 0,
+    "toolCalls": 5,
+    "messages": 18,
+    "modelCalls": 0
+   },
+   "findings": 12,
+   "memoryReused": 0,
+   "messages": 18,
+   "model": {
+    "calls": 0,
+    "accepted": 0,
+    "rejected": 0
+   },
+   "at": "2026-10-14T19:13:03.496Z"
+  },
+  {
+   "id": "civ:new-york:safety-works:lower-east-side@2026-10-14",
+   "file": "civ-new-york-safety-works-lower-east-side-2026-10-14.json",
+   "city": "new-york",
+   "cities": [
+    "new-york"
+   ],
+   "scope": "city",
+   "participants": [
+    "core.global.coordinator",
+    "core.new-york.manager",
+    "core.new-york.mobility.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.public-space.lead",
+    "core.new-york.public-space.ramps",
+    "core.new-york.civil.lead",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway"
+   ],
+   "workflow": "safety-works",
+   "title": "Sécurité routière × chantiers",
+   "nhood": "Lower East Side",
+   "state": "HUMAN_REVIEW",
+   "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "human": null,
+   "owner": "core.new-york.mobility.lead",
+   "priority": {
+    "score": 5,
+    "basis": "sévérité 2 × 2 + signal 1 (règle déclarée)"
+   },
+   "metrics": {
+    "wallMs": 41,
+    "subtasks": 4,
+    "failed": 0,
+    "toolCalls": 5,
+    "messages": 18,
+    "modelCalls": 0
+   },
+   "findings": 7,
+   "memoryReused": 0,
+   "messages": 18,
+   "model": {
+    "calls": 0,
+    "accepted": 0,
+    "rejected": 0
+   },
+   "at": "2026-10-14T19:13:03.543Z"
+  },
+  {
+   "id": "civ:decision-safety-works:tenderloin@2026-10-14",
+   "file": "civ-decision-safety-works-tenderloin-2026-10-14.json",
+   "city": "san-francisco",
+   "cities": [
+    "san-francisco"
+   ],
+   "scope": "city",
+   "participants": [
+    "core.global.coordinator",
+    "core.san-francisco.manager",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.simulation.lead",
+    "core.san-francisco.simulation.scenario-evaluator",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.research.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway"
+   ],
+   "workflow": "decision-safety-works",
+   "title": "Aide à la décision : sécurité routière × chantiers",
+   "nhood": "Tenderloin",
+   "state": "HUMAN_REVIEW",
+   "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "human": null,
+   "owner": "core.san-francisco.mobility.lead",
+   "priority": {
+    "score": 152,
+    "basis": "sévérité 41 × 2 + signal 70 (règle déclarée)"
+   },
+   "metrics": {
+    "wallMs": 48,
+    "subtasks": 3,
+    "failed": 0,
+    "toolCalls": 4,
+    "messages": 15,
+    "modelCalls": 0
+   },
+   "findings": 12,
+   "memoryReused": 0,
+   "messages": 15,
+   "model": {
+    "calls": 0,
+    "accepted": 0,
+    "rejected": 0
+   },
+   "at": "2026-10-14T19:13:15.758Z"
+  },
+  {
+   "id": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14",
+   "file": "world-road-safety-comparison-san-francisco-tenderloin-2026-10-14-new-york-east-village-2026-10-14.json",
+   "city": null,
+   "cities": [
+    "san-francisco",
+    "new-york"
+   ],
+   "scope": "world",
+   "participants": [
+    "core.global.coordinator",
+    "core.global.director.road-safety",
+    "core.san-francisco.mobility.lead",
+    "core.new-york.mobility.lead",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.lead",
+    "core.san-francisco.civil.works-coordination",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.lead",
+    "core.new-york.civil.works-coordination",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.research.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.new-york.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.new-york.safety.adversarial-reviewer"
+   ],
+   "workflow": "cross-city-road-safety",
+   "title": "Comparaison inter-villes : sécurité routière sur les réseaux désignés",
+   "nhood": "Tenderloin / East Village",
+   "state": "HUMAN_REVIEW",
+   "decision": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "human": null,
+   "owner": "core.global.director.road-safety",
+   "metrics": {
+    "wallMs": 26,
+    "subtasks": 7,
+    "failed": 0,
+    "toolCalls": 7,
+    "messages": 24,
+    "modelCalls": 0,
+    "memoryReused": 9
+   },
+   "findings": 6,
+   "memoryReused": 9,
+   "messages": 24,
+   "model": {
+    "calls": 0,
+    "accepted": 0,
+    "rejected": 0
+   },
+   "at": "2026-10-14T19:13:23.904Z"
   }
  ]
 }
