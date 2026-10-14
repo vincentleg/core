@@ -68,7 +68,7 @@ test('data policy: every source is registered; ineligible sources are never coll
   for (const d of read('data/sf/manifest.json').datasets) assert.ok(POLICY.eligible(`dataset:${d.file.replace('.geojson', '')}`), d.file);
   for (const s of F.SOURCES) assert.ok(POLICY.get(`feed:${s.id}`), s.id);
   for (const s of env.knowledge.lib.sources) assert.ok(POLICY.eligible(`knowledge:${s.id}`), s.id);
-  for (const [k, e] of Object.entries(POLICY.ENTRIES)) for (const f of ['publisher', 'url', 'licence', 'access', 'sensitivity', 'redistribution', 'verified', 'allowedUse', 'status']) assert.ok(e[f] !== undefined, `${k}.${f}`);
+  for (const [k, e] of Object.entries(POLICY.ENTRIES)) for (const f of ['publisher', 'url', 'licence', 'access', 'sensitivity', 'redistribution', 'verified', 'allowedUse', 'status', 'commercialUse', 'attribution', 'retention', 'scope']) assert.ok(e[f] !== undefined, `${k}.${f}`);
   assert.equal(POLICY.get('feed:openmeteo-aq').status, 'quarantined');
   assert.ok(!F.dueSources({ items: [], sources: {} }, Date.now()).some(s => s.id === 'openmeteo-aq'));
   assert.equal(env.feeds.items.filter(i => i.source === 'openmeteo-aq').length, 0, 'quarantined items are not published');

@@ -171,7 +171,7 @@
   function renderPanel() {
     const m = S.manifest; if (!m) return;
     const age = ageDays(m.generated_at);
-    $('sf-fresh').innerHTML = `Instantané du <b>${esc(fmtDate(m.generated_at))}</b> · ${age} j · ${Object.values(S.verified).every(v => v === 'ok') ? '<span class="ok">sommes SHA-256 vérifiées</span>' : '<span class="warn">sommes non vérifiées</span>'}`;
+    $('sf-fresh').innerHTML = `Instantané du <b>${esc(fmtDate(m.generated_at))}</b> · ${age} j · ${Object.values(S.verified).every(v => v === 'ok') ? '<span class="ok" title="SHA-256 : chaque fichier est identique à ce qui a été collecté. Cela ne prouve pas que la source est exacte ou à jour.">intégrité des fichiers vérifiée (SHA-256 ; ne prouve pas l’exactitude de la source)</span>' : '<span class="warn">sommes non vérifiées</span>'}`;
     $('sf-fresh').classList.toggle('stale', age > 30);
     $('sf-groups').innerHTML = GROUPS.map(g => `<label class="grp"><input type="checkbox" data-group="${g.id}" ${S.groups[g.id] ? 'checked' : ''}><i style="background:${g.swatch}"></i><span>${esc(g.label)}</span><b data-count="${g.id}">0</b></label>`).join('');
     $('sf-groups').querySelectorAll('input').forEach(i => i.addEventListener('change', () => { S.groups[i.dataset.group] = i.checked; syncGroupVisibility(); }));
@@ -185,7 +185,7 @@
   }
 
   const FIELD_LABELS = { permit_number: 'Permis', permit_type: 'Type', status: 'Statut', street: 'Rue', cross_street_1: 'Entre', cross_street_2: 'et', cnn: 'CNN (tronçon/nœud)',
-    agent: 'Titulaire (organisation)', agent_masked: 'Titulaire masqué', purpose: 'Objet déclaré', reason: 'Motif', approved: 'Approuvé le', start: 'Début', end: 'Fin', project: 'Projet', limits: 'Limites', job_order: 'Ordre de travail',
+    agent: 'Titulaire (organisation)', agent_masked: 'Titulaire masqué', purpose: 'Objet déclaré', reason: 'Motif', approved: 'Approuvé le (date administrative)', start: 'Début prévu (permis)', end: 'Fin prévue (permis)', project: 'Projet', limits: 'Limites', job_order: 'Ordre de travail',
     case_num: 'Dossier', case_name: 'Nom du dossier', type: 'Type', impact: 'Impact véhicules', info: 'Information', from: 'De', to: 'À', name: 'Nom', oneway: 'Sens unique', classcode: 'Classe', geometry_source: 'Géométrie',
     treeid: 'Arbre (ID)', species: 'Espèce', legal_status: 'Statut légal', site: 'Emplacement', dbh_range: 'Classe de diamètre', planted: 'Planté le', on_street: 'Rue', cross_street: 'Croisement', notice: 'Avis', posted: 'Affiché le',
     filed: 'Déposé le', issued: 'Délivré le', completed: 'Achevé le', address: 'Adresse', parcel: 'Parcelle', description: 'Description', existing_use: 'Usage existant', proposed_use: 'Usage proposé', estimated_cost: 'Coût déclaré ($)',
@@ -212,8 +212,11 @@
     S.selection = features; S.selected = null;
     setSelected(features);
     const el = $('sf-inspect');
-    if (!features.length) { el.innerHTML = '<p class="hint">Aucun enregistrement à cet endroit.</p>'; return; }
-    el.innerHTML = `<p class="hint">${features.length} enregistrement${features.length > 1 ? 's' : ''} à cet endroit${lngLat ? ` (${lngLat.lat.toFixed(5)}, ${lngLat.lng.toFixed(5)})` : ''}.</p><ol class="rec-list">` +
+    if (!features.length) { el.innerHTML = '<p class="hint">Aucun registre dans la zone cliquée.</p>'; return; }
+    // Scope: records whose symbol or line touches a ±6 px box around the click — at low zoom that box spans hundreds of
+    // metres, and a corridor segment covers its whole length. Say so instead of "at this location".
+    const mPerPx = lngLat && S.map ? 156543.03 * Math.cos(lngLat.lat * Math.PI / 180) / 2 ** S.map.getZoom() : null;
+    el.innerHTML = `<p class="hint">${features.length} registre${features.length > 1 ? 's' : ''} dont le symbole ou le tracé touche la zone cliquée${mPerPx ? ` (± 6 px ≈ ${Math.max(1, Math.round(mPerPx * 6))} m à ce zoom${lngLat ? ` autour de ${lngLat.lat.toFixed(5)}, ${lngLat.lng.toFixed(5)}` : ''})` : ''} ; un tronçon couvre tout son linéaire, un permis est rattaché à un tronçon ou un carrefour, pas à un point précis.</p><ol class="rec-list">` +
       features.map((f, i) => { const p = f.properties; return `<li><button type="button" data-rec="${i}"><b>${esc(p.permit_number || p.case_name || p.limits || p.name || p.street || p.record_id)}</b><span>${esc([p.permit_type || p.type || p.kind, p.status, p.start && `${p.start} → ${p.end || '…'}`].filter(Boolean).join(' · '))}</span></button></li>`; }).join('') + '</ol>';
     el.querySelectorAll('[data-rec]').forEach(b => b.addEventListener('click', () => showRecord(S.selection[+b.dataset.rec])));
     if (features.length === 1) showRecord(features[0]);
@@ -234,7 +237,7 @@
         <div>Jeu : <a href="${esc(ds.page)}" target="_blank" rel="noopener">${esc(ds.title)}</a> (${esc(ds.id)}) · ${esc(ds.provider)}</div>
         <div>Enregistrement : <a href="${esc(recordLink(f))}" target="_blank" rel="noopener">requête API DataSF</a></div>
         <div>Récupéré : ${esc(fmtDate(ds.retrieved_at))} · licence <a href="${esc(ds.license.url)}" target="_blank" rel="noopener">${esc(ds.license.name)}</a></div>
-        <div>SHA-256 : <code>${esc(ds.sha256.slice(0, 16))}…</code> ${v === 'ok' ? '<span class="ok">vérifié</span>' : v === 'mismatch' ? '<span class="warn">ne correspond pas</span>' : '<span class="warn">non vérifiable ici</span>'}</div>
+        <div>SHA-256 : <code>${esc(ds.sha256.slice(0, 16))}…</code> ${v === 'ok' ? '<span class="ok" title="Fichier identique à la collecte ; ne prouve pas l’exactitude de la source">fichier intact</span>' : v === 'mismatch' ? '<span class="warn">ne correspond pas</span>' : '<span class="warn">non vérifiable ici</span>'}</div>
         <div class="muted">${esc(ds.kind)}</div>
       </div>`;
     const back = $('sf-back'); if (back) back.addEventListener('click', () => showList(S.selection));

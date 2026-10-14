@@ -13,7 +13,7 @@
   const P = { map: null, fly: null, sec: 'world', registry: null, counts: null, evals: null, K: null, store: { items: [] }, state: null, browser: { sources: {}, intervalMin: 15, timer: null, next: null }, missions: [], recorded: null, current: null, filter: { kind: 'all', domain: 'all', corridor: false }, llm: null, selectedAgent: null };
 
   const getJSON = u => fetch(u, { cache: 'no-cache' }).then(r => { if (!r.ok) throw Error(`${u}: HTTP ${r.status}`); return r.json(); });
-  const fmt = iso => iso ? String(iso).replace('T', ' ').slice(0, 16) : '—';
+  const fmt = iso => iso ? `${String(iso).replace('T', ' ').slice(0, 16)}${/T\d\d:\d\d/.test(String(iso)) ? ' UTC' : ''}` : '—';
   const pill = (txt, cls = '') => `<span class="pill ${cls}">${esc(txt)}</span>`;
 
   async function env() {
@@ -26,7 +26,9 @@
   const TITLES = { demo: 'Démonstration guidée', intel: 'Intelligence urbaine — San Francisco', agents: 'Organisation des agents', missions: 'Missions', sims: 'Simulations et modèles', decisions: 'Décisions (revue humaine)', data: 'Données et preuves' };
   function show(sec) {
     P.sec = sec;
+    if (sec !== 'sims' && P.map && P.map.getLayer && P.map.getLayer('pf-sim-line')) simVisible(false);
     document.querySelectorAll('#appnav [data-sec]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.sec === sec)));
+    if (sec === 'demo') { if (G.CORE_DEMO) G.CORE_DEMO.go(0); return; }
     if (sec === 'world') { $('ws').hidden = true; document.body.classList.remove('ws-open'); return; }
     G.CORE_SF_VIEW.closePanel();
     $('ws').hidden = false; document.body.classList.add('ws-open'); $('ws-title').textContent = TITLES[sec];
@@ -77,7 +79,7 @@
     const ok = health.filter(h => h.ok).length, stale = health.filter(h => /stale/.test(h.freshness)).length;
     $('ws-body').innerHTML = `
       <div class="kpis"><div class="kpi"><b>${P.store.items.length}</b><span>éléments indexés</span></div><div class="kpi"><b>${ok}/${health.length}</b><span>sources joignables</span></div><div class="kpi"><b>${stale}</b><span>sources périmées</span></div><div class="kpi"><b>${linked}</b><span>liés au corridor (graphe)</span></div><div class="kpi"><b>${sugg.length}</b><span>missions suggérées</span></div></div>
-      <p class="hint">Dernière collecte complète : <b>${fmt(P.state.lastSuccessfulUpdate)}</b> par ${P.state.lastRun && P.state.lastRun.runner ? (P.state.lastRun.runner.kind === 'github-actions' ? `GitHub Actions${P.state.lastRun.runner.runUrl ? ` (<a href="${esc(P.state.lastRun.runner.runUrl)}" target="_blank" rel="noopener">exécution</a>)` : ''}` : esc(P.state.lastRun.runner.kind)) : 'Node'} — ${esc(P.state.scheduler)}. Planification indépendante du navigateur : <code>.github/workflows/city-feed.yml</code> (toutes les 3 h, horaires GitHub non garantis). Actualisation navigateur des sources compatibles (DataSF, USGS, NWS) : ${P.browser.intervalMin ? `toutes les ${P.browser.intervalMin} min <b>tant que l’application est ouverte</b> — prochaine ${fmt(P.browser.next)}` : 'désactivée'}${P.lastRefresh ? ` · dernière ${fmt(P.lastRefresh.at)} (+${P.lastRefresh.added} nouveaux, ${P.lastRefresh.changed} modifiés, ${P.lastRefresh.failed.length} échec(s))` : ''}.</p>
+      <p class="hint">Dernière collecte complète : <b>${fmt(P.state.lastSuccessfulUpdate)}</b> par ${P.state.lastRun && P.state.lastRun.runner ? (P.state.lastRun.runner.kind === 'github-actions' ? `GitHub Actions${P.state.lastRun.runner.runUrl ? ` (<a href="${esc(P.state.lastRun.runner.runUrl)}" target="_blank" rel="noopener">exécution</a>)` : ''}` : esc(P.state.lastRun.runner.kind)) : 'Node'} — ${esc(P.state.scheduler)}. Planification indépendante du navigateur : <code>.github/workflows/city-feed.yml</code> (cron toutes les 3 h ; ${P.state.lastRun && P.state.lastRun.runner && P.state.lastRun.runner.event === 'schedule' ? 'dernière exécution déclenchée par le planificateur' : '<b>dernière exécution déclenchée manuellement</b> — une exécution planifiée automatique n’a pas encore été observée'} ; horaires GitHub non garantis). Actualisation navigateur des sources compatibles (DataSF, USGS, NWS) : ${P.browser.intervalMin ? `toutes les ${P.browser.intervalMin} min <b>tant que l’application est ouverte</b> — prochaine ${fmt(P.browser.next)}` : 'désactivée'}${P.lastRefresh ? ` · dernière ${fmt(P.lastRefresh.at)} (+${P.lastRefresh.added} nouveaux, ${P.lastRefresh.changed} modifiés, ${P.lastRefresh.failed.length} échec(s))` : ''}.</p>
       <div class="toolbar"><button type="button" class="ghost small" id="in-refresh">Actualiser maintenant (sources navigateur)</button>
         <select id="in-interval" aria-label="Fréquence d’actualisation navigateur">${[0, 15, 30, 60].map(m => `<option value="${m}" ${m === P.browser.intervalMin ? 'selected' : ''}>${m ? `Toutes les ${m} min` : 'Actualisation automatique désactivée'}</option>`).join('')}</select></div>
       <details><summary>État des sources (${health.length}) et lacunes</summary><table class="tbl"><thead><tr><th>Source</th><th>Éléments</th><th>Fraîcheur</th><th>Accès · intervalle</th><th>Confiance</th><th>État</th></tr></thead><tbody>${health.map(h => `<tr><td>${esc(h.name)}${h.retired ? `<br><span class="hint">${esc(h.retired)}</span>` : ''}</td><td>${h.items}</td><td>${esc(h.freshness)}</td><td>${h.browser ? 'Node + navigateur' : 'Node seulement'} · ${h.minIntervalMin} min</td><td>${h.confidence ? `${esc(h.confidence.level)}<br><span class="hint">${esc(h.confidence.limitations)}</span>` : '—'}</td><td>${h.enabled === false ? pill('retirée', 'warn') : h.lastError ? pill('échec', 'fail') : h.lastSuccess ? pill('ok', 'ok') : pill('jamais', 'warn')}</td></tr>`).join('')}</tbody></table>
@@ -89,7 +91,7 @@
       <ul class="list" id="in-list">${items.slice(0, 80).map(i => { const l = F.linkToCorridor(i, e.ctx);
         return `<li class="item"><span class="t"><a href="${esc(i.url)}" target="_blank" rel="noopener">${esc(i.title)}</a></span><span>${esc(i.summary)}</span>
         <span class="m">${pill(KIND[i.kind] || i.kind, i.kind === 'observation' || i.kind === 'statistic' ? 'ok' : ['prediction', 'commentary', 'opinion', 'allegation'].includes(i.kind) ? 'warn' : 'info')} ${pill(i.verification.status === 'official-source' ? 'source officielle' : i.verification.status === 'registered-open-data' ? 'données ouvertes enregistrées' : 'non vérifiée', F.TRUSTED.includes(i.verification.status) ? 'ok' : 'fail')} ${i.confidence ? `<span title="${esc(i.confidence.limitations)}">confiance ${esc(i.confidence.level)} — ${esc(i.confidence.limitations)}</span>` : ''}
-        <span>${esc(i.publisher)}</span><span>publié ${esc(fmt(i.published))}</span><span>récupéré ${esc(fmt(i.retrieved_at))}${i.revision > 1 ? ` · révision ${i.revision}` : ''}</span><span>${i.domains.map(esc).join(', ')}</span>
+        <span>${esc(i.publisher)}</span><span>publié par la source ${esc(fmt(i.published))}</span>${i.data && i.data.start ? `<span>période prévue ${esc(i.data.start)} → ${esc(i.data.end || '?')}</span>` : ''}<span>collecté par CORE ${esc(fmt(i.retrieved_at))}${i.revision > 1 ? ` · révision ${i.revision}` : ''}</span><span>${i.domains.map(esc).join(', ')}</span>
         ${l ? pill(`tronçon ${l.segment} (${l.basis})`, 'info') : i.geo ? pill('géolocalisé hors corridor') : pill('non géolocalisé')}</span>
         ${i.geo && i.geo.type === 'Point' ? `<button type="button" class="ghost small" data-geo="${esc(i.id)}">Voir sur la carte</button>` : ''}${F.TRUSTED.includes(i.verification.status) ? ` <button type="button" class="ghost small" data-investigate="${esc(i.id)}">Investiguer</button>` : ''}</li>`; }).join('')}</ul>
       <p class="hint">${items.length > 80 ? `${items.length - 80} élément(s) supplémentaires non affichés. ` : ''}Les éléments civiques sont attribués à leur source officielle et classés par type et statut uniquement, sans évaluation politique.</p>`;
@@ -118,9 +120,14 @@
   }
 
   // ---------- Agents ----------
+  // Recorded model-assisted missions, loaded once to show each agent's real contributions.
+  async function cogRecords() { if (P.cogRecords || !P.cogIndex) return P.cogRecords || []; P.cogRecords = (await Promise.all(P.cogIndex.missions.map(m => getJSON(`data/missions/cognitive/${m.id.replace(':', '-')}.json`).catch(() => null)))).filter(Boolean); return P.cogRecords; }
+  const TOOL_SOURCES = { 'works.windows': 'permits', 'works.telecom': 'permits', 'trees.near-works': 'street-trees', 'buildings.frontage': 'building-permits', 'energy.benchmarks': 'energy-benchmarks', 'public-space.sidewalks': 'sidewalks', 'sim.sidewalk-capacity': 'sidewalks', 'planning.records': 'datasf-planning (feed)', 'grid.mix': 'caiso-fuelmix (feed)', 'air.quality': 'openmeteo-aq (en quarantaine)', 'resilience.quake-context': 'usgs-quakes (feed)', 'resilience.weather-alerts': 'nws-alerts (feed)', 'civic.legislation': 'legistar (historique)', 'graph.link': 'veille + corridor', 'knowledge.search': 'bibliothèque de connaissances', 'knowledge.retrieve': 'bibliothèque de connaissances', 'scenario.investigate': 'instantané complet', 'scenario.evaluate': 'instantané complet', 'policy.check': 'politique de données', 'evidence.check': 'registre de preuves' };
   async function renderAgents() {
+    await cogRecords();
     const R = P.registry, c = P.counts, running = P.missions.reduce((n, m) => n + m.tasks.filter(t => t.state === 'running').length, 0);
-    const byDept = new Map(R.departments.map(d => [d.id, []])); for (const a of R.agents) if (a.department && byDept.has(a.department) && !a.id.endsWith('.lead')) byDept.get(a.department).push(a);
+    const F = P.agentFilter || 'all', keep = a => F === 'all' || (F === 'deterministic' && a.executionMode === 'deterministic') || (F === 'llm' && a.executionMode === 'llm') || (F === 'unavailable' && a.executionMode === 'unavailable');
+    const byDept = new Map(R.departments.map(d => [d.id, []])); for (const a of R.agents) if (a.department && byDept.has(a.department) && !a.id.endsWith('.lead') && keep(a)) byDept.get(a.department).push(a);
     const st = a => a.executionMode === 'deterministic' ? pill('exécutable (règles)', 'ok') : a.executionMode === 'llm' ? (P.llm && P.llm.available ? pill('assisté par modèle local — disponible', 'ok') : pill('assisté par modèle — modèle indisponible', 'warn')) : a.executionMode === 'unavailable' ? pill('indisponible', 'fail') : pill('coordination', 'info');
     const cogCount = id => (P.cogIndex ? P.cogIndex.missions.filter(m => m.agents.includes(id)).length : 0);
     $('ws-body').innerHTML = `
@@ -128,13 +135,23 @@
       <p class="hint">Modèle de langage local : <b>${esc(P.llm ? (P.llm.available ? `${P.llm.model} disponible (Ollama, ${(P.llm.models.find(m => m.name === P.llm.model) || {}).parameters || '?'} paramètres, ${(P.llm.models.find(m => m.name === P.llm.model) || {}).quantization || '?'})` : P.llm.reason) : 'test en cours')}</b>. Il choisit des outils autorisés et rédige des interprétations validées ; il ne calcule aucun chiffre et ne décide rien. ${c.executable} agents à règles fonctionnent sans modèle. Mise en place : <code>node scripts/llm-check.mjs</code>. ${esc(G.CORE_ORG.DISCLAIMER)}</p>
       ${P.cogIndex && P.cogIndex.missions.length ? `<p class="hint">Collaborations enregistrées (modèle réel) : ${P.cogIndex.missions.length} mission(s) — ${P.cogIndex.missions.slice(0, 3).map(m => `${esc(m.question)} → ${esc(m.decision)} (${m.metrics.modelCalls} appels au modèle, ${m.metrics.toolCalls} outils)`).join(' ; ')}</p>` : ''}
       ${G.CORE_SPECIALIZATIONS ? (() => { const SZ = G.CORE_SPECIALIZATIONS, k = SZ.counts(); return `<details><summary>Spécialisations professionnelles : ${k.specializations} dans ${k.domains} domaines — ${k['model-assisted']} assistées par modèle, ${k.deterministic} à règles, ${k.none} non exécutables</summary><p class="hint">Une spécialisation n’est exécutable que par un runtime réel ; les autres sont listées avec la preuve manquante. Le routage d’une mission choisit au plus 3 spécialistes assistés par modèle et ajoute les réviseurs obligatoires.</p><table class="tbl"><thead><tr><th>Domaine</th><th>Spécialisations</th></tr></thead><tbody>${SZ.DOMAINS.map(d => `<tr><td>${esc(d.name)}</td><td>${SZ.SPECS.filter(x => x.domain === d.id).map(x => `${esc(x.title)} ${x.runtime === 'model-assisted' ? pill('modèle', 'ok') : x.runtime === 'deterministic' ? pill('règles', 'info') : pill('non exécutable', 'warn')}${x.gap ? ` <span class="hint">${esc(x.gap)}</span>` : ''}`).join('<br>') || '—'}</td></tr>`).join('')}</tbody></table></details>`; })() : ''}
+      <details class="explain"><summary>Comment fonctionnent les agents CORE</summary><ul>
+        <li><b>Agents à règles</b> (${c.executable}) : du code déterministe exécute un outil sur des données publiques vérifiées ; le résultat est reproductible.</li>
+        <li><b>Agents assistés par modèle</b> (${c.llm}) : un modèle local open-weight (qwen3:8b via Ollama) choisit ou interprète des preuves produites par les outils ; il ne calcule aucun chiffre. Disponible seulement sur une machine avec Ollama ; ce site public montre des exécutions réelles <b>enregistrées</b>.</li>
+        <li><b>Validation</b> : chaque énoncé du modèle doit citer des preuves, n’utiliser que leurs nombres avec leur sens (unité, portée, date) ; sinon il est rejeté et reste visible comme rejet.</li>
+        <li><b>Passerelle</b> : recalcul de chaque outil et revalidation de chaque énoncé ; le modèle ne peut que rendre la décision plus prudente.</li>
+        <li><b>Revue humaine</b> obligatoire ; aucun agent n’autorise ni n’exécute d’action réelle. Les mises à jour de connaissances sont proposées puis approuvées par un humain.</li>
+        <li><b>Profils non exécutables</b> : ${c.coordinationOnly} de coordination et ${c.unavailable} indisponibles (donnée ou outil manquant) — ce ne sont pas des agents autonomes.</li></ul></details>
+      <div class="toolbar" role="group" aria-label="Filtrer par statut">${[['all', 'Tous'], ['llm', `Assistés par modèle (${c.llm})`], ['deterministic', `À règles (${c.executable})`], ['unavailable', `Indisponibles (${c.unavailable})`]].map(([k, l]) => `<button type="button" class="small ${F === k ? '' : 'ghost'}" data-agfilter="${k}" aria-pressed="${F === k}">${esc(l)}</button>`).join('')}</div>
+      <p class="hint">Hiérarchie : coordination globale → ville (San Francisco) → 28 départements → spécialistes ; vérification et gouvernance indépendantes. Les directions de département sont des profils de coordination, pas des agents exécutables.</p>
       <div class="org"><b>Coordination globale CORE</b> → <button type="button" class="agentbtn" data-agent="core.san-francisco.manager">Coordination San Francisco</button>
-        ${R.departments.map(d => `<details ${byDept.get(d.id).some(a => a.executionMode === 'deterministic' || a.executionMode === 'llm') ? 'open' : ''}><summary>${esc(d.name)} <span class="hint">(${byDept.get(d.id).length})</span></summary>
+        ${R.departments.filter(d => F === 'all' || byDept.get(d.id).length).map(d => `<details ${F !== 'all' || byDept.get(d.id).some(a => a.executionMode === 'llm') ? 'open' : ''}><summary>${esc(d.name)} <span class="hint">(${byDept.get(d.id).length})</span></summary>
           <button type="button" class="agentbtn" data-agent="core.san-francisco.${d.id}.lead">Direction — ${esc(d.name)}</button> ${pill('coordination', 'info')}<br>
           ${byDept.get(d.id).map(a => `<button type="button" class="agentbtn" data-agent="${esc(a.id)}">${esc(a.role)}</button> ${st(a)}${a.independent ? ' ' + pill('indépendant') : ''}${cogCount(a.id) ? ` <span class="hint">${cogCount(a.id)} collaboration(s)</span>` : ''}<br>`).join('')}</details>`).join('')}
         <details open><summary>Vérification et gouvernance indépendantes</summary><button type="button" class="agentbtn" data-agent="core.san-francisco.governance.gateway">Passerelle de décision</button> ${pill('exécutable', 'ok')}</details></div>
       <div id="ag-profile"></div>`;
     $('ws-body').querySelectorAll('[data-agent]').forEach(b => b.onclick = () => profile(b.dataset.agent));
+    $('ws-body').querySelectorAll('[data-agfilter]').forEach(b => b.onclick = () => { P.agentFilter = b.dataset.agfilter; renderAgents(); });
     if (P.selectedAgent) profile(P.selectedAgent);
   }
   function profile(id) {
@@ -143,6 +160,9 @@
     const hist = [...(P.recorded ? P.recorded.missions.filter(m => (m.agentIds || []).includes(id)).map(m => ({ id: m.id, origin: m.origin, decision: m.decision, how: 'enregistrée (Node)' })) : []),
       ...P.missions.filter(m => m.plan && [m.plan.manager, ...m.plan.specialists.map(s => s.agent), m.plan.verifier, m.plan.reviewer, m.plan.gateway].includes(id)).map(m => ({ id: m.id, origin: m.target.question, decision: m.decision ? m.decision.state : m.state, how: 'session (navigateur)' }))];
     const KN = G.CORE_KNOWLEDGE, ev = (P.liveEvals || P.evals.results).filter(r => r.agent === id), docs = KN.collection(P.K, a);
+    // Real contributions in recorded model-assisted missions (deterministic tool calls are counted for every agent).
+    const contrib = (P.cogRecords || []).map(r => { const calls = r.toolCalls.filter(t => t.agent === id && t.state === 'ok'), ev2 = r.evidence.filter(e => e.agent === id), acc = r.board.filter(b => b.agent === id), rej = (r.rejected || []).filter(x => x.agent === id), dOut = (r.disagreements || []).filter(d => d.between[1] === id), dIn = (r.disagreements || []).filter(d => d.between[0] === id);
+      return { id: r.id, mode: r.mode, q: r.target.question, calls: calls.length, tools: [...new Set(calls.map(t => t.tool))], evidence: ev2.length, acc, rej, dOut, dIn, peers: [...new Set([...dOut.map(d => d.between[0]), ...dIn.map(d => d.between[1])])] }; }).filter(x => x.calls || x.acc.length || x.rej.length || x.dOut.length || x.dIn.length);
     const props = P.K.lib.proposals.filter(p => (p.collections || []).includes(id) || p.proposedBy === id);
     const kEval = a.executionMode === 'llm' && G.CORE_LEARNING ? G.CORE_LEARNING.evaluateRole(P.K, P.registry, id.split('.').pop()) : null;
     if (P.cogIndex) for (const m of P.cogIndex.missions.filter(x => x.agents.includes(id))) hist.push({ id: m.id, origin: m.question, decision: m.decision, how: `collaboration avec modèle réel (${m.model})` });
@@ -157,6 +177,9 @@
       <b>Collection de connaissances</b><ul>${docs.map(d => { const fr = KN.freshness(d, new Date().toISOString()), src = P.K.sources.get(d.source) || {}; return `<li><a href="${esc(d.url)}" target="_blank" rel="noopener">${esc(d.title)}</a> v${d.version}${d.history && d.history.length ? ` (${d.history.length} version(s) antérieure(s))` : ''} · ${esc(src.name || d.source)} · licence ${esc(src.license || '?')} · récupéré ${esc(d.retrieved_at)} · ${fr.stale ? pill('à actualiser', 'warn') : pill('à jour', 'ok')} · confiance : ${esc(d.confidence)} · limites : ${esc(d.limitations || '—')}${a.knowledge.includes(d.id) ? '' : ' ' + pill('ajouté par apprentissage approuvé', 'info')}</li>`; }).join('') || '<li>aucune</li>'}</ul>
       ${kEval ? `<b>Évaluation des connaissances du rôle</b> ${pill(`${Math.round(kEval.score * 100)} %`, kEval.score === 1 ? 'ok' : 'warn')}<ul>${kEval.results.map(r => `<li>${r.pass ? pill('réussie', 'ok') : pill('échec', 'fail')} ${esc(r.question)}</li>`).join('')}</ul>` : ''}
       ${props.length ? `<b>Apprentissage contrôlé</b><ul>${props.map(p => `<li>${pill(p.status, p.status === 'approved' ? 'ok' : p.status === 'pending' ? 'warn' : 'fail')} ${esc(p.docId)} — ${esc(p.reason)} · proposé par ${esc(p.proposedBy)}${p.reviewer ? ` · décidé par ${esc(p.reviewer)}` : ''}${(p.evaluation || []).filter(x => id.endsWith(x.agent)).map(x => ` · évaluation ${Math.round(x.before.score * 100)} % → ${Math.round(x.after.score * 100)} %`).join('')}</li>`).join('')}</ul>` : ''}
+      <b>Sources de données autorisées (via ses outils)</b> <span class="hint">${[...new Set(a.tools.map(t => TOOL_SOURCES[t]).filter(Boolean))].map(esc).join(' · ') || 'aucune'}</span><br>
+      <b>Contributions dans les missions enregistrées</b> ${contrib.length ? `<ul>${contrib.map(x => `<li>${pill(x.mode === 'deep' ? 'mode approfondi' : 'mode rapide')} ${esc(x.q.slice(0, 90))}… — ${x.calls} appel(s) d’outils (${x.tools.map(esc).join(', ') || '—'}), ${x.evidence} preuve(s) produite(s), ${pill(`${x.acc.length} énoncé(s) accepté(s)`, 'ok')} ${x.rej.length ? pill(`${x.rej.length} rejeté(s)`, 'fail') : ''}${x.dOut.length ? ` · ${x.dOut.length} désaccord(s) émis` : ''}${x.dIn.length ? ` · ${x.dIn.length} reçu(s)` : ''}${x.peers.length ? ` · avec ${x.peers.map(p => esc(p.split('.').pop())).join(', ')}` : ''}
+        ${x.acc.length ? `<details><summary>Énoncés acceptés (${x.acc.length})</summary><ul>${x.acc.slice(0, 6).map(b => `<li>${esc(b.statement)} <span class="hint">[${b.cites.map(esc).join(', ')}]</span></li>`).join('')}</ul></details>` : ''}${x.rej.length ? `<details><summary>Sorties rejetées (${x.rej.length})</summary><ul>${x.rej.slice(0, 6).map(r => `<li>${esc((r.statement || r.item).slice(0, 140))} — ${pill(r.reason.slice(0, 90), 'fail')}</li>`).join('')}</ul></details>` : ''}</li>`).join('')}</ul>` : '<span class="hint">aucune contribution enregistrée</span>'}<br>
       <b>Évaluations</b> ${ev.length ? `<ul>${ev.map(r => `<li>${r.pass ? pill('réussie', 'ok') : pill('échec', 'fail')} ${esc(r.case)} — ${esc(r.date)}</li>`).join('')}</ul>` : '<span class="hint">aucune (pas d’outil exécutable)</span>'}
       ${a.executionMode === 'deterministic' ? '<button type="button" class="ghost small" id="ag-reeval">Réévaluer maintenant</button>' : ''}
       <b>Historique de missions</b> ${hist.length ? `<ul>${hist.slice(0, 12).map(h => `<li>${pill(h.how)} ${esc(h.origin)} — ${esc(h.decision)}</li>`).join('')}</ul>` : '<span class="hint">aucune</span>'}
@@ -167,7 +190,7 @@
   // ---------- Missions ----------
   async function launch(origin) {
     const e = await env(), M = G.CORE_MISSIONS, m = M.newMission(origin, e);
-    P.missions.unshift(m); P.missions.length = Math.min(P.missions.length, 20); P.current = m; P.view = 'live'; // bounded session history
+    P.missions.unshift(m); P.missions.length = Math.min(P.missions.length, 20); P.current = m; P.view = 'live'; P.msTab = 'det'; // a rule-based mission is shown in its own tab // bounded session history
     if (m.target.segment) { highlight({ segment: m.target.segment }); const c = P.ctx.segments.get(m.target.segment).geometry.coordinates; P.fly({ center: c[Math.floor(c.length / 2)], zoom: 16.4, pitch: 55, bearing: -44 }, 3000); G.CORE_CAMERA.focus(c[Math.floor(c.length / 2)]); }
     let pending = false; const tick = () => { if (pending) return; pending = true; requestAnimationFrame(() => { pending = false; if (P.sec === 'missions' && P.current === m) renderMissions(); }); };
     renderMissions();
@@ -198,16 +221,18 @@
   async function renderMissions() {
     const e = await env(), sugg = suggestions(e), segs = [...e.ctx.segments.entries()];
     const cur = P.view === 'recorded' ? P.recordedMission : P.current;
-    $('ws-body').innerHTML = `
+    const detHtml = `
       <div class="toolbar"><input type="text" id="ms-q" aria-label="Question" placeholder="Question pour l’organisation (ex. travaux et arbres sur Howard)" value="${esc(P.lastQ || '')}">
         <select id="ms-seg" aria-label="Tronçon"><option value="">Sans tronçon</option>${segs.map(([c, f]) => `<option value="${c}" ${P.lastSeg === c ? 'selected' : ''}>${esc(f.properties.street)} ${esc(f.properties.from)} → ${esc(f.properties.to)}</option>`).join('')}</select>
         <button type="button" class="small" id="ms-go">Lancer</button></div>
       <details ${cur ? '' : 'open'}><summary>Suggestions issues de la veille (${sugg.length}) et missions enregistrées (${P.recorded ? P.recorded.missions.length : 0})</summary><ul class="list">
         ${sugg.map(s => `<li class="item"><span>${esc(s.reason)}</span><span class="m">${pill(s.type, 'info')}</span><button type="button" class="small" data-launch="${esc(s.key)}">Lancer</button></li>`).join('')}
         ${(P.recorded ? P.recorded.missions : []).map(m => `<li class="item"><span>${esc(m.origin)}</span><span class="m">${pill('enregistrée')} ${pill(m.decision, DEC[m.decision])} ${m.agents} spécialistes · ${m.ms} ms</span><button type="button" class="ghost small" data-rec="${esc(m.id)}">Ouvrir</button></li>`).join('')}</ul></details>
+      ${cur ? missionHtml(cur, P.view === 'recorded') : '<p class="hint">Lancez une mission : le gestionnaire de la ville identifie les domaines, recrute les spécialistes exécutables et la passerelle recalcule tout.</p>'}`;
+    $('ws-body').innerHTML = `
       <div class="toolbar seg-tabs" role="tablist"><button type="button" role="tab" class="small ${P.msTab !== 'cog' ? '' : 'ghost'}" id="ms-tab-det" aria-selected="${P.msTab !== 'cog'}">Mission à règles (déterministe)</button><button type="button" role="tab" class="small ${P.msTab === 'cog' ? '' : 'ghost'}" id="ms-tab-cog" aria-selected="${P.msTab === 'cog'}">Collaboration assistée par modèle${P.cogIndex ? ` (${P.cogIndex.missions.length} enregistrée(s))` : ''}</button></div>
-      ${P.msTab === 'cog' ? cognitiveHtml(cur) : cur ? missionHtml(cur, P.view === 'recorded') : '<p class="hint">Lancez une mission : le gestionnaire de la ville identifie les domaines, recrute les spécialistes exécutables et la passerelle recalcule tout.</p>'}`;
-    $('ms-go').onclick = () => { P.lastQ = $('ms-q').value; P.lastSeg = $('ms-seg').value; if (!P.lastQ.trim()) return; launch({ type: 'question', text: P.lastQ, segment: P.lastSeg || undefined }); };
+      ${P.msTab === 'cog' ? cognitiveHtml(cur) : detHtml}`;
+    if ($('ms-go')) $('ms-go').onclick = () => { P.lastQ = $('ms-q').value; P.lastSeg = $('ms-seg').value; if (!P.lastQ.trim()) return; launch({ type: 'question', text: P.lastQ, segment: P.lastSeg || undefined }); };
     $('ws-body').querySelectorAll('[data-launch]').forEach(b => b.onclick = () => launch({ type: 'suggestion', suggestion: missionSuggestion(sugg.find(x => x.key === b.dataset.launch)) }));
     $('ws-body').querySelectorAll('[data-rec]').forEach(b => b.onclick = async () => { P.recordedMission = await getJSON(`data/missions/${b.dataset.rec.replace(':', '-')}.json`); P.view = 'recorded'; P.rerunCheck = null; if (P.recordedMission.target.segment) highlight({ segment: P.recordedMission.target.segment }); renderMissions(); });
     $('ws-body').querySelectorAll('[data-agentlink]').forEach(b => b.onclick = () => { P.selectedAgent = b.dataset.agentlink; show('agents'); });
@@ -217,6 +242,7 @@
     $('ms-tab-cog').onclick = () => { P.msTab = 'cog'; renderMissions(); };
     const cg = $('cg-launch'); if (cg) cg.onclick = () => launchCognitive(cur ? cur.origin : null);
     const cc = $('cg-cancel'); if (cc) cc.onclick = () => G.CORE_COGNITIVE.cancel(P.cogCurrent);
+    if (P.cogCurrent && P.msTab === 'cog' && G.CORE_MISSION_GRAPH) G.CORE_MISSION_GRAPH.bind($('ws-body'), P.cogCurrent, { reduced: matchMedia('(prefers-reduced-motion: reduce)').matches });
     const cd = $('cg-dossier'); if (cd) cd.onclick = () => openDossier(P.cogCurrent);
     $('ws-body').querySelectorAll('[data-cogrec]').forEach(b => b.onclick = async () => { P.cogCurrent = await getJSON(`data/missions/cognitive/${b.dataset.cogrec.replace(':', '-')}.json`); P.cogRecorded = true; if (P.cogCurrent.target.segment) highlight({ segment: P.cogCurrent.target.segment }); renderMissions(); });
     const rr = $('ms-rerun'); if (rr) rr.onclick = async () => { const rec = P.recordedMission; const m = await launch(rec.origin); P.rerunCheck = m.fingerprint === rec.fingerprint ? pill('empreinte identique à l’enregistrement', 'ok') : pill('empreinte différente (instantané ou veille modifiés)', 'warn'); P.view = 'recorded'; renderMissions(); };
@@ -225,7 +251,11 @@
   // ---------- Decision dossier (Phase 5) ----------
   async function openDossier(mc) {
     const e = await env(), D = G.CORE_DOSSIER, sim = mc.target.type === 'corridor-planning' ? G.CORE_SIM_SIDEWALK.run(e.ctx, P.simParams || {}) : null, d = D.build(mc, { simulation: sim });
-    P.dossier = d; if (P.sec !== 'missions') show('missions');
+    P.dossier = d; P.msTab = 'cog';
+    if (P.sec !== 'missions') { // open the inspector without the asynchronous Missions render that would overwrite the dossier
+      P.sec = 'missions'; document.querySelectorAll('#appnav [data-sec]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.sec === 'missions')));
+      G.CORE_SF_VIEW.closePanel(); if (P.map.getLayer('pf-sim-line')) simVisible(false); $('ws').hidden = false; document.body.classList.add('ws-open'); $('ws-title').textContent = 'Dossier de décision';
+    }
     const li = (a, f = x => esc(x)) => a.length ? `<ul>${a.map(x => `<li>${f(x)}</li>`).join('')}</ul>` : '<p class="hint">Aucun.</p>';
     const tag = x => `${pill('interprétation du modèle', 'warn')} <b>${esc(x.id)}</b> ${esc(x.by)} : ${esc(x.text)} <span class="hint">[${x.cites.map(esc).join(', ')}]</span>`;
     $('ws-body').innerHTML = `<div class="toolbar"><button type="button" class="ghost small" id="dz-back">← Retour à la mission</button><button type="button" class="ghost small" id="dz-md">Exporter (Markdown)</button><button type="button" class="ghost small" id="dz-json">Exporter (JSON)</button></div>
@@ -271,12 +301,11 @@
   // ---------- Model-assisted collaboration (Phase 4) ----------
   function cognitiveHtml(cur) {
     const ok = P.llm && P.llm.available, running = P.cogCurrent && P.cogCurrent.state === 'running' && !P.cogRecorded;
-    return `<div class="item"><span class="t">Collaboration de 5 spécialistes assistés par le modèle local</span>
-      <span class="hint">Urbanisme, environnement, énergie et infrastructures, scénarios, révision indépendante. Le modèle choisit les outils autorisés et rédige des interprétations ; le code déterministe produit chaque preuve et chaque chiffre ; la passerelle recalcule tout.</span>
-      <span class="m">Modèle : ${ok ? pill(`${P.llm.model} disponible`, 'ok') : pill(P.llm ? P.llm.reason : 'non testé', 'warn')}</span>
-      ${ok ? `<button type="button" class="small" id="cg-launch" ${!cur || running ? 'disabled' : ''}>${cur ? `Approfondir « ${esc(cur.target.question.slice(0, 70))}… » avec le modèle` : 'Lancez d’abord une mission à règles'}</button>` : '<span class="hint">Sans modèle local, seules les collaborations enregistrées ci-dessous sont consultables (exécutions réelles, sans nouvel appel au modèle).</span>'}</div>
-      ${P.cogIndex && P.cogIndex.missions.length ? `<ul class="list">${P.cogIndex.missions.map(m => `<li class="item"><span>${esc(m.question)}</span><span class="m">${pill('enregistrée — modèle réel')} ${pill(m.decision, DEC[m.decision])} ${esc(m.model)} · ${m.metrics.modelCalls} appels au modèle · ${m.metrics.toolCalls} outils · ${m.metrics.accepted} acceptées / ${m.metrics.rejected} rejetées · ${Math.round(m.metrics.wallMs / 1000)} s · ${esc(fmt(m.recorded_at))}</span><button type="button" class="ghost small" data-cogrec="${esc(m.id)}">Ouvrir</button></li>`).join('')}</ul>` : ''}
-      ${P.cogCurrent ? G.CORE_COG_VIEW.render(P.cogCurrent, { recorded: !!P.cogRecorded }) : ''}`;
+    const list = P.cogIndex && P.cogIndex.missions.length ? `<ul class="list">${P.cogIndex.missions.map(m => `<li class="item"><span>${esc(m.question)}</span><span class="m">${pill('enregistrée — exécution réelle du modèle')} ${pill(m.mode === 'deep' ? 'approfondi' : 'rapide')} ${pill(m.decision, DEC[m.decision])} ${m.metrics.modelCalls} appels au modèle · ${m.metrics.toolCalls} outils · ${m.metrics.accepted} acceptés / ${m.metrics.rejected} rejetés · ${Math.round(m.metrics.wallMs / 1000)} s · ${esc(fmt(m.recorded_at))}</span><button type="button" class="ghost small" data-cogrec="${esc(m.id)}">Ouvrir</button></li>`).join('')}</ul>` : '<p class="hint">Aucune collaboration enregistrée.</p>';
+    return `<p class="hint">Spécialistes choisis par routage ; le modèle local interprète des preuves produites par du code ; la passerelle recalcule tout. Modèle : ${ok ? pill(`${P.llm.model} disponible`, 'ok') : pill(P.llm && P.llm.public ? 'site public : exécutions enregistrées uniquement' : P.llm ? P.llm.reason : 'non testé', 'warn')}
+      ${ok ? ` <button type="button" class="small" id="cg-launch" ${!cur || running ? 'disabled' : ''}>${cur ? 'Approfondir la mission à règles avec le modèle' : 'Lancez d’abord une mission à règles'}</button>` : ''}</p>
+      ${P.cogCurrent ? G.CORE_COG_VIEW.render(P.cogCurrent, { recorded: !!P.cogRecorded }) : ''}
+      <details ${P.cogCurrent ? '' : 'open'}><summary>Collaborations enregistrées (${P.cogIndex ? P.cogIndex.missions.length : 0})</summary>${list}</details>`;
   }
   async function launchCognitive(origin) {
     if (!origin) return;
@@ -291,16 +320,50 @@
 
   // ---------- Simulations, Decisions, Data ----------
   // ---------- Simulations (Phase 5: interactive, reproducible, browser-executed) ----------
-  function simLayer(rows) {
-    const map = P.map, data = { type: 'FeatureCollection', features: rows.map(r => ({ type: 'Feature', geometry: P.ctx.segments.get(r.cnn).geometry, properties: { status: !r.accessible ? 'blocked' : r.deferred_for_works ? 'deferred' : r.plantable_now ? 'plantable' : 'full', below: r.below_bsp_min } })) };
+  // Spatial view of the simulation. Positions are aggregated PER BLOCK (the model computes counts, not tree
+  // coordinates): a band whose width scales with plantable positions, a "+N" label at the block midpoint, and the
+  // permit points that cause a deferral. Compare mode maps the difference between two scenarios.
+  const midpoint = g => { const c = g.type === 'MultiLineString' ? g.coordinates.flat() : g.coordinates; return c[Math.floor(c.length / 2)]; };
+  function simFeatures(rows, base) {
+    const out = [];
+    for (const r of rows) {
+      const g = P.ctx.segments.get(r.cnn).geometry, b = base ? base.get(r.cnn) : null, delta = b ? r.plantable_now - b.plantable_now : null;
+      const status = !r.accessible ? 'blocked' : r.deferred_for_works ? 'deferred' : r.plantable_now ? 'plantable' : 'full';
+      out.push({ type: 'Feature', geometry: g, properties: { kind: 'block', status, plantable: r.plantable_now, deferred: r.deferred_for_works, delta, dstatus: delta === null ? 'none' : delta > 0 ? 'up' : delta < 0 ? 'down' : 'same' } });
+      const label = base ? (delta ? `${delta > 0 ? '+' : '−'}${Math.abs(delta)}` : '') : (r.plantable_now ? `+${r.plantable_now}` : r.deferred_for_works ? `⏸${r.deferred_for_works}` : !r.accessible ? '✕' : '');
+      if (label) out.push({ type: 'Feature', geometry: { type: 'Point', coordinates: midpoint(g) }, properties: { kind: 'label', label, status: base ? (delta > 0 ? 'up' : 'down') : status } });
+    }
+    if (!base) { const permits = new Map(P.ctx.data.permits.features.map(f => [f.properties.record_id, f])); for (const r of rows) for (const id of r.works) { const f = permits.get(id); if (f && f.geometry) out.push({ type: 'Feature', geometry: f.geometry, properties: { kind: 'works', label: f.properties.permit_number || id } }); } }
+    return { type: 'FeatureCollection', features: out };
+  }
+  function simLayer(rows, base = null) {
+    const map = P.map, data = simFeatures(rows, base);
     if (!map.getSource('pf-sim')) {
       map.addSource('pf-sim', { type: 'geojson', data });
-      map.addLayer({ id: 'pf-sim-line', type: 'line', source: 'pf-sim', layout: { 'line-cap': 'round' }, paint: { 'line-width': ['interpolate', ['linear'], ['zoom'], 12, 3, 17, 12], 'line-opacity': 0.9,
-        'line-color': ['match', ['get', 'status'], 'plantable', '#3fb950', 'deferred', '#e3b341', 'blocked', '#f85149', '#6e7681'] } });
+      const isBlock = ['==', ['get', 'kind'], 'block'];
+      map.addLayer({ id: 'pf-sim-line', type: 'line', source: 'pf-sim', filter: isBlock, layout: { 'line-cap': 'round' }, paint: { 'line-width': ['interpolate', ['linear'], ['zoom'], 12, 2, 17, 6], 'line-opacity': 0.9,
+        'line-color': ['case', ['!=', ['get', 'dstatus'], 'none'], ['match', ['get', 'dstatus'], 'up', '#3fb950', 'down', '#f85149', '#6e7681'], ['match', ['get', 'status'], 'plantable', '#3fb950', 'deferred', '#e3b341', 'blocked', '#f85149', '#6e7681']] } });
+      map.addLayer({ id: 'pf-sim-band', type: 'line', source: 'pf-sim', filter: ['all', isBlock, ['>', ['get', 'plantable'], 0], ['==', ['get', 'dstatus'], 'none']], paint: { 'line-color': '#3fb950', 'line-opacity': 0.28, 'line-blur': 2,
+        'line-width': ['interpolate', ['linear'], ['get', 'plantable'], 1, 6, 10, 18], 'line-offset': ['interpolate', ['linear'], ['zoom'], 13, 6, 17, 18] } });
+      map.addLayer({ id: 'pf-sim-defer', type: 'line', source: 'pf-sim', filter: ['all', isBlock, ['>', ['get', 'deferred'], 0], ['==', ['get', 'dstatus'], 'none']], paint: { 'line-color': '#e3b341', 'line-width': 3, 'line-dasharray': [1, 1.5], 'line-offset': ['interpolate', ['linear'], ['zoom'], 13, -6, 17, -18] } });
+      map.addLayer({ id: 'pf-sim-works', type: 'circle', source: 'pf-sim', minzoom: 13.5, filter: ['==', ['get', 'kind'], 'works'], paint: { 'circle-radius': 4, 'circle-color': '#e3b341', 'circle-stroke-color': '#0d1117', 'circle-stroke-width': 1 } });
+      map.addLayer({ id: 'pf-sim-label', type: 'symbol', source: 'pf-sim', minzoom: 13, filter: ['==', ['get', 'kind'], 'label'], layout: { 'text-field': ['get', 'label'], 'text-font': ['Noto Sans Regular'], 'text-size': 12, 'text-allow-overlap': false },
+        paint: { 'text-color': ['match', ['get', 'status'], 'plantable', '#7ee787', 'up', '#7ee787', 'deferred', '#e3b341', 'down', '#ff7b72', 'blocked', '#ff7b72', '#c9d1d9'], 'text-halo-color': '#0d1117', 'text-halo-width': 1.6 } });
     } else map.getSource('pf-sim').setData(data);
+    simVisible(true);
+  }
+  // While a simulation is displayed, record markers are hidden (and restored exactly as they were) so the scenario reads clearly.
+  const RECORD_LAYERS = ['sf-permits', 'sf-large', 'sf-moratoria-point', 'sf-closures-point', 'city-bp', 'city-bp-cluster', 'city-bp-count', 'city-removals', 'city-energy', 'city-trees', 'core-density'];
+  function simVisible(on) {
+    const map = P.map;
+    if (on && !P.simHidden) { P.simHidden = {}; for (const id of RECORD_LAYERS) if (map.getLayer(id)) { P.simHidden[id] = map.getLayoutProperty(id, 'visibility') || 'visible'; map.setLayoutProperty(id, 'visibility', 'none'); } }
+    if (!on && P.simHidden) { for (const [id, v] of Object.entries(P.simHidden)) if (map.getLayer(id)) map.setLayoutProperty(id, 'visibility', v); P.simHidden = null; }
+    for (const id of ['pf-sim-line', 'pf-sim-band', 'pf-sim-defer', 'pf-sim-works', 'pf-sim-label']) if (map.getLayer(id)) map.setLayoutProperty(id, 'visibility', on ? 'visible' : 'none');
+    const b = $('sim-badge'); if (b) b.hidden = !on;
   }
   async function renderSims() {
     const e = await env(), S = G.CORE_SIM_SIDEWALK, M = G.CORE_SIM.MODELS, md = S.MODEL;
+    if (P.sec !== 'sims') return; // the user left while data loaded: do not draw the overlay over another view
     P.simParams = P.simParams || Object.fromEntries(Object.entries(md.params).map(([k, d]) => [k, d.value]));
     let r, err = null; try { r = S.run(e.ctx, P.simParams); } catch (x) { err = x.message; }
     P.simResult = r;
@@ -314,6 +377,8 @@
         <div class="toolbar"><button type="button" class="ghost small" id="sm-reset">Valeurs par défaut</button><button type="button" class="ghost small" id="sm-verify">Revérifier (recalcul)</button><button type="button" class="ghost small" id="sm-export">Exporter (JSON)</button><span id="sm-verified" class="hint"></span></div></div>
       ${err ? `<p class="caveat">${esc(err)}</p>` : `
       <div class="kpis"><div class="kpi"><b>${t.plantable_now}</b><span>emplacements plantables maintenant (modèle)</span></div><div class="kpi"><b>${t.deferred_for_works}</b><span>à reporter pour travaux planifiés</span></div><div class="kpi"><b>${t.not_accessible_with_basin}</b><span>tronçons sans cheminement suffisant</span></div><div class="kpi"><b>${t.below_bsp_min}/${t.blocks}</b><span>trottoirs sous le minimum BSP (observé, 2014)</span></div><div class="kpi"><b>${t.living_trees}</b><span>arbres vivants inventoriés</span></div></div>
+      <div class="toolbar"><label class="hint" for="sm-compare">Carte :</label><select id="sm-compare" aria-label="Comparer la carte à une alternative"><option value="none" ${!P.simCompare || P.simCompare === 'none' ? 'selected' : ''}>Scénario courant (bandes = emplacements par tronçon)</option>${Object.entries(G.CORE_SIM_SIDEWALK.ALTERNATIVES).map(([k, a]) => `<option value="${k}" ${P.simCompare === k ? 'selected' : ''}>Différence : paramètres courants vs ${k} — ${esc(a.label)}</option>`).join('')}</select></div>
+      <p class="hint">Les emplacements sont des <b>comptes par tronçon</b> (le modèle ne localise pas d’arbres) : bande verte = plantables maintenant, tirets ambre = reportés à cause des permis affichés en points ambre, rouge = cheminement insuffisant. En mode différence : vert/rouge = plus/moins d’emplacements que l’alternative.</p>
       <p class="hint">Empreinte <code id="sm-fp">${esc(r.fingerprint)}</code> — mêmes données et paramètres ⇒ même résultat. Carte : ${pill('plantable', 'ok')} ${pill('à reporter', 'warn')} ${pill('cheminement insuffisant', 'fail')} gris = capacité atteinte.</p>
       <details open><summary>Alternatives (recalculées avec les paramètres actuels)</summary><table class="tbl"><thead><tr><th>Alternative</th><th>Plantables maintenant</th><th>Total</th><th>Reportés</th><th>Tronçons insuffisants</th></tr></thead><tbody>${alt.map(a => `<tr><td><b>${esc(a.id)}</b> ${esc(G.CORE_SIM_SIDEWALK.ALTERNATIVES[a.id].label)}</td><td>${a.totals.plantable_now}</td><td>${a.totals.additional_positions}</td><td>${a.totals.deferred_for_works}</td><td>${a.totals.not_accessible_with_basin}</td></tr>`).join('')}</tbody></table></details>
       <details open><summary>Sensibilité (un paramètre à la fois, bornes du domaine)</summary><table class="tbl"><thead><tr><th>Paramètre</th><th>Bornes</th><th>Emplacements</th><th>Plantables maintenant</th><th>Tronçons insuffisants</th></tr></thead><tbody>${sens.params.map(x => `<tr><td>${esc(x.param)}</td><td>${x.low}–${x.high} ${esc(x.unit)}</td><td>${x.additional.join(' → ')}</td><td>${x.plantable_now.join(' → ')}</td><td>${x.not_accessible.join(' → ')}</td></tr>`).join('')}</tbody></table>
@@ -323,10 +388,11 @@
       <h3 style="margin:10px 0 4px;font-size:13px">Registre des modèles</h3>
       <table class="tbl"><thead><tr><th>Modèle</th><th>Domaine</th><th>Nature</th><th>Statut</th></tr></thead><tbody>${Object.entries(M).map(([id, m]) => `<tr><td><code>${esc(id)}</code><br><span class="hint">${esc(m.note)}</span></td><td>${esc(m.domain)}</td><td>${esc(m.kind || '—')}</td><td>${m.status === 'working' ? pill('opérationnel', 'ok') : m.status === 'unavailable' ? pill('indisponible', 'fail') : pill(m.status, 'warn')}</td></tr>`).join('')}</tbody></table>
       <div class="toolbar"><button type="button" class="ghost small" id="sm-coord">Coordination des travaux (S0–S4)</button><button type="button" class="ghost small" id="sm-city">Investigation inter-domaines (R0–R2)</button><a class="pill info" href="corridor.html">Démo de trafic synthétique (non calibrée)</a></div>`;
-    if (r) { simLayer(r.rows); }
+    if (r) { const cmp = P.simCompare && P.simCompare !== 'none' ? S.run(e.ctx, { ...P.simParams, ...(S.ALTERNATIVES[P.simCompare].params || {}) }, { plant: !!S.ALTERNATIVES[P.simCompare].params }) : null; simLayer(r.rows, cmp ? new Map(cmp.rows.map(x => [x.cnn, x])) : null); }
     let pend = null;
     $('ws-body').querySelectorAll('[data-param]').forEach(inp => inp.oninput = () => { P.simParams[inp.dataset.param] = Number(inp.value); $(`sv-${inp.dataset.param}`).textContent = inp.value; clearTimeout(pend); pend = setTimeout(renderSims, 180); });
     $('sm-reset').onclick = () => { P.simParams = null; renderSims(); };
+    if ($('sm-compare')) $('sm-compare').onchange = ev => { P.simCompare = ev.target.value; renderSims(); };
     $('sm-verify').onclick = () => { const v = S.verify(e.ctx, P.simResult); $('sm-verified').innerHTML = v.pass ? pill(`recalcul identique (${v.fingerprint})`, 'ok') : pill(`échec : ${v.error || v.fingerprint}`, 'fail'); };
     $('sm-export').onclick = () => { const blob = new Blob([JSON.stringify({ model: md, result: P.simResult }, null, 2)], { type: 'application/json' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${md.id}-${P.simResult.fingerprint}.json`; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); };
     $('sm-coord').onclick = () => { show('world'); G.CORE_SF_VIEW.openPanel(); G.CORE_SF_VIEW.selectTab('agents'); };
@@ -349,14 +415,14 @@
   async function renderData() {
     const sv = G.CORE_SF_VIEW; await sv.loadData();
     const man = sv.state.manifest, KN = G.CORE_KNOWLEDGE, contra = KN.contradictions(KN.docClaims(P.K));
-    $('ws-body').innerHTML = `<h3 style="margin:0;font-size:13px">Instantanés vérifiés (${man.datasets.length})</h3>
-      <table class="tbl"><thead><tr><th>Jeu</th><th>Enr.</th><th>Récupéré</th><th>SHA-256</th></tr></thead><tbody>${man.datasets.map(d => { const k = d.file.replace('.geojson', ''); return `<tr><td><a href="${esc(d.page)}" target="_blank" rel="noopener">${esc(d.title)}</a></td><td>${d.features}</td><td>${esc(fmt(d.retrieved_at))}</td><td>${sv.state.verified[k] === 'ok' ? pill('vérifié', 'ok') : pill(sv.state.verified[k] || '?', 'warn')}</td></tr>`; }).join('')}</tbody></table>
+    $('ws-body').innerHTML = `<h3 style="margin:0;font-size:13px">Instantanés (${man.datasets.length})</h3><p class="hint">« Fichier intact » : la somme SHA-256 prouve que le fichier publié est identique à la collecte ; elle ne prouve ni l’exactitude ni l’actualité de la source. Dates : <b>récupéré</b> = collecte par CORE ; les registres gardent leurs propres dates (approbation, début et fin prévus).</p>
+      <table class="tbl"><thead><tr><th>Jeu</th><th>Enr.</th><th>Récupéré</th><th>SHA-256</th></tr></thead><tbody>${man.datasets.map(d => { const k = d.file.replace('.geojson', ''); return `<tr><td><a href="${esc(d.page)}" target="_blank" rel="noopener">${esc(d.title)}</a></td><td>${d.features}</td><td>${esc(fmt(d.retrieved_at))}</td><td>${sv.state.verified[k] === 'ok' ? pill('fichier intact (SHA-256)', 'ok') : pill(sv.state.verified[k] || '?', 'warn')}</td></tr>`; }).join('')}</tbody></table>
       <button type="button" class="ghost small" id="dt-inspect">Ouvrir l’inspecteur des registres</button>
       <h3 style="margin:0;font-size:13px">Bibliothèque de connaissances (${KN.approved(P.K).length} documents approuvés, ${P.K.lib.proposals.length} proposition(s))</h3>
       <table class="tbl"><thead><tr><th>Document</th><th>Source</th><th>v</th><th>Fraîcheur</th></tr></thead><tbody>${KN.approved(P.K).map(d => { const fr = KN.freshness(d, new Date().toISOString()); return `<tr><td><a href="${esc(d.url)}" target="_blank" rel="noopener">${esc(d.title)}</a><br><span class="hint">${esc(d.confidence)}${d.limitations ? ' · ' + esc(d.limitations) : ''}</span></td><td>${esc(P.K.sources.get(d.source).name)}<br><span class="hint">${esc(P.K.sources.get(d.source).license)}</span></td><td>${d.version}</td><td>${fr.stale ? pill('à actualiser', 'warn') : pill(`${fr.ageDays} j`, 'ok')}</td></tr>`; }).join('')}</tbody></table>
       <p><b>Contradictions détectées :</b> ${contra.map(c => `${esc(c.key)} : ${c.values.join(' vs ')} (${esc(c.a)} / ${esc(c.b)}) — ${pill(c.status, c.status === 'conflict' ? 'fail' : 'ok')}`).join(' ; ') || 'aucune'}</p>
       <p class="hint">Mises à jour : un agent peut proposer, seul un relecteur humain (<code>human:…</code>) approuve ; une proposition touchant aux règles de sûreté ou permissions d’un agent est rejetée. Chaque version est conservée et restaurable (<code>node scripts/learn.mjs --rollback</code>).</p>
-      ${G.CORE_DATA_POLICY ? (() => { const E = Object.entries(G.CORE_DATA_POLICY.ENTRIES); return `<h3 style="margin:0;font-size:13px">Politique d’éligibilité des données (${E.filter(([, x]) => x.status === 'eligible').length} éligibles, ${E.filter(([, x]) => x.status === 'quarantined').length} en quarantaine, ${E.filter(([, x]) => x.status === 'excluded').length} exclues — vérifiée ${esc(G.CORE_DATA_POLICY.VERIFIED)})</h3><details><summary>Détail par source</summary><table class="tbl"><thead><tr><th>Source</th><th>Licence / base d’usage</th><th>Sensibilité</th><th>Usage permis</th><th>Statut</th></tr></thead><tbody>${E.map(([k, x]) => `<tr><td><code>${esc(k)}</code><br>${esc(x.publisher)}</td><td>${esc(x.licence)}</td><td>${esc(x.sensitivity)}</td><td>${esc(x.allowedUse)}${x.notes ? `<br><span class="hint">${esc(x.notes)}</span>` : ''}</td><td>${pill(x.status, x.status === 'eligible' ? 'ok' : x.status === 'quarantined' ? 'warn' : 'fail')}</td></tr>`).join('')}</tbody></table></details>`; })() : ''}
+      ${G.CORE_DATA_POLICY ? (() => { const E = Object.entries(G.CORE_DATA_POLICY.ENTRIES); return `<h3 style="margin:0;font-size:13px">Politique d’éligibilité des données (${E.filter(([, x]) => x.status === 'eligible').length} éligibles, ${E.filter(([, x]) => x.status === 'quarantined').length} en quarantaine, ${E.filter(([, x]) => x.status === 'excluded').length} exclues — vérifiée ${esc(G.CORE_DATA_POLICY.VERIFIED)})</h3><details><summary>Détail par source</summary><table class="tbl"><thead><tr><th>Source</th><th>Licence / base d’usage</th><th>Usage commercial · attribution</th><th>Sensibilité</th><th>Usage permis · portée</th><th>Statut</th></tr></thead><tbody>${E.map(([k, x]) => `<tr><td><code>${esc(k)}</code><br>${esc(x.publisher)}</td><td>${esc(x.licence)}</td><td>${esc(x.commercialUse)}<br><span class="hint">${esc(x.attribution)}</span></td><td>${esc(x.sensitivity)}</td><td>${esc(x.allowedUse)}<br><span class="hint">${esc(x.scope)} · ${esc(x.retention)}</span>${x.notes ? `<br><span class="hint">${esc(x.notes)}</span>` : ''}</td><td>${pill(x.status, x.status === 'eligible' ? 'ok' : x.status === 'quarantined' ? 'warn' : 'fail')}</td></tr>`).join('')}</tbody></table></details>`; })() : ''}
       <h3 style="margin:0;font-size:13px">Apprentissage contrôlé (${P.K.lib.proposals.length} proposition(s))</h3>
       <table class="tbl"><thead><tr><th>Proposition</th><th>Origine</th><th>Évaluation avant → après</th><th>Décision</th></tr></thead><tbody>${P.K.lib.proposals.map(p => `<tr><td>${esc(p.id)} · ${esc(p.docId)}<br><span class="hint">${esc(p.reason)}</span></td><td>${esc(p.proposedBy)}${p.provenance && p.provenance.fetched ? `<br><a href="${esc(p.provenance.fetched)}" target="_blank" rel="noopener">source autorisée</a> · ${esc(p.provenance.license || '')}` : ''}${p.validation ? `<br>${p.validation.checks.map(c => pill(c.id, c.pass ? 'ok' : 'fail')).join(' ')}` : ''}</td><td>${(p.evaluation || []).map(x => `${esc(x.agent)} : ${Math.round(x.before.score * 100)} % → ${Math.round(x.after.score * 100)} %`).join('<br>')}</td><td>${pill(p.status, p.status === 'approved' ? 'ok' : p.status === 'pending' ? 'warn' : 'fail')}${p.importance ? ` ${pill(p.importance)}` : ''}${p.reviewer ? `<br>${esc(p.reviewer)}` : ''}</td></tr>`).join('') || '<tr><td colspan="4">Aucune.</td></tr>'}</tbody></table>`;
     $('dt-inspect').onclick = () => { show('world'); sv.openPanel(); sv.selectTab('records'); };
@@ -364,7 +430,8 @@
 
   function updateMeta() {
     const sv = G.CORE_SF_VIEW.state;
-    $('navmeta').textContent = `Instantané ${sv.manifest ? fmt(sv.manifest.generated_at) : '…'} · veille ${fmt(P.state ? P.state.lastSuccessfulUpdate : null)}${P.lastRefresh ? ` · navigateur ${fmt(P.lastRefresh.at)}` : ''}`;
+    $('navmeta').textContent = `Registres collectés ${sv.manifest ? fmt(sv.manifest.generated_at) : '…'} · veille collectée ${fmt(P.state ? P.state.lastSuccessfulUpdate : null)}${P.lastRefresh ? ` · navigateur ${fmt(P.lastRefresh.at)}` : ''}`;
+    $('navmeta').title = 'Dates de collecte par CORE (UTC). Chaque registre garde ses propres dates (publication, approbation, début et fin prévus).';
   }
 
   async function init({ map, fly }) {
@@ -382,8 +449,9 @@
     else { P.llm = { available: false, public: true, reason: 'site public : l’analyse assistée par modèle s’exécute uniquement sur une machine avec Ollama local (les missions affichées sont des exécutions réelles enregistrées)' }; if (!localStorage.getItem(LS)) { P.browser.intervalMin = 0; schedule(); } }
     document.body.classList.toggle('public-site', !P.local);
     G.CORE_SF_VIEW.loadData().then(updateMeta).catch(() => {}); updateMeta();
+    if (G.CORE_DEMO) G.CORE_DEMO.init();
     P.ready = true;
   }
 
-  G.CORE_PLATFORM = { init, show, launch, refresh, state: P };
+  G.CORE_PLATFORM = { init, show, launch, refresh, state: P, openRecorded, openDossier, loadRecorded };
 })();

@@ -49,7 +49,7 @@ Read [PROJECT_STATE.md](PROJECT_STATE.md), [ROADMAP.md](ROADMAP.md) and [AGENTS.
 
 ## Validation and limitations
 
-Phases 0–5 are complete — latest: [Phase 5 report](docs/PHASE_5_REPORT.md). **Public site: https://vincentleg.github.io/core/** (guided demo, recorded real model-assisted missions, interactive simulation, decision dossiers).
+Phases 0–6 are complete — latest: [Phase 6 report](docs/PHASE_6_REPORT.md). **Public site: https://vincentleg.github.io/core/** (immersive globe with honest coverage, San Francisco 3D pilot, 9-step guided demo, recorded real model-assisted missions with their execution graph, interactive simulation drawn on the map, decision dossiers).
 
 Providers and licenses are listed in [DATA_SOURCES.md](docs/DATA_SOURCES.md). Esri imagery requests are disabled because usage rights are unresolved; Nominatim requests are also disabled. No paid services or billing have been configured. CORE itself has no repository license grant yet; do not infer one from public visibility or third-party licenses.
 

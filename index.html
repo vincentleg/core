@@ -208,9 +208,56 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
   .simgrid { display: grid; gap: 6px; } .simparam { display: grid; gap: 2px; font-size: 12px; } .simparam input { width: 100%; }
   .demo-step { border-left: 3px solid var(--line); padding: 6px 10px; margin: 6px 0; } .demo-step.now { border-color: #e3b341; }
   abbr { text-decoration: underline dotted; cursor: help; }
+  /* ---------- Phase 6: world-first layout, one inspector at a time, compact controls ---------- */
+  :root { --insp-w: min(420px, calc(100vw - 32px)); --dock-w: 300px; --gap: 12px; }
+  .console { width: var(--dock-w) !important; padding: 12px; gap: 8px; }
+  .console .brand span { font-size: 11px; color: var(--muted); letter-spacing: .02em; }
+  .places { display: flex; gap: 4px; } .places button { flex: 1; padding: 6px 4px; font-size: 12px; white-space: nowrap; }
+  .dock-lead { margin: 0; font-size: 12.5px; line-height: 1.4; color: var(--muted); } .dock-lead b { color: var(--ink); }
+  .dock-actions { display: grid; gap: 6px; } .dock-actions button { white-space: normal; text-align: center; }
+  .layers { padding: 0; min-width: 0; }
+  .layers-pop > summary { padding: 8px 12px; cursor: pointer; font: 600 12.5px var(--body); color: var(--ink); list-style: none; white-space: nowrap; }
+  .layers-pop > summary::-webkit-details-marker { display: none; } .layers-pop > summary::before { content: '◧ '; color: var(--cyan); }
+  .layers-pop[open] { width: 268px; max-height: calc(100dvh - var(--navh) - 96px); overflow: auto; padding: 0 10px 10px; }
+  .layers-pop[open] > :not(summary) { display: block; width: 100%; margin-top: 6px; box-sizing: border-box; }
+  .map-legend { font-size: 12px; } .map-legend ul { list-style: none; margin: 4px 0; padding: 0; display: grid; gap: 3px; }
+  .map-legend li { display: flex; align-items: center; gap: 8px; } .map-legend i { flex: none; width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  .map-legend i.line { border-radius: 2px; height: 4px; } .map-legend small { color: var(--muted); }
+  .data, .ws { width: var(--insp-w) !important; right: var(--gap); top: calc(var(--navh) + var(--gap)); bottom: calc(52px + env(safe-area-inset-bottom, 0px)); max-height: none !important; }
+  body.sf-open .layers, body.ws-open .layers, body.agents-wide.sf-open .layers { right: calc(var(--insp-w) + 2 * var(--gap)); }
+  body.ws-open .maplibregl-ctrl-bottom-right .maplibregl-ctrl-group, body.sf-open .maplibregl-ctrl-bottom-right .maplibregl-ctrl-group { display: none; }
+  body.ws-open .maplibregl-ctrl-bottom-right, body.sf-open .maplibregl-ctrl-bottom-right { right: calc(var(--insp-w) + 2 * var(--gap)); }
+  .cam { top: auto !important; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); padding: 3px; gap: 2px; }
+  .cam button { padding: 5px 9px; min-width: 32px; font-size: 12px; white-space: nowrap; }
+  #cam-help { top: auto; bottom: calc(56px + env(safe-area-inset-bottom, 0px)); }
+  .status { max-width: min(420px, calc(50vw - 230px)); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  button { white-space: nowrap; } .pill { white-space: normal; overflow-wrap: anywhere; } .item button, .toolbar button { white-space: normal; } button.small { min-height: 28px; } .item button { align-self: flex-start; }
+  .hint, .tbl { font-size: 12px; } .tbl td, .tbl th { vertical-align: top; }
+  :focus-visible { outline: 2px solid #79c0ff; outline-offset: 2px; }
+  .pilot.far { display: none; }
+  .mgraph { margin: 4px 0; } .mgraph figcaption { font-size: 12px; color: var(--muted); } .mg-legend { display: flex; flex-wrap: wrap; gap: 10px; font-size: 11px; color: var(--muted); } .mg-legend i { display: inline-block; width: 10px; height: 10px; margin-right: 4px; vertical-align: -1px; }
+  .sim-badge { position: fixed; z-index: 2; left: 50%; transform: translateX(-50%); bottom: calc(58px + env(safe-area-inset-bottom, 0px)); padding: 6px 12px; font-size: 12px; color: #e3b341; border-color: #6e5a1f; }
+  body.ws-open .sim-badge { left: calc((100vw - var(--insp-w)) / 2); }
+  .demo2 { position: fixed; z-index: 6; left: var(--gap); bottom: calc(56px + env(safe-area-inset-bottom, 0px)); width: min(400px, calc(100vw - 24px)); padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; border-color: #2f6f8f; box-shadow: 0 8px 30px rgba(0,0,0,.45); }
+  body.demo-on .console { display: none; } body.demo-on .sim-badge { bottom: auto; top: calc(var(--navh) + var(--gap)); left: var(--gap); transform: none; } .d2-top { display: flex; align-items: baseline; gap: 8px; } .d2-top b { flex: 1; font-size: 15px; } .d2-n { font: 12px var(--mono); color: var(--muted); }
+  .d2-take { margin: 0; font-size: 14.5px; line-height: 1.45; } .d2-nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .d2-dots { display: flex; gap: 4px; } .d2-dots i { width: 6px; height: 6px; border-radius: 50%; background: #30363d; } .d2-dots i.on { background: #79c0ff; }
+  .explain { font-size: 12.5px; } .explain li { margin: 2px 0; }
+  @media (max-width: 1100px) { .status { display: none; } }
+  @media (max-width: 640px) {
+    :root { --dock-w: calc(100vw - 24px); }
+    .console { left: 12px; top: auto !important; bottom: calc(56px + env(safe-area-inset-bottom, 0px)); max-height: 46dvh; }
+    .layers { top: calc(var(--navh) + 8px) !important; right: 12px !important; }
+    .data, .ws { top: auto !important; left: 12px; right: 12px; width: auto !important; bottom: calc(56px + env(safe-area-inset-bottom, 0px)); max-height: 55dvh !important; }
+    body.ws-open .layers, body.sf-open .layers { display: none; }
+    .cam .opt { display: none; } .cam { left: 50% !important; transform: translateX(-50%) !important; }
+    #appnav .mark small { display: none; } .sim-badge { font-size: 11px; max-width: calc(100vw - 24px); }
+    body.demo-on .ws, body.demo-on .data { display: none; } .demo2 { left: 12px; right: 12px; width: auto; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
 </style>
 </head>
-<body>
+<body class="console-min">
 <nav id="appnav" aria-label="Navigation principale">
   <span class="mark">CORE<small>San Francisco</small></span>
   <div role="tablist" aria-label="Sections" style="display:flex">
@@ -227,6 +274,7 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
 </nav>
 <div id="map" role="region" aria-label="Globe 3D de CORE"></div>
 <section class="panel ws" id="ws" hidden aria-live="polite"><header><h2 id="ws-title"></h2><button type="button" class="ghost small" id="ws-close">Fermer</button></header><div class="wsbody" id="ws-body"></div></section>
+<div class="panel sim-badge" id="sim-badge" hidden role="status">Scénario hypothétique — modèle exploratoire non calibré (sidewalk-tree-capacity-v1)</div>
 <div class="panel cam" role="toolbar" aria-label="Caméra 3D">
   <button type="button" class="ghost" data-cam="rotl" title="Pivoter à gauche (Q)" aria-label="Pivoter à gauche">⟲</button>
   <button type="button" class="ghost" data-cam="rotr" title="Pivoter à droite (E)" aria-label="Pivoter à droite">⟳</button>
@@ -246,27 +294,30 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
   Limites : caméra MapLibre centrée sur une cible (cap 360°, inclinaison ≤ 85°) — pas de vol libre à 6 degrés de liberté ni de roulis.</div>
 
 <div class="panel console">
-  <div class="brand"><b>CORE</b><span>CORE World</span><button type="button" class="ghost small" id="console-toggle" aria-expanded="true" aria-controls="console-body">Réduire</button></div>
-  <div id="console-body" class="console-body">
-  <p class="lead">Explore les rues et bâtiments cartographiés en 3D. Les agents travaillent pour l’instant dans un corridor synthétique séparé.</p>
+  <div class="brand"><b>CORE</b><span>Creation Of Reborn Earth</span><button type="button" class="ghost small" id="console-toggle" aria-expanded="false" aria-controls="console-body">Déplier</button></div>
+  <p class="dock-lead">Intelligence urbaine fondée sur des données publiques et des agents vérifiés. Pilote opérationnel : <b>San Francisco</b>. Les décisions restent humaines.</p>
   <form id="search" role="search">
     <input id="q" type="search" placeholder="Ville, quartier de SF, repère ou lat, lon" aria-label="Recherche locale : ville, quartier ou repère de San Francisco, ou latitude, longitude" maxlength="120" autocomplete="off">
     <button type="submit">Aller</button>
   </form>
-  <p class="note" id="search-help">Recherche locale : villes pilotes, quartiers et repères de San Francisco, ou coordonnées. Recherche d’adresse externe désactivée.</p>
   <div class="places">
     <button class="ghost" data-go="globe" type="button">Globe</button>
     <button class="ghost" data-go="sf" type="button">San Francisco</button>
     <button class="ghost" data-go="paris" type="button">Paris</button>
     <button class="ghost" data-go="tokyo" type="button">Tokyo</button>
   </div>
+  <div class="dock-actions">
+  <button class="amber" id="pilot-real" type="button">Pilote San Francisco · Folsom / Howard</button>
+  <button class="ghost" id="demo-guided" type="button">Démo guidée (≈ 4 min)</button>
+  </div>
+  <div id="console-body" class="console-body">
+  <p class="lead">Explore les rues et bâtiments cartographiés en 3D. Les agents travaillent pour l’instant dans un corridor synthétique séparé.</p>
+  <p class="note" id="search-help">Recherche locale : villes pilotes, quartiers et repères de San Francisco, ou coordonnées. Recherche d’adresse externe désactivée.</p>
   <div class="sf-nav">
     <label for="sf-place">San Francisco</label>
     <select id="sf-place" aria-label="Quartiers et repères de San Francisco"></select>
-    <button class="amber" id="pilot-real" type="button">Pilote Folsom / Howard · données réelles</button>
     <ul class="legend-kinds" aria-label="Nature des données"><li class="badge observed">OBSERVÉ</li><li class="badge approx">APPROXIMATIF</li><li class="badge synthetic">SYNTHÉTIQUE</li></ul>
   </div>
-  <button class="amber" id="demo-guided" type="button">Démo guidée · Terre → décision humaine</button>
   <button class="ghost" id="pilot-btn" type="button">Démo des agents · corridor synthétique</button>
   <p class="note">La démo des agents utilise un corridor et un trafic synthétiques, non calibrés, distincts des registres réels Folsom / Howard.</p>
   <details class="provenance" id="sources">
@@ -285,6 +336,7 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
 </div>
 
 <div class="panel layers" role="group" aria-label="Couches">
+ <details id="layers-pop" class="layers-pop"><summary>Couches &amp; légende</summary>
   <button class="ghost" id="l-trame" type="button" disabled aria-pressed="true">Carte</button>
   <button class="ghost" id="l-buildings" type="button" aria-pressed="true" disabled>Bâtiments 3D</button>
   <button class="ghost" id="l-sat" type="button" disabled title="Esri : droits d’usage non vérifiés">Satellite indisponible</button>
@@ -294,6 +346,8 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
     <label class="period">Période <select id="th-period" aria-label="Filtre temporel des permis"><option value="recent" selected>Actifs, 12 derniers mois</option><option value="active">Actifs (statut)</option><option value="all">Tout l’instantané</option></select></label>
     <p id="th-count" class="hint"></p>
   </details>
+  <div id="map-legend" class="map-legend" aria-label="Légende de la carte"></div>
+ </details>
 </div>
 
 <aside class="panel data" id="sf-panel" hidden aria-label="Pilote Folsom / Howard">
@@ -380,8 +434,11 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
 <script src="src/learning.js"></script>
 <script src="src/cognitive.js"></script>
 <script src="src/cognitive-view.js"></script>
+<script src="src/mission-graph.js"></script>
 <script src="src/evals.js"></script>
 <script src="src/camera.js"></script>
+<script src="src/map-style.js"></script>
+<script src="src/demo.js"></script>
 <script src="src/platform.js"></script>
 <script>
 (() => {
@@ -391,7 +448,9 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
   $('pilot-btn').addEventListener('click', () => { location.href = 'corridor.html'; });
   if (!window.maplibregl) { msg('Impossible de charger le moteur de carte (connexion ?).'); return; }
 
-  const CYAN = '#78e8ff', CYAN_DIM = '#2f8fb8', VOID = '#02050b';
+  const CYAN = '#78e8ff', CYAN_DIM = '#2f8fb8', VOID = '#02050b', LAND = '#10233a', SEA = '#02070f';
+  // Globe size follows the viewport so the planet fills the first screen (Phase 6).
+  const globeZoom = () => Math.max(0.9, Math.min(2.6, Math.log2(Math.min(innerWidth, innerHeight - 52) * 0.42 * 2 * Math.PI / 512)));
   const name = ['coalesce', ['get', 'name:fr'], ['get', 'name:latin'], ['get', 'name'], ''];
   const roadW = (k) => ['interpolate', ['exponential', 1.6], ['zoom'], 5, 0.3 * k, 12, 1 * k, 16, 4 * k, 19, 14 * k];
   const MAJOR = ['match', ['get', 'class'], ['motorway', 'trunk', 'primary'], true, false];
@@ -404,35 +463,40 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
       hill: { type: 'raster-dem', tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'], encoding: 'terrarium', tileSize: 256, maxzoom: 14, attribution: 'Terrain : Mapzen / AWS · <a href="https://github.com/tilezen/joerd/blob/master/docs/attribution.md">Sources et crédits</a>' },
       dem: { type: 'raster-dem', tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'], encoding: 'terrarium', tileSize: 256, maxzoom: 14, attribution: 'Terrain : Mapzen / AWS · <a href="https://github.com/tilezen/joerd/blob/master/docs/attribution.md">Sources et crédits</a>' },
     },
+    // Atmosphere around the globe; fades out at city scale (MapLibre 5 sky).
+    sky: { 'sky-color': '#03122a', 'horizon-color': '#0a3a66', 'fog-color': '#020611', 'sky-horizon-blend': 0.5, 'horizon-fog-blend': 0.1, 'fog-ground-blend': 0, 'atmosphere-blend': ['interpolate', ['linear'], ['zoom'], 0, 0.22, 5, 0.15, 8, 0] },
+    light: { anchor: 'map', position: [1.4, 210, 35], color: '#dcecff', intensity: 0.45 },
     layers: [
-      { id: 'void', type: 'background', paint: { 'background-color': VOID } },
+      { id: 'void', type: 'background', paint: { 'background-color': LAND } },
       { id: 'hillshade', type: 'hillshade', source: 'hill', minzoom: 10, layout: { visibility: 'visible' }, paint: { 'hillshade-shadow-color': '#000000', 'hillshade-highlight-color': '#0f4a6b', 'hillshade-accent-color': '#06223a', 'hillshade-exaggeration': 0.4 } },
-      { id: 'park', type: 'fill', source: 'omt', 'source-layer': 'landcover', filter: ['in', ['get', 'class'], ['literal', ['wood', 'grass', 'farmland']]], paint: { 'fill-color': '#04201a', 'fill-opacity': 0.55 } },
-      { id: 'water', type: 'fill', source: 'omt', 'source-layer': 'water', paint: { 'fill-color': '#041a30' } },
+      { id: 'park', type: 'fill', source: 'omt', 'source-layer': 'landcover', filter: ['in', ['get', 'class'], ['literal', ['wood', 'grass', 'farmland']]], paint: { 'fill-color': '#0d2b28', 'fill-opacity': ['interpolate', ['linear'], ['zoom'], 4, 0.35, 12, 0.7] } },
+      { id: 'water', type: 'fill', source: 'omt', 'source-layer': 'water', paint: { 'fill-color': SEA } },
+      { id: 'parks-city', type: 'fill', source: 'omt', 'source-layer': 'park', minzoom: 11, paint: { 'fill-color': '#123a2f', 'fill-opacity': 0.55 } },
       { id: 'coast', type: 'line', source: 'omt', 'source-layer': 'water', paint: { 'line-color': CYAN, 'line-opacity': ['interpolate', ['linear'], ['zoom'], 0, 0.8, 10, 0.35], 'line-width': ['interpolate', ['linear'], ['zoom'], 0, 0.6, 10, 1.2] } },
       { id: 'border', type: 'line', source: 'omt', 'source-layer': 'boundary', filter: ['all', ['<=', ['number', ['get', 'admin_level'], 99], 2], ['!=', ['get', 'maritime'], 1]], paint: { 'line-color': CYAN, 'line-opacity': 0.45, 'line-width': 0.8 } },
       { id: 'region', type: 'line', source: 'omt', 'source-layer': 'boundary', minzoom: 3, filter: ['==', ['get', 'admin_level'], 4], paint: { 'line-color': CYAN_DIM, 'line-opacity': 0.3, 'line-width': 0.6, 'line-dasharray': [2, 2] } },
-      { id: 'road-glow', type: 'line', source: 'omt', 'source-layer': 'transportation', filter: ['!=', ['get', 'class'], 'rail'], layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': CYAN, 'line-opacity': ['case', MAJOR, 0.22, 0.12], 'line-blur': 4, 'line-width': roadW(3) } },
-      { id: 'road', type: 'line', source: 'omt', 'source-layer': 'transportation', filter: ['!=', ['get', 'class'], 'rail'], layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': ['case', MAJOR, CYAN, CYAN_DIM], 'line-opacity': 0.9, 'line-width': roadW(1) } },
+      { id: 'road-glow', type: 'line', source: 'omt', 'source-layer': 'transportation', filter: ['!=', ['get', 'class'], 'rail'], layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': CYAN, 'line-opacity': ['case', MAJOR, 0.2, 0.05], 'line-blur': 4, 'line-width': roadW(3) } },
+      { id: 'road', type: 'line', source: 'omt', 'source-layer': 'transportation', filter: ['!=', ['get', 'class'], 'rail'], layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': ['case', MAJOR, CYAN, CYAN_DIM], 'line-opacity': ['case', MAJOR, 0.85, 0.5], 'line-width': roadW(1) } },
       { id: 'rail', type: 'line', source: 'omt', 'source-layer': 'transportation', minzoom: 10, filter: ['==', ['get', 'class'], 'rail'], paint: { 'line-color': '#aa8cff', 'line-opacity': 0.6, 'line-width': 1, 'line-dasharray': [3, 2] } },
-      { id: 'footprint', type: 'line', source: 'omt', 'source-layer': 'building', minzoom: 14, paint: { 'line-color': CYAN, 'line-opacity': 0.5, 'line-width': 0.8 } },
+      { id: 'footprint', type: 'line', source: 'omt', 'source-layer': 'building', minzoom: 14, paint: { 'line-color': CYAN, 'line-opacity': 0.22, 'line-width': 0.6 } },
       { id: 'building', type: 'fill-extrusion', source: 'omt', 'source-layer': 'building', minzoom: 13, paint: {
-        'fill-extrusion-color': ['interpolate', ['linear'], ['max', 0, ['number', ['get', 'render_height'], 8]], 0, '#0a3350', 40, '#1b6f9e', 120, '#4fc6ec', 250, CYAN],
+        // Height ramp (OSM render_height; 8 m when absent — display assumption): low-rise slate → towers in light cyan.
+        'fill-extrusion-color': ['interpolate', ['linear'], ['max', 0, ['number', ['get', 'render_height'], 8]], 0, '#16283b', 15, '#1c3651', 40, '#21557a', 100, '#2f86b3', 180, '#62c3e6', 260, '#b6ecff'],
         'fill-extrusion-height': ['max', 0, ['number', ['get', 'render_height'], 8]], 'fill-extrusion-base': ['min', ['max', 0, ['number', ['get', 'render_height'], 8]], ['max', 0, ['number', ['get', 'render_min_height'], 0]]],
-        'fill-extrusion-opacity': 0.72 } },
-      { id: 'place', type: 'symbol', source: 'omt', 'source-layer': 'place', filter: ['in', ['get', 'class'], ['literal', ['city', 'town', 'country', 'continent']]], layout: { 'text-field': name, 'text-font': ['Noto Sans Regular'], 'text-size': ['match', ['get', 'class'], 'country', 13, 'continent', 14, 12], 'text-transform': ['match', ['get', 'class'], ['country', 'continent'], 'uppercase', 'none'], 'text-letter-spacing': 0.08 }, paint: { 'text-color': '#bfefff', 'text-halo-color': VOID, 'text-halo-width': 1.5 } },
+        'fill-extrusion-opacity': 0.9, 'fill-extrusion-vertical-gradient': true } },
+      { id: 'place', type: 'symbol', source: 'omt', 'source-layer': 'place', filter: ['in', ['get', 'class'], ['literal', ['city', 'town', 'country', 'continent']]], layout: { 'text-field': name, 'text-font': ['Noto Sans Regular'], 'text-size': ['match', ['get', 'class'], 'country', 10.5, 'continent', 11, 12], 'text-transform': 'none', 'text-letter-spacing': ['match', ['get', 'class'], ['country', 'continent'], 0.12, 0.02] }, paint: { 'text-color': ['match', ['get', 'class'], ['country', 'continent'], '#7fa7c4', '#cfeeff'], 'text-halo-color': VOID, 'text-halo-width': 1.2, 'text-opacity': ['interpolate', ['linear'], ['zoom'], 1, 0.75, 4, 0.9] } },
       { id: 'street-name', type: 'symbol', source: 'omt', 'source-layer': 'transportation_name', minzoom: 15, layout: { 'symbol-placement': 'line', 'text-field': name, 'text-font': ['Noto Sans Regular'], 'text-size': 11 }, paint: { 'text-color': '#8fd8f0', 'text-halo-color': VOID, 'text-halo-width': 1.5 } },
     ],
   };
 
   let map;
-  try { map = new maplibregl.Map({ container: 'map', style, center: [-40, 28], zoom: 1.7, maxPitch: 85, attributionControl: { compact: true } }); } catch (error) { msg('Carte indisponible : WebGL ou connexion. Le corridor reste accessible.'); return; }
+  try { map = new maplibregl.Map({ container: 'map', style, center: [-98, 30], zoom: globeZoom(), maxPitch: 85, attributionControl: { compact: true } }); } catch (error) { msg('Carte indisponible : WebGL ou connexion. Le corridor reste accessible.'); return; }
   globalThis.__CORE_MAP = map; // inspection hook for browser audits
   map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'bottom-right');
   map.on('style.load', () => { try { map.setProjection({ type: 'globe' }); } catch (e) { console.warn(e); } });
   // MapLibre ≥5.7.2 fires load even when a TileJSON fails: never let the hint hide a source warning.
   let sourceError = false;
-  map.on('load', () => { if (window.CORE_SF_VIEW) CORE_SF_VIEW.init({ map, msg, fly: (v, ms) => fly(v, ms) }); if (window.CORE_COORD_VIEW) CORE_COORD_VIEW.init({ map }); if (window.CORE_CITY_VIEW) CORE_CITY_VIEW.init({ map }); if (window.CORE_CAMERA) CORE_CAMERA.init({ map, reduced }); if (window.CORE_PLATFORM) CORE_PLATFORM.init({ map, fly: (v, ms) => fly(v, ms) }); });
+  map.on('load', () => { if (window.CORE_SF_VIEW) CORE_SF_VIEW.init({ map, msg, fly: (v, ms) => fly(v, ms) }); if (window.CORE_COORD_VIEW) CORE_COORD_VIEW.init({ map }); if (window.CORE_CITY_VIEW) CORE_CITY_VIEW.init({ map }); if (window.CORE_CAMERA) CORE_CAMERA.init({ map, reduced }); if (window.CORE_MAPSTYLE) CORE_MAPSTYLE.init({ map, reduced }); if (window.CORE_PLATFORM) CORE_PLATFORM.init({ map, fly: (v, ms) => fly(v, ms) }); });
   map.on('load', () => { ['l-trame', 'l-relief', 'l-buildings'].forEach(id => { $(id).disabled = false; }); if (!sourceError) msg('Glisser pour tourner · clic droit pour incliner · molette pour zoomer'); });
   // Source-level failures (TileJSON, style) replace the status message. Tile failures (often transient during
   // fast flights) get their own indicator so they never erase user feedback; it clears once the map settles.
@@ -448,9 +512,12 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
   let spinning = !reduced;
   const stop = () => { spinning = false; };
   ['mousedown', 'touchstart', 'wheel'].forEach(ev => map.on(ev, stop));
-  function spin() { if (document.hidden || !spinning || map.getZoom() > 3) return; const c = map.getCenter(); c.lng -= 6; map.easeTo({ center: c, duration: 1000, easing: n => n }); }
+  // The spin tags its own moves; any other camera move (flight, jump, padding change, gesture) ends the intro spin,
+  // so a programmatic camera change can never be overridden by a pending spin step.
+  function spin() { if (document.hidden || !spinning || map.getZoom() > 3) return; const c = map.getCenter(); c.lng -= 6; map.easeTo({ center: c, duration: 1000, easing: n => n }, { coreSpin: true }); }
+  map.on('movestart', e => { if (!e.coreSpin) stop(); });
   document.addEventListener('visibilitychange', () => { if (document.hidden) map.stop(); else spin(); });
-  map.on('moveend', spin); map.on('load', spin);
+  map.on('moveend', () => setTimeout(spin, 0)); map.on('load', spin); // deferred: an interrupting move stops the spin first
 
   // position readout
   const upd = () => { const c = map.getCenter(); $('pos').textContent = `${c.lat.toFixed(4)}°, ${c.lng.toFixed(4)}°`; $('zoom').textContent = map.getZoom().toFixed(1); };
@@ -458,17 +525,18 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
 
   // destinations
   const GO = {
-    globe: { center: [-40, 28], zoom: 1.7, pitch: 0, bearing: 0 },
+    get globe() { return { center: [-98, 30], zoom: globeZoom(), pitch: 0, bearing: 0 }; },
     sf: { center: [-122.4005, 37.7880], zoom: 14.1, pitch: 66, bearing: -28 },
     paris: { center: [2.2945, 48.8584], zoom: 16, pitch: 62, bearing: 30 },
     tokyo: { center: [139.7671, 35.6812], zoom: 16, pitch: 62, bearing: -15 },
   };
   const NO_PAD = { top: 0, bottom: 0, left: 0, right: 0 };
-  const fly = (v, ms = 7000) => { stop(); map.flyTo({ ...v, padding: v.padding || NO_PAD, duration: reduced ? 0 : ms, curve: 1.6, essential: true }); };
+  const fly = (v, ms = 7000) => { stop(); map.flyTo({ ...v, padding: v.padding || (window.CORE_LAYOUT ? CORE_LAYOUT.padding() : NO_PAD), duration: reduced ? 0 : ms, curve: 1.6, essential: true }); };
   document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => fly(GO[b.dataset.go], b.dataset.go === 'sf' ? 9000 : 7000)));
 
   // pilot corridor marker (SoMa)
   const el = document.createElement('div'); el.className = 'pilot'; el.title = 'Démo des agents (corridor synthétique)';
+  const farPilot = () => el.classList.toggle('far', map.getZoom() < 9); map.on('zoomend', farPilot); farPilot();
   new maplibregl.Marker({ element: el }).setLngLat([-122.4005, 37.7855]).setPopup(new maplibregl.Popup({ offset: 14 }).setHTML('<b>Démo des agents (synthétique)</b><br>5 carrefours fictifs, trafic synthétique non calibré, sans lien géométrique avec ces rues.<br><a href="corridor.html" style="color:#78e8ff">Ouvrir la démo synthétique</a>')).addTo(map);
 
   // Deliberately local: the public geocoder cannot be globally rate-limited here.

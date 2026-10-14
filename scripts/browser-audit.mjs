@@ -114,6 +114,8 @@ try {
   await evaluate(`(s => { s.value = 'active'; s.dispatchEvent(new Event('change')); })(document.querySelector('#sf-status'))`);
   check('status filter recounts permits', await evaluate(`+document.querySelector('[data-count=permits]').textContent === CORE_SF_VIEW.state.data.permits.features.filter(f => f.properties.status_class === 'active').length`));
   await evaluate(`(s => { s.value = 'all'; s.dispatchEvent(new Event('change')); })(document.querySelector('#sf-status'))`); await pause(1200);
+  // Phase 6: permit symbols appear from zoom 14.5 (density layer below) — zoom in before selecting a record.
+  await evaluate(`__CORE_MAP.jumpTo({ zoom: 15.6 }); new Promise(r => __CORE_MAP.once('idle', () => r(0)))`); await pause(800);
   const clicked = await evaluate(`(() => {
     const m = __CORE_MAP, c = m.getCanvas(), r = c.getBoundingClientRect(), panel = document.querySelector('#sf-panel').getBoundingClientRect();
     const f = m.queryRenderedFeatures({ layers: ['sf-permits'] }).map(f => m.project(f.geometry.coordinates)).find(p => p.x > 30 && p.y > 30 && p.x < r.width - 30 && p.y < r.height - 30 && document.elementFromPoint(r.left + p.x, r.top + p.y) === c);
@@ -124,7 +126,7 @@ try {
   })()`); await pause(600);
   await evaluate(`document.querySelector('[data-rec]') && document.querySelector('[data-rec]').click(); 0`); await pause(300);
   await shot('record');
-  check('record selection shows observed record with provenance', clicked && await evaluate(`(t => t.includes('OBSERVÉ') && t.includes('Provenance') && t.includes('vérifié') && t.includes('pas une preuve'))(document.querySelector('#sf-inspect').innerText)`));
+  check('record selection shows observed record with provenance', clicked && await evaluate(`(t => t.includes('OBSERVÉ') && t.includes('Provenance') && t.includes('fichier intact') && t.includes('pas une preuve'))(document.querySelector('#sf-inspect').innerText)`));
   check('record links to DataSF dataset and API record', await evaluate(`(a => a.some(h => /^https:\\/\\/data\\.sf\\.gov\\/d\\//.test(h)) && a.some(h => /^https:\\/\\/data\\.sf\\.gov\\/resource\\/b6tj-gt35\\.json\\?permit_number=/.test(h)))([...document.querySelectorAll('#sf-inspect a')].map(a => a.href))`));
   check('source attribution lists DataSF, OSM and procedural models', await evaluate(`(t => t.includes('DataSF') && t.includes('OpenStreetMap') && t.includes('Modèles procéduraux'))(document.querySelector('.maplibregl-ctrl-attrib').textContent)`));
   check('synthetic demo stays labelled separately', await evaluate(`document.querySelector('#pilot-btn').textContent.includes('synthétique')`));
@@ -196,10 +198,14 @@ try {
   check('changing a parameter genuinely recomputes', await evaluate('CORE_CITY_VIEW.state.result.fingerprint') !== fpBefore && await evaluate(`document.querySelector('#ci-brief').textContent.includes('≤ 20 m')`));
   await evaluate(`(b => { b.value = '12'; b.dispatchEvent(new Event('input')); })(document.querySelector('#ci-buffer')); 0`); await pause(1500); await until(`CORE_CITY_VIEW.state.mode === 'done' && CORE_CITY_VIEW.state.params.treeBufferM === 12`, 400);
   await shot('investigation');
-  await evaluate(`CORE_CITY_VIEW.guide(8); 0`); await pause(2000);
-  check('guided demo drives real investigation steps', await evaluate(`!document.querySelector('#guide').hidden && document.querySelector('#guide-title').textContent.includes('9/9') && document.querySelector('#guide-text').textContent.includes('CORE n’exécute rien')`));
+  // Phase 6: Demo 2.0 replaces the earlier text-heavy guides.
+  await evaluate(`CORE_DEMO.go(8); 0`); await pause(3000);
+  check('guided demo 2.0 reaches the decision step with real data and no authorization', await evaluate(`(el => !!el && !el.hidden && el.textContent.includes('9 / 9') && el.textContent.includes('Aucune autorisation') && CORE_DEMO.STEPS.length === 9)(document.querySelector('#demo2'))`));
   await evaluate(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); 0`);
-  check('Escape closes the guide', await evaluate(`document.querySelector('#guide').hidden`));
+  check('Escape closes the demonstration', await evaluate(`document.querySelector('#demo2').hidden && !document.body.classList.contains('demo-on')`));
+  check('dock starts compact (world first)', await evaluate(`document.body.classList.contains('console-min') && getComputedStyle(document.querySelector('#console-body')).display === 'none' && document.querySelector('.console').getBoundingClientRect().height < 320`));
+  await evaluate(`document.querySelector('#console-toggle').click(); 0`);
+  check('dock expands on demand', await evaluate(`!document.body.classList.contains('console-min') && getComputedStyle(document.querySelector('#console-body')).display !== 'none'`));
   await evaluate(`document.querySelector('#console-toggle').click(); 0`);
   check('console can be collapsed to free the map', await evaluate(`document.body.classList.contains('console-min') && getComputedStyle(document.querySelector('#console-body')).display === 'none'`));
   await evaluate(`document.querySelector('#console-toggle').click(); 0`);
@@ -278,6 +284,35 @@ try {
   await evaluate(`document.querySelector('[data-sec=decisions]').click(); 0`); await pause(500);
   check('decisions view offers a local-only human review record', await evaluate(`!!document.querySelector('[data-human]') && document.querySelector('#ws-body').textContent.includes('uniquement dans ce navigateur')`));
   await shot('phase4');
+
+  // ---- Phase 6: world-first layout, marker density, spatial simulation, visible agent activity, demo 2.0 ----
+  await evaluate(`CORE_DEMO.stop(); document.querySelector('[data-sec=world]').click(); 0`); await pause(300);
+  check('coverage layer: only San Francisco is operational', await evaluate(`(s => s.filter(c => c.status === 'operational').map(c => c.name).join() === 'San Francisco' && s.length === 3)(CORE_MAPSTYLE.COVERAGE)`) && await evaluate(`!!__CORE_MAP.getLayer('cov-label')`));
+  check('record markers appear by zoom and a density layer aggregates segments below', await evaluate(`['sf-permits', 'city-trees', 'sf-moratoria-point'].every(id => !__CORE_MAP.getLayer(id) || __CORE_MAP.getLayer(id).minzoom >= 14) && !!__CORE_MAP.getLayer('core-density') && __CORE_MAP.getLayer('core-density').maxzoom <= 14.5`));
+  check('layers popover holds a legend with visibility zooms', await evaluate(`(t => t.includes('Légende') && t.includes('zoom ≥ 14,5'))(document.querySelector('#map-legend').textContent)`));
+  await evaluate(`__CORE_MAP.jumpTo({ center: [-122.4065, 37.7795], zoom: 15, pitch: 50, bearing: -44 }); document.querySelector('[data-sec=sims]').click(); 0`); await pause(3000);
+  check('simulation is drawn on the map per block with an exploratory badge', await evaluate(`(d => d.features.some(f => f.properties.kind === 'block') && d.features.some(f => f.properties.kind === 'label') && !document.querySelector('#sim-badge').hidden)(__CORE_MAP.getSource('pf-sim')._data)`));
+  check('record markers are hidden while the simulation is shown', await evaluate(`__CORE_MAP.getLayoutProperty('sf-permits', 'visibility') === 'none'`));
+  await evaluate(`(s => { s.value = 'A2'; s.dispatchEvent(new Event('change')); })(document.querySelector('#sm-compare')); 0`); await pause(1500);
+  check('scenario comparison maps per-block differences', await evaluate(`(d => d.features.some(f => f.properties.dstatus === 'up') && d.features.some(f => f.properties.dstatus === 'down'))(__CORE_MAP.getSource('pf-sim')._data)`));
+  check('inspector shifts the camera focus (padding)', await evaluate(`__CORE_MAP.getPadding().right > 0`));
+  await evaluate(`(s => { s.value = 'none'; s.dispatchEvent(new Event('change')); })(document.querySelector('#sm-compare')); document.querySelector('[data-sec=agents]').click(); 0`); await pause(1500);
+  check('leaving the simulation restores record markers', await evaluate(`__CORE_MAP.getLayoutProperty('sf-permits', 'visibility') !== 'none' && document.querySelector('#sim-badge').hidden`));
+  await evaluate(`document.querySelector('[data-agfilter=llm]').click(); 0`); await pause(600);
+  check('agent filter shows only model-assisted specialists', await evaluate(`[...document.querySelectorAll('#ws-body .org [data-agent]')].filter(b => !b.dataset.agent.endsWith('.lead') && !/manager|gateway/.test(b.dataset.agent)).every(b => /analyst|reviewer/.test(b.dataset.agent))`));
+  await evaluate(`document.querySelector('[data-agent="core.san-francisco.public-space.accessibility-analyst"]').click(); 0`); await pause(400);
+  check('agent profile shows recorded contributions and authorized sources', await evaluate(`(t => t.includes('Contributions dans les missions enregistrées') && t.includes('énoncé(s) accepté(s)') && t.includes('Sources de données autorisées'))(document.querySelector('#ag-profile').textContent)`));
+  await evaluate(`document.querySelector('[data-agfilter=all]').click(); document.querySelector('[data-sec=missions]').click(); 0`); await pause(800);
+  await evaluate(`document.querySelector('#ms-tab-cog').click(); 0`); await pause(400);
+  await evaluate(`window.__mgid = document.querySelector('[data-cogrec]').dataset.cogrec; document.querySelector('[data-cogrec]').click(); 0`); await until(`CORE_PLATFORM.state.cogCurrent && CORE_PLATFORM.state.cogCurrent.id === window.__mgid && !!document.querySelector('.mgraph')`, 80); await pause(300);
+  check('mission graph is built from recorded events only', await evaluate(`(mc => CORE_MISSION_GRAPH.events(mc).filter(e => e.agent).every(e => e.kind === 'dispute' || mc.log.some(l => l.t === e.t && l.agent === e.agent)) && document.querySelectorAll('.mgraph .mk').length > 5)(CORE_PLATFORM.state.cogCurrent)`));
+  await evaluate(`document.querySelector('[data-mg-replay]').click(); 0`); await pause(600);
+  check('replay is labelled as a recording and calls no model', await evaluate(`/relecture/.test(document.querySelector('[data-mg-now]').textContent)`));
+  await evaluate(`CORE_DEMO.go(0); 0`); await pause(1500); await evaluate(`document.querySelector('#d2-next').click(); 0`); await pause(1500);
+  check('demo 2.0 steps forward with a one-sentence takeaway', await evaluate(`(el => el.textContent.includes('2 / 9') && el.querySelector('.d2-take').textContent.length > 40 && el.querySelector('.d2-take').textContent.length < 260)(document.querySelector('#demo2'))`));
+  await evaluate(`document.querySelector('#d2-exit').click(); 0`);
+  check('dates and scope are labelled (collection vs source dates)', await evaluate(`document.querySelector('#navmeta').textContent.includes('collect') && /UTC/.test(document.querySelector('#navmeta').textContent)`));
+  await shot('phase6');
   await evaluate('document.querySelector("#sf-close").click()');
   await viewport(390, 844, true); await pause(300);
   check('mobile map fits viewport', await evaluate('document.documentElement.scrollWidth <= innerWidth'));

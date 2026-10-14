@@ -162,3 +162,27 @@ Every source has rights, sensitivity and allowed-use fields. Ineligible sources 
 ## D040 — Public deployment on GitHub Pages
 
 The site deploys from `main` at the repository root with `.nojekyll`. It is free for public repositories with no metered billing; it suits a project or prototype site and not a commercial SaaS. The public site never contacts a model endpoint and shows recorded real runs.
+
+## D041 — Improve MapLibre rather than switch engines
+
+Globe atmosphere (`sky`), lighting, extrusion gradients, the coverage layer and zoom-dependent density were achievable in MapLibre 5.7.3. Cesium or Three.js would add weight and migration risk without a demonstrated need.
+
+## D042 — Density by zoom thresholds and per-segment aggregation
+
+Each record layer has a visibility zoom. Below it, a per-segment density layer summarises the records. Every record remains clickable at street zoom and listed in the records panel. Measured: 682 → 48 circles at the corridor overview.
+
+## D043 — World-first layout
+
+A compact dock, a layers popover, one right inspector at a time, camera padding that respects the inspector, and the toolbar at the bottom. Camera fixes: padding changes never interrupt flights, and the intro spin stops on any non-spin move.
+
+## D044 — Agent activity shown only from recorded events
+
+The execution graph and the agent contributions are derived from mission logs. The replay re-plays recorded timestamps and is labelled as a replay; no live animation is simulated on the public site.
+
+## D045 — Simulation on the map as per-block aggregates
+
+The model computes counts per block, so the map shows bands and "+N" labels per block, never invented tree coordinates. Comparison maps per-block differences between scenarios.
+
+## D046 — One investor demo, data-driven
+
+Nine steps, each with a camera move and one takeaway computed from the loaded data. It replaces the two earlier guides.

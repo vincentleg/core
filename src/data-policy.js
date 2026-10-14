@@ -56,6 +56,16 @@
     'excluded:utility-network-maps': { publisher: '—', url: '—', licence: 'not public', access: 'restricted', public: false, sensitivity: 'high', redistribution: '—', verified: V, allowedUse: 'none', status: 'excluded', notes: 'Underground utility and security-sensitive infrastructure maps are not public and are never used.' },
   };
 
+  // Phase 6: commercial eligibility, attribution, retention and scope for every entry (derived from the licence basis).
+  for (const [k, e] of Object.entries(ENTRIES)) {
+    const pddl = /PDDL/.test(e.licence), usPd = /public domain/i.test(e.licence) && !pddl, rss = /agency feed/i.test(e.licence);
+    e.commercialUse = e.status === 'quarantined' ? 'non établi (API gratuite réservée à un usage non commercial) — en quarantaine'
+      : e.status === 'excluded' ? 'sans objet (exclu)' : pddl ? 'oui (dédicace au domaine public ODC-PDDL)' : usPd ? 'oui (domaine public des États-Unis)'
+      : /caiso/.test(k) ? 'oui, avec mentions de propriété et crédit à la California ISO (conditions du site)' : rss ? 'métadonnées et liens seulement (titres, dates, liens vers la source)' : 'documentation résumée avec attribution';
+    e.attribution = e.attribution || (pddl ? 'Courtoisie : « DataSF (ODC-PDDL) »' : /caiso/.test(k) ? 'Obligatoire : « California ISO »' : rss ? 'Lien vers l’article de l’agence' : usPd ? 'Courtoisie : agence fédérale citée' : 'Source citée');
+    e.retention = e.retention || (e.status === 'eligible' ? 'Instantanés et éléments versionnés dans Git ; purgés de la publication si la source devient inéligible' : 'Aucune collecte ; éléments déjà collectés purgés de la publication');
+    e.scope = e.scope || (k.startsWith('dataset:') ? 'Corridor Folsom / Howard (2nd → 11th St), instantané daté' : k.startsWith('feed:') ? 'Requêtes bornées (corridor, quartier ou zone) et fenêtres temporelles déclarées dans src/feeds.js' : 'Documentation');
+  }
   const get = key => ENTRIES[key] || null;
   const eligible = key => !!(ENTRIES[key] && ENTRIES[key].status === 'eligible');
   // Policy key of an evidence reference (as produced by src/tools.js).

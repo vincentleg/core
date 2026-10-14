@@ -1,0 +1,81 @@
+{
+ "method": "scripts/perf-audit.mjs — Chrome 155 headless (software rendering), 1440x900, cache disabled, local python http.server unless noted. FPS: frames during a 4 s easeTo orbit at the corridor; capped by the 60 Hz display. Circles: rendered circle features at the corridor (zoom 15.6) and at the corridor overview (zoom 14).",
+ "before": {
+  "local": {
+   "url": "http://localhost:8000/",
+   "date": "2026-10-14T04:00:12.060Z",
+   "viewport": "1440x900",
+   "readyMs": 564,
+   "loadKB": 2734,
+   "loadRequests": 60,
+   "heapMB": 21,
+   "orbitFps": 41.7,
+   "corridorCircles": {
+    "total": 557,
+    "byLayer": {
+     "city-bp": 12,
+     "city-bp-cluster": 15,
+     "city-removals": 12,
+     "city-trees": 391,
+     "city-parks": 3,
+     "sf-large": 17,
+     "sf-permits": 33,
+     "sf-intersections": 36,
+     "sf-moratoria-point": 38
+    }
+   },
+   "simRunMs": 2.3,
+   "uncaughtErrors": []
+  },
+  "overviewCirclesZ14_from_phase5_public_site": 682
+ },
+ "after": {
+  "url": "http://localhost:8000/",
+  "date": "2026-10-14T04:39:26.885Z",
+  "viewport": "1440x900",
+  "readyMs": 793,
+  "loadKB": 2783,
+  "loadRequests": 63,
+  "heapMB": 23,
+  "orbitFps": 60,
+  "corridorCircles": {
+   "total": 511,
+   "byLayer": {
+    "city-bp": 10,
+    "city-bp-cluster": 15,
+    "city-removals": 11,
+    "city-trees": 397,
+    "city-parks": 3,
+    "sf-large": 13,
+    "sf-permits": 24,
+    "sf-moratoria-point": 38
+   }
+  },
+  "overviewCirclesZ14": 48,
+  "simRunMs": 2.3,
+  "uncaughtErrors": []
+ },
+ "browserAudit": {
+  "browser": "Chrome 155.0.8059.40 headless",
+  "checks": 117,
+  "passed": 117,
+  "phase6Checks": [
+   "replay is labelled as a recording and calls no model",
+   "demo 2.0 steps forward with a one-sentence takeaway",
+   "dates and scope are labelled (collection vs source dates)",
+   "mobile map fits viewport",
+   "mobile corridor fits viewport",
+   "cancel blocks permit and restores controls",
+   "full agents generate ready proposal",
+   "concert suspends permit",
+   "removing concert restores ready state",
+   "roadwork dependency follows scenario",
+   "pause holds simulated traffic",
+   "plan comparison controls",
+   "failed run blocks stale permit and recovers UI",
+   "no uncaught JavaScript errors"
+  ]
+ },
+ "firefox": "not run: Firefox 122 headless hangs at startup (no BiDi listener after 30 s)",
+ "safari": "not run: safaridriver requires enabling remote automation (machine-wide setting), not changed"
+}
