@@ -1,6 +1,6 @@
 {
  "version": "core-agent-evals-v1",
- "generated_at": "2026-10-13T22:49:51.036Z",
+ "generated_at": "2026-10-13T23:54:05.634Z",
  "results": [
   {
    "agent": "core.san-francisco.civil.works-coordination",
@@ -9,7 +9,7 @@
    "pass": true,
    "error": null,
    "date": "2026-10-13",
-   "knowledgeVersion": "core-knowledge-library-v1@341"
+   "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
    "agent": "core.san-francisco.telecom.telecom-works",
@@ -18,7 +18,7 @@
    "pass": true,
    "error": null,
    "date": "2026-10-13",
-   "knowledgeVersion": "core-knowledge-library-v1@341"
+   "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
    "agent": "core.san-francisco.forestry.street-trees",
@@ -27,7 +27,7 @@
    "pass": true,
    "error": null,
    "date": "2026-10-13",
-   "knowledgeVersion": "core-knowledge-library-v1@341"
+   "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
    "agent": "core.san-francisco.housing.building-permits",
@@ -36,7 +36,7 @@
    "pass": true,
    "error": null,
    "date": "2026-10-13",
-   "knowledgeVersion": "core-knowledge-library-v1@341"
+   "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
    "agent": "core.san-francisco.energy.energy-benchmarks",
@@ -45,7 +45,7 @@
    "pass": true,
    "error": null,
    "date": "2026-10-13",
-   "knowledgeVersion": "core-knowledge-library-v1@341"
+   "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
    "agent": "core.san-francisco.public-space.sidewalks",
@@ -54,7 +54,7 @@
    "pass": true,
    "error": null,
    "date": "2026-10-13",
-   "knowledgeVersion": "core-knowledge-library-v1@341"
+   "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
    "agent": "core.san-francisco.climate.seismic-context",
@@ -63,7 +63,7 @@
    "pass": true,
    "error": null,
    "date": "2026-10-13",
-   "knowledgeVersion": "core-knowledge-library-v1@341"
+   "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
    "agent": "core.san-francisco.climate.weather-alerts",
@@ -72,7 +72,7 @@
    "pass": true,
    "error": null,
    "date": "2026-10-13",
-   "knowledgeVersion": "core-knowledge-library-v1@341"
+   "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
    "agent": "core.san-francisco.administration.civic-records",
@@ -81,7 +81,7 @@
    "pass": true,
    "error": null,
    "date": "2026-10-13",
-   "knowledgeVersion": "core-knowledge-library-v1@341"
+   "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
    "agent": "core.san-francisco.data-science.graph-linker",
@@ -90,7 +90,7 @@
    "pass": true,
    "error": null,
    "date": "2026-10-13",
-   "knowledgeVersion": "core-knowledge-library-v1@341"
+   "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
    "agent": "core.san-francisco.simulation.scenario-evaluator",
@@ -99,7 +99,7 @@
    "pass": true,
    "error": null,
    "date": "2026-10-13",
-   "knowledgeVersion": "core-knowledge-library-v1@341"
+   "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
    "agent": "core.san-francisco.regulatory.knowledge-research",
@@ -108,7 +108,7 @@
    "pass": true,
    "error": null,
    "date": "2026-10-13",
-   "knowledgeVersion": "core-knowledge-library-v1@341"
+   "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
    "agent": "core.san-francisco.research.evidence-verifier",
@@ -117,7 +117,7 @@
    "pass": true,
    "error": null,
    "date": "2026-10-13",
-   "knowledgeVersion": "core-knowledge-library-v1@341"
+   "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
    "agent": "core.san-francisco.safety.adversarial-reviewer",
@@ -126,7 +126,7 @@
    "pass": true,
    "error": null,
    "date": "2026-10-13",
-   "knowledgeVersion": "core-knowledge-library-v1@341"
+   "knowledgeVersion": "core-knowledge-library-v1@423"
   }
  ]
 }

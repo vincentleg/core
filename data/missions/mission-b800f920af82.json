@@ -346,7 +346,7 @@
    "tool": "trees.near-works",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 9,
+   "ms": 11,
    "records": 15,
    "error": null,
    "findings": [
@@ -561,7 +561,7 @@
    "tool": "public-space.sidewalks",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 26,
+   "ms": 25,
    "records": 1,
    "error": null,
    "findings": [
@@ -599,7 +599,7 @@
    "findings": [
     {
      "topic": "weather",
-     "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+     "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte.",
      "epistemic": "reported",
      "evidence": [
       {
@@ -609,6 +609,7 @@
       }
      ],
      "value": 0,
+     "asOf": "2026-10-13T23:10:22.704Z",
      "agent": "core.san-francisco.climate.weather-alerts",
      "tool": "resilience.weather-alerts"
     }
@@ -624,13 +625,13 @@
    "tool": "graph.link",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 10,
+   "ms": 11,
    "records": 1,
    "error": null,
    "findings": [
     {
      "topic": "graph",
-     "claim": "L’élément « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » est rattaché au tronçon HOWARD ST 08TH ST → 09TH ST (observed (CNN field), 17 m).",
+     "claim": "L’élément « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » est rattaché au tronçon HOWARD ST 08TH ST → 09TH ST (observed (CNN field)) ; son point publié est à 17 m de l’axe du tronçon.",
      "epistemic": "observed",
      "evidence": [
       {
@@ -1621,21 +1622,6 @@
    "findings": [
     {
      "topic": "knowledge",
-     "claim": "Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only..",
-     "epistemic": "reported",
-     "evidence": [
-      {
-       "type": "knowledge",
-       "ref": "k-dbi-issued-status",
-       "url": "https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCE_REGISTRY.md"
-      }
-     ],
-     "value": 0.1309,
-     "agent": "core.san-francisco.regulatory.knowledge-research",
-     "tool": "knowledge.retrieve"
-    },
-    {
-     "topic": "knowledge",
      "claim": "Street-Use Permits (b6tj-gt35) — DataSF open data portal (v1, à jour) ; limites : Administrative record; contact columns removed by CORE..",
      "epistemic": "reported",
      "evidence": [
@@ -1645,7 +1631,22 @@
        "url": "https://data.sf.gov/d/b6tj-gt35"
       }
      ],
-     "value": 0.1253,
+     "value": 0.1334,
+     "agent": "core.san-francisco.regulatory.knowledge-research",
+     "tool": "knowledge.retrieve"
+    },
+    {
+     "topic": "knowledge",
+     "claim": "Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only..",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "knowledge",
+       "ref": "k-dbi-issued-status",
+       "url": "https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCE_REGISTRY.md"
+      }
+     ],
+     "value": 0.0697,
      "agent": "core.san-francisco.regulatory.knowledge-research",
      "tool": "knowledge.retrieve"
     }
@@ -2010,7 +2011,7 @@
   },
   {
    "topic": "weather",
-   "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+   "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte.",
    "epistemic": "reported",
    "evidence": [
     {
@@ -2020,12 +2021,13 @@
     }
    ],
    "value": 0,
+   "asOf": "2026-10-13T23:10:22.704Z",
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts"
   },
   {
    "topic": "graph",
-   "claim": "L’élément « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » est rattaché au tronçon HOWARD ST 08TH ST → 09TH ST (observed (CNN field), 17 m).",
+   "claim": "L’élément « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » est rattaché au tronçon HOWARD ST 08TH ST → 09TH ST (observed (CNN field)) ; son point publié est à 17 m de l’axe du tronçon.",
    "epistemic": "observed",
    "evidence": [
     {
@@ -2103,21 +2105,6 @@
   },
   {
    "topic": "knowledge",
-   "claim": "Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only..",
-   "epistemic": "reported",
-   "evidence": [
-    {
-     "type": "knowledge",
-     "ref": "k-dbi-issued-status",
-     "url": "https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCE_REGISTRY.md"
-    }
-   ],
-   "value": 0.1309,
-   "agent": "core.san-francisco.regulatory.knowledge-research",
-   "tool": "knowledge.retrieve"
-  },
-  {
-   "topic": "knowledge",
    "claim": "Street-Use Permits (b6tj-gt35) — DataSF open data portal (v1, à jour) ; limites : Administrative record; contact columns removed by CORE..",
    "epistemic": "reported",
    "evidence": [
@@ -2127,7 +2114,22 @@
      "url": "https://data.sf.gov/d/b6tj-gt35"
     }
    ],
-   "value": 0.1253,
+   "value": 0.1334,
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve"
+  },
+  {
+   "topic": "knowledge",
+   "claim": "Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only..",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "knowledge",
+     "ref": "k-dbi-issued-status",
+     "url": "https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCE_REGISTRY.md"
+    }
+   ],
+   "value": 0.0697,
    "agent": "core.san-francisco.regulatory.knowledge-research",
    "tool": "knowledge.retrieve"
   }
@@ -2214,7 +2216,7 @@
    "resolved": 1
   },
   {
-   "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+   "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte.",
    "agent": "core.san-francisco.climate.weather-alerts",
    "epistemic": "reported",
    "typeOk": true,
@@ -2222,7 +2224,7 @@
    "resolved": 1
   },
   {
-   "claim": "L’élément « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » est rattaché au tronçon HOWARD ST 08TH ST → 09TH ST (observed (CNN field), 17 m).",
+   "claim": "L’élément « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » est rattaché au tronçon HOWARD ST 08TH ST → 09TH ST (observed (CNN field)) ; son point publié est à 17 m de l’axe du tronçon.",
    "agent": "core.san-francisco.data-science.graph-linker",
    "epistemic": "observed",
    "typeOk": true,
@@ -2246,7 +2248,7 @@
    "resolved": 8
   },
   {
-   "claim": "Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only..",
+   "claim": "Street-Use Permits (b6tj-gt35) — DataSF open data portal (v1, à jour) ; limites : Administrative record; contact columns removed by CORE..",
    "agent": "core.san-francisco.regulatory.knowledge-research",
    "epistemic": "reported",
    "typeOk": true,
@@ -2254,7 +2256,7 @@
    "resolved": 1
   },
   {
-   "claim": "Street-Use Permits (b6tj-gt35) — DataSF open data portal (v1, à jour) ; limites : Administrative record; contact columns removed by CORE..",
+   "claim": "Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only..",
    "agent": "core.san-francisco.regulatory.knowledge-research",
    "epistemic": "reported",
    "typeOk": true,
@@ -2375,7 +2377,7 @@
    },
    {
     "topic": "weather",
-    "text": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+    "text": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte.",
     "cites": [
      10
     ],
@@ -2385,7 +2387,7 @@
    },
    {
     "topic": "graph",
-    "text": "L’élément « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » est rattaché au tronçon HOWARD ST 08TH ST → 09TH ST (observed (CNN field), 17 m).",
+    "text": "L’élément « Excavation 26EXC-05114 — HOWARD ST (08TH ST / 09TH ST) » est rattaché au tronçon HOWARD ST 08TH ST → 09TH ST (observed (CNN field)) ; son point publié est à 17 m de l’axe du tronçon.",
     "cites": [
      11
     ],
@@ -2407,7 +2409,7 @@
    },
    {
     "topic": "knowledge",
-    "text": "Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only.. Street-Use Permits (b6tj-gt35) — DataSF open data portal (v1, à jour) ; limites : Administrative record; contact columns removed by CORE..",
+    "text": "Street-Use Permits (b6tj-gt35) — DataSF open data portal (v1, à jour) ; limites : Administrative record; contact columns removed by CORE.. Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only..",
     "cites": [
      14,
      15
@@ -2505,21 +2507,21 @@
   },
   {
    "seq": 2,
-   "t": 0,
+   "t": 1,
    "kind": "plan",
    "agent": "core.san-francisco.manager",
    "text": "Domaines : buildings, energy, infrastructure, nature, public_space ; 10 spécialiste(s) exécutable(s) recruté(s) ; 12 profil(s) pertinent(s) indisponible(s) (pas d’outil ou de données)."
   },
   {
    "seq": 3,
-   "t": 0,
+   "t": 1,
    "kind": "mission",
    "state": "assigned",
    "text": "Mission → assigned"
   },
   {
    "seq": 4,
-   "t": 0,
+   "t": 1,
    "kind": "task",
    "task": "task-1",
    "agent": "core.san-francisco.civil.works-coordination",
@@ -2529,7 +2531,7 @@
   },
   {
    "seq": 5,
-   "t": 0,
+   "t": 1,
    "kind": "task",
    "task": "task-2",
    "agent": "core.san-francisco.telecom.telecom-works",
@@ -2539,7 +2541,7 @@
   },
   {
    "seq": 6,
-   "t": 0,
+   "t": 1,
    "kind": "task",
    "task": "task-3",
    "agent": "core.san-francisco.forestry.street-trees",
@@ -2549,7 +2551,7 @@
   },
   {
    "seq": 7,
-   "t": 0,
+   "t": 1,
    "kind": "task",
    "task": "task-4",
    "agent": "core.san-francisco.housing.building-permits",
@@ -2559,7 +2561,7 @@
   },
   {
    "seq": 8,
-   "t": 0,
+   "t": 1,
    "kind": "task",
    "task": "task-5",
    "agent": "core.san-francisco.energy.energy-benchmarks",
@@ -2569,7 +2571,7 @@
   },
   {
    "seq": 9,
-   "t": 0,
+   "t": 1,
    "kind": "task",
    "task": "task-6",
    "agent": "core.san-francisco.public-space.sidewalks",
@@ -2579,7 +2581,7 @@
   },
   {
    "seq": 10,
-   "t": 0,
+   "t": 1,
    "kind": "task",
    "task": "task-7",
    "agent": "core.san-francisco.climate.weather-alerts",
@@ -2589,7 +2591,7 @@
   },
   {
    "seq": 11,
-   "t": 0,
+   "t": 1,
    "kind": "task",
    "task": "task-8",
    "agent": "core.san-francisco.data-science.graph-linker",
@@ -2599,7 +2601,7 @@
   },
   {
    "seq": 12,
-   "t": 0,
+   "t": 1,
    "kind": "task",
    "task": "task-9",
    "agent": "core.san-francisco.simulation.scenario-evaluator",
@@ -2609,7 +2611,7 @@
   },
   {
    "seq": 13,
-   "t": 0,
+   "t": 1,
    "kind": "task",
    "task": "task-10",
    "agent": "core.san-francisco.regulatory.knowledge-research",
@@ -2619,14 +2621,14 @@
   },
   {
    "seq": 14,
-   "t": 0,
+   "t": 1,
    "kind": "mission",
    "state": "running",
    "text": "Mission → running"
   },
   {
    "seq": 15,
-   "t": 0,
+   "t": 1,
    "kind": "task",
    "task": "task-1",
    "agent": "core.san-francisco.civil.works-coordination",
@@ -2636,7 +2638,7 @@
   },
   {
    "seq": 16,
-   "t": 0,
+   "t": 1,
    "kind": "task",
    "task": "task-2",
    "agent": "core.san-francisco.telecom.telecom-works",
@@ -2656,7 +2658,7 @@
   },
   {
    "seq": 18,
-   "t": 2,
+   "t": 3,
    "kind": "task",
    "task": "task-1",
    "agent": "core.san-francisco.civil.works-coordination",
@@ -2666,7 +2668,7 @@
   },
   {
    "seq": 19,
-   "t": 2,
+   "t": 3,
    "kind": "task",
    "task": "task-4",
    "agent": "core.san-francisco.housing.building-permits",
@@ -2676,7 +2678,7 @@
   },
   {
    "seq": 20,
-   "t": 2,
+   "t": 3,
    "kind": "task",
    "task": "task-2",
    "agent": "core.san-francisco.telecom.telecom-works",
@@ -2686,7 +2688,7 @@
   },
   {
    "seq": 21,
-   "t": 2,
+   "t": 3,
    "kind": "task",
    "task": "task-5",
    "agent": "core.san-francisco.energy.energy-benchmarks",
@@ -2696,17 +2698,17 @@
   },
   {
    "seq": 22,
-   "t": 10,
+   "t": 12,
    "kind": "task",
    "task": "task-3",
    "agent": "core.san-francisco.forestry.street-trees",
    "tool": "trees.near-works",
    "state": "succeeded",
-   "text": "2 constat(s), 15 enregistrement(s), 9 ms"
+   "text": "2 constat(s), 15 enregistrement(s), 11 ms"
   },
   {
    "seq": 23,
-   "t": 10,
+   "t": 12,
    "kind": "task",
    "task": "task-6",
    "agent": "core.san-francisco.public-space.sidewalks",
@@ -2716,7 +2718,7 @@
   },
   {
    "seq": 24,
-   "t": 19,
+   "t": 20,
    "kind": "task",
    "task": "task-4",
    "agent": "core.san-francisco.housing.building-permits",
@@ -2726,7 +2728,7 @@
   },
   {
    "seq": 25,
-   "t": 19,
+   "t": 20,
    "kind": "task",
    "task": "task-7",
    "agent": "core.san-francisco.climate.weather-alerts",
@@ -2736,7 +2738,7 @@
   },
   {
    "seq": 26,
-   "t": 27,
+   "t": 28,
    "kind": "task",
    "task": "task-5",
    "agent": "core.san-francisco.energy.energy-benchmarks",
@@ -2746,7 +2748,7 @@
   },
   {
    "seq": 27,
-   "t": 27,
+   "t": 28,
    "kind": "task",
    "task": "task-8",
    "agent": "core.san-francisco.data-science.graph-linker",
@@ -2756,17 +2758,17 @@
   },
   {
    "seq": 28,
-   "t": 36,
+   "t": 37,
    "kind": "task",
    "task": "task-6",
    "agent": "core.san-francisco.public-space.sidewalks",
    "tool": "public-space.sidewalks",
    "state": "succeeded",
-   "text": "1 constat(s), 1 enregistrement(s), 26 ms"
+   "text": "1 constat(s), 1 enregistrement(s), 25 ms"
   },
   {
    "seq": 29,
-   "t": 36,
+   "t": 37,
    "kind": "task",
    "task": "task-9",
    "agent": "core.san-francisco.simulation.scenario-evaluator",
@@ -2776,7 +2778,7 @@
   },
   {
    "seq": 30,
-   "t": 36,
+   "t": 37,
    "kind": "task",
    "task": "task-7",
    "agent": "core.san-francisco.climate.weather-alerts",
@@ -2786,7 +2788,7 @@
   },
   {
    "seq": 31,
-   "t": 36,
+   "t": 37,
    "kind": "task",
    "task": "task-10",
    "agent": "core.san-francisco.regulatory.knowledge-research",
@@ -2796,17 +2798,17 @@
   },
   {
    "seq": 32,
-   "t": 37,
+   "t": 39,
    "kind": "task",
    "task": "task-8",
    "agent": "core.san-francisco.data-science.graph-linker",
    "tool": "graph.link",
    "state": "succeeded",
-   "text": "1 constat(s), 1 enregistrement(s), 10 ms"
+   "text": "1 constat(s), 1 enregistrement(s), 11 ms"
   },
   {
    "seq": 33,
-   "t": 186,
+   "t": 187,
    "kind": "task",
    "task": "task-9",
    "agent": "core.san-francisco.simulation.scenario-evaluator",
@@ -2816,7 +2818,7 @@
   },
   {
    "seq": 34,
-   "t": 187,
+   "t": 188,
    "kind": "task",
    "task": "task-10",
    "agent": "core.san-francisco.regulatory.knowledge-research",
@@ -2826,53 +2828,53 @@
   },
   {
    "seq": 35,
-   "t": 187,
+   "t": 188,
    "kind": "mission",
    "state": "reviewing",
    "text": "Mission → reviewing"
   },
   {
    "seq": 36,
-   "t": 187,
+   "t": 190,
    "kind": "review",
    "agent": "core.san-francisco.research.evidence-verifier",
    "text": "Vérification indépendante : 16/16 constats entièrement sourcés."
   },
   {
    "seq": 37,
-   "t": 187,
+   "t": 190,
    "kind": "review",
    "agent": "core.san-francisco.safety.adversarial-reviewer",
    "text": "Revue adversariale : 2 désaccord(s), 2 sensibilité(s), 0 limite(s), 0 tâche(s) non abouties."
   },
   {
    "seq": 38,
-   "t": 187,
+   "t": 190,
    "kind": "synthesis",
    "agent": "core.san-francisco.manager",
    "text": "Synthèse : 11 énoncé(s) sourcé(s) ; action suivante : Proposer à la revue humaine une vérification de terrain coordonnée (R2) sur HOWARD ST 08TH ST → 09TH ST avant l’ouverture des excavations non commencées ; ne pas engager d’intervention coordonnée (R1) tant que tracés, état des arbres et calendrier des façades ne sont pas connus."
   },
   {
    "seq": 39,
-   "t": 365,
+   "t": 373,
    "kind": "gateway",
    "agent": "core.san-francisco.governance.gateway",
    "text": "ÉLIGIBLE À LA REVUE HUMAINE — Passerelle inter-domaines : ÉLIGIBLE À LA REVUE HUMAINE. Proposer à la revue humaine une vérification de terrain coordonnée (R2) sur HOWARD ST 08TH ST → 09TH ST avant l’ouverture des excavations non commencées ; ne pas engager d’intervention coordonnée (R1) tant que tracés, état des arbres et calendrier des façades ne sont pas connus."
   },
   {
    "seq": 40,
-   "t": 365,
+   "t": 373,
    "kind": "mission",
    "state": "needs-human-review",
    "text": "Mission → needs-human-review"
   }
  ],
- "fingerprint": "ca822e57106d2f26",
+ "fingerprint": "f0e17052086ddff4",
  "recorded": {
   "by": "scripts/agents.mjs (Node)",
-  "at": "2026-10-13T22:49:51.036Z",
-  "wallMs": 366,
+  "at": "2026-10-13T23:54:05.634Z",
+  "wallMs": 373,
   "snapshot": "2026-10-13T18:25:19.678Z",
-  "feedUpdate": "2026-10-13T22:49:35.562Z"
+  "feedUpdate": "2026-10-13T23:10:22.704Z"
  }
 }

@@ -1,0 +1,3 @@
+#!/bin/sh
+# CORE pre-commit gate: a failed integrity/security scan blocks the commit (no bypass flag in the scanner).
+exec node scripts/integrity-check.mjs --staged

@@ -1042,7 +1042,8 @@
    "executionMode": "deterministic",
    "status": "available",
    "independent": false,
-   "gap": null
+   "gap": null,
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1080,7 +1081,8 @@
    "executionMode": "deterministic",
    "status": "available",
    "independent": false,
-   "gap": null
+   "gap": null,
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1120,7 +1122,8 @@
    "executionMode": "deterministic",
    "status": "available",
    "independent": false,
-   "gap": null
+   "gap": null,
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1159,7 +1162,8 @@
    "executionMode": "deterministic",
    "status": "available",
    "independent": false,
-   "gap": null
+   "gap": null,
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1197,7 +1201,8 @@
    "executionMode": "deterministic",
    "status": "available",
    "independent": false,
-   "gap": null
+   "gap": null,
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1235,7 +1240,8 @@
    "executionMode": "deterministic",
    "status": "available",
    "independent": false,
-   "gap": null
+   "gap": null,
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1274,7 +1280,8 @@
    "executionMode": "deterministic",
    "status": "available",
    "independent": false,
-   "gap": null
+   "gap": null,
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1312,7 +1319,8 @@
    "executionMode": "deterministic",
    "status": "available",
    "independent": false,
-   "gap": null
+   "gap": null,
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1351,7 +1359,8 @@
    "executionMode": "deterministic",
    "status": "available",
    "independent": false,
-   "gap": null
+   "gap": null,
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1389,7 +1398,8 @@
    "executionMode": "deterministic",
    "status": "available",
    "independent": false,
-   "gap": null
+   "gap": null,
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1428,7 +1438,8 @@
    "executionMode": "deterministic",
    "status": "available",
    "independent": false,
-   "gap": null
+   "gap": null,
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1467,7 +1478,8 @@
    "executionMode": "deterministic",
    "status": "available",
    "independent": false,
-   "gap": null
+   "gap": null,
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1505,7 +1517,8 @@
    "executionMode": "deterministic",
    "status": "available",
    "independent": true,
-   "gap": null
+   "gap": null,
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1544,7 +1557,304 @@
    "executionMode": "deterministic",
    "status": "available",
    "independent": true,
-   "gap": null
+   "gap": null,
+   "model": null
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.housing.urban-planning-analyst",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "housing",
+   "role": "Analyste en urbanisme (assisté par modèle)",
+   "specialization": "Projets Planning, permis de construire, espace public et travaux au front d’un tronçon",
+   "competencies": [
+    {
+     "id": "planning.records",
+     "basis": "declared"
+    },
+    {
+     "id": "buildings.frontage",
+     "basis": "declared"
+    },
+    {
+     "id": "public-space.sidewalks",
+     "basis": "declared"
+    },
+    {
+     "id": "works.windows",
+     "basis": "declared"
+    },
+    {
+     "id": "knowledge.search",
+     "basis": "declared"
+    }
+   ],
+   "knowledge": [
+    "k-building-permits",
+    "k-dbi-issued-status",
+    "k-sidewalk-widths",
+    "k-coordination-method",
+    "k-provenance"
+   ],
+   "tools": [
+    "planning.records",
+    "buildings.frontage",
+    "public-space.sidewalks",
+    "works.windows",
+    "knowledge.search"
+   ],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.housing.lead",
+   "executionMode": "llm",
+   "status": "requires-local-model",
+   "independent": false,
+   "gap": null,
+   "model": {
+    "provider": "ollama",
+    "name": "qwen3:8b",
+    "role": "choix des outils et interprétation structurée ; jamais de calcul numérique ni de décision"
+   }
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.environmental.environmental-analyst",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "environmental",
+   "role": "Analyste environnemental (assisté par modèle)",
+   "specialization": "Arbres d’alignement, qualité de l’air modélisée, alertes météo, proximité des travaux",
+   "competencies": [
+    {
+     "id": "trees.near-works",
+     "basis": "declared"
+    },
+    {
+     "id": "air.quality",
+     "basis": "declared"
+    },
+    {
+     "id": "resilience.weather-alerts",
+     "basis": "declared"
+    },
+    {
+     "id": "knowledge.search",
+     "basis": "declared"
+    }
+   ],
+   "knowledge": [
+    "k-street-trees",
+    "k-tree-removals",
+    "k-proximity-indicator",
+    "k-air-quality-model",
+    "k-nws-alerts"
+   ],
+   "tools": [
+    "trees.near-works",
+    "air.quality",
+    "resilience.weather-alerts",
+    "knowledge.search"
+   ],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.environmental.lead",
+   "executionMode": "llm",
+   "status": "requires-local-model",
+   "independent": false,
+   "gap": null,
+   "model": {
+    "provider": "ollama",
+    "name": "qwen3:8b",
+    "role": "choix des outils et interprétation structurée ; jamais de calcul numérique ni de décision"
+   }
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.energy.energy-infrastructure-analyst",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "energy",
+   "role": "Analyste énergie et infrastructures (assisté par modèle)",
+   "specialization": "Bilans énergétiques déclarés, mix du réseau CAISO, travaux d’excavation et télécoms",
+   "competencies": [
+    {
+     "id": "energy.benchmarks",
+     "basis": "declared"
+    },
+    {
+     "id": "grid.mix",
+     "basis": "declared"
+    },
+    {
+     "id": "works.windows",
+     "basis": "declared"
+    },
+    {
+     "id": "works.telecom",
+     "basis": "declared"
+    },
+    {
+     "id": "knowledge.search",
+     "basis": "declared"
+    }
+   ],
+   "knowledge": [
+    "k-energy-ordinance",
+    "k-caiso-outlook",
+    "k-street-use-permits",
+    "k-coordination-method"
+   ],
+   "tools": [
+    "energy.benchmarks",
+    "grid.mix",
+    "works.windows",
+    "works.telecom",
+    "knowledge.search"
+   ],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.energy.lead",
+   "executionMode": "llm",
+   "status": "requires-local-model",
+   "independent": false,
+   "gap": null,
+   "model": {
+    "provider": "ollama",
+    "name": "qwen3:8b",
+    "role": "choix des outils et interprétation structurée ; jamais de calcul numérique ni de décision"
+   }
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.simulation.scenario-analyst",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "simulation",
+   "role": "Analyste de scénarios (assisté par modèle)",
+   "specialization": "Propose des paramètres bornés ; seuls les modèles déterministes validés calculent",
+   "competencies": [
+    {
+     "id": "scenario.evaluate",
+     "basis": "declared"
+    },
+    {
+     "id": "knowledge.search",
+     "basis": "declared"
+    }
+   ],
+   "knowledge": [
+    "k-coordination-method",
+    "k-proximity-indicator",
+    "k-simulation-integrity"
+   ],
+   "tools": [
+    "scenario.evaluate",
+    "knowledge.search"
+   ],
+   "permission": "analyze",
+   "supervisor": "core.san-francisco.simulation.lead",
+   "executionMode": "llm",
+   "status": "requires-local-model",
+   "independent": false,
+   "gap": null,
+   "model": {
+    "provider": "ollama",
+    "name": "qwen3:8b",
+    "role": "choix des outils et interprétation structurée ; jamais de calcul numérique ni de décision"
+   }
+  },
+  {
+   "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
+   "missionHistory": [],
+   "evaluationHistory": [],
+   "knowledgeVersion": null,
+   "budget": {
+    "maxTasks": 4,
+    "maxMs": 4000,
+    "maxRecords": 20000
+   },
+   "id": "core.san-francisco.research.evidence-reviewer",
+   "scope": {
+    "level": "specialist",
+    "city": "san-francisco",
+    "area": "Folsom/Howard 2nd–11th (corridor laboratoire)"
+   },
+   "department": "research",
+   "role": "Réviseur de preuves indépendant (assisté par modèle)",
+   "specialization": "Contrôle les interprétations des autres agents contre le registre de preuves",
+   "competencies": [
+    {
+     "id": "evidence.check",
+     "basis": "declared"
+    },
+    {
+     "id": "knowledge.search",
+     "basis": "declared"
+    }
+   ],
+   "knowledge": [
+    "k-provenance",
+    "k-proximity-indicator",
+    "k-dbi-issued-status",
+    "k-simulation-integrity"
+   ],
+   "tools": [
+    "evidence.check",
+    "knowledge.search"
+   ],
+   "permission": "review",
+   "supervisor": "core.san-francisco.research.lead",
+   "executionMode": "llm",
+   "status": "requires-local-model",
+   "independent": true,
+   "gap": null,
+   "model": {
+    "provider": "ollama",
+    "name": "qwen3:8b",
+    "role": "choix des outils et interprétation structurée ; jamais de calcul numérique ni de décision"
+   }
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1573,7 +1883,8 @@
    "executionMode": "unavailable",
    "status": "unavailable",
    "independent": false,
-   "gap": "Aucune donnée de sol ou de sous-sol intégrée."
+   "gap": "Aucune donnée de sol ou de sous-sol intégrée.",
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1602,7 +1913,8 @@
    "executionMode": "unavailable",
    "status": "unavailable",
    "independent": false,
-   "gap": "Aucune donnée de réseau électrique publique intégrée."
+   "gap": "Aucune donnée de réseau électrique publique intégrée.",
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1631,7 +1943,8 @@
    "executionMode": "unavailable",
    "status": "unavailable",
    "independent": false,
-   "gap": "Aucune donnée de réseau d’eau intégrée."
+   "gap": "Aucune donnée de réseau d’eau intégrée.",
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1660,7 +1973,8 @@
    "executionMode": "unavailable",
    "status": "unavailable",
    "independent": false,
-   "gap": "GTFS non intégré."
+   "gap": "GTFS non intégré.",
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1689,7 +2003,8 @@
    "executionMode": "unavailable",
    "status": "unavailable",
    "independent": false,
-   "gap": "Pas de comptages ni de plans de feux observés."
+   "gap": "Pas de comptages ni de plans de feux observés.",
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1718,7 +2033,8 @@
    "executionMode": "unavailable",
    "status": "unavailable",
    "independent": false,
-   "gap": "Aucune donnée de biodiversité intégrée."
+   "gap": "Aucune donnée de biodiversité intégrée.",
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1747,7 +2063,8 @@
    "executionMode": "unavailable",
    "status": "unavailable",
    "independent": false,
-   "gap": "APEZ identifié mais non intégré ; aucune mesure."
+   "gap": "APEZ identifié mais non intégré ; aucune mesure.",
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1776,7 +2093,8 @@
    "executionMode": "unavailable",
    "status": "unavailable",
    "independent": false,
-   "gap": "Pas d’outil de conception."
+   "gap": "Pas d’outil de conception.",
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1805,7 +2123,8 @@
    "executionMode": "unavailable",
    "status": "unavailable",
    "independent": false,
-   "gap": "Aucune donnée d’équipements."
+   "gap": "Aucune donnée d’équipements.",
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1834,7 +2153,8 @@
    "executionMode": "unavailable",
    "status": "unavailable",
    "independent": false,
-   "gap": "Seuls les bilans déclarés sont disponibles."
+   "gap": "Seuls les bilans déclarés sont disponibles.",
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1863,7 +2183,8 @@
    "executionMode": "unavailable",
    "status": "unavailable",
    "independent": false,
-   "gap": "Aucun indicateur agrégé intégré."
+   "gap": "Aucun indicateur agrégé intégré.",
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1892,7 +2213,8 @@
    "executionMode": "unavailable",
    "status": "unavailable",
    "independent": false,
-   "gap": "Aucune donnée de coût ; aucune estimation produite."
+   "gap": "Aucune donnée de coût ; aucune estimation produite.",
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1921,7 +2243,8 @@
    "executionMode": "unavailable",
    "status": "unavailable",
    "independent": false,
-   "gap": "Aucune donnée sociale intégrée ; jamais de données individuelles."
+   "gap": "Aucune donnée sociale intégrée ; jamais de données individuelles.",
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1950,7 +2273,8 @@
    "executionMode": "unavailable",
    "status": "unavailable",
    "independent": false,
-   "gap": "Aucune donnée intégrée."
+   "gap": "Aucune donnée intégrée.",
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -1979,7 +2303,8 @@
    "executionMode": "unavailable",
    "status": "unavailable",
    "independent": false,
-   "gap": "Hors périmètre des données publiques actuelles."
+   "gap": "Hors périmètre des données publiques actuelles.",
+   "model": null
   },
   {
    "disclaimer": "Libellé de compétence visée ; aucune qualification professionnelle, licence ou habilitation légale.",
@@ -2013,13 +2338,13 @@
    "independent": true
   }
  ],
- "generated_at": "2026-10-13T22:49:51.036Z",
+ "generated_at": "2026-10-13T23:54:05.634Z",
  "counts": {
-  "registered": 60,
+  "registered": 65,
   "executable": 16,
   "coordinationOnly": 29,
   "unavailable": 15,
   "departments": 28,
-  "llm": 0
+  "llm": 5
  }
 }

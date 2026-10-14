@@ -146,7 +146,7 @@
    "tool": "works.windows",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 1,
+   "ms": 2,
    "records": 10,
    "error": null,
    "findings": [
@@ -224,7 +224,7 @@
    "tool": "trees.near-works",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 9,
+   "ms": 10,
    "records": 9,
    "error": null,
    "findings": [
@@ -268,7 +268,7 @@
    "tool": "buildings.frontage",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 17,
+   "ms": 19,
    "records": 41,
    "error": null,
    "findings": [
@@ -360,7 +360,7 @@
    "tool": "energy.benchmarks",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 24,
+   "ms": 27,
    "records": 2,
    "error": null,
    "findings": [
@@ -398,7 +398,7 @@
    "tool": "public-space.sidewalks",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 25,
+   "ms": 27,
    "records": 1,
    "error": null,
    "findings": [
@@ -436,7 +436,7 @@
    "findings": [
     {
      "topic": "weather",
-     "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+     "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte.",
      "epistemic": "reported",
      "evidence": [
       {
@@ -446,6 +446,7 @@
       }
      ],
      "value": 0,
+     "asOf": "2026-10-13T23:10:22.704Z",
      "agent": "core.san-francisco.climate.weather-alerts",
      "tool": "resilience.weather-alerts"
     }
@@ -467,7 +468,7 @@
    "findings": [
     {
      "topic": "graph",
-     "claim": "L’élément « Avis d’abattage — arbre TRE-60224 » est rattaché au tronçon HOWARD ST LANGTON ST → RAUSCH ST (derived (≤ 60 m), 57 m).",
+     "claim": "L’élément « Avis d’abattage — arbre TRE-60224 » est rattaché au tronçon HOWARD ST LANGTON ST → RAUSCH ST (derived (≤ 60 m)) ; son point publié est à 57 m de l’axe du tronçon.",
      "epistemic": "derived",
      "evidence": [
       {
@@ -497,7 +498,7 @@
    "tool": "scenario.investigate",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 141,
+   "ms": 146,
    "records": 69,
    "error": null,
    "findings": [
@@ -1209,10 +1210,40 @@
    "tool": "knowledge.retrieve",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 141,
-   "records": 1,
+   "ms": 146,
+   "records": 4,
    "error": null,
    "findings": [
+    {
+     "topic": "knowledge",
+     "claim": "Street Tree Removal Notifications (qrwx-q4gg) — DataSF open data portal (v1, à jour) ; limites : Removal execution is not recorded..",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "knowledge",
+       "ref": "k-tree-removals",
+       "url": "https://data.sf.gov/d/qrwx-q4gg"
+      }
+     ],
+     "value": 0.7085,
+     "agent": "core.san-francisco.regulatory.knowledge-research",
+     "tool": "knowledge.retrieve"
+    },
+    {
+     "topic": "knowledge",
+     "claim": "Tree proximity indicator (tree-proximity-exposure-v1) — CORE methodology documents (v1, à jour) ; limites : Not a damage or ecological model..",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "knowledge",
+       "ref": "k-proximity-indicator",
+       "url": "https://github.com/vincentleg/core/blob/main/docs/PHASE_2_REPORT.md"
+      }
+     ],
+     "value": 0.096,
+     "agent": "core.san-francisco.regulatory.knowledge-research",
+     "tool": "knowledge.retrieve"
+    },
     {
      "topic": "knowledge",
      "claim": "Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only..",
@@ -1224,7 +1255,22 @@
        "url": "https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCE_REGISTRY.md"
       }
      ],
-     "value": 0.0654,
+     "value": 0.0697,
+     "agent": "core.san-francisco.regulatory.knowledge-research",
+     "tool": "knowledge.retrieve"
+    },
+    {
+     "topic": "knowledge",
+     "claim": "CORE coordination method (Phase 2C/2D) — CORE methodology documents (v1, à jour) ; limites : Not municipal rules; no traffic or cost model..",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "knowledge",
+       "ref": "k-coordination-method",
+       "url": "https://github.com/vincentleg/core/blob/main/docs/PHASE_2C_REPORT.md"
+      }
+     ],
+     "value": 0.0672,
      "agent": "core.san-francisco.regulatory.knowledge-research",
      "tool": "knowledge.retrieve"
     }
@@ -1426,7 +1472,7 @@
   },
   {
    "topic": "weather",
-   "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+   "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte.",
    "epistemic": "reported",
    "evidence": [
     {
@@ -1436,12 +1482,13 @@
     }
    ],
    "value": 0,
+   "asOf": "2026-10-13T23:10:22.704Z",
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts"
   },
   {
    "topic": "graph",
-   "claim": "L’élément « Avis d’abattage — arbre TRE-60224 » est rattaché au tronçon HOWARD ST LANGTON ST → RAUSCH ST (derived (≤ 60 m), 57 m).",
+   "claim": "L’élément « Avis d’abattage — arbre TRE-60224 » est rattaché au tronçon HOWARD ST LANGTON ST → RAUSCH ST (derived (≤ 60 m)) ; son point publié est à 57 m de l’axe du tronçon.",
    "epistemic": "derived",
    "evidence": [
     {
@@ -1515,6 +1562,36 @@
   },
   {
    "topic": "knowledge",
+   "claim": "Street Tree Removal Notifications (qrwx-q4gg) — DataSF open data portal (v1, à jour) ; limites : Removal execution is not recorded..",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "knowledge",
+     "ref": "k-tree-removals",
+     "url": "https://data.sf.gov/d/qrwx-q4gg"
+    }
+   ],
+   "value": 0.7085,
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve"
+  },
+  {
+   "topic": "knowledge",
+   "claim": "Tree proximity indicator (tree-proximity-exposure-v1) — CORE methodology documents (v1, à jour) ; limites : Not a damage or ecological model..",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "knowledge",
+     "ref": "k-proximity-indicator",
+     "url": "https://github.com/vincentleg/core/blob/main/docs/PHASE_2_REPORT.md"
+    }
+   ],
+   "value": 0.096,
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve"
+  },
+  {
+   "topic": "knowledge",
    "claim": "Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only..",
    "epistemic": "reported",
    "evidence": [
@@ -1524,7 +1601,22 @@
      "url": "https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCE_REGISTRY.md"
     }
    ],
-   "value": 0.0654,
+   "value": 0.0697,
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve"
+  },
+  {
+   "topic": "knowledge",
+   "claim": "CORE coordination method (Phase 2C/2D) — CORE methodology documents (v1, à jour) ; limites : Not municipal rules; no traffic or cost model..",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "knowledge",
+     "ref": "k-coordination-method",
+     "url": "https://github.com/vincentleg/core/blob/main/docs/PHASE_2C_REPORT.md"
+    }
+   ],
+   "value": 0.0672,
    "agent": "core.san-francisco.regulatory.knowledge-research",
    "tool": "knowledge.retrieve"
   }
@@ -1603,7 +1695,7 @@
    "resolved": 1
   },
   {
-   "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+   "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte.",
    "agent": "core.san-francisco.climate.weather-alerts",
    "epistemic": "reported",
    "typeOk": true,
@@ -1611,7 +1703,7 @@
    "resolved": 1
   },
   {
-   "claim": "L’élément « Avis d’abattage — arbre TRE-60224 » est rattaché au tronçon HOWARD ST LANGTON ST → RAUSCH ST (derived (≤ 60 m), 57 m).",
+   "claim": "L’élément « Avis d’abattage — arbre TRE-60224 » est rattaché au tronçon HOWARD ST LANGTON ST → RAUSCH ST (derived (≤ 60 m)) ; son point publié est à 57 m de l’axe du tronçon.",
    "agent": "core.san-francisco.data-science.graph-linker",
    "epistemic": "derived",
    "typeOk": true,
@@ -1635,7 +1727,31 @@
    "resolved": 7
   },
   {
+   "claim": "Street Tree Removal Notifications (qrwx-q4gg) — DataSF open data portal (v1, à jour) ; limites : Removal execution is not recorded..",
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "epistemic": "reported",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "Tree proximity indicator (tree-proximity-exposure-v1) — CORE methodology documents (v1, à jour) ; limites : Not a damage or ecological model..",
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "epistemic": "reported",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
    "claim": "Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only..",
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "epistemic": "reported",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "CORE coordination method (Phase 2C/2D) — CORE methodology documents (v1, à jour) ; limites : Not municipal rules; no traffic or cost model..",
    "agent": "core.san-francisco.regulatory.knowledge-research",
    "epistemic": "reported",
    "typeOk": true,
@@ -1745,7 +1861,7 @@
    },
    {
     "topic": "weather",
-    "text": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+    "text": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte.",
     "cites": [
      9
     ],
@@ -1755,7 +1871,7 @@
    },
    {
     "topic": "graph",
-    "text": "L’élément « Avis d’abattage — arbre TRE-60224 » est rattaché au tronçon HOWARD ST LANGTON ST → RAUSCH ST (derived (≤ 60 m), 57 m).",
+    "text": "L’élément « Avis d’abattage — arbre TRE-60224 » est rattaché au tronçon HOWARD ST LANGTON ST → RAUSCH ST (derived (≤ 60 m)) ; son point publié est à 57 m de l’axe du tronçon.",
     "cites": [
      10
     ],
@@ -1777,9 +1893,12 @@
    },
    {
     "topic": "knowledge",
-    "text": "Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only..",
+    "text": "Street Tree Removal Notifications (qrwx-q4gg) — DataSF open data portal (v1, à jour) ; limites : Removal execution is not recorded.. Tree proximity indicator (tree-proximity-exposure-v1) — CORE methodology documents (v1, à jour) ; limites : Not a damage or ecological model.. Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only.. CORE coordination method (Phase 2C/2D) — CORE methodology documents (v1, à jour) ; limites : Not municipal rules; no traffic or cost model..",
     "cites": [
-     13
+     13,
+     14,
+     15,
+     16
     ],
     "epistemic": [
      "reported"
@@ -2017,17 +2136,17 @@
   },
   {
    "seq": 18,
-   "t": 1,
+   "t": 2,
    "kind": "task",
    "task": "task-1",
    "agent": "core.san-francisco.civil.works-coordination",
    "tool": "works.windows",
    "state": "succeeded",
-   "text": "2 constat(s), 10 enregistrement(s), 1 ms"
+   "text": "2 constat(s), 10 enregistrement(s), 2 ms"
   },
   {
    "seq": 19,
-   "t": 1,
+   "t": 2,
    "kind": "task",
    "task": "task-4",
    "agent": "core.san-francisco.housing.building-permits",
@@ -2057,17 +2176,17 @@
   },
   {
    "seq": 22,
-   "t": 9,
+   "t": 10,
    "kind": "task",
    "task": "task-3",
    "agent": "core.san-francisco.forestry.street-trees",
    "tool": "trees.near-works",
    "state": "succeeded",
-   "text": "1 constat(s), 9 enregistrement(s), 9 ms"
+   "text": "1 constat(s), 9 enregistrement(s), 10 ms"
   },
   {
    "seq": 23,
-   "t": 9,
+   "t": 10,
    "kind": "task",
    "task": "task-6",
    "agent": "core.san-francisco.public-space.sidewalks",
@@ -2077,17 +2196,17 @@
   },
   {
    "seq": 24,
-   "t": 18,
+   "t": 21,
    "kind": "task",
    "task": "task-4",
    "agent": "core.san-francisco.housing.building-permits",
    "tool": "buildings.frontage",
    "state": "succeeded",
-   "text": "3 constat(s), 41 enregistrement(s), 17 ms"
+   "text": "3 constat(s), 41 enregistrement(s), 19 ms"
   },
   {
    "seq": 25,
-   "t": 18,
+   "t": 21,
    "kind": "task",
    "task": "task-7",
    "agent": "core.san-francisco.climate.weather-alerts",
@@ -2097,17 +2216,17 @@
   },
   {
    "seq": 26,
-   "t": 26,
+   "t": 29,
    "kind": "task",
    "task": "task-5",
    "agent": "core.san-francisco.energy.energy-benchmarks",
    "tool": "energy.benchmarks",
    "state": "succeeded",
-   "text": "1 constat(s), 2 enregistrement(s), 24 ms"
+   "text": "1 constat(s), 2 enregistrement(s), 27 ms"
   },
   {
    "seq": 27,
-   "t": 26,
+   "t": 29,
    "kind": "task",
    "task": "task-8",
    "agent": "core.san-francisco.data-science.graph-linker",
@@ -2117,17 +2236,17 @@
   },
   {
    "seq": 28,
-   "t": 34,
+   "t": 37,
    "kind": "task",
    "task": "task-6",
    "agent": "core.san-francisco.public-space.sidewalks",
    "tool": "public-space.sidewalks",
    "state": "succeeded",
-   "text": "1 constat(s), 1 enregistrement(s), 25 ms"
+   "text": "1 constat(s), 1 enregistrement(s), 27 ms"
   },
   {
    "seq": 29,
-   "t": 34,
+   "t": 37,
    "kind": "task",
    "task": "task-9",
    "agent": "core.san-francisco.simulation.scenario-evaluator",
@@ -2137,7 +2256,7 @@
   },
   {
    "seq": 30,
-   "t": 34,
+   "t": 37,
    "kind": "task",
    "task": "task-7",
    "agent": "core.san-francisco.climate.weather-alerts",
@@ -2147,7 +2266,7 @@
   },
   {
    "seq": 31,
-   "t": 34,
+   "t": 37,
    "kind": "task",
    "task": "task-10",
    "agent": "core.san-francisco.regulatory.knowledge-research",
@@ -2157,7 +2276,7 @@
   },
   {
    "seq": 32,
-   "t": 35,
+   "t": 38,
    "kind": "task",
    "task": "task-8",
    "agent": "core.san-francisco.data-science.graph-linker",
@@ -2167,73 +2286,73 @@
   },
   {
    "seq": 33,
-   "t": 175,
+   "t": 183,
    "kind": "task",
    "task": "task-9",
    "agent": "core.san-francisco.simulation.scenario-evaluator",
    "tool": "scenario.investigate",
    "state": "succeeded",
-   "text": "2 constat(s), 69 enregistrement(s), 141 ms"
+   "text": "2 constat(s), 69 enregistrement(s), 146 ms"
   },
   {
    "seq": 34,
-   "t": 175,
+   "t": 183,
    "kind": "task",
    "task": "task-10",
    "agent": "core.san-francisco.regulatory.knowledge-research",
    "tool": "knowledge.retrieve",
    "state": "succeeded",
-   "text": "1 constat(s), 1 enregistrement(s), 141 ms"
+   "text": "4 constat(s), 4 enregistrement(s), 146 ms"
   },
   {
    "seq": 35,
-   "t": 175,
+   "t": 183,
    "kind": "mission",
    "state": "reviewing",
    "text": "Mission → reviewing"
   },
   {
    "seq": 36,
-   "t": 175,
+   "t": 183,
    "kind": "review",
    "agent": "core.san-francisco.research.evidence-verifier",
-   "text": "Vérification indépendante : 14/14 constats entièrement sourcés."
+   "text": "Vérification indépendante : 17/17 constats entièrement sourcés."
   },
   {
    "seq": 37,
-   "t": 175,
+   "t": 183,
    "kind": "review",
    "agent": "core.san-francisco.safety.adversarial-reviewer",
    "text": "Revue adversariale : 1 désaccord(s), 1 sensibilité(s), 0 limite(s), 0 tâche(s) non abouties."
   },
   {
    "seq": 38,
-   "t": 175,
+   "t": 183,
    "kind": "synthesis",
    "agent": "core.san-francisco.manager",
    "text": "Synthèse : 11 énoncé(s) sourcé(s) ; action suivante : Proposer à la revue humaine une vérification de terrain coordonnée (R2) sur HOWARD ST LANGTON ST → RAUSCH ST avant l’ouverture des excavations non commencées ; ne pas engager d’intervention coordonnée (R1) tant que tracés, état des arbres et calendrier des façades ne sont pas connus."
   },
   {
    "seq": 39,
-   "t": 355,
+   "t": 357,
    "kind": "gateway",
    "agent": "core.san-francisco.governance.gateway",
    "text": "ÉLIGIBLE À LA REVUE HUMAINE — Passerelle inter-domaines : ÉLIGIBLE À LA REVUE HUMAINE. Proposer à la revue humaine une vérification de terrain coordonnée (R2) sur HOWARD ST LANGTON ST → RAUSCH ST avant l’ouverture des excavations non commencées ; ne pas engager d’intervention coordonnée (R1) tant que tracés, état des arbres et calendrier des façades ne sont pas connus."
   },
   {
    "seq": 40,
-   "t": 355,
+   "t": 357,
    "kind": "mission",
    "state": "needs-human-review",
    "text": "Mission → needs-human-review"
   }
  ],
- "fingerprint": "9600ab6133ba6d9c",
+ "fingerprint": "92a1144bdbf93841",
  "recorded": {
   "by": "scripts/agents.mjs (Node)",
-  "at": "2026-10-13T22:49:51.036Z",
-  "wallMs": 355,
+  "at": "2026-10-13T23:54:05.634Z",
+  "wallMs": 357,
   "snapshot": "2026-10-13T18:25:19.678Z",
-  "feedUpdate": "2026-10-13T22:49:35.562Z"
+  "feedUpdate": "2026-10-13T23:10:22.704Z"
  }
 }

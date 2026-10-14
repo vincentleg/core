@@ -115,3 +115,27 @@ City Intelligence uses official public feeds and APIs (DataSF, USGS, NWS, Legist
 ## D029 — Professional shell around a Tron-style map
 
 The application chrome uses neutral surfaces and IBM Plex typography with seven functional sections; the CORE/Tron visual language stays inside the 3D map. Camera controls add orbit, keyboard, reset and help; MapLibre remains target-centred (no roll or 6-DoF free flight).
+
+## D030 — Local open-weight model, approved by the founder
+
+Ollama v0.40.3 (MIT) is installed as a user-local binary; its SHA-256 matched the published digest and it carries Ollama's Apple signature. It listens on 127.0.0.1 only. The model is qwen3:8b (Apache-2.0, Q4_K_M, 5.2 GB), downloaded with the founder's explicit approval on 2026-10-13. The adapter refuses any non-loopback endpoint, so no paid API can be reached.
+
+## D031 — Model-assisted agents: the model chooses and words; code computes and decides
+
+Five specialists (urban planning, environment, energy and infrastructure, scenarios, independent evidence review) let the model choose permitted tools and write structured interpretations.
+- **What code does:** every number and every evidence item comes from deterministic tools. Statements must cite evidence ids, must not introduce numbers absent from the cited evidence, and must not use decision language.
+- **What the gateway does:** it recomputes every tool call and re-validates every model output. Model content can only add caution, never remove it.
+- **Reasoning traces:** Qwen3 thinking is disabled; only action summaries are stored.
+
+## D032 — Learning is proposed, evaluated and approved by a human
+
+The cycle is: gap, authorized source (DataSF metadata API), validation, proposal, before/after evaluation on a staged copy, human approval, promotion with version history, then rollback if needed. Agents cannot approve changes, edit safety-policy documents, or change their own permissions or tools. Freshness-only refreshes with identical content are the only changes that can be promoted without a human, and even those keep a version history. The four Phase 4 proposals were approved by the founder.
+
+## D033 — Browser-independent refresh on GitHub Actions
+
+A free GitHub Actions cron (every 3 hours) collects the sources, re-records the deterministic missions when content changed, runs the tests and the integrity gate, and commits data only. GitHub does not guarantee cron timing and disables scheduled workflows after 60 days without repository activity. No model runs in CI.
+
+## D034 — Security gate blocks commit and push
+
+`scripts/integrity-check.mjs` runs from repository-local hooks (pre-commit; pre-push together with the tests) and has no bypass. False positives get exact, reasoned exceptions in `.integrity-allowlist.json`. This fixes the Phase 3 process error, where a scan reported matches and the commit still ran in the same chained command.
+

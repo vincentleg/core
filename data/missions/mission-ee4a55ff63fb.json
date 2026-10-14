@@ -134,7 +134,7 @@
    "findings": [
     {
      "topic": "weather",
-     "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+     "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte.",
      "epistemic": "reported",
      "evidence": [
       {
@@ -144,6 +144,7 @@
       }
      ],
      "value": 0,
+     "asOf": "2026-10-13T23:10:22.704Z",
      "agent": "core.san-francisco.climate.weather-alerts",
      "tool": "resilience.weather-alerts"
     }
@@ -191,20 +192,37 @@
    "tool": "knowledge.retrieve",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 1,
-   "records": 0,
+   "ms": 2,
+   "records": 2,
    "error": null,
    "findings": [
     {
      "topic": "knowledge",
-     "claim": "Aucun document approuvé ne correspond à la question.",
+     "claim": "USGS real-time earthquake feeds — USGS Earthquake Hazards Program feeds (v1, à jour) ; limites : Location and magnitude uncertainty; no impact assessment..",
      "epistemic": "reported",
      "evidence": [
       {
-       "type": "knowledge-library",
-       "ref": "core-knowledge-library-v1"
+       "type": "knowledge",
+       "ref": "k-usgs-feed",
+       "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php"
       }
      ],
+     "value": 0.1911,
+     "agent": "core.san-francisco.regulatory.knowledge-research",
+     "tool": "knowledge.retrieve"
+    },
+    {
+     "topic": "knowledge",
+     "claim": "Limitation: no structural or subsurface data — CORE methodology documents (v1, à jour) ; limites : non précisées.",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "knowledge",
+       "ref": "k-no-structural-data",
+       "url": "https://github.com/vincentleg/core/blob/main/docs/PHASE_3_REPORT.md"
+      }
+     ],
+     "value": 0.0994,
      "agent": "core.san-francisco.regulatory.knowledge-research",
      "tool": "knowledge.retrieve"
     }
@@ -268,7 +286,7 @@
   },
   {
    "topic": "weather",
-   "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+   "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte.",
    "epistemic": "reported",
    "evidence": [
     {
@@ -278,6 +296,7 @@
     }
    ],
    "value": 0,
+   "asOf": "2026-10-13T23:10:22.704Z",
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts"
   },
@@ -299,14 +318,31 @@
   },
   {
    "topic": "knowledge",
-   "claim": "Aucun document approuvé ne correspond à la question.",
+   "claim": "USGS real-time earthquake feeds — USGS Earthquake Hazards Program feeds (v1, à jour) ; limites : Location and magnitude uncertainty; no impact assessment..",
    "epistemic": "reported",
    "evidence": [
     {
-     "type": "knowledge-library",
-     "ref": "core-knowledge-library-v1"
+     "type": "knowledge",
+     "ref": "k-usgs-feed",
+     "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php"
     }
    ],
+   "value": 0.1911,
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve"
+  },
+  {
+   "topic": "knowledge",
+   "claim": "Limitation: no structural or subsurface data — CORE methodology documents (v1, à jour) ; limites : non précisées.",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "knowledge",
+     "ref": "k-no-structural-data",
+     "url": "https://github.com/vincentleg/core/blob/main/docs/PHASE_3_REPORT.md"
+    }
+   ],
+   "value": 0.0994,
    "agent": "core.san-francisco.regulatory.knowledge-research",
    "tool": "knowledge.retrieve"
   }
@@ -337,7 +373,7 @@
    "resolved": 1
   },
   {
-   "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+   "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte.",
    "agent": "core.san-francisco.climate.weather-alerts",
    "epistemic": "reported",
    "typeOk": true,
@@ -353,7 +389,15 @@
    "resolved": 1
   },
   {
-   "claim": "Aucun document approuvé ne correspond à la question.",
+   "claim": "USGS real-time earthquake feeds — USGS Earthquake Hazards Program feeds (v1, à jour) ; limites : Location and magnitude uncertainty; no impact assessment..",
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "epistemic": "reported",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "Limitation: no structural or subsurface data — CORE methodology documents (v1, à jour) ; limites : non précisées.",
    "agent": "core.san-francisco.regulatory.knowledge-research",
    "epistemic": "reported",
    "typeOk": true,
@@ -390,7 +434,7 @@
    },
    {
     "topic": "weather",
-    "text": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+    "text": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte.",
     "cites": [
      3
     ],
@@ -410,9 +454,10 @@
    },
    {
     "topic": "knowledge",
-    "text": "Aucun document approuvé ne correspond à la question.",
+    "text": "USGS real-time earthquake feeds — USGS Earthquake Hazards Program feeds (v1, à jour) ; limites : Location and magnitude uncertainty; no impact assessment.. Limitation: no structural or subsurface data — CORE methodology documents (v1, à jour) ; limites : non précisées.",
     "cites": [
-     5
+     5,
+     6
     ],
     "epistemic": [
      "reported"
@@ -477,28 +522,28 @@
  "log": [
   {
    "seq": 1,
-   "t": 0,
+   "t": 1,
    "kind": "mission",
    "state": "planning",
    "text": "Mission → planning"
   },
   {
    "seq": 2,
-   "t": 0,
+   "t": 1,
    "kind": "plan",
    "agent": "core.san-francisco.manager",
    "text": "Domaines : emergency ; 4 spécialiste(s) exécutable(s) recruté(s) ; 1 profil(s) pertinent(s) indisponible(s) (pas d’outil ou de données)."
   },
   {
    "seq": 3,
-   "t": 0,
+   "t": 1,
    "kind": "mission",
    "state": "assigned",
    "text": "Mission → assigned"
   },
   {
    "seq": 4,
-   "t": 0,
+   "t": 1,
    "kind": "task",
    "task": "task-1",
    "agent": "core.san-francisco.climate.seismic-context",
@@ -508,7 +553,7 @@
   },
   {
    "seq": 5,
-   "t": 0,
+   "t": 1,
    "kind": "task",
    "task": "task-2",
    "agent": "core.san-francisco.climate.weather-alerts",
@@ -518,7 +563,7 @@
   },
   {
    "seq": 6,
-   "t": 0,
+   "t": 1,
    "kind": "task",
    "task": "task-3",
    "agent": "core.san-francisco.data-science.graph-linker",
@@ -528,7 +573,7 @@
   },
   {
    "seq": 7,
-   "t": 0,
+   "t": 1,
    "kind": "task",
    "task": "task-4",
    "agent": "core.san-francisco.regulatory.knowledge-research",
@@ -538,14 +583,14 @@
   },
   {
    "seq": 8,
-   "t": 0,
+   "t": 1,
    "kind": "mission",
    "state": "running",
    "text": "Mission → running"
   },
   {
    "seq": 9,
-   "t": 0,
+   "t": 1,
    "kind": "task",
    "task": "task-1",
    "agent": "core.san-francisco.climate.seismic-context",
@@ -555,7 +600,7 @@
   },
   {
    "seq": 10,
-   "t": 0,
+   "t": 1,
    "kind": "task",
    "task": "task-2",
    "agent": "core.san-francisco.climate.weather-alerts",
@@ -565,7 +610,7 @@
   },
   {
    "seq": 11,
-   "t": 0,
+   "t": 1,
    "kind": "task",
    "task": "task-3",
    "agent": "core.san-francisco.data-science.graph-linker",
@@ -575,7 +620,7 @@
   },
   {
    "seq": 12,
-   "t": 1,
+   "t": 2,
    "kind": "task",
    "task": "task-1",
    "agent": "core.san-francisco.climate.seismic-context",
@@ -585,7 +630,7 @@
   },
   {
    "seq": 13,
-   "t": 1,
+   "t": 2,
    "kind": "task",
    "task": "task-4",
    "agent": "core.san-francisco.regulatory.knowledge-research",
@@ -595,7 +640,7 @@
   },
   {
    "seq": 14,
-   "t": 1,
+   "t": 2,
    "kind": "task",
    "task": "task-2",
    "agent": "core.san-francisco.climate.weather-alerts",
@@ -605,7 +650,7 @@
   },
   {
    "seq": 15,
-   "t": 1,
+   "t": 2,
    "kind": "task",
    "task": "task-3",
    "agent": "core.san-francisco.data-science.graph-linker",
@@ -615,63 +660,63 @@
   },
   {
    "seq": 16,
-   "t": 2,
+   "t": 4,
    "kind": "task",
    "task": "task-4",
    "agent": "core.san-francisco.regulatory.knowledge-research",
    "tool": "knowledge.retrieve",
    "state": "succeeded",
-   "text": "1 constat(s), 0 enregistrement(s), 1 ms"
+   "text": "2 constat(s), 2 enregistrement(s), 2 ms"
   },
   {
    "seq": 17,
-   "t": 2,
+   "t": 4,
    "kind": "mission",
    "state": "reviewing",
    "text": "Mission → reviewing"
   },
   {
    "seq": 18,
-   "t": 2,
+   "t": 4,
    "kind": "review",
    "agent": "core.san-francisco.research.evidence-verifier",
-   "text": "Vérification indépendante : 6/6 constats entièrement sourcés."
+   "text": "Vérification indépendante : 7/7 constats entièrement sourcés."
   },
   {
    "seq": 19,
-   "t": 2,
+   "t": 4,
    "kind": "review",
    "agent": "core.san-francisco.safety.adversarial-reviewer",
    "text": "Revue adversariale : 0 désaccord(s), 0 sensibilité(s), 1 limite(s), 0 tâche(s) non abouties."
   },
   {
    "seq": 20,
-   "t": 2,
+   "t": 4,
    "kind": "synthesis",
    "agent": "core.san-francisco.manager",
    "text": "Synthèse : 4 énoncé(s) sourcé(s) ; action suivante : Aucune action proposée : surveiller les révisions USGS ; une évaluation d’impact exigerait des données structurelles et géotechniques non disponibles."
   },
   {
    "seq": 21,
-   "t": 3,
+   "t": 5,
    "kind": "gateway",
    "agent": "core.san-francisco.governance.gateway",
    "text": "PREUVES SUPPLÉMENTAIRES REQUISES — Aucune action proposée : surveiller les révisions USGS ; une évaluation d’impact exigerait des données structurelles et géotechniques non disponibles. Limites : Aucune donnée structurelle, géotechnique ou d’inspection : aucun impact ne peut être évalué."
   },
   {
    "seq": 22,
-   "t": 3,
+   "t": 5,
    "kind": "mission",
    "state": "needs-evidence",
    "text": "Mission → needs-evidence"
   }
  ],
- "fingerprint": "adde646d337b71ff",
+ "fingerprint": "16bcf0ae69b48d15",
  "recorded": {
   "by": "scripts/agents.mjs (Node)",
-  "at": "2026-10-13T22:49:51.036Z",
-  "wallMs": 3,
+  "at": "2026-10-13T23:54:05.634Z",
+  "wallMs": 5,
   "snapshot": "2026-10-13T18:25:19.678Z",
-  "feedUpdate": "2026-10-13T22:49:35.562Z"
+  "feedUpdate": "2026-10-13T23:10:22.704Z"
  }
 }

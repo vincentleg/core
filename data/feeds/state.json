@@ -1,19 +1,29 @@
 {
- "version": "core-city-feed-state-v1",
+ "version": "core-city-feed-state-v2",
  "lastRun": {
-  "started": "2026-10-13T22:49:35.562Z",
-  "added": 5,
+  "started": "2026-10-13T23:10:22.704Z",
+  "added": 166,
   "changed": 0,
   "failed": [],
-  "skipped": []
+  "skipped": [
+   "datasf-tree-removals",
+   "datasf-closures",
+   "legistar",
+   "rss-sfmta",
+   "rss-publicworks",
+   "rss-sfpuc"
+  ],
+  "runner": {
+   "kind": "local-manual"
+  }
  },
- "lastSuccessfulUpdate": "2026-10-13T22:49:35.562Z",
+ "lastSuccessfulUpdate": "2026-10-13T23:10:22.704Z",
  "nextScheduledUpdate": null,
- "scheduler": "exécution manuelle (aucun planificateur de fond installé)",
+ "scheduler": "exécution manuelle locale",
  "sources": {
   "datasf-street-use": {
-   "lastAttempt": "2026-10-13T22:49:35.562Z",
-   "lastSuccess": "2026-10-13T22:49:35.562Z",
+   "lastAttempt": "2026-10-13T23:10:22.704Z",
+   "lastSuccess": "2026-10-13T23:10:22.704Z",
    "lastError": null,
    "lastCount": 7,
    "lastAdded": 0,
@@ -21,8 +31,8 @@
    "request": "https://data.sf.gov/resource/b6tj-gt35.json?$query=SELECT%20permit_number%2C%20permit_type%2C%20status%2C%20streetname%2C%20cross_street_1%2C%20cross_street_2%2C%20cnn%2C%20agent%2C%20approved_date%2C%20permit_start_date%2C%20permit_end_date%2C%20latitude%2C%20longitude%20WHERE%20cnn%20in%20('5660000'%2C'5661000'%2C'5662000'%2C'5663000'%2C'5664000'%2C'5665000'%2C'5666000'%2C'5667000'%2C'5668000'%2C'5669000'%2C'5670000'%2C'5671000'%2C'5672000'%2C'5673000'%2C'5674000'%2C'5675000'%2C'5676000'%2C'5677000'%2C'5678000'%2C'5679000'%2C'5680000'%2C'5681000'%2C'5682000'%2C'7035000'%2C'7036000'%2C'7037000'%2C'7038000'%2C'7039001'%2C'7041000'%2C'7042000'%2C'7043000'%2C'7044000'%2C'7045000'%2C'7046000'%2C'7047000'%2C'7048000'%2C'7049000'%2C'7050000'%2C'7051000'%2C'7052000'%2C'7053000'%2C'7054000'%2C'7055000'%2C'7056000')%20AND%20approved_date%20%3E%3D%20'2026-09-13'%20AND%20permit_type%20in%20('Excavation'%2C'ExcStreet'%2C'StrtImprov'%2C'Boring'%2C'Emergency')%20ORDER%20BY%20approved_date%20DESC%20LIMIT%20200"
   },
   "datasf-building": {
-   "lastAttempt": "2026-10-13T22:49:35.562Z",
-   "lastSuccess": "2026-10-13T22:49:35.562Z",
+   "lastAttempt": "2026-10-13T23:10:22.704Z",
+   "lastSuccess": "2026-10-13T23:10:22.704Z",
    "lastError": null,
    "lastCount": 92,
    "lastAdded": 0,
@@ -48,8 +58,8 @@
    "request": "https://data.sf.gov/resource/8x25-yybr.json?$query=SELECT%20objectid%2C%20type%2C%20status%2C%20street%2C%20from_st%2C%20to_st%2C%20cnn%2C%20case_name%2C%20start_date%2C%20end_date%2C%20created_date%2C%20shape%20WHERE%20cnn%20in%20('5660000'%2C'5661000'%2C'5662000'%2C'5663000'%2C'5664000'%2C'5665000'%2C'5666000'%2C'5667000'%2C'5668000'%2C'5669000'%2C'5670000'%2C'5671000'%2C'5672000'%2C'5673000'%2C'5674000'%2C'5675000'%2C'5676000'%2C'5677000'%2C'5678000'%2C'5679000'%2C'5680000'%2C'5681000'%2C'5682000'%2C'7035000'%2C'7036000'%2C'7037000'%2C'7038000'%2C'7039001'%2C'7041000'%2C'7042000'%2C'7043000'%2C'7044000'%2C'7045000'%2C'7046000'%2C'7047000'%2C'7048000'%2C'7049000'%2C'7050000'%2C'7051000'%2C'7052000'%2C'7053000'%2C'7054000'%2C'7055000'%2C'7056000')%20AND%20end_date%20%3E%3D%20'2026-10-13'%20LIMIT%20200"
   },
   "usgs-quakes": {
-   "lastAttempt": "2026-10-13T22:49:35.562Z",
-   "lastSuccess": "2026-10-13T22:49:35.562Z",
+   "lastAttempt": "2026-10-13T23:10:22.704Z",
+   "lastSuccess": "2026-10-13T23:10:22.704Z",
    "lastError": null,
    "lastCount": 7,
    "lastAdded": 0,
@@ -57,8 +67,8 @@
    "request": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&latitude=37.7749&longitude=-122.4194&maxradiuskm=100&starttime=2026-09-13&minmagnitude=2.5&orderby=time&limit=100"
   },
   "nws-alerts": {
-   "lastAttempt": "2026-10-13T22:49:35.562Z",
-   "lastSuccess": "2026-10-13T22:49:35.562Z",
+   "lastAttempt": "2026-10-13T23:10:22.704Z",
+   "lastSuccess": "2026-10-13T23:10:22.704Z",
    "lastError": null,
    "lastCount": 0,
    "lastAdded": 0,
@@ -100,6 +110,69 @@
    "lastAdded": 5,
    "lastChanged": 0,
    "request": "https://www.sfpuc.gov/rss.xml"
+  },
+  "datasf-planning": {
+   "lastAttempt": "2026-10-13T23:10:22.704Z",
+   "lastSuccess": "2026-10-13T23:10:22.704Z",
+   "lastError": null,
+   "lastCount": 94,
+   "lastAdded": 94,
+   "lastChanged": 0,
+   "request": "https://data.sf.gov/resource/qvu5-m3a2.json?$query=SELECT%20record_id%2C%20record_type%2C%20project_name%2C%20description%2C%20record_status%2C%20project_address%2C%20open_date%2C%20number_of_units_net%20WHERE%20record_type%20%3D%20'PRJ'%20AND%20open_date%20%3E%3D%20'2026-09-13'%20ORDER%20BY%20open_date%20DESC%20LIMIT%20100"
+  },
+  "datasf-311-soma": {
+   "lastAttempt": "2026-10-13T23:10:22.704Z",
+   "lastSuccess": "2026-10-13T23:10:22.704Z",
+   "lastError": null,
+   "lastCount": 10,
+   "lastAdded": 10,
+   "lastChanged": 0,
+   "request": "https://data.sf.gov/resource/vw6y-z8j6.json?$query=SELECT%20service_name%2C%20count(*)%20AS%20count%20WHERE%20requested_datetime%20%3E%3D%20'2026-10-06'%20AND%20analysis_neighborhood%20%3D%20'South%20of%20Market'%20GROUP%20BY%20service_name%20ORDER%20BY%20count%20DESC%20LIMIT%2010"
+  },
+  "datasf-business-soma": {
+   "lastAttempt": "2026-10-13T23:10:22.704Z",
+   "lastSuccess": "2026-10-13T23:10:22.704Z",
+   "lastError": null,
+   "lastCount": 1,
+   "lastAdded": 1,
+   "lastChanged": 0,
+   "request": "https://data.sf.gov/resource/g8m3-pdis.json?$query=SELECT%20count(*)%20AS%20count%20WHERE%20dba_start_date%20%3E%3D%20'2026-09-13'%20AND%20neighborhoods_analysis_boundaries%20%3D%20'South%20of%20Market'"
+  },
+  "rss-recpark": {
+   "lastAttempt": "2026-10-13T23:10:22.704Z",
+   "lastSuccess": "2026-10-13T23:10:22.704Z",
+   "lastError": null,
+   "lastCount": 49,
+   "lastAdded": 49,
+   "lastChanged": 0,
+   "request": "https://sfrecpark.org/RSSFeed.aspx?ModID=1&CID=All-newsflash.xml"
+  },
+  "rss-sffire": {
+   "lastAttempt": "2026-10-13T23:10:22.704Z",
+   "lastSuccess": "2026-10-13T23:10:22.704Z",
+   "lastError": null,
+   "lastCount": 10,
+   "lastAdded": 10,
+   "lastChanged": 0,
+   "request": "https://sf-fire.org/rss.xml"
+  },
+  "caiso-fuelmix": {
+   "lastAttempt": "2026-10-13T23:10:22.704Z",
+   "lastSuccess": "2026-10-13T23:10:22.704Z",
+   "lastError": null,
+   "lastCount": 1,
+   "lastAdded": 1,
+   "lastChanged": 0,
+   "request": "https://www.caiso.com/outlook/current/fuelsource.csv"
+  },
+  "openmeteo-aq": {
+   "lastAttempt": "2026-10-13T23:10:22.704Z",
+   "lastSuccess": "2026-10-13T23:10:22.704Z",
+   "lastError": null,
+   "lastCount": 1,
+   "lastAdded": 1,
+   "lastChanged": 0,
+   "request": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=37.775&longitude=-122.418&current=pm2_5,us_aqi"
   }
  },
  "health": [
@@ -108,9 +181,16 @@
    "name": "DataSF · Street-Use Permits (récents, corridor)",
    "category": "infrastructure",
    "browser": true,
-   "lastSuccess": "2026-10-13T22:49:35.562Z",
+   "enabled": true,
+   "retired": null,
+   "minIntervalMin": 15,
+   "confidence": {
+    "level": "high",
+    "limitations": "Un permis n’est pas la preuve que les travaux ont lieu."
+   },
+   "lastSuccess": "2026-10-13T23:10:22.704Z",
    "lastError": null,
-   "lastAttempt": "2026-10-13T22:49:35.562Z",
+   "lastAttempt": "2026-10-13T23:10:22.704Z",
    "items": 7,
    "newestPublished": "2026-10-07T16:32:00.000Z",
    "freshness": "6 j",
@@ -121,9 +201,16 @@
    "name": "DataSF · Building Permits (récents, corridor)",
    "category": "buildings",
    "browser": true,
-   "lastSuccess": "2026-10-13T22:49:35.562Z",
+   "enabled": true,
+   "retired": null,
+   "minIntervalMin": 15,
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "lastSuccess": "2026-10-13T23:10:22.704Z",
    "lastError": null,
-   "lastAttempt": "2026-10-13T22:49:35.562Z",
+   "lastAttempt": "2026-10-13T23:10:22.704Z",
    "items": 92,
    "newestPublished": "2026-10-09T19:04:48.000Z",
    "freshness": "4 j",
@@ -134,6 +221,13 @@
    "name": "DataSF · Avis d’abattage (récents)",
    "category": "nature",
    "browser": true,
+   "enabled": true,
+   "retired": null,
+   "minIntervalMin": 30,
+   "confidence": {
+    "level": "high",
+    "limitations": "Un avis ne confirme pas l’abattage."
+   },
    "lastSuccess": "2026-10-13T22:49:35.562Z",
    "lastError": null,
    "lastAttempt": "2026-10-13T22:49:35.562Z",
@@ -147,6 +241,13 @@
    "name": "DataSF · Fermetures temporaires SFMTA (à venir, corridor)",
    "category": "events",
    "browser": true,
+   "enabled": true,
+   "retired": null,
+   "minIntervalMin": 30,
+   "confidence": {
+    "level": "high",
+    "limitations": "Permis SFMTA uniquement."
+   },
    "lastSuccess": "2026-10-13T22:49:35.562Z",
    "lastError": null,
    "lastAttempt": "2026-10-13T22:49:35.562Z",
@@ -160,9 +261,16 @@
    "name": "USGS · Séismes à moins de 100 km (30 j, M ≥ 2,5)",
    "category": "emergency",
    "browser": true,
-   "lastSuccess": "2026-10-13T22:49:35.562Z",
+   "enabled": true,
+   "retired": null,
+   "minIntervalMin": 5,
+   "confidence": {
+    "level": "high",
+    "limitations": "Les solutions automatiques sont révisables."
+   },
+   "lastSuccess": "2026-10-13T23:10:22.704Z",
    "lastError": null,
-   "lastAttempt": "2026-10-13T22:49:35.562Z",
+   "lastAttempt": "2026-10-13T23:10:22.704Z",
    "items": 7,
    "newestPublished": "2026-09-29T16:06:37.440Z",
    "freshness": "14 j",
@@ -173,9 +281,16 @@
    "name": "NWS · Alertes actives (zone San Francisco CAZ006)",
    "category": "climate",
    "browser": true,
-   "lastSuccess": "2026-10-13T22:49:35.562Z",
+   "enabled": true,
+   "retired": null,
+   "minIntervalMin": 10,
+   "confidence": {
+    "level": "high",
+    "limitations": "Alerte ou prévision, pas une observation."
+   },
+   "lastSuccess": "2026-10-13T23:10:22.704Z",
    "lastError": null,
-   "lastAttempt": "2026-10-13T22:49:35.562Z",
+   "lastAttempt": "2026-10-13T23:10:22.704Z",
    "items": 0,
    "newestPublished": null,
    "freshness": "no items",
@@ -186,19 +301,33 @@
    "name": "Legistar · Dossiers du Board of Supervisors (API publique)",
    "category": "administration",
    "browser": false,
+   "enabled": false,
+   "retired": "Retirée de la collecte le 2026-10-13 : l’API publique webapi.legistar.com/v1/sfgov ne contient aucun dossier postérieur à 2020 (vérifié par MatterId décroissant). Éléments historiques conservés.",
+   "minIntervalMin": 60,
+   "confidence": {
+    "level": "low",
+    "limitations": "API figée : aucun dossier modifié depuis 2020."
+   },
    "lastSuccess": "2026-10-13T22:49:35.562Z",
    "lastError": null,
    "lastAttempt": "2026-10-13T22:49:35.562Z",
    "items": 10,
    "newestPublished": "2020-09-17T07:00:00.000Z",
-   "freshness": "stale (2217 j)",
-   "ok": true
+   "freshness": "retired (stale 2217 j)",
+   "ok": null
   },
   {
    "id": "rss-sfmta",
    "name": "SFMTA · Blog (RSS)",
    "category": "mobility",
    "browser": false,
+   "enabled": true,
+   "retired": null,
+   "minIntervalMin": 60,
+   "confidence": {
+    "level": "medium",
+    "limitations": "Communication de l’agence sur ses propres actions."
+   },
    "lastSuccess": "2026-10-13T22:49:35.562Z",
    "lastError": null,
    "lastAttempt": "2026-10-13T22:49:35.562Z",
@@ -212,6 +341,13 @@
    "name": "SF Public Works · Actualités (RSS)",
    "category": "infrastructure",
    "browser": false,
+   "enabled": true,
+   "retired": null,
+   "minIntervalMin": 60,
+   "confidence": {
+    "level": "medium",
+    "limitations": "Communication de l’agence sur ses propres actions."
+   },
    "lastSuccess": "2026-10-13T22:49:35.562Z",
    "lastError": null,
    "lastAttempt": "2026-10-13T22:49:35.562Z",
@@ -225,6 +361,13 @@
    "name": "SFPUC · Actualités (RSS)",
    "category": "infrastructure",
    "browser": false,
+   "enabled": true,
+   "retired": null,
+   "minIntervalMin": 1440,
+   "confidence": {
+    "level": "low",
+    "limitations": "Flux non mis à jour depuis mai 2024 : consulté une fois par jour seulement."
+   },
    "lastSuccess": "2026-10-13T22:49:35.562Z",
    "lastError": null,
    "lastAttempt": "2026-10-13T22:49:35.562Z",
@@ -232,13 +375,156 @@
    "newestPublished": "2024-05-15T18:45:00.000Z",
    "freshness": "stale (881 j)",
    "ok": true
+  },
+  {
+   "id": "datasf-planning",
+   "name": "DataSF · Dossiers de projets du Planning Department (30 j)",
+   "category": "urbanism",
+   "browser": true,
+   "enabled": true,
+   "retired": null,
+   "minIntervalMin": 60,
+   "confidence": {
+    "level": "high",
+    "limitations": "Une demande déposée n’est pas une autorisation ; noms des demandeurs et instructeurs exclus."
+   },
+   "lastSuccess": "2026-10-13T23:10:22.704Z",
+   "lastError": null,
+   "lastAttempt": "2026-10-13T23:10:22.704Z",
+   "items": 94,
+   "newestPublished": "2026-10-11T07:00:00.000Z",
+   "freshness": "2 j",
+   "ok": true
+  },
+  {
+   "id": "datasf-311-soma",
+   "name": "DataSF · Demandes 311, South of Market (7 j, agrégées)",
+   "category": "society",
+   "browser": true,
+   "enabled": true,
+   "retired": null,
+   "minIntervalMin": 360,
+   "confidence": {
+    "level": "medium",
+    "limitations": "Demandes signalées par le public, non des incidents vérifiés ; comptes agrégés par catégorie."
+   },
+   "lastSuccess": "2026-10-13T23:10:22.704Z",
+   "lastError": null,
+   "lastAttempt": "2026-10-13T23:10:22.704Z",
+   "items": 10,
+   "newestPublished": "2026-10-13T00:00:00.000Z",
+   "freshness": "0 j",
+   "ok": true
+  },
+  {
+   "id": "datasf-business-soma",
+   "name": "DataSF · Enregistrements d’entreprises, South of Market (30 j, compte)",
+   "category": "economy",
+   "browser": true,
+   "enabled": true,
+   "retired": null,
+   "minIntervalMin": 1440,
+   "confidence": {
+    "level": "medium",
+    "limitations": "Un enregistrement n’est pas une ouverture ; compte agrégé, aucun nom collecté."
+   },
+   "lastSuccess": "2026-10-13T23:10:22.704Z",
+   "lastError": null,
+   "lastAttempt": "2026-10-13T23:10:22.704Z",
+   "items": 1,
+   "newestPublished": "2026-10-13T00:00:00.000Z",
+   "freshness": "0 j",
+   "ok": true
+  },
+  {
+   "id": "rss-recpark",
+   "name": "SF Recreation & Parks · Actualités (RSS)",
+   "category": "environment",
+   "browser": false,
+   "enabled": true,
+   "retired": null,
+   "minIntervalMin": 120,
+   "confidence": {
+    "level": "medium",
+    "limitations": "Communication de l’agence sur ses propres projets et évènements."
+   },
+   "lastSuccess": "2026-10-13T23:10:22.704Z",
+   "lastError": null,
+   "lastAttempt": "2026-10-13T23:10:22.704Z",
+   "items": 49,
+   "newestPublished": "2026-10-13T17:47:25.000Z",
+   "freshness": "0 j",
+   "ok": true
+  },
+  {
+   "id": "rss-sffire",
+   "name": "SF Fire Department · Actualités (RSS)",
+   "category": "public_safety",
+   "browser": false,
+   "enabled": true,
+   "retired": null,
+   "minIntervalMin": 120,
+   "confidence": {
+    "level": "medium",
+    "limitations": "Avis administratifs du service ; pas un flux d’incidents."
+   },
+   "lastSuccess": "2026-10-13T23:10:22.704Z",
+   "lastError": null,
+   "lastAttempt": "2026-10-13T23:10:22.704Z",
+   "items": 10,
+   "newestPublished": "2026-09-22T23:05:55.000Z",
+   "freshness": "21 j",
+   "ok": true
+  },
+  {
+   "id": "caiso-fuelmix",
+   "name": "CAISO · Mix de production électrique du jour (Californie)",
+   "category": "energy",
+   "browser": false,
+   "enabled": true,
+   "retired": null,
+   "minIntervalMin": 60,
+   "confidence": {
+    "level": "high",
+    "limitations": "Zone CAISO (Californie), pas spécifique à San Francisco ; données opérationnelles révisables."
+   },
+   "lastSuccess": "2026-10-13T23:10:22.704Z",
+   "lastError": null,
+   "lastAttempt": "2026-10-13T23:10:22.704Z",
+   "items": 1,
+   "newestPublished": "2026-10-13T23:10:22.704Z",
+   "freshness": "0 j",
+   "ok": true
+  },
+  {
+   "id": "openmeteo-aq",
+   "name": "Open-Meteo · Qualité de l’air modélisée (CAMS), SoMa",
+   "category": "environment",
+   "browser": true,
+   "enabled": true,
+   "retired": null,
+   "minIntervalMin": 60,
+   "confidence": {
+    "level": "low",
+    "limitations": "Valeur modélisée, pas une mesure de capteur."
+   },
+   "lastSuccess": "2026-10-13T23:10:22.704Z",
+   "lastError": null,
+   "lastAttempt": "2026-10-13T23:10:22.704Z",
+   "items": 1,
+   "newestPublished": "2026-10-13T23:00:00.000Z",
+   "freshness": "0 j",
+   "ok": true
   }
  ],
  "coverageGaps": [
   "Pas d’actualités presse sous licence intégrées",
-  "Planning Department : pas de flux RSS public trouvé (404)",
-  "sf.gov : pas de flux RSS public trouvé (404)",
-  "Legistar et RSS non accessibles depuis le navigateur (pas de CORS) : collecte Node uniquement"
+  "Board of Supervisors : API Legistar publique figée depuis 2020 (source retirée) ; sfbos.org sans RSS (404)",
+  "sf.gov, SF Planning et SF Environment : pas de flux RSS public (404 ou délai dépassé le 2026-10-13)",
+  "SF Department of Emergency Management : flux RSS vide",
+  "Transports : pas d’alertes Muni/BART sans clé d’API (511.org exige une inscription)",
+  "Sécurité publique : aucun flux d’incidents individuels collecté (vie privée) ; seulement les avis officiels",
+  "RSS, CAISO et Legistar non accessibles depuis le navigateur (pas de CORS) : collecte Node uniquement"
  ],
  "suggestions": [
   {

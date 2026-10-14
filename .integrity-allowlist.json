@@ -1,0 +1,47 @@
+{
+ "policy": "Exact path + SHA-256 of the exact matched value (the value itself is never stored here). Each exception needs a reason. Never add secrets, tokens or third-party personal data.",
+ "exceptions": [
+  {
+   "rule": "email",
+   "path": "HANDOFF.md",
+   "reason": "Founder's own contact line in the founder-authored historical handoff (committed before Phase 1).",
+   "added": "2026-10-13",
+   "sha256": "dca3780d238f9951c2c98cbd5039a7697cd2c16b79301b9ba4cdbad5b7e97de1"
+  },
+  {
+   "rule": "local-path",
+   "path": "docs/CLAUDE_HANDOFF.md",
+   "reason": "Operator instructions naming the founder's workspace directory; not a secret.",
+   "added": "2026-10-13",
+   "sha256": "65b77a14afcb8e43757d44c93424446679d651711b4e9f34c887137ef2a52a0d"
+  },
+  {
+   "rule": "email",
+   "path": "test/city.test.js",
+   "reason": "Synthetic fixture proving free-text emails are redacted (reserved example domain).",
+   "added": "2026-10-13",
+   "sha256": "69b1e95a1baa94735a71655d451f4ba7329dafa66d2dfbe2e0b479c7dd159e54"
+  },
+  {
+   "rule": "email",
+   "path": "test/sf.test.js",
+   "reason": "Synthetic fixture proving PII scrubbing (reserved example domain).",
+   "added": "2026-10-13",
+   "sha256": "7f73355bf032dcbb8e5a3f51f1e4a8ba92ef1344de2d95382634cf91da6d6181"
+  },
+  {
+   "rule": "email",
+   "path": "test/sf.test.js",
+   "reason": "Synthetic fixture proving PII scrubbing.",
+   "added": "2026-10-13",
+   "sha256": "4d9599c3a023c6e52da5e774766f57bfbd985fdcb811b6b23f7db0cb43caa749"
+  },
+  {
+   "rule": "email",
+   "path": "test/phase3.test.js",
+   "reason": "Synthetic fixture (not a real mailbox) proving feed redaction of agency staff emails.",
+   "added": "2026-10-13",
+   "sha256": "83ae73d88a24845081a57544442fb2c7278389f74fcf590c67d56c02d487570f"
+  }
+ ]
+}

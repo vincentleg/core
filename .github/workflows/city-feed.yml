@@ -1,0 +1,44 @@
+# CORE — scheduled City Intelligence refresh (Phase 4). Runs on GitHub-hosted runners, independently of any
+# open browser or local machine. Free for public repositories. Limits (documented in docs/PHASE_4_REPORT.md):
+# GitHub does not guarantee cron timing (delays are common at busy times) and disables scheduled workflows
+# after 60 days without repository activity. No language model runs here: only deterministic collection,
+# deterministic mission re-recording, the test suite and the integrity/security gate.
+name: city-feed
+on:
+  schedule:
+    - cron: '17 */3 * * *'   # every 3 hours at minute 17 (UTC)
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: city-feed
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+      - name: Collect official sources (rate-limited, failures keep previous items)
+        run: node scripts/city-feed.mjs
+      - name: Re-record deterministic missions when feed content changed
+        run: |
+          if ! git diff --quiet -- data/feeds/items.json; then
+            node scripts/agents.mjs --question "Quels travaux et quels arbres sont concernés sur Howard entre la 8e et la 9e rue ?" --segment 7051000
+          fi
+      - name: Tests
+        run: node --test test/*.test.js
+      - name: Integrity and security gate (blocks the commit on any finding)
+        run: |
+          git add -A data/feeds data/missions data/agents
+          node scripts/integrity-check.mjs --staged
+      - name: Commit and push data only
+        run: |
+          if git diff --cached --quiet; then echo "No change."; exit 0; fi
+          git config user.name "core-city-feed[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "data: scheduled City Intelligence refresh (${GITHUB_RUN_ID})"
+          git push

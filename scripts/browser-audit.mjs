@@ -208,15 +208,15 @@ try {
   await evaluate(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); 0`); await until('!!(window.CORE_PLATFORM && CORE_PLATFORM.state.ready)', 120);
   check('navigation exposes the seven platform sections', await evaluate(`[...document.querySelectorAll('#appnav [data-sec]')].map(b => b.dataset.sec).join() === 'world,intel,agents,missions,sims,decisions,data'`));
   await evaluate(`document.querySelector('[data-sec=intel]').click(); 0`); await pause(1500);
-  check('city intelligence lists real official items with dates and verification', await evaluate(`document.querySelectorAll('#in-list li').length > 20 && document.querySelector('#ws-body').textContent.includes('source officielle') && document.querySelector('#ws-body').textContent.includes('aucun planificateur')`));
+  check('city intelligence lists real official items with dates and verification', await evaluate(`document.querySelectorAll('#in-list li').length > 20 && document.querySelector('#ws-body').textContent.includes('source officielle') && document.querySelector('#ws-body').textContent.includes('Planification indépendante du navigateur')`));
   const refreshed = await evaluate(`CORE_PLATFORM.refresh(true).then(r => r.checked.length)`);
-  check('browser refresh queries only CORS-capable sources', refreshed === 6);
+  check('browser refresh queries only CORS-capable, active sources', refreshed === await evaluate(`CORE_FEEDS.SOURCES.filter(s => s.browser && s.enabled !== false).length`) && refreshed >= 6);
   check('browser refresh is rate-limited', await evaluate(`CORE_PLATFORM.refresh(false).then(r => r.checked.length === 0)`));
   check('source health shows stale official sources', await evaluate(`document.querySelector('[data-sec=intel]').click(); new Promise(r => setTimeout(r, 800)).then(() => /périmées/.test(document.querySelector('#ws-body').textContent))`));
   await evaluate(`document.querySelector('[data-sec=agents]').click(); 0`); await pause(800);
   check('organization chart shows real counts (registered, executable, unavailable)', await evaluate(`(t => t.includes('profils enregistrés') && t.includes('exécutables') && t.includes('indisponibles'))(document.querySelector('#ws-body').textContent) && document.querySelectorAll('#ws-body .org details').length >= 28`));
   await evaluate(`document.querySelector('[data-agent="core.san-francisco.forestry.street-trees"]').click(); 0`); await pause(300);
-  check('agent profile shows identity, permission, knowledge, evaluations and history', await evaluate(`(t => ['Permission', 'Superviseur', 'Mode d’exécution', 'Budget', 'Connaissances', 'Évaluations', 'Historique de missions', 'aucune qualification'].every(x => t.includes(x)))(document.querySelector('#ag-profile').textContent)`));
+  check('agent profile shows identity, permission, knowledge, evaluations and history', await evaluate(`(t => ['Permission', 'Superviseur', 'Mode d’exécution', 'Budget', 'Collection de connaissances', 'Évaluations', 'Historique de missions', 'aucune qualification'].every(x => t.includes(x)))(document.querySelector('#ag-profile').textContent)`));
   const nodeMission = JSON.parse(fs.readFileSync('data/missions/index.json', 'utf8')).missions.find(m => m.origin === 'corridor:7056000');
   await evaluate(`document.querySelector('[data-sec=intel]').click(); 0`); await pause(800);
   await evaluate(`document.querySelector('[data-launch="corridor:7056000"]').click(); 0`);
@@ -251,6 +251,33 @@ try {
   check('navigation help documents trackpad, keyboard and 6-DoF limits', await evaluate(`!document.querySelector('#cam-help').hidden && /6 degrés de liberté/.test(document.querySelector('#cam-help').textContent)`));
   await evaluate(`document.querySelector('[data-cam=help]').click(); 0`);
   await shot('platform');
+
+  // ---- Phase 4: model-assisted agents, evaluated learning, living City Intelligence, human review ----
+  await evaluate(`document.querySelector('[data-sec=agents]').click(); 0`); await pause(1500);
+  check('agents view reports the model-assisted specialists and the actual model status', await evaluate(`(t => t.includes('assistés par modèle') && /qwen3:8b|non joignable|absent/.test(t))(document.querySelector('#ws-body').textContent)`));
+  await evaluate(`document.querySelector('[data-agent="core.san-francisco.housing.urban-planning-analyst"]').click(); 0`); await pause(300);
+  check('model-assisted profile shows model, role-scoped collection, knowledge evaluation and learning history', await evaluate(`(t => ['Modèle', 'Collection de connaissances', 'Évaluation des connaissances du rôle', 'Apprentissage contrôlé', 'ajouté par apprentissage approuvé'].every(x => t.includes(x)))(document.querySelector('#ag-profile').textContent)`));
+  const cogIndex = fs.existsSync('data/missions/cognitive/index.json') ? JSON.parse(fs.readFileSync('data/missions/cognitive/index.json', 'utf8')) : null;
+  if (cogIndex && cogIndex.missions.length) {
+    await evaluate(`document.querySelector('[data-sec=missions]').click(); 0`); await pause(800);
+    await evaluate(`document.querySelector('#ms-tab-cog').click(); 0`); await pause(500);
+    await evaluate(`document.querySelector('[data-cogrec]').click(); 0`); await until(`!!CORE_PLATFORM.state.cogCurrent && !!document.querySelector('.decision')`, 120);
+    check('recorded live-model collaboration shows tool calls, validated model outputs and the gateway', await evaluate(`(t => t.includes('MISSION ENREGISTRÉE — exécution réelle du modèle local') && t.includes('Appels d’outils — calcul déterministe') && t.includes('Interprétations du modèle — validées') && t.includes('Passerelle cognitive'))(document.querySelector('#ws-body').textContent)`));
+    // Re-verification uses the committed feed snapshot. If the scheduler has refreshed the feeds since the mission was
+    // recorded, the gateway must flag the changed inputs (recompute check) instead of silently accepting the record.
+    check('browser re-runs the cognitive gateway on the recorded mission (same decision, or inputs-changed detected)', await evaluate(`(async () => { const sv = CORE_SF_VIEW; await sv.loadData(); const mc = CORE_PLATFORM.state.cogCurrent; const items = await (await fetch('data/feeds/items.json', { cache: 'no-cache' })).json(), st = await (await fetch('data/feeds/state.json', { cache: 'no-cache' })).json();
+      const e = { ctx: CORE_COORD.buildContext({ manifest: sv.state.manifest, data: sv.state.data, verified: sv.state.verified }), feeds: items, feedState: st, knowledge: CORE_PLATFORM.state.K, now: new Date().toISOString() };
+      const d = CORE_COGNITIVE.issueCognitiveDecision(mc, e, CORE_PLATFORM.state.registry); const same = st.lastSuccessfulUpdate === mc.recorded.feedUpdate;
+      return same ? d.state === mc.decision.state : (d.state === mc.decision.state || d.checks.some(c => c.id === 'recompute' && !c.pass)); })()`));
+  }
+  await evaluate(`document.querySelector('[data-sec=intel]').click(); 0`); await pause(1200);
+  check('city intelligence separates statistics, predictions and announcements and shows confidence limits', await evaluate(`(t => t.includes('Statistique agrégée') && t.includes('confiance') && t.includes('retirée'))(document.querySelector('#ws-body').textContent)`));
+  check('scheduler status names the browser-independent workflow', await evaluate(`document.querySelector('#ws-body').textContent.includes('city-feed.yml')`));
+  await evaluate(`document.querySelector('[data-sec=data]').click(); 0`); await pause(1200);
+  check('data view lists learning proposals with before/after evaluation and human approval', await evaluate(`(t => t.includes('Apprentissage contrôlé') && t.includes('human:founder') && /→ 100 %/.test(t))(document.querySelector('#ws-body').textContent)`));
+  await evaluate(`document.querySelector('[data-sec=decisions]').click(); 0`); await pause(500);
+  check('decisions view offers a local-only human review record', await evaluate(`!!document.querySelector('[data-human]') && document.querySelector('#ws-body').textContent.includes('uniquement dans ce navigateur')`));
+  await shot('phase4');
   await evaluate('document.querySelector("#sf-close").click()');
   await viewport(390, 844, true); await pause(300);
   check('mobile map fits viewport', await evaluate('document.documentElement.scrollWidth <= innerWidth'));

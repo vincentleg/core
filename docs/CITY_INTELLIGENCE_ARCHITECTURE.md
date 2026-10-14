@@ -117,3 +117,20 @@ The same snapshot and parameters give the same events and fingerprint (FNV-1a, n
 - **Continuous awareness** (`src/feeds.js`, `scripts/city-feed.mjs`): 10 official sources run through verification, classification, geolocation, graph linking (`linkFeedItems`) and deduplicated mission suggestions. Refresh works only while a process or the app runs; no background scheduler exists.
 - **Knowledge** (`src/knowledge.js`): approved, versioned documents with freshness, confidence and limitations; contradiction detection; agents propose, humans approve.
 - **Models** (`src/llm.js`): a provider-independent local interface. Any model text must cite findings and add no unsourced numbers; deterministic tools and gateways stay authoritative. No provider runs today.
+
+## Phase 4 additions: living intelligence and model-assisted investigation
+
+The event-to-intelligence workflow runs on real components (`src/cognitive.js`). Model actions are marked **(model)**; everything else is deterministic code.
+
+1. **Verified event:** the feed pipeline verifies the item and classifies it (kind, domains, confidence).
+2. **Geographic association:** `graph.link`, using the CNN field or a ≤ 60 m derived link.
+3. **Specialist selection:** chosen by the event's and the segment's domains; relevant unavailable profiles are listed.
+4. **Evidence retrieval:** **(model)** chooses which permitted tools to call → deterministic evidence register E#.
+5. **Cross-domain investigation:** structured findings from each specialist, then deliberation (agree, dispute, refine), evidence requests routed to the owning agent, and revision.
+6. **Scenario evaluation:** **(model)** may propose bounded parameters; the deterministic investigation recomputes R0/R1/R2.
+7. **Independent verification:** evidence references are resolved deterministically, then the model-assisted reviewer checks the interpretations with `evidence.check`.
+8. **Decision Brief:** assembled deterministically. Model interpretations are labelled and cited; uncertainty, missing data, source dates and rejected outputs are listed.
+9. **Cognitive gateway, then human review:** open requests, unresolved disputes, reviewer reservations or knowledge gaps yield **PREUVES SUPPLÉMENTAIRES REQUISES** (more evidence required), never a fabricated conclusion.
+
+Refresh runs independently of the browser on GitHub Actions every 3 hours; see the Phase 4 report for verified operation.
+

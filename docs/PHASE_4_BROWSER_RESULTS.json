@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-13",
+  "server": "python3 -m http.server 8000 --bind 127.0.0.1",
+  "chrome": {
+    "browser": "Chrome 155.0.8059.40 headless (CDP)",
+    "checks": 101,
+    "passed": 101,
+    "failed": 0,
+    "uncaughtErrors": 0,
+    "phase4Checks": [
+      "full agents generate ready proposal",
+      "concert suspends permit",
+      "removing concert restores ready state",
+      "roadwork dependency follows scenario",
+      "pause holds simulated traffic",
+      "plan comparison controls",
+      "failed run blocks stale permit and recovers UI",
+      "no uncaught JavaScript errors"
+    ]
+  },
+  "chromeNegative": {
+    "browser": "Chrome 155.0.8059.40 headless (CDP)",
+    "checks": 12,
+    "passed": 12,
+    "failed": 0
+  },
+  "firefox": {
+    "browser": "Firefox 122.0 headless (WebDriver BiDi)",
+    "status": "not run in Phase 4",
+    "reason": "Firefox hung at startup in this session (99% CPU for 3 min, empty profile, no BiDi listener on 9223), both inside and outside the command sandbox; not fixed to avoid changing machine settings",
+    "lastResult": "93/93 in Phase 3 (2026-10-13)"
+  },
+  "safari": "not performed (remote automation disabled; machine-wide setting not changed)",
+  "note": "The audit aborts on the first failed check; all listed checks completed."
+}

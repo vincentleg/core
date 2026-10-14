@@ -1,67 +1,1139 @@
 {
-  "version": "core-knowledge-library-v1",
-  "policy": "Curated summaries written by CORE with links to official sources. No copied third-party text beyond short factual metadata; no indiscriminate scraping. Agents read only approved documents. Updates require human approval.",
-  "sources": [
-    { "id": "src-datasf", "name": "DataSF open data portal", "publisher": "City and County of San Francisco", "url": "https://data.sf.gov", "license": "ODC-PDDL (per dataset)", "kind": "official open data" },
-    { "id": "src-usgs", "name": "USGS Earthquake Hazards Program feeds", "publisher": "U.S. Geological Survey", "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php", "license": "U.S. public domain", "kind": "official observation feed" },
-    { "id": "src-nws", "name": "National Weather Service API", "publisher": "NOAA / NWS", "url": "https://www.weather.gov/documentation/services-web-api", "license": "U.S. public domain", "kind": "official forecasts and alerts" },
-    { "id": "src-legistar", "name": "San Francisco Legistar web API", "publisher": "Clerk of the Board of Supervisors (via Granicus Legistar)", "url": "https://webapi.legistar.com/v1/sfgov/matters", "license": "Public records; metadata only stored", "kind": "official legislative records" },
-    { "id": "src-ggbhtd", "name": "Golden Gate Bridge design statistics", "publisher": "Golden Gate Bridge Highway and Transportation District", "url": "https://www.goldengate.org/bridge/history-research/statistics-data/design-construction-stats/", "license": "Public facts (no text copied)", "kind": "official facts" },
-    { "id": "src-core", "name": "CORE methodology documents", "publisher": "CORE repository", "url": "https://github.com/vincentleg/core/tree/main/docs", "license": "Repository documentation", "kind": "internal method" }
+ "version": "core-knowledge-library-v1",
+ "policy": "Curated summaries written by CORE with links to official sources. No copied third-party text beyond short factual metadata; no indiscriminate scraping. Agents read only approved documents. Updates require human approval.",
+ "sources": [
+  {
+   "id": "src-datasf",
+   "name": "DataSF open data portal",
+   "publisher": "City and County of San Francisco",
+   "url": "https://data.sf.gov",
+   "license": "ODC-PDDL (per dataset)",
+   "kind": "official open data"
+  },
+  {
+   "id": "src-usgs",
+   "name": "USGS Earthquake Hazards Program feeds",
+   "publisher": "U.S. Geological Survey",
+   "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php",
+   "license": "U.S. public domain",
+   "kind": "official observation feed"
+  },
+  {
+   "id": "src-nws",
+   "name": "National Weather Service API",
+   "publisher": "NOAA / NWS",
+   "url": "https://www.weather.gov/documentation/services-web-api",
+   "license": "U.S. public domain",
+   "kind": "official forecasts and alerts"
+  },
+  {
+   "id": "src-legistar",
+   "name": "San Francisco Legistar web API",
+   "publisher": "Clerk of the Board of Supervisors (via Granicus Legistar)",
+   "url": "https://webapi.legistar.com/v1/sfgov/matters",
+   "license": "Public records; metadata only stored",
+   "kind": "official legislative records"
+  },
+  {
+   "id": "src-ggbhtd",
+   "name": "Golden Gate Bridge design statistics",
+   "publisher": "Golden Gate Bridge Highway and Transportation District",
+   "url": "https://www.goldengate.org/bridge/history-research/statistics-data/design-construction-stats/",
+   "license": "Public facts (no text copied)",
+   "kind": "official facts"
+  },
+  {
+   "id": "src-core",
+   "name": "CORE methodology documents",
+   "publisher": "CORE repository",
+   "url": "https://github.com/vincentleg/core/tree/main/docs",
+   "license": "Repository documentation",
+   "kind": "internal method"
+  },
+  {
+   "id": "src-openmeteo",
+   "name": "Open-Meteo (Air Quality API, CAMS data)",
+   "publisher": "Open-Meteo.com",
+   "url": "https://open-meteo.com/en/docs/air-quality-api",
+   "license": "CC BY 4.0 (data: Copernicus Atmosphere Monitoring Service)",
+   "kind": "registered open data (non-governmental)"
+  },
+  {
+   "id": "src-caiso",
+   "name": "California ISO — Today’s Outlook",
+   "publisher": "California Independent System Operator",
+   "url": "https://www.caiso.com/todays-outlook",
+   "license": "Public operational data (attribution CAISO)",
+   "kind": "grid operator (public data)"
+  }
+ ],
+ "documents": [
+  {
+   "id": "k-street-use-permits",
+   "source": "src-datasf",
+   "title": "Street-Use Permits (b6tj-gt35)",
+   "url": "https://data.sf.gov/d/b6tj-gt35",
+   "retrieved_at": "2026-10-13",
+   "version": 1,
+   "status": "approved",
+   "stale_after_days": 30,
+   "topics": [
+    "infrastructure",
+    "permits",
+    "excavation",
+    "works"
+   ],
+   "text": "Public Works street-space permits including excavation, street improvement, boring and emergency permits. Each record has a permit number, type, status, CNN location, holder organisation and authorized start/end dates. A permit authorizes a window; it does not prove that work happened.",
+   "claims": [
+    {
+     "key": "street-use-permit-proves-work",
+     "value": false
+    }
+   ],
+   "confidence": "high (official register)",
+   "limitations": "Administrative record; contact columns removed by CORE."
+  },
+  {
+   "id": "k-coordination-method",
+   "source": "src-core",
+   "title": "CORE coordination method (Phase 2C/2D)",
+   "url": "https://github.com/vincentleg/core/blob/main/docs/PHASE_2C_REPORT.md",
+   "retrieved_at": "2026-10-13",
+   "version": 1,
+   "status": "approved",
+   "stale_after_days": 365,
+   "topics": [
+    "method",
+    "coordination",
+    "scheduling",
+    "scenarios"
+   ],
+   "text": "Deterministic scheduling under declared constraints: ±30 days shift, 7 days notice, programme permits over 90 days fixed, durations preserved. Overlap between organisations is reported as neutral. Recommendations require dominance or verified overlaps; a gateway recomputes everything.",
+   "claims": [
+    {
+     "key": "max-shift-days",
+     "value": 30
+    }
+   ],
+   "confidence": "method (declared assumptions)",
+   "limitations": "Not municipal rules; no traffic or cost model."
+  },
+  {
+   "id": "k-street-trees",
+   "source": "src-datasf",
+   "title": "Street Tree Inventory (tkzw-k3nq)",
+   "url": "https://data.sf.gov/d/tkzw-k3nq",
+   "retrieved_at": "2026-10-13",
+   "version": 1,
+   "status": "approved",
+   "stale_after_days": 30,
+   "topics": [
+    "nature",
+    "trees",
+    "forestry",
+    "inventory"
+   ],
+   "text": "Public Works asset inventory of street trees with species, legal status, site, planting date, diameter class, CNN and coordinates. The dataset was migrated to a new asset system in December 2024 and corrected in 2026.",
+   "claims": [],
+   "confidence": "medium (inventory not field-verified by CORE)",
+   "limitations": "Planting dates often missing; presence not verified."
+  },
+  {
+   "id": "k-tree-removals",
+   "source": "src-datasf",
+   "title": "Street Tree Removal Notifications (qrwx-q4gg)",
+   "url": "https://data.sf.gov/d/qrwx-q4gg",
+   "retrieved_at": "2026-10-13",
+   "version": 1,
+   "status": "approved",
+   "stale_after_days": 30,
+   "topics": [
+    "nature",
+    "trees",
+    "removal",
+    "notice",
+    "events"
+   ],
+   "text": "24-hour, 15-day or 30-day public notices posted on trees after a removal permit. A notice does not confirm that the tree was removed.",
+   "claims": [
+    {
+     "key": "removal-notice-proves-removal",
+     "value": false
+    }
+   ],
+   "confidence": "high (official notice register)",
+   "limitations": "Removal execution is not recorded."
+  },
+  {
+   "id": "k-proximity-indicator",
+   "source": "src-core",
+   "title": "Tree proximity indicator (tree-proximity-exposure-v1)",
+   "url": "https://github.com/vincentleg/core/blob/main/docs/PHASE_2_REPORT.md",
+   "retrieved_at": "2026-10-13",
+   "version": 1,
+   "status": "approved",
+   "stale_after_days": 365,
+   "topics": [
+    "method",
+    "trees",
+    "proximity",
+    "uncertainty"
+   ],
+   "text": "Counts inventoried trees within a radius of the published permit point. Permit points are geocoded to the address or segment, not the trench alignment, so distances are indicative and results are sensitive to the radius.",
+   "claims": [
+    {
+     "key": "proximity-implies-damage",
+     "value": false
+    }
+   ],
+   "confidence": "indicator only",
+   "limitations": "Not a damage or ecological model."
+  },
+  {
+   "id": "k-building-permits",
+   "source": "src-datasf",
+   "title": "Building Permits (i98e-djp9)",
+   "url": "https://data.sf.gov/d/i98e-djp9",
+   "retrieved_at": "2026-10-13",
+   "version": 1,
+   "status": "approved",
+   "stale_after_days": 7,
+   "topics": [
+    "buildings",
+    "permits",
+    "housing",
+    "development"
+   ],
+   "text": "Department of Building Inspection permits with type, status, filed, issued and completed dates, address, block/lot and description. Since December 2024 only new or updated rows are published.",
+   "claims": [],
+   "confidence": "high (official register)",
+   "limitations": "Free-text descriptions; statuses may stay open."
+  },
+  {
+   "id": "k-dbi-issued-status",
+   "source": "src-core",
+   "title": "Observation: DBI 'issued' status is not a reliable activity signal",
+   "url": "https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCE_REGISTRY.md",
+   "retrieved_at": "2026-10-13",
+   "version": 1,
+   "status": "approved",
+   "stale_after_days": 90,
+   "topics": [
+    "buildings",
+    "data-quality",
+    "permits"
+   ],
+   "text": "In the 2026-10-13 snapshot, 540 of 669 building permits with status 'issued' near the Folsom/Howard corridor were issued more than three years earlier without a completion date. CORE therefore uses a recency window to treat a permit as current.",
+   "claims": [
+    {
+     "key": "dbi-issued-implies-active-construction",
+     "value": false
+    }
+   ],
+   "confidence": "derived from snapshot",
+   "limitations": "Corridor sample only."
+  },
+  {
+   "id": "k-energy-ordinance",
+   "source": "src-datasf",
+   "title": "Existing Buildings Energy Performance Ordinance Report (96ck-qcfe)",
+   "url": "https://data.sf.gov/d/96ck-qcfe",
+   "retrieved_at": "2026-10-13",
+   "version": 1,
+   "status": "approved",
+   "stale_after_days": 60,
+   "topics": [
+    "energy",
+    "buildings",
+    "benchmark"
+   ],
+   "text": "Annual benchmarks reported by owners of non-residential buildings of at least 10,000 sq ft and residential buildings of at least 50,000 sq ft (Environment Code Chapter 20), via Energy Star Portfolio Manager: site and source EUI, GHG, Energy Star score, compliance status.",
+   "claims": [
+    {
+     "key": "energy-benchmark-measured-by-city",
+     "value": false
+    }
+   ],
+   "confidence": "self-reported",
+   "limitations": "Not metered by CORE; no savings model."
+  },
+  {
+   "id": "k-sidewalk-widths",
+   "source": "src-datasf",
+   "title": "Sidewalk Widths (4g86-grxu)",
+   "url": "https://data.sf.gov/d/4g86-grxu",
+   "retrieved_at": "2026-10-13",
+   "version": 1,
+   "status": "approved",
+   "stale_after_days": 3650,
+   "topics": [
+    "public_space",
+    "sidewalk",
+    "accessibility"
+   ],
+   "text": "Sidewalk presence and widths from a 2014 AECOM study joined to centerlines, with minimum and recommended widths by street class.",
+   "claims": [
+    {
+     "key": "sidewalk-width-year",
+     "value": 2014
+    }
+   ],
+   "confidence": "medium (2014 study)",
+   "limitations": "May not reflect later streetscape projects."
+  },
+  {
+   "id": "k-usgs-feed",
+   "source": "src-usgs",
+   "title": "USGS real-time earthquake feeds",
+   "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php",
+   "retrieved_at": "2026-10-13",
+   "version": 1,
+   "status": "approved",
+   "stale_after_days": 365,
+   "topics": [
+    "climate",
+    "resilience",
+    "earthquake",
+    "emergency"
+   ],
+   "text": "GeoJSON feeds of recent earthquakes with magnitude, place, time, coordinates, review status (automatic or reviewed). Automatic solutions can be revised.",
+   "claims": [
+    {
+     "key": "usgs-automatic-events-revisable",
+     "value": true
+    }
+   ],
+   "confidence": "high (official measurement network)",
+   "limitations": "Location and magnitude uncertainty; no impact assessment."
+  },
+  {
+   "id": "k-no-structural-data",
+   "source": "src-core",
+   "title": "Limitation: no structural or subsurface data",
+   "url": "https://github.com/vincentleg/core/blob/main/docs/PHASE_3_REPORT.md",
+   "retrieved_at": "2026-10-13",
+   "version": 1,
+   "status": "approved",
+   "stale_after_days": 365,
+   "topics": [
+    "resilience",
+    "limitation",
+    "earthquake"
+   ],
+   "text": "CORE has no structural, soil or liquefaction data for corridor assets. It can list assets near an event but cannot assess damage.",
+   "claims": [
+    {
+     "key": "core-can-assess-seismic-damage",
+     "value": false
+    }
+   ],
+   "confidence": "certain (scope statement)",
+   "limitations": ""
+  },
+  {
+   "id": "k-nws-alerts",
+   "source": "src-nws",
+   "title": "NWS active alerts API",
+   "url": "https://www.weather.gov/documentation/services-web-api",
+   "retrieved_at": "2026-10-13",
+   "version": 1,
+   "status": "approved",
+   "stale_after_days": 365,
+   "topics": [
+    "climate",
+    "weather",
+    "alerts",
+    "emergency"
+   ],
+   "text": "Active watches, warnings and advisories by forecast zone (San Francisco: CAZ006). Alerts are forecasts and warnings, not observations.",
+   "claims": [
+    {
+     "key": "nws-alert-is-observation",
+     "value": false
+    }
+   ],
+   "confidence": "official forecast",
+   "limitations": "Zone-level, not street-level."
+  },
+  {
+   "id": "k-legistar",
+   "source": "src-legistar",
+   "title": "Board of Supervisors legislative records",
+   "url": "https://sfbos.org/legislation",
+   "retrieved_at": "2026-10-13",
+   "version": 1,
+   "status": "approved",
+   "stale_after_days": 365,
+   "topics": [
+    "administration",
+    "policy",
+    "legislation"
+   ],
+   "text": "Legislative matters with file number, type (ordinance, resolution, hearing…), status, body and dates. CORE stores metadata only and classifies items as proposals or approved decisions from the official status, without evaluating positions or actors.",
+   "claims": [],
+   "confidence": "official record",
+   "limitations": "Titles only; no text analysis."
+  },
+  {
+   "id": "k-neutrality",
+   "source": "src-core",
+   "title": "Civic neutrality policy",
+   "url": "https://github.com/vincentleg/core/blob/main/docs/PHASE_3_REPORT.md",
+   "retrieved_at": "2026-10-13",
+   "version": 1,
+   "status": "approved",
+   "stale_after_days": 3650,
+   "topics": [
+    "policy",
+    "neutrality",
+    "administration"
+   ],
+   "text": "Political and civic items are attributed to their official source, classified only by type and status, never ranked or used to persuade. Sponsors and officials are not scored.",
+   "claims": [],
+   "confidence": "policy",
+   "limitations": ""
+  },
+  {
+   "id": "k-graph-bases",
+   "source": "src-core",
+   "title": "Knowledge graph relationship bases",
+   "url": "https://github.com/vincentleg/core/blob/main/docs/CITY_INTELLIGENCE_ARCHITECTURE.md",
+   "retrieved_at": "2026-10-13",
+   "version": 1,
+   "status": "approved",
+   "stale_after_days": 365,
+   "topics": [
+    "method",
+    "graph"
+   ],
+   "text": "Relationships are observed, derived, rule-based or hypotheses, each with a reason. AFFECTS is hypothesis-only; proximity never implies causality.",
+   "claims": [
+    {
+     "key": "proximity-implies-causality",
+     "value": false
+    }
+   ],
+   "confidence": "method",
+   "limitations": ""
+  },
+  {
+   "id": "k-provenance",
+   "source": "src-core",
+   "title": "Provenance and verification rules",
+   "url": "https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCE_REGISTRY.md",
+   "retrieved_at": "2026-10-13",
+   "version": 1,
+   "status": "approved",
+   "stale_after_days": 365,
+   "topics": [
+    "method",
+    "provenance",
+    "evidence"
+   ],
+   "text": "Snapshots carry request URLs, retrieval times and SHA-256 checksums verified in Node and in the browser. Reported claims from feeds remain 'reported' until corroborated by an official record.",
+   "claims": [],
+   "confidence": "method",
+   "limitations": ""
+  },
+  {
+   "id": "k-golden-gate-span",
+   "source": "src-ggbhtd",
+   "title": "Golden Gate Bridge main span",
+   "url": "https://www.goldengate.org/bridge/history-research/statistics-data/design-construction-stats/",
+   "retrieved_at": "2026-10-13",
+   "version": 1,
+   "status": "approved",
+   "stale_after_days": 3650,
+   "topics": [
+    "landmark",
+    "bridge"
+   ],
+   "text": "Published main span between towers: 1,280 m (4,200 ft).",
+   "claims": [
+    {
+     "key": "golden-gate-main-span-m",
+     "value": 1280,
+     "tolerance": 0.005
+    }
+   ],
+   "confidence": "official",
+   "limitations": ""
+  },
+  {
+   "id": "k-golden-gate-osm",
+   "source": "src-core",
+   "title": "OSM-measured Golden Gate tower spacing",
+   "url": "https://www.openstreetmap.org/relation/21407754",
+   "retrieved_at": "2026-10-13",
+   "version": 1,
+   "status": "approved",
+   "stale_after_days": 3650,
+   "topics": [
+    "landmark",
+    "bridge",
+    "osm"
+   ],
+   "text": "Distance between the OSM south and north tower centroids measured by CORE: 1,283.0 m.",
+   "claims": [
+    {
+     "key": "golden-gate-main-span-m",
+     "value": 1283,
+     "tolerance": 0.005
+    }
+   ],
+   "confidence": "derived (community mapping)",
+   "limitations": "Centroids of mapped tower parts."
+  },
+  {
+   "source": "src-datasf",
+   "title": "Planning Department Records - Projects — documentation officielle du jeu (qvu5-m3a2)",
+   "url": "https://data.sf.gov/d/qvu5-m3a2",
+   "retrieved_at": "2026-10-13",
+   "stale_after_days": 365,
+   "topics": [
+    "planning",
+    "department",
+    "records",
+    "projects"
+   ],
+   "text": "A. SUMMARY This dataset is a list of projects and project data captured by PRJ records from the Planning Department's Accela database. Supplemental applications required by the Planning Department to review development projects are captured as related child records (CHILD_ID column) with the PRJ record serving as the parent record. The dataset for related child records and other Planning records can be found at https://data.sfgov.org/Economy-and-Community/Planning-Department-Non-Projects/y673-d69b/about_data . B. HOW THE DATASET IS CREATED Records have been exported from the Planning Department's Accela permitting system. C. UPDATE PROCESS Updated nightly ",
+   "claims": [],
+   "confidence": "documentation officielle du producteur",
+   "limitations": "Une demande déposée n’est pas une autorisation ; noms des demandeurs et instructeurs exclus.",
+   "id": "k-ds-qvu5-m3a2",
+   "version": 1,
+   "status": "approved",
+   "history": [],
+   "created": {
+    "at": "2026-10-13T23:29:02.498Z",
+    "by": "human:founder",
+    "proposal": "prop-1"
+   }
+  },
+  {
+   "source": "src-openmeteo",
+   "title": "Open-Meteo Air Quality API — modelled values (CAMS)",
+   "url": "https://open-meteo.com/en/docs/air-quality-api",
+   "retrieved_at": "2026-10-13",
+   "stale_after_days": 365,
+   "topics": [
+    "air",
+    "quality",
+    "pm2",
+    "aqi",
+    "cams",
+    "model",
+    "capteur",
+    "mesure",
+    "modele"
+   ],
+   "text": "Open-Meteo’s Air Quality API serves forecasts from the Copernicus Atmosphere Monitoring Service (CAMS). Outside Europe it uses the CAMS global model at coarse resolution (tens of kilometres). PM2.5 and the US AQI are computed from modelled concentrations; they are not sensor measurements. Street-level variation, such as traffic or construction dust, is not resolved. Qualité de l’air : valeur de modèle, pas une mesure de capteur.",
+   "claims": [
+    {
+     "key": "openmeteo-aq-is-measurement",
+     "value": false
+    }
+   ],
+   "confidence": "documentation du fournisseur",
+   "limitations": "Modèle à résolution grossière ; ne décrit pas l’exposition au niveau d’une rue.",
+   "id": "k-air-quality-model",
+   "version": 1,
+   "status": "approved",
+   "history": [],
+   "created": {
+    "at": "2026-10-13T23:29:02.551Z",
+    "by": "human:founder",
+    "proposal": "prop-2"
+   }
+  },
+  {
+   "source": "src-caiso",
+   "title": "CAISO Today’s Outlook — supply by resource type",
+   "url": "https://www.caiso.com/todays-outlook",
+   "retrieved_at": "2026-10-13",
+   "stale_after_days": 365,
+   "topics": [
+    "caiso",
+    "grid",
+    "reseau",
+    "mix",
+    "solar",
+    "wind",
+    "renewables",
+    "zone",
+    "mw"
+   ],
+   "text": "CAISO’s Today’s Outlook publishes electricity supply every 5 minutes by resource type (solar, wind, geothermal, biomass, biogas, small hydro, coal, nuclear, natural gas, large hydro, batteries, imports, other), in megawatts (MW), for the CAISO balancing authority area, which covers most of California. Battery values are negative while charging. The figures describe the state grid zone, not San Francisco’s own consumption, and are operational data that may be revised.",
+   "claims": [
+    {
+     "key": "caiso-mix-is-san-francisco-specific",
+     "value": false
+    }
+   ],
+   "confidence": "données opérationnelles officielles",
+   "limitations": "Échelle de l’État ; pas de lien direct avec un tronçon ou un bâtiment.",
+   "id": "k-caiso-outlook",
+   "version": 1,
+   "status": "approved",
+   "history": [],
+   "created": {
+    "at": "2026-10-13T23:29:02.606Z",
+    "by": "human:founder",
+    "proposal": "prop-3"
+   }
+  },
+  {
+   "source": "src-core",
+   "title": "CORE simulation integrity rules",
+   "url": "https://github.com/vincentleg/core/blob/main/docs/PHASE_4_REPORT.md",
+   "retrieved_at": "2026-10-13",
+   "stale_after_days": 365,
+   "topics": [
+    "simulation",
+    "scenario",
+    "parametres",
+    "modele",
+    "langage",
+    "chiffres",
+    "recalcul",
+    "passerelle"
+   ],
+   "text": "In CORE only validated deterministic models produce modelled numbers: coordination-schedule-v1, tree-proximity-exposure-v1 and evidence-completeness-v1. Agents, including model-assisted agents, may propose parameters within bounded ranges: tree radius 5–30 m, frontage 20–80 m, horizon 30–120 days, deferral 7–60 days, building recency 90–730 days. The deterministic investigation computes the results and the gateway recomputes them. A language model never produces simulation outputs or other numbers; it can only make a decision more cautious by requesting evidence. No traffic, energy or ecological model is calibrated.",
+   "claims": [
+    {
+     "key": "llm-may-produce-model-numbers",
+     "value": false
+    }
+   ],
+   "confidence": "règle de conception CORE (vérifiée par tests)",
+   "limitations": "Règle interne ; ne valide pas les modèles eux-mêmes.",
+   "id": "k-simulation-integrity",
+   "version": 1,
+   "status": "approved",
+   "history": [],
+   "created": {
+    "at": "2026-10-13T23:29:02.659Z",
+    "by": "human:founder",
+    "proposal": "prop-4"
+   }
+  }
+ ],
+ "proposals": [
+  {
+   "id": "prop-1",
+   "docId": "k-ds-qvu5-m3a2",
+   "proposedBy": "core.san-francisco.housing.urban-planning-analyst",
+   "change": {
+    "source": "src-datasf",
+    "title": "Planning Department Records - Projects — documentation officielle du jeu (qvu5-m3a2)",
+    "url": "https://data.sf.gov/d/qvu5-m3a2",
+    "retrieved_at": "2026-10-13",
+    "stale_after_days": 365,
+    "topics": [
+     "planning",
+     "department",
+     "records",
+     "projects"
+    ],
+    "text": "A. SUMMARY This dataset is a list of projects and project data captured by PRJ records from the Planning Department's Accela database. Supplemental applications required by the Planning Department to review development projects are captured as related child records (CHILD_ID column) with the PRJ record serving as the parent record. The dataset for related child records and other Planning records can be found at https://data.sfgov.org/Economy-and-Community/Planning-Department-Non-Projects/y673-d69b/about_data . B. HOW THE DATASET IS CREATED Records have been exported from the Planning Department's Accela permitting system. C. UPDATE PROCESS Updated nightly ",
+    "claims": [],
+    "confidence": "documentation officielle du producteur",
+    "limitations": "Une demande déposée n’est pas une autorisation ; noms des demandeurs et instructeurs exclus."
+   },
+   "reason": "Analyste en urbanisme (assisté par modèle) utilise planning.records sans documentation de la source dans sa collection.",
+   "gap": {
+    "kind": "coverage",
+    "agent": "core.san-francisco.housing.urban-planning-analyst",
+    "tool": "planning.records",
+    "dataset": "qvu5-m3a2",
+    "feed": "datasf-planning",
+    "doc": null,
+    "text": "Analyste en urbanisme (assisté par modèle) utilise planning.records sans documentation de la source dans sa collection."
+   },
+   "provenance": {
+    "authorizedSource": "datasf-metadata",
+    "fetched": "https://data.sf.gov/api/views/qvu5-m3a2.json",
+    "fetched_at": "2026-10-13T23:26:47.398Z",
+    "attribution": "City and County of San Francisco Planning Department",
+    "license": "Public Domain U.S. Government",
+    "rowsUpdatedAt": "2026-10-13T06:10:45.000Z"
+   },
+   "collections": [
+    "core.san-francisco.housing.urban-planning-analyst"
+   ],
+   "validation": {
+    "pass": true,
+    "checks": [
+     {
+      "id": "authorized-source",
+      "label": "source autorisée et enregistrée",
+      "pass": true,
+      "detail": "data.sf.gov"
+     },
+     {
+      "id": "license",
+      "label": "licence déclarée par le producteur",
+      "pass": true,
+      "detail": "Public Domain U.S. Government"
+     },
+     {
+      "id": "attribution",
+      "label": "producteur identifié",
+      "pass": true,
+      "detail": "City and County of San Francisco Planning Department"
+     },
+     {
+      "id": "dated",
+      "label": "date de mise à jour connue",
+      "pass": true,
+      "detail": "2026-10-13T06:10:45.000Z"
+     },
+     {
+      "id": "relevance",
+      "label": "pertinence (termes communs avec la lacune, ou identifiant du jeu)",
+      "pass": true,
+      "detail": "planning, records, documentation, qvu5, m3a2"
+     },
+     {
+      "id": "novel",
+      "label": "pas de doublon dans la bibliothèque",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "non-empty",
+      "label": "contenu exploitable",
+      "pass": true,
+      "detail": "664 caractères"
+     }
+    ]
+   },
+   "newSource": null,
+   "importance": "important",
+   "requiresHumanApproval": true,
+   "status": "approved",
+   "created": "2026-10-13T23:26:50.869Z",
+   "evaluation": [
+    {
+     "agent": "urban-planning-analyst",
+     "before": {
+      "agent": "core.san-francisco.housing.urban-planning-analyst",
+      "score": 0.5,
+      "results": [
+       {
+        "question": "Que représente un dossier PRJ du Planning Department et à quelle fréquence le jeu est-il mis à jour ?",
+        "expect": "qvu5-m3a2",
+        "pass": false,
+        "got": [
+         "k-building-permits",
+         "k-provenance"
+        ]
+       },
+       {
+        "question": "Le statut issued d’un permis DBI prouve-t-il un chantier en cours ?",
+        "expect": "k-dbi-issued-status",
+        "pass": true,
+        "got": [
+         "k-dbi-issued-status",
+         "k-building-permits",
+         "k-coordination-method"
+        ]
+       }
+      ],
+      "libraryVersion": "core-knowledge-library-v1"
+     },
+     "after": {
+      "agent": "core.san-francisco.housing.urban-planning-analyst",
+      "score": 1,
+      "results": [
+       {
+        "question": "Que représente un dossier PRJ du Planning Department et à quelle fréquence le jeu est-il mis à jour ?",
+        "expect": "qvu5-m3a2",
+        "pass": true,
+        "got": [
+         "k-ds-qvu5-m3a2",
+         "k-building-permits",
+         "k-provenance"
+        ]
+       },
+       {
+        "question": "Le statut issued d’un permis DBI prouve-t-il un chantier en cours ?",
+        "expect": "k-dbi-issued-status",
+        "pass": true,
+        "got": [
+         "k-dbi-issued-status",
+         "k-building-permits",
+         "k-coordination-method"
+        ]
+       }
+      ],
+      "libraryVersion": "core-knowledge-library-v1"
+     }
+    }
+   ],
+   "reviewer": "human:founder",
+   "reviewed": "2026-10-13T23:29:02.498Z"
+  },
+  {
+   "id": "prop-2",
+   "docId": "k-air-quality-model",
+   "proposedBy": "curator:phase-4-build",
+   "change": {
+    "source": "src-openmeteo",
+    "title": "Open-Meteo Air Quality API — modelled values (CAMS)",
+    "url": "https://open-meteo.com/en/docs/air-quality-api",
+    "retrieved_at": "2026-10-13",
+    "stale_after_days": 365,
+    "topics": [
+     "air",
+     "quality",
+     "pm2",
+     "aqi",
+     "cams",
+     "model",
+     "capteur",
+     "mesure",
+     "modele"
+    ],
+    "text": "Open-Meteo’s Air Quality API serves forecasts from the Copernicus Atmosphere Monitoring Service (CAMS). Outside Europe it uses the CAMS global model at coarse resolution (tens of kilometres). PM2.5 and the US AQI are computed from modelled concentrations; they are not sensor measurements. Street-level variation, such as traffic or construction dust, is not resolved. Qualité de l’air : valeur de modèle, pas une mesure de capteur.",
+    "claims": [
+     {
+      "key": "openmeteo-aq-is-measurement",
+      "value": false
+     }
+    ],
+    "confidence": "documentation du fournisseur",
+    "limitations": "Modèle à résolution grossière ; ne décrit pas l’exposition au niveau d’une rue."
+   },
+   "reason": "Documentation de Open-Meteo Air Quality API — modelled values (CAMS) absente des collections concernées.",
+   "gap": {
+    "kind": "curated",
+    "agent": "core.san-francisco.environmental.environmental-analyst",
+    "text": "Documentation de Open-Meteo Air Quality API — modelled values (CAMS) absente des collections concernées."
+   },
+   "provenance": {
+    "curated": "knowledge/curated-phase4.json",
+    "source": "https://open-meteo.com/en/docs/air-quality-api"
+   },
+   "collections": [
+    "core.san-francisco.environmental.environmental-analyst"
+   ],
+   "validation": null,
+   "newSource": {
+    "id": "src-openmeteo",
+    "name": "Open-Meteo (Air Quality API, CAMS data)",
+    "publisher": "Open-Meteo.com",
+    "url": "https://open-meteo.com/en/docs/air-quality-api",
+    "license": "CC BY 4.0 (data: Copernicus Atmosphere Monitoring Service)",
+    "kind": "registered open data (non-governmental)"
+   },
+   "importance": "important",
+   "requiresHumanApproval": true,
+   "status": "approved",
+   "created": "2026-10-13T23:26:50.872Z",
+   "evaluation": [
+    {
+     "agent": "environmental-analyst",
+     "before": {
+      "agent": "core.san-francisco.environmental.environmental-analyst",
+      "score": 0.5,
+      "results": [
+       {
+        "question": "La qualité de l’air affichée est-elle une mesure de capteur ou un modèle CAMS ?",
+        "expect": "k-air-quality-model",
+        "pass": false,
+        "got": []
+       },
+       {
+        "question": "Un avis d’abattage confirme-t-il que l’arbre a été abattu ?",
+        "expect": "k-tree-removals",
+        "pass": true,
+        "got": [
+         "k-tree-removals",
+         "k-proximity-indicator",
+         "k-street-trees"
+        ]
+       }
+      ],
+      "libraryVersion": "core-knowledge-library-v1"
+     },
+     "after": {
+      "agent": "core.san-francisco.environmental.environmental-analyst",
+      "score": 1,
+      "results": [
+       {
+        "question": "La qualité de l’air affichée est-elle une mesure de capteur ou un modèle CAMS ?",
+        "expect": "k-air-quality-model",
+        "pass": true,
+        "got": [
+         "k-air-quality-model"
+        ]
+       },
+       {
+        "question": "Un avis d’abattage confirme-t-il que l’arbre a été abattu ?",
+        "expect": "k-tree-removals",
+        "pass": true,
+        "got": [
+         "k-tree-removals",
+         "k-proximity-indicator",
+         "k-street-trees"
+        ]
+       }
+      ],
+      "libraryVersion": "core-knowledge-library-v1"
+     }
+    }
+   ],
+   "reviewer": "human:founder",
+   "reviewed": "2026-10-13T23:29:02.551Z"
+  },
+  {
+   "id": "prop-3",
+   "docId": "k-caiso-outlook",
+   "proposedBy": "curator:phase-4-build",
+   "change": {
+    "source": "src-caiso",
+    "title": "CAISO Today’s Outlook — supply by resource type",
+    "url": "https://www.caiso.com/todays-outlook",
+    "retrieved_at": "2026-10-13",
+    "stale_after_days": 365,
+    "topics": [
+     "caiso",
+     "grid",
+     "reseau",
+     "mix",
+     "solar",
+     "wind",
+     "renewables",
+     "zone",
+     "mw"
+    ],
+    "text": "CAISO’s Today’s Outlook publishes electricity supply every 5 minutes by resource type (solar, wind, geothermal, biomass, biogas, small hydro, coal, nuclear, natural gas, large hydro, batteries, imports, other), in megawatts (MW), for the CAISO balancing authority area, which covers most of California. Battery values are negative while charging. The figures describe the state grid zone, not San Francisco’s own consumption, and are operational data that may be revised.",
+    "claims": [
+     {
+      "key": "caiso-mix-is-san-francisco-specific",
+      "value": false
+     }
+    ],
+    "confidence": "données opérationnelles officielles",
+    "limitations": "Échelle de l’État ; pas de lien direct avec un tronçon ou un bâtiment."
+   },
+   "reason": "Documentation de CAISO Today’s Outlook — supply by resource type absente des collections concernées.",
+   "gap": {
+    "kind": "curated",
+    "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+    "text": "Documentation de CAISO Today’s Outlook — supply by resource type absente des collections concernées."
+   },
+   "provenance": {
+    "curated": "knowledge/curated-phase4.json",
+    "source": "https://www.caiso.com/todays-outlook"
+   },
+   "collections": [
+    "core.san-francisco.energy.energy-infrastructure-analyst"
+   ],
+   "validation": null,
+   "newSource": {
+    "id": "src-caiso",
+    "name": "California ISO — Today’s Outlook",
+    "publisher": "California Independent System Operator",
+    "url": "https://www.caiso.com/todays-outlook",
+    "license": "Public operational data (attribution CAISO)",
+    "kind": "grid operator (public data)"
+   },
+   "importance": "important",
+   "requiresHumanApproval": true,
+   "status": "approved",
+   "created": "2026-10-13T23:26:50.872Z",
+   "evaluation": [
+    {
+     "agent": "energy-infrastructure-analyst",
+     "before": {
+      "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+      "score": 0.5,
+      "results": [
+       {
+        "question": "Quelle zone couvre le mix de production CAISO et en quelle unité ?",
+        "expect": "k-caiso-outlook",
+        "pass": false,
+        "got": []
+       },
+       {
+        "question": "Les bilans énergétiques des bâtiments sont-ils déclarés ou mesurés par la ville ?",
+        "expect": "k-energy-ordinance",
+        "pass": true,
+        "got": [
+         "k-energy-ordinance",
+         "k-coordination-method"
+        ]
+       }
+      ],
+      "libraryVersion": "core-knowledge-library-v1"
+     },
+     "after": {
+      "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+      "score": 1,
+      "results": [
+       {
+        "question": "Quelle zone couvre le mix de production CAISO et en quelle unité ?",
+        "expect": "k-caiso-outlook",
+        "pass": true,
+        "got": [
+         "k-caiso-outlook"
+        ]
+       },
+       {
+        "question": "Les bilans énergétiques des bâtiments sont-ils déclarés ou mesurés par la ville ?",
+        "expect": "k-energy-ordinance",
+        "pass": true,
+        "got": [
+         "k-energy-ordinance",
+         "k-coordination-method"
+        ]
+       }
+      ],
+      "libraryVersion": "core-knowledge-library-v1"
+     }
+    }
+   ],
+   "reviewer": "human:founder",
+   "reviewed": "2026-10-13T23:29:02.606Z"
+  },
+  {
+   "id": "prop-4",
+   "docId": "k-simulation-integrity",
+   "proposedBy": "curator:phase-4-build",
+   "change": {
+    "source": "src-core",
+    "title": "CORE simulation integrity rules",
+    "url": "https://github.com/vincentleg/core/blob/main/docs/PHASE_4_REPORT.md",
+    "retrieved_at": "2026-10-13",
+    "stale_after_days": 365,
+    "topics": [
+     "simulation",
+     "scenario",
+     "parametres",
+     "modele",
+     "langage",
+     "chiffres",
+     "recalcul",
+     "passerelle"
+    ],
+    "text": "In CORE only validated deterministic models produce modelled numbers: coordination-schedule-v1, tree-proximity-exposure-v1 and evidence-completeness-v1. Agents, including model-assisted agents, may propose parameters within bounded ranges: tree radius 5–30 m, frontage 20–80 m, horizon 30–120 days, deferral 7–60 days, building recency 90–730 days. The deterministic investigation computes the results and the gateway recomputes them. A language model never produces simulation outputs or other numbers; it can only make a decision more cautious by requesting evidence. No traffic, energy or ecological model is calibrated.",
+    "claims": [
+     {
+      "key": "llm-may-produce-model-numbers",
+      "value": false
+     }
+    ],
+    "confidence": "règle de conception CORE (vérifiée par tests)",
+    "limitations": "Règle interne ; ne valide pas les modèles eux-mêmes."
+   },
+   "reason": "Documentation de CORE simulation integrity rules absente des collections concernées.",
+   "gap": {
+    "kind": "curated",
+    "agent": "core.san-francisco.simulation.scenario-analyst",
+    "text": "Documentation de CORE simulation integrity rules absente des collections concernées."
+   },
+   "provenance": {
+    "curated": "knowledge/curated-phase4.json",
+    "source": "https://github.com/vincentleg/core/blob/main/docs/PHASE_4_REPORT.md"
+   },
+   "collections": [
+    "core.san-francisco.simulation.scenario-analyst",
+    "core.san-francisco.research.evidence-reviewer"
+   ],
+   "validation": null,
+   "newSource": null,
+   "importance": "important",
+   "requiresHumanApproval": true,
+   "status": "approved",
+   "created": "2026-10-13T23:26:50.873Z",
+   "evaluation": [
+    {
+     "agent": "scenario-analyst",
+     "before": {
+      "agent": "core.san-francisco.simulation.scenario-analyst",
+      "score": 0,
+      "results": [
+       {
+        "question": "Quels paramètres un agent peut-il proposer et qui calcule les résultats des scénarios ?",
+        "expect": "k-simulation-integrity",
+        "pass": false,
+        "got": [
+         "k-coordination-method"
+        ]
+       }
+      ],
+      "libraryVersion": "core-knowledge-library-v1"
+     },
+     "after": {
+      "agent": "core.san-francisco.simulation.scenario-analyst",
+      "score": 1,
+      "results": [
+       {
+        "question": "Quels paramètres un agent peut-il proposer et qui calcule les résultats des scénarios ?",
+        "expect": "k-simulation-integrity",
+        "pass": true,
+        "got": [
+         "k-simulation-integrity",
+         "k-coordination-method"
+        ]
+       }
+      ],
+      "libraryVersion": "core-knowledge-library-v1"
+     }
+    },
+    {
+     "agent": "evidence-reviewer",
+     "before": {
+      "agent": "core.san-francisco.research.evidence-reviewer",
+      "score": 0,
+      "results": [
+       {
+        "question": "Un modèle de langage peut-il produire des chiffres de simulation ?",
+        "expect": "k-simulation-integrity",
+        "pass": false,
+        "got": []
+       }
+      ],
+      "libraryVersion": "core-knowledge-library-v1"
+     },
+     "after": {
+      "agent": "core.san-francisco.research.evidence-reviewer",
+      "score": 1,
+      "results": [
+       {
+        "question": "Un modèle de langage peut-il produire des chiffres de simulation ?",
+        "expect": "k-simulation-integrity",
+        "pass": true,
+        "got": [
+         "k-simulation-integrity"
+        ]
+       }
+      ],
+      "libraryVersion": "core-knowledge-library-v1"
+     }
+    }
+   ],
+   "reviewer": "human:founder",
+   "reviewed": "2026-10-13T23:29:02.659Z"
+  }
+ ],
+ "collections": {
+  "core.san-francisco.housing.urban-planning-analyst": [
+   "k-ds-qvu5-m3a2"
   ],
-  "documents": [
-    { "id": "k-street-use-permits", "source": "src-datasf", "title": "Street-Use Permits (b6tj-gt35)", "url": "https://data.sf.gov/d/b6tj-gt35", "retrieved_at": "2026-10-13", "version": 1, "status": "approved", "stale_after_days": 30, "topics": ["infrastructure", "permits", "excavation", "works"],
-      "text": "Public Works street-space permits including excavation, street improvement, boring and emergency permits. Each record has a permit number, type, status, CNN location, holder organisation and authorized start/end dates. A permit authorizes a window; it does not prove that work happened.",
-      "claims": [{ "key": "street-use-permit-proves-work", "value": false }], "confidence": "high (official register)", "limitations": "Administrative record; contact columns removed by CORE." },
-    { "id": "k-coordination-method", "source": "src-core", "title": "CORE coordination method (Phase 2C/2D)", "url": "https://github.com/vincentleg/core/blob/main/docs/PHASE_2C_REPORT.md", "retrieved_at": "2026-10-13", "version": 1, "status": "approved", "stale_after_days": 365, "topics": ["method", "coordination", "scheduling", "scenarios"],
-      "text": "Deterministic scheduling under declared constraints: ±30 days shift, 7 days notice, programme permits over 90 days fixed, durations preserved. Overlap between organisations is reported as neutral. Recommendations require dominance or verified overlaps; a gateway recomputes everything.",
-      "claims": [{ "key": "max-shift-days", "value": 30 }], "confidence": "method (declared assumptions)", "limitations": "Not municipal rules; no traffic or cost model." },
-    { "id": "k-street-trees", "source": "src-datasf", "title": "Street Tree Inventory (tkzw-k3nq)", "url": "https://data.sf.gov/d/tkzw-k3nq", "retrieved_at": "2026-10-13", "version": 1, "status": "approved", "stale_after_days": 30, "topics": ["nature", "trees", "forestry", "inventory"],
-      "text": "Public Works asset inventory of street trees with species, legal status, site, planting date, diameter class, CNN and coordinates. The dataset was migrated to a new asset system in December 2024 and corrected in 2026.",
-      "claims": [], "confidence": "medium (inventory not field-verified by CORE)", "limitations": "Planting dates often missing; presence not verified." },
-    { "id": "k-tree-removals", "source": "src-datasf", "title": "Street Tree Removal Notifications (qrwx-q4gg)", "url": "https://data.sf.gov/d/qrwx-q4gg", "retrieved_at": "2026-10-13", "version": 1, "status": "approved", "stale_after_days": 30, "topics": ["nature", "trees", "removal", "notice", "events"],
-      "text": "24-hour, 15-day or 30-day public notices posted on trees after a removal permit. A notice does not confirm that the tree was removed.",
-      "claims": [{ "key": "removal-notice-proves-removal", "value": false }], "confidence": "high (official notice register)", "limitations": "Removal execution is not recorded." },
-    { "id": "k-proximity-indicator", "source": "src-core", "title": "Tree proximity indicator (tree-proximity-exposure-v1)", "url": "https://github.com/vincentleg/core/blob/main/docs/PHASE_2_REPORT.md", "retrieved_at": "2026-10-13", "version": 1, "status": "approved", "stale_after_days": 365, "topics": ["method", "trees", "proximity", "uncertainty"],
-      "text": "Counts inventoried trees within a radius of the published permit point. Permit points are geocoded to the address or segment, not the trench alignment, so distances are indicative and results are sensitive to the radius.",
-      "claims": [{ "key": "proximity-implies-damage", "value": false }], "confidence": "indicator only", "limitations": "Not a damage or ecological model." },
-    { "id": "k-building-permits", "source": "src-datasf", "title": "Building Permits (i98e-djp9)", "url": "https://data.sf.gov/d/i98e-djp9", "retrieved_at": "2026-10-13", "version": 1, "status": "approved", "stale_after_days": 7, "topics": ["buildings", "permits", "housing", "development"],
-      "text": "Department of Building Inspection permits with type, status, filed, issued and completed dates, address, block/lot and description. Since December 2024 only new or updated rows are published.",
-      "claims": [], "confidence": "high (official register)", "limitations": "Free-text descriptions; statuses may stay open." },
-    { "id": "k-dbi-issued-status", "source": "src-core", "title": "Observation: DBI 'issued' status is not a reliable activity signal", "url": "https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCE_REGISTRY.md", "retrieved_at": "2026-10-13", "version": 1, "status": "approved", "stale_after_days": 90, "topics": ["buildings", "data-quality", "permits"],
-      "text": "In the 2026-10-13 snapshot, 540 of 669 building permits with status 'issued' near the Folsom/Howard corridor were issued more than three years earlier without a completion date. CORE therefore uses a recency window to treat a permit as current.",
-      "claims": [{ "key": "dbi-issued-implies-active-construction", "value": false }], "confidence": "derived from snapshot", "limitations": "Corridor sample only." },
-    { "id": "k-energy-ordinance", "source": "src-datasf", "title": "Existing Buildings Energy Performance Ordinance Report (96ck-qcfe)", "url": "https://data.sf.gov/d/96ck-qcfe", "retrieved_at": "2026-10-13", "version": 1, "status": "approved", "stale_after_days": 60, "topics": ["energy", "buildings", "benchmark"],
-      "text": "Annual benchmarks reported by owners of non-residential buildings of at least 10,000 sq ft and residential buildings of at least 50,000 sq ft (Environment Code Chapter 20), via Energy Star Portfolio Manager: site and source EUI, GHG, Energy Star score, compliance status.",
-      "claims": [{ "key": "energy-benchmark-measured-by-city", "value": false }], "confidence": "self-reported", "limitations": "Not metered by CORE; no savings model." },
-    { "id": "k-sidewalk-widths", "source": "src-datasf", "title": "Sidewalk Widths (4g86-grxu)", "url": "https://data.sf.gov/d/4g86-grxu", "retrieved_at": "2026-10-13", "version": 1, "status": "approved", "stale_after_days": 3650, "topics": ["public_space", "sidewalk", "accessibility"],
-      "text": "Sidewalk presence and widths from a 2014 AECOM study joined to centerlines, with minimum and recommended widths by street class.",
-      "claims": [{ "key": "sidewalk-width-year", "value": 2014 }], "confidence": "medium (2014 study)", "limitations": "May not reflect later streetscape projects." },
-    { "id": "k-usgs-feed", "source": "src-usgs", "title": "USGS real-time earthquake feeds", "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php", "retrieved_at": "2026-10-13", "version": 1, "status": "approved", "stale_after_days": 365, "topics": ["climate", "resilience", "earthquake", "emergency"],
-      "text": "GeoJSON feeds of recent earthquakes with magnitude, place, time, coordinates, review status (automatic or reviewed). Automatic solutions can be revised.",
-      "claims": [{ "key": "usgs-automatic-events-revisable", "value": true }], "confidence": "high (official measurement network)", "limitations": "Location and magnitude uncertainty; no impact assessment." },
-    { "id": "k-no-structural-data", "source": "src-core", "title": "Limitation: no structural or subsurface data", "url": "https://github.com/vincentleg/core/blob/main/docs/PHASE_3_REPORT.md", "retrieved_at": "2026-10-13", "version": 1, "status": "approved", "stale_after_days": 365, "topics": ["resilience", "limitation", "earthquake"],
-      "text": "CORE has no structural, soil or liquefaction data for corridor assets. It can list assets near an event but cannot assess damage.",
-      "claims": [{ "key": "core-can-assess-seismic-damage", "value": false }], "confidence": "certain (scope statement)", "limitations": "" },
-    { "id": "k-nws-alerts", "source": "src-nws", "title": "NWS active alerts API", "url": "https://www.weather.gov/documentation/services-web-api", "retrieved_at": "2026-10-13", "version": 1, "status": "approved", "stale_after_days": 365, "topics": ["climate", "weather", "alerts", "emergency"],
-      "text": "Active watches, warnings and advisories by forecast zone (San Francisco: CAZ006). Alerts are forecasts and warnings, not observations.",
-      "claims": [{ "key": "nws-alert-is-observation", "value": false }], "confidence": "official forecast", "limitations": "Zone-level, not street-level." },
-    { "id": "k-legistar", "source": "src-legistar", "title": "Board of Supervisors legislative records", "url": "https://sfbos.org/legislation", "retrieved_at": "2026-10-13", "version": 1, "status": "approved", "stale_after_days": 365, "topics": ["administration", "policy", "legislation"],
-      "text": "Legislative matters with file number, type (ordinance, resolution, hearing…), status, body and dates. CORE stores metadata only and classifies items as proposals or approved decisions from the official status, without evaluating positions or actors.",
-      "claims": [], "confidence": "official record", "limitations": "Titles only; no text analysis." },
-    { "id": "k-neutrality", "source": "src-core", "title": "Civic neutrality policy", "url": "https://github.com/vincentleg/core/blob/main/docs/PHASE_3_REPORT.md", "retrieved_at": "2026-10-13", "version": 1, "status": "approved", "stale_after_days": 3650, "topics": ["policy", "neutrality", "administration"],
-      "text": "Political and civic items are attributed to their official source, classified only by type and status, never ranked or used to persuade. Sponsors and officials are not scored.",
-      "claims": [], "confidence": "policy", "limitations": "" },
-    { "id": "k-graph-bases", "source": "src-core", "title": "Knowledge graph relationship bases", "url": "https://github.com/vincentleg/core/blob/main/docs/CITY_INTELLIGENCE_ARCHITECTURE.md", "retrieved_at": "2026-10-13", "version": 1, "status": "approved", "stale_after_days": 365, "topics": ["method", "graph"],
-      "text": "Relationships are observed, derived, rule-based or hypotheses, each with a reason. AFFECTS is hypothesis-only; proximity never implies causality.",
-      "claims": [{ "key": "proximity-implies-causality", "value": false }], "confidence": "method", "limitations": "" },
-    { "id": "k-provenance", "source": "src-core", "title": "Provenance and verification rules", "url": "https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCE_REGISTRY.md", "retrieved_at": "2026-10-13", "version": 1, "status": "approved", "stale_after_days": 365, "topics": ["method", "provenance", "evidence"],
-      "text": "Snapshots carry request URLs, retrieval times and SHA-256 checksums verified in Node and in the browser. Reported claims from feeds remain 'reported' until corroborated by an official record.",
-      "claims": [], "confidence": "method", "limitations": "" },
-    { "id": "k-golden-gate-span", "source": "src-ggbhtd", "title": "Golden Gate Bridge main span", "url": "https://www.goldengate.org/bridge/history-research/statistics-data/design-construction-stats/", "retrieved_at": "2026-10-13", "version": 1, "status": "approved", "stale_after_days": 3650, "topics": ["landmark", "bridge"],
-      "text": "Published main span between towers: 1,280 m (4,200 ft).", "claims": [{ "key": "golden-gate-main-span-m", "value": 1280, "tolerance": 0.005 }], "confidence": "official", "limitations": "" },
-    { "id": "k-golden-gate-osm", "source": "src-core", "title": "OSM-measured Golden Gate tower spacing", "url": "https://www.openstreetmap.org/relation/21407754", "retrieved_at": "2026-10-13", "version": 1, "status": "approved", "stale_after_days": 3650, "topics": ["landmark", "bridge", "osm"],
-      "text": "Distance between the OSM south and north tower centroids measured by CORE: 1,283.0 m.", "claims": [{ "key": "golden-gate-main-span-m", "value": 1283, "tolerance": 0.005 }], "confidence": "derived (community mapping)", "limitations": "Centroids of mapped tower parts." }
+  "core.san-francisco.environmental.environmental-analyst": [
+   "k-air-quality-model"
   ],
-  "proposals": []
+  "core.san-francisco.energy.energy-infrastructure-analyst": [
+   "k-caiso-outlook"
+  ],
+  "core.san-francisco.simulation.scenario-analyst": [
+   "k-simulation-integrity"
+  ],
+  "core.san-francisco.research.evidence-reviewer": [
+   "k-simulation-integrity"
+  ]
+ }
 }

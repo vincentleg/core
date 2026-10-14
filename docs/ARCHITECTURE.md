@@ -1,6 +1,6 @@
 # Existing architecture
 
-Current state: Phase 3 (agent organization, city intelligence, professional platform) complete — see `PHASE_3_REPORT.md` and `CITY_INTELLIGENCE_ARCHITECTURE.md`.
+Current state: Phase 4 (model-assisted agents, evaluated learning, living City Intelligence) complete — see `PHASE_4_REPORT.md`, `PHASE_4_AUDIT.md` and `CITY_INTELLIGENCE_ARCHITECTURE.md`.
 
 CORE is a static two-page application with committed public-data snapshots. There is no backend, database, account system, worker pool, LLM service, telemetry pipeline, or infrastructure actuator.
 
@@ -54,6 +54,20 @@ flowchart LR
 
 `src/org.js` (registry and hierarchy), `src/tools.js` (executable specialist tools with typed, resolvable evidence), `src/missions.js` (orchestration, bounded worker pool, mission gateway), `src/knowledge.js` + `data/knowledge/library.json` (versioned knowledge, retrieval, contradictions, human approval), `src/evals.js` (competency evaluations), `src/feeds.js` + `scripts/city-feed.mjs` + `data/feeds/` (official sources, normalization, verification, classification, geolocation, suggestions), `src/llm.js` + `scripts/llm-check.mjs` (optional local model interface; not operational), `scripts/agents.mjs` (persists registry, evaluations, recorded missions), `src/platform.js` (seven-section professional shell) and `src/camera.js` (3D navigation). See [PHASE_3_REPORT.md](PHASE_3_REPORT.md).
 
+## Model-assisted agents, learning and scheduled refresh (Phase 4)
+
+- `src/llm.js`: provider-independent local adapter (Ollama default `qwen3:8b`, OpenAI-compatible local servers). Loopback endpoints only; bounded context and output; timeouts and cancellation; tool calling; JSON-schema structured output; typed errors.
+- `src/cognitive.js`: 12-stage model-assisted missions with 5 specialists.
+  - **Model:** chooses permitted tools and writes structured interpretations.
+  - **Code:** produces the evidence register (E#) and every number; validates each output (citations, numbers, no decision language); routes evidence requests; recomputes proposed scenario parameters with the validated deterministic models.
+  - **Gateway:** `issueCognitiveDecision` recomputes every tool call and re-validates every output; model content can only add caution.
+- `src/cognitive-view.js`: the mission workspace.
+- `src/learning.js` + `scripts/learn.mjs`: gaps → authorized source → validation → proposal → before/after evaluation → human approval → versioned promotion and rollback. Role-specific collections are recorded in `library.collections`.
+- `scripts/cognitive.mjs`: live runs recorded to `data/missions/cognitive/`, with measured resource use.
+- `test/live/`: live-model integration tests, separate from the mocked unit tests.
+- `.github/workflows/city-feed.yml`: browser-independent refresh.
+- `scripts/integrity-check.mjs` + `.githooks/`: commit and push gate.
+
 ## Corridor and engine
 
 `build.js` replaces two placeholders in the template with engine and UI source, producing a committed standalone HTML file for static hosting. `src/app.js` uses a hand-written 3D projection onto Canvas 2D; corridor buildings and globe outlines are illustrative. The live traffic display uses the same `Sim` class as plan evaluation.
@@ -70,4 +84,4 @@ The JSON includes the plan, reasons, comparisons, synthetic-data assumptions, va
 
 ## Verification
 
-`node build.js` assembles; `node --test test/*.test.js` checks assembly, parsing, reproducibility, bounded orchestration and permit states. Browser checks use a local HTTP server. No runtime dependencies were added in Phase 0. Phase 1 explicitly authorized correctness hardening. Equations and valid decision thresholds were preserved; input guards, scenario isolation, bounded execution and cancellation were added. UI clears stale proposals on failure/cancel, throttles DOM updates and uses capped elapsed-time stepping. Phase 1 and Phase 2B closing browser audits are summarized in their reports; `scripts/browser-audit.mjs` now includes 18 San Francisco and 17 agent-workspace checks 14 city-intelligence and 20 platform checks (93 total; workspace, investigation and mission checks compare browser runs with independent Node runs).
+`node build.js` assembles; `node --test test/*.test.js` checks assembly, parsing, reproducibility, bounded orchestration and permit states. Browser checks use a local HTTP server. No runtime dependencies were added in Phase 0. Phase 1 explicitly authorized correctness hardening. Equations and valid decision thresholds were preserved; input guards, scenario isolation, bounded execution and cancellation were added. UI clears stale proposals on failure/cancel, throttles DOM updates and uses capped elapsed-time stepping. Phase 1 and Phase 2B closing browser audits are summarized in their reports; `scripts/browser-audit.mjs` now includes 18 San Francisco and 17 agent-workspace checks 14 city-intelligence, 20 platform and 9 Phase 4 checks (up to 102 total; workspace, investigation and mission checks compare browser runs with independent Node runs).

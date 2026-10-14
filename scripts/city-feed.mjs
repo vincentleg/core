@@ -1,4 +1,5 @@
-// CORE City Intelligence collector (Phase 3). Dependency-free; official public sources only; rate-limited.
+// CORE City Intelligence collector (Phase 3–4). Dependency-free; official public sources only; rate-limited.
+// Scheduled runs: .github/workflows/city-feed.yml (GitHub Actions cron) — see docs/PHASE_4_REPORT.md for verified status.
 //   node scripts/city-feed.mjs            one pass over sources whose minimum interval has elapsed
 //   node scripts/city-feed.mjs --force    ignore per-source intervals (still 1 request per source)
 //   node scripts/city-feed.mjs --watch 30 repeat every 30 minutes WHILE THIS PROCESS RUNS (no background scheduler is installed)
@@ -28,10 +29,10 @@ async function pass() {
     st.lastAttempt = nowIso;
     try {
       const req = F.request(s.id, { now, corridorCnns });
-      const res = await fetch(req.url, { headers: { 'User-Agent': UA, Accept: req.type === 'rss' ? 'application/rss+xml, application/xml' : req.type === 'geojson' ? 'application/geo+json, application/json' : 'application/json' } });
+      const res = await fetch(req.url, { headers: { 'User-Agent': UA, Accept: req.type === 'rss' ? 'application/rss+xml, application/xml' : req.type === 'csv' ? 'text/csv' : req.type === 'geojson' ? 'application/geo+json, application/json' : 'application/json' } });
       const body = await res.text();
       if (!res.ok) throw Error(`HTTP ${res.status}`);
-      const items = F.itemsFrom(s.id, body);
+      const items = F.itemsFrom(s.id, body, req.opts);
       const m = F.merge(store, items, nowIso);
       Object.assign(st, { lastSuccess: nowIso, lastError: null, lastCount: items.length, lastAdded: m.added, lastChanged: m.changed, request: req.url });
       run.added += m.added; run.changed += m.changed;
@@ -46,9 +47,11 @@ async function pass() {
   for (const it of store.items) { const sg = F.suggest(it, ctx); if (sg && !keys.has(sg.key)) { keys.add(sg.key); suggestions.push({ ...sg, created: nowIso }); } }
   const health = F.health(store, nowIso);
   const next = watchMin ? new Date(now.getTime() + watchMin * 60000).toISOString() : null;
-  const state = { version: 'core-city-feed-state-v1', lastRun: run, lastSuccessfulUpdate: Object.values(store.sources).map(x => x.lastSuccess).filter(Boolean).sort().pop() || null,
-    nextScheduledUpdate: next, scheduler: watchMin ? `processus local de surveillance toutes les ${watchMin} min (s’arrête avec le processus)` : 'exécution manuelle (aucun planificateur de fond installé)',
-    sources: store.sources, health, coverageGaps: ['Pas d’actualités presse sous licence intégrées', 'Planning Department : pas de flux RSS public trouvé (404)', 'sf.gov : pas de flux RSS public trouvé (404)', 'Legistar et RSS non accessibles depuis le navigateur (pas de CORS) : collecte Node uniquement'],
+  const gh = process.env.GITHUB_ACTIONS === 'true';
+  const runner = gh ? { kind: 'github-actions', event: process.env.GITHUB_EVENT_NAME || null, runId: process.env.GITHUB_RUN_ID || null, runUrl: process.env.GITHUB_RUN_ID ? `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}` : null } : { kind: watchMin ? 'local-watch' : 'local-manual' };
+  const state = { version: 'core-city-feed-state-v2', lastRun: { ...run, runner }, lastSuccessfulUpdate: Object.values(store.sources).map(x => x.lastSuccess).filter(Boolean).sort().pop() || null,
+    nextScheduledUpdate: next, scheduler: gh ? 'GitHub Actions (cron .github/workflows/city-feed.yml) — exécution planifiée indépendante du navigateur ; horaires GitHub non garantis (retards possibles, désactivation après 60 jours sans activité du dépôt)' : watchMin ? `processus local de surveillance toutes les ${watchMin} min (s’arrête avec le processus)` : 'exécution manuelle locale',
+    sources: store.sources, health, coverageGaps: ['Pas d’actualités presse sous licence intégrées', 'Board of Supervisors : API Legistar publique figée depuis 2020 (source retirée) ; sfbos.org sans RSS (404)', 'sf.gov, SF Planning et SF Environment : pas de flux RSS public (404 ou délai dépassé le 2026-10-13)', 'SF Department of Emergency Management : flux RSS vide', 'Transports : pas d’alertes Muni/BART sans clé d’API (511.org exige une inscription)', 'Sécurité publique : aucun flux d’incidents individuels collecté (vie privée) ; seulement les avis officiels', 'RSS, CAISO et Legistar non accessibles depuis le navigateur (pas de CORS) : collecte Node uniquement'],
     suggestions };
   fs.writeFileSync(path.join(OUT, 'items.json'), JSON.stringify({ version: 'core-city-feed-items-v1', items: store.items }, null, 1) + '\n');
   fs.writeFileSync(path.join(OUT, 'state.json'), JSON.stringify(state, null, 1) + '\n');

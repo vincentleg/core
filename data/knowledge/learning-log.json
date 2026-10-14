@@ -1,0 +1,170 @@
+{
+ "version": "core-learning-log-v1",
+ "entries": [
+  {
+   "at": "2026-10-13T23:26:47.398Z",
+   "action": "gap",
+   "gap": {
+    "kind": "coverage",
+    "agent": "core.san-francisco.housing.urban-planning-analyst",
+    "tool": "planning.records",
+    "dataset": "qvu5-m3a2",
+    "feed": "datasf-planning",
+    "doc": null,
+    "text": "Analyste en urbanisme (assisté par modèle) utilise planning.records sans documentation de la source dans sa collection."
+   },
+   "candidate": {
+    "url": "https://data.sf.gov/api/views/qvu5-m3a2.json",
+    "provenance": {
+     "authorizedSource": "datasf-metadata",
+     "fetched": "https://data.sf.gov/api/views/qvu5-m3a2.json",
+     "fetched_at": "2026-10-13T23:26:47.398Z",
+     "attribution": "City and County of San Francisco Planning Department",
+     "license": "Public Domain U.S. Government",
+     "rowsUpdatedAt": "2026-10-13T06:10:45.000Z"
+    }
+   },
+   "validation": {
+    "pass": true,
+    "checks": [
+     {
+      "id": "authorized-source",
+      "label": "source autorisée et enregistrée",
+      "pass": true,
+      "detail": "data.sf.gov"
+     },
+     {
+      "id": "license",
+      "label": "licence déclarée par le producteur",
+      "pass": true,
+      "detail": "Public Domain U.S. Government"
+     },
+     {
+      "id": "attribution",
+      "label": "producteur identifié",
+      "pass": true,
+      "detail": "City and County of San Francisco Planning Department"
+     },
+     {
+      "id": "dated",
+      "label": "date de mise à jour connue",
+      "pass": true,
+      "detail": "2026-10-13T06:10:45.000Z"
+     },
+     {
+      "id": "relevance",
+      "label": "pertinence (termes communs avec la lacune, ou identifiant du jeu)",
+      "pass": true,
+      "detail": "planning, records, documentation, qvu5, m3a2"
+     },
+     {
+      "id": "novel",
+      "label": "pas de doublon dans la bibliothèque",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "non-empty",
+      "label": "contenu exploitable",
+      "pass": true,
+      "detail": "664 caractères"
+     }
+    ]
+   },
+   "result": "proposition prop-1",
+   "proposal": "prop-1"
+  },
+  {
+   "at": "2026-10-13T23:26:47.398Z",
+   "action": "gap",
+   "gap": {
+    "kind": "coverage",
+    "agent": "core.san-francisco.environmental.environmental-analyst",
+    "tool": "air.quality",
+    "dataset": null,
+    "feed": "openmeteo-aq",
+    "doc": "k-air-quality-model",
+    "text": "Analyste environnemental (assisté par modèle) utilise air.quality sans documentation de la source dans sa collection."
+   },
+   "result": "aucune source autorisée lisible par machine (rédaction humaine requise)"
+  },
+  {
+   "at": "2026-10-13T23:26:47.398Z",
+   "action": "gap",
+   "gap": {
+    "kind": "coverage",
+    "agent": "core.san-francisco.energy.energy-infrastructure-analyst",
+    "tool": "grid.mix",
+    "dataset": null,
+    "feed": "caiso-fuelmix",
+    "doc": "k-caiso-outlook",
+    "text": "Analyste énergie et infrastructures (assisté par modèle) utilise grid.mix sans documentation de la source dans sa collection."
+   },
+   "result": "aucune source autorisée lisible par machine (rédaction humaine requise)"
+  },
+  {
+   "at": "2026-10-13T23:26:47.398Z",
+   "action": "gap",
+   "gap": {
+    "kind": "coverage",
+    "agent": "core.san-francisco.simulation.scenario-analyst",
+    "tool": "scenario.evaluate",
+    "dataset": null,
+    "feed": null,
+    "doc": "k-simulation-integrity",
+    "text": "Analyste de scénarios (assisté par modèle) utilise scenario.evaluate sans documentation de la source dans sa collection."
+   },
+   "result": "aucune source autorisée lisible par machine (rédaction humaine requise)"
+  },
+  {
+   "at": "2026-10-13T23:26:47.398Z",
+   "action": "curated-proposal",
+   "proposal": "prop-2",
+   "docId": "k-air-quality-model"
+  },
+  {
+   "at": "2026-10-13T23:26:47.398Z",
+   "action": "curated-proposal",
+   "proposal": "prop-3",
+   "docId": "k-caiso-outlook"
+  },
+  {
+   "at": "2026-10-13T23:26:47.398Z",
+   "action": "curated-proposal",
+   "proposal": "prop-4",
+   "docId": "k-simulation-integrity"
+  },
+  {
+   "at": "2026-10-13T23:29:02.497Z",
+   "action": "approved",
+   "proposal": "prop-1",
+   "docId": "k-ds-qvu5-m3a2",
+   "reviewer": "human:founder",
+   "note": null
+  },
+  {
+   "at": "2026-10-13T23:29:02.550Z",
+   "action": "approved",
+   "proposal": "prop-2",
+   "docId": "k-air-quality-model",
+   "reviewer": "human:founder",
+   "note": null
+  },
+  {
+   "at": "2026-10-13T23:29:02.605Z",
+   "action": "approved",
+   "proposal": "prop-3",
+   "docId": "k-caiso-outlook",
+   "reviewer": "human:founder",
+   "note": null
+  },
+  {
+   "at": "2026-10-13T23:29:02.658Z",
+   "action": "approved",
+   "proposal": "prop-4",
+   "docId": "k-simulation-integrity",
+   "reviewer": "human:founder",
+   "note": null
+  }
+ ]
+}

@@ -67,18 +67,20 @@
     } },
     'resilience.weather-alerts': { permission: 'analyze', applies: m => m.type === 'seismic-context' || m.type === 'weather-alert-context' || !!m.segment, run(env) {
       const alerts = env.feeds.items.filter(i => i.source === 'nws-alerts'), st = (env.feedState.sources || {})['nws-alerts'] || {};
-      return { records: alerts.length, findings: [finding('weather', alerts.length ? `${alerts.length} alerte(s) NWS active(s) pour la zone CAZ006.` : `Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (${st.lastSuccess || 'jamais'}).`, 'reported', [{ type: 'feed-source', ref: 'nws-alerts', url: 'https://api.weather.gov/alerts/active?zone=CAZ006' }], { value: alerts.length })] };
+      // The collection time is metadata (asOf), not part of the claim: a refresh without new alerts must not change the mission identity.
+      return { records: alerts.length, findings: [finding('weather', alerts.length ? `${alerts.length} alerte(s) NWS active(s) pour la zone CAZ006.` : st.lastSuccess ? 'Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte.' : 'Alertes NWS jamais collectées.', 'reported', [{ type: 'feed-source', ref: 'nws-alerts', url: 'https://api.weather.gov/alerts/active?zone=CAZ006' }], { value: alerts.length, asOf: st.lastSuccess || null })] };
     } },
     'civic.legislation': { permission: 'analyze', applies: () => true, run(env, m) {
       const items = env.feeds.items.filter(i => i.source === 'legistar'), h = (env.feedHealth || []).find(x => x.id === 'legistar');
       const words = m.segment ? [env.ctx.segments.get(m.segment).properties.street.split(' ')[0]] : [];
       const hits = items.filter(i => words.some(w => new RegExp(`\\b${w}\\b`, 'i').test(i.title)));
-      return { records: items.length, findings: [finding('civic', `${hits.length} dossier(s) Legistar mentionnant ${words.join(', ') || 'la cible'} parmi ${items.length} récupéré(s) ; source publique ${h ? h.freshness : 'inconnue'} (métadonnées seules, aucune évaluation politique).`, 'reported', [{ type: 'feed-source', ref: 'legistar', url: 'https://sfbos.org/legislation' }], { value: hits.length, limitation: !!(h && /stale/.test(h.freshness)) })] };
+      const status = !h ? 'état inconnu' : /retired/.test(h.freshness) ? 'retirée de la collecte (API figée depuis 2020)' : /stale/.test(h.freshness) ? 'périmée' : 'à jour'; // categorical: no day counts in claims
+      return { records: items.length, findings: [finding('civic', `${hits.length} dossier(s) Legistar mentionnant ${words.join(', ') || 'la cible'} parmi ${items.length} récupéré(s) ; source publique ${status} (métadonnées seules, aucune évaluation politique).`, 'reported', [{ type: 'feed-source', ref: 'legistar', url: 'https://sfbos.org/legislation' }], { value: hits.length, limitation: !!(h && /stale|retired/.test(h.freshness)) })] };
     } },
     'graph.link': { permission: 'analyze', applies: m => !!m.item, run(env, m) {
       const it = env.feeds.items.find(i => i.id === m.item); if (!it) throw new Error('élément introuvable');
       const link = F.linkToCorridor(it, env.ctx);
-      return { records: 1, findings: [finding('graph', link ? `L’élément « ${it.title} » est rattaché au tronçon ${segName(env.ctx, link.segment)} (${link.basis}, ${link.distance_m} m).` : `L’élément « ${it.title} » n’est pas géolocalisé sur le corridor.`, link && /observed/.test(link.basis) ? 'observed' : 'derived', [{ type: 'feed', ref: it.id, url: it.url }], { value: link ? link.segment : null, link })] };
+      return { records: 1, findings: [finding('graph', link ? `L’élément « ${it.title} » est rattaché au tronçon ${segName(env.ctx, link.segment)} (${link.basis}) ; son point publié est à ${link.distance_m} m de l’axe du tronçon.` : `L’élément « ${it.title} » n’est pas géolocalisé sur le corridor.`, link && /observed/.test(link.basis) ? 'observed' : 'derived', [{ type: 'feed', ref: it.id, url: it.url }], { value: link ? link.segment : null, link })] };
     } },
     'scenario.investigate': { permission: 'analyze', applies: m => !!m.segment, run(env, m) {
       const runRes = CI.run(env.ctx, { segment: m.segment }), r = runRes.result;
@@ -94,12 +96,58 @@
       if (!hits.length) return { records: 0, findings: [finding('knowledge', 'Aucun document approuvé ne correspond à la question.', 'reported', [{ type: 'knowledge-library', ref: env.knowledge.lib.version }])] };
       return { records: hits.length, findings: hits.map(h => finding('knowledge', `${h.title} — ${h.source} (v${h.version}, ${h.freshness.stale ? 'à actualiser' : 'à jour'}) ; limites : ${h.limitations || 'non précisées'}.`, 'reported', [{ type: 'knowledge', ref: h.id, url: h.url }], { value: h.score })) };
     } },
+    // ---- Phase 4 tools (called by model-assisted agents; deterministic code, the model only chooses arguments) ----
+    'planning.records': { permission: 'analyze', applies: () => true, run(env, m) {
+      const all = env.feeds.items.filter(i => i.source === 'datasf-planning'), street = m.segment ? env.ctx.segments.get(m.segment).properties.street.split(' ')[0].toUpperCase() : null;
+      const hits = street ? all.filter(i => i.data.corridor_street === street) : all;
+      const byStatus = {}; for (const i of hits) byStatus[i.data.status] = (byStatus[i.data.status] || 0) + 1;
+      return { records: all.length, findings: [finding('urbanism', street ? `${hits.length} dossier(s) de projet Planning ouverts en 30 j avec une adresse sur ${street} ST (${Object.entries(byStatus).map(([k, v]) => `${v} ${k}`).join(', ') || 'aucun'}) parmi ${all.length} à l’échelle de la ville ; adresses non géocodées, rattachement à la rue seulement.` : `${all.length} dossier(s) de projet Planning ouverts en 30 j à l’échelle de la ville.`,
+        'reported', hits.length ? hits.slice(0, 8).map(i => ({ type: 'feed', ref: i.id, url: i.url })) : [{ type: 'feed-source', ref: 'datasf-planning', url: 'https://data.sf.gov/d/qvu5-m3a2' }], { value: hits.length, limitation: true })] };
+    } },
+    'air.quality': { permission: 'analyze', applies: () => true, run(env) {
+      const it = env.feeds.items.filter(i => i.source === 'openmeteo-aq').sort((a, b) => String(b.published).localeCompare(String(a.published)))[0];
+      if (!it) return { records: 0, findings: [finding('air', 'Aucune valeur de qualité de l’air collectée.', 'reported', [{ type: 'feed-source', ref: 'openmeteo-aq', url: 'https://open-meteo.com/en/docs/air-quality-api' }], { limitation: true })] };
+      return { records: 1, findings: [finding('air', `Qualité de l’air modélisée (CAMS via Open-Meteo, ${it.published.slice(0, 16)} UTC) : US AQI ${it.data.us_aqi}, PM2,5 ${it.data.pm2_5} µg/m³ ; valeur de modèle, pas une mesure.`, 'reported', [{ type: 'feed', ref: it.id, url: it.url }], { value: it.data.us_aqi, limitation: true })] };
+    } },
+    'grid.mix': { permission: 'analyze', applies: () => true, run(env) {
+      const it = env.feeds.items.filter(i => i.source === 'caiso-fuelmix').sort((a, b) => String(b.published).localeCompare(String(a.published)))[0];
+      if (!it) return { records: 0, findings: [finding('energy', 'Aucune donnée CAISO collectée.', 'reported', [{ type: 'feed-source', ref: 'caiso-fuelmix', url: 'https://www.caiso.com/todays-outlook' }], { limitation: true })] };
+      return { records: 1, findings: [finding('energy', `Réseau CAISO (Californie, ${it.data.time} heure du Pacifique) : ${it.data.renewables_pct} % de renouvelables hors grande hydraulique sur ${it.data.total_mw} MW ; échelle de l’État, pas de San Francisco.`, 'reported', [{ type: 'feed', ref: it.id, url: it.url }], { value: it.data.renewables_pct, limitation: true })] };
+    } },
+    // Role-scoped retrieval: an agent only searches its own approved knowledge collection; every hit is citable.
+    'knowledge.search': { permission: 'read', applies: () => true, run(env, m, agent, args = {}) {
+      const query = String(args.query || m.question || '').slice(0, 200), hits = KN.retrieve(env.knowledge, query, { allowed: agent ? KN.collectionIds(env.knowledge, agent) : null, limit: 3, now: env.now });
+      if (!hits.length) return { records: 0, gap: { agent: agent && agent.id, query }, findings: [finding('knowledge', `Aucun document de la collection de l’agent ne répond à « ${query} » (lacune de connaissances).`, 'reported', [{ type: 'knowledge-library', ref: env.knowledge.lib.version }], { limitation: true, gap: true })] };
+      return { records: hits.length, findings: hits.map(h => finding('knowledge', `${h.title} (v${h.version}, ${h.source}, licence ${h.license}, récupéré ${h.retrieved_at.slice(0, 10)}${h.freshness.stale ? ', à actualiser' : ''}) : ${h.excerpt}`, 'reported', [{ type: 'knowledge', ref: h.id, url: h.url }], { value: h.score })) };
+    } },
+    // The reviewer checks evidence ids from the mission's shared register (supplied by the orchestrator).
+    'evidence.check': { permission: 'review', applies: () => true, run(env, m, agent, args = {}) {
+      const ids = (Array.isArray(args.ids) ? args.ids : []).slice(0, 12).map(String), reg = m.evidenceIndex || new Map();
+      return { records: ids.length, findings: ids.map(id => { const f = reg.get(id); if (!f) return finding('verification', `${id} : identifiant inconnu dans le registre de la mission.`, 'derived', [{ type: 'knowledge-library', ref: env.knowledge.lib.version }], { value: false });
+        const ok = f.evidence.filter(e => resolve(env, e)).length; return finding('verification', `${id} : ${ok}/${f.evidence.length} référence(s) vérifiée(s) contre les données vérifiées ; statut épistémique « ${f.epistemic} ».`, 'derived', f.evidence, { value: ok === f.evidence.length }); }) };
+    } },
+    // Scenario evaluation with agent-proposed parameters: bounded to the validated domain, recomputed by the
+    // deterministic cross-domain investigation. A model can propose values; it never produces the numbers.
+    'scenario.evaluate': { permission: 'analyze', applies: m => !!m.segment, run(env, m, agent, args = {}) {
+      const params = {};
+      for (const [k, v] of Object.entries(args.params || {})) {
+        const b = SCENARIO_BOUNDS[k]; if (!b) throw new Error(`paramètre non pris en charge : ${k}`);
+        const x = Number(v); if (!Number.isFinite(x) || x < b[0] || x > b[1]) throw new Error(`${k}=${v} hors du domaine validé [${b[0]}, ${b[1]}]`);
+        params[k] = Math.round(x);
+      }
+      const runRes = CI.run(env.ctx, { segment: m.segment, ...params }), r = runRes.result, p = { ...CI.DEFAULTS, ...params };
+      if (!r.brief) return { records: 0, params, decision: r.decision, findings: [finding('scenario', `Paramètres ${JSON.stringify(params)} : pas d’investigation inter-domaines (${r.decision.reason})`, 'simulated', [rec(env.ctx, 'corridor', m.segment)], { value: r.decision.state })] };
+      const ev = Object.fromEntries(r.brief.evaluation.results.map(e => [e.id, e.metrics]));
+      return { records: runRes.events.length, params, brief: r.brief, decision: r.decision, findings: [finding('scenario', `Recalcul déterministe (rayon arbres ${p.treeBufferM} m, horizon ${p.horizonDays} j, report ${p.investigationDays} j) : épisodes d’exposition R0 ${ev.R0.exposureEpisodes}, R1 ${ev.R1.exposureEpisodes}, R2 ${ev.R2.exposureEpisodes} ; arbres à ≤ rayon ${ev.R0.treesWithinBuffer} ; recommandation ${r.brief.recommendedAction.alternative} ; passerelle ${r.decision.state}.`,
+        'simulated', [rec(env.ctx, 'corridor', m.segment)], { value: r.brief.recommendedAction.alternative, params })] };
+    } },
   };
+  const SCENARIO_BOUNDS = { treeBufferM: [5, 30], frontageM: [20, 80], horizonDays: [30, 120], investigationDays: [7, 60], buildingRecencyDays: [90, 730] };
 
   // Independent verification: every evidence reference must resolve against the verified inputs.
   function resolve(env, e) {
     if (e.type === 'record') { const [ds, ...rest] = e.ref.split(':'); const id = rest.join(':'); const fc = env.ctx.data[ds]; return !!(fc && env.ctx.datasets[ds] && env.ctx.datasets[ds].verified === 'ok' && fc.features.some(f => f.properties.record_id === id)); }
-    if (e.type === 'feed') { const it = env.feeds.items.find(i => i.id === e.ref); return !!(it && it.verification.status === 'official-source'); }
+    if (e.type === 'feed') { const it = env.feeds.items.find(i => i.id === e.ref); return !!(it && F.TRUSTED.includes(it.verification.status)); }
     if (e.type === 'feed-source') return F.SOURCES.some(s => s.id === e.ref);
     if (e.type === 'dataset') return !!(env.ctx.datasets[e.ref] && env.ctx.datasets[e.ref].verified === 'ok');
     if (e.type === 'knowledge') return KN.approved(env.knowledge).some(d => d.id === e.ref);
@@ -122,6 +170,6 @@
     return out;
   }
 
-  const TOOLSET = { EPISTEMIC, TELECOM, TOOLS, resolve, verifyFindings, disagreements };
+  const TOOLSET = { EPISTEMIC, TELECOM, TOOLS, SCENARIO_BOUNDS, resolve, verifyFindings, disagreements };
   if (typeof module !== 'undefined' && module.exports) module.exports = TOOLSET; else root.CORE_TOOLS = TOOLSET;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

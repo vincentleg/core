@@ -1,0 +1,10 @@
+#!/bin/sh
+# CORE pre-push gate: scans every line added by the commits being pushed and runs the Node test suite.
+# Any failure blocks the push.
+z=0000000000000000000000000000000000000000
+while read local_ref local_sha remote_ref remote_sha; do
+  [ "$local_sha" = "$z" ] && continue
+  if [ "$remote_sha" = "$z" ]; then range="$(git rev-list --max-parents=0 "$local_sha" | tail -1)..$local_sha"; else range="$remote_sha..$local_sha"; fi
+  node scripts/integrity-check.mjs --push "$range" || exit 1
+done
+node --test test/*.test.js > /dev/null 2>&1 || { echo "pre-push: Node tests failed — push blocked"; exit 1; }

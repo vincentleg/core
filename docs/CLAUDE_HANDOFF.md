@@ -1,6 +1,6 @@
 # CORE — handoff to Claude Code (2026-10-12)
 
-> **Superseded:** current state is in `PROJECT_STATE.md` and `docs/PHASE_3_REPORT.md` (Phase 3, 2026-10-13). **Resolved:** Claude Code completed Phase 1 from this checkpoint. MapLibre was pinned to 5.7.3 (D010), Firefox now runs over WebDriver BiDi (D011) and evidence is bound to its plan (D012). Current truth: [PHASE_1_REPORT.md](PHASE_1_REPORT.md). The rest of this file is the historical handoff record.
+> **Superseded:** current state is in `PROJECT_STATE.md` and `docs/PHASE_4_REPORT.md` (Phase 4, 2026-10-13). **Resolved:** Claude Code completed Phase 1 from this checkpoint. MapLibre was pinned to 5.7.3 (D010), Firefox now runs over WebDriver BiDi (D011) and evidence is bound to its plan (D012). Current truth: [PHASE_1_REPORT.md](PHASE_1_REPORT.md). The rest of this file is the historical handoff record.
 
 ## Mission and exact stopping point
 

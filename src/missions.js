@@ -25,6 +25,11 @@
       const s = origin.suggestion, it = env.feeds.items.find(i => i.id === s.item);
       return { type: s.type, segment: s.segment || null, item: s.item, question: s.type === 'corridor-change' ? `Que change « ${it ? it.title : s.item} » pour ${segLabel(env, s.segment)} ?` : it ? `Contexte de « ${it.title} » pour la ville` : s.reason, domains: it ? it.domains : [] };
     }
+    if (origin.type === 'item') { // any verified City Intelligence item launched by a human (Phase 4)
+      const it = env.feeds.items.find(i => i.id === origin.item); if (!it) throw new TypeError('élément introuvable');
+      const link = F.linkToCorridor(it, env.ctx);
+      return { type: 'item-context', segment: link ? link.segment : null, item: it.id, question: link ? `Que change « ${it.title} » pour ${segLabel(env, link.segment)} ?` : `Que signifie « ${it.title} » pour la ville ?`, domains: it.domains };
+    }
     if (origin.type === 'question') return { type: 'question', segment: origin.segment || null, item: null, question: String(origin.text || '').slice(0, 300), domains: F.classify(origin.text) };
     throw new TypeError('origine de mission inconnue');
   }
@@ -178,6 +183,6 @@
     return out(DECISION.ELIGIBLE, `Constats sourcés à examiner par un humain. ${mission.conclusion.nextAction}`);
   }
 
-  const MISSIONS = { STATES, TASK_STATES, DEFAULT_OPTS, newMission, plan, run, cancel, recompute, issueMissionDecision, deterministic };
+  const MISSIONS = { STATES, TASK_STATES, DEFAULT_OPTS, newMission, plan, run, cancel, recompute, issueMissionDecision, deterministic, segLabel };
   if (typeof module !== 'undefined' && module.exports) module.exports = MISSIONS; else root.CORE_MISSIONS = MISSIONS;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

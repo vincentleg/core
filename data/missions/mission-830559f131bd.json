@@ -134,7 +134,7 @@
    "tool": "works.windows",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 2,
+   "ms": 0,
    "records": 34,
    "error": null,
    "findings": [
@@ -296,7 +296,7 @@
    "tool": "works.telecom",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 2,
+   "ms": 1,
    "records": 5,
    "error": null,
    "findings": [
@@ -334,7 +334,7 @@
    "tool": "trees.near-works",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 10,
+   "ms": 13,
    "records": 15,
    "error": null,
    "findings": [
@@ -395,7 +395,7 @@
    "tool": "buildings.frontage",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 16,
+   "ms": 22,
    "records": 45,
    "error": null,
    "findings": [
@@ -499,7 +499,7 @@
    "tool": "energy.benchmarks",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 24,
+   "ms": 29,
    "records": 4,
    "error": null,
    "findings": [
@@ -549,7 +549,7 @@
    "tool": "public-space.sidewalks",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 27,
+   "ms": 25,
    "records": 1,
    "error": null,
    "findings": [
@@ -581,13 +581,13 @@
    "tool": "resilience.weather-alerts",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 19,
+   "ms": 17,
    "records": 0,
    "error": null,
    "findings": [
     {
      "topic": "weather",
-     "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+     "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte.",
      "epistemic": "reported",
      "evidence": [
       {
@@ -597,6 +597,7 @@
       }
      ],
      "value": 0,
+     "asOf": "2026-10-13T23:10:22.704Z",
      "agent": "core.san-francisco.climate.weather-alerts",
      "tool": "resilience.weather-alerts"
     }
@@ -612,7 +613,7 @@
    "tool": "scenario.investigate",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 153,
+   "ms": 148,
    "records": 69,
    "error": null,
    "findings": [
@@ -1567,22 +1568,67 @@
    "tool": "knowledge.retrieve",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 143,
-   "records": 1,
+   "ms": 141,
+   "records": 4,
    "error": null,
    "findings": [
     {
      "topic": "knowledge",
-     "claim": "Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only..",
+     "claim": "Street-Use Permits (b6tj-gt35) — DataSF open data portal (v1, à jour) ; limites : Administrative record; contact columns removed by CORE..",
      "epistemic": "reported",
      "evidence": [
       {
        "type": "knowledge",
-       "ref": "k-dbi-issued-status",
-       "url": "https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCE_REGISTRY.md"
+       "ref": "k-street-use-permits",
+       "url": "https://data.sf.gov/d/b6tj-gt35"
       }
      ],
-     "value": 0.0654,
+     "value": 0.3059,
+     "agent": "core.san-francisco.regulatory.knowledge-research",
+     "tool": "knowledge.retrieve"
+    },
+    {
+     "topic": "knowledge",
+     "claim": "Street Tree Removal Notifications (qrwx-q4gg) — DataSF open data portal (v1, à jour) ; limites : Removal execution is not recorded..",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "knowledge",
+       "ref": "k-tree-removals",
+       "url": "https://data.sf.gov/d/qrwx-q4gg"
+      }
+     ],
+     "value": 0.2661,
+     "agent": "core.san-francisco.regulatory.knowledge-research",
+     "tool": "knowledge.retrieve"
+    },
+    {
+     "topic": "knowledge",
+     "claim": "Street Tree Inventory (tkzw-k3nq) — DataSF open data portal (v1, à jour) ; limites : Planting dates often missing; presence not verified..",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "knowledge",
+       "ref": "k-street-trees",
+       "url": "https://data.sf.gov/d/tkzw-k3nq"
+      }
+     ],
+     "value": 0.2204,
+     "agent": "core.san-francisco.regulatory.knowledge-research",
+     "tool": "knowledge.retrieve"
+    },
+    {
+     "topic": "knowledge",
+     "claim": "Tree proximity indicator (tree-proximity-exposure-v1) — CORE methodology documents (v1, à jour) ; limites : Not a damage or ecological model..",
+     "epistemic": "reported",
+     "evidence": [
+      {
+       "type": "knowledge",
+       "ref": "k-proximity-indicator",
+       "url": "https://github.com/vincentleg/core/blob/main/docs/PHASE_2_REPORT.md"
+      }
+     ],
+     "value": 0.2047,
      "agent": "core.san-francisco.regulatory.knowledge-research",
      "tool": "knowledge.retrieve"
     }
@@ -1947,7 +1993,7 @@
   },
   {
    "topic": "weather",
-   "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+   "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte.",
    "epistemic": "reported",
    "evidence": [
     {
@@ -1957,6 +2003,7 @@
     }
    ],
    "value": 0,
+   "asOf": "2026-10-13T23:10:22.704Z",
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts"
   },
@@ -2020,16 +2067,61 @@
   },
   {
    "topic": "knowledge",
-   "claim": "Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only..",
+   "claim": "Street-Use Permits (b6tj-gt35) — DataSF open data portal (v1, à jour) ; limites : Administrative record; contact columns removed by CORE..",
    "epistemic": "reported",
    "evidence": [
     {
      "type": "knowledge",
-     "ref": "k-dbi-issued-status",
-     "url": "https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCE_REGISTRY.md"
+     "ref": "k-street-use-permits",
+     "url": "https://data.sf.gov/d/b6tj-gt35"
     }
    ],
-   "value": 0.0654,
+   "value": 0.3059,
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve"
+  },
+  {
+   "topic": "knowledge",
+   "claim": "Street Tree Removal Notifications (qrwx-q4gg) — DataSF open data portal (v1, à jour) ; limites : Removal execution is not recorded..",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "knowledge",
+     "ref": "k-tree-removals",
+     "url": "https://data.sf.gov/d/qrwx-q4gg"
+    }
+   ],
+   "value": 0.2661,
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve"
+  },
+  {
+   "topic": "knowledge",
+   "claim": "Street Tree Inventory (tkzw-k3nq) — DataSF open data portal (v1, à jour) ; limites : Planting dates often missing; presence not verified..",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "knowledge",
+     "ref": "k-street-trees",
+     "url": "https://data.sf.gov/d/tkzw-k3nq"
+    }
+   ],
+   "value": 0.2204,
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "tool": "knowledge.retrieve"
+  },
+  {
+   "topic": "knowledge",
+   "claim": "Tree proximity indicator (tree-proximity-exposure-v1) — CORE methodology documents (v1, à jour) ; limites : Not a damage or ecological model..",
+   "epistemic": "reported",
+   "evidence": [
+    {
+     "type": "knowledge",
+     "ref": "k-proximity-indicator",
+     "url": "https://github.com/vincentleg/core/blob/main/docs/PHASE_2_REPORT.md"
+    }
+   ],
+   "value": 0.2047,
    "agent": "core.san-francisco.regulatory.knowledge-research",
    "tool": "knowledge.retrieve"
   }
@@ -2116,7 +2208,7 @@
    "resolved": 1
   },
   {
-   "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+   "claim": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte.",
    "agent": "core.san-francisco.climate.weather-alerts",
    "epistemic": "reported",
    "typeOk": true,
@@ -2140,7 +2232,31 @@
    "resolved": 8
   },
   {
-   "claim": "Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only..",
+   "claim": "Street-Use Permits (b6tj-gt35) — DataSF open data portal (v1, à jour) ; limites : Administrative record; contact columns removed by CORE..",
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "epistemic": "reported",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "Street Tree Removal Notifications (qrwx-q4gg) — DataSF open data portal (v1, à jour) ; limites : Removal execution is not recorded..",
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "epistemic": "reported",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "Street Tree Inventory (tkzw-k3nq) — DataSF open data portal (v1, à jour) ; limites : Planting dates often missing; presence not verified..",
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "epistemic": "reported",
+   "typeOk": true,
+   "evidence": 1,
+   "resolved": 1
+  },
+  {
+   "claim": "Tree proximity indicator (tree-proximity-exposure-v1) — CORE methodology documents (v1, à jour) ; limites : Not a damage or ecological model..",
    "agent": "core.san-francisco.regulatory.knowledge-research",
    "epistemic": "reported",
    "typeOk": true,
@@ -2261,7 +2377,7 @@
    },
    {
     "topic": "weather",
-    "text": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte (2026-10-13T22:49:35.562Z).",
+    "text": "Aucune alerte NWS active pour la zone CAZ006 à la dernière collecte.",
     "cites": [
      10
     ],
@@ -2283,9 +2399,12 @@
    },
    {
     "topic": "knowledge",
-    "text": "Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only..",
+    "text": "Street-Use Permits (b6tj-gt35) — DataSF open data portal (v1, à jour) ; limites : Administrative record; contact columns removed by CORE.. Street Tree Removal Notifications (qrwx-q4gg) — DataSF open data portal (v1, à jour) ; limites : Removal execution is not recorded.. Street Tree Inventory (tkzw-k3nq) — DataSF open data portal (v1, à jour) ; limites : Planting dates often missing; presence not verified.. Tree proximity indicator (tree-proximity-exposure-v1) — CORE methodology documents (v1, à jour) ; limites : Not a damage or ecological model..",
     "cites": [
-     13
+     13,
+     14,
+     15,
+     16
     ],
     "epistemic": [
      "reported"
@@ -2373,28 +2492,28 @@
  "log": [
   {
    "seq": 1,
-   "t": 1,
+   "t": 0,
    "kind": "mission",
    "state": "planning",
    "text": "Mission → planning"
   },
   {
    "seq": 2,
-   "t": 1,
+   "t": 0,
    "kind": "plan",
    "agent": "core.san-francisco.manager",
    "text": "Domaines : buildings, energy, infrastructure, nature, public_space ; 9 spécialiste(s) exécutable(s) recruté(s) ; 12 profil(s) pertinent(s) indisponible(s) (pas d’outil ou de données)."
   },
   {
    "seq": 3,
-   "t": 1,
+   "t": 0,
    "kind": "mission",
    "state": "assigned",
    "text": "Mission → assigned"
   },
   {
    "seq": 4,
-   "t": 1,
+   "t": 0,
    "kind": "task",
    "task": "task-1",
    "agent": "core.san-francisco.civil.works-coordination",
@@ -2404,7 +2523,7 @@
   },
   {
    "seq": 5,
-   "t": 1,
+   "t": 0,
    "kind": "task",
    "task": "task-2",
    "agent": "core.san-francisco.telecom.telecom-works",
@@ -2414,7 +2533,7 @@
   },
   {
    "seq": 6,
-   "t": 1,
+   "t": 0,
    "kind": "task",
    "task": "task-3",
    "agent": "core.san-francisco.forestry.street-trees",
@@ -2424,7 +2543,7 @@
   },
   {
    "seq": 7,
-   "t": 1,
+   "t": 0,
    "kind": "task",
    "task": "task-4",
    "agent": "core.san-francisco.housing.building-permits",
@@ -2434,7 +2553,7 @@
   },
   {
    "seq": 8,
-   "t": 1,
+   "t": 0,
    "kind": "task",
    "task": "task-5",
    "agent": "core.san-francisco.energy.energy-benchmarks",
@@ -2444,7 +2563,7 @@
   },
   {
    "seq": 9,
-   "t": 1,
+   "t": 0,
    "kind": "task",
    "task": "task-6",
    "agent": "core.san-francisco.public-space.sidewalks",
@@ -2454,7 +2573,7 @@
   },
   {
    "seq": 10,
-   "t": 1,
+   "t": 0,
    "kind": "task",
    "task": "task-7",
    "agent": "core.san-francisco.climate.weather-alerts",
@@ -2464,7 +2583,7 @@
   },
   {
    "seq": 11,
-   "t": 1,
+   "t": 0,
    "kind": "task",
    "task": "task-8",
    "agent": "core.san-francisco.simulation.scenario-evaluator",
@@ -2474,7 +2593,7 @@
   },
   {
    "seq": 12,
-   "t": 1,
+   "t": 0,
    "kind": "task",
    "task": "task-9",
    "agent": "core.san-francisco.regulatory.knowledge-research",
@@ -2484,14 +2603,14 @@
   },
   {
    "seq": 13,
-   "t": 1,
+   "t": 0,
    "kind": "mission",
    "state": "running",
    "text": "Mission → running"
   },
   {
    "seq": 14,
-   "t": 1,
+   "t": 0,
    "kind": "task",
    "task": "task-1",
    "agent": "core.san-francisco.civil.works-coordination",
@@ -2501,7 +2620,7 @@
   },
   {
    "seq": 15,
-   "t": 1,
+   "t": 0,
    "kind": "task",
    "task": "task-2",
    "agent": "core.san-francisco.telecom.telecom-works",
@@ -2511,7 +2630,7 @@
   },
   {
    "seq": 16,
-   "t": 1,
+   "t": 0,
    "kind": "task",
    "task": "task-3",
    "agent": "core.san-francisco.forestry.street-trees",
@@ -2521,17 +2640,17 @@
   },
   {
    "seq": 17,
-   "t": 3,
+   "t": 0,
    "kind": "task",
    "task": "task-1",
    "agent": "core.san-francisco.civil.works-coordination",
    "tool": "works.windows",
    "state": "succeeded",
-   "text": "2 constat(s), 34 enregistrement(s), 2 ms"
+   "text": "2 constat(s), 34 enregistrement(s), 0 ms"
   },
   {
    "seq": 18,
-   "t": 3,
+   "t": 0,
    "kind": "task",
    "task": "task-4",
    "agent": "core.san-francisco.housing.building-permits",
@@ -2541,17 +2660,17 @@
   },
   {
    "seq": 19,
-   "t": 3,
+   "t": 1,
    "kind": "task",
    "task": "task-2",
    "agent": "core.san-francisco.telecom.telecom-works",
    "tool": "works.telecom",
    "state": "succeeded",
-   "text": "1 constat(s), 5 enregistrement(s), 2 ms"
+   "text": "1 constat(s), 5 enregistrement(s), 1 ms"
   },
   {
    "seq": 20,
-   "t": 3,
+   "t": 1,
    "kind": "task",
    "task": "task-5",
    "agent": "core.san-francisco.energy.energy-benchmarks",
@@ -2561,17 +2680,17 @@
   },
   {
    "seq": 21,
-   "t": 11,
+   "t": 13,
    "kind": "task",
    "task": "task-3",
    "agent": "core.san-francisco.forestry.street-trees",
    "tool": "trees.near-works",
    "state": "succeeded",
-   "text": "2 constat(s), 15 enregistrement(s), 10 ms"
+   "text": "2 constat(s), 15 enregistrement(s), 13 ms"
   },
   {
    "seq": 22,
-   "t": 11,
+   "t": 13,
    "kind": "task",
    "task": "task-6",
    "agent": "core.san-francisco.public-space.sidewalks",
@@ -2581,17 +2700,17 @@
   },
   {
    "seq": 23,
-   "t": 19,
+   "t": 22,
    "kind": "task",
    "task": "task-4",
    "agent": "core.san-francisco.housing.building-permits",
    "tool": "buildings.frontage",
    "state": "succeeded",
-   "text": "3 constat(s), 45 enregistrement(s), 16 ms"
+   "text": "3 constat(s), 45 enregistrement(s), 22 ms"
   },
   {
    "seq": 24,
-   "t": 19,
+   "t": 22,
    "kind": "task",
    "task": "task-7",
    "agent": "core.san-francisco.climate.weather-alerts",
@@ -2601,17 +2720,17 @@
   },
   {
    "seq": 25,
-   "t": 27,
+   "t": 30,
    "kind": "task",
    "task": "task-5",
    "agent": "core.san-francisco.energy.energy-benchmarks",
    "tool": "energy.benchmarks",
    "state": "succeeded",
-   "text": "1 constat(s), 4 enregistrement(s), 24 ms"
+   "text": "1 constat(s), 4 enregistrement(s), 29 ms"
   },
   {
    "seq": 26,
-   "t": 27,
+   "t": 30,
    "kind": "task",
    "task": "task-8",
    "agent": "core.san-francisco.simulation.scenario-evaluator",
@@ -2627,7 +2746,7 @@
    "agent": "core.san-francisco.public-space.sidewalks",
    "tool": "public-space.sidewalks",
    "state": "succeeded",
-   "text": "1 constat(s), 1 enregistrement(s), 27 ms"
+   "text": "1 constat(s), 1 enregistrement(s), 25 ms"
   },
   {
    "seq": 28,
@@ -2641,83 +2760,83 @@
   },
   {
    "seq": 29,
-   "t": 38,
+   "t": 39,
    "kind": "task",
    "task": "task-7",
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts",
    "state": "succeeded",
-   "text": "1 constat(s), 0 enregistrement(s), 19 ms"
+   "text": "1 constat(s), 0 enregistrement(s), 17 ms"
   },
   {
    "seq": 30,
-   "t": 180,
+   "t": 178,
    "kind": "task",
    "task": "task-8",
    "agent": "core.san-francisco.simulation.scenario-evaluator",
    "tool": "scenario.investigate",
    "state": "succeeded",
-   "text": "2 constat(s), 69 enregistrement(s), 153 ms"
+   "text": "2 constat(s), 69 enregistrement(s), 148 ms"
   },
   {
    "seq": 31,
-   "t": 181,
+   "t": 179,
    "kind": "task",
    "task": "task-9",
    "agent": "core.san-francisco.regulatory.knowledge-research",
    "tool": "knowledge.retrieve",
    "state": "succeeded",
-   "text": "1 constat(s), 1 enregistrement(s), 143 ms"
+   "text": "4 constat(s), 4 enregistrement(s), 141 ms"
   },
   {
    "seq": 32,
-   "t": 181,
+   "t": 179,
    "kind": "mission",
    "state": "reviewing",
    "text": "Mission → reviewing"
   },
   {
    "seq": 33,
-   "t": 181,
+   "t": 179,
    "kind": "review",
    "agent": "core.san-francisco.research.evidence-verifier",
-   "text": "Vérification indépendante : 14/14 constats entièrement sourcés."
+   "text": "Vérification indépendante : 17/17 constats entièrement sourcés."
   },
   {
    "seq": 34,
-   "t": 181,
+   "t": 179,
    "kind": "review",
    "agent": "core.san-francisco.safety.adversarial-reviewer",
    "text": "Revue adversariale : 2 désaccord(s), 2 sensibilité(s), 0 limite(s), 0 tâche(s) non abouties."
   },
   {
    "seq": 35,
-   "t": 181,
+   "t": 179,
    "kind": "synthesis",
    "agent": "core.san-francisco.manager",
    "text": "Synthèse : 10 énoncé(s) sourcé(s) ; action suivante : Proposer à la revue humaine une vérification de terrain coordonnée (R2) sur HOWARD ST 08TH ST → 09TH ST avant l’ouverture des excavations non commencées ; ne pas engager d’intervention coordonnée (R1) tant que tracés, état des arbres et calendrier des façades ne sont pas connus."
   },
   {
    "seq": 36,
-   "t": 366,
+   "t": 358,
    "kind": "gateway",
    "agent": "core.san-francisco.governance.gateway",
    "text": "ÉLIGIBLE À LA REVUE HUMAINE — Passerelle inter-domaines : ÉLIGIBLE À LA REVUE HUMAINE. Proposer à la revue humaine une vérification de terrain coordonnée (R2) sur HOWARD ST 08TH ST → 09TH ST avant l’ouverture des excavations non commencées ; ne pas engager d’intervention coordonnée (R1) tant que tracés, état des arbres et calendrier des façades ne sont pas connus."
   },
   {
    "seq": 37,
-   "t": 366,
+   "t": 358,
    "kind": "mission",
    "state": "needs-human-review",
    "text": "Mission → needs-human-review"
   }
  ],
- "fingerprint": "376eb61e44e3a383",
+ "fingerprint": "a14bed1b691c3ca8",
  "recorded": {
   "by": "scripts/agents.mjs (Node)",
-  "at": "2026-10-13T22:49:51.036Z",
-  "wallMs": 366,
+  "at": "2026-10-13T23:54:05.634Z",
+  "wallMs": 358,
   "snapshot": "2026-10-13T18:25:19.678Z",
-  "feedUpdate": "2026-10-13T22:49:35.562Z"
+  "feedUpdate": "2026-10-13T23:10:22.704Z"
  }
 }

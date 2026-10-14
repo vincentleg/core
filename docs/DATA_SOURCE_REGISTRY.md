@@ -60,3 +60,36 @@ Verified 2026-10-13. Items keep source, URL, publication date, retrieval date, f
 | SFPUC RSS | announcements | Node | 60 min | **stale** (newest 2024) |
 
 Not available: sf.gov and SF Planning RSS (404), licensed news (not integrated).
+
+## Phase 4 changes to City Intelligence sources (verified 2026-10-13)
+
+17 sources are registered, 16 of them active. Every item keeps: source, URL, publication date, retrieval date, first and last seen, revision, kind, verification status, geography (coordinates, or an address only, or none) and a confidence level with its limitation.
+
+| Source | Category | Kind of items | Access · interval | Confidence and limits |
+| --- | --- | --- | --- | --- |
+| DataSF Planning project records (qvu5-m3a2), 30 days, `record_type = PRJ` | urbanism | proposals / approved decisions | Node + browser · 60 min | High. A submission is not an approval. Applicant and planner names are never requested; addresses are not geocoded (street-level link only). |
+| DataSF 311 cases (vw6y-z8j6), South of Market, 7 days | society | statistics (aggregated counts by category) | Node + browser · 6 h | Medium. Public reports, not verified incidents; no individual records collected. |
+| DataSF business registrations (g8m3-pdis), South of Market, 30 days | economy | statistic (one count) | Node + browser · 24 h | Medium. A registration is not an opening; no names collected. |
+| SF Recreation & Parks news (RSS) | environment / events | announcements | Node · 2 h | Medium. Agency communication about its own projects. |
+| SF Fire Department news (RSS) | public safety | announcements | Node · 2 h | Medium. Administrative notices, not an incident feed; `http://` links upgraded to HTTPS. |
+| CAISO Today's Outlook fuel mix (CSV) | energy | observation (grid-reported) | Node · 60 min | High. Statewide balancing area, not San Francisco specific. |
+| Open-Meteo air quality (CAMS model), SoMa | environment | prediction (modelled) | Node + browser · 60 min | Low. Model output, not a sensor measurement (registered open data, CC BY 4.0). |
+| Legistar web API (sfgov) | administration | — | **retired** | The public API has held no matter newer than 2020; historical items are kept and labelled. |
+| SFPUC RSS | infrastructure | announcements | Node · 24 h | Low. Not updated since May 2024. |
+
+**Statement kinds** keep facts separate from statements:
+- observation, statistic;
+- public notice, proposal, approved decision, ongoing or completed work;
+- prediction;
+- agency announcement;
+- commentary, opinion, allegation. Allegations are never treated as facts and never trigger missions.
+
+**Scheduled refresh:** `.github/workflows/city-feed.yml` (GitHub Actions, every 3 hours; see docs/PHASE_4_REPORT.md for verified status).
+
+**Not integrated:**
+- sf.gov, the Mayor's office, SF Planning, SF Environment and sfbos.org RSS (404 or timeout);
+- Department of Emergency Management RSS (empty);
+- Muni and BART alerts (require API keys);
+- individual 311, police or fire incident records (privacy);
+- licensed press.
+
