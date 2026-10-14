@@ -216,7 +216,7 @@
    "tool": "works.telecom",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 1,
+   "ms": 2,
    "records": 0,
    "error": null,
    "findings": [
@@ -256,7 +256,7 @@
    "tool": "trees.near-works",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 9,
+   "ms": 13,
    "records": 27,
    "error": null,
    "findings": [
@@ -309,7 +309,7 @@
    "tool": "buildings.frontage",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 17,
+   "ms": 21,
    "records": 80,
    "error": null,
    "findings": [
@@ -471,7 +471,7 @@
    "tool": "energy.benchmarks",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 25,
+   "ms": 28,
    "records": 4,
    "error": null,
    "findings": [
@@ -594,7 +594,7 @@
       }
      ],
      "value": 0,
-     "asOf": "2026-10-14T02:03:28.797Z",
+     "asOf": "2026-10-14T08:41:16.587Z",
      "agent": "core.san-francisco.climate.weather-alerts",
      "tool": "resilience.weather-alerts"
     }
@@ -693,7 +693,7 @@
    "tool": "knowledge.retrieve",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 13,
+   "ms": 12,
    "records": 4,
    "error": null,
    "findings": [
@@ -1113,7 +1113,7 @@
     }
    ],
    "value": 0,
-   "asOf": "2026-10-14T02:03:28.797Z",
+   "asOf": "2026-10-14T08:41:16.587Z",
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts"
   },
@@ -1736,17 +1736,17 @@
   },
   {
    "seq": 20,
-   "t": 1,
+   "t": 2,
    "kind": "task",
    "task": "task-2",
    "agent": "core.san-francisco.telecom.telecom-works",
    "tool": "works.telecom",
    "state": "succeeded",
-   "text": "1 constat(s), 0 enregistrement(s), 1 ms"
+   "text": "1 constat(s), 0 enregistrement(s), 2 ms"
   },
   {
    "seq": 21,
-   "t": 1,
+   "t": 2,
    "kind": "task",
    "task": "task-5",
    "agent": "core.san-francisco.energy.energy-benchmarks",
@@ -1756,17 +1756,17 @@
   },
   {
    "seq": 22,
-   "t": 9,
+   "t": 13,
    "kind": "task",
    "task": "task-3",
    "agent": "core.san-francisco.forestry.street-trees",
    "tool": "trees.near-works",
    "state": "succeeded",
-   "text": "1 constat(s), 27 enregistrement(s), 9 ms"
+   "text": "1 constat(s), 27 enregistrement(s), 13 ms"
   },
   {
    "seq": 23,
-   "t": 9,
+   "t": 13,
    "kind": "task",
    "task": "task-6",
    "agent": "core.san-francisco.public-space.sidewalks",
@@ -1776,17 +1776,17 @@
   },
   {
    "seq": 24,
-   "t": 18,
+   "t": 22,
    "kind": "task",
    "task": "task-4",
    "agent": "core.san-francisco.housing.building-permits",
    "tool": "buildings.frontage",
    "state": "succeeded",
-   "text": "3 constat(s), 80 enregistrement(s), 17 ms"
+   "text": "3 constat(s), 80 enregistrement(s), 21 ms"
   },
   {
    "seq": 25,
-   "t": 18,
+   "t": 22,
    "kind": "task",
    "task": "task-7",
    "agent": "core.san-francisco.climate.weather-alerts",
@@ -1796,17 +1796,17 @@
   },
   {
    "seq": 26,
-   "t": 26,
+   "t": 30,
    "kind": "task",
    "task": "task-5",
    "agent": "core.san-francisco.energy.energy-benchmarks",
    "tool": "energy.benchmarks",
    "state": "succeeded",
-   "text": "1 constat(s), 4 enregistrement(s), 25 ms"
+   "text": "1 constat(s), 4 enregistrement(s), 28 ms"
   },
   {
    "seq": 27,
-   "t": 26,
+   "t": 30,
    "kind": "task",
    "task": "task-8",
    "agent": "core.san-francisco.data-science.graph-linker",
@@ -1816,7 +1816,7 @@
   },
   {
    "seq": 28,
-   "t": 35,
+   "t": 39,
    "kind": "task",
    "task": "task-6",
    "agent": "core.san-francisco.public-space.sidewalks",
@@ -1826,7 +1826,7 @@
   },
   {
    "seq": 29,
-   "t": 35,
+   "t": 39,
    "kind": "task",
    "task": "task-9",
    "agent": "core.san-francisco.simulation.scenario-evaluator",
@@ -1836,7 +1836,7 @@
   },
   {
    "seq": 30,
-   "t": 35,
+   "t": 39,
    "kind": "task",
    "task": "task-7",
    "agent": "core.san-francisco.climate.weather-alerts",
@@ -1846,7 +1846,7 @@
   },
   {
    "seq": 31,
-   "t": 35,
+   "t": 39,
    "kind": "task",
    "task": "task-10",
    "agent": "core.san-francisco.regulatory.knowledge-research",
@@ -1856,7 +1856,7 @@
   },
   {
    "seq": 32,
-   "t": 35,
+   "t": 39,
    "kind": "task",
    "task": "task-8",
    "agent": "core.san-francisco.data-science.graph-linker",
@@ -1866,7 +1866,7 @@
   },
   {
    "seq": 33,
-   "t": 47,
+   "t": 51,
    "kind": "task",
    "task": "task-9",
    "agent": "core.san-francisco.simulation.scenario-evaluator",
@@ -1876,52 +1876,52 @@
   },
   {
    "seq": 34,
-   "t": 48,
+   "t": 51,
    "kind": "task",
    "task": "task-10",
    "agent": "core.san-francisco.regulatory.knowledge-research",
    "tool": "knowledge.retrieve",
    "state": "succeeded",
-   "text": "4 constat(s), 4 enregistrement(s), 13 ms"
+   "text": "4 constat(s), 4 enregistrement(s), 12 ms"
   },
   {
    "seq": 35,
-   "t": 48,
+   "t": 51,
    "kind": "mission",
    "state": "reviewing",
    "text": "Mission → reviewing"
   },
   {
    "seq": 36,
-   "t": 48,
+   "t": 51,
    "kind": "review",
    "agent": "core.san-francisco.research.evidence-verifier",
    "text": "Vérification indépendante : 16/16 constats entièrement sourcés."
   },
   {
    "seq": 37,
-   "t": 48,
+   "t": 51,
    "kind": "review",
    "agent": "core.san-francisco.safety.adversarial-reviewer",
    "text": "Revue adversariale : 1 désaccord(s), 0 sensibilité(s), 0 limite(s), 0 tâche(s) non abouties."
   },
   {
    "seq": 38,
-   "t": 49,
+   "t": 51,
    "kind": "synthesis",
    "agent": "core.san-francisco.manager",
    "text": "Synthèse : 11 énoncé(s) sourcé(s) ; action suivante : Information à examiner par un humain ; aucune intervention proposée faute de relation inter-domaines vérifiée."
   },
   {
    "seq": 39,
-   "t": 96,
+   "t": 99,
    "kind": "gateway",
    "agent": "core.san-francisco.governance.gateway",
    "text": "PREUVES SUPPLÉMENTAIRES REQUISES — Information à examiner par un humain ; aucune intervention proposée faute de relation inter-domaines vérifiée."
   },
   {
    "seq": 40,
-   "t": 96,
+   "t": 99,
    "kind": "mission",
    "state": "needs-evidence",
    "text": "Mission → needs-evidence"
@@ -1930,9 +1930,9 @@
  "fingerprint": "97af41f4b20076f6",
  "recorded": {
   "by": "scripts/agents.mjs (Node)",
-  "at": "2026-10-14T05:19:33.716Z",
-  "wallMs": 96,
+  "at": "2026-10-14T08:41:35.185Z",
+  "wallMs": 99,
   "snapshot": "2026-10-13T18:25:19.678Z",
-  "feedUpdate": "2026-10-14T02:03:28.797Z"
+  "feedUpdate": "2026-10-14T08:41:16.587Z"
  }
 }
