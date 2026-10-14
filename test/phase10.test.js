@@ -141,6 +141,8 @@ function newerCx(city) {
   data.permits.features.push({ ...tmpl, properties: { ...tmpl.properties, record_id: 'TEST-NEW-1', cnn: top, status_class: 'active', start: day.toISOString().slice(0, 10), end: new Date(+day + 20 * 864e5).toISOString().slice(0, 10), approved: day.toISOString().slice(0, 10) } });
   const active = CT.planned(base, data.permits.features).filter(p => base.hin.has(p.properties.cnn) && p.properties.record_id !== 'TEST-NEW-1'); const gone = active[0].properties.record_id;
   data.permits.features = data.permits.features.filter(p => p.properties.record_id !== gone);
+  const moved = CT.planned(base, data.permits.features).find(p => base.hin.has(p.properties.cnn) && p.properties.record_id !== 'TEST-NEW-1' && p.properties.record_id !== gone && p.properties.end); if (moved) moved.properties.end = new Date(Date.parse(moved.properties.end) + 30 * 864e5).toISOString().slice(0, 10);
+  data['crashes-agg'].rows.reverse(); // row order must not matter
   const row = data['crashes-agg'].rows.find(r => r.cnn === top); row.n += 1; data['crashes-agg'].window.to = new Date(Date.parse(data['crashes-agg'].window.to) + 864e5).toISOString().slice(0, 10);
   manifest.generated_at = day.toISOString(); for (const d of manifest.datasets) d.retrieved_at = day.toISOString();
   return { cx: CT.context({ manifest, data, city }), top, gone };
@@ -153,6 +155,8 @@ test('discovery: snapshot comparison finds new and ended works on designated seg
     const { cx, top, gone } = newerCx(city), d = D.diff(cxs[city], cx), kinds = d.signals.map(s => s.kind);
     const add = d.signals.find(s => s.kind === 'new-works-on-designated-segment'); assert.ok(add && add.segment === top && add.records.includes('TEST-NEW-1') && add.nhood, city);
     assert.ok(d.signals.some(s => s.kind === 'works-no-longer-active' && s.records.includes(gone))); assert.ok(kinds.includes('crash-data-updated'));
+    assert.ok(kinds.includes('works-window-changed'), `${city}: changed authorised window detected`);
+    const shuffled = { ...cxs[city], data: { ...cxs[city].data, permits: { ...cxs[city].data.permits, features: cxs[city].data.permits.features.slice().reverse() } } }; assert.equal(D.diff(cxs[city], shuffled).signals.length, 0, 'row order alone is not a change');
     assert.equal(new Set(d.signals.map(s => s.key)).size, d.signals.length); assert.equal(d.signals[0].kind, 'new-works-on-designated-segment', 'highest priority first');
     assert.deepEqual(D.diff(cxs[city], cx).signals.map(s => s.key), d.signals.map(s => s.key), 'deterministic keys');
   }

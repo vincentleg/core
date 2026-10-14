@@ -19,35 +19,35 @@
  "stages": [
   {
    "stage": "DISCOVERED",
-   "at": "2026-10-14T19:36:46.785Z"
+   "at": "2026-10-14T20:35:09.745Z"
   },
   {
    "stage": "ASSIGNED",
-   "at": "2026-10-14T19:36:46.802Z"
+   "at": "2026-10-14T20:35:09.751Z"
   },
   {
    "stage": "MEMORY_CONSULTED",
-   "at": "2026-10-14T19:36:46.815Z"
+   "at": "2026-10-14T20:35:09.754Z"
   },
   {
    "stage": "INVESTIGATING",
-   "at": "2026-10-14T19:36:46.822Z"
+   "at": "2026-10-14T20:35:09.760Z"
   },
   {
    "stage": "METHODOLOGY_REVIEW",
-   "at": "2026-10-14T19:36:46.825Z"
+   "at": "2026-10-14T20:35:09.765Z"
   },
   {
    "stage": "EVIDENCE_VALIDATION",
-   "at": "2026-10-14T19:36:46.829Z"
+   "at": "2026-10-14T20:35:09.769Z"
   },
   {
    "stage": "PROPOSED_DECISION",
-   "at": "2026-10-14T19:36:46.830Z"
+   "at": "2026-10-14T20:35:09.770Z"
   },
   {
    "stage": "HUMAN_REVIEW",
-   "at": "2026-10-14T19:36:46.831Z"
+   "at": "2026-10-14T20:35:09.772Z"
   }
  ],
  "subtasks": [
@@ -102,7 +102,7 @@
    "depth": 2,
    "state": "succeeded",
    "attempts": 1,
-   "ms": 0,
+   "ms": 1,
    "error": null,
    "findings": 1,
    "site": {
@@ -160,7 +160,7 @@
    "depth": 2,
    "state": "succeeded",
    "attempts": 1,
-   "ms": 1,
+   "ms": 0,
    "error": null,
    "findings": 1,
    "site": {
@@ -246,7 +246,7 @@
   {
    "id": "M1",
    "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
-   "at": "2026-10-14T19:36:46.801Z",
+   "at": "2026-10-14T20:35:09.750Z",
    "from": "core.global.coordinator",
    "to": "core.global.director.road-safety",
    "type": "assign",
@@ -257,7 +257,7 @@
   {
    "id": "M2",
    "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
-   "at": "2026-10-14T19:36:46.802Z",
+   "at": "2026-10-14T20:35:09.750Z",
    "from": "core.global.director.road-safety",
    "to": "core.san-francisco.mobility.lead",
    "type": "delegate",
@@ -268,7 +268,7 @@
   {
    "id": "M3",
    "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
-   "at": "2026-10-14T19:36:46.802Z",
+   "at": "2026-10-14T20:35:09.750Z",
    "from": "core.global.director.road-safety",
    "to": "core.new-york.mobility.lead",
    "type": "delegate",
@@ -279,7 +279,7 @@
   {
    "id": "M4",
    "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
-   "at": "2026-10-14T19:36:46.814Z",
+   "at": "2026-10-14T20:35:09.753Z",
    "from": "core.global.director.road-safety",
    "to": "memory",
    "type": "memory-read",
@@ -297,7 +297,7 @@
   {
    "id": "M5",
    "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
-   "at": "2026-10-14T19:36:46.815Z",
+   "at": "2026-10-14T20:35:09.754Z",
    "from": "core.global.director.road-safety",
    "to": "memory",
    "type": "memory-read",
@@ -312,7 +312,7 @@
   {
    "id": "M6",
    "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
-   "at": "2026-10-14T19:36:46.816Z",
+   "at": "2026-10-14T20:35:09.755Z",
    "from": "core.san-francisco.mobility.lead",
    "to": "core.san-francisco.mobility.traffic",
    "type": "delegate",
@@ -323,7 +323,7 @@
   {
    "id": "M7",
    "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
-   "at": "2026-10-14T19:36:46.819Z",
+   "at": "2026-10-14T20:35:09.758Z",
    "from": "core.san-francisco.mobility.traffic",
    "to": "core.san-francisco.civil.lead",
    "type": "request",
@@ -334,7 +334,7 @@
   {
    "id": "M8",
    "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
-   "at": "2026-10-14T19:36:46.819Z",
+   "at": "2026-10-14T20:35:09.758Z",
    "from": "core.san-francisco.civil.lead",
    "to": "core.san-francisco.civil.works-coordination",
    "type": "delegate",
@@ -345,7 +345,7 @@
   {
    "id": "M9",
    "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
-   "at": "2026-10-14T19:36:46.820Z",
+   "at": "2026-10-14T20:35:09.759Z",
    "from": "core.san-francisco.mobility.traffic",
    "to": "core.san-francisco.mobility.lead",
    "type": "report",
@@ -362,7 +362,7 @@
   {
    "id": "M10",
    "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
-   "at": "2026-10-14T19:36:46.820Z",
+   "at": "2026-10-14T20:35:09.759Z",
    "from": "core.san-francisco.mobility.lead",
    "to": "core.global.director.road-safety",
    "type": "report",
@@ -373,7 +373,7 @@
   {
    "id": "M11",
    "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
-   "at": "2026-10-14T19:36:46.820Z",
+   "at": "2026-10-14T20:35:09.759Z",
    "from": "core.new-york.mobility.lead",
    "to": "core.new-york.mobility.traffic",
    "type": "delegate",
@@ -384,7 +384,7 @@
   {
    "id": "M12",
    "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
-   "at": "2026-10-14T19:36:46.821Z",
+   "at": "2026-10-14T20:35:09.759Z",
    "from": "core.new-york.mobility.traffic",
    "to": "core.new-york.civil.lead",
    "type": "request",
@@ -395,7 +395,7 @@
   {
    "id": "M13",
    "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
-   "at": "2026-10-14T19:36:46.821Z",
+   "at": "2026-10-14T20:35:09.760Z",
    "from": "core.new-york.civil.lead",
    "to": "core.new-york.civil.works-coordination",
    "type": "delegate",
@@ -406,7 +406,7 @@
   {
    "id": "M14",
    "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
-   "at": "2026-10-14T19:36:46.822Z",
+   "at": "2026-10-14T20:35:09.760Z",
    "from": "core.new-york.mobility.traffic",
    "to": "core.new-york.mobility.lead",
    "type": "report",
@@ -423,7 +423,7 @@
   {
    "id": "M15",
    "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
-   "at": "2026-10-14T19:36:46.822Z",
+   "at": "2026-10-14T20:35:09.760Z",
    "from": "core.new-york.mobility.lead",
    "to": "core.global.director.road-safety",
    "type": "report",
@@ -434,7 +434,7 @@
   {
    "id": "M16",
    "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
-   "at": "2026-10-14T19:36:46.823Z",
+   "at": "2026-10-14T20:35:09.762Z",
    "from": "core.global.director.road-safety",
    "to": "core.global.research.methodology-reviewer",
    "type": "request",
@@ -445,7 +445,7 @@
   {
    "id": "M17",
    "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
-   "at": "2026-10-14T19:36:46.825Z",
+   "at": "2026-10-14T20:35:09.764Z",
    "from": "core.global.research.methodology-reviewer",
    "to": "core.global.director.road-safety",
    "type": "review",
@@ -456,7 +456,7 @@
   {
    "id": "M18",
    "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
-   "at": "2026-10-14T19:36:46.826Z",
+   "at": "2026-10-14T20:35:09.766Z",
    "from": "core.global.director.road-safety",
    "to": "core.san-francisco.research.lead",
    "type": "request",
@@ -467,7 +467,7 @@
   {
    "id": "M19",
    "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
-   "at": "2026-10-14T19:36:46.827Z",
+   "at": "2026-10-14T20:35:09.767Z",
    "from": "core.san-francisco.research.lead",
    "to": "core.san-francisco.research.evidence-verifier",
    "type": "delegate",
@@ -478,7 +478,7 @@
   {
    "id": "M20",
    "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
-   "at": "2026-10-14T19:36:46.827Z",
+   "at": "2026-10-14T20:35:09.767Z",
    "from": "core.global.director.road-safety",
    "to": "core.new-york.research.lead",
    "type": "request",
@@ -489,7 +489,7 @@
   {
    "id": "M21",
    "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
-   "at": "2026-10-14T19:36:46.827Z",
+   "at": "2026-10-14T20:35:09.767Z",
    "from": "core.new-york.research.lead",
    "to": "core.new-york.research.evidence-verifier",
    "type": "delegate",
@@ -500,7 +500,7 @@
   {
    "id": "M22",
    "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
-   "at": "2026-10-14T19:36:46.828Z",
+   "at": "2026-10-14T20:35:09.768Z",
    "from": "core.san-francisco.safety.adversarial-reviewer",
    "to": "core.global.director.road-safety",
    "type": "review",
@@ -511,7 +511,7 @@
   {
    "id": "M23",
    "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
-   "at": "2026-10-14T19:36:46.829Z",
+   "at": "2026-10-14T20:35:09.768Z",
    "from": "core.new-york.safety.adversarial-reviewer",
    "to": "core.global.director.road-safety",
    "type": "review",
@@ -522,7 +522,7 @@
   {
    "id": "M24",
    "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
-   "at": "2026-10-14T19:36:46.830Z",
+   "at": "2026-10-14T20:35:09.770Z",
    "from": "core.global.director.road-safety",
    "to": "human",
    "type": "decision",
@@ -1807,7 +1807,7 @@
   }
  ],
  "metrics": {
-  "wallMs": 48,
+  "wallMs": 47,
   "subtasks": 7,
   "failed": 0,
   "toolCalls": 7,
@@ -1816,7 +1816,7 @@
   "memoryReused": 9
  },
  "recorded": {
-  "at": "2026-10-14T19:36:46.853Z",
+  "at": "2026-10-14T20:35:09.816Z",
   "by": "scripts/civ.mjs (Node, local)",
   "snapshot": {
    "san-francisco": "2026-10-14T16:09:41.363Z",

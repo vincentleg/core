@@ -1,10 +1,10 @@
 {
  "version": "core-memory-export-v1",
- "generated_at": "2026-10-14T19:36:46.859Z",
+ "generated_at": "2026-10-14T20:35:09.819Z",
  "chain": {
   "ok": true,
-  "head": "9492b90a7edb3a894275dcd647814f972300d6696a67435151eff1322d51ad4e",
-  "events": 395
+  "head": "ee61929d451991901ede3e7eb21d5ef842834e384f98d95edf43e51b07b8d99c",
+  "events": 423
  },
  "episodes": [
   {
@@ -18333,6 +18333,792 @@
    },
    "errors": [],
    "at": "2026-10-14T19:27:43.905Z"
+  },
+  {
+   "agent": "core.global.coordinator",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "workflow": "cross-city-road-safety",
+   "role": "executive",
+   "problem": "Que peut-on comparer, et que ne peut-on pas comparer, entre les accidents sur les réseaux désignés de Tenderloin (San Francisco) et East Village (New York) ?",
+   "nhood": "Tenderloin / East Village",
+   "tools": [],
+   "collaborators": [
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T20:35:09.774Z"
+  },
+  {
+   "agent": "core.global.director.road-safety",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "workflow": "cross-city-road-safety",
+   "role": "lead",
+   "problem": "Que peut-on comparer, et que ne peut-on pas comparer, entre les accidents sur les réseaux désignés de Tenderloin (San Francisco) et East Village (New York) ?",
+   "nhood": "Tenderloin / East Village",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T20:35:09.776Z"
+  },
+  {
+   "agent": "core.global.research.methodology-reviewer",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "workflow": "cross-city-road-safety",
+   "role": "review",
+   "problem": "Que peut-on comparer, et que ne peut-on pas comparer, entre les accidents sur les réseaux désignés de Tenderloin (San Francisco) et East Village (New York) ?",
+   "nhood": "Tenderloin / East Village",
+   "tools": [
+    {
+     "tool": "comparability.review",
+     "state": "succeeded",
+     "findings": 7,
+     "error": null,
+     "target": {
+      "pairs": [
+       [
+        "san-francisco",
+        "Tenderloin"
+       ],
+       [
+        "new-york",
+        "East Village"
+       ]
+      ]
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.global.director.road-safety",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead"
+   ],
+   "evidence": 7,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T20:35:09.777Z"
+  },
+  {
+   "agent": "core.san-francisco.mobility.lead",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "workflow": "cross-city-road-safety",
+   "role": "lead",
+   "problem": "Que peut-on comparer, et que ne peut-on pas comparer, entre les accidents sur les réseaux désignés de Tenderloin (San Francisco) et East Village (New York) ?",
+   "nhood": "Tenderloin / East Village",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T20:35:09.777Z"
+  },
+  {
+   "agent": "core.san-francisco.safety.adversarial-reviewer",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "workflow": "cross-city-road-safety",
+   "role": "review",
+   "problem": "Que peut-on comparer, et que ne peut-on pas comparer, entre les accidents sur les réseaux désignés de Tenderloin (San Francisco) et East Village (New York) ?",
+   "nhood": "Tenderloin / East Village",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T20:35:09.778Z"
+  },
+  {
+   "agent": "core.san-francisco.governance.gateway",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "workflow": "cross-city-road-safety",
+   "role": "gateway",
+   "problem": "Que peut-on comparer, et que ne peut-on pas comparer, entre les accidents sur les réseaux désignés de Tenderloin (San Francisco) et East Village (New York) ?",
+   "nhood": "Tenderloin / East Village",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T20:35:09.779Z"
+  },
+  {
+   "agent": "core.new-york.mobility.lead",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "workflow": "cross-city-road-safety",
+   "role": "lead",
+   "problem": "Que peut-on comparer, et que ne peut-on pas comparer, entre les accidents sur les réseaux désignés de Tenderloin (San Francisco) et East Village (New York) ?",
+   "nhood": "Tenderloin / East Village",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T20:35:09.779Z"
+  },
+  {
+   "agent": "core.new-york.safety.adversarial-reviewer",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "workflow": "cross-city-road-safety",
+   "role": "review",
+   "problem": "Que peut-on comparer, et que ne peut-on pas comparer, entre les accidents sur les réseaux désignés de Tenderloin (San Francisco) et East Village (New York) ?",
+   "nhood": "Tenderloin / East Village",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T20:35:09.780Z"
+  },
+  {
+   "agent": "core.new-york.governance.gateway",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "workflow": "cross-city-road-safety",
+   "role": "gateway",
+   "problem": "Que peut-on comparer, et que ne peut-on pas comparer, entre les accidents sur les réseaux désignés de Tenderloin (San Francisco) et East Village (New York) ?",
+   "nhood": "Tenderloin / East Village",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T20:35:09.781Z"
+  },
+  {
+   "agent": "core.san-francisco.mobility.traffic",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "workflow": "cross-city-road-safety",
+   "role": "specialist",
+   "problem": "Que peut-on comparer, et que ne peut-on pas comparer, entre les accidents sur les réseaux désignés de Tenderloin (San Francisco) et East Village (New York) ?",
+   "nhood": "Tenderloin / East Village",
+   "tools": [
+    {
+     "tool": "safety.crash-profile",
+     "state": "succeeded",
+     "findings": 6,
+     "error": null,
+     "target": {
+      "nhood": "Tenderloin"
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead"
+   ],
+   "evidence": 6,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T20:35:09.783Z"
+  },
+  {
+   "agent": "core.san-francisco.civil.works-coordination",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "workflow": "cross-city-road-safety",
+   "role": "specialist",
+   "problem": "Que peut-on comparer, et que ne peut-on pas comparer, entre les accidents sur les réseaux désignés de Tenderloin (San Francisco) et East Village (New York) ?",
+   "nhood": "Tenderloin / East Village",
+   "tools": [
+    {
+     "tool": "works.area-windows",
+     "state": "succeeded",
+     "findings": 1,
+     "error": null,
+     "target": {
+      "segments": [
+       "9733000",
+       "6117000",
+       "12718000",
+       "7563000",
+       "5173000",
+       "12717000",
+       "5061001",
+       "5063000",
+       "7117000",
+       "6553000"
+      ]
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead"
+   ],
+   "evidence": 1,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T20:35:09.784Z"
+  },
+  {
+   "agent": "core.san-francisco.civil.lead",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "workflow": "cross-city-road-safety",
+   "role": "lead (relais)",
+   "problem": "Que peut-on comparer, et que ne peut-on pas comparer, entre les accidents sur les réseaux désignés de Tenderloin (San Francisco) et East Village (New York) ?",
+   "nhood": "Tenderloin / East Village",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T20:35:09.785Z"
+  },
+  {
+   "agent": "core.new-york.mobility.traffic",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "workflow": "cross-city-road-safety",
+   "role": "specialist",
+   "problem": "Que peut-on comparer, et que ne peut-on pas comparer, entre les accidents sur les réseaux désignés de Tenderloin (San Francisco) et East Village (New York) ?",
+   "nhood": "Tenderloin / East Village",
+   "tools": [
+    {
+     "tool": "safety.crash-profile",
+     "state": "succeeded",
+     "findings": 6,
+     "error": null,
+     "target": {
+      "nhood": "East Village"
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead"
+   ],
+   "evidence": 6,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T20:35:09.785Z"
+  },
+  {
+   "agent": "core.new-york.civil.works-coordination",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "workflow": "cross-city-road-safety",
+   "role": "specialist",
+   "problem": "Que peut-on comparer, et que ne peut-on pas comparer, entre les accidents sur les réseaux désignés de Tenderloin (San Francisco) et East Village (New York) ?",
+   "nhood": "Tenderloin / East Village",
+   "tools": [
+    {
+     "tool": "works.area-windows",
+     "state": "succeeded",
+     "findings": 1,
+     "error": null,
+     "target": {
+      "segments": [
+       "pc-3d2d0da7cb:EV",
+       "pc-268c848b02:EV",
+       "pc-399eb17562:EV",
+       "pc-ff6dbd5275:EV",
+       "pc-88ebe56861:EV"
+      ]
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead"
+   ],
+   "evidence": 1,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T20:35:09.787Z"
+  },
+  {
+   "agent": "core.new-york.civil.lead",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "workflow": "cross-city-road-safety",
+   "role": "lead (relais)",
+   "problem": "Que peut-on comparer, et que ne peut-on pas comparer, entre les accidents sur les réseaux désignés de Tenderloin (San Francisco) et East Village (New York) ?",
+   "nhood": "Tenderloin / East Village",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T20:35:09.788Z"
+  },
+  {
+   "agent": "core.san-francisco.research.evidence-verifier",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "workflow": "cross-city-road-safety",
+   "role": "data-verification",
+   "problem": "Que peut-on comparer, et que ne peut-on pas comparer, entre les accidents sur les réseaux désignés de Tenderloin (San Francisco) et East Village (New York) ?",
+   "nhood": "Tenderloin / East Village",
+   "tools": [
+    {
+     "tool": "data.freshness",
+     "state": "succeeded",
+     "findings": 2,
+     "error": null,
+     "target": {
+      "datasets": [
+       "crashes-agg",
+       "hin"
+      ]
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead"
+   ],
+   "evidence": 2,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T20:35:09.788Z"
+  },
+  {
+   "agent": "core.san-francisco.research.lead",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "workflow": "cross-city-road-safety",
+   "role": "lead (relais)",
+   "problem": "Que peut-on comparer, et que ne peut-on pas comparer, entre les accidents sur les réseaux désignés de Tenderloin (San Francisco) et East Village (New York) ?",
+   "nhood": "Tenderloin / East Village",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T20:35:09.789Z"
+  },
+  {
+   "agent": "core.new-york.research.evidence-verifier",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "workflow": "cross-city-road-safety",
+   "role": "data-verification",
+   "problem": "Que peut-on comparer, et que ne peut-on pas comparer, entre les accidents sur les réseaux désignés de Tenderloin (San Francisco) et East Village (New York) ?",
+   "nhood": "Tenderloin / East Village",
+   "tools": [
+    {
+     "tool": "data.freshness",
+     "state": "succeeded",
+     "findings": 2,
+     "error": null,
+     "target": {
+      "datasets": [
+       "crashes-agg",
+       "hin"
+      ]
+     }
+    }
+   ],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.lead"
+   ],
+   "evidence": 2,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T20:35:09.791Z"
+  },
+  {
+   "agent": "core.new-york.research.lead",
+   "mission": "world:road-safety-comparison:san-francisco/tenderloin@2026-10-14+new-york/east-village@2026-10-14T1925",
+   "workflow": "cross-city-road-safety",
+   "role": "lead (relais)",
+   "problem": "Que peut-on comparer, et que ne peut-on pas comparer, entre les accidents sur les réseaux désignés de Tenderloin (San Francisco) et East Village (New York) ?",
+   "nhood": "Tenderloin / East Village",
+   "tools": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier"
+   ],
+   "evidence": 0,
+   "outcome": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "review": {
+    "rejected": 0
+   },
+   "errors": [],
+   "at": "2026-10-14T20:35:09.791Z"
   }
  ],
  "institutional": [

@@ -1,11 +1,11 @@
 {
  "version": "core-agent-registry-v2",
- "generated_at": "2026-10-14T19:36:46.911Z",
+ "generated_at": "2026-10-14T20:35:09.863Z",
  "base": "core-agent-registry-v3-world",
  "counts": {
-  "opérationnel autonome": 13,
-  "coordination seule": 23,
-  "spécialiste déterministe exécutable": 26,
+  "opérationnel autonome": 16,
+  "coordination seule": 21,
+  "spécialiste déterministe exécutable": 25,
   "assisté par modèle": 7,
   "enregistré, non implémenté": 13
  },
@@ -307,35 +307,36 @@
     "core.new-york.manager"
    ],
    "collaborators": [
-    "core.san-francisco.manager",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
     "core.san-francisco.mobility.lead",
-    "core.san-francisco.research.evidence-verifier",
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway",
-    "core.san-francisco.mobility.traffic",
-    "core.san-francisco.simulation.scenario-evaluator",
-    "core.san-francisco.simulation.lead",
-    "core.san-francisco.civil.works-coordination",
-    "core.san-francisco.civil.lead",
-    "core.new-york.manager",
     "core.new-york.mobility.lead",
-    "core.new-york.research.evidence-verifier",
     "core.new-york.safety.adversarial-reviewer",
     "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
     "core.new-york.mobility.traffic",
-    "core.new-york.public-space.ramps",
-    "core.new-york.public-space.lead",
     "core.new-york.civil.works-coordination",
     "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead",
+    "core.san-francisco.manager",
+    "core.san-francisco.simulation.scenario-evaluator",
+    "core.san-francisco.simulation.lead",
+    "core.new-york.manager",
+    "core.new-york.public-space.ramps",
+    "core.new-york.public-space.lead",
     "core.san-francisco.water.lead",
     "core.san-francisco.water.water-network",
     "core.san-francisco.climate.weather-alerts",
     "core.san-francisco.climate.lead",
     "core.san-francisco.telecom.telecom-works",
-    "core.san-francisco.telecom.lead",
-    "core.san-francisco.climate.seismic-context",
-    "core.san-francisco.public-space.sidewalks",
-    "core.san-francisco.public-space.lead"
+    "core.san-francisco.telecom.lead"
    ],
    "dependencies": [],
    "allowedActions": [
@@ -358,7 +359,7 @@
    "memoryNamespace": "mem:CORE-CMD-0001",
    "currentTask": "aucune exécution en cours (enregistrement)",
    "pastMissions": {
-    "civ": 11,
+    "civ": 12,
     "cognitive": 0,
     "ruleBased": 0,
     "operations": 0
@@ -368,7 +369,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:27:43.898Z",
+   "lastGenuineExecution": "2026-10-14T20:35:09.774Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -549,15 +550,26 @@
    ],
    "collaborators": [
     "core.global.coordinator",
-    "core.san-francisco.manager",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
     "core.san-francisco.mobility.lead",
-    "core.san-francisco.research.evidence-verifier",
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
     "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead",
+    "core.san-francisco.manager",
     "core.san-francisco.simulation.scenario-evaluator",
     "core.san-francisco.simulation.lead",
-    "core.san-francisco.civil.works-coordination",
     "core.san-francisco.water.lead",
     "core.san-francisco.water.water-network",
     "core.san-francisco.climate.weather-alerts",
@@ -585,7 +597,7 @@
    "memoryNamespace": "mem:CORE-CIV-0004",
    "currentTask": "aucune exécution en cours (enregistrement)",
    "pastMissions": {
-    "civ": 6,
+    "civ": 7,
     "cognitive": 0,
     "ruleBased": 0,
     "operations": 0
@@ -595,7 +607,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:27:43.905Z",
+   "lastGenuineExecution": "2026-10-14T20:35:09.785Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -904,15 +916,26 @@
    ],
    "collaborators": [
     "core.global.coordinator",
-    "core.san-francisco.manager",
-    "core.san-francisco.research.evidence-verifier",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
     "core.san-francisco.mobility.traffic",
-    "core.san-francisco.simulation.scenario-evaluator",
-    "core.san-francisco.simulation.lead",
     "core.san-francisco.civil.works-coordination",
     "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead",
+    "core.san-francisco.manager",
+    "core.san-francisco.simulation.scenario-evaluator",
+    "core.san-francisco.simulation.lead",
     "core.san-francisco.water.lead",
     "core.san-francisco.water.water-network",
     "core.san-francisco.climate.weather-alerts",
@@ -940,7 +963,7 @@
    "memoryNamespace": "mem:CORE-TRF-0010",
    "currentTask": "aucune exécution en cours (enregistrement)",
    "pastMissions": {
-    "civ": 6,
+    "civ": 7,
     "cognitive": 0,
     "ruleBased": 0,
     "operations": 0
@@ -950,7 +973,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:27:43.899Z",
+   "lastGenuineExecution": "2026-10-14T20:35:09.777Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -1969,7 +1992,7 @@
    "title": "Direction — Recherche et vérification des preuves",
    "department": "research",
    "specialty": "Coordination du département ; domaines transverses",
-   "class": "coordination seule",
+   "class": "opérationnel autonome",
    "executionMode": "coordination-only",
    "capabilities": [],
    "knowledgeBoundaries": {
@@ -1983,7 +2006,26 @@
     "core.san-francisco.research.evidence-verifier",
     "core.san-francisco.research.evidence-reviewer"
    ],
-   "collaborators": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead"
+   ],
    "dependencies": [],
    "allowedActions": [
     "lire les sources autorisées",
@@ -2001,7 +2043,7 @@
    "memoryNamespace": "mem:CORE-RES-0029",
    "currentTask": "aucune exécution en cours (enregistrement)",
    "pastMissions": {
-    "civ": 0,
+    "civ": 1,
     "cognitive": 0,
     "ruleBased": 0,
     "operations": 0
@@ -2011,7 +2053,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": null,
+   "lastGenuineExecution": "2026-10-14T20:35:09.789Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -2091,15 +2133,26 @@
    "directReports": [],
    "collaborators": [
     "core.global.coordinator",
-    "core.san-francisco.manager",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
     "core.san-francisco.mobility.lead",
-    "core.san-francisco.research.evidence-verifier",
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
     "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead",
+    "core.san-francisco.manager",
     "core.san-francisco.simulation.scenario-evaluator",
     "core.san-francisco.simulation.lead",
-    "core.san-francisco.civil.lead",
     "core.san-francisco.water.lead",
     "core.san-francisco.water.water-network",
     "core.san-francisco.climate.weather-alerts",
@@ -2126,17 +2179,17 @@
    "memoryNamespace": "mem:CORE-CIV-0031",
    "currentTask": "aucune exécution en cours (enregistrement)",
    "pastMissions": {
-    "civ": 6,
+    "civ": 7,
     "cognitive": 0,
     "ruleBased": 11,
     "operations": 37
    },
-   "evidenceProduced": 10,
+   "evidenceProduced": 11,
    "evaluations": {
     "passed": 1,
     "total": 1
    },
-   "lastGenuineExecution": "2026-10-14T19:27:43.905Z",
+   "lastGenuineExecution": "2026-10-14T20:35:09.784Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -2810,15 +2863,26 @@
    "directReports": [],
    "collaborators": [
     "core.global.coordinator",
-    "core.san-francisco.manager",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
     "core.san-francisco.mobility.lead",
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
     "core.san-francisco.mobility.traffic",
-    "core.san-francisco.simulation.scenario-evaluator",
-    "core.san-francisco.simulation.lead",
     "core.san-francisco.civil.works-coordination",
     "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead",
+    "core.san-francisco.manager",
+    "core.san-francisco.simulation.scenario-evaluator",
+    "core.san-francisco.simulation.lead",
     "core.san-francisco.water.lead",
     "core.san-francisco.water.water-network",
     "core.san-francisco.climate.weather-alerts",
@@ -2851,17 +2915,17 @@
    "memoryNamespace": "mem:CORE-RES-0043",
    "currentTask": "aucune exécution en cours (enregistrement)",
    "pastMissions": {
-    "civ": 6,
+    "civ": 7,
     "cognitive": 0,
     "ruleBased": 12,
     "operations": 37
    },
-   "evidenceProduced": 0,
+   "evidenceProduced": 2,
    "evaluations": {
     "passed": 1,
     "total": 1
    },
-   "lastGenuineExecution": "2026-10-14T19:27:43.900Z",
+   "lastGenuineExecution": "2026-10-14T20:35:09.788Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -2888,15 +2952,26 @@
    "directReports": [],
    "collaborators": [
     "core.global.coordinator",
-    "core.san-francisco.manager",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
     "core.san-francisco.mobility.lead",
-    "core.san-francisco.research.evidence-verifier",
     "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
     "core.san-francisco.mobility.traffic",
-    "core.san-francisco.simulation.scenario-evaluator",
-    "core.san-francisco.simulation.lead",
     "core.san-francisco.civil.works-coordination",
     "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead",
+    "core.san-francisco.manager",
+    "core.san-francisco.simulation.scenario-evaluator",
+    "core.san-francisco.simulation.lead",
     "core.san-francisco.water.lead",
     "core.san-francisco.water.water-network",
     "core.san-francisco.climate.weather-alerts",
@@ -2927,7 +3002,7 @@
    "memoryNamespace": "mem:CORE-SAF-0044",
    "currentTask": "aucune exécution en cours (enregistrement)",
    "pastMissions": {
-    "civ": 6,
+    "civ": 7,
     "cognitive": 0,
     "ruleBased": 12,
     "operations": 37
@@ -2937,7 +3012,7 @@
     "passed": 1,
     "total": 1
    },
-   "lastGenuineExecution": "2026-10-14T19:27:43.900Z",
+   "lastGenuineExecution": "2026-10-14T20:35:09.778Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -3638,15 +3713,26 @@
    "directReports": [],
    "collaborators": [
     "core.global.coordinator",
-    "core.san-francisco.manager",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
     "core.san-francisco.mobility.lead",
-    "core.san-francisco.research.evidence-verifier",
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway",
-    "core.san-francisco.simulation.scenario-evaluator",
-    "core.san-francisco.simulation.lead",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
     "core.san-francisco.civil.works-coordination",
     "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead",
+    "core.san-francisco.manager",
+    "core.san-francisco.simulation.scenario-evaluator",
+    "core.san-francisco.simulation.lead",
     "core.san-francisco.water.lead",
     "core.san-francisco.water.water-network",
     "core.san-francisco.climate.weather-alerts",
@@ -3674,17 +3760,17 @@
    "memoryNamespace": "mem:CORE-TRF-0057",
    "currentTask": "aucune exécution en cours (enregistrement)",
    "pastMissions": {
-    "civ": 6,
+    "civ": 7,
     "cognitive": 0,
     "ruleBased": 0,
     "operations": 0
    },
-   "evidenceProduced": 36,
+   "evidenceProduced": 42,
    "evaluations": {
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:27:43.901Z",
+   "lastGenuineExecution": "2026-10-14T20:35:09.783Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -4186,15 +4272,26 @@
    "directReports": [],
    "collaborators": [
     "core.global.coordinator",
-    "core.san-francisco.manager",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
     "core.san-francisco.mobility.lead",
-    "core.san-francisco.research.evidence-verifier",
     "core.san-francisco.safety.adversarial-reviewer",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
     "core.san-francisco.mobility.traffic",
-    "core.san-francisco.simulation.scenario-evaluator",
-    "core.san-francisco.simulation.lead",
     "core.san-francisco.civil.works-coordination",
     "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead",
+    "core.san-francisco.manager",
+    "core.san-francisco.simulation.scenario-evaluator",
+    "core.san-francisco.simulation.lead",
     "core.san-francisco.water.lead",
     "core.san-francisco.water.water-network",
     "core.san-francisco.climate.weather-alerts",
@@ -4226,7 +4323,7 @@
    "memoryNamespace": "mem:CORE-SAF-0068",
    "currentTask": "aucune exécution en cours (enregistrement)",
    "pastMissions": {
-    "civ": 6,
+    "civ": 7,
     "cognitive": 0,
     "ruleBased": 12,
     "operations": 37
@@ -4236,7 +4333,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:27:43.901Z",
+   "lastGenuineExecution": "2026-10-14T20:35:09.779Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -4245,7 +4342,7 @@
    "title": "Direction mondiale — Sécurité routière",
    "department": null,
    "specialty": "Coordination d’analyses comparatives entre villes ; aucune autorité sur des villes réelles",
-   "class": "spécialiste déterministe exécutable",
+   "class": "opérationnel autonome",
    "executionMode": "deterministic",
    "capabilities": [
     "mission.plan"
@@ -4261,7 +4358,26 @@
    "city": null,
    "supervisor": "core.global.coordinator",
    "directReports": [],
-   "collaborators": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead"
+   ],
    "dependencies": [],
    "allowedActions": [
     "lire les sources autorisées",
@@ -4279,7 +4395,7 @@
    "memoryNamespace": "mem:CORE-DIR-0069",
    "currentTask": "aucune exécution en cours (enregistrement)",
    "pastMissions": {
-    "civ": 0,
+    "civ": 1,
     "cognitive": 0,
     "ruleBased": 0,
     "operations": 0
@@ -4289,7 +4405,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": null,
+   "lastGenuineExecution": "2026-10-14T20:35:09.776Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -4313,7 +4429,26 @@
    "city": null,
    "supervisor": "core.global.coordinator",
    "directReports": [],
-   "collaborators": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.global.director.road-safety",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead"
+   ],
    "dependencies": [],
    "allowedActions": [
     "lire les sources autorisées",
@@ -4334,17 +4469,17 @@
    "memoryNamespace": "mem:CORE-RES-0070",
    "currentTask": "aucune exécution en cours (enregistrement)",
    "pastMissions": {
-    "civ": 0,
+    "civ": 1,
     "cognitive": 0,
     "ruleBased": 0,
     "operations": 0
    },
-   "evidenceProduced": 0,
+   "evidenceProduced": 7,
    "evaluations": {
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": null,
+   "lastGenuineExecution": "2026-10-14T20:35:09.777Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -4442,15 +4577,26 @@
    ],
    "collaborators": [
     "core.global.coordinator",
-    "core.new-york.manager",
-    "core.new-york.research.evidence-verifier",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
     "core.new-york.safety.adversarial-reviewer",
     "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
     "core.new-york.mobility.traffic",
-    "core.new-york.public-space.ramps",
-    "core.new-york.public-space.lead",
     "core.new-york.civil.works-coordination",
-    "core.new-york.civil.lead"
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead",
+    "core.new-york.manager",
+    "core.new-york.public-space.ramps",
+    "core.new-york.public-space.lead"
    ],
    "dependencies": [],
    "allowedActions": [
@@ -4469,7 +4615,7 @@
    "memoryNamespace": "mem:CORE-TRF-0072",
    "currentTask": "aucune exécution en cours (enregistrement)",
    "pastMissions": {
-    "civ": 5,
+    "civ": 6,
     "cognitive": 0,
     "ruleBased": 0,
     "operations": 0
@@ -4479,7 +4625,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:27:35.712Z",
+   "lastGenuineExecution": "2026-10-14T20:35:09.779Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -4505,15 +4651,26 @@
    ],
    "collaborators": [
     "core.global.coordinator",
-    "core.new-york.manager",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
     "core.new-york.mobility.lead",
-    "core.new-york.research.evidence-verifier",
     "core.new-york.safety.adversarial-reviewer",
     "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
     "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead",
+    "core.new-york.manager",
     "core.new-york.public-space.ramps",
-    "core.new-york.public-space.lead",
-    "core.new-york.civil.works-coordination"
+    "core.new-york.public-space.lead"
    ],
    "dependencies": [],
    "allowedActions": [
@@ -4532,7 +4689,7 @@
    "memoryNamespace": "mem:CORE-CIV-0073",
    "currentTask": "aucune exécution en cours (enregistrement)",
    "pastMissions": {
-    "civ": 5,
+    "civ": 6,
     "cognitive": 0,
     "ruleBased": 0,
     "operations": 0
@@ -4542,7 +4699,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:27:35.713Z",
+   "lastGenuineExecution": "2026-10-14T20:35:09.788Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -4614,7 +4771,7 @@
    "title": "Direction — Recherche et vérification des preuves (New York)",
    "department": "research",
    "specialty": "Coordination du département à New York ; domaines transverses",
-   "class": "coordination seule",
+   "class": "opérationnel autonome",
    "executionMode": "coordination-only",
    "capabilities": [],
    "knowledgeBoundaries": {
@@ -4627,7 +4784,26 @@
    "directReports": [
     "core.new-york.research.evidence-verifier"
    ],
-   "collaborators": [],
+   "collaborators": [
+    "core.global.coordinator",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
+    "core.new-york.mobility.lead",
+    "core.new-york.safety.adversarial-reviewer",
+    "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
+    "core.new-york.mobility.traffic",
+    "core.new-york.civil.works-coordination",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier"
+   ],
    "dependencies": [],
    "allowedActions": [
     "lire les sources autorisées",
@@ -4645,7 +4821,7 @@
    "memoryNamespace": "mem:CORE-RES-0075",
    "currentTask": "aucune exécution en cours (enregistrement)",
    "pastMissions": {
-    "civ": 0,
+    "civ": 1,
     "cognitive": 0,
     "ruleBased": 0,
     "operations": 0
@@ -4655,7 +4831,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": null,
+   "lastGenuineExecution": "2026-10-14T20:35:09.791Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -4733,15 +4909,26 @@
    "directReports": [],
    "collaborators": [
     "core.global.coordinator",
-    "core.new-york.manager",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
     "core.new-york.mobility.lead",
-    "core.new-york.research.evidence-verifier",
     "core.new-york.safety.adversarial-reviewer",
     "core.new-york.governance.gateway",
-    "core.new-york.public-space.ramps",
-    "core.new-york.public-space.lead",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
     "core.new-york.civil.works-coordination",
-    "core.new-york.civil.lead"
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead",
+    "core.new-york.manager",
+    "core.new-york.public-space.ramps",
+    "core.new-york.public-space.lead"
    ],
    "dependencies": [
     "crashes-agg",
@@ -4760,17 +4947,17 @@
    "memoryNamespace": "mem:CORE-TRF-0077",
    "currentTask": "aucune exécution en cours (enregistrement)",
    "pastMissions": {
-    "civ": 5,
+    "civ": 6,
     "cognitive": 0,
     "ruleBased": 0,
     "operations": 0
    },
-   "evidenceProduced": 18,
+   "evidenceProduced": 24,
    "evaluations": {
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:27:35.712Z",
+   "lastGenuineExecution": "2026-10-14T20:35:09.785Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -4797,15 +4984,26 @@
    "directReports": [],
    "collaborators": [
     "core.global.coordinator",
-    "core.new-york.manager",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
     "core.new-york.mobility.lead",
-    "core.new-york.research.evidence-verifier",
     "core.new-york.safety.adversarial-reviewer",
     "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
     "core.new-york.mobility.traffic",
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead",
+    "core.new-york.manager",
     "core.new-york.public-space.ramps",
-    "core.new-york.public-space.lead",
-    "core.new-york.civil.lead"
+    "core.new-york.public-space.lead"
    ],
    "dependencies": [
     "study-permits"
@@ -4823,17 +5021,17 @@
    "memoryNamespace": "mem:CORE-CIV-0078",
    "currentTask": "aucune exécution en cours (enregistrement)",
    "pastMissions": {
-    "civ": 5,
+    "civ": 6,
     "cognitive": 0,
     "ruleBased": 0,
     "operations": 0
    },
-   "evidenceProduced": 10,
+   "evidenceProduced": 11,
    "evaluations": {
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:27:35.713Z",
+   "lastGenuineExecution": "2026-10-14T20:35:09.787Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -4917,15 +5115,26 @@
    "directReports": [],
    "collaborators": [
     "core.global.coordinator",
-    "core.new-york.manager",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
     "core.new-york.mobility.lead",
     "core.new-york.safety.adversarial-reviewer",
     "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
     "core.new-york.mobility.traffic",
-    "core.new-york.public-space.ramps",
-    "core.new-york.public-space.lead",
     "core.new-york.civil.works-coordination",
-    "core.new-york.civil.lead"
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.lead",
+    "core.new-york.manager",
+    "core.new-york.public-space.ramps",
+    "core.new-york.public-space.lead"
    ],
    "dependencies": [
     "manifest"
@@ -4949,17 +5158,17 @@
    "memoryNamespace": "mem:CORE-RES-0080",
    "currentTask": "aucune exécution en cours (enregistrement)",
    "pastMissions": {
-    "civ": 5,
+    "civ": 6,
     "cognitive": 0,
     "ruleBased": 0,
     "operations": 0
    },
-   "evidenceProduced": 0,
+   "evidenceProduced": 2,
    "evaluations": {
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:27:35.712Z",
+   "lastGenuineExecution": "2026-10-14T20:35:09.791Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -4983,15 +5192,26 @@
    "directReports": [],
    "collaborators": [
     "core.global.coordinator",
-    "core.new-york.manager",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
     "core.new-york.mobility.lead",
-    "core.new-york.research.evidence-verifier",
     "core.new-york.governance.gateway",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
     "core.new-york.mobility.traffic",
-    "core.new-york.public-space.ramps",
-    "core.new-york.public-space.lead",
     "core.new-york.civil.works-coordination",
-    "core.new-york.civil.lead"
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead",
+    "core.new-york.manager",
+    "core.new-york.public-space.ramps",
+    "core.new-york.public-space.lead"
    ],
    "dependencies": [],
    "allowedActions": [
@@ -5013,7 +5233,7 @@
    "memoryNamespace": "mem:CORE-SAF-0081",
    "currentTask": "aucune exécution en cours (enregistrement)",
    "pastMissions": {
-    "civ": 5,
+    "civ": 6,
     "cognitive": 0,
     "ruleBased": 0,
     "operations": 0
@@ -5023,7 +5243,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:27:35.712Z",
+   "lastGenuineExecution": "2026-10-14T20:35:09.780Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   },
   {
@@ -5049,15 +5269,26 @@
    "directReports": [],
    "collaborators": [
     "core.global.coordinator",
-    "core.new-york.manager",
+    "core.global.director.road-safety",
+    "core.global.research.methodology-reviewer",
+    "core.san-francisco.mobility.lead",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway",
     "core.new-york.mobility.lead",
-    "core.new-york.research.evidence-verifier",
     "core.new-york.safety.adversarial-reviewer",
+    "core.san-francisco.mobility.traffic",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.civil.lead",
     "core.new-york.mobility.traffic",
-    "core.new-york.public-space.ramps",
-    "core.new-york.public-space.lead",
     "core.new-york.civil.works-coordination",
-    "core.new-york.civil.lead"
+    "core.new-york.civil.lead",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.research.lead",
+    "core.new-york.research.evidence-verifier",
+    "core.new-york.research.lead",
+    "core.new-york.manager",
+    "core.new-york.public-space.ramps",
+    "core.new-york.public-space.lead"
    ],
    "dependencies": [],
    "allowedActions": [
@@ -5080,7 +5311,7 @@
    "memoryNamespace": "mem:CORE-SAF-0082",
    "currentTask": "aucune exécution en cours (enregistrement)",
    "pastMissions": {
-    "civ": 5,
+    "civ": 6,
     "cognitive": 0,
     "ruleBased": 0,
     "operations": 0
@@ -5090,7 +5321,7 @@
     "passed": 0,
     "total": 0
    },
-   "lastGenuineExecution": "2026-10-14T19:27:35.712Z",
+   "lastGenuineExecution": "2026-10-14T20:35:09.781Z",
    "version": "core-agent-registry-v3-world@2026-10-13"
   }
  ]
