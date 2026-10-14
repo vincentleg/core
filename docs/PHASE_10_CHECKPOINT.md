@@ -1,44 +1,84 @@
-# Phase 10 — rolling checkpoint
+# Phase 10 — checkpoint (saved on founder request, 2026-10-14)
 
-Branch: `phase10`. `main` serves the verified Phase 9 release (tag `phase9-release` = `84f356c`; `main` = `d5b52bf`). Do not merge `phase10` into `main` until the Phase 10 release gates pass.
+**Branch:** `phase10`; the commit SHA is in the final report and `git log -1 phase10`. **`main` is untouched**: it holds the Phase 9 release (`d5b52bf`, tag `phase9-release` = `84f356c`) and is deployed on GitHub Pages. Do not merge until the gates below pass.
 
-## Stage status
+## Phase 9
+Released and verified in production (see `docs/PHASE_9_REPORT.md` §L).
 
-| Stage | Status | Evidence |
-| --- | --- | --- |
-| A — city architecture + second city | **done** | `src/cities.js`; `scripts/nyc-snapshot.mjs` → `data/nyc`; `scripts/osm-walk.mjs --city new-york` → `data/osm/nyc-*` (197 edges crossing buildings removed); NYC entries in `src/data-policy.js`. Node 109/109 |
-| B — multi-city organisation + engine | **done** | `ORG.buildWorld()` (82 profiles, SF codes unchanged); engine per city (`createEngine({city})`); NYC workflows `safety-works`, `ramps-works`; `src/civ-world.js` cross-city mission (director → both cities → methodology review → human; memory reuse; restart-safe); runtime/CLI/control server multi-city. Recorded: 5 SF (unchanged), 5 NYC, 1 decision, 1 world mission — all at HUMAN_REVIEW, no human decision |
-| C — discovery + persistent scheduler + memory supersession | **done** | `src/civ-discovery.js` (snapshot diff, dedupe, priority); `scripts/civd.mjs` (SQLite queue, crash recovery, budgets, STOP, triage, follow-ups after human decisions; `--publish` → `data/civ/discovery.json`); memory `supersede` + conflicts. First real diffs (SF 3 h, NYC 17 min apart): **0 changes** — re-run later |
-| D — decision intelligence | **done** | `decision-safety-works` (SF Tenderloin): I0–I3, 18-case sensitivity, evidence grades, review, human checkpoint. Index exploratory, uncalibrated; no costs |
-| E — UI multi-city, motion per city, command centre, demo | in progress | Done: New York destination + coverage; `src/city-layer.js` (NYC study-area layers, lazy ramps); motion per city (each agent on its own city's network); multi-city replay (camera follows, SF↔NYC arc); `src/cities-view.js` (« Villes & enquêtes »); 9-step demo (Chrome: 0 errors). Pending: command centre |
-| G — validation, docs, release | pending | |
+## Phase 10: done (committed on `phase10`)
 
-## Key facts (verified)
+| Area | What exists |
+| --- | --- |
+| City configuration | `src/cities.js`: SF and NY operational, Paris and Tokyo navigation only |
+| New York data | `scripts/nyc-snapshot.mjs` → `data/nyc`; collisions on limited-access roadways (FDR, bridges, tunnels) excluded from the 20 m join; NYC network `data/osm/nyc-*`; `src/data-policy.js` entries |
+| Organisation | `ORG.buildWorld()`: 82 profiles, SF codes unchanged, 14 new |
+| Tools (`src/civ-tools.js`) | City labels; `accessibility.ramps`, `works.near-points`, `decision.interventions` |
+| Engine | `createEngine({city})`; `ramps-works`; `decision-safety-works` |
+| Cross-city | `src/civ-world.js`: methodology review, memory reuse, supersession, episodes, restart-safe |
+| Memory | `src/civ-memory.js`: `supersede` and `conflicts` |
+| Discovery | `src/civ-discovery.js`: snapshot diff, including changed works windows, row order ignored |
+| Scheduler | `scripts/civd.mjs` with `scripts/lib/civd-core.mjs` |
+| Runtime and CLI | Multi-city; `node scripts/civ.mjs decision <city> <nhood>` and `node scripts/civ.mjs world <c>/<nh> <c>/<nh> [--fresh]` |
+| Map and motion | `src/city-layer.js` (NYC layers); motion per city (`src/agent-motion.js`); replay arc and camera (`src/civ-activity.js`) |
+| Views and demo | `src/cities-view.js` (tab "Villes & enquêtes"); 9-step demo (`src/demo.js`) |
+| Command centre | `control.html` and `scripts/control-server.mjs` (`--queue`; never spawns a process) |
+| Recordings | 12 missions in `data/civ` (5 SF, 5 NY, decision, world), all HUMAN_REVIEW; `data/civ/discovery.json`; `data/memory/export.json` |
+| Tests | `test/phase10.test.js` (12) |
+| Documentation | `docs/DATA_SOURCES.md` (NYC) |
 
-- **Second city: New York**, study area Chinatown-Two Bridges, Lower East Side, East Village. NYC Open Data Law: no use restriction; attribution of source, version and modifications.
+## Docs written last, uncommitted until this checkpoint commit
 
-  | Source | Dataset | Notes |
-  | --- | --- | --- |
-  | Collisions | `h9gi-nx95` | Aggregated; 5-year window ending 2026-06-11, a 125-day lag |
-  | Priority corridors | `36nr-7fbp` | Split per neighbourhood, so 7 pieces |
-  | Street closures for construction | `i6b5-j7bu` | The permits dataset has no geometry |
-  | Pedestrian ramps | `ufzp-rrqu` | Surveys from 2017–2019 |
+- `docs/PHASE_10_REPORT.md`: complete, except §P (deployment).
+- `docs/DECISIONS.md`: D066–D073.
+- `PROJECT_STATE.md`: Phase 10 state.
+- `ROADMAP.md`: Phase 10 row.
 
-- **Not integrated in NYC:** flood (stormwater maps are files only), geolocated permits, trees, costs.
-- **Comparability caveats for the cross-city mission:**
-  - NYC collisions have no injury-severity class, so only fatal counts are comparable;
-  - the corridor designations differ (SF HIN vs NYC VZV);
-  - works data differs (permits vs closures);
-  - crash assignment differs (key-based vs a 20 m spatial join);
-  - the time windows differ.
+## Test results (actual)
 
-## Corrections made during the phase (recorded honestly)
+| Check | Result |
+| --- | --- |
+| Node | 121/121 |
+| Chrome audit | 159/159 (`scripts/browser-audit.mjs`) |
+| Negative audit | 12/12 |
+| Integrity scan (`--all`) | 0 findings (265 files) |
+| Perf | Ready 788 ms; first load 4,905 KB; NY street 59 fps (`test-results/phase10/`, ignored) |
 
-- **NYC collision attribution:** the 20 m spatial join attached collisions recorded on the FDR Drive (an elevated limited-access highway) to a 145 m piece of the East Houston corridor. Fix: collisions whose street is a limited-access roadway are excluded (250 in the bbox, counted in the manifest). Effect: East Village went from 475 to 456 collisions and from 4 to 2 fatal. New York was re-snapshotted, and mission ids outside SF now carry the snapshot time.
-- **Memory supersession bug (development):** an older world finding was linked to the wrong successor, and a false conflict was recorded. Neither was ever published. The local memory was restored from the Phase 9 backup (`.core-local/backup/memory-phase9.sqlite`), and every Phase 10 run was replayed with the fixed code. The faulty database is kept in `.core-local/backup/dev-bug/`.
+**Known count error:** the message of commit `6fb03e0` says "122/122"; the real result was 121/121. The report records the correction.
+
+## Remaining tasks (in order)
+
+1. Update `README.md`: Phase 10 line and test counts.
+2. Update `CLAUDE.md`:
+   - "Phases … 3–10 closed; do not start Phase 11";
+   - current state: Phase 10 modules and commands.
+3. Run `node --test test/*.test.js` and `node scripts/csp.mjs --check`, then commit on `phase10`.
+4. Release gate:
+   1. Fast-forward `main` to `phase10`: `git checkout main && git merge --ff-only phase10 && git push origin main`. No force.
+   2. Wait for Pages, then verify https://vincentleg.github.io/core/ with headless Chrome:
+      - 82 agents;
+      - NYC layers;
+      - demo 9/9;
+      - 0 requests to `cityofnewyork` or a model;
+      - 0 errors.
+   3. Tag `phase10-release`.
+5. Fill §P of the report and `PROJECT_STATE.md`, then commit and push `main`. Stop there: no Phase 11.
+
+## Risks and notes
+
+- **Local state** (git-ignored, never commit):
+  - `.core-local/memory.sqlite` is the live memory;
+  - `.core-local/backup/memory-phase9.sqlite` is the Phase 9 backup;
+  - `.core-local/backup/dev-bug/` holds the faulty memory from a supersession bug that was fixed and never published;
+  - `.core-local/civd.sqlite` is the queue;
+  - `.core-local/watch/` holds the watch snapshots.
+- **Snapshot comparisons:** two real runs found 0 semantic changes; the SHA differences came only from API row order.
+- **Collection budget:** at most 4 collections per city per day; 2 have been used today.
+- **CI:** `.github/workflows/city-feed.yml` runs the Node tests. Phase 10 tests bind 127.0.0.1 and use `node:sqlite` (Node 22).
+- **Not verified:** the NYC licence's codified text; Firefox and Safari; the hourly cron.
 
 ## Resume
 
-1. `git checkout phase10`.
-2. Run `node --test test/*.test.js`.
-3. Continue with the first pending stage above.
+1. `cd ~/core && git checkout phase10 && git status`
+2. `python3 -m http.server 8000 --bind 127.0.0.1 &`
+3. Chrome headless on CDP 9222 (for the audits only).
+4. Then start at remaining task 1.

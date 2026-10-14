@@ -262,3 +262,36 @@ GitHub cron is best-effort, so an hourly retry was added. Scheduled runs only co
 ## D065 — Local control centre
 
 The control centre binds to the loopback interface only and uses a token. It refuses foreign Host and Origin headers and accepts only allowlisted actions. Human decisions require `human:<name>`. The public `control.html` page is inert.
+
+## D066 — New York as the second operational city
+
+New York is the second operational city, with three Manhattan NTAs as its study area. NYC Open Data is keyless and geolocated, and its law places no restriction on use (attribution of source, version and modifications). The codified text has not been re-read directly, so commercial use waits for that confirmation.
+
+## D067 — Declarative city configuration
+
+Every subsystem reads the city from `src/cities.js`. San Francisco ids, codes, wording and recordings are kept unchanged. Other cities' mission ids carry the snapshot time.
+
+## D068 — No decorative agents
+
+A city receives only the profiles its integrated data can exercise; New York has 12. Global roles exist only where cross-city work executes: one domain director and one methodology reviewer.
+
+## D069 — Comparability review before comparison
+
+Cross-city work declares, metric by metric, what is comparable, what is comparable with reservations and what is not. This happens before any figure is shown side by side, and no city ranking is produced.
+
+## D070 — Exploratory decision index
+
+Interventions are compared on an uncalibrated exposure index: crash rate × works-days. The analysis includes sensitivity and evidence grades. No cost or benefit is computed until cost data is integrated. Modelled outputs must say so, or the reviewer rejects them.
+
+## D071 — Snapshot-diff discovery and a persistent queue
+
+Discovery compares a fresh local snapshot with the published one; row order is ignored. Signals are hypotheses for triage, not findings. The queue lives in SQLite and survives a crash. Publishing a new snapshot remains a human commit, and the control centre never spawns a process.
+
+## D072 — Supersession and conflicts in memory
+
+A newer snapshot supersedes older findings of the same problem. Old entries are kept and linked to their successor, and changed numbers are logged as conflicts. Reuse only takes entries that are verified, reviewed or approved and not superseded.
+
+## D073 — Limited-access roadways are excluded from the crash join
+
+In New York, collisions recorded on the FDR Drive, bridges, tunnels or expressways are not attributed to surface pedestrian corridors, even within 20 m. The exclusions are counted in the manifest.
+

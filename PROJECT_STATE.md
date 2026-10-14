@@ -1,10 +1,10 @@
 # CORE — état du projet, 14 octobre 2026
-- Phases 0 → 9 terminées ; Phase 9 : docs/PHASE_9_REPORT.md. Site public : https://vincentleg.github.io/core/
-- 68 profils : 26 exécutables (19 à règles + 7 assistés par modèle local) ; 8 opérationnels autonomes ; 33 avec travail enregistré.
-- Moteur de missions hiérarchique (exécutif → coordination → direction → spécialistes → revue → passerelle → humain).
-- Mémoire locale SQLite (4 couches, promotion revue, constats sur le monde approuvés par un humain) ; export publié.
-- 5 missions autonomes enregistrées (sécurité routière × chantiers, inondation × chantiers ; SoMa, Mission, Tenderloin) en attente de revue humaine.
-- Apprentissage mesuré : procédures (échecs 3 → 0 à tâche identique) ; leçons du modèle sans effet significatif.
-- Déplacements motivés sur un réseau piéton validé (arêtes traversant des bâtiments retirées) ; centre de contrôle local.
-- Tests : 109 Node ; Chrome 152/152 ; Firefox/Safari non vérifiés ; cron GitHub irrégulier (relance horaire + garde de fraîcheur).
-- Phase 10 : sur demande explicite du fondateur.
+- Phases 0 → 10 terminées ; Phase 10 : docs/PHASE_10_REPORT.md. Site public : https://vincentleg.github.io/core/
+- 2 villes opérationnelles (src/cities.js) : San Francisco (pilote, inchangé) et New York (3 NTA de Manhattan, NYC Open Data).
+- 82 profils : 35 exécutables (28 à règles + 7 assistés par modèle local) ; 16 opérationnels autonomes ; 47 avec travail enregistré.
+- 12 missions autonomes enregistrées (5 SF, 5 NY, 1 aide à la décision, 1 enquête inter-villes), toutes en attente de revue humaine.
+- Mémoire SQLite : réutilisation vérifiée, remplacement par instantané plus récent, conflits ; découverte par comparaison d’instantanés (0 changement réel à ce jour).
+- Planificateur persistant `scripts/civd.mjs` (file SQLite, reprise après crash, budgets, STOP) ; centre de contrôle local étendu.
+- Déplacements validés dans les deux villes (chaque agent sur le réseau piéton de sa ville) ; démo investisseur en 9 étapes.
+- Tests : 121 Node ; Chrome 159/159 ; négatif 12/12 ; Firefox/Safari non vérifiés ; coût 0 $.
+- Phase 11 : sur demande explicite du fondateur.
