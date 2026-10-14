@@ -1,18 +1,39 @@
 {
  "version": "core-city-feed-state-v2",
  "lastRun": {
-  "started": "2026-10-14T01:27:15.713Z",
-  "added": 11,
-  "changed": 211,
+  "started": "2026-10-14T01:28:48.377Z",
+  "added": 0,
+  "changed": 0,
   "failed": [],
-  "skipped": [],
+  "skipped": [
+   "datasf-street-use",
+   "datasf-building",
+   "datasf-tree-removals",
+   "datasf-closures",
+   "usgs-quakes",
+   "nws-alerts",
+   "legistar",
+   "rss-sfmta",
+   "rss-publicworks",
+   "rss-sfpuc",
+   "datasf-planning",
+   "datasf-311-soma",
+   "datasf-business-soma",
+   "rss-recpark",
+   "rss-sffire",
+   "caiso-fuelmix",
+   "openmeteo-aq"
+  ],
   "runner": {
-   "kind": "local-manual"
+   "kind": "github-actions",
+   "event": "workflow_dispatch",
+   "runId": "38495937215",
+   "runUrl": "https://github.com/vincentleg/core/actions/runs/38495937215"
   }
  },
  "lastSuccessfulUpdate": "2026-10-14T01:27:15.713Z",
  "nextScheduledUpdate": null,
- "scheduler": "exécution manuelle locale",
+ "scheduler": "GitHub Actions (cron .github/workflows/city-feed.yml) — exécution planifiée indépendante du navigateur ; horaires GitHub non garantis (retards possibles, désactivation après 60 jours sans activité du dépôt)",
  "sources": {
   "datasf-street-use": {
    "lastAttempt": "2026-10-14T01:27:15.713Z",
