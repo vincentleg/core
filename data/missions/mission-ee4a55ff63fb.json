@@ -166,7 +166,7 @@
       }
      ],
      "value": 0,
-     "asOf": "2026-10-14T08:41:16.587Z",
+     "asOf": "2026-10-14T14:56:35.337Z",
      "agent": "core.san-francisco.climate.weather-alerts",
      "tool": "resilience.weather-alerts"
     }
@@ -341,7 +341,7 @@
     }
    ],
    "value": 0,
-   "asOf": "2026-10-14T08:41:16.587Z",
+   "asOf": "2026-10-14T14:56:35.337Z",
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts"
   },
@@ -568,7 +568,7 @@
  "log": [
   {
    "seq": 1,
-   "t": 0,
+   "t": 1,
    "kind": "mission",
    "state": "planning",
    "text": "Mission → planning"
@@ -760,9 +760,9 @@
  "fingerprint": "16bcf0ae69b48d15",
  "recorded": {
   "by": "scripts/agents.mjs (Node)",
-  "at": "2026-10-14T08:41:35.185Z",
+  "at": "2026-10-14T14:56:52.594Z",
   "wallMs": 5,
   "snapshot": "2026-10-13T18:25:19.678Z",
-  "feedUpdate": "2026-10-14T08:41:16.587Z"
+  "feedUpdate": "2026-10-14T14:56:35.337Z"
  }
 }
