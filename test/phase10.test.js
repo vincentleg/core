@@ -131,3 +131,59 @@ test('recorded Phase 10 missions: files exist, participants registered, evidence
     for (const f of m.findings) for (const r of f.evidence) { const city = r.city || f.city || e.city || 'san-francisco'; if (r.dataset === 'dataset' || r.dataset === 'flood-zone' || /^(feed|kb|seg|doc)/.test(r.dataset || '')) continue; if (city === 'san-francisco' && e.workflow !== 'decision-safety-works' && !['hin', 'crashes-agg', 'study-permits', 'neighborhoods', 'ramps'].includes(r.dataset)) continue; assert.ok(CT.resolve(cxs[city], r), `${e.id}: ${r.ref}`); }
   }
 });
+
+// A newer snapshot derived from the published one (test only): one added works record on the most injured designated
+// segment, one ended record, one extra crash on that segment and a later crash window, one day later.
+function newerCx(city) {
+  const base = cxs[city], data = JSON.parse(JSON.stringify(base.data)), manifest = JSON.parse(JSON.stringify(base.manifest));
+  const top = CT.TOOLS['safety.crash-profile'].run(base, { nhood: city === 'new-york' ? 'East Village' : 'Tenderloin' }).rows[0].cnn;
+  const tmpl = data.permits.features.find(p => p.properties.cnn === top) || data.permits.features[0], day = new Date(Date.parse(manifest.generated_at) + 864e5);
+  data.permits.features.push({ ...tmpl, properties: { ...tmpl.properties, record_id: 'TEST-NEW-1', cnn: top, status_class: 'active', start: day.toISOString().slice(0, 10), end: new Date(+day + 20 * 864e5).toISOString().slice(0, 10), approved: day.toISOString().slice(0, 10) } });
+  const active = CT.planned(base, data.permits.features).filter(p => base.hin.has(p.properties.cnn) && p.properties.record_id !== 'TEST-NEW-1'); const gone = active[0].properties.record_id;
+  data.permits.features = data.permits.features.filter(p => p.properties.record_id !== gone);
+  const row = data['crashes-agg'].rows.find(r => r.cnn === top); row.n += 1; data['crashes-agg'].window.to = new Date(Date.parse(data['crashes-agg'].window.to) + 864e5).toISOString().slice(0, 10);
+  manifest.generated_at = day.toISOString(); for (const d of manifest.datasets) d.retrieved_at = day.toISOString();
+  return { cx: CT.context({ manifest, data, city }), top, gone };
+}
+
+test('discovery: snapshot comparison finds new and ended works on designated segments and newer crash data; dedupes; prioritises', () => {
+  const D = require('../src/civ-discovery.js');
+  for (const city of ['san-francisco', 'new-york']) {
+    assert.equal(D.diff(cxs[city], cxs[city]).signals.length, 0, 'no change → no signal');
+    const { cx, top, gone } = newerCx(city), d = D.diff(cxs[city], cx), kinds = d.signals.map(s => s.kind);
+    const add = d.signals.find(s => s.kind === 'new-works-on-designated-segment'); assert.ok(add && add.segment === top && add.records.includes('TEST-NEW-1') && add.nhood, city);
+    assert.ok(d.signals.some(s => s.kind === 'works-no-longer-active' && s.records.includes(gone))); assert.ok(kinds.includes('crash-data-updated'));
+    assert.equal(new Set(d.signals.map(s => s.key)).size, d.signals.length); assert.equal(d.signals[0].kind, 'new-works-on-designated-segment', 'highest priority first');
+    assert.deepEqual(D.diff(cxs[city], cx).signals.map(s => s.key), d.signals.map(s => s.key), 'deterministic keys');
+  }
+});
+
+test('memory: a newer snapshot supersedes older findings (kept, linked) and records changed values as conflicts', async () => {
+  const mem = MEM.open(':memory:'), reg = ORG.buildWorld();
+  const m1 = await E.createEngine({ city: 'new-york', registry: reg, cx: cxs['new-york'], memory: mem }).run('safety-works', 'East Village');
+  const before = mem.entries({ kind: 'finding', workflow: 'safety-works' }).filter(e => e.mission === m1.id); assert.ok(before.length && before.every(e => e.status === 'reviewed'));
+  const { cx } = newerCx('new-york'), m2 = await E.createEngine({ city: 'new-york', registry: reg, cx, memory: mem }).run('safety-works', 'East Village');
+  assert.notEqual(m2.id, m1.id); const after = mem.entries({ kind: 'finding', workflow: 'safety-works' });
+  const sup = after.filter(e => e.mission === m1.id && e.status === 'superseded'); assert.ok(sup.length > 0, 'older finding superseded');
+  for (const e of sup) { const h = e.history[e.history.length - 1]; assert.equal(h.by, 'core.new-york.research.evidence-verifier'); assert.match(h.note, /instantané/); }
+  assert.ok(after.some(e => e.mission === m2.id && (e.body.supersedes || []).length), 'successor linked');
+  assert.ok(m2.conflicts.length > 0 && mem.conflicts().length > 0, 'changed values recorded as conflicts'); assert.equal(mem.verify().ok, true);
+  assert.throws(() => mem.transition(sup[0].id, 'approved', 'human:x'), /interdite/);
+});
+
+test('persistent scheduler: queue survives a crash (running items resumed), budgets bounded, no published file written without --publish', () => {
+  const { spawnSync } = require('node:child_process'), { DatabaseSync } = require('node:sqlite'), id = `t${process.pid}`, qf = `.core-local/test-q-${id}.sqlite`, mf = `.core-local/test-m-${id}.sqlite`;
+  fs.mkdirSync(path.join(ROOT, '.core-local'), { recursive: true });
+  try {
+    const db = new DatabaseSync(path.join(ROOT, qf));
+    db.exec("CREATE TABLE queue (id INTEGER PRIMARY KEY AUTOINCREMENT, key TEXT UNIQUE, kind TEXT, city TEXT, payload TEXT, priority REAL, status TEXT, attempts INTEGER DEFAULT 0, created TEXT, updated TEXT, result TEXT); CREATE TABLE log (n INTEGER PRIMARY KEY AUTOINCREMENT, at TEXT, kind TEXT, detail TEXT);");
+    db.prepare("INSERT INTO queue (key, kind, city, payload, priority, status, attempts, created, updated) VALUES (?, 'investigate', 'new-york', ?, 9999, 'running', 1, 'x', 'x')").run('investigate|crashed', JSON.stringify({ city: 'new-york', workflow: 'ramps-works', nhood: 'Chinatown-Two Bridges' })); db.close();
+    const before = fs.statSync(path.join(ROOT, 'data/civ/index.json')).mtimeMs;
+    const r = spawnSync(process.execPath, ['scripts/civd.mjs', '--once', '--queue', qf, '--memory', mf, '--max-missions', '2'], { cwd: ROOT, encoding: 'utf8', timeout: 180000 });
+    if (fs.existsSync(path.join(ROOT, '.core-local/STOP'))) return; // emergency stop active on this machine: the scheduler must do nothing
+    assert.equal(r.status, 0, r.stderr); const out = JSON.parse(r.stdout.slice(r.stdout.indexOf('{\n')));
+    assert.equal(out.recovered, 1); assert.ok(out.discovered >= 5); assert.ok(Array.isArray(out.ran) && out.ran.length <= 2 && out.ran.some(x => /chinatown/.test(x)), 'crashed item resumed first (highest priority)');
+    const db2 = new DatabaseSync(path.join(ROOT, qf)); const st = db2.prepare("SELECT status FROM queue WHERE key = 'investigate|crashed'").get().status; db2.close(); assert.equal(st, 'awaiting-human');
+    assert.equal(fs.statSync(path.join(ROOT, 'data/civ/index.json')).mtimeMs, before, 'publication stays explicit');
+  } finally { for (const f of [qf, mf]) for (const x of ['', '-wal', '-shm']) fs.rmSync(path.join(ROOT, f + x), { force: true }); }
+});

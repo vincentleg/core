@@ -1,0 +1,113 @@
+{
+ "version": "core-civ-discovery-v1",
+ "recorded_at": "2026-10-14T19:20:08.063Z",
+ "by": "scripts/civd.mjs (Node, local)",
+ "note": "Signaux = hypothèses de tri issues de la comparaison d’instantanés ; ce ne sont pas des constats. L’instantané publié n’est jamais remplacé automatiquement.",
+ "diffs": [
+  {
+   "city": "san-francisco",
+   "baseline": "2026-10-14T16:09:41.363Z",
+   "current": "2026-10-14T19:18:15.420Z",
+   "totals": {
+    "added": 0,
+    "ended": 0,
+    "crashWindowChanged": false
+   },
+   "signals": 0
+  },
+  {
+   "city": "new-york",
+   "baseline": "2026-10-14T19:01:10.585Z",
+   "current": "2026-10-14T19:18:31.612Z",
+   "totals": {
+    "added": 0,
+    "ended": 0,
+    "crashWindowChanged": false
+   },
+   "signals": 0
+  }
+ ],
+ "queue": {
+  "byStatus": {
+   "awaiting-human": 8,
+   "queued": 2
+  },
+  "byKind": {
+   "investigate": 10
+  }
+ },
+ "signals": [],
+ "followUps": [],
+ "investigations": [
+  {
+   "city": "new-york",
+   "workflow": "ramps-works",
+   "nhood": "East Village",
+   "status": "awaiting-human",
+   "mission": "civ:new-york:ramps-works:east-village@2026-10-14"
+  },
+  {
+   "city": "san-francisco",
+   "workflow": "safety-works",
+   "nhood": "Tenderloin",
+   "status": "awaiting-human",
+   "mission": "civ:safety-works:tenderloin@2026-10-14"
+  },
+  {
+   "city": "san-francisco",
+   "workflow": "safety-works",
+   "nhood": "Mission",
+   "status": "awaiting-human",
+   "mission": "civ:safety-works:mission@2026-10-14"
+  },
+  {
+   "city": "san-francisco",
+   "workflow": "safety-works",
+   "nhood": "South of Market",
+   "status": "awaiting-human",
+   "mission": "civ:safety-works:south-of-market@2026-10-14"
+  },
+  {
+   "city": "new-york",
+   "workflow": "ramps-works",
+   "nhood": "Lower East Side",
+   "status": "awaiting-human",
+   "mission": "civ:new-york:ramps-works:lower-east-side@2026-10-14"
+  },
+  {
+   "city": "new-york",
+   "workflow": "ramps-works",
+   "nhood": "Chinatown-Two Bridges",
+   "status": "awaiting-human",
+   "mission": "civ:new-york:ramps-works:chinatown-two-bridges@2026-10-14"
+  },
+  {
+   "city": "san-francisco",
+   "workflow": "flood-works",
+   "nhood": "Mission",
+   "status": "awaiting-human",
+   "mission": "civ:flood-works:mission@2026-10-14"
+  },
+  {
+   "city": "new-york",
+   "workflow": "safety-works",
+   "nhood": "East Village",
+   "status": "awaiting-human",
+   "mission": "civ:new-york:safety-works:east-village@2026-10-14"
+  },
+  {
+   "city": "san-francisco",
+   "workflow": "flood-works",
+   "nhood": "South of Market",
+   "status": "queued",
+   "mission": null
+  },
+  {
+   "city": "new-york",
+   "workflow": "safety-works",
+   "nhood": "Lower East Side",
+   "status": "queued",
+   "mission": null
+  }
+ ]
+}

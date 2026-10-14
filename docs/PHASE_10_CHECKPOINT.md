@@ -8,7 +8,7 @@ Branch: `phase10`. `main` serves the verified Phase 9 release (tag `phase9-relea
 | --- | --- | --- |
 | A — city architecture + second city | **done** | `src/cities.js`; `scripts/nyc-snapshot.mjs` → `data/nyc`; `scripts/osm-walk.mjs --city new-york` → `data/osm/nyc-*` (197 edges crossing buildings removed); NYC entries in `src/data-policy.js`. Node 109/109 |
 | B — multi-city organisation + engine | **done** | `ORG.buildWorld()` (82 profiles, SF codes unchanged); engine per city (`createEngine({city})`); NYC workflows `safety-works`, `ramps-works`; `src/civ-world.js` cross-city mission (director → both cities → methodology review → human; memory reuse; restart-safe); runtime/CLI/control server multi-city. Recorded: 5 SF (unchanged), 5 NYC, 1 decision, 1 world mission — all at HUMAN_REVIEW, no human decision |
-| C — discovery + persistent scheduler + memory supersession | pending | |
+| C — discovery + persistent scheduler + memory supersession | **done** | `src/civ-discovery.js` (snapshot diff, dedupe, priority); `scripts/civd.mjs` (SQLite queue, crash recovery, budgets, STOP, triage, follow-ups after human decisions; `--publish` → `data/civ/discovery.json`); memory `supersede` + conflicts. First real diffs (SF 3 h, NYC 17 min apart): **0 changes** — re-run later |
 | D — decision intelligence | **done** | `decision-safety-works` (SF Tenderloin): I0–I3, 18-case sensitivity, evidence grades, review, human checkpoint. Index exploratory, uncalibrated; no costs |
 | E — UI multi-city, motion per city, command centre, demo | pending | |
 | G — validation, docs, release | pending | |

@@ -252,6 +252,12 @@ function createEngine({ city = 'san-francisco', registry = ORG.buildRegistry(), 
     // World findings stay candidates until a human approves the mission.
     for (const f of m.findings.filter(f => f.topic === 'cross')) { const p = memory.propose({ kind: 'finding', workflow: m.workflow, statement: f.claim, evidence: f.evidence.map(e => e.ref), origin: m.owner, mission: m.id });
       if (!p.existing) { memory.transition(p.id, 'verified', VERIFIER, 'références résolues dans l’instantané'); memory.transition(p.id, 'reviewed', REVIEWER, 'accepté par la revue adversariale'); } }
+    // Phase 10: a newer snapshot of the same problem supersedes the findings of older snapshots (kept and linked);
+    // changed numbers are recorded as conflicts for human attention. The newest finding of this mission is the successor.
+    const key = m.id.replace(/@.*$/, ''), mine = memory.entries({ kind: 'finding', workflow: m.workflow }).filter(e => e.mission === m.id && e.status !== 'rejected');
+    if (mine.length) for (const old of memory.entries({ kind: 'finding', workflow: m.workflow }).filter(e => e.mission !== m.id && e.mission.replace(/@.*$/, '') === key && e.mission < m.id && ['verified', 'reviewed', 'approved'].includes(e.status))) {
+      const r = memory.supersede(old.id, mine[0].id, VERIFIER, `remplacé par l’instantané du ${cx.asOf}`); if (r.conflict) m.conflicts.push({ entry: old.id, successor: mine[0].id, note: 'valeurs différentes entre instantanés' });
+    }
   }
   async function run(workflow, nhood, { resume = true, crashAfter = null } = {}) {
     let m = newMission(workflow, nhood); const t0 = Date.now();

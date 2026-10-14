@@ -13,7 +13,8 @@
 'use strict';
 const { sha256 } = require('./scheduler.js');
 const STATUSES = ['candidate', 'verified', 'reviewed', 'approved', 'rejected', 'superseded'];
-const NEXT = { candidate: ['verified', 'rejected'], verified: ['reviewed', 'rejected'], reviewed: ['approved', 'rejected'], approved: ['superseded'], rejected: [], superseded: [] };
+// Phase 10: verified and reviewed entries may also be superseded (a newer snapshot re-established the same claim).
+const NEXT = { candidate: ['verified', 'rejected'], verified: ['reviewed', 'rejected', 'superseded'], reviewed: ['approved', 'rejected', 'superseded'], approved: ['superseded'], rejected: [], superseded: [] };
 const HUMAN = /^human:[A-Za-z0-9._-]{2,40}$/;
 const stable = v => Array.isArray(v) ? `[${v.map(stable).join(',')}]` : v && typeof v === 'object' ? `{${Object.keys(v).sort().filter(k => v[k] !== undefined).map(k => `${JSON.stringify(k)}:${stable(v[k])}`).join(',')}}` : JSON.stringify(v);
 
@@ -58,6 +59,17 @@ function open(file = ':memory:', { clock = () => new Date().toISOString() } = {}
       run('UPDATE institutional SET status = ?, history = ?, version = version + ? WHERE id = ?', status, JSON.stringify(hist), status === 'approved' ? 1 : 0, id);
       event('memory-' + status, id, { by, note }); return true;
     },
+    // Phase 10: supersession by a newer entry (kept, linked both ways). A conflict is recorded when the numbers changed.
+    supersede(oldId, newId, by, note = '') {
+      const o = q('SELECT * FROM institutional WHERE id = ?', oldId)[0], n = q('SELECT * FROM institutional WHERE id = ?', newId)[0]; if (!o || !n) throw new Error('entrée inconnue');
+      if (oldId === newId) throw new Error('une entrée ne peut se remplacer elle-même');
+      const nums = t => (String(t).match(/\d+(?:[.,]\d+)?/g) || []).join(' '), conflict = o.workflow === n.workflow && nums(o.statement) !== nums(n.statement);
+      api.transition(oldId, 'superseded', by, `${note} → ${newId}`.trim());
+      const b = JSON.parse(n.body); b.supersedes = [...(b.supersedes || []), oldId]; run('UPDATE institutional SET body = ? WHERE id = ?', JSON.stringify(b), newId);
+      if (conflict) event('memory-conflict', newId, { old: oldId, before: o.statement.slice(0, 200), after: n.statement.slice(0, 200) });
+      return { conflict };
+    },
+    conflicts() { return q("SELECT ref, detail, at FROM events WHERE kind = 'memory-conflict' ORDER BY n").map(r => ({ entry: r.ref, ...JSON.parse(r.detail), at: r.at })); },
     entries({ kind = null, workflow = null, status = null } = {}) {
       return q('SELECT * FROM institutional ORDER BY at').filter(r => (!kind || r.kind === kind) && (!workflow || r.workflow === workflow) && (!status || r.status === status)).map(r => ({ ...r, body: JSON.parse(r.body), history: JSON.parse(r.history) }));
     },
