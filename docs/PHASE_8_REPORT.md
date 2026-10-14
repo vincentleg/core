@@ -158,7 +158,19 @@ See [PHASE_8_SECURITY_REVIEW.md](PHASE_8_SECURITY_REVIEW.md).
 
 ## M. Deployment
 
-Recorded after the push, below.
+- **Commits:** `a7ce144` (checkpoint) and `ea34cfd` (feature), pushed to `main` without force; hooks reported 0 findings.
+- **GitHub Pages:** built `ea34cfd`. Public URL: https://vincentleg.github.io/core/
+- **Production checked in Chrome 155:**
+  - public mode, ENTER CORE landing, entry to San Francisco;
+  - **68/68** profiles shown, with 13 zone aggregates at city zoom;
+  - at street zoom 40 articulated avatars, and **15/15 clicks** opened each agent's own card;
+  - 98 problems and the operations log loaded;
+  - **0 executing, 0 live**;
+  - **0 Google Fonts requests** and **0 uncaught errors**.
+
+  The navigation bar showed "⚠ veille âgée de 6 h", which is accurate: the 14:30 scheduled run had failed.
+- **CI check of the test fix:** one **manual** `workflow_dispatch` run (38584992661, 14:56 UTC) passed tests, integrity gate and data commit (`1f8917d`). It is a manual run and is not counted as a scheduled one.
+- **Mislabelled commit message, fixed:** the workflow titled every data commit "scheduled … refresh" whatever its trigger, so a manual run was titled "scheduled". The message now states the real trigger (`${GITHUB_EVENT_NAME}`). Commits made before the fix keep the old wording.
 
 ## N. Phase 9 recommendations
 
