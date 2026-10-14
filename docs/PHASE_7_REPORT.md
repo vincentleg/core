@@ -111,7 +111,27 @@ Details: [PHASE_7_MEASUREMENTS.md](PHASE_7_MEASUREMENTS.md).
 
 ## F. Deployment
 
-See the deployment notes appended below (§H), recorded after the push.
+- **Repository:** https://github.com/vincentleg/core (`main`). Feature commit `7e359c5`, pushed without force; hooks passed (0 findings).
+- **GitHub Pages** built `7e359c56…`. **Public site:** https://vincentleg.github.io/core/
+- **Production verified in Chrome 155** against the public URL:
+  - public mode (the model is never contacted);
+  - landing with ENTER CORE over the NASA imagery; the entry flight ends over San Francisco at zoom 12.6 with the imagery faded to 0;
+  - five-section navigation;
+  - 5 waiting avatars; flagship replay with 5 agents and 24 derived messages, labelled RELECTURE;
+  - problems registry with 98 entries;
+  - data health reading the real Actions history ("Aucune exécution planifiée observée");
+  - **0 uncaught errors and 0 CSP violations**.
+- **Public performance (cache disabled, 4 runs):**
+
+  | Metric | Result |
+  | --- | --- |
+  | Platform ready | 1.0–4.4 s, dominated by network variance; ≈ 0.7 s with a warm cache |
+  | Transferred | 1,364 KB / 112 requests (compressed) |
+  | Orbit | 60 fps |
+  | Circles at zoom 14 | 49 |
+
+  Phase 6 recorded a single 822 ms run, so a modest regression in cold load (four more scripts, NASA tiles) cannot be excluded.
+- **Scheduler:** still no `schedule` run of `city-feed.yml` at 05:41 UTC; the latest slot was 03:17 UTC and the next is 06:17 UTC.
 
 ## G. Limitations (honest)
 
