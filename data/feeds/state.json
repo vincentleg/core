@@ -1,17 +1,13 @@
 {
  "version": "core-city-feed-state-v2",
  "lastRun": {
-  "started": "2026-10-14T01:28:48.377Z",
+  "started": "2026-10-14T01:43:12.749Z",
   "added": 0,
   "changed": 0,
   "failed": [],
   "skipped": [
-   "datasf-street-use",
-   "datasf-building",
    "datasf-tree-removals",
    "datasf-closures",
-   "usgs-quakes",
-   "nws-alerts",
    "legistar",
    "rss-sfmta",
    "rss-publicworks",
@@ -27,30 +23,30 @@
   "runner": {
    "kind": "github-actions",
    "event": "workflow_dispatch",
-   "runId": "38495937215",
-   "runUrl": "https://github.com/vincentleg/core/actions/runs/38495937215"
+   "runId": "38497217517",
+   "runUrl": "https://github.com/vincentleg/core/actions/runs/38497217517"
   }
  },
- "lastSuccessfulUpdate": "2026-10-14T01:27:15.713Z",
+ "lastSuccessfulUpdate": "2026-10-14T01:43:12.749Z",
  "nextScheduledUpdate": null,
  "scheduler": "GitHub Actions (cron .github/workflows/city-feed.yml) — exécution planifiée indépendante du navigateur ; horaires GitHub non garantis (retards possibles, désactivation après 60 jours sans activité du dépôt)",
  "sources": {
   "datasf-street-use": {
-   "lastAttempt": "2026-10-14T01:27:15.713Z",
-   "lastSuccess": "2026-10-14T01:27:15.713Z",
+   "lastAttempt": "2026-10-14T01:43:12.749Z",
+   "lastSuccess": "2026-10-14T01:43:12.749Z",
    "lastError": null,
    "lastCount": 7,
    "lastAdded": 0,
-   "lastChanged": 7,
+   "lastChanged": 0,
    "request": "https://data.sf.gov/resource/b6tj-gt35.json?$query=SELECT%20permit_number%2C%20permit_type%2C%20status%2C%20streetname%2C%20cross_street_1%2C%20cross_street_2%2C%20cnn%2C%20agent%2C%20approved_date%2C%20permit_start_date%2C%20permit_end_date%2C%20latitude%2C%20longitude%20WHERE%20cnn%20in%20('5660000'%2C'5661000'%2C'5662000'%2C'5663000'%2C'5664000'%2C'5665000'%2C'5666000'%2C'5667000'%2C'5668000'%2C'5669000'%2C'5670000'%2C'5671000'%2C'5672000'%2C'5673000'%2C'5674000'%2C'5675000'%2C'5676000'%2C'5677000'%2C'5678000'%2C'5679000'%2C'5680000'%2C'5681000'%2C'5682000'%2C'7035000'%2C'7036000'%2C'7037000'%2C'7038000'%2C'7039001'%2C'7041000'%2C'7042000'%2C'7043000'%2C'7044000'%2C'7045000'%2C'7046000'%2C'7047000'%2C'7048000'%2C'7049000'%2C'7050000'%2C'7051000'%2C'7052000'%2C'7053000'%2C'7054000'%2C'7055000'%2C'7056000')%20AND%20approved_date%20%3E%3D%20'2026-09-14'%20AND%20permit_type%20in%20('Excavation'%2C'ExcStreet'%2C'StrtImprov'%2C'Boring'%2C'Emergency')%20ORDER%20BY%20approved_date%20DESC%20LIMIT%20200"
   },
   "datasf-building": {
-   "lastAttempt": "2026-10-14T01:27:15.713Z",
-   "lastSuccess": "2026-10-14T01:27:15.713Z",
+   "lastAttempt": "2026-10-14T01:43:12.749Z",
+   "lastSuccess": "2026-10-14T01:43:12.749Z",
    "lastError": null,
    "lastCount": 92,
    "lastAdded": 0,
-   "lastChanged": 92,
+   "lastChanged": 0,
    "request": "https://data.sf.gov/resource/i98e-djp9.json?$query=SELECT%20permit_number%2C%20permit_type_definition%2C%20status%2C%20filed_date%2C%20issued_date%2C%20street_number%2C%20street_name%2C%20street_suffix%2C%20description%2C%20location%20WHERE%20within_box(location%2C%2037.7895%2C%20-122.4190%2C%2037.7700%2C%20-122.3945)%20AND%20filed_date%20%3E%3D%20'2026-09-14'%20ORDER%20BY%20filed_date%20DESC%20LIMIT%20200"
   },
   "datasf-tree-removals": {
@@ -72,8 +68,8 @@
    "request": "https://data.sf.gov/resource/8x25-yybr.json?$query=SELECT%20objectid%2C%20type%2C%20status%2C%20street%2C%20from_st%2C%20to_st%2C%20cnn%2C%20case_name%2C%20start_date%2C%20end_date%2C%20created_date%2C%20shape%20WHERE%20cnn%20in%20('5660000'%2C'5661000'%2C'5662000'%2C'5663000'%2C'5664000'%2C'5665000'%2C'5666000'%2C'5667000'%2C'5668000'%2C'5669000'%2C'5670000'%2C'5671000'%2C'5672000'%2C'5673000'%2C'5674000'%2C'5675000'%2C'5676000'%2C'5677000'%2C'5678000'%2C'5679000'%2C'5680000'%2C'5681000'%2C'5682000'%2C'7035000'%2C'7036000'%2C'7037000'%2C'7038000'%2C'7039001'%2C'7041000'%2C'7042000'%2C'7043000'%2C'7044000'%2C'7045000'%2C'7046000'%2C'7047000'%2C'7048000'%2C'7049000'%2C'7050000'%2C'7051000'%2C'7052000'%2C'7053000'%2C'7054000'%2C'7055000'%2C'7056000')%20AND%20end_date%20%3E%3D%20'2026-10-14'%20LIMIT%20200"
   },
   "usgs-quakes": {
-   "lastAttempt": "2026-10-14T01:27:15.713Z",
-   "lastSuccess": "2026-10-14T01:27:15.713Z",
+   "lastAttempt": "2026-10-14T01:43:12.749Z",
+   "lastSuccess": "2026-10-14T01:43:12.749Z",
    "lastError": null,
    "lastCount": 7,
    "lastAdded": 0,
@@ -81,8 +77,8 @@
    "request": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&latitude=37.7749&longitude=-122.4194&maxradiuskm=100&starttime=2026-09-14&minmagnitude=2.5&orderby=time&limit=100"
   },
   "nws-alerts": {
-   "lastAttempt": "2026-10-14T01:27:15.713Z",
-   "lastSuccess": "2026-10-14T01:27:15.713Z",
+   "lastAttempt": "2026-10-14T01:43:12.749Z",
+   "lastSuccess": "2026-10-14T01:43:12.749Z",
    "lastError": null,
    "lastCount": 0,
    "lastAdded": 0,
@@ -202,9 +198,9 @@
     "level": "high",
     "limitations": "Un permis n’est pas la preuve que les travaux ont lieu."
    },
-   "lastSuccess": "2026-10-14T01:27:15.713Z",
+   "lastSuccess": "2026-10-14T01:43:12.749Z",
    "lastError": null,
-   "lastAttempt": "2026-10-14T01:27:15.713Z",
+   "lastAttempt": "2026-10-14T01:43:12.749Z",
    "items": 7,
    "newestPublished": "2026-10-07T16:32:00.000Z",
    "freshness": "6 j",
@@ -222,9 +218,9 @@
     "level": "high",
     "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
    },
-   "lastSuccess": "2026-10-14T01:27:15.713Z",
+   "lastSuccess": "2026-10-14T01:43:12.749Z",
    "lastError": null,
-   "lastAttempt": "2026-10-14T01:27:15.713Z",
+   "lastAttempt": "2026-10-14T01:43:12.749Z",
    "items": 92,
    "newestPublished": "2026-10-09T19:04:48.000Z",
    "freshness": "4 j",
@@ -282,9 +278,9 @@
     "level": "high",
     "limitations": "Les solutions automatiques sont révisables."
    },
-   "lastSuccess": "2026-10-14T01:27:15.713Z",
+   "lastSuccess": "2026-10-14T01:43:12.749Z",
    "lastError": null,
-   "lastAttempt": "2026-10-14T01:27:15.713Z",
+   "lastAttempt": "2026-10-14T01:43:12.749Z",
    "items": 7,
    "newestPublished": "2026-09-29T16:06:37.440Z",
    "freshness": "14 j",
@@ -302,9 +298,9 @@
     "level": "high",
     "limitations": "Alerte ou prévision, pas une observation."
    },
-   "lastSuccess": "2026-10-14T01:27:15.713Z",
+   "lastSuccess": "2026-10-14T01:43:12.749Z",
    "lastError": null,
-   "lastAttempt": "2026-10-14T01:27:15.713Z",
+   "lastAttempt": "2026-10-14T01:43:12.749Z",
    "items": 0,
    "newestPublished": null,
    "freshness": "no items",
