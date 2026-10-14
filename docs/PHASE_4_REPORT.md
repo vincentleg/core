@@ -107,7 +107,10 @@ Recorded at `data/missions/cognitive/cognitive-13f3c2ad6fb1.json`; viewable in M
 - **Bug found by that run:** DataSF and SFMTA timestamps carry no time zone. CORE read them in the machine's zone, which is Pacific on the Mac but UTC on GitHub. The runner therefore shifted 211 publication times 7 h early and counted them as changes.
   - **Fix:** zoneless timestamps are now read as America/Los_Angeles on any machine, tested under `TZ=UTC`, Los Angeles and Tokyo.
   - **Correction:** the shifted items were re-collected with correct times, as a new revision with the history kept.
-- **Verified run 2** after the fix: RUN2_RESULT
+- **Verified runs after the fix:**
+  - [38495937215](https://github.com/vincentleg/core/actions/runs/38495937215): all sources within their intervals, so nothing fetched; tests 74/74; gate clean.
+  - [38497217517](https://github.com/vincentleg/core/actions/runs/38497217517): DataSF street-use and building permits, USGS and NWS re-fetched on the UTC runner with **0 changed items** (run 1 had falsely changed them); tests 74/74; gate clean.
+  - That run still rewrote the recorded missions, because `last_seen` updates touched `items.json`. The workflow now re-records missions only when the collector reports new or changed items.
 - **Cron:** every 3 h at minute 17 UTC; the first scheduled (non-manual) execution occurs after this report. GitHub does not guarantee cron timing and disables schedules after 60 days without repository activity, so **24/7 operation is not claimed**.
 
 ## Resource and scale controls

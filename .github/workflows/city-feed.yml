@@ -24,9 +24,9 @@ jobs:
           node-version: '22'
       - name: Collect official sources (rate-limited, failures keep previous items)
         run: node scripts/city-feed.mjs
-      - name: Re-record deterministic missions when feed content changed
+      - name: Re-record deterministic missions when feed content changed (new or changed items, not last_seen updates)
         run: |
-          if ! git diff --quiet -- data/feeds/items.json; then
+          if node -e 'const s=require("./data/feeds/state.json"); process.exit(s.lastRun.added + s.lastRun.changed > 0 ? 0 : 1)'; then
             node scripts/agents.mjs --question "Quels travaux et quels arbres sont concernés sur Howard entre la 8e et la 9e rue ?" --segment 7051000
           fi
       - name: Tests
