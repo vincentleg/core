@@ -88,9 +88,9 @@ try {
   await shot('terrain'); await evaluate('document.querySelector("#l-trame").click()');
   check('terrain off / map restored', await evaluate('document.querySelector("#l-relief").getAttribute("aria-pressed") === "false"'));
   check('unverified imagery disabled', await evaluate('document.querySelector("#l-sat").disabled'));
-  for (const q of ['Paris', '37.7873, -122.3985', '999, 999', '<script>invalid</script>']) {
+  for (const q of ['Paris', 'New York', '37.7873, -122.3985', '999, 999', '<script>invalid</script>']) {
     await evaluate(`document.querySelector('#q').value=${JSON.stringify(q)};document.querySelector('#search').requestSubmit()`); await pause(q.startsWith('999') || q.startsWith('<') ? 50 : 8000);
-    check(`local search: ${q}`, await evaluate(`document.querySelector('#msg').textContent.includes(${JSON.stringify(q === 'Paris' ? 'Lieu pilote' : q.startsWith('37') ? 'Coordonnées' : 'Adresses indisponibles')})`));
+    check(`local search: ${q}`, await evaluate(`document.querySelector('#msg').textContent.includes(${JSON.stringify(q === 'Paris' ? 'Navigation seulement' : q === 'New York' ? 'zone d’étude opérationnelle' : q.startsWith('37') ? 'Coordonnées' : 'Adresses indisponibles')})`));
   }
   await evaluate('document.querySelector("#sources").open = true'); await shot('sources');
 
@@ -210,8 +210,8 @@ try {
   await evaluate(`(b => { b.value = '12'; b.dispatchEvent(new Event('input')); })(document.querySelector('#ci-buffer')); 0`); await pause(1500); await until(`CORE_CITY_VIEW.state.mode === 'done' && CORE_CITY_VIEW.state.params.treeBufferM === 12`, 400);
   await shot('investigation');
   // Phase 6: Demo 2.0 replaces the earlier text-heavy guides.
-  await evaluate(`CORE_DEMO.go(7); 0`); await pause(3000);
-  check('guided demo (8 steps, Phase 9) reaches the human-review step with real data and no authorization', await evaluate(`(el => !!el && !el.hidden && el.textContent.includes('8 / 8') && /aucune autorisation/i.test(el.textContent) && CORE_DEMO.STEPS.length === 8)(document.querySelector('#demo2'))`));
+  await evaluate(`CORE_DEMO.go(8); 0`); await pause(3000);
+  check('guided demo (9 steps, Phase 10) reaches the human-oversight step with real data and no authorization', await evaluate(`(el => !!el && !el.hidden && el.textContent.includes('9 / 9') && /aucune autorisation/i.test(el.textContent) && CORE_DEMO.STEPS.length === 9)(document.querySelector('#demo2'))`));
   await evaluate(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); 0`);
   check('Escape closes the demonstration', await evaluate(`document.querySelector('#demo2').hidden && !document.body.classList.contains('demo-on')`));
   check('dock starts compact (world first)', await evaluate(`document.body.classList.contains('console-min') && getComputedStyle(document.querySelector('#console-body')).display === 'none' && document.querySelector('.console').getBoundingClientRect().height < 320`));
@@ -298,7 +298,7 @@ try {
 
   // ---- Phase 6: world-first layout, marker density, spatial simulation, visible agent activity, demo 2.0 ----
   await evaluate(`CORE_DEMO.stop(); document.querySelector('[data-sec=world]').click(); 0`); await pause(300);
-  check('coverage layer: only San Francisco is operational', await evaluate(`(s => s.filter(c => c.status === 'operational').map(c => c.name).join() === 'San Francisco' && s.length === 3)(CORE_MAPSTYLE.COVERAGE)`) && await evaluate(`!!__CORE_MAP.getLayer('cov-label')`));
+  check('coverage layer: San Francisco and New York operational (Phase 10), others navigation only', await evaluate(`(s => s.filter(c => c.status === 'operational').map(c => c.name).join() === 'San Francisco,New York' && s.length === 4)(CORE_MAPSTYLE.COVERAGE)`) && await evaluate(`!!__CORE_MAP.getLayer('cov-label')`));
   check('record markers appear by zoom and a density layer aggregates segments below', await evaluate(`['sf-permits', 'city-trees', 'sf-moratoria-point'].every(id => !__CORE_MAP.getLayer(id) || __CORE_MAP.getLayer(id).minzoom >= 14) && !!__CORE_MAP.getLayer('core-density') && __CORE_MAP.getLayer('core-density').maxzoom <= 14.5`));
   check('layers popover holds a legend with visibility zooms', await evaluate(`(t => t.includes('Légende') && t.includes('zoom ≥ 14,5'))(document.querySelector('#map-legend').textContent)`));
   await evaluate(`__CORE_MAP.jumpTo({ center: [-122.4065, 37.7795], zoom: 15, pitch: 50, bearing: -44 }); document.querySelector('[data-sec=sims]').click(); 0`); await pause(3000);
@@ -320,7 +320,7 @@ try {
   await evaluate(`document.querySelector('[data-mg-replay]').click(); 0`); await pause(600);
   check('replay is labelled as a recording and calls no model', await evaluate(`/relecture/.test(document.querySelector('[data-mg-now]').textContent)`));
   await evaluate(`CORE_DEMO.go(0); 0`); await pause(1500); await evaluate(`document.querySelector('#d2-next').click(); 0`); await pause(1500);
-  check('demo 2.0 steps forward with a one-sentence takeaway', await evaluate(`(el => el.textContent.includes('2 / 8') && el.querySelector('.d2-take').textContent.length > 40 && el.querySelector('.d2-take').textContent.length < 260)(document.querySelector('#demo2'))`));
+  check('demo 2.0 steps forward with a one-sentence takeaway', await evaluate(`(el => el.textContent.includes('2 / 9') && el.querySelector('.d2-take').textContent.length > 40 && el.querySelector('.d2-take').textContent.length < 260)(document.querySelector('#demo2'))`));
   await evaluate(`document.querySelector('#d2-exit').click(); 0`);
   check('dates and scope are labelled (collection vs source dates)', await evaluate(`document.querySelector('#navmeta').textContent.includes('collect') && /UTC/.test(document.querySelector('#navmeta').textContent)`));
   await shot('phase6');
@@ -347,18 +347,18 @@ try {
   check('problems registry: four knowledge statuses, evidence links, explicit gaps', await evaluate(`(R => R && R.problems.every(p => ['observed','potential-risk','hypothesis','simulated'].includes(p.status)) && R.gaps.length > 0 && document.querySelectorAll('#ws-body .problems .item').length > 0 && /Absence de données ≠ absence de problème/.test(document.querySelector('#ws-body').textContent))(CORE_CIV.state.problems)`));
   // ---- Phase 8: full population, clicks, walking, cards, problems, live honesty, privacy ----
   await evaluate(`CORE_PLATFORM.show('world'); CORE_AGENT_PROFILE.close(); CORE_MOTION.setFilter('all'); __CORE_MAP.jumpTo({ center: [-122.4065, 37.7795], zoom: 14.4, pitch: 50, bearing: -40 }); 0`); await pause(2500);
-  check('all 68 registered profiles are discoverable in the world and in the population bar', await evaluate(`(c => c.total === CORE_PLATFORM.state.counts.registered && c.shown === c.total && /Tous \\(68\\)/.test(document.querySelector('#pop-bar').textContent))(CORE_MOTION.counts())`));
-  check('agents are spread in two dimensions across 13 virtual zones (not a line)', await evaluate(`(() => { const P = [...CORE_MOTION.state.agents.values()].map(a => a.pos), n = P.length, mx = P.reduce((s, p) => s + p[0], 0) / n, my = P.reduce((s, p) => s + p[1], 0) / n;
+  check('all registered profiles (82 in Phase 10) are discoverable in the world and in the population bar', await evaluate(`(c => c.total === CORE_PLATFORM.state.counts.registered && c.total === 82 && c.shown === c.total && /Tous \\(82\\)/.test(document.querySelector('#pop-bar').textContent))(CORE_MOTION.counts())`));
+  check('agents are spread in two dimensions across 13 virtual zones (not a line) — San Francisco population', await evaluate(`(() => { const P = [...CORE_MOTION.state.agents.values()].filter(a => a.city === 'san-francisco').map(a => a.pos), n = P.length, mx = P.reduce((s, p) => s + p[0], 0) / n, my = P.reduce((s, p) => s + p[1], 0) / n;
     let a = 0, b = 0, c = 0; for (const p of P) { const x = (p[0] - mx) * Math.cos(37.78 * Math.PI / 180), y = p[1] - my; a += x * x; b += x * y; c += y * y; } const t = (a + c) / 2, d = Math.sqrt(((a - c) / 2) ** 2 + b * b);
-    return Math.sqrt((t - d) / (t + d)) > 0.25 && new Set([...CORE_MOTION.state.agents.values()].map(x => x.zone.id)).size === 13; })()`));
+    return Math.sqrt((t - d) / (t + d)) > 0.25 && new Set([...CORE_MOTION.state.agents.values()].filter(x => x.city === 'san-francisco').map(x => x.zone.id)).size === 13; })()`));
   check('WebGL figures: clicking a rendered figure opens that agent’s own profile', await evaluate(`(async () => { const m = __CORE_MAP, f = m.queryRenderedFeatures({ layers: ['pop-agent-icon'] })[0]; if (!f) return false; const p = m.project(f.geometry.coordinates), r = m.getCanvas().getBoundingClientRect();
     m.fire('click', { point: p, lngLat: m.unproject(p), originalEvent: new MouseEvent('click', { clientX: r.left + p.x, clientY: r.top + p.y }) }); await new Promise(x => setTimeout(x, 1200)); return document.querySelector('#agent-card').dataset.agent === f.properties.id; })()`));
   await evaluate(`CORE_AGENT_PROFILE.close(); __CORE_MAP.jumpTo({ center: [-122.4040, 37.7805], zoom: 16.4, pitch: 55, bearing: -30 }); 0`); await pause(2500);
   check('every rendered articulated avatar opens its own profile (no dead click)', await evaluate(`(async () => { const ids = [...document.querySelectorAll('.agent-av')].map(b => b.dataset.agent); if (ids.length < 10) return false; for (const id of ids) { const b = document.querySelector('.agent-av[data-agent="' + id + '"]'); if (!b) continue; b.click(); await new Promise(x => setTimeout(x, 350)); if (document.querySelector('#agent-card').dataset.agent !== id) return false; } return true; })()`));
   check('agents move only for a recorded reason: travellers follow the validated network, everyone else stays at their post', await evaluate(`(async () => { if (!CORE_ACTIVITY.state.playing) CORE_ACTIVITY.start(); for (let i = 0; i < 40 && ![...CORE_MOTION.state.agents.values()].some(a => a.path); i++) await new Promise(x => setTimeout(x, 250));
-    const all = [...CORE_MOTION.state.agents.values()], movers = all.filter(a => a.path), net = CORE_MOTION.state.net, keys = new Set(net.nodes.map(n => n.join()));
-    const atPost = all.filter(a => a.mode === 'post' && !a.path).every(a => a.pos.join() === net.nodes[a.post].join());
-    return movers.length > 0 && movers.every(a => a.mode === 'travel' && a.note && a.path.coords.every(c => keys.has(c.join()))) && atPost && /ACTIVITÉ ENREGISTRÉE/.test(document.querySelector('#pop-bar').textContent); })()`));
+    const all = [...CORE_MOTION.state.agents.values()], movers = all.filter(a => a.path), K = new Map(), keys = a => { if (!K.has(a.net)) K.set(a.net, new Set(a.net.nodes.map(n => n.join()))); return K.get(a.net); }; // Phase 10: each agent's own city network
+    const atPost = all.filter(a => a.mode === 'post' && !a.path).every(a => a.pos.join() === a.net.nodes[a.post].join());
+    return movers.length > 0 && movers.every(a => a.mode === 'travel' && a.note && a.path.coords.every(c => keys(a).has(c.join()))) && atPost && /ACTIVITÉ ENREGISTRÉE/.test(document.querySelector('#pop-bar').textContent); })()`));
   check('walking cycle animates the limbs of a travelling avatar', await evaluate(`(async () => { const a = [...CORE_MOTION.state.agents.values()].find(x => x.path); if (!a) return false; __CORE_MAP.jumpTo({ center: a.pos, zoom: 16.8 }); await new Promise(x => setTimeout(x, 900)); const el = document.querySelector('.agent-av[data-agent="' + a.agent.id + '"]'); const leg = el && el.querySelector('.leg.l'); return !!leg && el.dataset.state === 'walking' && getComputedStyle(leg).animationName === 'av-swing'; })()`));
   await evaluate(`CORE_AGENT_PROFILE.open('core.san-francisco.public-space.accessibility-analyst', 'org').then(() => 0)`); await pause(800);
   check('profile navigation: collaborator → its own profile; problem → agents → agent', await evaluate(`(async () => { const b = document.querySelector('#agent-card [data-open-agent]'), id = b.dataset.openAgent; b.click(); await new Promise(x => setTimeout(x, 1200)); if (document.querySelector('#agent-card').dataset.agent !== id) return false;
@@ -375,11 +375,28 @@ try {
     return CORE_MOTION.occludedAt(cam, alt, [c[0] + d[0] * 0.08, c[1] + d[1] * 0.08]) === true && CORE_MOTION.occludedAt(cam, alt, [c[0] - d[0] * 0.3, c[1] - d[1] * 0.3]) === false; })()`));
   await evaluate(`CORE_AGENT_PROFILE.open('core.san-francisco.mobility.lead', 'memory').then(() => 0)`); await pause(800);
   check('agent memory tab shows identity, knowledge, episodes and institutional memory from the published export', await evaluate(`(t => /Identité \\(version/.test(t) && /Épisodes \\([1-9]/.test(t) && /Mémoire institutionnelle liée \\([1-9]/.test(t) && /approved/.test(t))(document.querySelector('#agent-card').textContent)`));
-  await evaluate(`CORE_AGENT_PROFILE.close(); CORE_DEMO.go(7); 0`); await pause(1500);
+  await evaluate(`CORE_AGENT_PROFILE.close(); CORE_DEMO.go(8); 0`); await pause(1500);
   check('demo ends on the real human-review state (no invented decision)', await evaluate(`(t => /ÉLIGIBLE À LA REVUE HUMAINE|PREUVES SUPPLÉMENTAIRES|RÉSULTAT NÉGATIF/.test(t) && (/Aucune décision humaine n’a encore été prise/.test(t) || /Décision humaine : /.test(t)))(document.querySelector('#demo2').textContent)`));
   await evaluate(`CORE_DEMO.stop(); 0`);
   check('no third-party code CDN request (MapLibre self-hosted)', await evaluate(`!performance.getEntriesByType('resource').some(r => /unpkg|jsdelivr|googleapis|gstatic/.test(r.name))`));
   check('scheduler: only humans approve, emergency stop rejects new jobs, audit chain verifies', await evaluate(`(() => { const q = CORE_SCHEDULER.create(); const j = q.enqueue({ label: 'x', requiresApproval: true, run: async () => 1 }); const a = q.approve(j.id, 'core.san-francisco.manager'); q.emergencyStop('audit'); const r = q.enqueue({ label: 'y', run: async () => 1 }); return !a && r.ok === false && q.verify().ok && q.snapshot().counts.stopped === 1; })()`));
+  // ---------- Phase 10: second city, per-city motion, multi-city replay, cities view ----------
+  const NYB = '[-74.0016, 40.7055, -73.9640, 40.7345]';
+  await evaluate(`CORE_PLATFORM.show('world'); document.querySelector('[data-go=nyc]').click(); 0`); await pause(10500);
+  check('New York: flight, study-area layers and header context', await evaluate(`(m => Math.abs(m.getCenter().lng + 73.986) < 0.02 && !!m.getLayer('city-new-york-hin') && !!m.getLayer('city-new-york-works') && !!m.getLayer('city-new-york-nh-label') && document.querySelector('.mark small').textContent === 'New York')(__CORE_MAP)`));
+  check('per-city motion: New York agents posted on the New York network only, San Francisco agents never in New York', await evaluate(`(async () => { await CORE_MOTION.ensure(); const b = ${NYB}, inNY = p => p[0] > b[0] && p[0] < b[2] && p[1] > b[1] && p[1] < b[3], all = [...CORE_MOTION.state.agents.values()], ny = all.filter(a => a.city === 'new-york');
+    return ny.length === 12 && ny.every(a => a.net === CORE_MOTION.state.nets['new-york'].net && inNY(a.net.nodes[a.post])) && all.filter(a => a.city === 'san-francisco').every(a => !inNY(a.net.nodes[a.post])); })()`));
+  await evaluate(`CORE_ACTIVITY.stop(); CORE_ACTIVITY.state.speed = 1; (async () => { await CORE_ACTIVITY.load(); const m = CORE_ACTIVITY.state.missions.find(x => /new-york:ramps-works:east-village/.test(x.id)); CORE_ACTIVITY.playOnly(m.id); })(); 0`);
+  await until(`[...CORE_MOTION.state.agents.values()].some(a => a.path && a.city === 'new-york')`, 60);
+  check('New York replay: specialists walk on New York sidewalks to the cited evidence (and no San Francisco agent enters New York)', await evaluate(`(b => { const inNY = p => p[0] > b[0] && p[0] < b[2] && p[1] > b[1] && p[1] < b[3], mv = [...CORE_MOTION.state.agents.values()].filter(a => a.path), ny = mv.filter(a => a.city === 'new-york'); return ny.length > 0 && ny.every(a => a.path.coords.every(inNY)) && mv.filter(a => a.city !== 'new-york').every(a => !a.path.coords.some(inNY)); })(${NYB})`));
+  await shot('phase10-nyc-replay'); await evaluate(`CORE_ACTIVITY.stop(); 0`);
+  await evaluate(`CORE_PLATFORM.show('cities'); 0`); await pause(2500);
+  check('cities view: two operational cities, comparability verdicts, decision options I0–I3, discovery report', await evaluate(`(t => /2\s*villes opérationnelles/.test(t) && /non comparable/.test(t) && ['I0 —', 'I1 —', 'I2 —', 'I3 —'].every(x => t.includes(x)) && /Sensibilité : 18 combinaisons/.test(t) && /Découverte automatique/.test(t) && /Aucune couverture planétaire/.test(t))(document.querySelector('#ws-body').textContent)`));
+  await shot('phase10-cities');
+  await evaluate(`CORE_PLATFORM.show('world'); (async () => { await CORE_ACTIVITY.load(); const w = CORE_ACTIVITY.state.missions.find(x => x.id.startsWith('world:')); CORE_ACTIVITY.state.follow = false; CORE_ACTIVITY.playOnly(w.id); })(); 0`); await pause(2500);
+  check('cross-city replay draws the labelled San Francisco ↔ New York arc', await evaluate(`(s => s && s._data && s._data.features && s._data.features.length === 1 && /San Francisco ↔ New York/.test(s._data.features[0].properties.label))(__CORE_MAP.getSource('civ-arc'))`) || await evaluate(`__CORE_MAP.querySourceFeatures('civ-arc').length > 0`));
+  await evaluate(`CORE_ACTIVITY.stop(); CORE_ACTIVITY.state.follow = true; 0`);
+  check('the page never contacts NYC Open Data (published snapshot only); a model endpoint only in local mode', await evaluate(`!performance.getEntriesByType('resource').some(r => /cityofnewyork/.test(r.name) || (!CORE_PLATFORM.state.local && /11434/.test(r.name)))`));
   await evaluate(`CORE_PLATFORM.show('health'); 0`); await pause(4000);
   check('data health: snapshot integrity, cron slots vs observed runs, trigger type, data age (or explicit unavailability)', await evaluate(`(t => t.includes('fichier intact') && ((/créneaux cron prévus/.test(t) && /déclencheur/.test(t) && /âge de la veille/.test(t)) || /Historique indisponible/.test(t)))(document.querySelector('#ws-body').textContent)`));
   await evaluate(`CORE_PLATFORM.show('world'); CORE_CAMERA.view('street'); 0`); await pause(4200);

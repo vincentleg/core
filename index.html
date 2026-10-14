@@ -212,7 +212,7 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
   :root { --insp-w: min(420px, calc(100vw - 32px)); --dock-w: 300px; --gap: 12px; }
   .console { width: var(--dock-w) !important; padding: 12px; gap: 8px; }
   .console .brand span { font-size: 11px; color: var(--muted); letter-spacing: .02em; }
-  .places { display: flex; gap: 4px; } .places button { flex: 1; padding: 6px 4px; font-size: 12px; white-space: nowrap; }
+  .places { display: flex; gap: 3px; flex-wrap: nowrap; } .places button { flex: 1 1 auto; padding: 6px 3px; font-size: 11.5px; white-space: nowrap; }
   #appnav .navmeta { max-width: 340px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } #appnav .mark { white-space: nowrap; }
   .dock-lead { margin: 0; font-size: 12.5px; line-height: 1.4; color: var(--muted); } .dock-lead b { color: var(--ink); }
   .dock-actions { display: grid; gap: 6px; } .dock-actions button { white-space: normal; text-align: center; }
@@ -395,7 +395,7 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
 
 <div class="panel console">
   <div class="brand"><b>Explorer</b><span>Pilote San Francisco</span><button type="button" class="ghost small" id="console-toggle" aria-expanded="false" aria-controls="console-body">Déplier</button></div>
-  <p class="dock-lead">Intelligence urbaine fondée sur des données publiques et des agents vérifiés. Villes opérationnelles : <b>San Francisco</b> (pilote) et <b>New York</b> (zone d’étude de Manhattan). Les décisions restent humaines.</p>
+  <p class="dock-lead">Données publiques, agents vérifiés, décisions humaines. Villes opérationnelles : <b>San Francisco</b> et <b>New York</b>.</p>
   <form id="search" role="search">
     <input id="q" type="search" placeholder="Ville, quartier de SF ou de NY, repère ou lat, lon" aria-label="Recherche locale : ville, quartier ou repère de San Francisco, ou latitude, longitude" maxlength="120" autocomplete="off">
     <button type="submit">Aller</button>

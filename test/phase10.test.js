@@ -187,3 +187,28 @@ test('persistent scheduler: queue survives a crash (running items resumed), budg
     assert.equal(fs.statSync(path.join(ROOT, 'data/civ/index.json')).mtimeMs, before, 'publication stays explicit');
   } finally { for (const f of [qf, mf]) for (const x of ['', '-wal', '-shm']) fs.rmSync(path.join(ROOT, f + x), { force: true }); }
 });
+
+test('control centre (Phase 10 actions): allowlisted cities and neighbourhoods, emergency stop, human-only decisions, no process spawning', async () => {
+  const { spawn } = require('node:child_process'), id = `c${process.pid}`, mf = `.core-local/test-cm-${id}.sqlite`, qf = `.core-local/test-cq-${id}.sqlite`;
+  const port = 19000 + Math.floor(Math.random() * 900), child = spawn(process.execPath, ['scripts/control-server.mjs', '--port', String(port), '--memory', mf, '--queue', qf], { cwd: ROOT, env: { ...process.env, NODE_NO_WARNINGS: '1' } });
+  let out = ''; child.stdout.on('data', d => { out += d; }); child.stderr.on('data', () => {});
+  try {
+    for (let i = 0; i < 150 && !/#token=/.test(out); i++) await new Promise(r => setTimeout(r, 100));
+    const token = out.match(/#token=([a-f0-9]+)/)[1], H = { 'X-Core-Token': token, 'Content-Type': 'application/json' };
+    const post = (p, b) => fetch(`http://127.0.0.1:${port}${p}`, { method: 'POST', headers: H, body: JSON.stringify(b) }).then(async r => ({ status: r.status, body: await r.json() }));
+    const st = await (await fetch(`http://127.0.0.1:${port}/api/status`, { headers: H })).json();
+    assert.deepEqual(st.cities.map(c => c.id), ['san-francisco', 'new-york']); assert.ok(st.cities.every(c => c.sources.length >= 4)); assert.match(st.resources.cost, /^0 \$/);
+    assert.equal((await post('/api/world', { pairs: [['new-york', 'East Village'], ['new-york', 'Lower East Side']] })).status, 400, 'two different cities required');
+    assert.equal((await post('/api/world', { pairs: [['paris', 'X'], ['new-york', 'East Village']] })).status, 400, 'navigation-only city refused');
+    assert.equal((await post('/api/decision', { city: 'new-york', nhood: 'East Village' })).status, 400, 'workflow not available in that city');
+    assert.equal((await post('/api/decision', { city: 'san-francisco', nhood: '../../etc' })).status, 400);
+    assert.equal((await post('/api/discover', { fetch: true })).status, 400, 'collection stays a CLI action');
+    assert.equal((await post('/api/world', { pairs: [['san-francisco', 'Mission'], ['new-york', 'Chinatown-Two Bridges']] })).status, 202);
+    let s2; for (let i = 0; i < 100; i++) { s2 = await (await fetch(`http://127.0.0.1:${port}/api/status`, { headers: H })).json(); if (!s2.busy) break; await new Promise(r => setTimeout(r, 200)); }
+    const w = s2.missions.find(m => m.id.startsWith('world:') && /mission@/.test(m.id) && /chinatown/.test(m.id)); assert.ok(w && w.state === 'HUMAN_REVIEW');
+    assert.equal((await post('/api/decide', { id: w.id, reviewer: 'core.global.director.road-safety', decision: 'approve' })).status, 400, 'agents cannot decide');
+    assert.equal((await post('/api/decide', { id: w.id, reviewer: 'human:test', decision: 'needs-evidence' })).body.state, 'NEEDS_MORE_EVIDENCE');
+    if (!fs.existsSync(path.join(ROOT, '.core-local/STOP'))) { await post('/api/stop', {}); assert.equal((await post('/api/decision', { city: 'san-francisco', nhood: 'Mission' })).status, 423); assert.equal((await post('/api/resume', { reviewer: 'nobody' })).status, 400); await post('/api/resume', { reviewer: 'human:test' }); }
+  } finally { child.kill(); for (const f of [mf, qf]) for (const x of ['', '-wal', '-shm']) fs.rmSync(path.join(ROOT, f + x), { force: true }); }
+  assert.doesNotMatch(fs.readFileSync(path.join(ROOT, 'scripts/control-server.mjs'), 'utf8'), /child_process|spawn\(|exec\(|eval\(/);
+});

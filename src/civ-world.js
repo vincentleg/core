@@ -45,7 +45,7 @@
       if (via) { msg(m, requester, via, 'request', `Demande d’appui (${tool}) pour ${city ? CITIES.get(city).name : 'la comparaison'}`, [], 'accepté par la direction'); msg(m, via, a.id, 'delegate', `Sous-tâche bornée ${st.id} : ${tool}`, [], 'assignée'); }
       else msg(m, requester, a.id, 'delegate', `Sous-tâche bornée ${st.id} : ${tool}`, [], 'assignée');
       m.subtasks.push(st); const t0 = Date.now();
-      try { const out = city ? CT.TOOLS[tool].run(cxs[city], target) : null; st.state = 'succeeded'; st.ms = Date.now() - t0; return out; }
+      try { const out = city ? CT.TOOLS[tool].run(cxs[city], target) : null; st.state = 'succeeded'; st.ms = Date.now() - t0; st.findings = out && out.findings ? out.findings.length : 0; return out; }
       catch (e) { st.state = 'failed'; st.error = e.message; st.ms = Date.now() - t0; m.errors.push(`${tool} (${city}) : ${e.message}`); return null; }
     }
     // Same mission identity for the same pair and snapshots: re-running is idempotent; an interrupted mission resumes.
@@ -87,7 +87,7 @@
           msg(m, DIRECTOR, METHOD, 'request', 'Vérifier la comparabilité des définitions, méthodes, périodes et géographies', [], 'acceptée');
           const rv = byId(METHOD); if (!ORG.canUse(rv, 'comparability.review', 'review')) throw new Error('permission refusée : comparability.review');
           m.subtasks.push({ id: `S${m.subtasks.length + 1}`, tool: 'comparability.review', city: null, target: { pairs }, agent: METHOD, code: rv.code, requester: DIRECTOR, via: null, depth: 1, state: 'succeeded', attempts: 1, ms: 0, error: null, findings: 0 });
-          m.comparability = comparability(parts);
+          m.comparability = comparability(parts); m.subtasks[m.subtasks.length - 1].findings = m.comparability.length;
           // Only descriptive side-by-side figures; each city's rate is stated on its own network with its own definition.
           const fig = parts.map(p => { const rows = m.results[`${p.city}:safety.crash-profile`] ? m.results[`${p.city}:safety.crash-profile`].rows : [], segs = CT.hinIn(p.cx, p.nhood), km = segs.reduce((s, h) => s + h.length_km, 0), cr = segs.flatMap(h => p.cx.crashes.get(h.cnn) || []), n = cr.reduce((s, r) => s + r.n, 0), fat = cr.filter(r => /Fatal/.test(r.severity)).reduce((s, r) => s + r.n, 0);
             return { city: p.city, name: p.cfg.name, nhood: p.nhood, km: +km.toFixed(2), crashes: n, fatal: fat, perKmYear: km ? +(n / km / YEARS).toFixed(1) : null, fatalPerKmYear: km ? +(fat / km / YEARS).toFixed(2) : null, evidence: [{ type: 'record', dataset: 'neighborhoods', ref: `neighborhoods:${p.nhood}`, city: p.city }, ...rows.slice(0, 5).map(r => ({ type: 'record', dataset: 'crashes-agg', ref: `crashes-agg:${r.cnn}`, city: p.city }))] }; });

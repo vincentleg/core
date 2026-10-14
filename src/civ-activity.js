@@ -87,16 +87,18 @@
   }
   async function start() {
     await load(); await M().ensure(); layer(); if (!S.missions.length) { render(); return false; }
-    S.playing = true; const run = ++S.run; requestAnimationFrame(drawLinks); render();
+    S.playing = true; const run = ++S.run; requestAnimationFrame(drawLinks); render(); bar();
     while (S.playing && run === S.run) { const m = S.missions[S.i % S.missions.length]; S.i++; await playMission(m, run); }
     return true;
   }
-  function stop() { S.playing = false; S.run++; S.current = null; arc(null); if (M().state.ready) { M().dim(null); for (const A of M().state.agents.values()) if (A.mode !== 'post' && A.mode !== 'replay' && A.mode !== 'live') M().toPost(A.agent.id, 'retour au poste (relecture arrêtée)'); } render(); }
+  // The population bar states the motion mode (RELECTURE / AU REPOS): tell it immediately when that mode changes.
+  const bar = () => document.dispatchEvent(new CustomEvent('core:population', { detail: { activity: S.playing } }));
+  function stop() { S.playing = false; S.run++; S.current = null; arc(null); bar(); if (M().state.ready) { M().dim(null); for (const A of M().state.agents.values()) if (A.mode !== 'post' && A.mode !== 'replay' && A.mode !== 'live') M().toPost(A.agent.id, 'retour au poste (relecture arrêtée)'); } render(); }
   // Replay a single recorded mission (guided demo), then stop.
   async function playOnly(id) {
     await load(); await M().ensure(); layer(); const m = S.missions.find(x => x.id === id); if (!m) return false;
-    S.playing = false; const run = ++S.run; S.playing = true; S.feed = []; requestAnimationFrame(drawLinks); render();
-    await playMission(m, run); if (run === S.run) { S.playing = false; render(); } return true;
+    S.playing = false; const run = ++S.run; S.playing = true; S.feed = []; requestAnimationFrame(drawLinks); render(); bar();
+    await playMission(m, run); if (run === S.run) { S.playing = false; render(); bar(); } return true;
   }
   // Downloadable evidence dossier (Markdown) built only from the recorded mission.
   function dossier(m) {

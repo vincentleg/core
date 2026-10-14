@@ -1,10 +1,10 @@
 {
  "version": "core-memory-export-v1",
- "generated_at": "2026-10-14T19:33:26.811Z",
+ "generated_at": "2026-10-14T19:36:46.859Z",
  "chain": {
   "ok": true,
-  "head": "9fc14bce3a0a512de110be9581258d4b6971e785e9fa0400bd401293a740d135",
-  "events": 386
+  "head": "9492b90a7edb3a894275dcd647814f972300d6696a67435151eff1322d51ad4e",
+  "events": 395
  },
  "episodes": [
   {

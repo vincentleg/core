@@ -1,6 +1,6 @@
 {
  "version": "core-civ-index-v1",
- "recorded_at": "2026-10-14T19:33:26.808Z",
+ "recorded_at": "2026-10-14T19:36:46.854Z",
  "study_area": {
   "neighborhoods": [
    "South of Market",
@@ -667,7 +667,7 @@
    "human": null,
    "owner": "core.global.director.road-safety",
    "metrics": {
-    "wallMs": 29,
+    "wallMs": 48,
     "subtasks": 7,
     "failed": 0,
     "toolCalls": 7,
@@ -683,7 +683,7 @@
     "accepted": 0,
     "rejected": 0
    },
-   "at": "2026-10-14T19:33:26.783Z"
+   "at": "2026-10-14T19:36:46.831Z"
   }
  ],
  "notPublished": {
