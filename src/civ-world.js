@@ -132,7 +132,9 @@
       if (m.state !== 'HUMAN_REVIEW') throw new Error(`mission non soumise à la revue humaine (${m.state})`);
       const to = { approve: 'APPROVED', reject: 'REJECTED', 'needs-evidence': 'NEEDS_MORE_EVIDENCE' }[decision]; if (!to) throw new Error('décision inconnue');
       m.human = { reviewer, decision: to, note: String(note).slice(0, 500), at: now() }; msg(m, reviewer, DIRECTOR, 'human-decision', `Décision humaine : ${to}`, [], note || null); stage(m, to);
-      if (memory && to === 'APPROVED') for (const e of memory.entries({ kind: 'finding', workflow: 'cross-city-road-safety', status: 'reviewed' }).filter(e => e.mission === m.id)) memory.transition(e.id, 'approved', reviewer, 'mission approuvée par un humain');
+      if (memory && to === 'APPROVED') for (const e of memory.entries({ kind: 'finding', workflow: 'cross-city-road-safety', status: 'reviewed' }).filter(e => e.mission === m.id)) {
+        if (e.body.relatedRejected?.length) { (m.human.pendingRelated = m.human.pendingRelated || []).push(e.id); continue; } // needs its own explicit decision
+        memory.transition(e.id, 'approved', reviewer, 'mission approuvée par un humain'); }
       return m;
     }
     return { compare, humanDecision, stopAll: () => { stopped = true; }, resetStop: r => { if (!/^human:/.test(r)) return false; stopped = false; return true; } };

@@ -16,6 +16,10 @@ const STATUSES = ['candidate', 'verified', 'reviewed', 'approved', 'rejected', '
 // Phase 10: verified and reviewed entries may also be superseded (a newer snapshot re-established the same claim).
 const NEXT = { candidate: ['verified', 'rejected'], verified: ['reviewed', 'rejected', 'superseded'], reviewed: ['approved', 'rejected', 'superseded'], approved: ['superseded'], rejected: [], superseded: [] };
 const HUMAN = /^human:[A-Za-z0-9._-]{2,40}$/;
+// Conservative lexical link to rejected entries (token Jaccard, no embeddings): a flag for human review, never proof of identity.
+const RELATED = 0.6;
+const tokens = t => new Set((String(t).normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().match(/[a-z0-9]+(?:[.,][0-9]+)?/g) || []).filter(w => w.length > 2 || /\d/.test(w)));
+function relatedness(a, b) { const A = tokens(a), B = tokens(b); if (A.size < 3 || B.size < 3) return 0; let i = 0; for (const x of A) if (B.has(x)) i++; return i / (A.size + B.size - i); }
 const stable = v => Array.isArray(v) ? `[${v.map(stable).join(',')}]` : v && typeof v === 'object' ? `{${Object.keys(v).sort().filter(k => v[k] !== undefined).map(k => `${JSON.stringify(k)}:${stable(v[k])}`).join(',')}}` : JSON.stringify(v);
 
 function open(file = ':memory:', { clock = () => new Date().toISOString() } = {}) {
@@ -51,15 +55,19 @@ function open(file = ':memory:', { clock = () => new Date().toISOString() } = {}
     propose({ kind, workflow, statement, evidence = [], origin, mission, basis, rule = null, agent = null }) {
       const id = `${kind}:${sha256(stable({ kind, workflow, statement })).slice(0, 12)}`, ex = q('SELECT id, status FROM institutional WHERE id = ?', id)[0];
       if (ex) return { id, existing: ex.status };
-      const body = { evidence, basis: basis || null, rule, agent };
+      const related = q("SELECT id, statement FROM institutional WHERE kind = ? AND status = 'rejected' ORDER BY at", kind).map(r => ({ id: r.id, similarity: Math.round(relatedness(statement, r.statement) * 1000) / 1000 })).filter(r => r.similarity >= RELATED);
+      const body = { evidence, basis: basis || null, rule, agent, ...(related.length ? { relatedRejected: related.map(r => ({ ...r, method: 'token-jaccard', meaning: 'possible relation to a rejected entry; human decision required, not identity' })) } : {}) };
       run('INSERT INTO institutional VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', id, kind, workflow, statement, JSON.stringify(body), 'candidate', 1, origin, mission, JSON.stringify([{ status: 'candidate', by: origin, at: clock() }]), clock());
-      event('memory-candidate', id, { kind, origin }); return { id };
+      event('memory-candidate', id, { kind, origin }); if (!related.length) return { id };
+      event('memory-related-rejected', id, { related: related.map(r => r.id) }); return { id, related: related.map(r => r.id) };
     },
     transition(id, status, by, note = '') {
       const r = q('SELECT * FROM institutional WHERE id = ?', id)[0]; if (!r) throw new Error(`entrée inconnue ${id}`);
       if (!NEXT[r.status].includes(status)) throw new Error(`transition interdite ${r.status} → ${status}`);
       if (status === 'reviewed' && by === r.origin) throw new Error('la revue doit être faite par un autre agent que l’auteur');
       if (status === 'approved' && r.kind === 'finding' && !HUMAN.test(by)) throw new Error('un constat sur le monde ne peut être approuvé que par un humain');
+      const linked = JSON.parse(r.body).relatedRejected || [];
+      if (status === 'approved' && linked.length && (!HUMAN.test(by) || linked.some(l => !String(note).includes(l.id)))) throw new Error(`possible reprise d’un rejet : approbation humaine citant ${linked.map(l => l.id).join(', ')} requise`);
       if (status === 'approved' && r.kind !== 'finding' && !(HUMAN.test(by) || JSON.parse(r.body).basis === 'deterministic-records')) throw new Error('approbation automatique réservée aux leçons issues d’enregistrements déterministes');
       const hist = JSON.parse(r.history); hist.push({ status, by, note, at: clock() });
       run('UPDATE institutional SET status = ?, history = ?, version = version + ? WHERE id = ?', status, JSON.stringify(hist), status === 'approved' ? 1 : 0, id);
@@ -96,4 +104,4 @@ function open(file = ':memory:', { clock = () => new Date().toISOString() } = {}
   };
   return api;
 }
-module.exports = { open, STATUSES, NEXT, HUMAN };
+module.exports = { open, STATUSES, NEXT, HUMAN, RELATED, relatedness };

@@ -233,3 +233,36 @@ test('control centre (Phase 10 actions): allowlisted cities and neighbourhoods, 
   } finally { child.kill(); for (const f of [mf, qf]) for (const x of ['', '-wal', '-shm']) fs.rmSync(path.join(ROOT, f + x), { force: true }); }
   assert.doesNotMatch(fs.readFileSync(path.join(ROOT, 'scripts/control-server.mjs'), 'utf8'), /child_process|spawn\(|exec\(|eval\(/);
 });
+
+test('memory: a reworded rejected claim is linked for human review, never auto-approved, never treated as identical', async () => {
+  const mem = MEM.open(':memory:');
+  const r = mem.propose({ kind: 'finding', workflow: 'w', statement: 'Le carrefour Howard/7th présente 12 collisions graves en 2025', origin: 'a' }); mem.transition(r.id, 'rejected', 'human:reviewer', 'données non vérifiées');
+  const p = mem.propose({ kind: 'finding', workflow: 'w', statement: 'Au carrefour Howard/7th, 12 collisions graves observées en 2025', origin: 'b' });
+  assert.notEqual(p.id, r.id, 'not merged: similarity is not identity'); assert.deepEqual(p.related, [r.id]);
+  const e = mem.entries({ kind: 'finding' }).find(x => x.id === p.id); assert.equal(e.status, 'candidate'); assert.equal(e.body.relatedRejected[0].method, 'token-jaccard');
+  assert.ok(e.body.relatedRejected[0].similarity >= MEM.RELATED);
+  mem.transition(p.id, 'verified', 'b'); mem.transition(p.id, 'reviewed', 'c');
+  assert.throws(() => mem.transition(p.id, 'approved', 'human:reviewer', 'ok'), /citant/, 'human must cite the rejected entry');
+  mem.transition(p.id, 'approved', 'human:reviewer', `nouvelle preuve distincte de ${r.id}`);
+  const proc = mem.propose({ kind: 'procedure', workflow: 'w', statement: 'Ne pas déléguer outil-x pour la revue de sécurité routière', origin: 'a', basis: 'deterministic-records' }); mem.transition(proc.id, 'rejected', 'human:reviewer');
+  const proc2 = mem.propose({ kind: 'procedure', workflow: 'w', statement: 'Ne jamais déléguer outil-x pour la revue de sécurité routière', origin: 'a', basis: 'deterministic-records' });
+  mem.transition(proc2.id, 'verified', 'b'); mem.transition(proc2.id, 'reviewed', 'c');
+  assert.throws(() => mem.transition(proc2.id, 'approved', 'c', proc.id), /humaine/, 'deterministic auto-approval no longer applies');
+  const other = mem.propose({ kind: 'finding', workflow: 'w', statement: 'Les arbres de rue réduisent la chaleur urbaine estivale', origin: 'a' });
+  assert.equal(other.related, undefined); assert.equal('relatedRejected' in mem.entries({ kind: 'finding' }).find(x => x.id === other.id).body, false, 'unflagged bodies unchanged');
+  assert.equal(mem.propose({ kind: 'finding', workflow: 'w', statement: 'Howard 12', origin: 'a' }).related, undefined, 'too short to compare');
+  assert.ok(mem.verify().ok); assert.equal(mem.export().institutional.length, 6);
+  const events = mem.export().chain; assert.ok(events.ok);
+});
+
+test('memory: a human mission approval leaves findings related to rejected claims pending their own decision', async () => {
+  const reg = ORG.buildWorld(), probe = MEM.open(':memory:');
+  const m0 = await E.createEngine({ city: 'new-york', registry: reg, cx: cxs['new-york'], memory: probe }).run('safety-works', 'East Village');
+  const stmt = probe.entries({ kind: 'finding' }).find(e => e.mission === m0.id).statement;
+  const mem = MEM.open(':memory:'), old = mem.propose({ kind: 'finding', workflow: 'other', statement: `${stmt} (version antérieure)`, origin: 'x' }); mem.transition(old.id, 'rejected', 'human:reviewer');
+  const eng = E.createEngine({ city: 'new-york', registry: reg, cx: cxs['new-york'], memory: mem }), m = await eng.run('safety-works', 'East Village');
+  const flagged = mem.entries({ kind: 'finding' }).filter(e => e.mission === m.id && e.body.relatedRejected); assert.ok(flagged.length, 'engine finding linked to the rejected wording');
+  eng.humanDecision(m, 'human:reviewer', 'approve', 'ok');
+  assert.deepEqual(m.human.pendingRelated.sort(), flagged.map(e => e.id).sort());
+  for (const f of flagged) assert.equal(mem.entries({ kind: 'finding' }).find(e => e.id === f.id).status, 'reviewed');
+});

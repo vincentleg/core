@@ -21,9 +21,32 @@ On one corridor, can a model predict aggregate counts per site × direction × m
 |---|---|---|
 | **Primary: Howard St 6th–7th, SF** | Located SFMTA RAISE reports; matches the existing SoMa scope | One 2018 tube-count day only; reuse rights UNVERIFIED (SFMTA terms reserve rights; no explicit grant found); no signal timings of the same epoch |
 | **Fallback: Folsom / Main (SFMTA counts file)** | Separate published count file | Coverage, epoch, licence and geometric match unverified |
+| **Recommended fallback: NYC DOT Automated Traffic Volume Counts, Canal St EB at Manhattan Bridge (segment 32321)** | See the section below: 21 complete days, statutory reuse terms, inside the existing NYC study area | Validator licence allowlist, official text of the statute, quality and method review |
 | AI-infrastructure / data-centre energy | Strategic for CORE | No authorized measured dataset in the repository; the energy adapter uses a reported 2024 aggregate only. Not a Phase 14 candidate until metered data with rights exists |
 
 The candidate must not be switched after results are seen.
+
+## Fallback with verifiable reuse terms — NYC Automated Traffic Volume Counts
+
+Checked on 2026-10-15 using metadata plus one bounded aggregate query. The query was public, returned day-level row counts only, and stays in the local scratchpad; nothing was committed.
+
+- **Source.** NYC Open Data `7ym2-wayt`, publisher NYC DOT, provenance "official". Automated traffic recorders; `Vol` per 15-minute interval by LION segment and direction. Rows last updated 2026-03-20. The metadata names no licence.
+- **Reuse terms.** NYC Admin. Code §23-502(d): public data sets are available "without any registration requirement, license requirement or restrictions on their use". The department may require identification of source, version and modifications. §23-504: the City gives no warranty of accuracy or fitness. The text was read from an unofficial mirror (nycadmincode.readthedocs.io). It matches the Phase 10 record in `docs/DATA_SOURCES.md`, but the official codified text still has to be confirmed.
+- **Coverage.** Since 2023, 86 Manhattan segment-directions are present, 50 of them with at least 5 complete days (96 bins) and 42 with at least 7. The best fit for CORE is **Canal St EB at the Manhattan Bridge, segment 32321**: 21 complete days between 2023-05-21 and 2023-06-12. It sits in the Chinatown–Two Bridges study area already used in Phase 10. Long series also exist at the University Heights Bridge (39 days) and West End Ave at W 60th–61st (28 days).
+- **Fit to the protocol.**
+  - Mapping: `site` = segment, `direction` = EB/WB/NB/SB, `mode` = `motor_vehicle`, 15-minute bins.
+  - Local times carry no offset, so EDT −04:00 must be applied and recorded as a transformation.
+  - A preregistered split such as weeks 1–2 for calibration, a validation day, and the last week as holdout is possible without mixing adjacent bins.
+  - The claim stays count prediction. No signal timings are needed or implied.
+- **Comparison with Howard 6th–7th and Folsom/Main.**
+  - Howard: one 2018 day, reuse rights unverified.
+  - Folsom/Main: coverage and rights unverified.
+  - NYC: about 21 days, a statutory no-restriction clause, an official publisher, and an existing CORE study area. It is the only candidate where G0 can plausibly pass without contacting an agency.
+  - Limits: count quality and tube method, holidays (Memorial Day 2023-05-29 inside the window must be excluded *before* sealing), a 2023 epoch, and one segment only.
+- **What still blocks it.**
+  1. `validateCounts` accepts only PDDL, CC0 and CC-BY. Adding a statute-based value (for example `NYC-OPEN-DATA-LAW`) with mandatory source, version and modification attribution is a rights decision for the founder, not made here.
+  2. Confirm the official codified text.
+  3. Reviewer and thresholds (OP04).
 
 ## Dataset authorization (G0) — BLOCKED
 
