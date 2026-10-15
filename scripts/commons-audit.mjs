@@ -18,7 +18,7 @@ const until = async (x, ms = 15000) => { const t = Date.now(); while (Date.now()
 const check = (name, ok, detail = '') => { assert.ok(ok, `${name} ${detail}`); results.push(name); console.log('PASS', name, detail); };
 const shot = async name => { const s = await call('Page.captureScreenshot', { format: 'png' }); fs.writeFileSync(`${out}-${name}.png`, Buffer.from(s.data, 'base64')); };
 const body = () => ev(`document.getElementById('cm-body').textContent`);
-const tabTo = t => ev(`document.querySelector('.cm-tabs [data-tab=${t}]').click(), 1`);
+const tabTo = async t => { await ev(`location.hash = '${t}', 1`); await wait(150); }; // deep link (sections are grouped; sub-tabs show one group)
 const set = (sel, v) => ev(`(e => { e.value = ${JSON.stringify(v)}; e.dispatchEvent(new Event('input')); e.dispatchEvent(new Event('change')); 1 })(document.querySelector(${JSON.stringify(sel)}))`);
 const submit = sel => ev(`document.querySelector(${JSON.stringify(sel)}).requestSubmit(), 1`);
 try {
@@ -89,7 +89,7 @@ try {
   await set('#kd-p', '1e16'); await submit('#kd');
   check('progress: Kardashev calculator is educational and caveated', /K = 1\.000/.test(await ev(`document.getElementById('kd-out').textContent`)) && /bien-être/.test(await ev(`document.getElementById('kd-out').textContent`)));
   await shot('progress');
-  await tabTo('knowledge');
+  await ev(`location.hash = 'knowledge?view=ask', 1`); await wait(300);
   check('knowledge: sources listed with integrity, sidewalk dataset verified against its manifest', await until(`document.getElementById('cm-body').textContent.includes('sidewalks.geojson (intégrité vérifiée)')`, 20000));
   await ev(`document.querySelector('[data-kq="Quelles preuves pour le trottoir Folsom 5th Falmouth ?"]').click(), 1`);
   check('knowledge: cited answer with status, DataSF link, file fingerprint and uncertainty', await until(`(t => /OBSERVÉ/.test(t) && /10 ft/.test(t) && /SHA-256/.test(t) && /Incertitudes/.test(t))(document.getElementById('cm-body').textContent) && !!document.querySelector('#kb-answer a[href="https://data.sf.gov/d/4g86-grxu"]')`));

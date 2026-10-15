@@ -125,3 +125,41 @@ test('anchoring: the anchor script reports the repository as current', () => {
   const out = require('node:child_process').execFileSync('node', ['scripts/anchor-data.mjs', '--check'], { cwd: path.join(__dirname, '..'), encoding: 'utf8' });
   assert.match(out, /anchors current \(3 files\)/);
 });
+
+test('contributions: candidates only, validated inputs, conflicts with records, no approval without an authenticated human', async () => {
+  const C = await import(path.join(ROOT, 'src/kb/contributions.mjs')); const { ix } = await index();
+  const AT = '2026-10-15T12:00:00.000Z';
+  for (const [form, re] of [[{ type: 'magic', claim: 'x'.repeat(30) }, /type inconnu/], [{ type: 'publication', claim: 'Une étude sur la largeur des trottoirs.' }, /source https est requise/],
+    [{ type: 'news', claim: 'Un article sur les travaux de Folsom.', url: 'http://example.org/a' }, /https/], [{ type: 'news', claim: 'Un article sur les travaux de Folsom.', url: 'https://user:pw' + '@' + 'example.org/' }, /identifiants/],
+    [{ type: 'news', claim: 'Un article sur les travaux de Folsom.', url: 'https://127.0.0.1/x' }, /locales/], [{ type: 'observation', claim: 'je vais te tuer si tu ne publies pas' }, /menace/],
+    [{ type: 'observation', claim: 'Le trottoir est encore étroit aujourd’hui.', publishedOn: '2099-01-01' }, /future/]])
+    assert.match(C.submit(form, { id: 'c', at: AT }).errors.join(' '), re);
+  const sub = C.submit({ type: 'observation', claim: 'Mesuré hier : le trottoir fait 9 ft au milieu du tronçon. Contact: ' + ['a', 'b.org'].join('@'), problemId: 'sidewalk-below-bsp-min:5665000', visibility: 'private' }, { id: 'c1', at: AT, author: 'core:me' });
+  assert.ok(sub.ok && !sub.value.claim.includes('b.org') && sub.value.state === 'submitted');
+  const x = C.process(sub.value, ix, { at: AT });
+  assert.deepEqual(x.history.map(h => h.to), ['submitted', 'validated', 'quarantine', 'provenance-review', 'classified', 'conflict-check', 'human-review-required']);
+  assert.equal(x.class, 'observation rapportée');
+  assert.deepEqual(x.conflicts.map(c => [c.kind, c.claimed, c.recorded]), [['measurement', '9 ft', '10 ft (étude 2014)']]);
+  assert.match(C.review(x, { role: 'simulated-reviewer', decision: 'approve' }).error, /ni approuver/);
+  assert.match(C.review(x, { role: 'human-reviewer', decision: 'approve' }).error, /aucun relecteur humain authentifié/);
+  const annotated = C.review(x, { role: 'simulated-reviewer', decision: 'annotate', reason: 'Demander une photo datée et la méthode de mesure.' });
+  assert.ok(annotated.ok && annotated.value.state === 'reviewed-simulated' && /SIMULÉ/.test(annotated.value.history.at(-1).by));
+  assert.equal(C.correct(x, { claim: 'Correction : 10 ft au milieu du tronçon, mesuré au mètre ruban.', actor: 'core:other' }).ok, false);
+  const fixed = C.correct(x, { claim: 'Correction : 10 ft au milieu du tronçon, mesuré au mètre ruban.', actor: 'core:me' }).value;
+  assert.equal(fixed.corrections.length, 1); assert.equal(C.process(fixed, ix).conflicts.length, 0, 'matching the record: no conflict');
+  assert.doesNotMatch(read('src/kb/contributions.mjs'), /fetch\(|XMLHttpRequest|import\(/, 'submitted URLs are never fetched');
+  assert.equal(ix.problems.find(p => p.id === 'sidewalk-below-bsp-min:5665000').metrics.width_ft, 10, 'verified knowledge unchanged');
+});
+
+test('graph: only recorded relations, each edge typed and explained, no causal edge, private ideas never included', async () => {
+  const G = await import(path.join(ROOT, 'src/kb/graph.mjs')); const { ix } = await index();
+  const g = G.build(ix, { contributions: [{ id: 'c1', claim: 'Observation candidate', problemId: 'sidewalk-below-bsp-min:5665000', state: 'human-review-required' }] });
+  assert.ok(g.nodes.size > 200);
+  for (const e of g.edges) { assert.ok(G.EDGES[e.type], e.type); assert.ok(g.nodes.has(e.from) && g.nodes.has(e.to)); }
+  assert.ok(Object.values(G.EDGES).every(m => !/cause (le|la|les)|provoque|entraîne/.test(m)) && /pas causalité|sans lien de cause/.test(Object.values(G.EDGES).join(' ')));
+  const n = G.neighbours(g, 'problem:sidewalk-below-bsp-min:5665000');
+  assert.ok(n.some(x => x.type === 'cites' && x.node.id === 'record:sidewalks:8562') && n.some(x => x.type === 'located-at') && n.some(x => x.type === 'about' && x.node.local));
+  assert.ok(G.neighbours(g, 'record:sidewalks:8562').some(x => x.type === 'from-dataset' && x.node.integrity === 'verified'));
+  assert.ok(G.search(g, 'trottoir folsom').every(h => !h.node.local), 'local candidates are not search results');
+  assert.ok(![...g.nodes.values()].some(x => x.type === 'idea'));
+});
