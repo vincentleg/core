@@ -62,7 +62,7 @@
    "tool": "resilience.quake-context",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 1,
+   "ms": 2,
    "records": 1,
    "error": null,
    "findings": [
@@ -150,7 +150,7 @@
    "tool": "resilience.weather-alerts",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 1,
+   "ms": 2,
    "records": 0,
    "error": null,
    "findings": [
@@ -166,7 +166,7 @@
       }
      ],
      "value": 0,
-     "asOf": "2026-10-15T06:03:45.421Z",
+     "asOf": "2026-10-15T11:26:48.126Z",
      "agent": "core.san-francisco.climate.weather-alerts",
      "tool": "resilience.weather-alerts"
     }
@@ -182,7 +182,7 @@
    "tool": "graph.link",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 1,
+   "ms": 2,
    "records": 1,
    "error": null,
    "findings": [
@@ -341,7 +341,7 @@
     }
    ],
    "value": 0,
-   "asOf": "2026-10-15T06:03:45.421Z",
+   "asOf": "2026-10-15T11:26:48.126Z",
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts"
   },
@@ -575,21 +575,21 @@
   },
   {
    "seq": 2,
-   "t": 1,
+   "t": 0,
    "kind": "plan",
    "agent": "core.san-francisco.manager",
    "text": "Domaines : emergency ; 4 spécialiste(s) exécutable(s) recruté(s) ; 1 profil(s) pertinent(s) indisponible(s) (pas d’outil ou de données)."
   },
   {
    "seq": 3,
-   "t": 1,
+   "t": 0,
    "kind": "mission",
    "state": "assigned",
    "text": "Mission → assigned"
   },
   {
    "seq": 4,
-   "t": 1,
+   "t": 0,
    "kind": "task",
    "task": "task-1",
    "agent": "core.san-francisco.climate.seismic-context",
@@ -599,7 +599,7 @@
   },
   {
    "seq": 5,
-   "t": 1,
+   "t": 0,
    "kind": "task",
    "task": "task-2",
    "agent": "core.san-francisco.climate.weather-alerts",
@@ -609,7 +609,7 @@
   },
   {
    "seq": 6,
-   "t": 1,
+   "t": 0,
    "kind": "task",
    "task": "task-3",
    "agent": "core.san-francisco.data-science.graph-linker",
@@ -619,7 +619,7 @@
   },
   {
    "seq": 7,
-   "t": 1,
+   "t": 0,
    "kind": "task",
    "task": "task-4",
    "agent": "core.san-francisco.regulatory.knowledge-research",
@@ -629,14 +629,14 @@
   },
   {
    "seq": 8,
-   "t": 1,
+   "t": 0,
    "kind": "mission",
    "state": "running",
    "text": "Mission → running"
   },
   {
    "seq": 9,
-   "t": 1,
+   "t": 0,
    "kind": "task",
    "task": "task-1",
    "agent": "core.san-francisco.climate.seismic-context",
@@ -646,7 +646,7 @@
   },
   {
    "seq": 10,
-   "t": 1,
+   "t": 0,
    "kind": "task",
    "task": "task-2",
    "agent": "core.san-francisco.climate.weather-alerts",
@@ -656,7 +656,7 @@
   },
   {
    "seq": 11,
-   "t": 1,
+   "t": 0,
    "kind": "task",
    "task": "task-3",
    "agent": "core.san-francisco.data-science.graph-linker",
@@ -672,7 +672,7 @@
    "agent": "core.san-francisco.climate.seismic-context",
    "tool": "resilience.quake-context",
    "state": "succeeded",
-   "text": "3 constat(s), 1 enregistrement(s), 1 ms"
+   "text": "3 constat(s), 1 enregistrement(s), 2 ms"
   },
   {
    "seq": 13,
@@ -692,7 +692,7 @@
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts",
    "state": "succeeded",
-   "text": "1 constat(s), 0 enregistrement(s), 1 ms"
+   "text": "1 constat(s), 0 enregistrement(s), 2 ms"
   },
   {
    "seq": 15,
@@ -702,7 +702,7 @@
    "agent": "core.san-francisco.data-science.graph-linker",
    "tool": "graph.link",
    "state": "succeeded",
-   "text": "1 constat(s), 1 enregistrement(s), 1 ms"
+   "text": "1 constat(s), 1 enregistrement(s), 2 ms"
   },
   {
    "seq": 16,
@@ -723,21 +723,21 @@
   },
   {
    "seq": 18,
-   "t": 4,
+   "t": 3,
    "kind": "review",
    "agent": "core.san-francisco.research.evidence-verifier",
    "text": "Vérification indépendante : 7/7 constats entièrement sourcés."
   },
   {
    "seq": 19,
-   "t": 4,
+   "t": 3,
    "kind": "review",
    "agent": "core.san-francisco.safety.adversarial-reviewer",
    "text": "Revue adversariale : 0 désaccord(s), 0 sensibilité(s), 1 limite(s), 0 tâche(s) non abouties."
   },
   {
    "seq": 20,
-   "t": 4,
+   "t": 3,
    "kind": "synthesis",
    "agent": "core.san-francisco.manager",
    "text": "Synthèse : 4 énoncé(s) sourcé(s) ; action suivante : Aucune action proposée : surveiller les révisions USGS ; une évaluation d’impact exigerait des données structurelles et géotechniques non disponibles."
@@ -760,9 +760,9 @@
  "fingerprint": "16bcf0ae69b48d15",
  "recorded": {
   "by": "scripts/agents.mjs (Node)",
-  "at": "2026-10-15T06:04:13.990Z",
+  "at": "2026-10-15T11:27:08.052Z",
   "wallMs": 5,
   "snapshot": "2026-10-13T18:25:19.678Z",
-  "feedUpdate": "2026-10-15T06:03:45.421Z"
+  "feedUpdate": "2026-10-15T11:26:48.126Z"
  }
 }
