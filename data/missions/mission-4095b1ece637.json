@@ -532,7 +532,7 @@
    "tool": "public-space.sidewalks",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 30,
+   "ms": 24,
    "records": 1,
    "error": null,
    "findings": [
@@ -580,7 +580,7 @@
    "tool": "resilience.weather-alerts",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 21,
+   "ms": 15,
    "records": 0,
    "error": null,
    "findings": [
@@ -596,7 +596,7 @@
       }
      ],
      "value": 0,
-     "asOf": "2026-10-14T14:56:35.337Z",
+     "asOf": "2026-10-14T22:36:30.117Z",
      "agent": "core.san-francisco.climate.weather-alerts",
      "tool": "resilience.weather-alerts"
     }
@@ -612,7 +612,7 @@
    "tool": "graph.link",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 13,
+   "ms": 8,
    "records": 1,
    "error": null,
    "findings": [
@@ -657,7 +657,7 @@
    "tool": "scenario.investigate",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 13,
+   "ms": 14,
    "records": 0,
    "error": null,
    "findings": [
@@ -1127,7 +1127,7 @@
     }
    ],
    "value": 0,
-   "asOf": "2026-10-14T14:56:35.337Z",
+   "asOf": "2026-10-14T22:36:30.117Z",
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts"
   },
@@ -1830,17 +1830,17 @@
   },
   {
    "seq": 28,
-   "t": 39,
+   "t": 33,
    "kind": "task",
    "task": "task-6",
    "agent": "core.san-francisco.public-space.sidewalks",
    "tool": "public-space.sidewalks",
    "state": "succeeded",
-   "text": "1 constat(s), 1 enregistrement(s), 30 ms"
+   "text": "1 constat(s), 1 enregistrement(s), 24 ms"
   },
   {
    "seq": 29,
-   "t": 39,
+   "t": 33,
    "kind": "task",
    "task": "task-9",
    "agent": "core.san-francisco.simulation.scenario-evaluator",
@@ -1850,17 +1850,17 @@
   },
   {
    "seq": 30,
-   "t": 39,
+   "t": 33,
    "kind": "task",
    "task": "task-7",
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts",
    "state": "succeeded",
-   "text": "1 constat(s), 0 enregistrement(s), 21 ms"
+   "text": "1 constat(s), 0 enregistrement(s), 15 ms"
   },
   {
    "seq": 31,
-   "t": 39,
+   "t": 33,
    "kind": "task",
    "task": "task-10",
    "agent": "core.san-francisco.regulatory.knowledge-research",
@@ -1870,27 +1870,27 @@
   },
   {
    "seq": 32,
-   "t": 39,
+   "t": 34,
    "kind": "task",
    "task": "task-8",
    "agent": "core.san-francisco.data-science.graph-linker",
    "tool": "graph.link",
    "state": "succeeded",
-   "text": "1 constat(s), 1 enregistrement(s), 13 ms"
+   "text": "1 constat(s), 1 enregistrement(s), 8 ms"
   },
   {
    "seq": 33,
-   "t": 52,
+   "t": 47,
    "kind": "task",
    "task": "task-9",
    "agent": "core.san-francisco.simulation.scenario-evaluator",
    "tool": "scenario.investigate",
    "state": "succeeded",
-   "text": "1 constat(s), 0 enregistrement(s), 13 ms"
+   "text": "1 constat(s), 0 enregistrement(s), 14 ms"
   },
   {
    "seq": 34,
-   "t": 53,
+   "t": 47,
    "kind": "task",
    "task": "task-10",
    "agent": "core.san-francisco.regulatory.knowledge-research",
@@ -1900,42 +1900,42 @@
   },
   {
    "seq": 35,
-   "t": 53,
+   "t": 48,
    "kind": "mission",
    "state": "reviewing",
    "text": "Mission → reviewing"
   },
   {
    "seq": 36,
-   "t": 53,
+   "t": 48,
    "kind": "review",
    "agent": "core.san-francisco.research.evidence-verifier",
    "text": "Vérification indépendante : 16/16 constats entièrement sourcés."
   },
   {
    "seq": 37,
-   "t": 53,
+   "t": 48,
    "kind": "review",
    "agent": "core.san-francisco.safety.adversarial-reviewer",
    "text": "Revue adversariale : 1 désaccord(s), 0 sensibilité(s), 0 limite(s), 0 tâche(s) non abouties."
   },
   {
    "seq": 38,
-   "t": 53,
+   "t": 48,
    "kind": "synthesis",
    "agent": "core.san-francisco.manager",
    "text": "Synthèse : 11 énoncé(s) sourcé(s) ; action suivante : Information à examiner par un humain ; aucune intervention proposée faute de relation inter-domaines vérifiée."
   },
   {
    "seq": 39,
-   "t": 101,
+   "t": 99,
    "kind": "gateway",
    "agent": "core.san-francisco.governance.gateway",
    "text": "PREUVES SUPPLÉMENTAIRES REQUISES — Information à examiner par un humain ; aucune intervention proposée faute de relation inter-domaines vérifiée."
   },
   {
    "seq": 40,
-   "t": 101,
+   "t": 99,
    "kind": "mission",
    "state": "needs-evidence",
    "text": "Mission → needs-evidence"
@@ -1944,9 +1944,9 @@
  "fingerprint": "10b122de6d15ec7f",
  "recorded": {
   "by": "scripts/agents.mjs (Node)",
-  "at": "2026-10-14T16:47:34.118Z",
-  "wallMs": 101,
+  "at": "2026-10-14T22:36:48.303Z",
+  "wallMs": 99,
   "snapshot": "2026-10-13T18:25:19.678Z",
-  "feedUpdate": "2026-10-14T14:56:35.337Z"
+  "feedUpdate": "2026-10-14T22:36:30.117Z"
  }
 }
