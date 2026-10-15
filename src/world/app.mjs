@@ -39,14 +39,20 @@ async function loadData() {
   const agentPos = step(mid, (along + 90) % 360, 9), spawn = step(step(mid, (along + 180) % 360, 28), (along + 90) % 360, 9);
   const near = trees.features.filter(f => distance(f.geometry.coordinates, mid) < 400);
   const others = problems.problems.filter(p => (p.assignedAgents || []).includes(AGENT_ID));
-  return { problem, agent, sidewalk: walk && walk.properties, segment: seg, mid, along, agentPos, spawn, others,
+  const RANK = ['observed', 'potential-risk', 'hypothesis', 'simulated'], bySeg = new Map();
+  for (const p of problems.problems) { const f = p.segment && corridor.features.find(x => x.properties.cnn === p.segment); if (!f) continue;
+    const [a2, b2] = f.geometry.coordinates, e = bySeg.get(p.segment) || { coord: [(a2[0] + b2[0]) / 2, (a2[1] + b2[1]) / 2], items: [] }; e.items.push(p); bySeg.set(p.segment, e); }
+  const markers = { type: 'FeatureCollection', features: [...bySeg.entries()].map(([segment, e]) => { const top = e.items.map(p => p.status).sort((x, y) => RANK.indexOf(x) - RANK.indexOf(y))[0];
+    return { type: 'Feature', geometry: { type: 'Point', coordinates: e.coord }, properties: { segment, count: e.items.length, status: top, place: e.items[0].place } }; }) };
+  const problemsBySeg = Object.fromEntries([...bySeg.entries()].map(([k, e]) => [k, e.items]));
+  return { problem, agent, sidewalk: walk && walk.properties, segment: seg, mid, along, agentPos, spawn, others, markers, problemsBySeg, corridor,
     trees: { type: 'FeatureCollection', features: near.map(f => ({ ...f, properties: { id: f.properties.treeid, species: f.properties.species, near: false } })) },
     sidewalks: { type: 'FeatureCollection', features: sidewalks.features }, problemFC: { type: 'FeatureCollection', features: [seg] } };
 }
 
 // ---------- map ----------
 function makeMap(d) {
-  const map = new maplibregl.Map({ container: 'map', style: worldStyle({ trees: d.trees, sidewalks: d.sidewalks, problem: d.problemFC }), center: d.mid, zoom: 15.5, pitch: 55, bearing: d.along, maxPitch: 89, attributionControl: { compact: true, customAttribution: 'CORE World (prototype) · DataSF : arbres, trottoirs (2014), tronçons' } });
+  const map = new maplibregl.Map({ container: 'map', style: worldStyle({ trees: d.trees, sidewalks: d.sidewalks, problem: d.problemFC, markers: d.markers }), center: d.mid, zoom: 15.5, pitch: 55, bearing: d.along, maxPitch: 89, attributionControl: { compact: true, customAttribution: 'CORE World (prototype) · DataSF : arbres, trottoirs (2014), tronçons' } });
   map.keyboard.disable();
   // A rejected style must never fail silently (it would leave an empty world): show it.
   map.on('error', e => { if (!map.isStyleLoaded() && !/tile|fetch|Failed to load/i.test(String(e.error && e.error.message))) { $('fatal').hidden = false; $('fatal').textContent = `Style cartographique invalide : ${String(e.error && e.error.message).slice(0, 200)}`; } });
@@ -55,9 +61,30 @@ function makeMap(d) {
   el.addEventListener('click', () => openPanel('agent'));
   new maplibregl.Marker({ element: el, anchor: 'bottom', pitchAlignment: 'viewport', rotationAlignment: 'viewport' }).setLngLat(d.agentPos).addTo(map);
   // New tiles mark the building cache stale; it is rebuilt at most once per second (tiles stream continuously).
+  map.on('click', 'problem-markers', e => { const f = e.features[0]; if (f) problemPopup(f.properties.segment, e.lngLat); });
+  map.on('mouseenter', 'problem-markers', () => { map.getCanvas().style.cursor = 'pointer'; }); map.on('mouseleave', 'problem-markers', () => { map.getCanvas().style.cursor = ''; });
   map.on('sourcedata', e => { if (e.sourceId === 'omt' && e.isSourceLoaded) S.cacheStale = true; });
   map.on('rotate', e => { if (e.originalEvent && S.mode === 'avatar' && S.cam === 'third') S.heading = map.getBearing(); });
   return map;
+}
+
+// ---------- problem markers: every recorded problem on the corridor, by evidence status ----------
+const STATUS_FR = { observed: 'OBSERVÉ', 'potential-risk': 'RISQUE POTENTIEL', hypothesis: 'HYPOTHÈSE', simulated: 'SIMULÉ' };
+function problemPopup(segment, lngLat) {
+  const items = S.data.problemsBySeg[segment] || [], el = document.createElement('div'); el.className = 'pb-popup';
+  const h = document.createElement('b'); h.textContent = `${items[0]?.place || 'Tronçon'} — ${items.length} problème(s) enregistré(s)`; el.append(h);
+  const ul = document.createElement('ul');
+  for (const p of items.slice(0, 6)) { const li = document.createElement('li'), st = document.createElement('span'); st.className = `badge ${p.status === 'observed' ? 'observed' : p.status === 'potential-risk' ? 'approx' : 'synthetic'}`; st.textContent = STATUS_FR[p.status] || p.status;
+    const a = document.createElement('a'); a.href = `dialogue.html#problem=${encodeURIComponent(p.id)}`; a.textContent = p.title;
+    const k = document.createElement('a'); k.href = `commons.html#knowledge?view=explore&n=${encodeURIComponent('problem:' + p.id)}`; k.textContent = 'preuves'; k.className = 'fine';
+    li.append(st, ' ', a, ' · ', k); ul.append(li); }
+  el.append(ul); const n = document.createElement('p'); n.className = 'fine'; n.textContent = 'Statut de connaissance enregistré, pas une validation. Cliquez un problème pour travailler avec un agent.'; el.append(n);
+  new maplibregl.Popup({ maxWidth: '340px' }).setLngLat(lngLat).setDOMContent(el).addTo(S.map);
+}
+function focusTarget() {
+  const id = new URLSearchParams(location.hash.slice(1)).get('problem'), p = id && S.data.problemsBySeg && Object.values(S.data.problemsBySeg).flat().find(x => x.id === id);
+  const f = p && S.data.corridor.features.find(x => x.properties.cnn === p.segment); if (!f) return null;
+  const [a, b] = f.geometry.coordinates; return { problem: p, mid: [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2], along: (Math.atan2(...toLocal(a, b)) * 180 / Math.PI + 360) % 360 };
 }
 
 // ---------- reveal: realistic appearance within the radius ----------
@@ -157,7 +184,8 @@ let compact = null;
 async function enterWorld() {
   pick.name = $('display-name').value.replace(/[^\p{L}\p{N} ._-]/gu, '').slice(0, 24);
   S.profile.avatar = { ...pick }; save(S.profile);
-  show(null); S.mode = 'transition'; S.pos = S.data.spawn; S.heading = (S.data.along + 0) % 360;
+  show(null); S.mode = 'transition'; const ft = focusTarget(); S.pos = ft ? step(ft.mid, (ft.along + 90) % 360, 9) : S.data.spawn; S.heading = ((ft ? ft.along : S.data.along) + 0) % 360;
+  J.mark('world', { problemId: ft?.problem.id || PROBLEM_ID });
   if (blocked(S.pos)) S.pos = step(S.data.mid, (S.data.along + 180) % 360, 28);
   const target = { center: S.pos, bearing: S.heading, pitch: 72, zoom: 19.6 };
   if (reduced()) S.map.jumpTo(target); else { S.map.jumpTo({ center: S.pos, zoom: 13, pitch: 30, bearing: 0 }); const done = new Promise(r => { S.map.once('moveend', r); setTimeout(r, 6000); }); S.map.flyTo({ ...target, duration: 3500, essential: false }); await done; S.map.jumpTo(target); }
@@ -167,10 +195,15 @@ async function enterWorld() {
 }
 function noAvatar() {
   show(null); S.mode = 'map'; $('hud').hidden = false; $('cam').hidden = true; $('radius').closest('label').hidden = true; $('talk').disabled = false; $('help').textContent = 'Mode sans avatar : la carte se manipule normalement (glisser, molette, clavier). Toutes les informations sont dans le panneau.';
-  S.map.keyboard.enable(); S.map.jumpTo({ center: S.data.mid, zoom: 17.5, pitch: 55, bearing: S.data.along }); openPanel('problem');
+  const ft = focusTarget(); S.map.keyboard.enable(); S.map.jumpTo({ center: ft ? ft.mid : S.data.mid, zoom: 17.5, pitch: 55, bearing: ft ? ft.along : S.data.along }); J.mark('world', { problemId: ft?.problem.id || PROBLEM_ID }); openPanel('problem');
 }
 
 // ---------- panel: agent, problem, conversation, contributions ----------
+function journeyLine() {
+  const j = J.read(); if (j.problemId !== PROBLEM_ID || !Object.keys(j.steps).length) return '';
+  const done = J.summary(j).filter(x => x.at).map(x => x.label);
+  return `<div class="card"><h3>Votre parcours sur ce problème</h3><p>${esc(done.join(' · '))}</p>${j.idea ? `<p class="fine">Idée : ${j.idea.versions || 0} version(s)${j.idea.missingEvidence != null ? `, ${j.idea.missingEvidence} preuve(s) manquante(s) selon Labs` : ''}${j.idea.reviewRequests ? `, ${j.idea.reviewRequests} demande(s) de revue fictive(s)` : ''}.</p>` : ''}<p class="fine">Statut scientifique inchangé : aucune validation, aucune autorisation, aucun impact mesuré.</p></div>`;
+}
 function openPanel(tab = S.tab) { S.tab = tab; $('world-panel').hidden = false; renderPanel(); $('world-panel').focus(); }
 function closePanel() { $('world-panel').hidden = true; S.chat = []; $('map').focus(); } // conversation memory ends with the panel
 function renderPanel() {
@@ -188,7 +221,8 @@ function renderPanel() {
       <dt>Preuves</dt><dd>${problem.evidence.length} enregistrement(s) DataSF</dd><dt>Propositions</dt><dd>${problem.interventions.length || 'aucune enregistrée'}</dd>
       <dt>Simulations</dt><dd>aucune liée à ce problème</dd><dt>Revue</dt><dd><span class="badge info">${esc(inv.decision || '—')}</span></dd><dt>Résultats vérifiés</dt><dd>aucun</dd></dl>
     <p class="fine">${esc(agent.disclaimer)} La position affichée est un poste virtuel près du problème : les agents n’ont pas de présence physique.</p>
-    <div class="row2"><button type="button" data-go="chat">Parler</button><button type="button" data-go="problem">Voir le problème</button></div>`;
+    <div class="row2"><button type="button" data-go="chat">Parler ici</button><button type="button" data-go="problem">Voir le problème</button></div>
+    <p><a class="btn" href="dialogue.html#problem=${encodeURIComponent(PROBLEM_ID)}">Ouvrir la salle de dialogue (travail approfondi) →</a></p>`;
   if (S.tab === 'problem') { const stg = [['Identification', true], ['Localisation', true], ['Source de détection', true], ['Preuves', problem.evidence.length > 0], ['Confiance et limites', true], ['Causes possibles', false], ['Solutions proposées', problem.interventions.length > 0], ['Alternatives', false], ['Simulation', false], ['Revue', !!inv.decision], ['Autorisation', false], ['Mise en œuvre', false], ['Mesure du résultat', false], ['Suivi', false]];
     B.innerHTML = `<p><span class="badge observed">OBSERVÉ</span> <b>${esc(problem.title)}</b></p>
     <p>${esc(problem.place)} — ${esc(problem.statement)}</p>
@@ -201,7 +235,8 @@ function renderPanel() {
     <h3>Étapes du parcours scientifique</h3><ol class="stages">${stg.map(([l, ok]) => `<li class="${ok ? 'yes' : 'no'}"><b>${ok ? '✓' : '·'}</b>${esc(l)}${ok ? '' : ' — non atteint'}</li>`).join('')}</ol>
     <p class="fine">Aucune étape manquante n’est complétée par CORE : « non atteint » signifie qu’aucun enregistrement n’existe.</p>
     <div class="row2"><button type="button" data-go="contribute">Contribuer</button><button type="button" data-go="chat">Interroger l’agent</button></div>
-    <p><a href="commons.html?tab=vault&amp;problem=${encodeURIComponent(PROBLEM_ID)}">Développer une idée en privé (coffre chiffré, CORE Commons) →</a></p>`; }
+    <p><a href="dialogue.html#problem=${encodeURIComponent(PROBLEM_ID)}">Développer une idée avec un agent (CORE Dialogue) →</a> · <a href="commons.html#vault?problem=${encodeURIComponent(PROBLEM_ID)}">coffre chiffré</a></p>
+    ${journeyLine()}`; }
   if (S.tab === 'chat') {
     B.innerHTML = `<p class="fine">Réponses déterministes construites à partir des enregistrements (aucune IA générative). Conversation privée, non enregistrée, effacée à la fermeture du panneau.</p>
     <div class="chat" id="chat-log" aria-live="polite">${S.chat.map(m => `<div class="msg ${m.who}">${esc(m.text)}${m.note ? `<small>${esc(m.note)}</small>` : ''}</div>`).join('') || `<div class="msg agent">Bonjour. Je suis ${esc(agent.code)}. Que voulez-vous savoir sur ce trottoir ?<small>réponse déterministe · règles CORE</small></div>`}</div>

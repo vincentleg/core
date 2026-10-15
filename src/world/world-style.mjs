@@ -18,7 +18,7 @@ const REAL = ['match', ['%', ['coalesce', ['id'], 0], 5], 0, '#b9b2a6', 1, '#a26
 const REVEAL = ['coalesce', ['feature-state', 'reveal'], 0];
 const EMPTY = { type: 'FeatureCollection', features: [] };
 
-export function worldStyle({ trees = EMPTY, sidewalks = EMPTY, problem = EMPTY } = {}) {
+export function worldStyle({ trees = EMPTY, sidewalks = EMPTY, problem = EMPTY, markers = EMPTY } = {}) {
   return {
     version: 8,
     glyphs: 'https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf',
@@ -28,6 +28,7 @@ export function worldStyle({ trees = EMPTY, sidewalks = EMPTY, problem = EMPTY }
       trees: { type: 'geojson', data: trees },
       sidewalks: { type: 'geojson', data: sidewalks },
       problem: { type: 'geojson', data: problem },
+      markers: { type: 'geojson', data: markers },
     },
     sky: { 'sky-color': '#03122a', 'horizon-color': '#0a3a66', 'fog-color': '#020611', 'sky-horizon-blend': 0.5, 'horizon-fog-blend': 0.1, 'fog-ground-blend': 0, 'atmosphere-blend': ['interpolate', ['linear'], ['zoom'], 0, 0.22, 5, 0.15, 8, 0] },
     light: { anchor: 'map', position: [1.4, 210, 35], color: '#dcecff', intensity: 0.45 },
@@ -58,6 +59,9 @@ export function worldStyle({ trees = EMPTY, sidewalks = EMPTY, problem = EMPTY }
       { id: 'tree-real', type: 'circle', source: 'trees', filter: ['==', ['get', 'near'], true], paint: { 'circle-color': '#3f6b35', 'circle-stroke-color': '#2c4a26', 'circle-stroke-width': 2, 'circle-radius': ['interpolate', ['exponential', 2], ['zoom'], 17, 6, 22, 190], 'circle-pitch-alignment': 'map', 'circle-opacity': 0.95 } },
       // Transition band: a soft holographic ring where reality fades back into the CORE world.
       { id: 'reveal-band', type: 'line', source: 'reveal', filter: ['==', ['get', 'part'], 'band'], paint: { 'line-color': CYAN, 'line-width': ['interpolate', ['exponential', 2], ['zoom'], 16, 3, 22, 60], 'line-blur': ['interpolate', ['exponential', 2], ['zoom'], 16, 3, 22, 50], 'line-opacity': 0.55 } },
+      // Recorded problems, one marker per segment, coloured by the strongest evidence status (observed > risk > hypothesis > simulated).
+      { id: 'problem-markers', type: 'circle', source: 'markers', minzoom: 14, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 14, 5, 19, 11], 'circle-color': ['match', ['get', 'status'], 'observed', CYAN, 'potential-risk', '#ffb84d', 'hypothesis', '#ff5cd6', '#b2a6ff'], 'circle-stroke-color': VOID, 'circle-stroke-width': 2, 'circle-opacity': 0.9 } },
+      { id: 'problem-count', type: 'symbol', source: 'markers', minzoom: 15, layout: { 'text-field': ['to-string', ['get', 'count']], 'text-font': ['Noto Sans Regular'], 'text-size': 10, 'text-allow-overlap': true }, paint: { 'text-color': VOID } },
       { id: 'street-name', type: 'symbol', source: 'omt', 'source-layer': 'transportation_name', minzoom: 15, layout: { 'symbol-placement': 'line', 'text-field': name, 'text-font': ['Noto Sans Regular'], 'text-size': 11, 'symbol-spacing': 420, 'text-padding': 6 }, paint: { 'text-color': '#8fd8f0', 'text-halo-color': VOID, 'text-halo-width': 1.5 } },
     ],
   };

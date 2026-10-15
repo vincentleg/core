@@ -97,6 +97,16 @@ try {
   await open(1280, 800);
   await ev(`document.getElementById('no-avatar').click(), 1`);
   check('no-avatar mode: map navigation and the full information panel', await until(`${W}.mode === 'map' && !document.getElementById('world-panel').hidden && CORE_WORLD.state.map.keyboard.isEnabled()`, 20000));
+  check('problem markers: every recorded problem segment is a marker, coloured by evidence status', await until(`CORE_WORLD.state.map.getSource('markers').serialize().data.features.length >= 30 && CORE_WORLD.state.map.queryRenderedFeatures({ layers: ['problem-markers'] }).length > 0`, 15000));
+  { // a marker in the visible part of the map (not under the information panel or the toolbar); canvas starts below the 46 px bar
+    const pt = await ev(`(() => { const m = CORE_WORLD.state.map, panel = document.getElementById('world-panel').getBoundingClientRect(); for (const f of m.queryRenderedFeatures({ layers: ['problem-markers'] })) { const p = m.project(f.geometry.coordinates), x = p.x, y = p.y + 46; if (x > 20 && y > 160 && y < innerHeight - 120 && (x < panel.left - 10 || panel.width === 0)) return [x, y]; } return null; })()`);
+    if (!pt) throw Error('no marker in the visible map area');
+    for (const type of ['mousePressed', 'mouseReleased']) await call('Input.dispatchMouseEvent', { type, x: pt[0], y: pt[1], button: 'left', clickCount: 1 });
+    check('clicking a marker lists its recorded problems with status and a route to Dialogue (safe DOM, no HTML injection)', await until(`(p => p && p.textContent.includes('problème(s) enregistré') && !!p.querySelector('a[href^="dialogue.html#problem="]') && !!p.querySelector('.badge'))(document.querySelector('.pb-popup'))`, 5000)); }
+  check('agent panel links to the Dialogue room for this problem', await ev(`(document.querySelector('.tabs [data-tab=agent]').click(), !!document.querySelector('#panel-body a[href="dialogue.html#problem=sidewalk-below-bsp-min%3A5665000"]'))`));
+  await ev('window.__stale = true, 1'); await call('Page.navigate', { url: URL + '#problem=works-in-moratorium:5672000' }); await until('!window.__stale && !!globalThis.CORE_WORLD && !!CORE_WORLD.state.map', 30000);
+  await ev(`document.getElementById('no-avatar').click(), 1`);
+  check('deep link world.html#problem=… centres the map on that problem’s segment', await until(`${W}.mode === 'map' && (c => Math.hypot((c.lng + 122.40757) * 88000, (c.lat - 37.77697) * 111000) < 60)(CORE_WORLD.state.map.getCenter())`, 20000), await ev('JSON.stringify(CORE_WORLD.state.map.getCenter())'));
   await open(390, 844, true, true);
   await ev(`document.getElementById('enter').click(), 1`); await wait(200); await ev(`document.getElementById('confirm').click(), 1`);
   check('mobile + reduced motion: arrival without flight animation', await until(`${W}.mode === 'avatar'`, 20000));
