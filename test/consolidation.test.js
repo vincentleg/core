@@ -126,3 +126,13 @@ test('pre-approval states are never styled as a passed check (Prêt pour signatu
   assert.match(fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8'), /\.state\.info \{/);
   assert.match(fs.readFileSync(path.join(ROOT, 'src/template.html'), 'utf8'), /\.pill\.info \{/);
 });
+
+test('local backup plan: SQLite via .backup, no WAL/SHM, no nested backups, never inside the repository (F7)', async () => {
+  const { plan } = await import('../scripts/backup-local.mjs');
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'core-backup-')), L = path.join(root, '.core-local');
+  fs.mkdirSync(path.join(L, 'backups'), { recursive: true }); fs.mkdirSync(path.join(L, 'watch'));
+  for (const f of ['memory.sqlite', 'memory.sqlite-wal', 'memory.sqlite-shm', 'live.json', 'backups/old.sqlite', 'watch/a.json']) fs.writeFileSync(path.join(L, f), 'x');
+  const items = plan(root, path.join(os.tmpdir(), 'core-backup-dest'));
+  assert.deepEqual(items.map(i => `${i.kind}:${path.relative(L, i.from)}`).sort(), ['file:live.json', 'file:watch/a.json', 'sqlite:memory.sqlite']);
+  assert.throws(() => plan(root, path.join(root, 'inside')), /outside the repository/);
+});

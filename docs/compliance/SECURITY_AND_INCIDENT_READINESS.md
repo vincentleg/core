@@ -79,11 +79,11 @@ Method: every sink was listed by script, every `${…}` interpolation inside it 
 |---|---|---|
 | F1 | Sign out of all sessions on claude.ai and luma.com, then sign in again | OPEN (not verifiable by an agent) |
 | F2 | Change any password saved in the exposed profile, if any | OPEN (contents of `Login Data` deliberately not read) |
-| F3 | Stop the orphaned headless Chrome (PID 30675, DevTools port 9222), then move `test-results/phase4/chrome-profile/` out of the repository or delete it | OPEN (profile present, process running) |
+| F3 | Stop the orphaned headless Chrome (PID 30675, DevTools port 9222), then move `test-results/phase4/chrome-profile/` out of the repository or delete it | **DONE 2026-10-15 (V3 session, authorized by the V3 mission):** process stopped with SIGTERM; profile (513 MB, contents not read) moved to `~/CORE-quarantine/2026-10-15-INC-chrome-profile` (mode 700) as evidence. Deleting it later is the founder's choice |
 | F4 | Turn on the macOS firewall; remove the "allow incoming" rule for `python3` | OPEN (firewall state 0) |
-| F5 | Decide on the other all-interface servers (8765, 3101, 8080): stop them, or rebind them to 127.0.0.1 | OPEN (outside CORE) |
+| F5 | Decide on the other all-interface servers | PARTLY DONE. The orphaned `python -m http.server 8765` (another session's build folder, 5 days old) was stopped. Still listening on all interfaces, left alone because they belong to other software or may be in use: `next-server` 3101 (`npm run start --port 3101`, vincent-portfolio; restart it with `-H 127.0.0.1`); Apple WebDriver service 8080 (disable Safari's "Allow Remote Automation" if unused); ControlCenter 5000/7000 (AirPlay Receiver: System Settings → General → AirDrop & Handoff); Chaos V-Ray Swarm 24267 and VRLService 30304 (quit them when not rendering). A Codex-owned headless Chrome (localhost 9330, `/tmp` profile) is localhost-only and was left for its owner |
 | F6 | Optionally check the router for port forwarding to this Mac | OPEN (router not inspected) |
-| F7 | Define a backup scope for `.core-local/` (S9) | OPEN |
+| F7 | Define a backup scope for `.core-local/` (S9) | **DONE (procedure + first backup)**: `node scripts/backup-local.mjs` copies the 4 SQLite databases with `sqlite3 .backup` plus JSON state into `~/CORE-backups/<UTC>/` (mode 700, outside the repo, never transmitted). First backup 2026-10-15 17:42 UTC, 48 files, `integrity_check` ok on all 4 databases. Restore steps are in the script header. Schedule and off-machine copy: founder decision |
 
 The incident is **contained, not resolved**: the server is stopped, but whether data was accessed remains unknown, and F1–F4 are pending.
 
