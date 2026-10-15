@@ -47,3 +47,31 @@ These rows stay MISSING or DOCUMENTED ONLY until the founder provides the source
 - Public accounts, submissions or Business features (FC14 and OP02 gates).
 - Any real-infrastructure adapter (Constitution §5; G4 disabled).
 - Any new dataset access (FD09).
+
+## Reconstructed specification V0.1 (founder input, 2026-10-15) — reconciliation
+
+Stored word for word in [docs/history/2026-10-15_CORE_FOUNDATIONAL_SPEC_v0.1.md](../history/2026-10-15_CORE_FOUNDATIONAL_SPEC_v0.1.md). Its own status is **DRAFT, not ratified**, and it is a reconstruction written today, not an original brief. It therefore gives founder *direction*. It does not replace the Track 2 historical sources (its §15 says the same). Constitution V1 and FD01–FD09 stay in force until the founder ratifies otherwise.
+
+### Agreements: V0.1 confirms what the audit and governance already state
+- **§5 (civilization):** a persistent *simulated* world state that agents perceive and change within defined permissions is now a founder-stated requirement. It confirms traceability rows A "world-state changes" and "daily behaviour". Their details remain OPEN (§5 "still requiring founder specification"), so they stay MISSING and nothing is built (Track 2).
+- **§5 (displayed profession):** "A displayed profession must not imply that the agent possesses the corresponding executable capability." This makes Track 1 item 5 (47 label-only profiles) a founder-backed requirement.
+- **§7 (memory):** human-approved findings protected; rewording a rejection must not bypass review; lexical detection is only an initial safeguard. This matches the two fixes on this branch and Track 1 item 7.
+- **§9, §11:** FD09; NYC G0 blocked; the NYC preregistration is unsealed; previously inspected observations are not holdout evidence. All match the current state.
+- **§13:** the counts 14/11/6/3/6/4 = 44 match the reconciled matrix.
+- **§14:** the acceptance principle matches the audit's evidence rule.
+
+### Conflicts and differences — OPEN, FOUNDER DECISION REQUIRED
+| # | V0.1 | Ratified repository text | Decision needed |
+|---|---|---|---|
+| R1 | Two systems: **CORE Business** and **CORE World**, where World is "the accessible, participatory civilizational platform" with its own governance | Constitution V1 §1 and FD02/FC13: **Civilization is the priority**, Business is the future professional offer, **World is an optional, distant B2C extension**; WS12 adds "CORE Public" for participation | Is V0.1 "World" the same as V1 "Civilization" plus "Public"? Does World's priority change? Until decided, V1 wording and priority apply |
+| R2 | Initial Business opportunity: **AI and data-centre infrastructure efficiency** | No data-centre code or dataset; Phase 14 pilot is traffic counts; the readiness doc excluded a data-centre pilot for lack of authorized metered data | Should the Phase 14 pilot target data-centre efficiency instead? It would need a dataset whose rights pass FD09 |
+| R3 | Avatar "can evolve through verified participation and contributions" | FC19: optional pseudonymous avatar, **no ranking of human value**; the sandbox has demo badges only | Confirm that evolution must not become ranking; reputation mechanics are not ratified (as V0.1 says) |
+| R4 | Silent on: provisional proprietary code (FD05), minimal tooling (FD08), anti-Sybil protection **as a precondition** to public contributions (V1 §6) | Ratified in FD05, FD08 and V1 §6 | Omission is read as *not revoking* them; confirm |
+| R5 | §15 asks for the briefs of "Phase 12 if defined" and Phase 14 | No Phase 12 exists in the repository (FC16); Phase 14 has no stored brief | Supply the briefs, or state that they do not exist |
+
+### New candidate requirements in V0.1 (not added to the 44-row matrix until ratified)
+- **Conflict-of-interest handling** (§8): only one reviewer-checklist line exists (`docs/pilot/INDEPENDENT_REVIEW.md`); no code. It would be DOCUMENTED ONLY.
+- **Virtual Earth showing five epistemic categories** (§3: real observation, model, simulated scenario, unverified proposal, measured impact): current UI labels distinguish synthetic, recorded and local-live, and the science pages label hypotheses. No unified five-category legend exists, and "measured impact" has no instance. It would be PARTIAL.
+- **Measured-outcome tracking for Business clients** (§2): none. It would be MISSING (depends on R2 and Track 2 "impact targets").
+
+Track 1 priorities are unchanged. Track 2 stays blocked on the original briefs and on the OPEN items in V0.1 §§2, 4, 5, 10, 15 and R1–R5.
