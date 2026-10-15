@@ -73,3 +73,8 @@ test('general CI is read-only, pinned, runs on PR/push, and local pre-push retai
   assert.doesNotMatch(ci,/pull_request_target|secrets\./);assert.match(ci,/scripts\/verify.mjs --ci/);
   const hook=fs.readFileSync('.githooks/pre-push','utf8');assert.match(hook,/scripts\/push-check.mjs/);assert.doesNotMatch(hook,/\/dev\/null/);
 });
+test('INC-2026-10-15-01: tracked instructions never serve the repository on all interfaces', () => {
+  const out = cp.execFileSync('git', ['grep', '-n', '-E', 'python3? -m http\\.server', '--', '*.md', '*.mjs', '*.yml', '*.json', ':!docs/compliance'], { encoding: 'utf8' });
+  const unbound = out.split('\n').filter(l => /-m http\.server \d+/.test(l) && !/--bind 127\.0\.0\.1/.test(l) && !/PHASE_6_MEASUREMENTS/.test(l));
+  assert.deepEqual(unbound, [], 'serve with --bind 127.0.0.1 only');
+});

@@ -13,7 +13,7 @@ Prerequisites: Node.js 22 (validated with 22.20.0), Python 3 (validated with 3.9
 ```sh
 node build.js
 node --test test/*.test.js
-python3 -m http.server 8000
+python3 -m http.server 8000 --bind 127.0.0.1   # localhost only: never serve this folder on the network (INC-2026-10-15-01)
 ```
 
 Open http://localhost:8000 for the globe and http://localhost:8000/corridor.html for the simulator. External maps and fonts require internet access. Stop the server with Ctrl+C. Use a WebGL-capable browser for the globe; the corridor uses Canvas 2D.
