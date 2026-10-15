@@ -72,6 +72,8 @@
 
 ## Proposed privacy-notice correction (NOT published; founder and counsel approval required)
 
+Full revised draft: [PRIVACY_NOTICE_DRAFT.md](PRIVACY_NOTICE_DRAFT.md). It lists all four storage keys, including `core.feeds.browser.v1`, and marks unresolved legal items as OPEN.
+
 Add to the `localStorage` row of `privacy.html`:
 - `core.missions.v1`: summaries (identifier, state, decision state, hash, time) of up to 10 missions you ran in this browser.
 - `core.human-decisions.v1`: the review choice and optional note (≤ 200 characters) you typed in the decision panel; never sent anywhere.
