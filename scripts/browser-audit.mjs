@@ -49,6 +49,8 @@ const networkMessage = m => m.method === 'log.entryAdded' && m.params.type === '
 const uncaught = () => log.filter(m => m.method === 'Runtime.exceptionThrown' || (m.method === 'log.entryAdded' && m.params.type === 'javascript' && !networkMessage(m)));
 const pause = ms => new Promise(r => setTimeout(r, ms));
 const until = async (expression, tries = 60) => { for (let i = 0; i < tries; i++) { try { if (await evaluate(expression)) return; } catch (error) { if (!/context|navigation|frame|discarded/i.test(error.message || '')) throw error; } await pause(250); } throw Error(`Condition failed: ${expression}`); };
+// Positive render checks wait (at most 20 s) for slow renderers, e.g. software WebGL in headless Firefox; they still fail if nothing draws.
+const rendered = expression => until(expression, 80).then(() => true, () => false);
 const shot = async name => fs.writeFileSync(`${output}-${name}.png`, Buffer.from(await capture(), 'base64'));
 const check = (name, value) => { assert.ok(value, name); results.push(name); console.log('PASS', name); };
 try {
@@ -99,8 +101,8 @@ try {
   await evaluate('document.querySelector("#sources").open = false; document.querySelector("[data-go=globe]").click()'); await pause(7500);
   await evaluate('document.querySelector("[data-go=sf]").click()'); await pause(10500);
   check('SF cinematic fly-to arrives over San Francisco', await evaluate(`${sfBounds} && Math.abs(__CORE_MAP.getZoom() - 14.1) < 0.2 && __CORE_MAP.getPitch() > 60`));
-  check('SF buildings, streets and water rendered', await evaluate(`['building', 'road', 'water'].every(l => __CORE_MAP.queryRenderedFeatures({ layers: [l] }).length > 0)`));
-  check('procedural Salesforce/Transamerica rendered', await evaluate(`(s => s.has('salesforce') && s.has('transamerica'))(new Set(__CORE_MAP.queryRenderedFeatures({ layers: ['sf-landmarks-3d'] }).map(f => f.properties.landmark)))`));
+  check('SF buildings, streets and water rendered', await rendered(`['building', 'road', 'water'].every(l => __CORE_MAP.queryRenderedFeatures({ layers: [l] }).length > 0)`));
+  check('procedural Salesforce/Transamerica rendered', await rendered(`(s => s.has('salesforce') && s.has('transamerica'))(new Set(__CORE_MAP.queryRenderedFeatures({ layers: ['sf-landmarks-3d'] }).map(f => f.properties.landmark)))`));
   check('terrain shading active at city zoom', await evaluate(`__CORE_MAP.getLayoutProperty('hillshade', 'visibility') === 'visible' && __CORE_MAP.isSourceLoaded('hill')`));
   await evaluate(`document.querySelector('#sf-place').value = 'golden-gate'; document.querySelector('#sf-place').dispatchEvent(new Event('change'))`); await pause(7000);
   await shot('golden-gate');
@@ -109,7 +111,7 @@ try {
     const near = t => legs.some(f => W.distance(f.geometry.coordinates[0][0], t) < 30);
     return near(W.GOLDEN_GATE.southTower) && near(W.GOLDEN_GATE.northTower);
   })()`));
-  check('Golden Gate cables and suspenders rendered', await evaluate(`(p => p.has('main-cable') && p.has('suspender') && p.has('deck'))(new Set(__CORE_MAP.queryRenderedFeatures({ layers: ['sf-landmarks-3d'] }).map(f => f.properties.part)))`));
+  check('Golden Gate cables and suspenders rendered', await rendered(`(p => p.has('main-cable') && p.has('suspender') && p.has('deck'))(new Set(__CORE_MAP.queryRenderedFeatures({ layers: ['sf-landmarks-3d'] }).map(f => f.properties.part)))`));
   check('replaced OSM bridge towers hidden', await evaluate(`(() => { const z = CORE_SF_WORLD.replacementZones(); return !__CORE_MAP.queryRenderedFeatures({ layers: ['building'] }).some(f => CORE_SF_WORLD.replacedBy(f, z)); })()`));
   await evaluate(`document.querySelector('#q').value = 'golden gate'; document.querySelector('#search').requestSubmit()`); await pause(300);
   check('local search finds SF landmark', await evaluate(`document.querySelector('#msg').textContent.includes('Golden Gate')`));
@@ -118,7 +120,7 @@ try {
   check('pilot panel opens with dated snapshot', await evaluate(`!document.querySelector('#sf-panel').hidden && /Instantané du \\d{4}-\\d{2}-\\d{2}/.test(document.querySelector('#sf-fresh').textContent)`));
   check('snapshot SHA-256 verified in browser', await evaluate(`Object.values(CORE_SF_VIEW.state.verified).length === CORE_SF_VIEW.state.manifest.datasets.length && Object.values(CORE_SF_VIEW.state.verified).every(v => v === 'ok')`));
   check('parsed record counts match manifest', await evaluate(`CORE_SF_VIEW.state.manifest.datasets.every(d => CORE_SF_VIEW.state.data[CORE_SF_VIEW.DATA.find(x => x.file === d.file).key].features.length === d.features)`));
-  check('permit records rendered on corridor', await evaluate(`__CORE_MAP.queryRenderedFeatures({ layers: ['sf-permits'] }).length > 20`));
+  check('permit records rendered on corridor', await rendered(`__CORE_MAP.queryRenderedFeatures({ layers: ['sf-permits'] }).length > 20`));
   await evaluate(`(i => { i.checked = false; i.dispatchEvent(new Event('change')); })(document.querySelector('[data-group=permits]'))`);
   check('layer switch hides permits', await evaluate(`__CORE_MAP.getLayoutProperty('sf-permits', 'visibility') === 'none'`));
   await evaluate(`(i => { i.checked = true; i.dispatchEvent(new Event('change')); })(document.querySelector('[data-group=permits]'))`);
@@ -158,11 +160,11 @@ try {
   await until(`CORE_COORD_VIEW.state.mode === 'done'`, 240);
   check('browser run matches independent Node run (events and fingerprint)', await evaluate(`CORE_COORD_VIEW.state.events.length`) === snap.events.length && await evaluate(`CORE_COORD_VIEW.state.result.fingerprint`) === snap.result.fingerprint);
   check('all six agent roles executed', await evaluate(`['discovery','evidence','scenario','evaluation','adversarial','gateway'].every(a => CORE_COORD_VIEW.state.events.some(e => e.agent === a))`));
-  check('findings highlighted on the map', await evaluate(`__CORE_MAP.queryRenderedFeatures({ layers: ['coord-findings-line'] }).length > 0`));
+  check('findings highlighted on the map', await rendered(`__CORE_MAP.queryRenderedFeatures({ layers: ['coord-findings-line'] }).length > 0`));
   const top = snap.result.findings.find(f => f.type === 'opportunity');
   await evaluate(`document.querySelector('[data-f="${top.id}"]').click(); 0`); await pause(2600);
   check('selecting a finding moves the camera to its street segment', await evaluate(`(() => { const g = CORE_COORD_VIEW.state.ctx.segments.get('${top.seg}').geometry.coordinates, c = __CORE_MAP.getCenter(), m = g[Math.floor(g.length / 2)]; return Math.hypot(c.lng - m[0], c.lat - m[1]) < 0.004 && __CORE_MAP.getZoom() > 15.5; })()`));
-  check('finding permits highlighted by organisation', await evaluate(`__CORE_MAP.queryRenderedFeatures({ layers: ['coord-points-circle'] }).length >= 2`));
+  check('finding permits highlighted by organisation', await rendered(`__CORE_MAP.queryRenderedFeatures({ layers: ['coord-points-circle'] }).length >= 2`));
   check('five scenarios evaluated and compared', await evaluate(`document.querySelectorAll('#cw-detail [data-s]').length === 5 && !!document.querySelector('#cw-detail table.metrics') && !!document.querySelector('#cw-detail svg.gantt')`));
   await evaluate(`document.querySelector('#cw-detail [data-s="S1"]').click(); 0`); await pause(500);
   check('selecting a scenario updates metrics and map', await evaluate(`(async () => document.querySelector('#cw-detail table.metrics thead').textContent.includes('S1') && (await __CORE_MAP.getSource('coord-points').getData()).features.some(f => f.properties.moved) === CORE_COORD_VIEW.state.result.analyses['${top.id}'].result.scenarios.find(s => s.id === 'S1').windows.some(w => w.shift !== 0))()`));
@@ -184,7 +186,7 @@ try {
     return CITY.run(COORD.buildContext({ manifest: m, data, verified })); })();
   await evaluate(`document.querySelector('#themes').open = true; (i => { i.checked = true; i.dispatchEvent(new Event('change')); })(document.querySelector('[data-theme=energy]')); 0`); await pause(1500);
   check('thematic layers list every domain with status', await evaluate(`document.querySelectorAll('#th-list [data-theme]').length === 7 && document.querySelector('[data-theme=society]').disabled && document.querySelector('#th-list').textContent.includes('candidat')`));
-  check('energy, nature and building layers render real records', await evaluate(`['city-energy', 'city-trees'].every(l => __CORE_MAP.queryRenderedFeatures({ layers: [l] }).length > 0) && (__CORE_MAP.queryRenderedFeatures({ layers: ['city-bp', 'city-bp-cluster'] }).length > 0)`));
+  check('energy, nature and building layers render real records', await rendered(`['city-energy', 'city-trees'].every(l => __CORE_MAP.queryRenderedFeatures({ layers: [l] }).length > 0) && (__CORE_MAP.queryRenderedFeatures({ layers: ['city-bp', 'city-bp-cluster'] }).length > 0)`));
   await evaluate(`(i => { i.checked = false; i.dispatchEvent(new Event('change')); })(document.querySelector('[data-theme=nature]')); 0`); await pause(300);
   check('theme toggle hides its layers', await evaluate(`__CORE_MAP.getLayoutProperty('city-trees', 'visibility') === 'none'`));
   await evaluate(`(i => { i.checked = true; i.dispatchEvent(new Event('change')); })(document.querySelector('[data-theme=nature]')); 0`);
@@ -196,7 +198,7 @@ try {
   check('investigation in browser equals independent Node run', await evaluate(`CORE_CITY_VIEW.state.result.fingerprint`) === cityNode.result.fingerprint && await evaluate(`CORE_CITY_VIEW.state.events.length`) === cityNode.events.length);
   check('eight roles executed with real events', await evaluate(`['discovery','evidence','crossdomain','scenario','evaluation','adversarial','synthesis','gateway'].every(a => CORE_CITY_VIEW.state.events.some(e => e.agent === a))`));
   await pause(2200);
-  check('map shows the discovered block, works, trees and relations', await evaluate(`__CORE_MAP.queryRenderedFeatures({ layers: ['ci-block-line'] }).length > 0 && new Set(__CORE_MAP.queryRenderedFeatures({ layers: ['ci-points-circle'] }).map(f => f.properties.role)).size >= 3`));
+  check('map shows the discovered block, works, trees and relations', await rendered(`__CORE_MAP.queryRenderedFeatures({ layers: ['ci-block-line'] }).length > 0 && new Set(__CORE_MAP.queryRenderedFeatures({ layers: ['ci-points-circle'] }).map(f => f.properties.role)).size >= 3`));
   check('decision brief has all required sections', await evaluate(`(t => ['Action recommandée', 'Alternatives évaluées', 'Preuves', 'Observation, dérivation', 'Graphe de connaissances', 'Revue adversariale', 'Incertitudes', 'Passerelle de décision humaine', 'Aucune action physique'].every(x => t.includes(x)))(document.querySelector('#ci-brief').textContent)`));
   check('gateway state matches Node and never authorizes', await evaluate(`CORE_CITY_VIEW.state.result.decision.state`) === cityNode.result.decision.state && await evaluate(`CORE_CITY_VIEW.state.result.decision.authorizes === false`));
   await evaluate(`document.querySelector('#ci-brief [data-alt="R1"]').click(); 0`); await pause(300);
@@ -241,7 +243,8 @@ try {
   check('feed event becomes a mission executed by specialists in the browser', await evaluate(`(m => m.tasks.length >= 8 && m.tasks.every(t => t.state === 'succeeded') && m.state === 'needs-human-review')(CORE_PLATFORM.state.current)`));
   check('browser mission equals the recorded Node mission (fingerprint)', await evaluate(`CORE_PLATFORM.state.current.fingerprint`) === nodeMission.fingerprint);
   check('mission workspace shows real tasks, findings and the gateway', await evaluate(`(t => t.includes('EXÉCUTION RÉELLE') && t.includes('Constats partagés') && t.includes('Passerelle de mission') && t.includes('Revue humaine obligatoire'))(document.querySelector('#ws-body').textContent)`));
-  check('mission target highlighted on the map', await evaluate(`__CORE_MAP.queryRenderedFeatures({ layers: ['pf-target-line'] }).length > 0`));
+  // The camera may still be flying to the target: rendered() waits (bounded) for it to draw.
+  check('mission target highlighted on the map', await rendered(`__CORE_MAP.queryRenderedFeatures({ layers: ['pf-target-line'] }).length > 0`));
   const cancelled = await evaluate(`(async () => { const run = CORE_PLATFORM.launch({ type: 'question', text: 'Annulation de test', segment: '7051000' });
     await new Promise(r => { const t = setInterval(() => { const m = CORE_PLATFORM.state.current; if (m && m.target.question === 'Annulation de test') { clearInterval(t); CORE_MISSIONS.cancel(m); r(); } }, 0); });
     const m = await run; return m.state + ':' + m.tasks.filter(t => t.state === 'cancelled').length; })()`);
