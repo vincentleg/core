@@ -1,6 +1,6 @@
 # CORE — master roadmap consolidé
 
-Statut : reconstruction documentaire, pas ratification rétroactive. Base auditée : `1f0adb4` ; Phases 10/11 livrées à `a25169c` / `088ebe4`. Mission actuelle : application des FD01–FD08 approuvées le 2026-10-14, **aucune Phase 12 autorisée**. Constitution V1 et directions actuelles : [FOUNDER_DECISIONS.md](FOUNDER_DECISIONS.md). Les décisions de conversation absentes du dépôt restent UNVERIFIED / FOUNDER CONFIRMATION REQUIRED.
+Statut : reconstruction documentaire, pas ratification rétroactive. Base auditée : `1f0adb4` ; Phases 10/11 livrées à `a25169c` / `088ebe4`. Directions FD01–FD08 approuvées le 2026-10-14 ; mission actuelle : **Workstream 12, fondations locales de participation**, sans ouverture publique ni phase cosmétique. Constitution V1 et directions actuelles : [FOUNDER_DECISIONS.md](FOUNDER_DECISIONS.md). Les décisions de conversation absentes du dépôt restent UNVERIFIED / FOUNDER CONFIRMATION REQUIRED.
 
 ## Hiérarchie des preuves et produits
 
@@ -66,3 +66,17 @@ Les chemins des rapports ci-dessus sont sous `docs/`. Statut « livré/clos » :
 4. Business multiutilisateur seulement après identité, responsabilité, séparation territoriale, audit ancré et autorisations authentifiées. World B2C reste optionnel/distant.
 
 Les FD01–FD08 approuvent Constitution V1, code provisoirement propriétaire et préparation scientifique ; aucune Phase 12 ni action terrain. Réglages GitHub, droits/époque du pilote, seuils/relecteurs et politiques professionnelles : dépendances opérationnelles OP01–OP06, pas orientations stratégiques à ratifier de nouveau.
+
+
+## Workstream 12 — participation et mémoire générationnelle (mandat distinct)
+
+Source : message fondateur « CORE AVATAR, DIGITAL CITIZENSHIP & GENERATIONAL CIVILIZATION MEMORY », 2026-10-14 Pacific. Ce numéro de workstream ne renomme ni ne clôt une phase O/F/L ; la livraison scientifique différée reste prioritaire. CORE = noyau évolutif de savoir humain/scientifique, propositions et améliorations vérifiées ; pas système de crédit social ou jeu détaché des preuves.
+
+| Périmètre | Maintenant / preuve | Plus tard / gate |
+| --- | --- | --- |
+| CORE Public, avatar optionnel et témoignage situé | Schémas profil/consentement/provenance ; démonstration synthétique ; `docs/product/CORE_AVATAR_VISION.md` | Comptes, identité réelle, modération/accessibilité et anti-manipulation avant inscriptions/soumissions publiques |
+| Contribution → revue → calcul → publication | Ledger local déterministe, versions/objections, état de publication distinct d’autorisation ; `CONTRIBUTION_IMPACT_LEDGER.md` | Intérêt partenaire, pilote, mise en œuvre et impact : preuve/mandat authentifié, gates toujours désactivés aujourd’hui |
+| Codex générationnel | Mémoire SQLite séparée et export propriétaire, historique/supersession, retrait/effacement logique ; `CORE_PUBLIC_PARTICIPATION.md` | Plan soutenable de rétention, sauvegarde/restauration, succession et droits ; pas de permanence/immutabilité revendiquée |
+| Lien Business | Aucun accès ni donnée B2B depuis contributions publiques | Gouvernance explicite crédit/licences/consentement/rémunération, séparation professionnelle et sécurité |
+
+Ordre inchangé : FD03 et qualification du pilote SF, puis validation/calibration indépendante ; ouverture publique et avatars avancés seulement après justification et gates de sécurité. Les cosmétiques, multi-joueur immersif, récompenses monétaires et classements sociaux ne sont pas implémentés. Résultats locaux : `docs/WORKSTREAM_12_REPORT.md`, pas preuve d’une communauté, adoption municipale ou impact réel.

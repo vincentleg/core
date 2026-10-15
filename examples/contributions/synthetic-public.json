@@ -1,0 +1,243 @@
+{
+  "version": "core-contribution-demo-v1",
+  "runtime": "local deterministic synthetic demo; no LLM, users, partner or field execution",
+  "beforeConsent": null,
+  "historyVerified": true,
+  "contribution": {
+    "id": "contribution-sf-synthetic",
+    "revision": 2,
+    "mode": "synthetic-demo",
+    "author": "Observateur-Cyan",
+    "avatar": {
+      "shape": "hexagon",
+      "color": "#44bbff",
+      "textAlternative": "Hexagone cyan, identité fictive"
+    },
+    "interests": [],
+    "expertise": [],
+    "location": {
+      "city": "san-francisco",
+      "neighborhood": "South of Market",
+      "precision": "neighborhood"
+    },
+    "observation": {
+      "statement": "Dans cet exemple inventé, une file revient à certaines heures.",
+      "at": "2026-10-01T15:00:00Z",
+      "epistemic": "synthetic-testimony",
+      "uncertainty": "Ni fréquence ni délai réellement mesurés."
+    },
+    "interpretation": "Une capacité insuffisante est une hypothèse fictive, pas un constat vérifié.",
+    "proposal": "Comparer deux capacités abstraites dans un calcul borné ; aucun réglage de feu réel. Révision : conserver explicitement la faisabilité inconnue et les objections.",
+    "relations": {
+      "problems": [
+        "demo-queue"
+      ],
+      "reuses": [],
+      "supersedes": []
+    },
+    "evidence": [
+      {
+        "id": "demo-testimony",
+        "kind": "SYNTHETIC_TESTIMONY",
+        "source": "fixture:demo-testimony",
+        "observedAt": "2026-10-01T15:00:00Z",
+        "retrievedAt": "2026-10-14T20:00:00Z",
+        "payloadSha256": "bcdf3b1a5cacd330b5768b836bd95ff99904332030f138f19a208ae8d2b5dac4",
+        "license": "DEMO_ONLY_NO_COMMERCIAL_GRANT",
+        "uncertainty": "Invented fixture; no measured SF observation or efficacy."
+      },
+      {
+        "id": "demo-counts",
+        "kind": "SYNTHETIC_COUNTS",
+        "source": "fixture:demo-counts",
+        "observedAt": "2026-10-01T15:00:00Z",
+        "retrievedAt": "2026-10-14T20:00:00Z",
+        "payloadSha256": "6ab176da7f86f6c51ac6720d51368cd08f6ee9789dc61f1245a314f9d783354d",
+        "license": "DEMO_ONLY_NO_COMMERCIAL_GRANT",
+        "uncertainty": "Invented fixture; no measured SF observation or efficacy."
+      }
+    ],
+    "objections": [
+      {
+        "revision": 1,
+        "by": "demo.reviewer",
+        "code": "TESTIMONY_NOT_CORROBORATED",
+        "explanation": "Testimony is context, not independently verified fact.",
+        "epistemic": "synthetic-review-not-independent-validation"
+      },
+      {
+        "revision": 2,
+        "by": "demo.reviewer",
+        "code": "TESTIMONY_NOT_CORROBORATED",
+        "explanation": "Testimony is context, not independently verified fact.",
+        "epistemic": "synthetic-review-not-independent-validation"
+      }
+    ],
+    "simulation": {
+      "kind": "SIMULATION",
+      "synthetic": true,
+      "calibrated": false,
+      "efficacyValidated": false,
+      "units": "synthetic queue-count sum, not delay or safety benefit",
+      "inputHash": "6ab176da7f86f6c51ac6720d51368cd08f6ee9789dc61f1245a314f9d783354d",
+      "baseline": 6,
+      "alternative": 3,
+      "sensitivity": [
+        {
+          "demandFactor": 0.8,
+          "baseline": 2.4000000000000004,
+          "alternative": 0
+        },
+        {
+          "demandFactor": 1,
+          "baseline": 6,
+          "alternative": 3
+        },
+        {
+          "demandFactor": 1.2,
+          "baseline": 14.399999999999995,
+          "alternative": 6.599999999999998
+        }
+      ]
+    },
+    "rights": {
+      "permission": "SYNTHETIC_DEMO_DISPLAY_ONLY",
+      "commercialReuse": "NOT_AUTHORIZED",
+      "compensation": "UNDECIDED"
+    },
+    "progression": {
+      "enabled": true,
+      "badges": [
+        {
+          "id": "reviewed-demo-evidence",
+          "explanation": "Synthetic evidence assessed in this sandbox; no real-world impact."
+        },
+        {
+          "id": "reviewed-demo-correction",
+          "explanation": "A revised synthetic proposal passed a new review."
+        }
+      ]
+    },
+    "organizationsConsidering": [],
+    "realWorldStatus": "NOT_AUTHORIZED",
+    "authorizesRealWorld": false,
+    "measuredImpact": null,
+    "state": "PUBLISHED",
+    "history": [
+      {
+        "sequence": 1,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.participant",
+        "from": null,
+        "to": "DRAFT",
+        "revision": 1
+      },
+      {
+        "sequence": 2,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.participant",
+        "from": "DRAFT",
+        "to": "SUBMITTED",
+        "revision": 1
+      },
+      {
+        "sequence": 3,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.moderator",
+        "from": "SUBMITTED",
+        "to": "SCREENED",
+        "revision": 1
+      },
+      {
+        "sequence": 4,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.reviewer",
+        "from": "SCREENED",
+        "to": "UNDER_REVIEW",
+        "revision": 1
+      },
+      {
+        "sequence": 5,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.reviewer",
+        "from": "UNDER_REVIEW",
+        "to": "EVIDENCE_ASSESSED",
+        "revision": 1
+      },
+      {
+        "sequence": 6,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.simulator",
+        "from": "EVIDENCE_ASSESSED",
+        "to": "SIMULATED",
+        "revision": 1
+      },
+      {
+        "sequence": 7,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.participant",
+        "from": "SIMULATED",
+        "to": "REVISED",
+        "revision": 2
+      },
+      {
+        "sequence": 8,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.participant",
+        "from": "REVISED",
+        "to": "SUBMITTED",
+        "revision": 2
+      },
+      {
+        "sequence": 9,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.moderator",
+        "from": "SUBMITTED",
+        "to": "SCREENED",
+        "revision": 2
+      },
+      {
+        "sequence": 10,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.reviewer",
+        "from": "SCREENED",
+        "to": "UNDER_REVIEW",
+        "revision": 2
+      },
+      {
+        "sequence": 11,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.reviewer",
+        "from": "UNDER_REVIEW",
+        "to": "EVIDENCE_ASSESSED",
+        "revision": 2
+      },
+      {
+        "sequence": 12,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.simulator",
+        "from": "EVIDENCE_ASSESSED",
+        "to": "SIMULATED",
+        "revision": 2
+      },
+      {
+        "sequence": 13,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.publisher",
+        "from": "SIMULATED",
+        "to": "APPROVED_FOR_PUBLICATION",
+        "revision": 2
+      },
+      {
+        "sequence": 14,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.publisher",
+        "from": "APPROVED_FOR_PUBLICATION",
+        "to": "PUBLISHED",
+        "revision": 2
+      }
+    ],
+    "publicFingerprint": "0ea1e160047121df360b01d981dec4287d6a9781a7db9133ebcd3502cbbc907c",
+    "persistence": "Local SQLite; not immutable or perpetual"
+  }
+}

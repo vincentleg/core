@@ -25,3 +25,16 @@ Mise à jour 2026-10-14 : [FD01–FD08](FOUNDER_DECISIONS.md) sont approuvées d
 | FC17 — Consolider, tester, publier sans Phase 12 | Mandat explicite de cette session | SESSION AUTORISÉE | Branche dédiée, CI/loader/hooks/CSP, rapport de consolidation | LIVRÉ, CONSOLIDATION_REPORT ; mandat FD actuel distinct | P0 / pas de Phase 12 ; OP01 avant réglages GitHub |
 
 Les versions originales restent dans Git ; les nouveaux registres ne leur donnent pas rétroactivement un autre sens. Pour compléter une décision de conversation : fournir une référence/export explicite, citer son périmètre/date, marquer la confirmation et conserver le texte précédent. Une préférence supposée, un résumé d’agent ou une fusion Git ne vaut pas approbation du fondateur.
+
+
+## Engagements additionnels — mandat Workstream 12 (2026-10-14 Pacific)
+
+Les 17 engagements initiaux ci-dessus restent traçables. Les cinq suivants proviennent du message fondateur présent, pas d’une approbation ancienne supposée. Vision/fondations locales approuvées ; ouverture d’un service, droits commerciaux et interventions réelles non autorisés.
+
+| ID / exigence | Origine / décision | Preuve et état | Priorité / prochaine action |
+| --- | --- | --- | --- |
+| FC18 — CORE noyau partagé et codex humain/scientifique générationnel | WS12 introduction/F ; APPROUVÉ vision | CORE_AVATAR_VISION, modèle versionné local ; pas communauté mondiale ni conservation perpétuelle | Science/FD03 d’abord ; continuité soutenable avant service |
+| FC19 — Identité pseudonyme/avatar optionnels, vie privée, alternative accessible ; aucun classement de valeur humaine | WS12 A/B/C/E ; APPROUVÉ | Schémas, consentements séparés, aucun rôle depuis contenu ; prototype synthétique, pas authentification ni UI 3D | Protection des tiers/modération/accessibilité avant comptes |
+| FC20 — Traçabilité contribution/impact et états d’autorisation distincts | WS12 D/H/J ; APPROUVÉ fondations | Ledger/tests/exemple synthétique ; preuve/revue/calcul/publication séparés ; états d’impact réel désactivés | Mandat/identité/validation avant toute opération terrain |
+| FC21 — Versions, échecs, corrections, attribution, export/retrait/effacement et transfert générationnel | WS12 A/F ; APPROUVÉ principes | SQLite privée, chronologie et export propriétaire ; suppression logique seulement | Rétention/succession/sauvegardes/droits restent OPEN |
+| FC22 — CORE Public → Civilization → Business sans fuite ni autorisation implicite | WS12 G ; APPROUVÉ frontière, modalités commerciales OPEN | Aucune base B2B interrogée, aucun privilège ou licence commerciale accordé | Approbation explicite crédit/licences/consentement/rémunération avant réutilisation commerciale |

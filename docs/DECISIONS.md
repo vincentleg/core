@@ -332,3 +332,20 @@ FD05 selects provisional proprietary CORE code, no open-source project LICENSE. 
 ## D082 — Pilot preparation is not calibration or legal clearance
 
 FD06/FD07 authorize a reproducible preparation package, conditional SF corridor shortlist, normalized aggregate-count schema and fixture-tested metrics/gates. SFMTA counts are accessible but reuse rights, compatible timings and independent-day holdout are not qualified. No measured payload redistributed or normalized as cleared input; no simulator installed. Synthetic fixture opt-in is explicit. Input validation/replay is not independent scientific validation or real-world efficacy.
+
+
+## D083 — Workstream 12 is a participation foundation, not a cosmetic or historical phase closure
+
+The founder's 2026-10-14 Workstream 12 mandate authorizes local models, schemas, safeguards and a synthetic demonstration. CORE Public is the future participation entry to scientific Civilization; secure Business remains separate and immersive World optional/distant. Scientific pilot and FD03 stay ahead of avatar cosmetics. No registration, public submissions, paid tools or real-world action authorized.
+
+## D084 — Contribution status does not confer identity, agent power or field authority
+
+A separate synthetic ledger reuses local memory, stable hashes and authority rules. In-process demo capabilities come from trusted bootstrap, never from pseudonyms/content/profile fields. Publication is exact-version and consent-gated; partner/pilot/implementation/impact states remain disabled. Synthetic testimony, review and queue calculations are not independent factual validation or measured efficacy.
+
+## D085 — Explicit public projection, private revision history and revocable visibility
+
+Default publication/profile/location visibility is false. Private context/points, free reviewer notes, private linkage and private content hashes stay out of the public projection. Corrections invalidate previous review/calculation; withdrawal hides publication; owner export and local logical deletion are explicit. No claim of physical erasure across SQLite/WAL, backups or exported copies.
+
+## D086 — Generational knowledge requires continuity and contributor-rights decisions
+
+Local persistence/version lineage does not establish immutable or perpetual preservation. Public historical archives, retention/succession, commercial reuse, contributor licensing/credit and potential compensation remain explicit governance questions. No social-value score, essential-service restriction, engagement economy or automatic disclosure of Business data.
