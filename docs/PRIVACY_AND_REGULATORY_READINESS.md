@@ -1,0 +1,17 @@
+# Vie privée, droit et ouverture : préparation, pas certification
+
+État 2026-10-15 UTC. Prototype statique public et exécution locale ; aucun compte public, dépôt libre de contributions, profilage ou action terrain activé. Constitution V1/FD05 et `IP_AND_ATTRIBUTION.md` restent applicables. Ce document ne constitue pas un avis juridique et ne déclare pas CORE conforme au RGPD, à la CNIL ou à l’AI Act.
+
+## Gates avant service public ou Business
+
+- Selon la [CNIL](https://www.cnil.fr/fr/technologies/lanonymisation-de-donnees-personnelles), pseudonymisation et anonymisation sont différentes : pseudonyme, localisation et historique peuvent encore identifier une personne. Ne pas appeler les profils futurs « anonymes ». Précision minimale, contexte privé par défaut, export/publication explicitement consentis ; revue des tiers et des pièces jointes avant publication.
+- Avant collecte réelle : établir responsable de traitement, finalités/base légale, information, minimisation, durées, gestion des droits, sous-traitants/résidence/transferts, sécurité, gestion des incidents et nécessité d’une analyse d’impact. Les bases de démonstration n’établissent aucun de ces accords. Retrait public/suppression logique ≠ purge de sauvegardes ni effacement des copies Git publiques ; pas de données personnelles réelles dans Git.
+- L’[AI Act — Commission européenne](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai) et sa [rubrique infrastructures critiques](https://ai-act-service-desk.ec.europa.eu/en/critical-infrastructure) nécessitent une qualification selon usage, rôle et risque. Un composant de sécurité pour le trafic ou l’énergie peut avoir des obligations supplémentaires. La sandbox sans action réelle ne tranche pas la qualification d’un produit futur. Aucun calendrier juridique ou exemption supposé ; revue à actualiser avant usage professionnel.
+- Avant contributions ouvertes : authentification adaptée, modération/quarantaine, quotas serveur, déduplication et détection de coordination proportionnées, recours et journal d’accès. Pas de biométrie ou identité civile imposée par défaut ; pas de système anti-Sybil intrusif construit pour le site statique. Les témoignages et votes ne constituent pas des faits indépendamment vérifiés.
+- Business : séparation des tenants/données, mandats authentifiés, permissions et audit ancré avant export privé ; aucune contribution Public ne vaut instruction privilégiée ou licence commerciale. Consentement, crédit, compensation éventuelle et conditions de réutilisation restent à décider.
+
+## IP et hébergement
+
+Code original provisoirement propriétaire ; dépôt public/Pages sans confidentialité. Notices MapLibre/fontes et attributions des données préservées ; aucune nouvelle dépendance ni licence open source du projet. Les nouveaux résumés de recherche citent les originaux sans les redistribuer. Droits des comptages SFMTA non établis : pas de mesures publiées ni de calibration. Les limites GitHub Pages pour le SaaS/commerce et les transactions sensibles restent un gate avant Business, voir `IP_AND_ATTRIBUTION.md`.
+
+Restent à une revue qualifiée : qualification territoriale RGPD/AI Act, marque CORE/domaines, droits commerciaux, conservation/succession et accords contributeurs. Aucune nouvelle convention, collecte, achat ou activation de facturation engagé. Les tests de confidentialité/injection/intégrité sont des contrôles logiciels ciblés, pas un audit réglementaire ou un test d’intrusion complet.

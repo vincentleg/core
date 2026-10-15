@@ -43,6 +43,12 @@ test('baseline metrics match independent hand calculation and fail closed on und
   const r = P.compareCounts([12, 18], [10, 21]); assert.equal(r.mae, 2.5); assert.equal(r.wape, 1 / 6); assert.equal(r.efficacyValidated, false);
   for (const [a, b] of [[[], []], [[0], [0]], [[1], []], [[1], [NaN]], [[-1], [0]]]) assert.throws(() => P.compareCounts(a, b));
 });
+test('pilot package rejects private metadata and future rights assertions outside observation rows', async () => {
+  const P = await import('../scripts/lib/pilot.mjs');
+  for (const mutate of [f => f.privateNotes = 'fictional-private', f => f.manifest.contact = 'fictional-private', f => f.manifest.rights.internalNotes = 'fictional-private', f => f.manifest.rights.checkedAt = '2099-01-01T00:00:00Z']) {
+    const f = fixture(); mutate(f); assert.equal(P.validateCounts(f, { allowSynthetic: true }).state, 'BLOCKED');
+  }
+});
 test('feed candidate rehearsal accepts only regular bounded generated JSON and never publishes', async () => {
   const F = await import('../scripts/lib/feed-candidate.mjs'), old = process.cwd(), dir = fs.mkdtempSync(path.join(os.tmpdir(), 'core-feed-plan-'));
   const git = (...a) => cp.execFileSync('git', a, { cwd: dir, stdio: 'pipe' });
@@ -62,4 +68,16 @@ test('feed rehearsal is read-only/manual and the live scheduled workflow remains
   // Critical unchanged workflow fingerprint from 95a1cf4; works in the existing scheduled shallow checkout.
   const hash = require('node:crypto').createHash('sha256').update(fs.readFileSync('.github/workflows/city-feed.yml')).digest('hex');
   assert.equal(hash, 'f9355d1963ae57260ad88f278d2f3c63e22cc0c85d38754cbbdeff1042b63bc6');
+});
+test('prepared main protection binds CI issuer and grants no bot or administrator bypass', () => {
+  const p = JSON.parse(fs.readFileSync('docs/github/main-protection.proposed.json'));
+  assert.deepEqual(p.required_status_checks, { strict: true, checks: [{ context: 'core-verify', app_id: 15368 }] });
+  assert.equal(p.enforce_admins, true); assert.equal(p.allow_force_pushes, false); assert.equal(p.allow_deletions, false);
+  assert.ok(!p.required_pull_request_reviews.bypass_pull_request_allowances);
+  const s = fs.readFileSync('docs/github/city-feed-pr.yml.example', 'utf8');
+  assert.match(s, /workflow_dispatch:/); assert.match(s, /CORE_FEED_PR_ENABLED/);
+  assert.match(s, /scripts\/feed-candidate.mjs/); assert.match(s, /scripts\/verify.mjs/);
+  assert.match(s, /HEAD:refs\/heads\/\$candidate_branch/);
+  assert.doesNotMatch(s, /schedule:|--force|--admin|--auto|gh pr merge|gh pr review|pull_request_target|secrets\./);
+  assert.equal(fs.existsSync('.github/workflows/city-feed-pr-candidate.yml'), false, 'migration is not silently activated');
 });

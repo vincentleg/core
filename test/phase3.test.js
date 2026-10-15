@@ -90,7 +90,13 @@ test('city intelligence store: real items with source, dates and verification; r
   assert.equal(F.itemsFrom('rss-sfpuc', '<rss><channel><item><title>Award a.b@sfwater.org 415-555-0100</title><link>https://sfpuc.gov/x</link><guid>x</guid><pubDate>Mon, 12 Oct 2026 10:00:00 +0000</pubDate></item></channel></rss>')[0].title, 'Award [contact masqué] [téléphone masqué]');
   assert.ok(state.lastSuccessfulUpdate && state.health.length === F.SOURCES.length && /manuelle|GitHub Actions|surveillance/.test(state.scheduler), 'the scheduler actually used is stated');
   const now = Date.parse(state.lastSuccessfulUpdate);
-  assert.equal(F.dueSources({ items, sources: state.sources }, now + 60000).length, 0, 'no source re-requested within its interval');
+  // Skipped sources retain their own attempt clock and can become due just after a run.
+  // A successful update does not reset every source's rate-limit interval.
+  for (const s of F.SOURCES) {
+    const last = state.sources[s.id]?.lastAttempt;
+    if (last && now + 60000 - Date.parse(last) < s.minIntervalMin * 60000)
+      assert.ok(!F.dueSources({ items, sources: state.sources }, now + 60000).some(x => x.id === s.id), `${s.id}: no early retry`);
+  }
   // Each source is due exactly when its own last attempt is older than its interval (runs are staggered: the
   // scheduled collector skips sources that are not yet due, so last attempts differ between sources).
   const later = now + 61 * 60000, due = new Set(F.dueSources({ items, sources: state.sources }, later).map(s => s.id));
@@ -101,6 +107,16 @@ test('city intelligence store: real items with source, dates and verification; r
   assert.ok(F.SOURCES.filter(s => s.enabled !== false && s.minIntervalMin <= 60).every(s => due.has(s.id)), 'hourly sources are due after an hour');
   assert.ok(F.SOURCES.filter(s => s.enabled === false).every(s => !due.has(s.id)), 'retired sources are never due');
   assert.ok(state.health.some(h => /stale/.test(h.freshness)), 'stale official sources are reported, not hidden');
+});
+
+test('feed rate limits: staggered six-hour source becomes due after a successful run', () => {
+  const now = Date.parse('2026-10-15T04:36:22Z');
+  const sources = Object.fromEntries(F.SOURCES.map(s => [s.id, { lastAttempt: new Date(now).toISOString() }]));
+  sources['datasf-311-soma'].lastAttempt = '2026-10-14T22:36:30.117Z';
+  const store = { items: [], sources };
+  assert.deepEqual(F.dueSources(store, now), []);
+  assert.deepEqual(F.dueSources(store, now + 60000).map(s => s.id), ['datasf-311-soma']);
+  assert.ok(!F.dueSources(store, now + 359999).some(s => s.id === 'nws-alerts'));
 });
 
 test('event → graph link → mission suggestion → specialists → sourced conclusion → gateway', async () => {

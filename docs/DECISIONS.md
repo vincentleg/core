@@ -349,3 +349,16 @@ Default publication/profile/location visibility is false. Private context/points
 ## D086 — Generational knowledge requires continuity and contributor-rights decisions
 
 Local persistence/version lineage does not establish immutable or perpetual preservation. Public historical archives, retention/succession, commercial reuse, contributor licensing/credit and potential compensation remain explicit governance questions. No social-value score, essential-service restriction, engagement economy or automatic disclosure of Business data.
+
+
+## D087 — Final recovery preserves per-source clocks and scientific boundaries
+
+Founder mandate 2026-10-15 UTC authorizes safe end-to-end recovery/release, not a new functional phase. Cron failure 38682336769 was a false global-clock assertion: the skipped six-hour 311 source became due just after collection started. Correct the test and add a deterministic boundary regression; do not change rate limits or weaken collection validation. Reverify actual automation separately.
+
+## D088 — Civilization research is multidimensional, dated and bounded
+
+The current founder directive establishes Kardashev research and peaceful, free, cooperative, sustainable human progress as foundations. A separate cited machine-readable collection and deterministic SI calculations reuse knowledge retrieval. Original 1964 values, later Sagan convention, historical energy proxy and speculative engineering are distinct. No human-worth ranking, calibrated model or humanitarian impact inferred. Sagan original passage, metrics/reviewer and SF pilot rights/timings/holdout remain unresolved.
+
+## D089 — Protection requires a verified automation path, not a bypass
+
+Main is unprotected; Actions PR permission disabled; admin available, public Free-compatible capability, exact account plan unknown. Prepare complete inactive PR template and CI-bound protection payload; preserve current cron. Existing OP01 exact-setting/review-latency approval and a real verified PR path are not established. No remote setting, bot exemption, PAT, automatic data merge or billing change is implicit.

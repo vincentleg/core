@@ -1,16 +1,50 @@
-# INACTIVE publication tail; integrate after current collection, candidate, tests and security gates ONLY.
-# Requires OP01 approval, PR permission and a successful remote rehearsal; not a deployable full workflow.
-# Future publication job: contents: write, pull-requests: write (never global/admin/actions:write).
-- name: Publish reviewed candidate as a PR, never merge
-  env:
-    GH_TOKEN: ${{ github.token }}
-  run: |
-    node scripts/feed-candidate.mjs
-    if git diff --cached --quiet; then exit 0; fi
-    git config user.name "core-city-feed[bot]"
-    git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-    candidate_branch="city-feed/candidate-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
-    git switch -c "$candidate_branch"
-    git commit -m "data: reviewed City Intelligence candidate"
-    git push origin "HEAD:refs/heads/$candidate_branch"
-    gh pr create --base main --head "$candidate_branch" --title "data: City Intelligence candidate" --body "Generated JSON candidate; human review and exact-revision core-verify required. No auto-merge."
+# INACTIVE template. Copy to .github/workflows only after OP01 approval.
+# First run manually. Do not replace scheduled city-feed until a real reviewed PR is verified.
+name: city-feed-pr-candidate
+on:
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: city-feed-pr-candidate
+  cancel-in-progress: false
+jobs:
+  candidate:
+    if: vars.CORE_FEED_PR_ENABLED == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version: '22'
+      - name: Collect and re-record only when content changes
+        run: |
+          node scripts/city-feed.mjs
+          if node -e 'const s=require("./data/feeds/state.json"); process.exit(s.lastRun.added + s.lastRun.changed > 0 ? 0 : 1)'; then
+            node scripts/agents.mjs --question "Quels travaux et quels arbres sont concernés sur Howard entre la 8e et la 9e rue ?" --segment 7051000
+          fi
+      - name: Validate scope, integration and security before any publication
+        run: |
+          node scripts/feed-candidate.mjs
+          git add data/feeds data/missions data/agents
+          node scripts/verify.mjs
+      - name: Publish unique candidate branch and open PR; never merge or approve
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node scripts/feed-candidate.mjs
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "core-city-feed[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          candidate_branch="city-feed/candidate-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          git switch -c "$candidate_branch"
+          git commit -m "data: City Intelligence candidate for review"
+          git push origin "HEAD:refs/heads/$candidate_branch"
+          gh pr create --base main --head "$candidate_branch" --title "data: City Intelligence candidate" --body "Generated JSON only. Human review and exact-revision core-verify required. No auto-merge."

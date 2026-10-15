@@ -3,7 +3,7 @@
 Terre parallèle 3D, noir/cyan : globe cartographique et corridor synthétique séparé ; site statique compatible GitHub Pages.
 
 ## Périmètre et contexte
-- Phases 0–11 et consolidation closes ; fondations locales du Workstream 12 autorisées, pas d’ouverture publique ni de phase cosmétique. Pilote scientifique et sécurité prioritaires. Constitution V1 : `docs/CONSTITUTION_V1.md` ; portée : `docs/FOUNDER_DECISIONS.md`. Une phase autorisée à la fois ; arrêter au critère de fin. Commit, push, tag et déploiement seulement sur autorisation explicite.
+- Phases 0–11 et consolidation closes ; Workstream 12 livré ; consolidation/récupération et préparation scientifique autorisées, pas d’ouverture publique ni de phase cosmétique. Pilote scientifique et sécurité prioritaires. Constitution V1 : `docs/CONSTITUTION_V1.md` ; portée : `docs/FOUNDER_DECISIONS.md`. Une phase autorisée à la fois ; arrêter au critère de fin. Commit, push, tag et déploiement seulement sur autorisation explicite.
 - Lire `PROJECT_STATE.md` si nécessaire ; `docs/MASTER_ROADMAP.md` pour engagements/dépendances et `ROADMAP.md` pour livraisons autorisées ; historiques pour une question non résolue. Réutiliser le contexte déjà chargé.
 - Un agent ; aucune délégation sans autorisation. Lectures ciblées, regroupées si indépendantes ; sorties bornées, grosses preuves dans des fichiers. Simulations longues : fournir la commande, sans boucles.
 - Préserver code, historique et travail utilisateur ; aucun refactoring superflu. Justifier chaque dépendance nouvelle. Jamais de force-push ; vérifier le distant et préserver les changements concurrents avant publication.

@@ -1,6 +1,6 @@
 # CORE — master roadmap consolidé
 
-Statut : reconstruction documentaire, pas ratification rétroactive. Base auditée : `1f0adb4` ; Phases 10/11 livrées à `a25169c` / `088ebe4`. Directions FD01–FD08 approuvées le 2026-10-14 ; mission actuelle : **Workstream 12, fondations locales de participation**, sans ouverture publique ni phase cosmétique. Constitution V1 et directions actuelles : [FOUNDER_DECISIONS.md](FOUNDER_DECISIONS.md). Les décisions de conversation absentes du dépôt restent UNVERIFIED / FOUNDER CONFIRMATION REQUIRED.
+Statut : reconstruction documentaire, pas ratification rétroactive. Base auditée : `1f0adb4` ; Phases 10/11 livrées à `a25169c` / `088ebe4`. Directions FD01–FD08 approuvées le 2026-10-14 ; mission actuelle : **consolidation finale, récupération du cron et préparation scientifique**, après livraison du Workstream 12, sans ouverture publique ni phase cosmétique. Constitution V1 et directions actuelles : [FOUNDER_DECISIONS.md](FOUNDER_DECISIONS.md). Les décisions de conversation absentes du dépôt restent UNVERIFIED / FOUNDER CONFIRMATION REQUIRED.
 
 ## Hiérarchie des preuves et produits
 
@@ -80,3 +80,10 @@ Source : message fondateur « CORE AVATAR, DIGITAL CITIZENSHIP & GENERATIONAL CI
 | Lien Business | Aucun accès ni donnée B2B depuis contributions publiques | Gouvernance explicite crédit/licences/consentement/rémunération, séparation professionnelle et sécurité |
 
 Ordre inchangé : FD03 et qualification du pilote SF, puis validation/calibration indépendante ; ouverture publique et avatars avancés seulement après justification et gates de sécurité. Les cosmétiques, multi-joueur immersif, récompenses monétaires et classements sociaux ne sont pas implémentés. Résultats locaux : `docs/WORKSTREAM_12_REPORT.md`, pas preuve d’une communauté, adoption municipale ou impact réel.
+
+
+## Consolidation finale — mandat fondateur 2026-10-15 UTC
+
+Matrice courante des workstreams 1–12 : [WORKSTREAM_CLOSURE_MATRIX.md](WORKSTREAM_CLOSURE_MATRIX.md) ; preuves de récupération/publication : [RECOVERY_SCIENTIFIC_READINESS_REPORT.md](RECOVERY_SCIENTIFIC_READINESS_REPORT.md). Ces workstreams transversaux ne renomment pas O/F/L ni une Phase 12. Le corpus Kardashev et le cadre multidimensionnel [CIVILIZATION_RESEARCH.md](CIVILIZATION_RESEARCH.md) alimentent Civilization sans substituer énergie à paix, liberté, santé ou écologie. CORE Public porte la participation future ; Business reste professionnel/authentifié ; World immersif reste optionnel et distant.
+
+Priorité : fiabilité du cron et transition FD03 sûre, puis G0/G1/G3 du pilote Howard 6th–7th conditionnel. Comptages/feux réels, SUMO/calibration, indépendance et effets mesurés demeurent différés ; les fondations locales testées ne les clôturent pas. Aucun compte public, modèle payant, installation de simulateur ou contrôle terrain autorisé.

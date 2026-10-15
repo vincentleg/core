@@ -10,9 +10,12 @@ const https = s => { try { const u = new URL(s); return u.protocol === 'https:' 
 export function validateCounts(pkg, { allowSynthetic = false } = {}) {
   const issues = [], m = pkg?.manifest, rows = pkg?.rows;
   if (!m || !Array.isArray(rows) || !rows.length || rows.length > 100000) return { state: 'BLOCKED', issues: ['Missing manifest or bounded observations'], authorizesRealWorld: false };
+  const allowed = (o, fields) => !!o && typeof o === 'object' && !Array.isArray(o) && Object.keys(o).every(k => fields.includes(k));
+  if (!allowed(pkg, ['manifest', 'rows']) || !allowed(m, ['version', 'id', 'kind', 'corridor', 'sourceUrl', 'retrievedAt', 'rights', 'payloadSha256']) || !allowed(m.rights, ['status', 'license', 'evidenceUrl', 'checkedAt', 'attribution'])) issues.push('Unexpected package metadata: privacy/schema gate');
   if (m.version !== 1 || !/^[a-z0-9-]{2,80}$/.test(m.id || '') || !https(m.sourceUrl) || !date(m.retrievedAt) || Date.parse(m.retrievedAt) > Date.now() + 300000 || !m.corridor) issues.push('Invalid provenance');
   if (!['measured', 'synthetic-fixture'].includes(m.kind) || (m.kind !== 'measured' && !allowSynthetic)) issues.push('Measured data required; fixtures are not observations');
   if (m.rights?.status !== 'VERIFIED' || !['ODC-PDDL-1.0', 'CC0-1.0', 'CC-BY-4.0', 'CORE-SYNTHETIC-FIXTURE'].includes(m.rights?.license) || !https(m.rights?.evidenceUrl) || !date(m.rights?.checkedAt)) issues.push('Reuse rights unverified');
+  if (Date.parse(m.rights?.checkedAt) > Date.now() + 300000) issues.push('Future rights verification');
   if (m.kind === 'measured' && m.rights?.license === 'CORE-SYNTHETIC-FIXTURE') issues.push('Fixture license cannot authorize measured data');
   if (m.rights?.license === 'CC-BY-4.0' && (typeof m.rights.attribution !== 'string' || !m.rights.attribution.trim())) issues.push('Required attribution missing');
   if (!/^[a-f0-9]{64}$/.test(m.payloadSha256 || '') || m.payloadSha256 !== payloadHash(rows)) issues.push('Observation checksum mismatch');

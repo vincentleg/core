@@ -1,0 +1,216 @@
+{
+  "version": 1,
+  "purpose": "Dated source-grounded research; not calibrated science or a societal ranking",
+  "sources": [
+    {
+      "id": "kardashev-1964",
+      "citation": "N. S. Kardashev (1964), Transmission of Information by Extraterrestrial Civilizations, Soviet Astronomy 8, 217–221",
+      "url": "https://technosearch.seti.org/wp-content/uploads/2018-09/Kardashev_CTA102.pdf",
+      "locator": "p. 217 classification; original units erg/s",
+      "evidence": "primary",
+      "checkedOn": "2026-10-15",
+      "reviewAfterDays": 3650,
+      "redistribution": "Reference and original CORE summary only; full source not bundled"
+    },
+    {
+      "id": "sagan-1973",
+      "citation": "Carl Sagan (1973), The Cosmic Connection; Cambridge reissue bibliography",
+      "url": "https://assets.cambridge.org/97805217/83033/frontmatter/9780521783033_frontmatter.pdf",
+      "locator": "Publisher front matter only; original interpolation passage not independently inspected",
+      "evidence": "primary-bibliography-only",
+      "checkedOn": "2026-10-15",
+      "reviewAfterDays": 3650,
+      "redistribution": "Reference and original CORE summary only; full source not bundled"
+    },
+    {
+      "id": "cramer-2021",
+      "citation": "John G. Cramer (2021), Kardashev Civilizations, Dyson Spheres, and Black Holes",
+      "url": "https://www.npl.washington.edu/AV/altvw215.html",
+      "locator": "Author discussion of Sagan index and power conventions",
+      "evidence": "institutional",
+      "checkedOn": "2026-10-15",
+      "reviewAfterDays": 3650,
+      "redistribution": "Reference and original CORE summary only; full source not bundled"
+    },
+    {
+      "id": "si",
+      "citation": "BIPM, The International System of Units, 9th edition",
+      "url": "https://www.bipm.org/documents/d/guest/si-brochure-9-pdf",
+      "locator": "Derived SI units: joule and watt",
+      "evidence": "institutional",
+      "checkedOn": "2026-10-15",
+      "reviewAfterDays": 3650,
+      "redistribution": "Reference and original CORE summary only; full source not bundled"
+    },
+    {
+      "id": "ei-2025",
+      "citation": "Energy Institute, Statistical Review 2025: 2024 key highlights",
+      "url": "https://energyinst.org/statistical-review/insights-by-source",
+      "locator": "2024 total energy supply 592 EJ; historical edition, not latest 2026 estimate",
+      "evidence": "institutional",
+      "checkedOn": "2026-10-15",
+      "reviewAfterDays": 365,
+      "redistribution": "Reference and original CORE summary only; full source not bundled"
+    },
+    {
+      "id": "ipcc-energy",
+      "citation": "IPCC AR6 WGIII (2022), Chapter 6 Energy Systems",
+      "url": "https://www.ipcc.ch/report/ar6/wg3/downloads/report/IPCC_AR6_WGIII_Chapter06.pdf",
+      "locator": "Chapter 6 energy systems and integration constraints",
+      "evidence": "institutional",
+      "checkedOn": "2026-10-15",
+      "reviewAfterDays": 730,
+      "redistribution": "Reference and original CORE summary only; full source not bundled"
+    },
+    {
+      "id": "boundaries-2023",
+      "citation": "Richardson et al. (2023), Earth beyond six of nine planetary boundaries, Science Advances 9, eadh2458",
+      "url": "https://doi.org/10.1126/sciadv.adh2458",
+      "locator": "Abstract and framework; historical 2023 assessment, not present boundary count",
+      "evidence": "primary",
+      "checkedOn": "2026-10-15",
+      "reviewAfterDays": 730,
+      "redistribution": "Reference and original CORE summary only; full source not bundled"
+    },
+    {
+      "id": "dyson-1960",
+      "citation": "Freeman J. Dyson (1960), Search for Artificial Stellar Sources of Infrared Radiation, Science 131, 1667–1668",
+      "url": "https://doi.org/10.1126/science.131.3414.1667",
+      "locator": "Bibliographic record: https://pubmed.ncbi.nlm.nih.gov/17780673/; full original not inspected",
+      "evidence": "primary-bibliography-only",
+      "checkedOn": "2026-10-15",
+      "reviewAfterDays": 3650,
+      "redistribution": "Reference and original CORE summary only; full source not bundled"
+    },
+    {
+      "id": "wright-2023",
+      "citation": "Jason T. Wright (2023), Application of the Thermodynamics of Radiation to Dyson Spheres, arXiv:2309.06564v2",
+      "url": "https://arxiv.org/abs/2309.06564v2",
+      "locator": "Author abstract: radiative work, waste heat, limitations of shell models",
+      "evidence": "primary",
+      "checkedOn": "2026-10-15",
+      "reviewAfterDays": 730,
+      "redistribution": "Reference and original CORE summary only; full source not bundled"
+    },
+    {
+      "id": "filter-2015",
+      "citation": "Verendel and Häggström (2015), Fermi paradox: a Bayesian analysis, arXiv:1510.08684v2",
+      "url": "https://arxiv.org/abs/1510.08684v2",
+      "locator": "Author abstract: Great Filter inference depends on priors",
+      "evidence": "primary",
+      "checkedOn": "2026-10-15",
+      "reviewAfterDays": 730,
+      "redistribution": "Reference and original CORE summary only; full source not bundled"
+    },
+    {
+      "id": "undp",
+      "citation": "UNDP, Human Development Index methodology",
+      "url": "https://hdr.undp.org/data-center/human-development-index",
+      "locator": "Health, education, standard of living and limitations",
+      "evidence": "institutional",
+      "checkedOn": "2026-10-15",
+      "reviewAfterDays": 365,
+      "redistribution": "Reference and original CORE summary only; full source not bundled"
+    }
+  ],
+  "claims": [
+    {
+      "id": "original-scale",
+      "kind": "reported-historical",
+      "text": "Kardashev classified hypothetical civilizations by available power. Original Type I is approximately 4e12 W, Type II 4e26 W, Type III 4e37 W (1 erg/s = 1e-7 W).",
+      "sources": [
+        "kardashev-1964",
+        "si"
+      ],
+      "limitations": "Historical order-of-magnitude classification, not evidence that Types II or III exist. Do not silently replace original Type I by a later planetary convention."
+    },
+    {
+      "id": "continuous-scale",
+      "kind": "established",
+      "text": "Use the explicit mathematical convention K = (log10(P in W) - 6)/10: K=1,2,3 at 1e16,1e26,1e36 W.",
+      "sources": [
+        "sagan-1973",
+        "cramer-2021"
+      ],
+      "limitations": "Commonly attributed to Sagan; original book passage/page remains unverified here. This convention differs from original 1964 values and does not measure ethics or human worth."
+    },
+    {
+      "id": "energy-power",
+      "kind": "established",
+      "text": "Energy is measured in J; power in W=J/s. Annual EJ divided by the actual year duration gives an average power proxy. Total energy supply, final energy, electricity and useful exergy are different boundaries.",
+      "sources": [
+        "si",
+        "ei-2025"
+      ],
+      "limitations": "Avoid double counting conversion inputs and electricity outputs; no cross-edition trend without harmonized accounting."
+    },
+    {
+      "id": "humanity-historical",
+      "kind": "reported-historical",
+      "text": "Energy Institute reports 592 EJ total energy supply for 2024. With 366 days, CORE calculates about 18.72 TW and K about 0.727 under the stated proxy/convention.",
+      "sources": [
+        "ei-2025",
+        "si"
+      ],
+      "limitations": "Not a current 2026 measurement, not useful work, not uncertainty bounds. Plus/minus 10% CLI scenarios are assumptions, not confidence intervals. Edition/accounting revisions need review."
+    },
+    {
+      "id": "thermodynamics",
+      "kind": "established",
+      "text": "Usable work depends on source/sink conditions; dissipative energy use produces waste heat. Radiation-based engineering has efficiency and observational constraints.",
+      "sources": [
+        "wright-2023"
+      ],
+      "limitations": "No universal engineering efficiency assigned. Exergy is not identical to energy; no waste-heat climate prediction computed here."
+    },
+    {
+      "id": "planetary-limits",
+      "kind": "reported-historical",
+      "text": "Planetary-boundary research treats climate, ecosystems and other Earth systems as interacting constraints. The 2023 study reported six of nine boundaries transgressed.",
+      "sources": [
+        "boundaries-2023"
+      ],
+      "limitations": "Historical assessment, not a current count. Thresholds and uncertainty are domain-specific; more power alone cannot certify sustainability."
+    },
+    {
+      "id": "energy-pathways",
+      "kind": "established",
+      "text": "Energy pathways involve demand reduction, efficiency, renewables, nuclear, storage, transmission and grid flexibility, with physical, environmental and institutional tradeoffs.",
+      "sources": [
+        "ipcc-energy"
+      ],
+      "limitations": "No technology is declared universally optimal; life-cycle impacts, siting, costs, materials and system boundaries require local evidence. No deployment recommendation or timetable."
+    },
+    {
+      "id": "space-pathways",
+      "kind": "speculative",
+      "text": "Dyson swarms and stellar-scale energy collection are hypothetical engineering/technosignature research subjects, not demonstrated CORE capabilities.",
+      "sources": [
+        "dyson-1960",
+        "wright-2023"
+      ],
+      "limitations": "Orbital dynamics, construction mass, propulsion, radiative balance, maintenance and light-travel constraints remain unresolved. No solid shell, faster-than-light travel or installed space industry claimed."
+    },
+    {
+      "id": "fermi-filter",
+      "kind": "hypothesis",
+      "text": "Fermi/Great Filter arguments depend on uncertain occurrence rates, detectability, lifetimes and priors. Infrared excess alone does not establish extraterrestrial engineering.",
+      "sources": [
+        "filter-2015",
+        "wright-2023"
+      ],
+      "limitations": "No probability of civilizational collapse or confirmed technosignature inferred. Later Type IV/V or multiverse extensions are speculative, outside tested physics here."
+    },
+    {
+      "id": "multidimensional-core",
+      "kind": "proposal",
+      "text": "CORE research should retain separate energy/exergy, ecology, wellbeing, peace/freedom/cooperation, resilience and scientific-capacity dimensions, with provenance and dissent for each.",
+      "sources": [
+        "undp",
+        "boundaries-2023",
+        "ipcc-energy"
+      ],
+      "limitations": "Founder-directed research framework, not an empirical composite index. No weights, country ranking, social score or single civilization score approved. Peace/freedom/resilience metrics and independent reviewers remain to be selected."
+    }
+  ]
+}

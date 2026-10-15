@@ -18,3 +18,19 @@ Inspection 2026-10-14 Pacific : dépôt public, propriétaire User, compte conne
 6. Revalider le prochain cycle planifié. La **collecte** reste automatique, la publication devient revue humaine ; cette latence est une décision explicite avant bascule. Sans ce choix, protéger main casserait le push actuel : **activation bloquée et flux actuel conservé**.
 
 Le fichier `docs/github/city-feed-pr.yml.example` illustre les seules étapes de publication après les gates existantes. Il est inactif et n’autorise aucune opération distante. Une répétition locale n’établit ni le fonctionnement des permissions GitHub ni le cron réel. Les [réglages Actions](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository) restent à approuver ; pas de modification externe par cette livraison.
+
+## Réinspection de récupération — 2026-10-15 UTC
+
+API relue : main non protégée, rulesets `[]`, compte administrateur, dépôt public ; plan personnel toujours null/non vérifié. `can_approve_pull_request_reviews=false`, permissions globales read, `allow_auto_merge=false`. Check émis **core-verify**, App **github-actions**, app_id **15368**, vérifié sur `7477305`. Pages legacy/main/racine avec HTTPS. Aucune configuration distante modifiée.
+
+Préparation exécutable **inactive** : `city-feed-pr.yml.example` est maintenant un workflow manuel complet (actions existantes épinglées, validation JSON + intégration avant push, branche unique, PR uniquement, aucune approbation/merge automatique). Le fichier reste hors `.github/workflows`. `main-protection.proposed.json` donne le payload proposé : CI exacte/à jour liée à l’émetteur, PR, administrateur soumis, conversations résolues, force-push et suppression interdits. Zéro reviewer obligatoire permet le mainteneur unique ; cela ne représente pas une revue indépendante. Tests de garde inclus ; parcours PR distant **NON VÉRIFIÉ**.
+
+**Pourquoi pas d’activation :** OP01 précédent réserve l’autorisation précise du réglage regroupant création ET approbation des PR et l’acceptation de la latence de revue humaine. Le mandat courant conditionne l’activation à cette autorisation existante et à un chemin bot vérifié ; ni l’une ni l’autre n’est établie. Aucune permission compte/App/PAT ou exemption ajoutée. Le cron direct existant reste actif pendant sa réparation ; protéger main à cet instant le casserait.
+
+Action externe précise à autoriser, sans achat :
+
+1. Dépôt → Settings → Actions → General → Workflow permissions : conserver read par défaut ; autoriser explicitement « Allow GitHub Actions to create and approve pull requests ». Le workflow proposé ne demande aucune approbation de revue.
+2. Après accord sur publication revue humainement, installer le template manuel, ajouter la variable de dépôt `CORE_FEED_PR_ENABLED=true`, lancer un candidat ; approuver au besoin le lancement CI issu de GITHUB_TOKEN, vérifier le SHA exact et le diff, intégrer normalement. Aucun auto-merge.
+3. Après PR réelle réussie : remplacer seulement la publication du cron par ce parcours, conserver schedules/gates/collecteurs ; puis Settings → Branches → Add branch protection rule → main : PR, core-verify/GitHub Actions à jour, conversations résolues, contrôles appliqués aux administrateurs, aucun force-push/suppression. Payload proposé disponible ; vérifier ensuite API `protected=true` et un cycle réel. Ne pas appliquer ce payload prématurément.
+
+Référence fraîche : [GitHub, disponibilité sur dépôt public Free](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches). Aucun upgrade requis pour cette capacité ; ne pas assimiler cela à un audit de facturation.

@@ -29,3 +29,13 @@ Le statut de droits VERIFIED dans un manifeste doit être étayé par une revue 
 - G4 : autorisation humaine authentifiée et contraintes terrain ; **DISABLED**, sans adaptateur réel.
 
 Étape scientifique suivante : qualifier G0/G1 sur un corridor, puis faire sceller le protocole par un relecteur avant toute calibration. Aucun bénéfice trafic/sécurité ni validation causale obtenu par ce paquet.
+
+## Qualification complémentaire — 2026-10-15 UTC
+
+`source-manifest.json` consigne la nouvelle lecture des deux CSV officiels, sans copier les mesures : corridor SHA inchangé ; intersection UTF-8, 1 189 lignes hors en-tête (blancs possibles), SHA `d6f7809d7b68ab416bb68776edc56c5b05dbacf7bf52df2e16ef6ab494384c55`. Howard/6th et Howard/7th : dates isolées 2015–2016 ; corridor Folsom Beale–Main : 13/14 décembre 2017. Pas de correspondance exacte Folsom/Main établie dans le CSV intersection ; ces noms ne certifient pas géométrie/mouvement. Le PDF Howard 6th–7th de 2018 reste une preuve historique antérieure, pas relu intégralement dans cette mission.
+
+La [clause copyright SFMTA](https://www.sfmta.com/terms-of-use) réserve les actifs éditoriaux/créatifs, sans grant explicite identifié pour ces tables prestataires. Cela ne tranche pas la protection juridique des faits ; droits de traitement/redistribution à qualifier. Aucun emprunt de PDDL d’un autre portail. Aucun payload mesuré publié ni source déclarée VERIFIED. Shortlist maintenue **conditionnelle** : Howard 6th–7th, puis Folsom/Main.
+
+G0 reste bloqué : droits, méthode/époque/géométrie, timings contemporains compatibles, manquants/doublons et holdout de jours indépendants. Deux dates proches ne prouvent pas un holdout adéquat. Prochaine voie sans achat : retrouver un grant explicite lié au fichier ou une autorisation écrite, qualifier bins/mouvements et plans de feux de la même époque ; sinon protocole de comptage agrégé nouveau à autoriser séparément. Aucun contact agence ni collecte terrain lancé.
+
+Le validateur existant reçoit un durcissement ciblé : allowlist des métadonnées du paquet/manifeste/droits et rejet des dates de droits futures ; pas de note privée cachée hors des lignes observées. Erreurs sans payload. Validation d’entrée ≠ authentification d’une licence ou calibration. Domaine-neutralité conservée : ce schéma est pour comptages agrégés ; ni énergie/eau ni simulation universelle revendiquée.
