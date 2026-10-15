@@ -33,4 +33,21 @@ FD03/OP01 (protection main et transition bot autorisée/testée) et OP03/OP04 (d
 
 ## Finalisation autorisée
 
-Le message fondateur suivant autorise explicitement commit/push de la branche, intégration sûre, vérification CI/Pages et tag après succès. Revue du diff indexé : 19 fichiers attendus ; exemple public synthétique expurgé (14 événements, deux versions, aucune autorisation réelle/impact mesuré), aucune base locale/cache/log ou donnée personnelle réelle incluse. Les coordonnées et marqueurs présents dans les fixtures de code sont explicitement inventés. Aucune modification de code après la validation 153/153 ; preuve locale exacte réutilisable, pas de nouvelle suite locale nécessaire. Résultats de publication à compléter après vérification réelle.
+Le message fondateur suivant autorise explicitement commit/push de la branche, intégration sûre, vérification CI/Pages et tag après succès. Revue du diff indexé : 19 fichiers attendus ; exemple public synthétique expurgé (14 événements, deux versions, aucune autorisation réelle/impact mesuré), aucune base locale/cache/log ou donnée personnelle réelle incluse. Les coordonnées et marqueurs présents dans les fixtures de code sont explicitement inventés. Aucune modification de code après la validation 153/153 ; preuve locale exacte réutilisable, pas de nouvelle suite locale nécessaire. Résultats de publication vérifiés ci-dessous.
+
+
+## Publication vérifiée — Workstream 12 livré
+
+- Commit des 19 fichiers : `dfe5cc726f5910116d07d50f805c0849d71068cf`, branche `workstream12/contribution-foundation` publiée ; main intégré par fast-forward normal après CI et relecture immédiate du distant. Origin/main était toujours `73110ec` : aucune mise à jour City Intelligence à réconcilier et aucun changement de code après validation. Aucun force-push, réglage de compte ou contournement de protection.
+- [CI branche 38688113687](https://github.com/vincentleg/core/actions/runs/38688113687) et [CI main 38688239347](https://github.com/vincentleg/core/actions/runs/38688239347) : succès ; main 153/153, intégrité 321 fichiers/zéro constat/six exceptions existantes. Preuve locale exacte réutilisée par les hooks ; aucune nouvelle suite locale complète lancée.
+- [Pages 38688238635](https://github.com/vincentleg/core/actions/runs/38688238635) : succès sur ce même SHA ; https://vincentleg.github.io/core/.
+- HTTP sans cache : exemple public et CORE_AVATAR_VISION.md identiques au dépôt, SHA-256 respectifs `42ed0879df99a0328aca91b7ae145bb9f7e7e9e53d7f0baaea34f8e28430f631` et `08df6f4dde0b4b9af6c70a4448a5fc710ed9144b2a6cc082969db43d80da4424` ; exemple synthétique, aucune donnée privée/empreinte privée, aucune autorisation réelle ni impact mesuré.
+- index/corridor reçus identiques au dépôt : SHA-256 `7dbfc0d76a23498885b8591097a3edc43b8cbe78ec0ef01ebac867a84eb90e51` / `d03259d1c01417190da1a23a72f4540732b31eee511124ec5e0be3af7013096a`. Pas de nouvelle suite navigateur : UI/JS public inchangés ; aucune nouvelle validation Firefox/Safari/accessibilité revendiquée.
+- Tag annoté **workstream12-release** sur `dfe5cc7`, créé/poussé après CI/Pages/HTTP réussis. Les compléments de clôture suivants sont documentaires uniquement ; aucun tag antérieur déplacé.
+- Trace de production : `/tmp/core-ws12-production-evidence.json` ; résultats locaux initiaux conservés dans les traces indiquées plus haut.
+
+### Anomalies et dépendances restantes
+
+Le dernier [cron city-feed 38682336769](https://github.com/vincentleg/core/actions/runs/38682336769) a échoué à l’étape Tests sur **l’ancien SHA `73110ec`**, avant WS12. Test concerné : « city intelligence store: real items with source, dates and verification; rate limits respected ». Cause non diagnostiquée dans cette finalisation ; échec non résolu, pas présenté comme une validation du rafraîchissement actuel. Aucun commit de ce run à intégrer. Le workflow est inchangé ; ne pas attribuer cet échec préexistant à WS12 ni garantir le prochain cycle. Trace ciblée : `/tmp/core-ws12-prior-feed-failure.log`.
+
+Main sans protection active/ruleset à l’inspection ; FD03/OP01 reste ouvert sans réglage modifié. Droits et validation du pilote SF, politiques de contributions réelles/commerciales et continuité restent ouverts. Aucun compte public, plateforme B2C fonctionnelle, adoption municipale ou bénéfice terrain livré par cette release.

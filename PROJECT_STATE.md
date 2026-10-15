@@ -6,5 +6,5 @@
 - FD03 : main non protégée ; bot inchangé ; rehearsal GitHub read-only réussi ; OP01 avant réglages/bascule.
 - Pilote SF : shortlist Howard 6th–7th puis Folsom/Main conditionnelle ; droits, timings, holdout/relecteur non qualifiés.
 - Paquet docs/pilot : préenregistrement/schéma/fixtures/métriques ; non calibré, aucune efficacité réelle démontrée.
-- WS12 local : profils/consentement, ledger et mémoire séparée, démo synthétique ; docs/WORKSTREAM_12_REPORT.md ; pas de compte public.
-- Baseline FD publiée : Node 142/142, Chrome 4/4 (historiques) ; WS12 local : Node 153/153, intégrité/CSP conformes, finalisation autorisée en cours ; commercial/rétention et OP01–OP06 ouverts.
+- WS12 livré : dfe5cc7, tag workstream12-release ; ledger/démo synthétique locaux ; docs/WORKSTREAM_12_REPORT.md ; aucun compte public.
+- WS12 Node local/CI 153/153, CSP/intégrité et HTTP prod conformes ; cron antérieur Tests échoué ; OP01–OP06/commercial/rétention ouverts.
