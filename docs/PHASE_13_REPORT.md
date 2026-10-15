@@ -42,3 +42,15 @@ Intégration finale fraîche `node scripts/verify.mjs` : **170/170**, CSP à jou
 ## Phase 14 proposée — pas commencée
 
 Franchir G0/G1/G3 du pilote mesuré : droits explicites et provenance, comptages/époque/géométrie/timings compatibles, protocole préenregistré/holdout protégé, métriques et revue indépendante. Ensuite seulement adapter un simulateur offline approprié et mesurer son erreur de calibration ; aucun optimiseur de vrais feux ou gain causal avant ces preuves. Protection main/transition bot OP01 reste un gate de publication sûr, pas une permission implicite de modifier les réglages.
+
+
+## Publication vérifiée
+
+- Implémentation `409eff2707af686e71e2a5cc3b69f6e72bb33fd9`, 31 fichiers ; [PR #2](https://github.com/vincentleg/core/pull/2), fusion normale `b667c6e8d5307785b548f2d08155d9c57b409eb7`. Origin/main relu avant fusion : toujours c39b3ab ; aucune mise à jour planifiée écrasée, aucun force-push ou bypass.
+- [CI branche 38693309773](https://github.com/vincentleg/core/actions/runs/38693309773), [CI PR 38693331291](https://github.com/vincentleg/core/actions/runs/38693331291), [CI main 38693440503](https://github.com/vincentleg/core/actions/runs/38693440503) : succès. Preuve locale exacte réutilisée par les hooks, sécurité conservée ; une seule suite locale finale complète 170/170.
+- [Pages 38693439788](https://github.com/vincentleg/core/actions/runs/38693439788) réussi sur b667c6e. Production : https://vincentleg.github.io/core/research.html ; Chromium isolé réel : sept contrôles réussis, zéro erreur console/ressource, zéro requête externe (donc aucun modèle ou cityofnewyork). Source et enregistrement vérifiés par recalcul dans la page ; trafic, énergie, facteur, lien WS12 et mobile inspectés. Preuves `/tmp/core-p13-production.json`/`.png`.
+- HTTP sans cache : research.html et phase13-demo.json identiques aux octets du dépôt ; empreintes dans `/tmp/core-p13-http-evidence.json`. Les affirmations restent celles de scénarios non calibrés, pas une validation terrain.
+- Compatibilité feed : workflow inchangé et tests existants verts dans 170/170 ; [run schedule 38692326870](https://github.com/vincentleg/core/actions/runs/38692326870) observé réussi sur l’ancien c39b3ab, avant fusion. Cela ne prouve pas une collecte sur Phase 13 ni une cadence garantie ; aucune collecte supplémentaire déclenchée pour gonfler les preuves.
+- Clôture suivante : documents seulement. Le SHA final, son statut CI/Pages et le tag **phase13-release** sont vérifiés dans Git/GitHub après déploiement ; aucun tag antérieur déplacé.
+
+**Livraison fonctionnelle vérifiée**, avec frontières explicites : deux adapters bornés et agents à règles, pas recherche générale autonome, comptes ouverts ou efficacité réelle. Chrome seul vérifié ; Firefox/Safari et accessibilité exhaustive non vérifiés. OP01/protection main et droits/calibration/revue indépendante SF restent ouverts. Phase 14 non commencée.
