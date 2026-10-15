@@ -24,7 +24,9 @@ const W = 'CORE_WORLD.state';
 const open = async (w, h, mobile = false, reducedMotion = false) => {
   await call('Emulation.setDeviceMetricsOverride', { width: w, height: h, deviceScaleFactor: 1, mobile });
   await call('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: reducedMotion ? 'reduce' : 'no-preference' }] });
-  await call('Page.navigate', { url: URL }); await until('!!globalThis.CORE_WORLD && !!CORE_WORLD.state.map', 30000);
+  // Mark the old document so readiness is never read from the page being replaced.
+  await ev('window.__stale = true, 1').catch(() => 0);
+  await call('Page.navigate', { url: URL }); await until('!window.__stale && !!globalThis.CORE_WORLD && !!CORE_WORLD.state.map', 30000);
   await ev('localStorage.removeItem("core.world.v1"), 1');
 };
 try {

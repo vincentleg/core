@@ -7,6 +7,7 @@ import * as L from './labs.mjs';
 import * as A from './arena.mjs';
 import * as C from './academy.mjs';
 import * as G from './progress.mjs';
+import * as K from '../kb/knowledge.mjs';
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -185,7 +186,30 @@ async function renderProgress(B) {
   $('kd').onsubmit = ev => { ev.preventDefault(); try { const r = G.kardashev(Number($('kd-p').value)); $('kd-out').textContent = `K = ${r.K.toFixed(3)} — ${r.note}.`; } catch (err) { $('kd-out').textContent = err.message; } };
 }
 
-const RENDER = { profile: renderProfile, vault: renderVault, labs: renderLabs, arena: renderArena, academy: renderAcademy, progress: renderProgress };
+// ---------- Knowledge (V5.1): cited answers from verified public records ----------
+const EXAMPLES = ['Quels problèmes de trottoir sur Folsom ?', 'Quelles preuves pour le trottoir Folsom 5th Falmouth ?', 'Quel agent analyse le trottoir de Folsom entre la 5th et Falmouth ?', 'Le trottoir de Folsom est-il dangereux ?', 'travaux Howard 8th 9th', 'Combien de problèmes ?', 'Montre mon coffre à idées'];
+async function renderKnowledge(B) {
+  if (!S.kb) { B.innerHTML = '<p class="fine">Vérification des registres publics…</p>';
+    try { S.kb = await K.buildIndex(async p => { const r = await fetch(K.assertAllowed(p), { cache: 'no-store' }); if (!r.ok) throw Error(`${p} : HTTP ${r.status}`); return r.text(); }); }
+    catch (e) { B.innerHTML = `<p class="warn">Registres indisponibles (${esc(e.message)}). Aucune réponse n’est donnée sans ses sources.</p>`; return; } }
+  const a = S.kbAnswer, f = S.kb.files;
+  B.innerHTML = `<div class="card"><h2>CORE Knowledge — réponses citées</h2>
+    <p class="fine">Méthode ${esc(K.METHOD.id)} v${esc(K.METHOD.version)} : ${esc(K.METHOD.kind)}. Sources lues : ${Object.values(f).map(x => `<code>${esc(x.path)}</code> (${esc(x.integrity === 'verified' ? 'intégrité vérifiée' : x.integrity === 'unanchored' ? 'empreinte calculée, sans référence externe' : 'INTÉGRITÉ ROMPUE')})`).join(', ')}. Aucune donnée privée n’est accessible.</p>
+    <form class="form" id="kb-f"><label>Votre question <input id="kb-q" maxlength="500" autocomplete="off" value="${esc(a?.question || '')}"></label><button type="submit" class="primary">Demander</button></form>
+    <div class="chips">${EXAMPLES.map(q => `<button type="button" data-kq="${esc(q)}">${esc(q)}</button>`).join('')}</div></div>
+    ${a ? `<div class="card" id="kb-answer" aria-live="polite">
+      ${a.refusal ? `<p class="warn"><b>${a.kind === 'refusal' ? 'Refus' : 'Affirmation non soutenue'}</b> (${esc(a.refusal.code)}) — ${esc(a.refusal.reason)}</p>` : ''}
+      ${a.claims.map(c => `<div class="card"><p><span class="badge ${c.status === 'observed' || c.status === 'dataset-record' ? 'observed' : c.status === 'simulated' || c.status === 'hypothesis' ? 'synthetic' : 'approx'}">${esc(K.STATUS[c.status])}</span></p><p>${esc(c.text)}</p>
+        <ul class="hash">${c.citations.map(x => `<li>${esc(x.source)} · ${esc(x.record)}${x.url ? ` · <a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">source</a>` : ''} · SHA-256 ${esc(x.fileSha256.slice(0, 16))}… · ${esc(x.integrity)}</li>`).join('')}</ul></div>`).join('')}
+      ${a.more ? `<p class="fine">${a.more} autre(s) enregistrement(s) correspondant(s) non affiché(s) : précisez la question.</p>` : ''}
+      ${a.uncertainty.length ? `<h3>Incertitudes et limites</h3><ul>${a.uncertainty.map(u => `<li>${esc(u)}</li>`).join('')}</ul>` : ''}
+      ${a.notes?.length ? `<p class="fine">${a.notes.map(esc).join(' ')}</p>` : ''}</div>` : ''}`;
+  const go = async q => { S.kbAnswer = await K.ask(q, S.kb, { history: S.kbTimes || [] }); (S.kbTimes = S.kbTimes || []).push(Date.now()); render(); };
+  $('kb-f').onsubmit = e => { e.preventDefault(); go($('kb-q').value); };
+  B.querySelectorAll('[data-kq]').forEach(b => b.onclick = () => go(b.dataset.kq));
+}
+
+const RENDER = { knowledge: renderKnowledge, profile: renderProfile, vault: renderVault, labs: renderLabs, arena: renderArena, academy: renderAcademy, progress: renderProgress };
 function render() { document.querySelectorAll('.cm-tabs [data-tab]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab === S.tab))); RENDER[S.tab]($('cm-body')); }
 document.querySelectorAll('.cm-tabs [data-tab]').forEach(b => b.onclick = () => { S.tab = b.dataset.tab; render(); $('cm-body').focus(); });
 if (params.get('tab') && RENDER[params.get('tab')]) S.tab = params.get('tab');

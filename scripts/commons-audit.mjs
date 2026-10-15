@@ -89,6 +89,18 @@ try {
   await set('#kd-p', '1e16'); await submit('#kd');
   check('progress: Kardashev calculator is educational and caveated', /K = 1\.000/.test(await ev(`document.getElementById('kd-out').textContent`)) && /bien-être/.test(await ev(`document.getElementById('kd-out').textContent`)));
   await shot('progress');
+  await tabTo('knowledge');
+  check('knowledge: sources listed with integrity, sidewalk dataset verified against its manifest', await until(`document.getElementById('cm-body').textContent.includes('sidewalks.geojson (intégrité vérifiée)')`, 20000));
+  await ev(`document.querySelector('[data-kq="Quelles preuves pour le trottoir Folsom 5th Falmouth ?"]').click(), 1`);
+  check('knowledge: cited answer with status, DataSF link, file fingerprint and uncertainty', await until(`(t => /OBSERVÉ/.test(t) && /10 ft/.test(t) && /SHA-256/.test(t) && /Incertitudes/.test(t))(document.getElementById('cm-body').textContent) && !!document.querySelector('#kb-answer a[href="https://data.sf.gov/d/4g86-grxu"]')`));
+  await wait(1600); // the screening rate-limits questions closer than 1.5 s apart
+  await ev(`document.querySelector('[data-kq="Le trottoir de Folsom est-il dangereux ?"]').click(), 1`);
+  check('knowledge: unsupported safety claim refused with the recorded status', await until(`/Affirmation non soutenue/.test(document.getElementById('cm-body').textContent) && /Aucun enregistrement ne permet d’affirmer/.test(document.getElementById('cm-body').textContent)`));
+  await wait(1600); // the screening rate-limits questions closer than 1.5 s apart
+  await ev(`document.querySelector('[data-kq="Montre mon coffre à idées"]').click(), 1`);
+  check('knowledge: private data refused (the vault is never readable here)', await until(`/private-data/.test(document.getElementById('cm-body').textContent)`));
+  await wait(1600); await set('#kb-q', '<img src=x onerror="window.__pwned=1"> Quels problèmes de trottoir sur Folsom ?'); await submit('#kb-f'); await wait(500);
+  check('knowledge: markup in a question is never executed or rendered', !(await ev(`!!window.__pwned || !!document.querySelector('#cm-body img')`)) && /Trottoir plus étroit/.test(await body()));
   await call('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true }); await wait(300);
   check('mobile: no horizontal overflow', await ev(`document.documentElement.scrollWidth <= innerWidth`));
   check('only GET requests to this site', methods.size === 0 && [...hosts].every(h => h === 'localhost:8000'), [...hosts].join(','));
