@@ -6,7 +6,7 @@ Verified 2026-10-13 unless marked otherwise. CORE rules apply: free/open tools o
 
 | Option | Coverage and quality | Cost and access (verified) | Licence and terms | Fit |
 | --- | --- | --- | --- | --- |
-| **MapLibre GL JS** (in use, 5.7.3) | Global vector globe, terrain, fill-extrusion, custom WebGL layers. No photogrammetry. | Free, no key | BSD-3-Clause | **Primary renderer.** Already integrated and audited in two browsers. |
+| **MapLibre GL JS** (in use, 6.11.2 since D090; 5.7.3 before) | Global vector globe, terrain, fill-extrusion, custom WebGL layers. No photogrammetry. | Free, no key | BSD-3-Clause | **Primary renderer.** Already integrated and audited in two browsers. |
 | **OpenFreeMap** (in use) | OSM-derived planet vector tiles to z14 (overzoomed beyond); weekly planet build (2026-10-11 in use) | Free, keyless, no request limits stated; **no SLA** | Attribution to OpenFreeMap / OpenMapTiles / OSM required; MIT software, ODbL data | **Primary base map.** Self-hostable later if the SLA matters. |
 | **OpenStreetMap** (via the tiles above, Overpass for extracts) | SF landmarks mapped with heights: Transamerica `height=260`, `roof:shape=pyramidal`; Salesforce `height=326`; Coit `height=64`, `man_made=tower`; City Hall `building:part`, `height=30`. Golden Gate Bridge mapped as deck ways plus `man_made=bridge` relation 21407754 (`bridge:structure=suspension`). | Free; Overpass requires an identifying User-Agent (a 406 without one was observed) and was intermittently overloaded | ODbL | Geometry source for alignment, not visual detail. |
 | **Overture Maps** | Global buildings, transportation and places (GeoParquet releases) | Free downloads | Buildings and transportation are ODbL; Places is mixed CDLA-2.0 / Apache / CC0 | Optional alternative building source. No advantage over DataSF inside SF. |
@@ -21,7 +21,7 @@ Verified 2026-10-13 unless marked otherwise. CORE rules apply: free/open tools o
 
 **Primary: the existing MapLibre stack, extended.**
 
-- **Renderer, base map and terrain:** MapLibre GL JS 5.7.3, OpenFreeMap vector tiles and AWS Terrarium terrain.
+- **Renderer, base map and terrain:** MapLibre GL JS 6.11.2 (D090), OpenFreeMap vector tiles and AWS Terrarium terrain.
 - **SF data layers:** native MapLibre GeoJSON sources fed from dated snapshots (permits, moratoria, closures, crashes, signals, corridor geometry).
 - **Landmarks:** one new pinned dependency, three.js (MIT), used in a MapLibre custom layer. It draws CORE-authored procedural models (section 4). It loads only near San Francisco at zoom ≥ 12.
 

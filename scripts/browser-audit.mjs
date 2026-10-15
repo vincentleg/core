@@ -150,7 +150,7 @@ try {
   await evaluate(`document.querySelector('#tab-agents').click(); (s => { s.value = '450'; s.dispatchEvent(new Event('change')); })(document.querySelector('#cw-speed')); document.querySelector('#cw-run').click(); 0`);
   await pause(2500);
   check('agents run live with labelled real execution', await evaluate(`CORE_COORD_VIEW.state.mode === 'running' && document.querySelector('#cw-status').textContent.includes('EXÉCUTION RÉELLE') && document.querySelectorAll('#cw-log li').length > 0`));
-  check('map follows the segment being inspected', await evaluate(`__CORE_MAP.getSource('coord-scan')._data.features.length > 0 || __CORE_MAP.querySourceFeatures('coord-scan').length > 0`));
+  check('map follows the segment being inspected', await evaluate(`(async () => (await __CORE_MAP.getSource('coord-scan').getData()).features.length > 0 || __CORE_MAP.querySourceFeatures('coord-scan').length > 0)()`));
   await evaluate(`document.querySelector('#cw-pause').click(); 0`); await pause(600);
   const n1 = await evaluate('CORE_COORD_VIEW.state.events.length'); await pause(1500);
   check('pause stops execution', n1 === await evaluate('CORE_COORD_VIEW.state.events.length') && await evaluate(`document.querySelector('#cw-status').textContent.includes('EN PAUSE')`));
@@ -165,7 +165,7 @@ try {
   check('finding permits highlighted by organisation', await evaluate(`__CORE_MAP.queryRenderedFeatures({ layers: ['coord-points-circle'] }).length >= 2`));
   check('five scenarios evaluated and compared', await evaluate(`document.querySelectorAll('#cw-detail [data-s]').length === 5 && !!document.querySelector('#cw-detail table.metrics') && !!document.querySelector('#cw-detail svg.gantt')`));
   await evaluate(`document.querySelector('#cw-detail [data-s="S1"]').click(); 0`); await pause(500);
-  check('selecting a scenario updates metrics and map', await evaluate(`document.querySelector('#cw-detail table.metrics thead').textContent.includes('S1') && __CORE_MAP.getSource('coord-points')._data.features.some(f => f.properties.moved) === CORE_COORD_VIEW.state.result.analyses['${top.id}'].result.scenarios.find(s => s.id === 'S1').windows.some(w => w.shift !== 0)`));
+  check('selecting a scenario updates metrics and map', await evaluate(`(async () => document.querySelector('#cw-detail table.metrics thead').textContent.includes('S1') && (await __CORE_MAP.getSource('coord-points').getData()).features.some(f => f.properties.moved) === CORE_COORD_VIEW.state.result.analyses['${top.id}'].result.scenarios.find(s => s.id === 'S1').windows.some(w => w.shift !== 0))()`));
   check('decision requires human review and authorizes nothing', await evaluate(`(t => t.includes('Revue humaine obligatoire') && t.includes('n’autorise ni n’applique'))(document.querySelector('#cw-detail .decision').textContent) && CORE_COORD_VIEW.state.result.decisions['${top.id}'].decision.authorizes === false`));
   check('decision state matches Node gateway', await evaluate(`CORE_COORD_VIEW.state.result.decisions['${top.id}'].decision.state`) === snap.result.decisions[top.id].decision.state);
   check('metrics provenance and assumptions shown', await evaluate(`(t => t.includes('HYPOTHÉTIQUE') && t.includes('DÉRIVÉ DES DATES OBSERVÉES') && t.includes('Aucun coût'))(document.querySelector('#cw-detail').textContent)`));
@@ -188,8 +188,8 @@ try {
   await evaluate(`(i => { i.checked = false; i.dispatchEvent(new Event('change')); })(document.querySelector('[data-theme=nature]')); 0`); await pause(300);
   check('theme toggle hides its layers', await evaluate(`__CORE_MAP.getLayoutProperty('city-trees', 'visibility') === 'none'`));
   await evaluate(`(i => { i.checked = true; i.dispatchEvent(new Event('change')); })(document.querySelector('[data-theme=nature]')); 0`);
-  const bpAll = await evaluate(`CORE_CITY_VIEW.state.period = 'all'; CORE_CITY_VIEW.syncThemes(); __CORE_MAP.getSource('city-bp-src')._data.features.length`);
-  const bpRecent = await evaluate(`(s => { s.value = 'recent'; s.dispatchEvent(new Event('change')); })(document.querySelector('#th-period')); __CORE_MAP.getSource('city-bp-src')._data.features.length`);
+  const bpAll = await evaluate(`(async () => { CORE_CITY_VIEW.state.period = 'all'; CORE_CITY_VIEW.syncThemes(); return (await __CORE_MAP.getSource('city-bp-src').getData()).features.length; })()`);
+  const bpRecent = await evaluate(`(async () => { (s => { s.value = 'recent'; s.dispatchEvent(new Event('change')); })(document.querySelector('#th-period')); return (await __CORE_MAP.getSource('city-bp-src').getData()).features.length; })()`);
   check('time filter changes displayed building permits', bpRecent < bpAll && bpRecent > 0);
   await evaluate(`document.querySelector('#tab-city').click(); (s => { s.value = '0'; s.dispatchEvent(new Event('change')); })(document.querySelector('#ci-speed')); document.querySelector('#ci-run').click(); 0`);
   await until(`CORE_CITY_VIEW.state.mode === 'done'`, 400);
@@ -302,10 +302,10 @@ try {
   check('record markers appear by zoom and a density layer aggregates segments below', await evaluate(`['sf-permits', 'city-trees', 'sf-moratoria-point'].every(id => !__CORE_MAP.getLayer(id) || __CORE_MAP.getLayer(id).minzoom >= 14) && !!__CORE_MAP.getLayer('core-density') && __CORE_MAP.getLayer('core-density').maxzoom <= 14.5`));
   check('layers popover holds a legend with visibility zooms', await evaluate(`(t => t.includes('Légende') && t.includes('zoom ≥ 14,5'))(document.querySelector('#map-legend').textContent)`));
   await evaluate(`__CORE_MAP.jumpTo({ center: [-122.4065, 37.7795], zoom: 15, pitch: 50, bearing: -44 }); document.querySelector('[data-sec=sims]').click(); 0`); await pause(3000);
-  check('simulation is drawn on the map per block with an exploratory badge', await evaluate(`(d => d.features.some(f => f.properties.kind === 'block') && d.features.some(f => f.properties.kind === 'label') && !document.querySelector('#sim-badge').hidden)(__CORE_MAP.getSource('pf-sim')._data)`));
+  check('simulation is drawn on the map per block with an exploratory badge', await evaluate(`(async () => (d => d.features.some(f => f.properties.kind === 'block') && d.features.some(f => f.properties.kind === 'label') && !document.querySelector('#sim-badge').hidden)(await __CORE_MAP.getSource('pf-sim').getData()))()`));
   check('record markers are hidden while the simulation is shown', await evaluate(`__CORE_MAP.getLayoutProperty('sf-permits', 'visibility') === 'none'`));
   await evaluate(`(s => { s.value = 'A2'; s.dispatchEvent(new Event('change')); })(document.querySelector('#sm-compare')); 0`); await pause(1500);
-  check('scenario comparison maps per-block differences', await evaluate(`(d => d.features.some(f => f.properties.dstatus === 'up') && d.features.some(f => f.properties.dstatus === 'down'))(__CORE_MAP.getSource('pf-sim')._data)`));
+  check('scenario comparison maps per-block differences', await evaluate(`(async () => (d => d.features.some(f => f.properties.dstatus === 'up') && d.features.some(f => f.properties.dstatus === 'down'))(await __CORE_MAP.getSource('pf-sim').getData()))()`));
   check('inspector shifts the camera focus (padding)', await evaluate(`__CORE_MAP.getPadding().right > 0`));
   await evaluate(`(s => { s.value = 'none'; s.dispatchEvent(new Event('change')); })(document.querySelector('#sm-compare')); document.querySelector('[data-sec=agents]').click(); 0`); await pause(1500);
   check('leaving the simulation restores record markers', await evaluate(`__CORE_MAP.getLayoutProperty('sf-permits', 'visibility') !== 'none' && document.querySelector('#sim-badge').hidden`));
@@ -370,9 +370,12 @@ try {
   check('privacy: fonts self-hosted (no Google request), privacy notice linked', await evaluate(`!performance.getEntriesByType('resource').some(r => /fonts\\.(googleapis|gstatic)/.test(r.name)) && !!document.querySelector('a[href="privacy.html"]') && document.fonts.check('12px "IBM Plex Sans"')`));
   // ---- Phase 9: activity layer, occlusion, memory, demo honesty ----
   check('activity feed replays recorded messages only, labelled RELECTURE', await evaluate(`(() => { const S = CORE_ACTIVITY.state, m = S.current; return S.missions.length >= 4 && !!m && S.feed.length > 0 && S.feed.every(f => f.label === 'RELECTURE' && S.missions.some(x => x.messages.some(y => y.purpose === f.purpose))); })()`));
-  check('occlusion: an agent behind a tall building is hidden, one in front is not', await evaluate(`(async () => { __CORE_MAP.jumpTo({ center: [-122.3965, 37.7895], zoom: 16.2, pitch: 60, bearing: 0 }); await new Promise(x => setTimeout(x, 4000)); CORE_MOTION.occlusion(); const m = __CORE_MAP, cam = m.transform.getCameraLngLat().toArray(), B = CORE_MOTION.state.bld, f = B.list.filter(b => b.h > 100).sort((a, b) => b.h - a.h)[0]; if (!f) return false;
-    const c = [(f.bb[0] + f.bb[2]) / 2, (f.bb[1] + f.bb[3]) / 2], z = m.getCenter(), mpp = 40075016.686 * Math.cos(z.lat * Math.PI / 180) / (512 * 2 ** m.getZoom()), alt = m.transform.cameraToCenterDistance * mpp * Math.cos(m.getPitch() * Math.PI / 180), d = [c[0] - cam[0], c[1] - cam[1]];
-    return CORE_MOTION.occludedAt(cam, alt, [c[0] + d[0] * 0.08, c[1] + d[1] * 0.08]) === true && CORE_MOTION.occludedAt(cam, alt, [c[0] - d[0] * 0.3, c[1] - d[1] * 0.3]) === false; })()`));
+  check('occlusion: an agent behind a tall building is hidden, one in front is not', await evaluate(`(async () => { __CORE_MAP.jumpTo({ center: [-122.3965, 37.7895], zoom: 16.2, pitch: 60, bearing: 0 }); await new Promise(x => setTimeout(x, 4000)); CORE_MOTION.occlusion(); const m = __CORE_MAP, { cam, alt } = CORE_MOTION.camera(), B = CORE_MOTION.state.bld, f = B.list.filter(b => b.h > 100).sort((a, b) => b.h - a.h)[0]; if (!f) return false;
+    const c = [(f.bb[0] + f.bb[2]) / 2, (f.bb[1] + f.bb[3]) / 2], d = [c[0] - cam[0], c[1] - cam[1]];
+    const behind = [c[0] + d[0] * 0.08, c[1] + d[1] * 0.08], front = [c[0] - d[0] * 0.3, c[1] - d[1] * 0.3], realBehind = CORE_MOTION.occludedAt(cam, alt, behind);
+    // The "front" point may sit behind other towers depending on which tiles are loaded, so the property is checked against this tower alone.
+    const only = { list: [f], grid: new Map(), CELL: B.CELL }; for (let x = Math.floor(f.bb[0] / B.CELL); x <= Math.floor(f.bb[2] / B.CELL); x++) for (let y = Math.floor(f.bb[1] / B.CELL); y <= Math.floor(f.bb[3] / B.CELL); y++) only.grid.set(x + ',' + y, [0]);
+    const saved = CORE_MOTION.state.bld; CORE_MOTION.state.bld = only; try { return realBehind === true && CORE_MOTION.occludedAt(cam, alt, behind) === true && CORE_MOTION.occludedAt(cam, alt, front) === false; } finally { CORE_MOTION.state.bld = saved; } })()`));
   await evaluate(`CORE_AGENT_PROFILE.open('core.san-francisco.mobility.lead', 'memory').then(() => 0)`); await pause(800);
   check('agent memory tab shows identity, knowledge, episodes and institutional memory from the published export', await evaluate(`(t => /Identité \\(version/.test(t) && /Épisodes \\([1-9]/.test(t) && /Mémoire institutionnelle liée \\([1-9]/.test(t) && /approved/.test(t))(document.querySelector('#agent-card').textContent)`));
   await evaluate(`CORE_AGENT_PROFILE.close(); CORE_DEMO.go(8); 0`); await pause(1500);
@@ -394,7 +397,7 @@ try {
   check('cities view: two operational cities, comparability verdicts, decision options I0–I3, discovery report', await evaluate(`(t => /2\s*villes opérationnelles/.test(t) && /non comparable/.test(t) && ['I0 —', 'I1 —', 'I2 —', 'I3 —'].every(x => t.includes(x)) && /Sensibilité : 18 combinaisons/.test(t) && /Découverte automatique/.test(t) && /Aucune couverture planétaire/.test(t))(document.querySelector('#ws-body').textContent)`));
   await shot('phase10-cities');
   await evaluate(`CORE_PLATFORM.show('world'); (async () => { await CORE_ACTIVITY.load(); const w = CORE_ACTIVITY.state.missions.find(x => x.id.startsWith('world:')); CORE_ACTIVITY.state.follow = false; CORE_ACTIVITY.playOnly(w.id); })(); 0`); await pause(2500);
-  check('cross-city replay draws the labelled San Francisco ↔ New York arc', await evaluate(`(s => s && s._data && s._data.features && s._data.features.length === 1 && /San Francisco ↔ New York/.test(s._data.features[0].properties.label))(__CORE_MAP.getSource('civ-arc'))`) || await evaluate(`__CORE_MAP.querySourceFeatures('civ-arc').length > 0`));
+  check('cross-city replay draws the labelled San Francisco ↔ New York arc', await evaluate(`(async s => { const d = s && await s.getData(); return !!(d && d.features && d.features.length === 1 && /San Francisco ↔ New York/.test(d.features[0].properties.label)); })(__CORE_MAP.getSource('civ-arc'))`) || await evaluate(`__CORE_MAP.querySourceFeatures('civ-arc').length > 0`));
   await evaluate(`CORE_ACTIVITY.stop(); CORE_ACTIVITY.state.follow = true; 0`);
   check('the page never contacts NYC Open Data (published snapshot only); a model endpoint only in local mode', await evaluate(`!performance.getEntriesByType('resource').some(r => /cityofnewyork/.test(r.name) || (!CORE_PLATFORM.state.local && /11434/.test(r.name)))`));
   await evaluate(`CORE_PLATFORM.show('health'); 0`); await pause(4000);
