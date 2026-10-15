@@ -1,6 +1,6 @@
 # CORE — master roadmap consolidé
 
-Statut : reconstruction documentaire, pas ratification rétroactive. Base auditée : `1f0adb4` ; Phases 10/11 livrées à `a25169c` / `088ebe4`. Directions FD01–FD08 approuvées le 2026-10-14 ; mission actuelle : **consolidation finale, récupération du cron et préparation scientifique**, après livraison du Workstream 12, sans ouverture publique ni phase cosmétique. Constitution V1 et directions actuelles : [FOUNDER_DECISIONS.md](FOUNDER_DECISIONS.md). Les décisions de conversation absentes du dépôt restent UNVERIFIED / FOUNDER CONFIRMATION REQUIRED.
+Statut : reconstruction documentaire, pas ratification rétroactive. Base auditée : `1f0adb4` ; Phases 10/11 livrées à `a25169c` / `088ebe4`. Directions FD01–FD08 approuvées le 2026-10-14 ; mission actuelle : **Phase 13, moteur scientifique et preuve de bout en bout**, après récupération et livraison du Workstream 12, sans ouverture publique ni phase cosmétique. Constitution V1 et directions actuelles : [FOUNDER_DECISIONS.md](FOUNDER_DECISIONS.md). Les décisions de conversation absentes du dépôt restent UNVERIFIED / FOUNDER CONFIRMATION REQUIRED.
 
 ## Hiérarchie des preuves et produits
 
@@ -87,3 +87,10 @@ Ordre inchangé : FD03 et qualification du pilote SF, puis validation/calibratio
 Matrice courante des workstreams 1–12 : [WORKSTREAM_CLOSURE_MATRIX.md](WORKSTREAM_CLOSURE_MATRIX.md) ; preuves de récupération/publication : [RECOVERY_SCIENTIFIC_READINESS_REPORT.md](RECOVERY_SCIENTIFIC_READINESS_REPORT.md). Ces workstreams transversaux ne renomment pas O/F/L ni une Phase 12. Le corpus Kardashev et le cadre multidimensionnel [CIVILIZATION_RESEARCH.md](CIVILIZATION_RESEARCH.md) alimentent Civilization sans substituer énergie à paix, liberté, santé ou écologie. CORE Public porte la participation future ; Business reste professionnel/authentifié ; World immersif reste optionnel et distant.
 
 Priorité : fiabilité du cron et transition FD03 sûre, puis G0/G1/G3 du pilote Howard 6th–7th conditionnel. Comptages/feux réels, SUMO/calibration, indépendance et effets mesurés demeurent différés ; les fondations locales testées ne les clôturent pas. Aucun compte public, modèle payant, installation de simulateur ou contrôle terrain autorisé.
+
+
+## L13 — Scientific engine, agent tooling & end-to-end proof
+
+Mandat fondateur explicite du 2026-10-15 UTC, après récupération/WS12. Ce numéro autorisé ne complète ni ne renomme les critères scientifiques O/F différés, ni une Phase 12 historique inexistante dans le registre. Implémentation : `src/research.js`, CLI/mémoire `scripts/research.mjs`, laboratoire `research.html`, lien WS12 exact-version et conseil scientifique partagé. Baseline + deux variantes, sources locales épinglées, dissidence, sensibilités et recalcul ; deux adapters bornés (trafic synthétique, énergie historique). Résultats de validation/publication : [PHASE_13_REPORT.md](PHASE_13_REPORT.md).
+
+Mémoire locale, reprise, consentement et gate fermé n’établissent ni identité authentifiée, indépendance expérimentale, calibration ou impact. Le cadre Kardashev reste une dimension physique parmi les droits/bien-être/paix/écologie. Priorité suivante proposée, non commencée : Phase 14, qualification/ingestion de mesures autorisées, baseline/holdout et revue indépendante avant simulateur calibré. FD03/OP01 demeure ouvert. Aucune Constitution réécrite, ouverture Public/Business ou World immersif engagée.

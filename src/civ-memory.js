@@ -35,6 +35,12 @@ function open(file = ':memory:', { clock = () => new Date().toISOString() } = {}
     e.hash = sha256(stable(e)); run('INSERT INTO events (n, at, kind, ref, detail, prev, hash) VALUES (?, ?, ?, ?, ?, ?, ?)', e.n, e.at, e.kind, e.ref, e.detail, e.prev, e.hash); return e;
   }
   const api = {
+    transaction(fn) {
+      if (typeof fn !== 'function' || fn.constructor.name === 'AsyncFunction') throw Error('Synchronous memory transaction required');
+      db.exec('BEGIN IMMEDIATE');
+      try { const value = fn(); if (value?.then) throw Error('Synchronous memory transaction required'); db.exec('COMMIT'); return value; }
+      catch (e) { db.exec('ROLLBACK'); throw e; }
+    },
     putIdentity(agent, version, body) { run('INSERT OR REPLACE INTO identity VALUES (?, ?, ?, ?)', agent, version, JSON.stringify(body), clock()); },
     identity(agent) { const r = q('SELECT * FROM identity WHERE agent = ? ORDER BY at DESC LIMIT 1', agent)[0]; return r ? { ...JSON.parse(r.body), version: r.version } : null; },
     putKnowledge(agent, docs) { for (const d of docs) run('INSERT OR REPLACE INTO knowledge VALUES (?, ?, ?, ?, ?)', agent, d.id, String(d.version), d.source || null, clock()); },

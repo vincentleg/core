@@ -1,10 +1,10 @@
 # CORE — état courant faisant autorité
-- Phases O/F/L/releases préservées ; WS12 dfe5cc7/tag workstream12-release ; aucun compte public ni intervention réelle.
-- Constitution V1/FD01–08 adoptées ; OP01–06 distinctes ; docs/FOUNDER_DECISIONS.md ; engagements FC01–26 traçables.
-- Récupération livrée : code 1c1e5eb, PR #1/fusion a1e5f3e ; docs/RECOVERY_SCIENTIFIC_READINESS_REPORT.md.
-- Matrice WS1–12 : docs/WORKSTREAM_CLOSURE_MATRIX.md ; statut global PARTIAL, pas de phase scientifique différée déclarée accomplie.
-- Cron réparé : run réel manuel 38690197479 réussi, 364 éléments/zéro source en échec/159 tests ; bot a646c84 préservé ; prochain schedule non attesté.
-- Main non protégée, PR Actions désactivées ; template/payload inactifs préparés ; OP01 et PR réelle vérifiée avant activation.
-- Pilote Howard 6th–7th puis Folsom/Main conditionnels : droits/timings/holdout/relecteur manquants ; aucun calibrage/SUMO/mesure redistribuée.
-- Recherche : 11 sources/10 affirmations, SI/Kardashev/retrieval local ; aucun score humain/impact réel ; privacy pilote et WS12 fail-closed testés.
-- Ciblés 33/33, intégration/CI/rehearsal 159/159 ; CSP/intégrité/HTTP prod conformes ; UI inchangée, pas de nouvelle suite navigateur ni outil/coût.
+- Historique O/F/L, Constitution V1 et FD01–08 préservés ; WS12/recovery livrés ; Phase 13 explicitement autorisée, Phase 14 proposée seulement.
+- Phase 13 sur phase13/scientific-engine, base c39b3ab ; docs/PHASE_13_REPORT.md et PHASE_13_TOOLING.md ; publication en préparation.
+- Recherche Node/navigateur : questions strictes, baseline + deux variantes, conseil existant, dissidence/sensibilité, dossier JSON/Markdown et vérification fail-closed.
+- Mémoire SQLite privée : findings candidats versionnés/atomiques, réouverture et déduplication ; aucune approbation terrain.
+- WS12 : contribution fictive/consentement → question bornée → résultat lié à exacte révision ; privé non exporté, zéro compte public/impact réel.
+- Démo research.html liée au globe et Science ; trafic entièrement synthétique, énergie 2024 sourcée ; aucune calibration Howard/SUMO.
+- Ciblés 34/34, intégration 170/170/CSP/intégrité conformes ; Chromium local sept checks, zéro erreur/externe ; CI/production à vérifier.
+- Outils natifs réutilisés, aucun installé ; Ollama facultatif testé une fois, aucun gain démontré/default ; docs/PHASE_13_TOOLING.md.
+- Main non protégée/OP01 ouvert ; pilote : droits/timings/holdout/relecteur manquants ; aucun coût, réglage distant ou contrôle réel ajouté.
