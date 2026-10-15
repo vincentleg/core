@@ -1469,6 +1469,10 @@
     {
      "id": "scenario.investigate",
      "basis": "declared"
+    },
+    {
+     "id": "decision.interventions",
+     "basis": "declared"
     }
    ],
    "knowledge": [
@@ -1476,7 +1480,8 @@
     "k-proximity-indicator"
    ],
    "tools": [
-    "scenario.investigate"
+    "scenario.investigate",
+    "decision.interventions"
    ],
    "permission": "analyze",
    "supervisor": "core.san-francisco.simulation.lead",
@@ -2595,7 +2600,7 @@
    "code": "CORE-SAF-0068"
   }
  ],
- "generated_at": "2026-10-14T22:36:48.303Z",
+ "generated_at": "2026-10-15T06:04:13.990Z",
  "counts": {
   "registered": 68,
   "executable": 19,
