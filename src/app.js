@@ -303,7 +303,7 @@
     const pm = S.permit, box = $('permit');
     if (!pm) { box.innerHTML = '<p class="empty">Aucune proposition pour l’instant. Lance les agents : ils vont tester des milliers de plans de feux sur ce corridor, puis les attaquer avec des plot twists. Seul le plan qui survit arrive ici.</p>'; return; }
     if (!pm.plan) { box.innerHTML = `<div class="pill bad">BLOQUÉ</div><p>${esc(pm.reason)}</p><p class="note">Aucun gain disponible. Aucune action réelle.</p>`; return; }
-    const cls = pm.state === 'PRÊT POUR SIGNATURE' ? 'ok' : pm.state === 'SUSPENDU' ? 'warn' : 'bad';
+    const cls = pm.state === 'PRÊT POUR SIGNATURE' ? 'info' : pm.state === 'SUSPENDU' ? 'warn' : 'bad';
     box.innerHTML = `<div class="pill ${cls}">${esc(pm.state)}</div>
       ${S.changed ? '<p class="changed">Le monde a changé : la Passerelle a réévalué le permis avec les agents adversaires.</p>' : ''}
       <p class="reason">${esc(pm.reason)}</p>

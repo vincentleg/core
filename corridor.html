@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-9fJdxN/KtiwFO7oaHnvAt6txA+K58MyEXRm7ktC4r54=' 'sha256-5zMMO7okGFsVype9N6rTYTevHp4zlyfk/uC1wSYBExI='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-9fJdxN/KtiwFO7oaHnvAt6txA+K58MyEXRm7ktC4r54=' 'sha256-ZOcHWEehNXnVfycaCjUt2fryo/Q552g72IovXar+zhU='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
 <title>CORE · CORE World</title>
@@ -69,6 +69,8 @@ input[type=range] { accent-color: var(--cyan); flex: 1; min-width: 100px; }
 .pill { align-self: flex-start; font: 700 12px var(--display); letter-spacing: 0.12em; padding: 4px 10px; border-radius: 2px; }
 .pill.ok { color: var(--void); background: var(--green); }
 .pill.ok::before { content: '✓ '; }
+.pill.info { color: var(--void); background: var(--cyan); }
+.pill.info::before { content: '◇ '; }
 .pill.warn { color: var(--void); background: var(--amber); }
 .pill.warn::before { content: '⏸ '; }
 .pill.bad { color: var(--ink); background: var(--red); }
@@ -762,7 +764,7 @@ if (typeof module !== 'undefined') module.exports = CORE; else globalThis.CORE =
     const pm = S.permit, box = $('permit');
     if (!pm) { box.innerHTML = '<p class="empty">Aucune proposition pour l’instant. Lance les agents : ils vont tester des milliers de plans de feux sur ce corridor, puis les attaquer avec des plot twists. Seul le plan qui survit arrive ici.</p>'; return; }
     if (!pm.plan) { box.innerHTML = `<div class="pill bad">BLOQUÉ</div><p>${esc(pm.reason)}</p><p class="note">Aucun gain disponible. Aucune action réelle.</p>`; return; }
-    const cls = pm.state === 'PRÊT POUR SIGNATURE' ? 'ok' : pm.state === 'SUSPENDU' ? 'warn' : 'bad';
+    const cls = pm.state === 'PRÊT POUR SIGNATURE' ? 'info' : pm.state === 'SUSPENDU' ? 'warn' : 'bad';
     box.innerHTML = `<div class="pill ${cls}">${esc(pm.state)}</div>
       ${S.changed ? '<p class="changed">Le monde a changé : la Passerelle a réévalué le permis avec les agents adversaires.</p>' : ''}
       <p class="reason">${esc(pm.reason)}</p>

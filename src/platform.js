@@ -9,7 +9,7 @@
   const safeUrl = u => (/^https:\/\//i.test(String(u || '')) ? u : '#');
   const KIND = { observation: 'Observation', statistic: 'Statistique agrégée', 'public-notice': 'Avis public', proposal: 'Proposition', 'approved-decision': 'Décision approuvée', 'ongoing-project': 'Projet en cours', 'completed-work': 'Travaux terminés', prediction: 'Prévision / modèle', announcement: 'Annonce d’agence', commentary: 'Commentaire', opinion: 'Opinion', allegation: 'Allégation (non établie)' };
   const EPI = { observed: ['Observé', 'ok'], reported: ['Rapporté', 'info'], derived: ['Dérivé', 'info'], hypothesis: ['Hypothèse', 'warn'], simulated: ['Simulé', 'warn'] };
-  const DEC = { 'ÉLIGIBLE À LA REVUE HUMAINE': 'ok', 'PREUVES SUPPLÉMENTAIRES REQUISES': 'warn', REJETÉ: 'fail', 'PRÊT POUR REVUE HUMAINE': 'ok', SUSPENDU: 'warn', BLOQUÉ: 'fail' };
+  const DEC = { 'ÉLIGIBLE À LA REVUE HUMAINE': 'info', 'PREUVES SUPPLÉMENTAIRES REQUISES': 'warn', REJETÉ: 'fail', 'PRÊT POUR REVUE HUMAINE': 'info', SUSPENDU: 'warn', BLOQUÉ: 'fail' };
   const MS_STATE = { 'needs-human-review': 'ok', 'needs-evidence': 'warn', rejected: 'fail', failed: 'fail', cancelled: 'warn', running: 'info', reviewing: 'info', planning: 'info', assigned: 'info', received: 'info', concluded: 'ok' };
   const LS = 'core.feeds.browser.v1';
   const P = { map: null, fly: null, sec: 'world', registry: null, counts: null, evals: null, K: null, store: { items: [] }, state: null, browser: { sources: {}, intervalMin: 15, timer: null, next: null }, missions: [], recorded: null, current: null, filter: { kind: 'all', domain: 'all', corridor: false }, llm: null, selectedAgent: null };

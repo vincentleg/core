@@ -69,6 +69,8 @@ input[type=range] { accent-color: var(--cyan); flex: 1; min-width: 100px; }
 .pill { align-self: flex-start; font: 700 12px var(--display); letter-spacing: 0.12em; padding: 4px 10px; border-radius: 2px; }
 .pill.ok { color: var(--void); background: var(--green); }
 .pill.ok::before { content: '✓ '; }
+.pill.info { color: var(--void); background: var(--cyan); }
+.pill.info::before { content: '◇ '; }
 .pill.warn { color: var(--void); background: var(--amber); }
 .pill.warn::before { content: '⏸ '; }
 .pill.bad { color: var(--ink); background: var(--red); }

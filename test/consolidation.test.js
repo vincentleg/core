@@ -116,3 +116,13 @@ test('a stopped activity playback cannot undo a mission replay that started afte
   assert.deepEqual(dims.at(-1), ['r'], 'the replay keeps its dimming');
   assert.deepEqual(posts, [], 'no replay participant is sent back to its post by the stopped playback');
 });
+
+test('pre-approval states are never styled as a passed check (Prêt pour signature ≠ approuvé)', () => {
+  const ROOT = path.join(__dirname, '..');
+  const PENDING = /'(ÉLIGIBLE À LA REVUE HUMAINE|PRÊT POUR REVUE HUMAINE|PRÊT POUR SIGNATURE)'\s*(:|\?)\s*'ok'/;
+  // src/coord.js is excluded: its 'ok' is an event-log status inside recorded, fingerprinted missions, not a style.
+  for (const f of ['app.js', 'city-view.js', 'cognitive-view.js', 'coord-view.js', 'platform.js', 'cities-view.js', 'civ.js', 'civ-activity.js'])
+    assert.doesNotMatch(fs.readFileSync(path.join(ROOT, 'src', f), 'utf8'), PENDING, f);
+  assert.match(fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8'), /\.state\.info \{/);
+  assert.match(fs.readFileSync(path.join(ROOT, 'src/template.html'), 'utf8'), /\.pill\.info \{/);
+});
