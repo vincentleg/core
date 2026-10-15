@@ -6,5 +6,5 @@
 - WS12 fictif : consentement → question → résultat lié à exacte révision/historique ; privé non exporté, aucun compte public/adoption/impact réel.
 - Trafic entièrement synthétique ; énergie 2024 sourcée, unités SI/K explicites ; aucun calibrage Howard/SUMO, progrès humain non réduit à l’énergie.
 - Ciblés 34/34, intégration/CI 170/170/CSP/intégrité conformes ; Chromium local et production sept checks chacun, zéro erreur/externe ; Firefox/Safari non vérifiés.
-- Outils natifs réutilisés, aucun installé ; Ollama opt-in testé une fois sans gain démontré/default ; docs/PHASE_13_TOOLING.md.
+- Consolidation 9–13 (branche consolidation/phase9-13, non poussée) : supersession mémoire corrigée (constat approuvé humain non retirable par agent), scaffolding Phase 14 split/holdout scellé/baseline ; docs/development/CORE_*.md, docs/science/PHASE14_VALIDATION_READINESS.md ; verify 174/174, intégrité conforme ; outillage Claude 903ea98.
 - Main non protégée/OP01 ouvert ; pilote droits/timings/holdout/relecteur manquants ; aucun coût, réglage distant ou contrôle réel ajouté.

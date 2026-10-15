@@ -120,6 +120,7 @@
         if (memory) { const key = id.replace(/@[^+]*/g, ''), all = memory.entries({ kind: 'finding', workflow: 'cross-city-road-safety' }), mine = all.filter(e => e.mission === id && e.status !== 'rejected');
           for (const old of all.filter(e => e.mission !== id && e.mission.replace(/@[^+]*/g, '') === key && e.mission < id && ['verified', 'reviewed', 'approved'].includes(e.status))) {
             const succ = mine.find(e => e.statement.split(':')[0] === old.statement.split(':')[0]); if (!succ) continue; // unchanged statements keep their entry
+            if (old.status === 'approved') { (m.conflicts = m.conflicts || []).push({ entry: old.id, successor: succ.id, note: 'constat approuvé par un humain : remplacement en attente de décision humaine' }); continue; }
             const r = memory.supersede(old.id, succ.id, `core.${parts[0].city}.research.evidence-verifier`, 'remplacé par une comparaison sur des instantanés plus récents'); if (r.conflict) (m.conflicts = m.conflicts || []).push({ entry: old.id, successor: succ.id, note: 'valeurs différentes entre instantanés' }); } }
       } catch (e) { if (e.crash) throw e; m.state = e.stopped ? 'CANCELLED' : 'FAILED'; m.errors.push(e.stopped ? 'arrêt d’urgence' : e.message); if (memory) memory.checkpoint(m.id, m.state, m); }
       m.metrics = { wallMs: Date.now() - t0, subtasks: m.subtasks.length, failed: m.subtasks.filter(s => s.state === 'failed').length, toolCalls: m.subtasks.length, messages: m.messages.length, modelCalls: 0, memoryReused: m.memoryReused.length };

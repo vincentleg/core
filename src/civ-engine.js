@@ -256,6 +256,7 @@ function createEngine({ city = 'san-francisco', registry = ORG.buildRegistry(), 
     // changed numbers are recorded as conflicts for human attention. The newest finding of this mission is the successor.
     const key = m.id.replace(/@.*$/, ''), mine = memory.entries({ kind: 'finding', workflow: m.workflow }).filter(e => e.mission === m.id && e.status !== 'rejected');
     if (mine.length) for (const old of memory.entries({ kind: 'finding', workflow: m.workflow }).filter(e => e.mission !== m.id && e.mission.replace(/@.*$/, '') === key && e.mission < m.id && ['verified', 'reviewed', 'approved'].includes(e.status))) {
+      if (old.status === 'approved') { m.conflicts.push({ entry: old.id, successor: mine[0].id, note: 'constat approuvé par un humain : remplacement en attente de décision humaine' }); continue; }
       const r = memory.supersede(old.id, mine[0].id, VERIFIER, `remplacé par l’instantané du ${cx.asOf}`); if (r.conflict) m.conflicts.push({ entry: old.id, successor: mine[0].id, note: 'valeurs différentes entre instantanés' });
     }
   }

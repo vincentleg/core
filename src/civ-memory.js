@@ -69,6 +69,9 @@ function open(file = ':memory:', { clock = () => new Date().toISOString() } = {}
     supersede(oldId, newId, by, note = '') {
       const o = q('SELECT * FROM institutional WHERE id = ?', oldId)[0], n = q('SELECT * FROM institutional WHERE id = ?', newId)[0]; if (!o || !n) throw new Error('entrée inconnue');
       if (oldId === newId) throw new Error('une entrée ne peut se remplacer elle-même');
+      // A rejected or retired entry never replaces knowledge; a human-approved finding is only retired by a human.
+      if (['rejected', 'superseded'].includes(n.status)) throw new Error(`un remplaçant ${n.status} ne peut pas remplacer une entrée`);
+      if (o.status === 'approved' && o.kind === 'finding' && !HUMAN.test(by)) throw new Error('un constat approuvé par un humain ne peut être remplacé que par un humain');
       const nums = t => (String(t).match(/\d+(?:[.,]\d+)?/g) || []).join(' '), conflict = o.workflow === n.workflow && nums(o.statement) !== nums(n.statement);
       api.transition(oldId, 'superseded', by, `${note} → ${newId}`.trim());
       const b = JSON.parse(n.body); b.supersedes = [...(b.supersedes || []), oldId]; run('UPDATE institutional SET body = ? WHERE id = ?', JSON.stringify(b), newId);

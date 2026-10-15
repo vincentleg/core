@@ -175,6 +175,23 @@ test('memory: a newer snapshot supersedes older findings (kept, linked) and reco
   assert.throws(() => mem.transition(sup[0].id, 'approved', 'human:x'), /interdite/);
 });
 
+test('memory: agents never retire a human-approved finding, and rejected entries never replace knowledge', async () => {
+  const mem = MEM.open(':memory:'), reg = ORG.buildWorld();
+  const m1 = await E.createEngine({ city: 'new-york', registry: reg, cx: cxs['new-york'], memory: mem }).run('safety-works', 'East Village');
+  const approved = mem.entries({ kind: 'finding', workflow: 'safety-works' }).filter(e => e.mission === m1.id); assert.ok(approved.length);
+  for (const e of approved) mem.transition(e.id, 'approved', 'human:reviewer');
+  const { cx } = newerCx('new-york'), m2 = await E.createEngine({ city: 'new-york', registry: reg, cx, memory: mem }).run('safety-works', 'East Village');
+  const after = mem.entries({ kind: 'finding', workflow: 'safety-works' });
+  assert.ok(after.filter(e => e.mission === m1.id).every(e => e.status === 'approved'), 'human approval kept');
+  assert.ok(m2.conflicts.some(c => /décision humaine/.test(c.note)), 'pending replacement visible, not silent');
+  const succ = after.find(e => e.mission === m2.id);
+  assert.throws(() => mem.supersede(approved[0].id, succ.id, 'core.new-york.research.evidence-verifier'), /humain/);
+  const bad = mem.propose({ kind: 'finding', workflow: 'safety-works', statement: 'rejected claim', origin: 'a' }); mem.transition(bad.id, 'rejected', 'b');
+  assert.throws(() => mem.supersede(succ.id, bad.id, 'human:reviewer'), /rejected/);
+  assert.equal(mem.supersede(approved[0].id, succ.id, 'human:reviewer').conflict !== undefined, true);
+  assert.equal(mem.entries({ kind: 'finding' }).find(e => e.id === approved[0].id).status, 'superseded'); assert.equal(mem.verify().ok, true);
+});
+
 test('persistent scheduler: queue survives a crash (running items resumed), budgets bounded, no published file written without --publish', () => {
   const { spawnSync } = require('node:child_process'), { DatabaseSync } = require('node:sqlite'), id = `t${process.pid}`, qf = `.core-local/test-q-${id}.sqlite`, mf = `.core-local/test-m-${id}.sqlite`;
   fs.mkdirSync(path.join(ROOT, '.core-local'), { recursive: true });
