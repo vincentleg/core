@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-9fJdxN/KtiwFO7oaHnvAt6txA+K58MyEXRm7ktC4r54=' 'sha256-8s5oIvJ17tg5kRFeXoEvVPbEXjXHfbXhjXj0bYUFWq8='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-9fJdxN/KtiwFO7oaHnvAt6txA+K58MyEXRm7ktC4r54=' 'sha256-5zMMO7okGFsVype9N6rTYTevHp4zlyfk/uC1wSYBExI='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
 <title>CORE · CORE World</title>
@@ -747,7 +747,7 @@ if (typeof module !== 'undefined') module.exports = CORE; else globalThis.CORE =
   function progress(title, k, detail) { $('prog-title').textContent = title; $('prog-bar').style.width = (k * 100).toFixed(1) + '%'; $('prog-detail').textContent = detail; $('prog').hidden = false; }
 
   // ---------- panel ----------
-  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   function render() {
     dirty = true;
     $('btn-cancel').hidden = !S.running;

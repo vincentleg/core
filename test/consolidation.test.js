@@ -78,3 +78,17 @@ test('INC-2026-10-15-01: tracked instructions never serve the repository on all 
   const unbound = out.split('\n').filter(l => /-m http\.server \d+/.test(l) && !/--bind 127\.0\.0\.1/.test(l) && !/PHASE_6_MEASUREMENTS/.test(l));
   assert.deepEqual(unbound, [], 'serve with --bind 127.0.0.1 only');
 });
+
+test('every HTML escaper escapes the five HTML-significant characters (S5 innerHTML review)', () => {
+  const ROOT = path.join(__dirname, '..');
+  const files = [...fs.readdirSync(path.join(ROOT, 'src')).filter(f => f.endsWith('.js')).map(f => 'src/' + f), 'control.html'];
+  let seen = 0;
+  for (const f of files) for (const m of fs.readFileSync(path.join(ROOT, f), 'utf8').matchAll(/\besc = s => (String\(.+?\}\[c\]\)\))/g)) {
+    seen++;
+    const esc = Function('return s => ' + m[1])();
+    assert.equal(esc(`<img src=x onerror="a('b')">&`), '&lt;img src=x onerror=&quot;a(&#39;b&#39;)&quot;&gt;&amp;', f);
+    assert.equal(esc(undefined), '', f);
+  }
+  assert.ok(seen >= 15, `escapers found: ${seen}`);
+});
+

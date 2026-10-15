@@ -288,7 +288,7 @@
   function progress(title, k, detail) { $('prog-title').textContent = title; $('prog-bar').style.width = (k * 100).toFixed(1) + '%'; $('prog-detail').textContent = detail; $('prog').hidden = false; }
 
   // ---------- panel ----------
-  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   function render() {
     dirty = true;
     $('btn-cancel').hidden = !S.running;
