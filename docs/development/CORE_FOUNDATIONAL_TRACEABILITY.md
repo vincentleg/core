@@ -93,7 +93,7 @@ Branch `consolidation/phase9-13` @ `5f20d09` + this audit. Evidence = code, test
 | Data rights per source (FD09) | **PARTIAL** | `docs/DATA_SOURCES.md`; NYC ATR blocked; SF counts unverified |
 | `main` protection | **BLOCKED** (OP01) | Live API: unprotected; proposal ready |
 | Test isolation from owner state | **VERIFIED COMPLETE** (defect fixed in this audit) | The scheduler test overwrote `.core-local/civd-status.json`, which the control centre shows as real activity. Isolated queues now report next to themselves; the test asserts the owner's file is untouched. The owner's current file still holds test output until the next real run. Every test that writes `.core-local` was reviewed: the others work in temporary directories (`process.chdir(mkdtemp)`) or per-process files that they remove |
-| Known vulnerabilities in vendored code | **PARTIAL** | MapLibre 5.7.3 is affected by GHSA-jrc7-96c5-q579 (critical XSS sanitizer bypass, fixed in 6.4.1). Mitigated by the CSP; upgraded to 6.11.2 on the branch (D090; pushed to PR #3, CI success; Chromium and Firefox audits pass), **not merged or deployed**, so production remains affected until merge; `docs/compliance/SECURITY_AND_INCIDENT_READINESS.md` S2 |
+| Known vulnerabilities in vendored code | **VERIFIED COMPLETE** | MapLibre 5.7.3 (GHSA-jrc7-96c5-q579, critical) replaced by 6.11.2 and **deployed to production on 2026-10-15** (PR #4, merge `8a96312`); 0 advisories against 6.11.2 at that date; `docs/compliance/SECURITY_AND_INCIDENT_READINESS.md` S2 |
 | Browsers beyond Chromium | **MISSING** | Firefox/Safari never verified |
 
 ## Commitments that cannot be recovered from repository evidence
