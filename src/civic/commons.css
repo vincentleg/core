@@ -21,3 +21,4 @@ html, body.commons { overflow: auto; height: auto; }
 .diff { font-size: 13px; white-space: pre-wrap; background: #0d1117; border: 1px solid var(--line); border-radius: 6px; padding: 8px; max-height: 240px; overflow: auto; }
 .diff ins { background: #24543a; color: #d7ffe5; text-decoration: none; } .diff del { background: #5c2a27; color: #ffd9d6; }
 .journey { list-style: none; padding: 0; margin: 0; display: grid; gap: 4px; } .journey li { padding: 4px 8px; border-left: 3px solid var(--line); } .journey li.done { border-left-color: #7ee0a0; }
+.args, .args ul { list-style: none; margin: 4px 0 0; padding-left: 14px; border-left: 1px solid var(--line); } .arg { margin: 4px 0; font-size: 13.5px; }

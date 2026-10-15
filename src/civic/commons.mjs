@@ -14,6 +14,7 @@ import * as VS from './vault-session.mjs';
 import * as UJ from './ui-journey.mjs';
 import * as UK from './ui-knowledge.mjs';
 import * as UN from './ui-network.mjs';
+import * as UM from './ui-more.mjs';
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -162,20 +163,23 @@ function renderArena(B) {
     const r = A.judge(S.arena, { who: 'vous', entry: f.dataset.judge, scores, notes }); if (!r.ok) return toast(r.error); S.arena = r.value; render(); });
   $('ar-close')?.addEventListener('click', () => { const r = A.close(S.arena, 'closed'); if (!r.ok) return toast(r.error); S.arena = r.value; render(); });
   $('ar-reset')?.addEventListener('click', () => { S.arena = null; render(); });
+  UM.renderDebate(B, S, { toast });
 }
 
 // ---------- Academy (teacher demo) ----------
 function renderAcademy(B) {
-  const Ls = C.LESSON; S.academy = S.academy || C.startSession({ teacher: 'enseignant-demo' }).value; const s = S.academy; const sum = C.summary(s);
+  const lid = S.route?.lesson || S.academy?.lesson || C.LESSON.id, Ls = C.lessonById(lid); if (!S.academy || S.academy.lesson !== Ls.id) S.academy = C.startSession({ teacher: 'enseignant-demo', lesson: Ls.id }).value; const s = S.academy; const sum = C.summary(s);
   B.innerHTML = `<div class="card"><h2>CORE Academy</h2><table class="tbl"><tbody>${C.PATHWAYS.map(p => `<tr><td><b>${esc(p.name)}</b></td><td>${esc(p.ages)}</td><td>${esc(p.status)}</td></tr>`).join('')}</tbody></table>
     <p class="warn">Mode démonstration enseignant uniquement : aucun mineur n’est invité ; les élèves A, B et C sont fictifs. Ni messagerie entre élèves, ni classement, ni profil public. L’enseignant garde l’autorité pédagogique.</p></div>
+    <div class="card"><label>Leçon <select id="ac-lesson">${C.LESSONS.map(l => `<option value="${esc(l.id)}" ${l.id === Ls.id ? 'selected' : ''}>${esc(l.title)}</option>`).join('')}</select></label></div>
     <div class="card"><h2>${esc(Ls.title)}</h2><p class="fine">Parcours ${Ls.pathways.join(', ')} · ${Ls.minutes} min · source réelle : <a href="${esc(Ls.source.url)}" target="_blank" rel="noopener noreferrer">${esc(Ls.source.record)}</a></p>
     <ul>${Ls.goals.map(g => `<li>${esc(g)}</li>`).join('')}</ul>
     <label>Répondre en tant que <select id="ac-l">${C.PERSONAS.map(p => `<option value="${p.id}">${esc(p.label)}</option>`).join('')}</select></label>
     ${Ls.questions.map(q => `<form class="form" data-q="${q.id}"><b>${esc(q.text)}</b>${q.kind === 'choice' ? q.options.map((o, i) => `<label class="inline"><input type="radio" name="${q.id}" value="${i}"> ${esc(o)}</label>`).join('') : `<textarea maxlength="400" aria-label="${esc(q.text)}"></textarea>`}<button type="submit" class="small">Répondre</button></form>`).join('')}</div>
     <div class="card"><h2>Vue enseignant</h2><table class="tbl"><thead><tr><th>Question</th><th>Réponses</th><th>Justes</th><th>À relire</th></tr></thead><tbody>${sum.map(r => `<tr><td>${r.question}</td><td>${r.answered}</td><td>${r.correct ?? '—'}</td><td>${r.toReview}</td></tr>`).join('')}</tbody></table>
-    ${Object.entries(s.answers).filter(([k]) => k.endsWith(':q4')).map(([k, a]) => `<form class="form" data-fb="${esc(k)}"><span>${esc(k.split(':')[0])} : « ${esc(a.value)} »</span>${s.feedback[k] ? `<i>Retour : ${esc(s.feedback[k])}</i>` : `<input maxlength="400" placeholder="retour de l’enseignant"><button type="submit" class="small">Envoyer le retour</button>`}</form>`).join('')}
-    <p class="fine">Les réponses ouvertes ne sont jamais notées automatiquement : seul l’enseignant y répond. Repère pour l’enseignant : ${esc(Ls.questions[3].explain)}</p></div>`;
+    ${Object.entries(s.answers).filter(([k]) => Ls.questions.find(q => q.id === k.split(':')[1])?.kind === 'open').map(([k, a]) => `<form class="form" data-fb="${esc(k)}"><span>${esc(k.split(':')[0])} : « ${esc(a.value)} »</span>${s.feedback[k] ? `<i>Retour : ${esc(s.feedback[k])}</i>` : `<input maxlength="400" placeholder="retour de l’enseignant"><button type="submit" class="small">Envoyer le retour</button>`}</form>`).join('')}
+    <p class="fine">Les réponses ouvertes ne sont jamais notées automatiquement : seul l’enseignant y répond. Repère pour l’enseignant : ${esc(Ls.questions.find(q => q.kind === 'open').explain)}</p></div>`;
+  $('ac-lesson').onchange = e => go('academy', { lesson: e.target.value });
   B.querySelectorAll('[data-q]').forEach(f => f.onsubmit = e => { e.preventDefault(); const q = Ls.questions.find(x => x.id === f.dataset.q);
     const v = q.kind === 'choice' ? f.querySelector('input:checked')?.value : f.querySelector('textarea').value; if (v == null || v === '') return toast('Choisissez ou écrivez une réponse.');
     const r = C.answer(S.academy, { learner: $('ac-l').value, question: q.id, value: v }); if (!r.ok) return toast(r.error); S.academy = r.value;
@@ -200,7 +204,7 @@ async function renderProgress(B) {
 // ---------- Knowledge (V6): see ui-knowledge.mjs ----------
 const renderKnowledge = B => UK.renderKnowledge(B, S, { go, toast, profile: S.profile });
 
-const RENDER = { experts: B => UN.renderExperts(B, S, { toast, go }), communities: B => UN.renderCommunities(B, S, { toast, go }), journey: UJ.renderJourney, trust: UJ.renderTrust, knowledge: renderKnowledge, profile: renderProfile, vault: renderVault, labs: renderLabs, arena: renderArena, academy: renderAcademy, progress: renderProgress };
+const RENDER = { continuity: UM.renderContinuity, institutions: B => UM.renderInstitutions(B), experts: B => UN.renderExperts(B, S, { toast, go }), communities: B => UN.renderCommunities(B, S, { toast, go }), journey: UJ.renderJourney, trust: UJ.renderTrust, knowledge: renderKnowledge, profile: renderProfile, vault: renderVault, labs: renderLabs, arena: renderArena, academy: renderAcademy, progress: renderProgress };
 // ---------- routing: commons.html#section?key=value (deep links, back button, no reload) ----------
 function route() {
   const [sec, q] = location.hash.slice(1).split('?'), hp = new URLSearchParams(q || '');

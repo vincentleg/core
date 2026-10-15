@@ -24,18 +24,40 @@ export const LESSON = {
       explain: 'Exemple de bonne réponse : une nouvelle mesure datée, au même endroit, avec la même méthode.' },
   ],
 };
+export const LESSONS = [LESSON,
+  { id: 'academy-ai-limits-001', pathways: ['challenge', 'research'], minutes: 20, title: 'Ce qu’une IA ne sait pas : lire un refus et une source',
+    goals: ['comprendre qu’un refus sans preuve est une bonne réponse', 'exiger une source', 'poser une question de vérification'],
+    source: { record: 'sidewalk-below-bsp-min:5665000', url: 'https://data.sf.gov/d/4g86-grxu' },
+    questions: [
+      { id: 'q1', kind: 'choice', text: 'Un agent CORE répond : « Aucun enregistrement ne permet d’affirmer que ce trottoir est dangereux. » Cela signifie…', options: ['qu’il n’a pas de preuve et le dit', 'que le trottoir est sûr', 'qu’il cache une information'], answer: 0,
+        explain: 'Absence de preuve ne veut pas dire preuve du contraire : l’agent dit ce que ses sources permettent d’affirmer, rien de plus.' },
+      { id: 'q2', kind: 'choice', text: 'Une réponse d’IA sans source citée est…', options: ['une affirmation à vérifier', 'vraie parce qu’elle vient d’une IA', 'une preuve scientifique'], answer: 0,
+        explain: 'Une IA peut se tromper avec assurance. Une source permet de vérifier.' },
+      { id: 'q3', kind: 'open', text: 'Écrivez une question à poser à un agent pour vérifier une de ses réponses.', explain: 'Exemple : « Quelle est la source, et de quand date la mesure ? »' } ] },
+  { id: 'academy-design-experiment-001', pathways: ['explore', 'challenge'], minutes: 25, title: 'Concevoir une expérience : élargir un trottoir aide-t-il les piétons ?',
+    goals: ['mesurer avant d’agir', 'comparer avec un témoin', 'écrire un critère d’échec'],
+    source: { record: 'sidewalk-below-bsp-min:5665000', url: 'https://data.sf.gov/d/4g86-grxu' },
+    questions: [
+      { id: 'q1', kind: 'choice', text: 'Avant de modifier le trottoir, que faut-il mesurer ?', options: ['la largeur et le passage des piétons, à des dates connues', 'rien, on verra après', 'l’avis d’une seule personne'], answer: 0,
+        explain: 'Sans mesure avant, impossible de savoir ce qui a changé.' },
+      { id: 'q2', kind: 'choice', text: 'Pourquoi observer aussi un tronçon « témoin » qu’on ne modifie pas ?', options: ['pour séparer l’effet de l’intervention des autres changements', 'pour faire joli', 'ce n’est pas utile'], answer: 0,
+        explain: 'Le passage peut changer pour d’autres raisons (saison, travaux voisins) : le témoin permet de le voir.' },
+      { id: 'q3', kind: 'open', text: 'Écrivez un critère qui montrerait que l’idée N’A PAS marché.', explain: 'Exemple : « pas de différence de passage par rapport au tronçon témoin après trois mois ».' } ] },
+];
+export const lessonById = id => LESSONS.find(l => l.id === id) || LESSON;
 export const PERSONAS = [{ id: 'eleve-A', label: 'Élève fictif A' }, { id: 'eleve-B', label: 'Élève fictif B' }, { id: 'eleve-C', label: 'Élève fictif C' }];
 
-export function startSession({ teacher, mode = 'teacher-demo', learners = PERSONAS.map(p => p.id) }) {
+export function startSession({ teacher, mode = 'teacher-demo', learners = PERSONAS.map(p => p.id), lesson = LESSON.id }) {
   if (mode !== 'teacher-demo') return { ok: false, error: 'seul le mode démonstration enseignant existe : aucun mineur réel avant revue de protection, juridique et sécurité' };
   if (!teacher) return { ok: false, error: 'une session est toujours ouverte par un enseignant' };
   if (learners.some(l => !PERSONAS.some(p => p.id === l))) return { ok: false, error: 'apprenants fictifs uniquement dans ce prototype' };
-  return { ok: true, value: { teacher, lesson: LESSON.id, learners, answers: {}, feedback: {}, open: true, features: { learnerChat: false, ranking: false, publicProfiles: false } } };
+  if (!LESSONS.some(l => l.id === lesson)) return { ok: false, error: 'leçon inconnue' };
+  return { ok: true, value: { teacher, lesson, learners, answers: {}, feedback: {}, open: true, features: { learnerChat: false, ranking: false, publicProfiles: false } } };
 }
 export function answer(s, { learner, question, value }) {
   if (!s.open) return { ok: false, error: 'session fermée par l’enseignant' };
   if (!s.learners.includes(learner)) return { ok: false, error: 'apprenant inconnu' };
-  const q = LESSON.questions.find(x => x.id === question); if (!q) return { ok: false, error: 'question inconnue' };
+  const q = lessonById(s.lesson).questions.find(x => x.id === question); if (!q) return { ok: false, error: 'question inconnue' };
   const v = q.kind === 'choice' ? Number(value) : String(value ?? '').slice(0, 400);
   return { ok: true, value: { ...s, answers: { ...s.answers, [`${learner}:${question}`]: { value: v, correct: q.kind === 'choice' ? v === q.answer : null } } } };
 }
@@ -46,7 +68,7 @@ export function feedback(s, { actor, learner, question, text }) {
 }
 // Teacher view: per-question understanding, no learner ranking.
 export function summary(s) {
-  return LESSON.questions.map(q => {
+  return lessonById(s.lesson).questions.map(q => {
     const a = s.learners.map(l => s.answers[`${l}:${q.id}`]).filter(Boolean);
     return { question: q.id, answered: a.length, correct: q.kind === 'choice' ? a.filter(x => x.correct).length : null, toReview: q.kind === 'open' ? s.learners.filter(l => s.answers[`${l}:${q.id}`] && !s.feedback[`${l}:${q.id}`]).length : 0 };
   });

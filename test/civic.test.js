@@ -180,3 +180,29 @@ test('communities: fictional members, adults only, local drafts never published,
   const ap = N.appeal(mod, { reason: 'Je pense que la règle a été mal appliquée.' }).value;
   assert.equal(ap.mod.state, 'appealed'); assert.match(N.MOD.appealed, /humain/);
 });
+
+test('debate: fictional debate on a real record, arguments cite existing records, unresolved objections computed, no winner', async () => {
+  const Db = await load('debate.mjs');
+  const records = new Map([['sidewalks:8562', {}]]);
+  let d = Db.DEBATE; assert.ok(d.fictional && /FICTIF/.test(d.label));
+  assert.match(Db.addArgument(d, { target: 'pa', kind: 'argument', text: 'Un argument assez long pour passer.', evidence: ['invented:1'], records }).error, /preuve inconnue/);
+  assert.match(Db.addArgument(d, { target: 'pa', kind: 'counter', text: 'Un contre-argument assez long.', records }).error, /vise un argument/);
+  assert.match(Db.addArgument(d, { target: 'a1', kind: 'argument', text: 'Un argument mal placé ici.', records }).error, /soutient une proposition/);
+  let a = Db.analyse(d); assert.deepEqual(a.unresolved.map(x => x.id), ['a2', 'a4']); assert.deepEqual(a.unsourced.map(x => x.id), ['a3']);
+  d = Db.addArgument(d, { target: 'a2', kind: 'rebuttal', text: 'D’accord : il faut d’abord une mesure actuelle.', evidence: ['sidewalks:8562'], records, at: '2026-10-15T00:00:00Z' }).value;
+  assert.deepEqual(Db.analyse(d).unresolved.map(x => x.id), ['a4']);
+  d = Db.addProposal(d, { title: 'Mesurer d’abord', summary: 'Relever la largeur actuelle avant toute option.' }).value;
+  assert.equal(Db.addProposal(d, { title: 'Encore', summary: 'Une deuxième proposition.' }).ok, false);
+  const o = Db.outcome(d);
+  assert.equal(o.winner, null); assert.equal(o.authorizes, false); assert.equal(o.scientificValidation, false);
+  assert.match(o.explanation.join(' '), /1 objection\(s\).*sans réponse.*Aucune proposition n’est déclarée gagnante/s);
+});
+
+test('academy: three lessons, each tied to the real record, teacher-demo only, unknown lesson refused', async () => {
+  const C = await load('academy.mjs');
+  assert.equal(C.LESSONS.length, 3); assert.ok(C.LESSONS.every(l => l.source.record === 'sidewalk-below-bsp-min:5665000' && l.questions.some(q => q.kind === 'open')));
+  assert.equal(C.startSession({ teacher: 't', lesson: 'nope' }).ok, false);
+  let s = C.startSession({ teacher: 't', lesson: 'academy-ai-limits-001' }).value;
+  s = C.answer(s, { learner: 'eleve-A', question: 'q1', value: 0 }).value;
+  assert.deepEqual(C.summary(s).map(r => r.question), ['q1', 'q2', 'q3']); assert.equal(C.summary(s)[0].correct, 1);
+});

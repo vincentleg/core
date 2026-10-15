@@ -9,7 +9,7 @@ export const GROUPS = [
   { id: 'espace', label: 'Mon espace', href: 'commons.html#profile', sections: [['profile', 'Identité'], ['vault', 'Coffre à idées'], ['labs', 'Labs']] },
   { id: 'ensemble', label: 'Ensemble', href: 'commons.html#experts', sections: [['experts', 'Experts (fictifs)'], ['communities', 'Communautés (fictives)'], ['arena', 'Arène (fictive)']] },
   { id: 'apprendre', label: 'Apprendre', href: 'commons.html#academy', sections: [['academy', 'Académie']] },
-  { id: 'progres', label: 'Progrès', href: 'commons.html#progress', sections: [['progress', 'Progrès'], ['journey', 'Mon parcours']] },
+  { id: 'progres', label: 'Progrès', href: 'commons.html#progress', sections: [['progress', 'Progrès'], ['journey', 'Mon parcours'], ['institutions', 'Institutions (démo)']] },
   { id: 'intelligence', label: 'Intelligence', href: 'index.html#app' },
   { id: 'trust', label: 'TRUST', href: 'commons.html#trust', sections: [['trust', 'Mes données et la sécurité']] },
 ];
