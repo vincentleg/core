@@ -48,10 +48,10 @@ Branch `consolidation/phase9-13` @ `5f20d09` + this audit. Evidence = code, test
 | Evidence verification | FC03 | Gateways recompute; pinned hashes; fail-closed tests | — | **VERIFIED COMPLETE** (deterministic checks); not field verification |
 | Independent review | FD07, G3 | Code requires a reviewer step only for the pilot holdout (procedural) | Reviewer not designated; agent "review" is not independent | **BLOCKED** (OP04) |
 | Human authorization | FC02, FD04 | Human-only transitions and decisions; authority gate | Authentication of humans | **PARTIAL** (label, not identity) |
-| Contributor attribution and rights | FC19–21, IP_AND_ATTRIBUTION | Attribution fields, consent flags, correction, withdrawal, logical erasure in the sandbox (tests "correction hides prior publication", "withdrawal/deletion") | Licensing of contributions, physical erasure, succession, commercial reuse terms | **PARTIAL / PROTOTYPE** |
+| Contributor attribution and rights | FC19–21, IP_AND_ATTRIBUTION | Attribution fields, consent flags, correction, withdrawal, logical erasure in the sandbox (tests "correction hides prior publication", "withdrawal/deletion") | Licensing of contributions, physical erasure, succession, commercial reuse terms | **PROTOTYPE** (synthetic sandbox only) |
 | Privacy | CONSTITUTION §6, `src/data-policy.js` | Data policy enforced on feeds; private-by-default contributions; fingerprints exclude private coordinates; private SQLite modes; FD09 rule | Retention and residency policy | **PARTIAL** |
 | Revision and rejection histories | FC21 | Memory history arrays, superseded/rejected kept; contribution revisions and objections; reworded-rejection links (this branch) | — | **VERIFIED COMPLETE** (local) |
-| Measured, not invented, impact | FC01, FC20 | Impact states disabled; `efficacyValidated:false`; synthetic labels | — | **VERIFIED COMPLETE** as a *prohibition*; **0 measured impacts exist** |
+| Measured, not invented, impact | FC01, FC20 | Impact states disabled; `efficacyValidated:false`; synthetic labels | — | **PARTIAL**: the ban on invented impact is enforced; **no measurement capability and 0 measured impacts** |
 | Protection against agent manipulation of trusted knowledge | Constitution §4 | Findings approved only by humans; agents cannot retire approved findings; rejected successors refused; related rejections flagged (this branch) | Paraphrase detection beyond lexical; OS isolation | **PARTIAL** (strong locally) |
 
 ## C. Science (P11–P14)
@@ -92,7 +92,7 @@ Branch `consolidation/phase9-13` @ `5f20d09` + this audit. Evidence = code, test
 | Secrets and integrity gate, no bypass | **VERIFIED COMPLETE** | `.githooks`, `scripts/integrity-check.mjs`, tests |
 | Data rights per source (FD09) | **PARTIAL** | `docs/DATA_SOURCES.md`; NYC ATR blocked; SF counts unverified |
 | `main` protection | **BLOCKED** (OP01) | Live API: unprotected; proposal ready |
-| Test isolation from owner state | **Defect fixed in this audit** | The scheduler test overwrote `.core-local/civd-status.json`, which the control centre shows as real activity. Isolated queues now report next to themselves; the test asserts the owner's file is untouched. The owner's current file still holds test output until the next real run |
+| Test isolation from owner state | **VERIFIED COMPLETE** (defect fixed in this audit) | The scheduler test overwrote `.core-local/civd-status.json`, which the control centre shows as real activity. Isolated queues now report next to themselves; the test asserts the owner's file is untouched. The owner's current file still holds test output until the next real run. Every test that writes `.core-local` was reviewed: the others work in temporary directories (`process.chdir(mkdtemp)`) or per-process files that they remove |
 | Browsers beyond Chromium | **MISSING** | Firefox/Safari never verified |
 
 ## Commitments that cannot be recovered from repository evidence
@@ -109,13 +109,21 @@ Please provide the source material (exported conversation or briefs) for these:
 
 ## Summary
 
-Computed from the first status of each of the 44 rows above (unweighted; a row's scope is often narrow):
-- **Verified complete:** 14
-- **Partial:** 11
-- **Prototype:** 5
-- **Documented only:** 3
-- **Missing:** 6
-- **Blocked:** 4
-- **Defect fixed during the audit:** 1
+**Counting rule.** Each of the 44 rows has exactly one primary status, the first bold label; qualifiers in parentheses are not counted. Row "Calibration before claimed gains" counts as PROTOTYPE, and its G0 is also BLOCKED.
+
+Reconciled 2026-10-15. Changes from the first count:
+- "Contributor attribution and rights" carried a dual label; it is now PROTOTYPE.
+- "Measured, not invented, impact" moves from VERIFIED COMPLETE to PARTIAL: only the ban is implemented.
+- "Test isolation" uses the vocabulary: VERIFIED COMPLETE after the fix.
+
+| Status | Rows |
+|---|---|
+| Verified complete | 14 |
+| Partial | 11 |
+| Prototype | 6 |
+| Documented only | 3 |
+| Missing | 6 |
+| Blocked | 4 |
+| **Total** | **44** |
 
 No foundational *civilization* or *validation* requirement is complete. The verified rows are infrastructure for truthfulness (identities, memory, provenance, gates, honest labels), not the civilization or the empirical results themselves.
