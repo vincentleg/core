@@ -1,0 +1,2 @@
+# Verbatim founder records keep their original bytes (Markdown hard line breaks use trailing spaces).
+docs/history/** whitespace=-trailing-space

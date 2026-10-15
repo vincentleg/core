@@ -175,6 +175,23 @@ test('memory: a newer snapshot supersedes older findings (kept, linked) and reco
   assert.throws(() => mem.transition(sup[0].id, 'approved', 'human:x'), /interdite/);
 });
 
+test('memory: agents never retire a human-approved finding, and rejected entries never replace knowledge', async () => {
+  const mem = MEM.open(':memory:'), reg = ORG.buildWorld();
+  const m1 = await E.createEngine({ city: 'new-york', registry: reg, cx: cxs['new-york'], memory: mem }).run('safety-works', 'East Village');
+  const approved = mem.entries({ kind: 'finding', workflow: 'safety-works' }).filter(e => e.mission === m1.id); assert.ok(approved.length);
+  for (const e of approved) mem.transition(e.id, 'approved', 'human:reviewer');
+  const { cx } = newerCx('new-york'), m2 = await E.createEngine({ city: 'new-york', registry: reg, cx, memory: mem }).run('safety-works', 'East Village');
+  const after = mem.entries({ kind: 'finding', workflow: 'safety-works' });
+  assert.ok(after.filter(e => e.mission === m1.id).every(e => e.status === 'approved'), 'human approval kept');
+  assert.ok(m2.conflicts.some(c => /décision humaine/.test(c.note)), 'pending replacement visible, not silent');
+  const succ = after.find(e => e.mission === m2.id);
+  assert.throws(() => mem.supersede(approved[0].id, succ.id, 'core.new-york.research.evidence-verifier'), /humain/);
+  const bad = mem.propose({ kind: 'finding', workflow: 'safety-works', statement: 'rejected claim', origin: 'a' }); mem.transition(bad.id, 'rejected', 'b');
+  assert.throws(() => mem.supersede(succ.id, bad.id, 'human:reviewer'), /rejected/);
+  assert.equal(mem.supersede(approved[0].id, succ.id, 'human:reviewer').conflict !== undefined, true);
+  assert.equal(mem.entries({ kind: 'finding' }).find(e => e.id === approved[0].id).status, 'superseded'); assert.equal(mem.verify().ok, true);
+});
+
 test('persistent scheduler: queue survives a crash (running items resumed), budgets bounded, no published file written without --publish', () => {
   const { spawnSync } = require('node:child_process'), { DatabaseSync } = require('node:sqlite'), id = `t${process.pid}`, qf = `.core-local/test-q-${id}.sqlite`, mf = `.core-local/test-m-${id}.sqlite`;
   fs.mkdirSync(path.join(ROOT, '.core-local'), { recursive: true });
@@ -182,14 +199,16 @@ test('persistent scheduler: queue survives a crash (running items resumed), budg
     const db = new DatabaseSync(path.join(ROOT, qf));
     db.exec("CREATE TABLE queue (id INTEGER PRIMARY KEY AUTOINCREMENT, key TEXT UNIQUE, kind TEXT, city TEXT, payload TEXT, priority REAL, status TEXT, attempts INTEGER DEFAULT 0, created TEXT, updated TEXT, result TEXT); CREATE TABLE log (n INTEGER PRIMARY KEY AUTOINCREMENT, at TEXT, kind TEXT, detail TEXT);");
     db.prepare("INSERT INTO queue (key, kind, city, payload, priority, status, attempts, created, updated) VALUES (?, 'investigate', 'new-york', ?, 9999, 'running', 1, 'x', 'x')").run('investigate|crashed', JSON.stringify({ city: 'new-york', workflow: 'ramps-works', nhood: 'Chinatown-Two Bridges' })); db.close();
-    const before = fs.statSync(path.join(ROOT, 'data/civ/index.json')).mtimeMs;
+    const before = fs.statSync(path.join(ROOT, 'data/civ/index.json')).mtimeMs, ownerStatus = path.join(ROOT, '.core-local/civd-status.json'), ownerBefore = fs.existsSync(ownerStatus) ? fs.readFileSync(ownerStatus, 'utf8') : null;
     const r = spawnSync(process.execPath, ['scripts/civd.mjs', '--once', '--queue', qf, '--memory', mf, '--max-missions', '2'], { cwd: ROOT, encoding: 'utf8', timeout: 180000 });
     if (fs.existsSync(path.join(ROOT, '.core-local/STOP'))) return; // emergency stop active on this machine: the scheduler must do nothing
     assert.equal(r.status, 0, r.stderr); const out = JSON.parse(r.stdout.slice(r.stdout.indexOf('{\n')));
     assert.equal(out.recovered, 1); assert.ok(out.discovered >= 5); assert.ok(Array.isArray(out.ran) && out.ran.length <= 2 && out.ran.some(x => /chinatown/.test(x)), 'crashed item resumed first (highest priority)');
     const db2 = new DatabaseSync(path.join(ROOT, qf)); const st = db2.prepare("SELECT status FROM queue WHERE key = 'investigate|crashed'").get().status; db2.close(); assert.equal(st, 'awaiting-human');
     assert.equal(fs.statSync(path.join(ROOT, 'data/civ/index.json')).mtimeMs, before, 'publication stays explicit');
-  } finally { for (const f of [qf, mf]) for (const x of ['', '-wal', '-shm']) fs.rmSync(path.join(ROOT, f + x), { force: true }); }
+    assert.equal(fs.existsSync(ownerStatus) ? fs.readFileSync(ownerStatus, 'utf8') : null, ownerBefore, 'an isolated run never overwrites the owner\'s scheduler status');
+    assert.ok(fs.existsSync(path.join(ROOT, qf.replace(/\.sqlite$/, '-status.json'))), 'isolated status written next to its queue');
+  } finally { for (const f of [qf, mf]) for (const x of ['', '-wal', '-shm']) fs.rmSync(path.join(ROOT, f + x), { force: true }); fs.rmSync(path.join(ROOT, qf.replace(/\.sqlite$/, '-status.json')), { force: true }); }
 });
 
 test('control centre (Phase 10 actions): allowlisted cities and neighbourhoods, emergency stop, human-only decisions, no process spawning', async () => {
@@ -215,4 +234,37 @@ test('control centre (Phase 10 actions): allowlisted cities and neighbourhoods, 
     if (!fs.existsSync(path.join(ROOT, '.core-local/STOP'))) { await post('/api/stop', {}); assert.equal((await post('/api/decision', { city: 'san-francisco', nhood: 'Mission' })).status, 423); assert.equal((await post('/api/resume', { reviewer: 'nobody' })).status, 400); await post('/api/resume', { reviewer: 'human:test' }); }
   } finally { child.kill(); for (const f of [mf, qf]) for (const x of ['', '-wal', '-shm']) fs.rmSync(path.join(ROOT, f + x), { force: true }); }
   assert.doesNotMatch(fs.readFileSync(path.join(ROOT, 'scripts/control-server.mjs'), 'utf8'), /child_process|spawn\(|exec\(|eval\(/);
+});
+
+test('memory: a reworded rejected claim is linked for human review, never auto-approved, never treated as identical', async () => {
+  const mem = MEM.open(':memory:');
+  const r = mem.propose({ kind: 'finding', workflow: 'w', statement: 'Le carrefour Howard/7th présente 12 collisions graves en 2025', origin: 'a' }); mem.transition(r.id, 'rejected', 'human:reviewer', 'données non vérifiées');
+  const p = mem.propose({ kind: 'finding', workflow: 'w', statement: 'Au carrefour Howard/7th, 12 collisions graves observées en 2025', origin: 'b' });
+  assert.notEqual(p.id, r.id, 'not merged: similarity is not identity'); assert.deepEqual(p.related, [r.id]);
+  const e = mem.entries({ kind: 'finding' }).find(x => x.id === p.id); assert.equal(e.status, 'candidate'); assert.equal(e.body.relatedRejected[0].method, 'token-jaccard');
+  assert.ok(e.body.relatedRejected[0].similarity >= MEM.RELATED);
+  mem.transition(p.id, 'verified', 'b'); mem.transition(p.id, 'reviewed', 'c');
+  assert.throws(() => mem.transition(p.id, 'approved', 'human:reviewer', 'ok'), /citant/, 'human must cite the rejected entry');
+  mem.transition(p.id, 'approved', 'human:reviewer', `nouvelle preuve distincte de ${r.id}`);
+  const proc = mem.propose({ kind: 'procedure', workflow: 'w', statement: 'Ne pas déléguer outil-x pour la revue de sécurité routière', origin: 'a', basis: 'deterministic-records' }); mem.transition(proc.id, 'rejected', 'human:reviewer');
+  const proc2 = mem.propose({ kind: 'procedure', workflow: 'w', statement: 'Ne jamais déléguer outil-x pour la revue de sécurité routière', origin: 'a', basis: 'deterministic-records' });
+  mem.transition(proc2.id, 'verified', 'b'); mem.transition(proc2.id, 'reviewed', 'c');
+  assert.throws(() => mem.transition(proc2.id, 'approved', 'c', proc.id), /humaine/, 'deterministic auto-approval no longer applies');
+  const other = mem.propose({ kind: 'finding', workflow: 'w', statement: 'Les arbres de rue réduisent la chaleur urbaine estivale', origin: 'a' });
+  assert.equal(other.related, undefined); assert.equal('relatedRejected' in mem.entries({ kind: 'finding' }).find(x => x.id === other.id).body, false, 'unflagged bodies unchanged');
+  assert.equal(mem.propose({ kind: 'finding', workflow: 'w', statement: 'Howard 12', origin: 'a' }).related, undefined, 'too short to compare');
+  assert.ok(mem.verify().ok); assert.equal(mem.export().institutional.length, 6);
+  const events = mem.export().chain; assert.ok(events.ok);
+});
+
+test('memory: a human mission approval leaves findings related to rejected claims pending their own decision', async () => {
+  const reg = ORG.buildWorld(), probe = MEM.open(':memory:');
+  const m0 = await E.createEngine({ city: 'new-york', registry: reg, cx: cxs['new-york'], memory: probe }).run('safety-works', 'East Village');
+  const stmt = probe.entries({ kind: 'finding' }).find(e => e.mission === m0.id).statement;
+  const mem = MEM.open(':memory:'), old = mem.propose({ kind: 'finding', workflow: 'other', statement: `${stmt} (version antérieure)`, origin: 'x' }); mem.transition(old.id, 'rejected', 'human:reviewer');
+  const eng = E.createEngine({ city: 'new-york', registry: reg, cx: cxs['new-york'], memory: mem }), m = await eng.run('safety-works', 'East Village');
+  const flagged = mem.entries({ kind: 'finding' }).filter(e => e.mission === m.id && e.body.relatedRejected); assert.ok(flagged.length, 'engine finding linked to the rejected wording');
+  eng.humanDecision(m, 'human:reviewer', 'approve', 'ok');
+  assert.deepEqual(m.human.pendingRelated.sort(), flagged.map(e => e.id).sort());
+  for (const f of flagged) assert.equal(mem.entries({ kind: 'finding' }).find(e => e.id === f.id).status, 'reviewed');
 });

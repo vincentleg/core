@@ -241,14 +241,14 @@ function createEngine({ city = 'san-francisco', registry = ORG.buildRegistry(), 
       if (p.existing) continue;
       memory.transition(p.id, 'verified', VERIFIER, 'échec présent dans l’épisode enregistré');
       memory.transition(p.id, 'reviewed', REVIEWER, 'règle de périmètre cohérente avec la liste des outils du corridor');
-      memory.transition(p.id, 'approved', REVIEWER, 'procédure issue d’enregistrements déterministes');
+      if (!p.related) memory.transition(p.id, 'approved', REVIEWER, 'procédure issue d’enregistrements déterministes');
       m.learning.lessonsProposed.push(p.id);
     }
     // Model lessons from deterministic validator rejections.
     for (const r of m.model.rejected) { const L2 = lessonFor(r); if (!L2) continue;
       // Shared institutional lesson (any model-assisted agent may reuse it), quoting the verified rejected pattern.
       const p = memory.propose({ kind: 'lesson', workflow: null, statement: L2, evidence: [`rejection:${m.id}`], origin: r.agent, mission: m.id, basis: 'deterministic-records' }); if (p.existing) continue;
-      memory.transition(p.id, 'verified', VERIFIER, 'rejet présent dans le registre de la mission'); memory.transition(p.id, 'reviewed', REVIEWER, 'leçon dérivée de la règle du validateur'); memory.transition(p.id, 'approved', REVIEWER, 'leçon issue d’enregistrements déterministes'); m.learning.lessonsProposed.push(p.id); }
+      memory.transition(p.id, 'verified', VERIFIER, 'rejet présent dans le registre de la mission'); memory.transition(p.id, 'reviewed', REVIEWER, 'leçon dérivée de la règle du validateur'); if (!p.related) memory.transition(p.id, 'approved', REVIEWER, 'leçon issue d’enregistrements déterministes'); m.learning.lessonsProposed.push(p.id); }
     // World findings stay candidates until a human approves the mission.
     for (const f of m.findings.filter(f => f.topic === 'cross')) { const p = memory.propose({ kind: 'finding', workflow: m.workflow, statement: f.claim, evidence: f.evidence.map(e => e.ref), origin: m.owner, mission: m.id });
       if (!p.existing) { memory.transition(p.id, 'verified', VERIFIER, 'références résolues dans l’instantané'); memory.transition(p.id, 'reviewed', REVIEWER, 'accepté par la revue adversariale'); } }
@@ -256,6 +256,7 @@ function createEngine({ city = 'san-francisco', registry = ORG.buildRegistry(), 
     // changed numbers are recorded as conflicts for human attention. The newest finding of this mission is the successor.
     const key = m.id.replace(/@.*$/, ''), mine = memory.entries({ kind: 'finding', workflow: m.workflow }).filter(e => e.mission === m.id && e.status !== 'rejected');
     if (mine.length) for (const old of memory.entries({ kind: 'finding', workflow: m.workflow }).filter(e => e.mission !== m.id && e.mission.replace(/@.*$/, '') === key && e.mission < m.id && ['verified', 'reviewed', 'approved'].includes(e.status))) {
+      if (old.status === 'approved') { m.conflicts.push({ entry: old.id, successor: mine[0].id, note: 'constat approuvé par un humain : remplacement en attente de décision humaine' }); continue; }
       const r = memory.supersede(old.id, mine[0].id, VERIFIER, `remplacé par l’instantané du ${cx.asOf}`); if (r.conflict) m.conflicts.push({ entry: old.id, successor: mine[0].id, note: 'valeurs différentes entre instantanés' });
     }
   }
@@ -293,7 +294,9 @@ function createEngine({ city = 'san-francisco', registry = ORG.buildRegistry(), 
     if (m.state !== 'HUMAN_REVIEW') throw new Error(`mission non soumise à la revue humaine (${m.state})`);
     const to = { approve: 'APPROVED', reject: 'REJECTED', 'needs-evidence': 'NEEDS_MORE_EVIDENCE' }[decision]; if (!to) throw new Error('décision inconnue');
     m.human = { reviewer, decision: to, note: String(note).slice(0, 500), at: now() }; msg(m, reviewer, m.owner, 'human-decision', `Décision humaine : ${to}`, [], note || null); stage(m, to);
-    if (memory && to === 'APPROVED') for (const e of memory.entries({ kind: 'finding', workflow: m.workflow, status: 'reviewed' }).filter(e => e.mission === m.id)) memory.transition(e.id, 'approved', reviewer, 'mission approuvée par un humain');
+    if (memory && to === 'APPROVED') for (const e of memory.entries({ kind: 'finding', workflow: m.workflow, status: 'reviewed' }).filter(e => e.mission === m.id)) {
+      if (e.body.relatedRejected?.length) { (m.human.pendingRelated = m.human.pendingRelated || []).push(e.id); continue; } // needs its own explicit decision
+      memory.transition(e.id, 'approved', reviewer, 'mission approuvée par un humain'); }
     return m;
   }
   return { run, discoverAll, runQueue, humanDecision, stopAll: () => { stopped.all = true; }, resetStop: reviewer => { if (!/^human:/.test(reviewer)) return false; stopped.all = false; return true; }, newMission, limits: L, workflows: WORKFLOWS };
