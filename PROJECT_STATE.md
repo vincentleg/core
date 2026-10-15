@@ -1,10 +1,10 @@
-# CORE — état du projet, 14 octobre 2026
-- Phases 0 → 10 closes ; production vérifiée : a25169c, tag annoté phase10-release ; rapport : docs/PHASE_10_REPORT.md §P.
-- 2 villes opérationnelles (src/cities.js) : San Francisco (pilote, inchangé) et New York (3 NTA de Manhattan, NYC Open Data).
-- 82 profils : 35 exécutables (28 à règles + 7 assistés par modèle local) ; 16 opérationnels autonomes ; 47 avec travail enregistré.
-- 12 missions autonomes enregistrées (5 SF, 5 NY, 1 aide à la décision, 1 enquête inter-villes), toutes en attente de revue humaine.
-- Mémoire SQLite : réutilisation vérifiée, remplacement par instantané plus récent, conflits ; découverte par comparaison d’instantanés (0 changement réel à ce jour).
-- Planificateur persistant `scripts/civd.mjs` (file SQLite, reprise après crash, budgets, STOP) ; centre de contrôle local étendu.
-- Production https://vincentleg.github.io/core/ : Pages réussi ; 82 profils, couches NYC, démo 9/9 ; 0 requête NYC/modèle non voulue, 0 erreur console.
-- Interception HTML locale NordVPN diagnostiquée ; réponse HTTP directe identique au dépôt. Tests au checkpoint : Node 121/121, Chrome 159/159 ; Firefox/Safari et cron horaire non vérifiés.
-- Phase 11 non commencée ; uniquement sur demande explicite du fondateur.
+# CORE — état du projet, Phase 11
+- Phases 0–10 closes ; Phase 11 scientifique implémentée sur phase11, validation production en attente ; docs/PHASE_11_REPORT.md.
+- Civilization → Science & décisions : dossier SF Tenderloin, 70 tronçons, référence exploratoire 50 836,6 à 120 j.
+- Quatre agents à règles existants : proposition, contre-proposition, critique, preuves, révision ; dissidence conservée ; 0 appel modèle.
+- I0 / I2 coordination partielle / I3 report : charge déplacée explicite, I3 écartée ; 18 cas de sensibilité.
+- Quatre sources DataSF PDDL datées/hachées ; mission source recalculée ; dossier altéré ou preuve absente → BLOCKED.
+- Relecture publique et recalcul navigateur distincts ; exécution locale : node scripts/science.mjs --record ; mémoire isolée, STOP respecté.
+- Revue humaine seulement ; mise en œuvre bloquée ; aucun gain réel mesuré, modèle non calibré ; protocole de validation terrain explicite.
+- Intégration Node 130/130 ; audit Chrome scientifique local 10/10 ; Firefox/Safari, technologies d’assistance et cron horaire non vérifiés.
+- Aucun développement B2C ni phase suivante autorisés ; SF/NY et les 82 profils existants préservés.

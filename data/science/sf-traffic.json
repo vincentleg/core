@@ -1,0 +1,7341 @@
+{
+ "version": "core-science-v1",
+ "recordedAt": "2026-10-15T00:50:49.949Z",
+ "mode": "recorded-deterministic-agents",
+ "modelCalls": 0,
+ "sourceMission": {
+  "id": "civ:decision-safety-works:tenderloin@2026-10-14",
+  "version": "core-civ-mission-v1",
+  "workflow": "decision-safety-works",
+  "title": "Aide à la décision : sécurité routière × chantiers",
+  "nhood": "Tenderloin",
+  "question": "Quelles interventions comparer pour les chantiers à venir sur les tronçons à forte accidentalité de Tenderloin, avec quels compromis et quelles incertitudes ?",
+  "city": "san-francisco",
+  "state": "HUMAN_REVIEW",
+  "stages": [
+   {
+    "stage": "DISCOVERED",
+    "at": "2026-10-15T00:48:05.068Z"
+   },
+   {
+    "stage": "TRIAGED",
+    "at": "2026-10-15T00:48:05.074Z"
+   },
+   {
+    "stage": "ASSIGNED",
+    "at": "2026-10-15T00:48:05.076Z"
+   },
+   {
+    "stage": "INVESTIGATING",
+    "at": "2026-10-15T00:48:05.098Z"
+   },
+   {
+    "stage": "CROSS_DOMAIN_REVIEW",
+    "at": "2026-10-15T00:48:05.099Z"
+   },
+   {
+    "stage": "EVIDENCE_VALIDATION",
+    "at": "2026-10-15T00:48:05.104Z"
+   },
+   {
+    "stage": "PROPOSED_DECISION",
+    "at": "2026-10-15T00:48:05.106Z"
+   },
+   {
+    "stage": "HUMAN_REVIEW",
+    "at": "2026-10-15T00:48:05.107Z"
+   }
+  ],
+  "subtasks": [
+   {
+    "id": "S1",
+    "key": "safety.crash-profile|{\"nhood\":\"Tenderloin\"}",
+    "tool": "safety.crash-profile",
+    "target": {
+     "nhood": "Tenderloin"
+    },
+    "agent": "core.san-francisco.mobility.traffic",
+    "code": "CORE-TRF-0057",
+    "requester": "core.san-francisco.mobility.lead",
+    "via": null,
+    "depth": 1,
+    "state": "succeeded",
+    "attempts": 1,
+    "ms": 18,
+    "error": null,
+    "findings": 6,
+    "site": {
+     "coord": [
+      -122.417901411,
+      37.785167215
+     ],
+     "label": "OFARRELL ST (CNN 9733000)",
+     "kind": "tronçon HIN cité"
+    }
+   },
+   {
+    "id": "S2",
+    "key": "decision.interventions|{\"nhood\":\"Tenderloin\"}",
+    "tool": "decision.interventions",
+    "target": {
+     "nhood": "Tenderloin"
+    },
+    "agent": "core.san-francisco.simulation.scenario-evaluator",
+    "code": "CORE-SIM-0041",
+    "requester": "core.san-francisco.mobility.lead",
+    "via": "core.san-francisco.simulation.lead",
+    "depth": 1,
+    "state": "succeeded",
+    "attempts": 1,
+    "ms": 19,
+    "error": null,
+    "findings": 5,
+    "site": {
+     "coord": [
+      -122.417901411,
+      37.785167215
+     ],
+     "label": "OFARRELL ST (CNN 9733000)",
+     "kind": "tronçon HIN cité"
+    }
+   },
+   {
+    "id": "S3",
+    "key": "works.area-windows|{\"segments\":[\"9733000\",\"6117000\",\"12718000\",\"7563000\",\"5173000\",\"12717000\",\"5061001\",\"5063000\",\"7117000\",\"6553000\",\"8239000\",\"7114000\",\"6262000\",\"6116000\",\"7116000\",\"12425000\",\"10558000\",\"8125000\",\"6813000\",\"12427000\",\"10562000\",\"5439000\",\"8890000\",\"10552000\",\"9729000\",\"6260000\",\"5176000\",\"8800000\",\"5171000\",\"5058000\",\"10557000\",\"7571000\",\"9732000\",\"5059000\",\"5065000\",\"5174000\",\"5062000\",\"12719000\",\"9734000\",\"12722000\",\"5064000\",\"5177000\",\"5178000\",\"6114000\",\"7564000\",\"7566000\",\"5061002\",\"7115000\",\"12716000\",\"10554000\",\"9728000\",\"6112000\",\"6115000\",\"8121000\",\"6552000\",\"6554000\",\"8891000\",\"8238000\",\"8242000\",\"7565000\",\"6261000\",\"9730000\",\"9726000\",\"12429000\",\"5172000\",\"6110000\",\"10555000\",\"8892000\",\"6263000\",\"8244000\",\"8120000\",\"7112000\",\"12428000\",\"8889000\",\"8240000\",\"8241000\",\"6259000\",\"5060000\",\"8801000\",\"5170000\",\"6111000\",\"12720000\",\"9735000\",\"8893000\",\"8894000\",\"8126000\",\"8128000\",\"7118000\",\"12432000\",\"10637000\",\"8243000\",\"7120000\",\"8130000\",\"8132000\",\"8131000\",\"8133000\",\"8119000\",\"8888000\",\"7113000\",\"5175000\",\"8799000\",\"8802000\",\"8803000\",\"12721000\",\"10550000\",\"10551000\",\"10553000\",\"10556000\",\"8123000\",\"8124000\",\"6264000\",\"6265000\",\"10559000\",\"12430000\",\"9727000\",\"7569000\",\"7570000\",\"6113000\",\"9731000\"]}",
+    "tool": "works.area-windows",
+    "target": {
+     "segments": [
+      "9733000",
+      "6117000",
+      "12718000",
+      "7563000",
+      "5173000",
+      "12717000",
+      "5061001",
+      "5063000",
+      "7117000",
+      "6553000",
+      "8239000",
+      "7114000",
+      "6262000",
+      "6116000",
+      "7116000",
+      "12425000",
+      "10558000",
+      "8125000",
+      "6813000",
+      "12427000",
+      "10562000",
+      "5439000",
+      "8890000",
+      "10552000",
+      "9729000",
+      "6260000",
+      "5176000",
+      "8800000",
+      "5171000",
+      "5058000",
+      "10557000",
+      "7571000",
+      "9732000",
+      "5059000",
+      "5065000",
+      "5174000",
+      "5062000",
+      "12719000",
+      "9734000",
+      "12722000",
+      "5064000",
+      "5177000",
+      "5178000",
+      "6114000",
+      "7564000",
+      "7566000",
+      "5061002",
+      "7115000",
+      "12716000",
+      "10554000",
+      "9728000",
+      "6112000",
+      "6115000",
+      "8121000",
+      "6552000",
+      "6554000",
+      "8891000",
+      "8238000",
+      "8242000",
+      "7565000",
+      "6261000",
+      "9730000",
+      "9726000",
+      "12429000",
+      "5172000",
+      "6110000",
+      "10555000",
+      "8892000",
+      "6263000",
+      "8244000",
+      "8120000",
+      "7112000",
+      "12428000",
+      "8889000",
+      "8240000",
+      "8241000",
+      "6259000",
+      "5060000",
+      "8801000",
+      "5170000",
+      "6111000",
+      "12720000",
+      "9735000",
+      "8893000",
+      "8894000",
+      "8126000",
+      "8128000",
+      "7118000",
+      "12432000",
+      "10637000",
+      "8243000",
+      "7120000",
+      "8130000",
+      "8132000",
+      "8131000",
+      "8133000",
+      "8119000",
+      "8888000",
+      "7113000",
+      "5175000",
+      "8799000",
+      "8802000",
+      "8803000",
+      "12721000",
+      "10550000",
+      "10551000",
+      "10553000",
+      "10556000",
+      "8123000",
+      "8124000",
+      "6264000",
+      "6265000",
+      "10559000",
+      "12430000",
+      "9727000",
+      "7569000",
+      "7570000",
+      "6113000",
+      "9731000"
+     ]
+    },
+    "agent": "core.san-francisco.civil.works-coordination",
+    "code": "CORE-CIV-0031",
+    "requester": "core.san-francisco.mobility.traffic",
+    "via": "core.san-francisco.civil.lead",
+    "depth": 2,
+    "state": "succeeded",
+    "attempts": 1,
+    "ms": 1,
+    "error": null,
+    "findings": 1,
+    "site": {
+     "coord": [
+      -122.417901411,
+      37.785167215
+     ],
+     "label": "OFARRELL ST (CNN 9733000)",
+     "kind": "tronçon HIN cité"
+    }
+   }
+  ],
+  "messages": [
+   {
+    "id": "M1",
+    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
+    "at": "2026-10-15T00:48:05.074Z",
+    "from": "core.global.coordinator",
+    "to": "core.san-francisco.manager",
+    "type": "assign",
+    "purpose": "Problème découvert (Aide à la décision : sécurité routière × chantiers, Tenderloin), priorité 152",
+    "evidence": [
+     "neighborhoods:Tenderloin"
+    ],
+    "outcome": "transmis à la coordination"
+   },
+   {
+    "id": "M2",
+    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
+    "at": "2026-10-15T00:48:05.074Z",
+    "from": "core.san-francisco.manager",
+    "to": "core.san-francisco.mobility.lead",
+    "type": "assign",
+    "purpose": "Responsabilité de la mission confiée à CORE-TRF-0010 (Aide à la décision : sécurité routière × chantiers)",
+    "evidence": [
+     "neighborhoods:Tenderloin"
+    ],
+    "outcome": "accepté"
+   },
+   {
+    "id": "M3",
+    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
+    "at": "2026-10-15T00:48:05.075Z",
+    "from": "core.san-francisco.mobility.lead",
+    "to": "core.san-francisco.mobility.traffic",
+    "type": "delegate",
+    "purpose": "Sous-tâche bornée S1 : safety.crash-profile",
+    "evidence": [],
+    "outcome": "assignée"
+   },
+   {
+    "id": "M4",
+    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
+    "at": "2026-10-15T00:48:05.075Z",
+    "from": "core.san-francisco.mobility.lead",
+    "to": "core.san-francisco.simulation.lead",
+    "type": "request",
+    "purpose": "Demande d’appui (decision.interventions) pour Tenderloin",
+    "evidence": [],
+    "outcome": "accepté par la direction"
+   },
+   {
+    "id": "M5",
+    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
+    "at": "2026-10-15T00:48:05.076Z",
+    "from": "core.san-francisco.simulation.lead",
+    "to": "core.san-francisco.simulation.scenario-evaluator",
+    "type": "delegate",
+    "purpose": "Sous-tâche bornée S2 : decision.interventions",
+    "evidence": [],
+    "outcome": "assignée"
+   },
+   {
+    "id": "M6",
+    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
+    "at": "2026-10-15T00:48:05.095Z",
+    "from": "core.san-francisco.mobility.traffic",
+    "to": "core.san-francisco.mobility.lead",
+    "type": "result",
+    "purpose": "Résultat S1 (safety.crash-profile)",
+    "evidence": [
+     "neighborhoods:Tenderloin",
+     "crashes-agg:9733000",
+     "crashes-agg:6117000",
+     "crashes-agg:12718000",
+     "crashes-agg:7563000",
+     "crashes-agg:5173000",
+     "crashes-agg:12717000",
+     "crashes-agg:5061001",
+     "crashes-agg:5063000",
+     "crashes-agg:7117000",
+     "crashes-agg:6553000",
+     "crashes-agg:8239000",
+     "crashes-agg:7114000",
+     "crashes-agg:6262000",
+     "crashes-agg:6116000",
+     "crashes-agg:7116000",
+     "crashes-agg:12425000",
+     "crashes-agg:10558000",
+     "crashes-agg:8125000",
+     "crashes-agg:6813000"
+    ],
+    "outcome": "6 constat(s)"
+   },
+   {
+    "id": "M7",
+    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
+    "at": "2026-10-15T00:48:05.095Z",
+    "from": "core.san-francisco.mobility.traffic",
+    "to": "core.san-francisco.civil.lead",
+    "type": "request",
+    "purpose": "Demande d’appui (works.area-windows) pour Tenderloin",
+    "evidence": [],
+    "outcome": "accepté par la direction"
+   },
+   {
+    "id": "M8",
+    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
+    "at": "2026-10-15T00:48:05.096Z",
+    "from": "core.san-francisco.civil.lead",
+    "to": "core.san-francisco.civil.works-coordination",
+    "type": "delegate",
+    "purpose": "Sous-tâche bornée S3 : works.area-windows",
+    "evidence": [],
+    "outcome": "assignée"
+   },
+   {
+    "id": "M9",
+    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
+    "at": "2026-10-15T00:48:05.096Z",
+    "from": "core.san-francisco.simulation.scenario-evaluator",
+    "to": "core.san-francisco.simulation.lead",
+    "type": "result",
+    "purpose": "Résultat S2 (decision.interventions)",
+    "evidence": [
+     "hin:10558000",
+     "hin:9730000",
+     "hin:6262000",
+     "hin:9728000",
+     "hin:8133000",
+     "hin:9733000",
+     "hin:7117000",
+     "hin:5062000",
+     "hin:10637000",
+     "hin:5063000",
+     "hin:10558000",
+     "hin:9730000",
+     "hin:6262000",
+     "hin:9728000",
+     "hin:8133000",
+     "hin:10558000",
+     "hin:9730000",
+     "hin:6262000",
+     "hin:9728000",
+     "hin:8133000"
+    ],
+    "outcome": "5 constat(s)"
+   },
+   {
+    "id": "M10",
+    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
+    "at": "2026-10-15T00:48:05.097Z",
+    "from": "core.san-francisco.civil.works-coordination",
+    "to": "core.san-francisco.civil.lead",
+    "type": "result",
+    "purpose": "Résultat S3 (works.area-windows)",
+    "evidence": [
+     "study-permits:26EXC-01206@9733000",
+     "study-permits:26EXC-01206@6117000",
+     "study-permits:26EXC-04492@12718000",
+     "study-permits:26EXC-04705@12718000",
+     "study-permits:26EXC-01206@5173000",
+     "study-permits:26EXC-04374@5173000",
+     "study-permits:26EXC-02625@5061001",
+     "study-permits:26EXC-01206@5063000",
+     "study-permits:26EXC-01206@7117000",
+     "study-permits:26EXC-01641@8239000",
+     "study-permits:26EXC-01206@7114000",
+     "study-permits:26EXC-01206@6262000",
+     "study-permits:26EXC-01206@6116000",
+     "study-permits:26EXC-01206@7116000",
+     "study-permits:26EXC-01206@10558000",
+     "study-permits:26EXC-01206@8890000",
+     "study-permits:26EXC-04816@8890000",
+     "study-permits:26EXC-05072@10552000",
+     "study-permits:26EXC-01206@9729000",
+     "study-permits:26EXC-01206@8800000"
+    ],
+    "outcome": "1 constat(s)"
+   },
+   {
+    "id": "M11",
+    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
+    "at": "2026-10-15T00:48:05.097Z",
+    "from": "core.san-francisco.research.lead",
+    "to": "core.san-francisco.research.evidence-verifier",
+    "type": "delegate",
+    "purpose": "Vérification de fraîcheur des sources",
+    "evidence": [],
+    "outcome": "assignée"
+   },
+   {
+    "id": "M12",
+    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
+    "at": "2026-10-15T00:48:05.097Z",
+    "from": "core.san-francisco.research.evidence-verifier",
+    "to": "core.san-francisco.mobility.lead",
+    "type": "challenge",
+    "purpose": "Accidents jusqu’au 2026-08-31 seulement (44 j avant l’instantané) : les accidents récents ne sont pas inclus.",
+    "evidence": [
+     "dataset:crashes-agg"
+    ],
+    "outcome": "confiance abaissée"
+   },
+   {
+    "id": "M13",
+    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
+    "at": "2026-10-15T00:48:05.099Z",
+    "from": "core.san-francisco.mobility.lead",
+    "to": "core.san-francisco.safety.adversarial-reviewer",
+    "type": "review-request",
+    "purpose": "Revue adversariale de 12 constat(s) et de la recommandation",
+    "evidence": [
+     "neighborhoods:Tenderloin",
+     "crashes-agg:9733000",
+     "crashes-agg:6117000",
+     "crashes-agg:12718000",
+     "crashes-agg:7563000",
+     "crashes-agg:5173000",
+     "crashes-agg:12717000",
+     "crashes-agg:5061001",
+     "crashes-agg:5063000",
+     "crashes-agg:7117000",
+     "crashes-agg:6553000",
+     "crashes-agg:8239000",
+     "crashes-agg:7114000",
+     "crashes-agg:6262000",
+     "crashes-agg:6116000",
+     "crashes-agg:7116000",
+     "crashes-agg:12425000",
+     "crashes-agg:10558000",
+     "crashes-agg:8125000",
+     "crashes-agg:6813000"
+    ],
+    "outcome": "transmis"
+   },
+   {
+    "id": "M14",
+    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
+    "at": "2026-10-15T00:48:05.104Z",
+    "from": "core.san-francisco.safety.adversarial-reviewer",
+    "to": "core.san-francisco.mobility.lead",
+    "type": "review",
+    "purpose": "Revue : 12 accepté(s), 0 rejeté(s) ; recommandation recevable",
+    "evidence": [],
+    "outcome": "recevable"
+   },
+   {
+    "id": "M15",
+    "mission": "civ:decision-safety-works:tenderloin@2026-10-14",
+    "at": "2026-10-15T00:48:05.106Z",
+    "from": "core.san-francisco.governance.gateway",
+    "to": "human",
+    "type": "decision",
+    "purpose": "Proposition : ÉLIGIBLE À LA REVUE HUMAINE",
+    "evidence": [],
+    "outcome": "Accidents jusqu’au 2026-08-31 seulement (44 j avant l’instantané) : les accidents récents ne sont pas inclus."
+   }
+  ],
+  "results": {
+   "safety.crash-profile": {
+    "rows": [
+     {
+      "cnn": "9733000",
+      "street": "OFARRELL ST",
+      "length_km": 0.146,
+      "crashes": 11,
+      "severe_fatal": 3,
+      "pedestrian": 3,
+      "per_km_year": 15
+     },
+     {
+      "cnn": "6117000",
+      "street": "GEARY ST",
+      "length_km": 0.147,
+      "crashes": 9,
+      "severe_fatal": 2,
+      "pedestrian": 3,
+      "per_km_year": 12.2
+     },
+     {
+      "cnn": "12718000",
+      "street": "TURK ST",
+      "length_km": 0.146,
+      "crashes": 7,
+      "severe_fatal": 2,
+      "pedestrian": 3,
+      "per_km_year": 9.6
+     },
+     {
+      "cnn": "7563000",
+      "street": "JONES ST",
+      "length_km": 0.105,
+      "crashes": 6,
+      "severe_fatal": 2,
+      "pedestrian": 2,
+      "per_km_year": 11.4
+     },
+     {
+      "cnn": "5173000",
+      "street": "ELLIS ST",
+      "length_km": 0.146,
+      "crashes": 5,
+      "severe_fatal": 2,
+      "pedestrian": 4,
+      "per_km_year": 6.8
+     },
+     {
+      "cnn": "12717000",
+      "street": "TURK ST",
+      "length_km": 0.147,
+      "crashes": 3,
+      "severe_fatal": 2,
+      "pedestrian": 0,
+      "per_km_year": 4.1
+     },
+     {
+      "cnn": "5061001",
+      "street": "EDDY ST",
+      "length_km": 0.062,
+      "crashes": 3,
+      "severe_fatal": 2,
+      "pedestrian": 1,
+      "per_km_year": 9.7
+     },
+     {
+      "cnn": "5063000",
+      "street": "EDDY ST",
+      "length_km": 0.147,
+      "crashes": 9,
+      "severe_fatal": 1,
+      "pedestrian": 5,
+      "per_km_year": 12.3
+     },
+     {
+      "cnn": "7117000",
+      "street": "HYDE ST",
+      "length_km": 0.105,
+      "crashes": 7,
+      "severe_fatal": 1,
+      "pedestrian": 2,
+      "per_km_year": 13.3
+     },
+     {
+      "cnn": "6553000",
+      "street": "GROVE ST",
+      "length_km": 0.147,
+      "crashes": 6,
+      "severe_fatal": 1,
+      "pedestrian": 3,
+      "per_km_year": 8.2
+     },
+     {
+      "cnn": "8239000",
+      "street": "LEAVENWORTH ST",
+      "length_km": 0.105,
+      "crashes": 6,
+      "severe_fatal": 1,
+      "pedestrian": 3,
+      "per_km_year": 11.5
+     },
+     {
+      "cnn": "7114000",
+      "street": "HYDE ST",
+      "length_km": 0.105,
+      "crashes": 6,
+      "severe_fatal": 1,
+      "pedestrian": 2,
+      "per_km_year": 11.4
+     },
+     {
+      "cnn": "6262000",
+      "street": "GOLDEN GATE AVE",
+      "length_km": 0.073,
+      "crashes": 6,
+      "severe_fatal": 1,
+      "pedestrian": 2,
+      "per_km_year": 16.4
+     },
+     {
+      "cnn": "6116000",
+      "street": "GEARY ST",
+      "length_km": 0.146,
+      "crashes": 6,
+      "severe_fatal": 1,
+      "pedestrian": 2,
+      "per_km_year": 8.2
+     },
+     {
+      "cnn": "7116000",
+      "street": "HYDE ST",
+      "length_km": 0.105,
+      "crashes": 5,
+      "severe_fatal": 1,
+      "pedestrian": 1,
+      "per_km_year": 9.6
+     },
+     {
+      "cnn": "12425000",
+      "street": "TAYLOR ST",
+      "length_km": 0.09,
+      "crashes": 5,
+      "severe_fatal": 1,
+      "pedestrian": 1,
+      "per_km_year": 11.1
+     },
+     {
+      "cnn": "10558000",
+      "street": "POLK ST",
+      "length_km": 0.052,
+      "crashes": 5,
+      "severe_fatal": 1,
+      "pedestrian": 1,
+      "per_km_year": 19.4
+     },
+     {
+      "cnn": "8125000",
+      "street": "LARKIN ST",
+      "length_km": 0.105,
+      "crashes": 5,
+      "severe_fatal": 1,
+      "pedestrian": 1,
+      "per_km_year": 9.5
+     },
+     {
+      "cnn": "6813000",
+      "street": "HAYES ST",
+      "length_km": 0.147,
+      "crashes": 4,
+      "severe_fatal": 1,
+      "pedestrian": 1,
+      "per_km_year": 5.4
+     },
+     {
+      "cnn": "12427000",
+      "street": "TAYLOR ST",
+      "length_km": 0.104,
+      "crashes": 4,
+      "severe_fatal": 1,
+      "pedestrian": 0,
+      "per_km_year": 7.7
+     },
+     {
+      "cnn": "10562000",
+      "street": "POLK ST",
+      "length_km": 0.053,
+      "crashes": 4,
+      "severe_fatal": 1,
+      "pedestrian": 0,
+      "per_km_year": 15.2
+     },
+     {
+      "cnn": "5439000",
+      "street": "FELL ST",
+      "length_km": 0.181,
+      "crashes": 3,
+      "severe_fatal": 1,
+      "pedestrian": 2,
+      "per_km_year": 3.3
+     },
+     {
+      "cnn": "8890000",
+      "street": "MCALLISTER ST",
+      "length_km": 0.146,
+      "crashes": 3,
+      "severe_fatal": 1,
+      "pedestrian": 1,
+      "per_km_year": 4.1
+     },
+     {
+      "cnn": "10552000",
+      "street": "POLK ST",
+      "length_km": 0.053,
+      "crashes": 3,
+      "severe_fatal": 1,
+      "pedestrian": 0,
+      "per_km_year": 11.4
+     },
+     {
+      "cnn": "9729000",
+      "street": "OFARRELL ST",
+      "length_km": 0.147,
+      "crashes": 3,
+      "severe_fatal": 1,
+      "pedestrian": 2,
+      "per_km_year": 4.1
+     },
+     {
+      "cnn": "6260000",
+      "street": "GOLDEN GATE AVE",
+      "length_km": 0.147,
+      "crashes": 2,
+      "severe_fatal": 1,
+      "pedestrian": 1,
+      "per_km_year": 2.7
+     },
+     {
+      "cnn": "5176000",
+      "street": "ELLIS ST",
+      "length_km": 0.115,
+      "crashes": 2,
+      "severe_fatal": 1,
+      "pedestrian": 2,
+      "per_km_year": 3.5
+     },
+     {
+      "cnn": "8800000",
+      "street": "MASON ST",
+      "length_km": 0.105,
+      "crashes": 2,
+      "severe_fatal": 1,
+      "pedestrian": 0,
+      "per_km_year": 3.8
+     },
+     {
+      "cnn": "5171000",
+      "street": "ELLIS ST",
+      "length_km": 0.074,
+      "crashes": 2,
+      "severe_fatal": 1,
+      "pedestrian": 0,
+      "per_km_year": 5.4
+     },
+     {
+      "cnn": "5058000",
+      "street": "EDDY ST",
+      "length_km": 0.073,
+      "crashes": 2,
+      "severe_fatal": 1,
+      "pedestrian": 1,
+      "per_km_year": 5.5
+     },
+     {
+      "cnn": "10557000",
+      "street": "POLK ST",
+      "length_km": 0.053,
+      "crashes": 2,
+      "severe_fatal": 1,
+      "pedestrian": 0,
+      "per_km_year": 7.6
+     },
+     {
+      "cnn": "7571000",
+      "street": "JONES ST",
+      "length_km": 0.074,
+      "crashes": 2,
+      "severe_fatal": 1,
+      "pedestrian": 0,
+      "per_km_year": 5.4
+     },
+     {
+      "cnn": "9732000",
+      "street": "OFARRELL ST",
+      "length_km": 0.052,
+      "crashes": 2,
+      "severe_fatal": 1,
+      "pedestrian": 0,
+      "per_km_year": 7.7
+     },
+     {
+      "cnn": "5059000",
+      "street": "EDDY ST",
+      "length_km": 0.147,
+      "crashes": 13,
+      "severe_fatal": 0,
+      "pedestrian": 9,
+      "per_km_year": 17.7
+     },
+     {
+      "cnn": "5065000",
+      "street": "EDDY ST",
+      "length_km": 0.146,
+      "crashes": 10,
+      "severe_fatal": 0,
+      "pedestrian": 2,
+      "per_km_year": 13.7
+     },
+     {
+      "cnn": "5174000",
+      "street": "ELLIS ST",
+      "length_km": 0.147,
+      "crashes": 9,
+      "severe_fatal": 0,
+      "pedestrian": 2,
+      "per_km_year": 12.2
+     },
+     {
+      "cnn": "5062000",
+      "street": "EDDY ST",
+      "length_km": 0.146,
+      "crashes": 9,
+      "severe_fatal": 0,
+      "pedestrian": 3,
+      "per_km_year": 12.3
+     },
+     {
+      "cnn": "12719000",
+      "street": "TURK ST",
+      "length_km": 0.146,
+      "crashes": 8,
+      "severe_fatal": 0,
+      "pedestrian": 4,
+      "per_km_year": 10.9
+     },
+     {
+      "cnn": "9734000",
+      "street": "OFARRELL ST",
+      "length_km": 0.147,
+      "crashes": 8,
+      "severe_fatal": 0,
+      "pedestrian": 3,
+      "per_km_year": 10.9
+     },
+     {
+      "cnn": "12722000",
+      "street": "TURK ST",
+      "length_km": 0.148,
+      "crashes": 7,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 9.5
+     },
+     {
+      "cnn": "5064000",
+      "street": "EDDY ST",
+      "length_km": 0.147,
+      "crashes": 7,
+      "severe_fatal": 0,
+      "pedestrian": 4,
+      "per_km_year": 9.5
+     },
+     {
+      "cnn": "5177000",
+      "street": "ELLIS ST",
+      "length_km": 0.146,
+      "crashes": 6,
+      "severe_fatal": 0,
+      "pedestrian": 2,
+      "per_km_year": 8.2
+     },
+     {
+      "cnn": "5178000",
+      "street": "ELLIS ST",
+      "length_km": 0.148,
+      "crashes": 5,
+      "severe_fatal": 0,
+      "pedestrian": 2,
+      "per_km_year": 6.8
+     },
+     {
+      "cnn": "6114000",
+      "street": "GEARY ST",
+      "length_km": 0.147,
+      "crashes": 5,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 6.8
+     },
+     {
+      "cnn": "7564000",
+      "street": "JONES ST",
+      "length_km": 0.105,
+      "crashes": 4,
+      "severe_fatal": 0,
+      "pedestrian": 4,
+      "per_km_year": 7.6
+     },
+     {
+      "cnn": "7566000",
+      "street": "JONES ST",
+      "length_km": 0.105,
+      "crashes": 4,
+      "severe_fatal": 0,
+      "pedestrian": 2,
+      "per_km_year": 7.6
+     },
+     {
+      "cnn": "5061002",
+      "street": "EDDY ST",
+      "length_km": 0.085,
+      "crashes": 4,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 9.4
+     },
+     {
+      "cnn": "7115000",
+      "street": "HYDE ST",
+      "length_km": 0.105,
+      "crashes": 4,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 7.6
+     },
+     {
+      "cnn": "12716000",
+      "street": "TURK ST",
+      "length_km": 0.165,
+      "crashes": 4,
+      "severe_fatal": 0,
+      "pedestrian": 3,
+      "per_km_year": 4.9
+     },
+     {
+      "cnn": "10554000",
+      "street": "POLK ST",
+      "length_km": 0.105,
+      "crashes": 4,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 7.6
+     },
+     {
+      "cnn": "9728000",
+      "street": "OFARRELL ST",
+      "length_km": 0.073,
+      "crashes": 4,
+      "severe_fatal": 0,
+      "pedestrian": 3,
+      "per_km_year": 10.9
+     },
+     {
+      "cnn": "6112000",
+      "street": "GEARY ST",
+      "length_km": 0.074,
+      "crashes": 4,
+      "severe_fatal": 0,
+      "pedestrian": 4,
+      "per_km_year": 10.9
+     },
+     {
+      "cnn": "6115000",
+      "street": "GEARY ST",
+      "length_km": 0.147,
+      "crashes": 4,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 5.5
+     },
+     {
+      "cnn": "8121000",
+      "street": "LARKIN ST",
+      "length_km": 0.104,
+      "crashes": 3,
+      "severe_fatal": 0,
+      "pedestrian": 2,
+      "per_km_year": 5.8
+     },
+     {
+      "cnn": "6552000",
+      "street": "GROVE ST",
+      "length_km": 0.169,
+      "crashes": 3,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 3.5
+     },
+     {
+      "cnn": "6554000",
+      "street": "GROVE ST",
+      "length_km": 0.149,
+      "crashes": 3,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 4
+     },
+     {
+      "cnn": "8891000",
+      "street": "MCALLISTER ST",
+      "length_km": 0.073,
+      "crashes": 3,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 8.2
+     },
+     {
+      "cnn": "8238000",
+      "street": "LEAVENWORTH ST",
+      "length_km": 0.105,
+      "crashes": 3,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 5.7
+     },
+     {
+      "cnn": "8242000",
+      "street": "LEAVENWORTH ST",
+      "length_km": 0.104,
+      "crashes": 3,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 5.8
+     },
+     {
+      "cnn": "7565000",
+      "street": "JONES ST",
+      "length_km": 0.104,
+      "crashes": 3,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 5.8
+     },
+     {
+      "cnn": "6261000",
+      "street": "GOLDEN GATE AVE",
+      "length_km": 0.073,
+      "crashes": 3,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 8.2
+     },
+     {
+      "cnn": "9730000",
+      "street": "OFARRELL ST",
+      "length_km": 0.036,
+      "crashes": 3,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 16.7
+     },
+     {
+      "cnn": "9726000",
+      "street": "OFARRELL ST",
+      "length_km": 0.146,
+      "crashes": 3,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 4.1
+     },
+     {
+      "cnn": "12429000",
+      "street": "TAYLOR ST",
+      "length_km": 0.104,
+      "crashes": 3,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 5.8
+     },
+     {
+      "cnn": "5172000",
+      "street": "ELLIS ST",
+      "length_km": 0.146,
+      "crashes": 3,
+      "severe_fatal": 0,
+      "pedestrian": 2,
+      "per_km_year": 4.1
+     },
+     {
+      "cnn": "6110000",
+      "street": "GEARY ST",
+      "length_km": 0.147,
+      "crashes": 3,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 4.1
+     },
+     {
+      "cnn": "10555000",
+      "street": "POLK ST",
+      "length_km": 0.052,
+      "crashes": 3,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 11.5
+     },
+     {
+      "cnn": "8892000",
+      "street": "MCALLISTER ST",
+      "length_km": 0.074,
+      "crashes": 3,
+      "severe_fatal": 0,
+      "pedestrian": 3,
+      "per_km_year": 8.1
+     },
+     {
+      "cnn": "6263000",
+      "street": "GOLDEN GATE AVE",
+      "length_km": 0.146,
+      "crashes": 3,
+      "severe_fatal": 0,
+      "pedestrian": 2,
+      "per_km_year": 4.1
+     },
+     {
+      "cnn": "8244000",
+      "street": "LEAVENWORTH ST",
+      "length_km": 0.105,
+      "crashes": 3,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 5.7
+     },
+     {
+      "cnn": "8120000",
+      "street": "LARKIN ST",
+      "length_km": 0.105,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 3.8
+     },
+     {
+      "cnn": "7112000",
+      "street": "HYDE ST",
+      "length_km": 0.127,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 3.1
+     },
+     {
+      "cnn": "12428000",
+      "street": "TAYLOR ST",
+      "length_km": 0.105,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 3.8
+     },
+     {
+      "cnn": "8889000",
+      "street": "MCALLISTER ST",
+      "length_km": 0.047,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 8.5
+     },
+     {
+      "cnn": "8240000",
+      "street": "LEAVENWORTH ST",
+      "length_km": 0.104,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 2,
+      "per_km_year": 3.8
+     },
+     {
+      "cnn": "8241000",
+      "street": "LEAVENWORTH ST",
+      "length_km": 0.105,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 2,
+      "per_km_year": 3.8
+     },
+     {
+      "cnn": "6259000",
+      "street": "GOLDEN GATE AVE",
+      "length_km": 0.172,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 2,
+      "per_km_year": 2.3
+     },
+     {
+      "cnn": "5060000",
+      "street": "EDDY ST",
+      "length_km": 0.147,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 2.7
+     },
+     {
+      "cnn": "8801000",
+      "street": "MASON ST",
+      "length_km": 0.103,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 3.9
+     },
+     {
+      "cnn": "5170000",
+      "street": "ELLIS ST",
+      "length_km": 0.073,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 5.5
+     },
+     {
+      "cnn": "6111000",
+      "street": "GEARY ST",
+      "length_km": 0.146,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 2.7
+     },
+     {
+      "cnn": "12720000",
+      "street": "TURK ST",
+      "length_km": 0.115,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 3.5
+     },
+     {
+      "cnn": "9735000",
+      "street": "OFARRELL ST",
+      "length_km": 0.147,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 2.7
+     },
+     {
+      "cnn": "8893000",
+      "street": "MCALLISTER ST",
+      "length_km": 0.147,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 2.7
+     },
+     {
+      "cnn": "8894000",
+      "street": "MCALLISTER ST",
+      "length_km": 0.147,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 2.7
+     },
+     {
+      "cnn": "8126000",
+      "street": "LARKIN ST",
+      "length_km": 0.052,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 7.6
+     },
+     {
+      "cnn": "8128000",
+      "street": "LARKIN ST",
+      "length_km": 0.053,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 7.5
+     },
+     {
+      "cnn": "7118000",
+      "street": "HYDE ST",
+      "length_km": 0.104,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 3.8
+     },
+     {
+      "cnn": "12432000",
+      "street": "TAYLOR ST",
+      "length_km": 0.039,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 10.3
+     },
+     {
+      "cnn": "10637000",
+      "street": "POST ST",
+      "length_km": 0.031,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 12.8
+     },
+     {
+      "cnn": "8243000",
+      "street": "LEAVENWORTH ST",
+      "length_km": 0.105,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 3.8
+     },
+     {
+      "cnn": "7120000",
+      "street": "HYDE ST",
+      "length_km": 0.066,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 6.1
+     },
+     {
+      "cnn": "8130000",
+      "street": "LARKIN ST",
+      "length_km": 0.053,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 2,
+      "per_km_year": 7.5
+     },
+     {
+      "cnn": "8132000",
+      "street": "LARKIN ST",
+      "length_km": 0.052,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 7.7
+     },
+     {
+      "cnn": "8131000",
+      "street": "LARKIN ST",
+      "length_km": 0.052,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 7.7
+     },
+     {
+      "cnn": "8133000",
+      "street": "LARKIN ST",
+      "length_km": 0.053,
+      "crashes": 2,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 7.5
+     },
+     {
+      "cnn": "8119000",
+      "street": "LARKIN ST",
+      "length_km": 0.027,
+      "crashes": 1,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 7.4
+     },
+     {
+      "cnn": "8888000",
+      "street": "MCALLISTER ST",
+      "length_km": 0.1,
+      "crashes": 1,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 2
+     },
+     {
+      "cnn": "7113000",
+      "street": "HYDE ST",
+      "length_km": 0.105,
+      "crashes": 1,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 1.9
+     },
+     {
+      "cnn": "5175000",
+      "street": "ELLIS ST",
+      "length_km": 0.031,
+      "crashes": 1,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 6.4
+     },
+     {
+      "cnn": "8799000",
+      "street": "MASON ST",
+      "length_km": 0.124,
+      "crashes": 1,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 1.6
+     },
+     {
+      "cnn": "8802000",
+      "street": "MASON ST",
+      "length_km": 0.051,
+      "crashes": 1,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 3.9
+     },
+     {
+      "cnn": "8803000",
+      "street": "MASON ST",
+      "length_km": 0.055,
+      "crashes": 1,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 3.6
+     },
+     {
+      "cnn": "12721000",
+      "street": "TURK ST",
+      "length_km": 0.032,
+      "crashes": 1,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 6.3
+     },
+     {
+      "cnn": "10550000",
+      "street": "POLK ST",
+      "length_km": 0.058,
+      "crashes": 1,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 3.5
+     },
+     {
+      "cnn": "10551000",
+      "street": "POLK ST",
+      "length_km": 0.052,
+      "crashes": 1,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 3.8
+     },
+     {
+      "cnn": "10553000",
+      "street": "POLK ST",
+      "length_km": 0.052,
+      "crashes": 1,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 3.8
+     },
+     {
+      "cnn": "10556000",
+      "street": "POLK ST",
+      "length_km": 0.052,
+      "crashes": 1,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 3.9
+     },
+     {
+      "cnn": "8123000",
+      "street": "LARKIN ST",
+      "length_km": 0.11,
+      "crashes": 1,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 1.8
+     },
+     {
+      "cnn": "8124000",
+      "street": "LARKIN ST",
+      "length_km": 0.105,
+      "crashes": 1,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 1.9
+     },
+     {
+      "cnn": "6264000",
+      "street": "GOLDEN GATE AVE",
+      "length_km": 0.148,
+      "crashes": 1,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 1.3
+     },
+     {
+      "cnn": "6265000",
+      "street": "GOLDEN GATE AVE",
+      "length_km": 0.146,
+      "crashes": 1,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 1.4
+     },
+     {
+      "cnn": "10559000",
+      "street": "POLK ST",
+      "length_km": 0.053,
+      "crashes": 1,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 3.8
+     },
+     {
+      "cnn": "12430000",
+      "street": "TAYLOR ST",
+      "length_km": 0.106,
+      "crashes": 1,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 1.9
+     },
+     {
+      "cnn": "9727000",
+      "street": "OFARRELL ST",
+      "length_km": 0.073,
+      "crashes": 1,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 2.7
+     },
+     {
+      "cnn": "7569000",
+      "street": "JONES ST",
+      "length_km": 0.049,
+      "crashes": 1,
+      "severe_fatal": 0,
+      "pedestrian": 1,
+      "per_km_year": 4.1
+     },
+     {
+      "cnn": "7570000",
+      "street": "JONES ST",
+      "length_km": 0.106,
+      "crashes": 1,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 1.9
+     },
+     {
+      "cnn": "6113000",
+      "street": "GEARY ST",
+      "length_km": 0.073,
+      "crashes": 1,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 2.7
+     },
+     {
+      "cnn": "9731000",
+      "street": "OFARRELL ST",
+      "length_km": 0.058,
+      "crashes": 1,
+      "severe_fatal": 0,
+      "pedestrian": 0,
+      "per_km_year": 3.4
+     }
+    ],
+    "findings": [
+     {
+      "topic": "safety",
+      "claim": "Tenderloin : 146 tronçon(s) du réseau HIN 2024 ; 119 avec au moins un accident avec blessé déclaré sur 5 ans (399 accidents, dont 41 graves ou mortels).",
+      "epistemic": "reported",
+      "evidence": [
+       {
+        "type": "record",
+        "dataset": "neighborhoods",
+        "ref": "neighborhoods:Tenderloin"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:9733000"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:6117000"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:12718000"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:7563000"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:5173000"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:12717000"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:5061001"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:5063000"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:7117000"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:6553000"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:8239000"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:7114000"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:6262000"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:6116000"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:7116000"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:12425000"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:10558000"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:8125000"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:6813000"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:12427000"
+       }
+      ],
+      "values": {
+       "segments": 146,
+       "withCrashes": 119,
+       "crashes": 399,
+       "severeFatal": 41
+      }
+     },
+     {
+      "topic": "safety",
+      "claim": "OFARRELL ST (CNN 9733000) : 11 accident(s) avec blessé, 3 grave(s)/mortel(s), 3 impliquant un piéton, 15 par km et par an.",
+      "epistemic": "derived",
+      "evidence": [
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:9733000"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:9733000"
+       }
+      ],
+      "values": {
+       "cnn": "9733000",
+       "street": "OFARRELL ST",
+       "length_km": 0.146,
+       "crashes": 11,
+       "severe_fatal": 3,
+       "pedestrian": 3,
+       "per_km_year": 15
+      }
+     },
+     {
+      "topic": "safety",
+      "claim": "GEARY ST (CNN 6117000) : 9 accident(s) avec blessé, 2 grave(s)/mortel(s), 3 impliquant un piéton, 12.2 par km et par an.",
+      "epistemic": "derived",
+      "evidence": [
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:6117000"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:6117000"
+       }
+      ],
+      "values": {
+       "cnn": "6117000",
+       "street": "GEARY ST",
+       "length_km": 0.147,
+       "crashes": 9,
+       "severe_fatal": 2,
+       "pedestrian": 3,
+       "per_km_year": 12.2
+      }
+     },
+     {
+      "topic": "safety",
+      "claim": "TURK ST (CNN 12718000) : 7 accident(s) avec blessé, 2 grave(s)/mortel(s), 3 impliquant un piéton, 9.6 par km et par an.",
+      "epistemic": "derived",
+      "evidence": [
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:12718000"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:12718000"
+       }
+      ],
+      "values": {
+       "cnn": "12718000",
+       "street": "TURK ST",
+       "length_km": 0.146,
+       "crashes": 7,
+       "severe_fatal": 2,
+       "pedestrian": 3,
+       "per_km_year": 9.6
+      }
+     },
+     {
+      "topic": "safety",
+      "claim": "JONES ST (CNN 7563000) : 6 accident(s) avec blessé, 2 grave(s)/mortel(s), 2 impliquant un piéton, 11.4 par km et par an.",
+      "epistemic": "derived",
+      "evidence": [
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:7563000"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:7563000"
+       }
+      ],
+      "values": {
+       "cnn": "7563000",
+       "street": "JONES ST",
+       "length_km": 0.105,
+       "crashes": 6,
+       "severe_fatal": 2,
+       "pedestrian": 2,
+       "per_km_year": 11.4
+      }
+     },
+     {
+      "topic": "safety",
+      "claim": "ELLIS ST (CNN 5173000) : 5 accident(s) avec blessé, 2 grave(s)/mortel(s), 4 impliquant un piéton, 6.8 par km et par an.",
+      "epistemic": "derived",
+      "evidence": [
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:5173000"
+       },
+       {
+        "type": "record",
+        "dataset": "crashes-agg",
+        "ref": "crashes-agg:5173000"
+       }
+      ],
+      "values": {
+       "cnn": "5173000",
+       "street": "ELLIS ST",
+       "length_km": 0.146,
+       "crashes": 5,
+       "severe_fatal": 2,
+       "pedestrian": 4,
+       "per_km_year": 6.8
+      }
+     }
+    ],
+    "assumptions": [
+     "Accidents rattachés à un tronçon par la clé CNN du jeu (les accidents d’intersection sans tronçon sont exclus).",
+     "Fenêtre de 5 ans 2021-09-01 → 2026-08-31 ; accidents déclarés (sous-déclaration possible)."
+    ]
+   },
+   "decision.interventions": {
+    "analysis": {
+     "rows": [
+      {
+       "cnn": "10558000",
+       "street": "POLK ST",
+       "rate": 19.362511095807918,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@10558000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "9730000",
+       "street": "OFARRELL ST",
+       "rate": 16.70245658354538,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@9730000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "6262000",
+       "street": "GOLDEN GATE AVE",
+       "rate": 16.362318110070067,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@6262000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "9728000",
+       "street": "OFARRELL ST",
+       "rate": 10.911185412525928,
+       "permits": 2,
+       "sumDays": 179,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-05311@9728000",
+        "26EXC-01206@9728000"
+       ],
+       "orgs": [
+        "Pacific Gas & Electric",
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "8133000",
+       "street": "LARKIN ST",
+       "rate": 7.546405244148528,
+       "permits": 2,
+       "sumDays": 242,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@8133000",
+        "26EXC-02554@8133000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc.",
+        "Bay Area Lightworks"
+       ]
+      },
+      {
+       "cnn": "9733000",
+       "street": "OFARRELL ST",
+       "rate": 15.022374074222316,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@9733000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "7117000",
+       "street": "HYDE ST",
+       "rate": 13.345687490959211,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@7117000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "5062000",
+       "street": "EDDY ST",
+       "rate": 12.2970762199764,
+       "permits": 3,
+       "sumDays": 131,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@5062000",
+        "26EXC-02625@5062000",
+        "26EXC-04838@5062000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc.",
+        "Pacific Gas & Electric"
+       ]
+      },
+      {
+       "cnn": "10637000",
+       "street": "POST ST",
+       "rate": 12.770998829418087,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@10637000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "5063000",
+       "street": "EDDY ST",
+       "rate": 12.263555517745582,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@5063000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "6117000",
+       "street": "GEARY ST",
+       "rate": 12.227198018149553,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@6117000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "7114000",
+       "street": "HYDE ST",
+       "rate": 11.416130124655709,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@7114000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "5170000",
+       "street": "ELLIS ST",
+       "rate": 5.505218113718716,
+       "permits": 2,
+       "sumDays": 242,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@5170000",
+        "26EXC-02181@5170000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc.",
+        "Bay Area Lightworks"
+       ]
+      },
+      {
+       "cnn": "12719000",
+       "street": "TURK ST",
+       "rate": 10.9345010352354,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@12719000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "9734000",
+       "street": "OFARRELL ST",
+       "rate": 10.897001855879228,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@9734000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "7116000",
+       "street": "HYDE ST",
+       "rate": 9.55920040942366,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@7116000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "5177000",
+       "street": "ELLIS ST",
+       "rate": 8.222236438640874,
+       "permits": 2,
+       "sumDays": 134,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-05251@5177000",
+        "26EXC-01206@5177000"
+       ],
+       "orgs": [
+        "J. Flores Construction Co.",
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "6116000",
+       "street": "GEARY ST",
+       "rate": 8.20701105691334,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@6116000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "5173000",
+       "street": "ELLIS ST",
+       "rate": 6.8261347171868865,
+       "permits": 2,
+       "sumDays": 145,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@5173000",
+        "26EXC-04374@5173000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc.",
+        "R & S Construction Management Inc"
+       ]
+      },
+      {
+       "cnn": "8891000",
+       "street": "MCALLISTER ST",
+       "rate": 8.178008662939899,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@8891000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "8131000",
+       "street": "LARKIN ST",
+       "rate": 7.749513899894038,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@8131000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "8132000",
+       "street": "LARKIN ST",
+       "rate": 7.660341705048121,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@8132000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "9732000",
+       "street": "OFARRELL ST",
+       "rate": 7.656528720462269,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@9732000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "7115000",
+       "street": "HYDE ST",
+       "rate": 7.646013397573602,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@7115000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "8130000",
+       "street": "LARKIN ST",
+       "rate": 7.50184512208336,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@8130000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "8242000",
+       "street": "LEAVENWORTH ST",
+       "rate": 5.768667309574488,
+       "permits": 3,
+       "sumDays": 141,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01641@8242000",
+        "26EXC-01206@8242000",
+        "26E-00589@8242000"
+       ],
+       "orgs": [
+        "Ronan Construction Inc.",
+        "Esquivel Grading & Paving, Inc.",
+        "QLM, Inc."
+       ]
+      },
+      {
+       "cnn": "7120000",
+       "street": "HYDE ST",
+       "rate": 6.096165006641282,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@7120000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "12429000",
+       "street": "TAYLOR ST",
+       "rate": 5.792165216916059,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@12429000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "6263000",
+       "street": "GOLDEN GATE AVE",
+       "rate": 4.100878409798755,
+       "permits": 2,
+       "sumDays": 163,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@6263000",
+        "26BW-00015@6263000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc.",
+        "GEI CONSULTANTS, INC."
+       ]
+      },
+      {
+       "cnn": "5058000",
+       "street": "EDDY ST",
+       "rate": 5.495348575898535,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@5058000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "6115000",
+       "street": "GEARY ST",
+       "rate": 5.459712123484,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@6115000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "5171000",
+       "street": "ELLIS ST",
+       "rate": 5.399950966010268,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@5171000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "8801000",
+       "street": "MASON ST",
+       "rate": 3.8693088923937915,
+       "permits": 2,
+       "sumDays": 151,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@8801000",
+        "26EXC-05070@8801000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc.",
+        "Pacific Gas & Electric"
+       ]
+      },
+      {
+       "cnn": "8890000",
+       "street": "MCALLISTER ST",
+       "rate": 4.103272846250095,
+       "permits": 2,
+       "sumDays": 142,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@8890000",
+        "26EXC-04816@8890000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc.",
+        "Pacific Gas & Electric"
+       ]
+      },
+      {
+       "cnn": "8243000",
+       "street": "LEAVENWORTH ST",
+       "rate": 3.7964913512079668,
+       "permits": 2,
+       "sumDays": 136,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01641@8243000",
+        "26EXC-01206@8243000"
+       ],
+       "orgs": [
+        "Ronan Construction Inc.",
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "9726000",
+       "street": "OFARRELL ST",
+       "rate": 4.09623560594714,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@9726000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "5172000",
+       "street": "ELLIS ST",
+       "rate": 4.09583178494785,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@5172000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "9729000",
+       "street": "OFARRELL ST",
+       "rate": 4.0836802352051125,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@9729000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "6110000",
+       "street": "GEARY ST",
+       "rate": 4.082906219714085,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-02181@6110000"
+       ],
+       "orgs": [
+        "Bay Area Lightworks"
+       ]
+      },
+      {
+       "cnn": "12720000",
+       "street": "TURK ST",
+       "rate": 3.4778824636955306,
+       "permits": 2,
+       "sumDays": 141,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@12720000",
+        "26EXC-05072@12720000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc.",
+        "Pacific Gas & Electric"
+       ]
+      },
+      {
+       "cnn": "8802000",
+       "street": "MASON ST",
+       "rate": 3.900385648440932,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@8802000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "7118000",
+       "street": "HYDE ST",
+       "rate": 3.8380024980967695,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@7118000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "12428000",
+       "street": "TAYLOR ST",
+       "rate": 3.8120381812783295,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@12428000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "8800000",
+       "street": "MASON ST",
+       "rate": 3.811704177657641,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@8800000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "10559000",
+       "street": "POLK ST",
+       "rate": 3.7678113235401574,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@10559000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "9731000",
+       "street": "OFARRELL ST",
+       "rate": 3.429850774831973,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@9731000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "7112000",
+       "street": "HYDE ST",
+       "rate": 3.143023104160028,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@7112000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "9727000",
+       "street": "OFARRELL ST",
+       "rate": 2.72858369920659,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@9727000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "9735000",
+       "street": "OFARRELL ST",
+       "rate": 2.7264276652168946,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@9735000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "12718000",
+       "street": "TURK ST",
+       "rate": 9.556613757017555,
+       "permits": 2,
+       "sumDays": 34,
+       "unionDays": 30,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-04492@12718000",
+        "26EXC-04705@12718000"
+       ],
+       "orgs": [
+        "San Francisco Water Department",
+        "Pacific Gas & Electric"
+       ]
+      },
+      {
+       "cnn": "8244000",
+       "street": "LEAVENWORTH ST",
+       "rate": 5.714988771581846,
+       "permits": 2,
+       "sumDays": 44,
+       "unionDays": 36,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01641@8244000",
+        "26EXC-05177@8244000"
+       ],
+       "orgs": [
+        "Ronan Construction Inc.",
+        "CableCom"
+       ]
+      },
+      {
+       "cnn": "7113000",
+       "street": "HYDE ST",
+       "rate": 1.9117560853333722,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@7113000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "7570000",
+       "street": "JONES ST",
+       "rate": 1.8921195509498845,
+       "permits": 2,
+       "sumDays": 122,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@7570000",
+        "26EXC-04836@7570000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc.",
+        "Pacific Gas & Electric"
+       ]
+      },
+      {
+       "cnn": "12430000",
+       "street": "TAYLOR ST",
+       "rate": 1.8860443325853418,
+       "permits": 1,
+       "sumDays": 121,
+       "unionDays": 121,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01206@12430000"
+       ],
+       "orgs": [
+        "Esquivel Grading & Paving, Inc."
+       ]
+      },
+      {
+       "cnn": "10552000",
+       "street": "POLK ST",
+       "rate": 11.386804196017128,
+       "permits": 1,
+       "sumDays": 20,
+       "unionDays": 20,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-05072@10552000"
+       ],
+       "orgs": [
+        "Pacific Gas & Electric"
+       ]
+      },
+      {
+       "cnn": "8128000",
+       "street": "LARKIN ST",
+       "rate": 7.500103132600342,
+       "permits": 1,
+       "sumDays": 29,
+       "unionDays": 29,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-05255@8128000"
+       ],
+       "orgs": [
+        "Pacific Gas & Electric"
+       ]
+      },
+      {
+       "cnn": "12722000",
+       "street": "TURK ST",
+       "rate": 9.486788002575832,
+       "permits": 1,
+       "sumDays": 20,
+       "unionDays": 20,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-05072@12722000"
+       ],
+       "orgs": [
+        "Pacific Gas & Electric"
+       ]
+      },
+      {
+       "cnn": "8239000",
+       "street": "LEAVENWORTH ST",
+       "rate": 11.465819439724406,
+       "permits": 1,
+       "sumDays": 15,
+       "unionDays": 15,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01641@8239000"
+       ],
+       "orgs": [
+        "Ronan Construction Inc."
+       ]
+      },
+      {
+       "cnn": "8120000",
+       "street": "LARKIN ST",
+       "rate": 3.8103787745322273,
+       "permits": 1,
+       "sumDays": 42,
+       "unionDays": 42,
+       "urgentDays": 0,
+       "deferable": [
+        "26BW-00016@8120000"
+       ],
+       "orgs": [
+        "GEI CONSULTANTS, INC."
+       ]
+      },
+      {
+       "cnn": "12721000",
+       "street": "TURK ST",
+       "rate": 6.312275597038726,
+       "permits": 1,
+       "sumDays": 20,
+       "unionDays": 20,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-05072@12721000"
+       ],
+       "orgs": [
+        "Pacific Gas & Electric"
+       ]
+      },
+      {
+       "cnn": "6259000",
+       "street": "GOLDEN GATE AVE",
+       "rate": 2.3276789292477726,
+       "permits": 2,
+       "sumDays": 45,
+       "unionDays": 30,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01641@6259000",
+        "26EXC-04705@6259000"
+       ],
+       "orgs": [
+        "Ronan Construction Inc.",
+        "Pacific Gas & Electric"
+       ]
+      },
+      {
+       "cnn": "6114000",
+       "street": "GEARY ST",
+       "rate": 6.813362884236452,
+       "permits": 2,
+       "sumDays": 14,
+       "unionDays": 13,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-04842@6114000",
+        "26EXC-05023@6114000"
+       ],
+       "orgs": [
+        "Pacific Gas & Electric"
+       ]
+      },
+      {
+       "cnn": "10556000",
+       "street": "POLK ST",
+       "rate": 3.859479142677583,
+       "permits": 1,
+       "sumDays": 24,
+       "unionDays": 24,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-04349@10556000"
+       ],
+       "orgs": [
+        "R & S Construction Management Inc"
+       ]
+      },
+      {
+       "cnn": "5061001",
+       "street": "EDDY ST",
+       "rate": 9.715609111943003,
+       "permits": 1,
+       "sumDays": 9,
+       "unionDays": 9,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-02625@5061001"
+       ],
+       "orgs": []
+      },
+      {
+       "cnn": "8238000",
+       "street": "LEAVENWORTH ST",
+       "rate": 5.699991031997533,
+       "permits": 1,
+       "sumDays": 15,
+       "unionDays": 15,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01641@8238000"
+       ],
+       "orgs": [
+        "Ronan Construction Inc."
+       ]
+      },
+      {
+       "cnn": "5061002",
+       "street": "EDDY ST",
+       "rate": 9.401287718358674,
+       "permits": 1,
+       "sumDays": 9,
+       "unionDays": 9,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-02625@5061002"
+       ],
+       "orgs": []
+      },
+      {
+       "cnn": "10553000",
+       "street": "POLK ST",
+       "rate": 3.8326683125608616,
+       "permits": 1,
+       "sumDays": 20,
+       "unionDays": 20,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-05072@10553000"
+       ],
+       "orgs": [
+        "Pacific Gas & Electric"
+       ]
+      },
+      {
+       "cnn": "8240000",
+       "street": "LEAVENWORTH ST",
+       "rate": 3.829215164873337,
+       "permits": 1,
+       "sumDays": 15,
+       "unionDays": 15,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01641@8240000"
+       ],
+       "orgs": [
+        "Ronan Construction Inc."
+       ]
+      },
+      {
+       "cnn": "8241000",
+       "street": "LEAVENWORTH ST",
+       "rate": 3.8127148003298608,
+       "permits": 1,
+       "sumDays": 15,
+       "unionDays": 15,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-01641@8241000"
+       ],
+       "orgs": [
+        "Ronan Construction Inc."
+       ]
+      },
+      {
+       "cnn": "6265000",
+       "street": "GOLDEN GATE AVE",
+       "rate": 1.3744866100690607,
+       "permits": 1,
+       "sumDays": 20,
+       "unionDays": 20,
+       "urgentDays": 0,
+       "deferable": [
+        "26EXC-05072@6265000"
+       ],
+       "orgs": [
+        "Pacific Gas & Electric"
+       ]
+      }
+     ],
+     "e0": 50836.6,
+     "options": [
+      {
+       "id": "I0",
+       "label": "Statu quo : travaux tels qu’autorisés",
+       "exposure": 50836.6,
+       "change": 0,
+       "permitsAffected": 0,
+       "orgsAffected": 0,
+       "note": "référence"
+      },
+      {
+       "id": "I1",
+       "label": "Revue préalable du plan de circulation piétonne et cycliste sur les 5 tronçons les plus exposés",
+       "exposure": 50836.6,
+       "change": 0,
+       "coveredShare": 0.199,
+       "permitsAffected": 7,
+       "orgsAffected": 3,
+       "note": "ne réduit pas l’indice ; part de l’indice couverte par une revue"
+      },
+      {
+       "id": "I2",
+       "label": "Coordonner les fenêtres qui se chevauchent sur un même tronçon (jours occupés une seule fois)",
+       "exposure": 47486.9,
+       "change": -0.066,
+       "permitsAffected": 36,
+       "orgsAffected": 10,
+       "note": "suppose que des chantiers simultanés peuvent partager la même occupation (hypothèse)"
+      },
+      {
+       "id": "I3",
+       "label": "Reporter au-delà de l’horizon les travaux non urgents des 5 tronçons les plus exposés",
+       "exposure": 40713.6,
+       "change": -0.199,
+       "permitsAffected": 7,
+       "orgsAffected": 3,
+       "note": "déplace les travaux dans le temps ; ne les supprime pas"
+      }
+     ]
+    },
+    "sensitivity": [
+     {
+      "topN": 3,
+      "horizon": 60,
+      "weight": "all",
+      "e0": 27525.1,
+      "I2": -0.09,
+      "I3": -0.124,
+      "best": "I3"
+     },
+     {
+      "topN": 3,
+      "horizon": 60,
+      "weight": "severe",
+      "e0": 2698.9,
+      "I2": -0.039,
+      "I3": -0.267,
+      "best": "I3"
+     },
+     {
+      "topN": 3,
+      "horizon": 120,
+      "weight": "all",
+      "e0": 50836.6,
+      "I2": -0.066,
+      "I3": -0.125,
+      "best": "I3"
+     },
+     {
+      "topN": 3,
+      "horizon": 120,
+      "weight": "severe",
+      "e0": 5009.2,
+      "I2": -0.021,
+      "I3": -0.285,
+      "best": "I3"
+     },
+     {
+      "topN": 3,
+      "horizon": 180,
+      "weight": "all",
+      "e0": 74020,
+      "I2": -0.056,
+      "I3": -0.128,
+      "best": "I3"
+     },
+     {
+      "topN": 3,
+      "horizon": 180,
+      "weight": "severe",
+      "e0": 7319.6,
+      "I2": -0.014,
+      "I3": -0.292,
+      "best": "I3"
+     },
+     {
+      "topN": 5,
+      "horizon": 60,
+      "weight": "all",
+      "e0": 27525.1,
+      "I2": -0.09,
+      "I3": -0.193,
+      "best": "I3"
+     },
+     {
+      "topN": 5,
+      "horizon": 60,
+      "weight": "severe",
+      "e0": 2698.9,
+      "I2": -0.039,
+      "I3": -0.415,
+      "best": "I3"
+     },
+     {
+      "topN": 5,
+      "horizon": 120,
+      "weight": "all",
+      "e0": 50836.6,
+      "I2": -0.066,
+      "I3": -0.199,
+      "best": "I3"
+     },
+     {
+      "topN": 5,
+      "horizon": 120,
+      "weight": "severe",
+      "e0": 5009.2,
+      "I2": -0.021,
+      "I3": -0.43,
+      "best": "I3"
+     },
+     {
+      "topN": 5,
+      "horizon": 180,
+      "weight": "all",
+      "e0": 74020,
+      "I2": -0.056,
+      "I3": -0.202,
+      "best": "I3"
+     },
+     {
+      "topN": 5,
+      "horizon": 180,
+      "weight": "severe",
+      "e0": 7319.6,
+      "I2": -0.014,
+      "I3": -0.436,
+      "best": "I3"
+     },
+     {
+      "topN": 10,
+      "horizon": 60,
+      "weight": "all",
+      "e0": 27525.1,
+      "I2": -0.09,
+      "I3": -0.343,
+      "best": "I3"
+     },
+     {
+      "topN": 10,
+      "horizon": 60,
+      "weight": "severe",
+      "e0": 2698.9,
+      "I2": -0.039,
+      "I3": -0.685,
+      "best": "I3"
+     },
+     {
+      "topN": 10,
+      "horizon": 120,
+      "weight": "all",
+      "e0": 50836.6,
+      "I2": -0.066,
+      "I3": -0.358,
+      "best": "I3"
+     },
+     {
+      "topN": 10,
+      "horizon": 120,
+      "weight": "severe",
+      "e0": 5009.2,
+      "I2": -0.021,
+      "I3": -0.719,
+      "best": "I3"
+     },
+     {
+      "topN": 10,
+      "horizon": 180,
+      "weight": "all",
+      "e0": 74020,
+      "I2": -0.056,
+      "I3": -0.363,
+      "best": "I3"
+     },
+     {
+      "topN": 10,
+      "horizon": 180,
+      "weight": "severe",
+      "e0": 7319.6,
+      "I2": -0.014,
+      "I3": -0.732,
+      "best": "I3"
+     }
+    ],
+    "quality": [
+     {
+      "source": "crashes-agg",
+      "grade": "B",
+      "why": "Accidents déclarés, décalage de 44 j ; rattachement par clé CNN, gravité classée"
+     },
+     {
+      "source": "hin",
+      "grade": "B",
+      "why": "Réseau HIN 2024 : désignation administrative fondée sur des années antérieures ; ne mesure pas le risque actuel."
+     },
+     {
+      "source": "permits",
+      "grade": "B",
+      "why": "permis approuvés, titulaires connus ; exécution non prouvée"
+     },
+     {
+      "source": "modèle",
+      "grade": "C",
+      "why": "indice exploratoire non calibré : aucune relation entre jours de travaux et accidents n’est établie"
+     }
+    ],
+    "findings": [
+     {
+      "topic": "decision",
+      "claim": "Tenderloin : indice d’exposition exploratoire de référence 50836.6 sur 70 tronçon(s) avec accidents et travaux dans les 120 j (modélisé, exploratoire).",
+      "epistemic": "modeled",
+      "evidence": [
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:10558000"
+       },
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:9730000"
+       },
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:6262000"
+       },
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:9728000"
+       },
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:8133000"
+       },
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:9733000"
+       },
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:7117000"
+       },
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:5062000"
+       },
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:10637000"
+       },
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:5063000"
+       }
+      ],
+      "values": {
+       "e0": 50836.6,
+       "segments": 70
+      }
+     },
+     {
+      "topic": "decision",
+      "claim": "I1 — Revue préalable du plan de circulation piétonne et cycliste sur les 5 tronçons les plus exposés : indice 50836.6, part couverte 20 % ; 7 permis concerné(e)s (modélisé, exploratoire).",
+      "epistemic": "modeled",
+      "evidence": [
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:10558000"
+       },
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:9730000"
+       },
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:6262000"
+       },
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:9728000"
+       },
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:8133000"
+       }
+      ],
+      "values": {
+       "exposure": 50836.6,
+       "change": 0,
+       "coveredShare": 0.199,
+       "permitsAffected": 7
+      }
+     },
+     {
+      "topic": "decision",
+      "claim": "I2 — Coordonner les fenêtres qui se chevauchent sur un même tronçon (jours occupés une seule fois) : indice 47486.9, variation -7 % ; 36 permis concerné(e)s (modélisé, exploratoire).",
+      "epistemic": "modeled",
+      "evidence": [
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:10558000"
+       },
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:9730000"
+       },
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:6262000"
+       },
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:9728000"
+       },
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:8133000"
+       }
+      ],
+      "values": {
+       "exposure": 47486.9,
+       "change": -0.066,
+       "coveredShare": null,
+       "permitsAffected": 36
+      }
+     },
+     {
+      "topic": "decision",
+      "claim": "I3 — Reporter au-delà de l’horizon les travaux non urgents des 5 tronçons les plus exposés : indice 40713.6, variation -20 % ; 7 permis concerné(e)s (modélisé, exploratoire).",
+      "epistemic": "modeled",
+      "evidence": [
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:10558000"
+       },
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:9730000"
+       },
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:6262000"
+       },
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:9728000"
+       },
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:8133000"
+       }
+      ],
+      "values": {
+       "exposure": 40713.6,
+       "change": -0.199,
+       "coveredShare": null,
+       "permitsAffected": 7
+      }
+     },
+     {
+      "topic": "decision",
+      "claim": "Sensibilité : l’option I3 reste la plus réductrice de l’indice dans 18 des 18 combinaisons (top N 3/5/10, horizon 60/120/180 j, pondération toutes gravités / graves) — modélisé, exploratoire.",
+      "epistemic": "modeled",
+      "evidence": [
+       {
+        "type": "record",
+        "dataset": "hin",
+        "ref": "hin:10558000"
+       }
+      ],
+      "values": {
+       "stable": 18,
+       "combinations": 18
+      }
+     }
+    ],
+    "assumptions": [
+     "Indice = taux d’accidents du tronçon (par km et par an, 5 ans) × jours de travaux autorisés dans l’horizon ; exploratoire, non calibré.",
+     "Aucun coût ni bénéfice monétaire calculé (aucune donnée de coût intégrée).",
+     "Report et coordination supposés faisables administrativement (hypothèse à vérifier auprès des services)."
+    ]
+   },
+   "works.area-windows": {
+    "rows": [
+     {
+      "cnn": "9733000",
+      "permits": [
+       "26EXC-01206@9733000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "6117000",
+      "permits": [
+       "26EXC-01206@6117000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "12718000",
+      "permits": [
+       "26EXC-04492@12718000",
+       "26EXC-04705@12718000"
+      ],
+      "orgs": [
+       "Pacific Gas & Electric",
+       "San Francisco Water Department"
+      ],
+      "excavation": 2
+     },
+     {
+      "cnn": "5173000",
+      "permits": [
+       "26EXC-01206@5173000",
+       "26EXC-04374@5173000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc.",
+       "R & S Construction Management Inc"
+      ],
+      "excavation": 2
+     },
+     {
+      "cnn": "5061001",
+      "permits": [
+       "26EXC-02625@5061001"
+      ],
+      "orgs": [],
+      "excavation": 1
+     },
+     {
+      "cnn": "5063000",
+      "permits": [
+       "26EXC-01206@5063000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "7117000",
+      "permits": [
+       "26EXC-01206@7117000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "8239000",
+      "permits": [
+       "26EXC-01641@8239000"
+      ],
+      "orgs": [
+       "Ronan Construction Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "7114000",
+      "permits": [
+       "26EXC-01206@7114000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "6262000",
+      "permits": [
+       "26EXC-01206@6262000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "6116000",
+      "permits": [
+       "26EXC-01206@6116000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "7116000",
+      "permits": [
+       "26EXC-01206@7116000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "10558000",
+      "permits": [
+       "26EXC-01206@10558000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "8890000",
+      "permits": [
+       "26EXC-01206@8890000",
+       "26EXC-04816@8890000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc.",
+       "Pacific Gas & Electric"
+      ],
+      "excavation": 2
+     },
+     {
+      "cnn": "10552000",
+      "permits": [
+       "26EXC-05072@10552000"
+      ],
+      "orgs": [
+       "Pacific Gas & Electric"
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "9729000",
+      "permits": [
+       "26EXC-01206@9729000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "8800000",
+      "permits": [
+       "26EXC-01206@8800000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "5171000",
+      "permits": [
+       "26EXC-01206@5171000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "5058000",
+      "permits": [
+       "26EXC-01206@5058000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "9732000",
+      "permits": [
+       "26EXC-01206@9732000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "5062000",
+      "permits": [
+       "26EXC-01206@5062000",
+       "26EXC-02625@5062000",
+       "26EXC-04838@5062000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc.",
+       "Pacific Gas & Electric"
+      ],
+      "excavation": 3
+     },
+     {
+      "cnn": "12719000",
+      "permits": [
+       "26EXC-01206@12719000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "9734000",
+      "permits": [
+       "26EXC-01206@9734000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "12722000",
+      "permits": [
+       "26EXC-05072@12722000"
+      ],
+      "orgs": [
+       "Pacific Gas & Electric"
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "5177000",
+      "permits": [
+       "26EXC-05251@5177000",
+       "26EXC-01206@5177000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc.",
+       "J. Flores Construction Co."
+      ],
+      "excavation": 2
+     },
+     {
+      "cnn": "6114000",
+      "permits": [
+       "26EXC-04842@6114000",
+       "26EXC-05023@6114000"
+      ],
+      "orgs": [
+       "Pacific Gas & Electric"
+      ],
+      "excavation": 2
+     },
+     {
+      "cnn": "5061002",
+      "permits": [
+       "26EXC-02625@5061002"
+      ],
+      "orgs": [],
+      "excavation": 1
+     },
+     {
+      "cnn": "7115000",
+      "permits": [
+       "26EXC-01206@7115000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "9728000",
+      "permits": [
+       "26EXC-05311@9728000",
+       "26EXC-01206@9728000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc.",
+       "Pacific Gas & Electric"
+      ],
+      "excavation": 2
+     },
+     {
+      "cnn": "6115000",
+      "permits": [
+       "26EXC-01206@6115000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "8891000",
+      "permits": [
+       "26EXC-01206@8891000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "8238000",
+      "permits": [
+       "26EXC-01641@8238000"
+      ],
+      "orgs": [
+       "Ronan Construction Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "8242000",
+      "permits": [
+       "26EXC-01641@8242000",
+       "26EXC-01206@8242000",
+       "26E-00589@8242000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc.",
+       "QLM, Inc.",
+       "Ronan Construction Inc."
+      ],
+      "excavation": 3
+     },
+     {
+      "cnn": "9730000",
+      "permits": [
+       "26EXC-01206@9730000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "9726000",
+      "permits": [
+       "26EXC-01206@9726000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "12429000",
+      "permits": [
+       "26EXC-01206@12429000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "5172000",
+      "permits": [
+       "26EXC-01206@5172000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "6110000",
+      "permits": [
+       "26EXC-02181@6110000"
+      ],
+      "orgs": [
+       "Bay Area Lightworks"
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "6263000",
+      "permits": [
+       "26EXC-01206@6263000",
+       "26BW-00015@6263000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc.",
+       "GEI CONSULTANTS, INC."
+      ],
+      "excavation": 2
+     },
+     {
+      "cnn": "8244000",
+      "permits": [
+       "26EXC-01641@8244000",
+       "26EXC-05177@8244000"
+      ],
+      "orgs": [
+       "CableCom",
+       "Ronan Construction Inc."
+      ],
+      "excavation": 2
+     },
+     {
+      "cnn": "8120000",
+      "permits": [
+       "26BW-00016@8120000"
+      ],
+      "orgs": [
+       "GEI CONSULTANTS, INC."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "7112000",
+      "permits": [
+       "26EXC-01206@7112000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "12428000",
+      "permits": [
+       "26EXC-01206@12428000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "8240000",
+      "permits": [
+       "26EXC-01641@8240000"
+      ],
+      "orgs": [
+       "Ronan Construction Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "8241000",
+      "permits": [
+       "26EXC-01641@8241000"
+      ],
+      "orgs": [
+       "Ronan Construction Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "6259000",
+      "permits": [
+       "26EXC-01641@6259000",
+       "26EXC-04705@6259000"
+      ],
+      "orgs": [
+       "Pacific Gas & Electric",
+       "Ronan Construction Inc."
+      ],
+      "excavation": 2
+     },
+     {
+      "cnn": "8801000",
+      "permits": [
+       "26EXC-01206@8801000",
+       "26EXC-05070@8801000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc.",
+       "Pacific Gas & Electric"
+      ],
+      "excavation": 2
+     },
+     {
+      "cnn": "5170000",
+      "permits": [
+       "26EXC-01206@5170000",
+       "26EXC-02181@5170000"
+      ],
+      "orgs": [
+       "Bay Area Lightworks",
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 2
+     },
+     {
+      "cnn": "12720000",
+      "permits": [
+       "26EXC-01206@12720000",
+       "26EXC-05072@12720000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc.",
+       "Pacific Gas & Electric"
+      ],
+      "excavation": 2
+     },
+     {
+      "cnn": "9735000",
+      "permits": [
+       "26EXC-01206@9735000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "8128000",
+      "permits": [
+       "26EXC-05255@8128000"
+      ],
+      "orgs": [
+       "Pacific Gas & Electric"
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "7118000",
+      "permits": [
+       "26EXC-01206@7118000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "10637000",
+      "permits": [
+       "26EXC-01206@10637000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "8243000",
+      "permits": [
+       "26EXC-01641@8243000",
+       "26EXC-01206@8243000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc.",
+       "Ronan Construction Inc."
+      ],
+      "excavation": 2
+     },
+     {
+      "cnn": "7120000",
+      "permits": [
+       "26EXC-01206@7120000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "8130000",
+      "permits": [
+       "26EXC-01206@8130000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "8132000",
+      "permits": [
+       "26EXC-01206@8132000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "8131000",
+      "permits": [
+       "26EXC-01206@8131000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "8133000",
+      "permits": [
+       "26EXC-01206@8133000",
+       "26EXC-02554@8133000"
+      ],
+      "orgs": [
+       "Bay Area Lightworks",
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 2
+     },
+     {
+      "cnn": "7113000",
+      "permits": [
+       "26EXC-01206@7113000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "8802000",
+      "permits": [
+       "26EXC-01206@8802000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "12721000",
+      "permits": [
+       "26EXC-05072@12721000"
+      ],
+      "orgs": [
+       "Pacific Gas & Electric"
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "10553000",
+      "permits": [
+       "26EXC-05072@10553000"
+      ],
+      "orgs": [
+       "Pacific Gas & Electric"
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "10556000",
+      "permits": [
+       "26EXC-04349@10556000"
+      ],
+      "orgs": [
+       "R & S Construction Management Inc"
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "6265000",
+      "permits": [
+       "26EXC-05072@6265000"
+      ],
+      "orgs": [
+       "Pacific Gas & Electric"
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "10559000",
+      "permits": [
+       "26EXC-01206@10559000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "12430000",
+      "permits": [
+       "26EXC-01206@12430000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "9727000",
+      "permits": [
+       "26EXC-01206@9727000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     },
+     {
+      "cnn": "7570000",
+      "permits": [
+       "26EXC-01206@7570000",
+       "26EXC-04836@7570000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc.",
+       "Pacific Gas & Electric"
+      ],
+      "excavation": 2
+     },
+     {
+      "cnn": "9731000",
+      "permits": [
+       "26EXC-01206@9731000"
+      ],
+      "orgs": [
+       "Esquivel Grading & Paving, Inc."
+      ],
+      "excavation": 1
+     }
+    ],
+    "findings": [
+     {
+      "topic": "works",
+      "claim": "70 des 119 tronçons examinés ont des fenêtres de travaux approuvées en cours ou dans les 120 j (89 permis, 10 organisation(s)).",
+      "epistemic": "reported",
+      "evidence": [
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-01206@9733000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-01206@6117000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-04492@12718000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-04705@12718000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-01206@5173000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-04374@5173000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-02625@5061001"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-01206@5063000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-01206@7117000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-01641@8239000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-01206@7114000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-01206@6262000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-01206@6116000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-01206@7116000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-01206@10558000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-01206@8890000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-04816@8890000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-05072@10552000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-01206@9729000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-01206@8800000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-01206@5171000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-01206@5058000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-01206@9732000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-01206@5062000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-02625@5062000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-04838@5062000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-01206@12719000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-01206@9734000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-05072@12722000"
+       },
+       {
+        "type": "record",
+        "dataset": "study-permits",
+        "ref": "study-permits:26EXC-05251@5177000"
+       }
+      ],
+      "values": {
+       "segments": 119,
+       "withWorks": 70
+      }
+     }
+    ],
+    "assumptions": [
+     "Horizon de 120 jours depuis l’instantané (2026-10-14).",
+     "Un permis approuvé n’est pas la preuve que les travaux ont lieu."
+    ]
+   }
+  },
+  "findings": [
+   {
+    "topic": "safety",
+    "claim": "Tenderloin : 146 tronçon(s) du réseau HIN 2024 ; 119 avec au moins un accident avec blessé déclaré sur 5 ans (399 accidents, dont 41 graves ou mortels).",
+    "epistemic": "reported",
+    "evidence": [
+     {
+      "type": "record",
+      "dataset": "neighborhoods",
+      "ref": "neighborhoods:Tenderloin"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:9733000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:6117000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:12718000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:7563000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:5173000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:12717000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:5061001"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:5063000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:7117000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:6553000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:8239000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:7114000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:6262000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:6116000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:7116000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:12425000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:10558000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:8125000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:6813000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:12427000"
+     }
+    ],
+    "values": {
+     "segments": 146,
+     "withCrashes": 119,
+     "crashes": 399,
+     "severeFatal": 41
+    }
+   },
+   {
+    "topic": "safety",
+    "claim": "OFARRELL ST (CNN 9733000) : 11 accident(s) avec blessé, 3 grave(s)/mortel(s), 3 impliquant un piéton, 15 par km et par an.",
+    "epistemic": "derived",
+    "evidence": [
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:9733000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:9733000"
+     }
+    ],
+    "values": {
+     "cnn": "9733000",
+     "street": "OFARRELL ST",
+     "length_km": 0.146,
+     "crashes": 11,
+     "severe_fatal": 3,
+     "pedestrian": 3,
+     "per_km_year": 15
+    }
+   },
+   {
+    "topic": "safety",
+    "claim": "GEARY ST (CNN 6117000) : 9 accident(s) avec blessé, 2 grave(s)/mortel(s), 3 impliquant un piéton, 12.2 par km et par an.",
+    "epistemic": "derived",
+    "evidence": [
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:6117000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:6117000"
+     }
+    ],
+    "values": {
+     "cnn": "6117000",
+     "street": "GEARY ST",
+     "length_km": 0.147,
+     "crashes": 9,
+     "severe_fatal": 2,
+     "pedestrian": 3,
+     "per_km_year": 12.2
+    }
+   },
+   {
+    "topic": "safety",
+    "claim": "TURK ST (CNN 12718000) : 7 accident(s) avec blessé, 2 grave(s)/mortel(s), 3 impliquant un piéton, 9.6 par km et par an.",
+    "epistemic": "derived",
+    "evidence": [
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:12718000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:12718000"
+     }
+    ],
+    "values": {
+     "cnn": "12718000",
+     "street": "TURK ST",
+     "length_km": 0.146,
+     "crashes": 7,
+     "severe_fatal": 2,
+     "pedestrian": 3,
+     "per_km_year": 9.6
+    }
+   },
+   {
+    "topic": "safety",
+    "claim": "JONES ST (CNN 7563000) : 6 accident(s) avec blessé, 2 grave(s)/mortel(s), 2 impliquant un piéton, 11.4 par km et par an.",
+    "epistemic": "derived",
+    "evidence": [
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:7563000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:7563000"
+     }
+    ],
+    "values": {
+     "cnn": "7563000",
+     "street": "JONES ST",
+     "length_km": 0.105,
+     "crashes": 6,
+     "severe_fatal": 2,
+     "pedestrian": 2,
+     "per_km_year": 11.4
+    }
+   },
+   {
+    "topic": "safety",
+    "claim": "ELLIS ST (CNN 5173000) : 5 accident(s) avec blessé, 2 grave(s)/mortel(s), 4 impliquant un piéton, 6.8 par km et par an.",
+    "epistemic": "derived",
+    "evidence": [
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:5173000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:5173000"
+     }
+    ],
+    "values": {
+     "cnn": "5173000",
+     "street": "ELLIS ST",
+     "length_km": 0.146,
+     "crashes": 5,
+     "severe_fatal": 2,
+     "pedestrian": 4,
+     "per_km_year": 6.8
+    }
+   },
+   {
+    "topic": "decision",
+    "claim": "Tenderloin : indice d’exposition exploratoire de référence 50836.6 sur 70 tronçon(s) avec accidents et travaux dans les 120 j (modélisé, exploratoire).",
+    "epistemic": "modeled",
+    "evidence": [
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:10558000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:9730000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:6262000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:9728000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:8133000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:9733000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:7117000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:5062000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:10637000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:5063000"
+     }
+    ],
+    "values": {
+     "e0": 50836.6,
+     "segments": 70
+    }
+   },
+   {
+    "topic": "decision",
+    "claim": "I1 — Revue préalable du plan de circulation piétonne et cycliste sur les 5 tronçons les plus exposés : indice 50836.6, part couverte 20 % ; 7 permis concerné(e)s (modélisé, exploratoire).",
+    "epistemic": "modeled",
+    "evidence": [
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:10558000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:9730000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:6262000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:9728000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:8133000"
+     }
+    ],
+    "values": {
+     "exposure": 50836.6,
+     "change": 0,
+     "coveredShare": 0.199,
+     "permitsAffected": 7
+    }
+   },
+   {
+    "topic": "decision",
+    "claim": "I2 — Coordonner les fenêtres qui se chevauchent sur un même tronçon (jours occupés une seule fois) : indice 47486.9, variation -7 % ; 36 permis concerné(e)s (modélisé, exploratoire).",
+    "epistemic": "modeled",
+    "evidence": [
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:10558000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:9730000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:6262000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:9728000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:8133000"
+     }
+    ],
+    "values": {
+     "exposure": 47486.9,
+     "change": -0.066,
+     "coveredShare": null,
+     "permitsAffected": 36
+    }
+   },
+   {
+    "topic": "decision",
+    "claim": "I3 — Reporter au-delà de l’horizon les travaux non urgents des 5 tronçons les plus exposés : indice 40713.6, variation -20 % ; 7 permis concerné(e)s (modélisé, exploratoire).",
+    "epistemic": "modeled",
+    "evidence": [
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:10558000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:9730000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:6262000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:9728000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:8133000"
+     }
+    ],
+    "values": {
+     "exposure": 40713.6,
+     "change": -0.199,
+     "coveredShare": null,
+     "permitsAffected": 7
+    }
+   },
+   {
+    "topic": "decision",
+    "claim": "Sensibilité : l’option I3 reste la plus réductrice de l’indice dans 18 des 18 combinaisons (top N 3/5/10, horizon 60/120/180 j, pondération toutes gravités / graves) — modélisé, exploratoire.",
+    "epistemic": "modeled",
+    "evidence": [
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:10558000"
+     }
+    ],
+    "values": {
+     "stable": 18,
+     "combinations": 18
+    }
+   },
+   {
+    "topic": "works",
+    "claim": "70 des 119 tronçons examinés ont des fenêtres de travaux approuvées en cours ou dans les 120 j (89 permis, 10 organisation(s)).",
+    "epistemic": "reported",
+    "evidence": [
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@9733000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@6117000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-04492@12718000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-04705@12718000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@5173000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-04374@5173000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-02625@5061001"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@5063000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@7117000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01641@8239000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@7114000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@6262000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@6116000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@7116000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@10558000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@8890000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-04816@8890000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-05072@10552000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@9729000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@8800000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@5171000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@5058000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@9732000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@5062000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-02625@5062000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-04838@5062000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@12719000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@9734000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-05072@12722000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-05251@5177000"
+     }
+    ],
+    "values": {
+     "segments": 119,
+     "withWorks": 70
+    }
+   }
+  ],
+  "rejected": [],
+  "challenges": [
+   {
+    "dataset": "crashes-agg",
+    "level": "warn",
+    "text": "Accidents jusqu’au 2026-08-31 seulement (44 j avant l’instantané) : les accidents récents ne sont pas inclus."
+   },
+   {
+    "dataset": "hin",
+    "level": "info",
+    "text": "Réseau HIN 2024 : désignation administrative fondée sur des années antérieures ; ne mesure pas le risque actuel."
+   },
+   {
+    "dataset": "permits",
+    "level": "info",
+    "text": "Permis collectés il y a 0 j ; statut administratif, pas preuve d’exécution."
+   }
+  ],
+  "conflicts": [],
+  "recommendation": {
+   "kind": "recommandation (prochaine étape, hypothèse à vérifier)",
+   "text": "Prochaine étape proposée : appliquer d’abord I1 (revue préalable du plan piéton, sans changer les calendriers ; 20 % de l’indice couvert), puis demander à SFMTA et SF Public Works d’étudier la faisabilité de I2 (coordination, indice -7 %) et de I3 (report des travaux non urgents, indice -20 %, 7 autorisation(s) à reporter). Hypothèse : indice exploratoire non calibré ; aucune réduction d’accidents n’est démontrée ni chiffrée ; aucun coût n’est calculé."
+  },
+  "review": {
+   "by": "core.san-francisco.safety.adversarial-reviewer",
+   "accepted": 12,
+   "rejected": 0,
+   "recommendation": {
+    "ok": true,
+    "issues": []
+   }
+  },
+  "decision": {
+   "by": "core.san-francisco.governance.gateway",
+   "state": "ÉLIGIBLE À LA REVUE HUMAINE",
+   "caveats": [
+    "Accidents jusqu’au 2026-08-31 seulement (44 j avant l’instantané) : les accidents récents ne sont pas inclus."
+   ],
+   "authorizes": "rien — décision humaine requise"
+  },
+  "model": {
+   "calls": 0,
+   "accepted": [],
+   "rejected": [],
+   "lessonsUsed": []
+  },
+  "learning": {
+   "proceduresApplied": [],
+   "lessonsProposed": []
+  },
+  "owner": "core.san-francisco.mobility.lead",
+  "priority": {
+   "score": 152,
+   "basis": "sévérité 41 × 2 + signal 70 (règle déclarée)"
+  },
+  "errors": [],
+  "site": {
+   "coord": [
+    -122.417901411,
+    37.785167215
+   ],
+   "label": "OFARRELL ST (CNN 9733000)",
+   "kind": "tronçon HIN cité"
+  },
+  "decisionAnalysis": {
+   "options": [
+    {
+     "id": "I0",
+     "label": "Statu quo : travaux tels qu’autorisés",
+     "exposure": 50836.6,
+     "change": 0,
+     "permitsAffected": 0,
+     "orgsAffected": 0,
+     "note": "référence"
+    },
+    {
+     "id": "I1",
+     "label": "Revue préalable du plan de circulation piétonne et cycliste sur les 5 tronçons les plus exposés",
+     "exposure": 50836.6,
+     "change": 0,
+     "coveredShare": 0.199,
+     "permitsAffected": 7,
+     "orgsAffected": 3,
+     "note": "ne réduit pas l’indice ; part de l’indice couverte par une revue"
+    },
+    {
+     "id": "I2",
+     "label": "Coordonner les fenêtres qui se chevauchent sur un même tronçon (jours occupés une seule fois)",
+     "exposure": 47486.9,
+     "change": -0.066,
+     "permitsAffected": 36,
+     "orgsAffected": 10,
+     "note": "suppose que des chantiers simultanés peuvent partager la même occupation (hypothèse)"
+    },
+    {
+     "id": "I3",
+     "label": "Reporter au-delà de l’horizon les travaux non urgents des 5 tronçons les plus exposés",
+     "exposure": 40713.6,
+     "change": -0.199,
+     "permitsAffected": 7,
+     "orgsAffected": 3,
+     "note": "déplace les travaux dans le temps ; ne les supprime pas"
+    }
+   ],
+   "sensitivity": [
+    {
+     "topN": 3,
+     "horizon": 60,
+     "weight": "all",
+     "e0": 27525.1,
+     "I2": -0.09,
+     "I3": -0.124,
+     "best": "I3"
+    },
+    {
+     "topN": 3,
+     "horizon": 60,
+     "weight": "severe",
+     "e0": 2698.9,
+     "I2": -0.039,
+     "I3": -0.267,
+     "best": "I3"
+    },
+    {
+     "topN": 3,
+     "horizon": 120,
+     "weight": "all",
+     "e0": 50836.6,
+     "I2": -0.066,
+     "I3": -0.125,
+     "best": "I3"
+    },
+    {
+     "topN": 3,
+     "horizon": 120,
+     "weight": "severe",
+     "e0": 5009.2,
+     "I2": -0.021,
+     "I3": -0.285,
+     "best": "I3"
+    },
+    {
+     "topN": 3,
+     "horizon": 180,
+     "weight": "all",
+     "e0": 74020,
+     "I2": -0.056,
+     "I3": -0.128,
+     "best": "I3"
+    },
+    {
+     "topN": 3,
+     "horizon": 180,
+     "weight": "severe",
+     "e0": 7319.6,
+     "I2": -0.014,
+     "I3": -0.292,
+     "best": "I3"
+    },
+    {
+     "topN": 5,
+     "horizon": 60,
+     "weight": "all",
+     "e0": 27525.1,
+     "I2": -0.09,
+     "I3": -0.193,
+     "best": "I3"
+    },
+    {
+     "topN": 5,
+     "horizon": 60,
+     "weight": "severe",
+     "e0": 2698.9,
+     "I2": -0.039,
+     "I3": -0.415,
+     "best": "I3"
+    },
+    {
+     "topN": 5,
+     "horizon": 120,
+     "weight": "all",
+     "e0": 50836.6,
+     "I2": -0.066,
+     "I3": -0.199,
+     "best": "I3"
+    },
+    {
+     "topN": 5,
+     "horizon": 120,
+     "weight": "severe",
+     "e0": 5009.2,
+     "I2": -0.021,
+     "I3": -0.43,
+     "best": "I3"
+    },
+    {
+     "topN": 5,
+     "horizon": 180,
+     "weight": "all",
+     "e0": 74020,
+     "I2": -0.056,
+     "I3": -0.202,
+     "best": "I3"
+    },
+    {
+     "topN": 5,
+     "horizon": 180,
+     "weight": "severe",
+     "e0": 7319.6,
+     "I2": -0.014,
+     "I3": -0.436,
+     "best": "I3"
+    },
+    {
+     "topN": 10,
+     "horizon": 60,
+     "weight": "all",
+     "e0": 27525.1,
+     "I2": -0.09,
+     "I3": -0.343,
+     "best": "I3"
+    },
+    {
+     "topN": 10,
+     "horizon": 60,
+     "weight": "severe",
+     "e0": 2698.9,
+     "I2": -0.039,
+     "I3": -0.685,
+     "best": "I3"
+    },
+    {
+     "topN": 10,
+     "horizon": 120,
+     "weight": "all",
+     "e0": 50836.6,
+     "I2": -0.066,
+     "I3": -0.358,
+     "best": "I3"
+    },
+    {
+     "topN": 10,
+     "horizon": 120,
+     "weight": "severe",
+     "e0": 5009.2,
+     "I2": -0.021,
+     "I3": -0.719,
+     "best": "I3"
+    },
+    {
+     "topN": 10,
+     "horizon": 180,
+     "weight": "all",
+     "e0": 74020,
+     "I2": -0.056,
+     "I3": -0.363,
+     "best": "I3"
+    },
+    {
+     "topN": 10,
+     "horizon": 180,
+     "weight": "severe",
+     "e0": 7319.6,
+     "I2": -0.014,
+     "I3": -0.732,
+     "best": "I3"
+    }
+   ],
+   "quality": [
+    {
+     "source": "crashes-agg",
+     "grade": "B",
+     "why": "Accidents déclarés, décalage de 44 j ; rattachement par clé CNN, gravité classée"
+    },
+    {
+     "source": "hin",
+     "grade": "B",
+     "why": "Réseau HIN 2024 : désignation administrative fondée sur des années antérieures ; ne mesure pas le risque actuel."
+    },
+    {
+     "source": "permits",
+     "grade": "B",
+     "why": "permis approuvés, titulaires connus ; exécution non prouvée"
+    },
+    {
+     "source": "modèle",
+     "grade": "C",
+     "why": "indice exploratoire non calibré : aucune relation entre jours de travaux et accidents n’est établie"
+    }
+   ],
+   "urgencyKnown": true
+  },
+  "cross": {
+   "rows": [
+    {
+     "cnn": "10558000",
+     "street": "POLK ST",
+     "rate": 19.362511095807918,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@10558000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "9730000",
+     "street": "OFARRELL ST",
+     "rate": 16.70245658354538,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@9730000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "6262000",
+     "street": "GOLDEN GATE AVE",
+     "rate": 16.362318110070067,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@6262000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "9728000",
+     "street": "OFARRELL ST",
+     "rate": 10.911185412525928,
+     "permits": 2,
+     "sumDays": 179,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-05311@9728000",
+      "26EXC-01206@9728000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric",
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "8133000",
+     "street": "LARKIN ST",
+     "rate": 7.546405244148528,
+     "permits": 2,
+     "sumDays": 242,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@8133000",
+      "26EXC-02554@8133000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc.",
+      "Bay Area Lightworks"
+     ]
+    },
+    {
+     "cnn": "9733000",
+     "street": "OFARRELL ST",
+     "rate": 15.022374074222316,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@9733000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "7117000",
+     "street": "HYDE ST",
+     "rate": 13.345687490959211,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@7117000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "5062000",
+     "street": "EDDY ST",
+     "rate": 12.2970762199764,
+     "permits": 3,
+     "sumDays": 131,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@5062000",
+      "26EXC-02625@5062000",
+      "26EXC-04838@5062000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc.",
+      "Pacific Gas & Electric"
+     ]
+    },
+    {
+     "cnn": "10637000",
+     "street": "POST ST",
+     "rate": 12.770998829418087,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@10637000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "5063000",
+     "street": "EDDY ST",
+     "rate": 12.263555517745582,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@5063000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "6117000",
+     "street": "GEARY ST",
+     "rate": 12.227198018149553,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@6117000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "7114000",
+     "street": "HYDE ST",
+     "rate": 11.416130124655709,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@7114000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "5170000",
+     "street": "ELLIS ST",
+     "rate": 5.505218113718716,
+     "permits": 2,
+     "sumDays": 242,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@5170000",
+      "26EXC-02181@5170000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc.",
+      "Bay Area Lightworks"
+     ]
+    },
+    {
+     "cnn": "12719000",
+     "street": "TURK ST",
+     "rate": 10.9345010352354,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@12719000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "9734000",
+     "street": "OFARRELL ST",
+     "rate": 10.897001855879228,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@9734000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "7116000",
+     "street": "HYDE ST",
+     "rate": 9.55920040942366,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@7116000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "5177000",
+     "street": "ELLIS ST",
+     "rate": 8.222236438640874,
+     "permits": 2,
+     "sumDays": 134,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-05251@5177000",
+      "26EXC-01206@5177000"
+     ],
+     "orgs": [
+      "J. Flores Construction Co.",
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "6116000",
+     "street": "GEARY ST",
+     "rate": 8.20701105691334,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@6116000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "5173000",
+     "street": "ELLIS ST",
+     "rate": 6.8261347171868865,
+     "permits": 2,
+     "sumDays": 145,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@5173000",
+      "26EXC-04374@5173000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc.",
+      "R & S Construction Management Inc"
+     ]
+    },
+    {
+     "cnn": "8891000",
+     "street": "MCALLISTER ST",
+     "rate": 8.178008662939899,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@8891000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "8131000",
+     "street": "LARKIN ST",
+     "rate": 7.749513899894038,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@8131000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "8132000",
+     "street": "LARKIN ST",
+     "rate": 7.660341705048121,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@8132000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "9732000",
+     "street": "OFARRELL ST",
+     "rate": 7.656528720462269,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@9732000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "7115000",
+     "street": "HYDE ST",
+     "rate": 7.646013397573602,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@7115000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "8130000",
+     "street": "LARKIN ST",
+     "rate": 7.50184512208336,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@8130000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    }
+   ]
+  },
+  "metrics": {
+   "wallMs": 48,
+   "subtasks": 3,
+   "failed": 0,
+   "toolCalls": 4,
+   "messages": 15,
+   "modelCalls": 0
+  }
+ },
+ "dossier": {
+  "version": "core-science-v1",
+  "city": "san-francisco",
+  "neighborhood": "Tenderloin",
+  "sourceMission": "civ:decision-safety-works:tenderloin@2026-10-14",
+  "sourceMissionSha256": "35d6f677d89a85e27682301bd4f53dea1038fbedb72867793600ef6caf067afc",
+  "snapshot": "2026-10-14T16:09:41.363Z",
+  "objective": "Comparer la charge administrative de travaux sur le réseau HIN ; préparer une expérience de coordination, sans prédire le trafic ni les accidents.",
+  "metric": "Indice exploratoire = accidents déclarés / km / an (5 ans) × jours-permis autorisés ; unités conventionnelles, pas des accidents attendus.",
+  "parameters": {
+   "horizon": 120,
+   "topN": 5,
+   "coordination": 0.5,
+   "weight": "all"
+  },
+  "sources": [
+   {
+    "dataset": "neighborhoods",
+    "provider": "City and County of San Francisco (DataSF)",
+    "url": "https://data.sf.gov/d/j2bu-swwd",
+    "retrievedAt": "2026-10-14T16:09:38.718Z",
+    "sha256": "4c7dfd07d13494a079d228474e62e0881d379fb33d1b1d55da71ab462462caac",
+    "kind": "administrative geometry",
+    "modifications": "South of Market, Mission, Tenderloin.",
+    "licence": "ODC Public Domain Dedication and License (PDDL)"
+   },
+   {
+    "dataset": "hin",
+    "provider": "SFMTA / SF Department of Public Health (Vision Zero SF)",
+    "url": "https://data.sf.gov/d/enwt-3u8m",
+    "retrievedAt": "2026-10-14T16:09:39.552Z",
+    "sha256": "f061b77eb304bc8fc643bf9a3bb719f6d6e8b793df1357c4de632eaeecda22f4",
+    "kind": "administrative designation (corridors with a high share of severe and fatal injuries)",
+    "modifications": "Segments whose geometry intersects the study bbox -122.42695,37.74783,-122.39275,37.78829.",
+    "licence": "ODC Public Domain Dedication and License (PDDL)"
+   },
+   {
+    "dataset": "crashes-agg",
+    "provider": "SF Department of Public Health / SFPD (TIMS geocoded)",
+    "url": "https://data.sf.gov/d/ubvf-ztfx",
+    "retrievedAt": "2026-10-14T16:09:39.818Z",
+    "sha256": "407c62760c229c482e22cf671c595d78252f976a2404d738332658cca986d593",
+    "kind": "administrative record of reported injury crashes (aggregated by CORE)",
+    "modifications": "Counts grouped by segment, neighbourhood, severity and collision group, 2021-09-01 → 2026-08-31. No case-level data stored.",
+    "licence": "ODC Public Domain Dedication and License (PDDL)"
+   },
+   {
+    "dataset": "permits",
+    "provider": "San Francisco Public Works",
+    "url": "https://data.sf.gov/d/b6tj-gt35",
+    "retrievedAt": "2026-10-14T16:09:41.320Z",
+    "sha256": "75b95851b369d195fa0ff943c608bc824563a4a5b3bbd058e22915f15c54ffa1",
+    "kind": "administrative record (permit issued, not proof of work performed)",
+    "modifications": "Types Excavation, ExcStreet, StrtImprov, Boring, Emergency, approved since 2026-01-01, inside the study bbox; agent organisation kept, personal contacts removed.",
+    "licence": "ODC Public Domain Dedication and License (PDDL)"
+   }
+  ],
+  "result": {
+   "baseline": 50836.6,
+   "rows": [
+    {
+     "cnn": "10558000",
+     "street": "POLK ST",
+     "rate": 19.362511095807918,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@10558000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "9730000",
+     "street": "OFARRELL ST",
+     "rate": 16.70245658354538,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@9730000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "6262000",
+     "street": "GOLDEN GATE AVE",
+     "rate": 16.362318110070067,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@6262000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "9728000",
+     "street": "OFARRELL ST",
+     "rate": 10.911185412525928,
+     "permits": 2,
+     "sumDays": 179,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-05311@9728000",
+      "26EXC-01206@9728000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric",
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "8133000",
+     "street": "LARKIN ST",
+     "rate": 7.546405244148528,
+     "permits": 2,
+     "sumDays": 242,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@8133000",
+      "26EXC-02554@8133000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc.",
+      "Bay Area Lightworks"
+     ]
+    },
+    {
+     "cnn": "9733000",
+     "street": "OFARRELL ST",
+     "rate": 15.022374074222316,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@9733000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "7117000",
+     "street": "HYDE ST",
+     "rate": 13.345687490959211,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@7117000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "5062000",
+     "street": "EDDY ST",
+     "rate": 12.2970762199764,
+     "permits": 3,
+     "sumDays": 131,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@5062000",
+      "26EXC-02625@5062000",
+      "26EXC-04838@5062000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc.",
+      "Pacific Gas & Electric"
+     ]
+    },
+    {
+     "cnn": "10637000",
+     "street": "POST ST",
+     "rate": 12.770998829418087,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@10637000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "5063000",
+     "street": "EDDY ST",
+     "rate": 12.263555517745582,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@5063000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "6117000",
+     "street": "GEARY ST",
+     "rate": 12.227198018149553,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@6117000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "7114000",
+     "street": "HYDE ST",
+     "rate": 11.416130124655709,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@7114000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "5170000",
+     "street": "ELLIS ST",
+     "rate": 5.505218113718716,
+     "permits": 2,
+     "sumDays": 242,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@5170000",
+      "26EXC-02181@5170000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc.",
+      "Bay Area Lightworks"
+     ]
+    },
+    {
+     "cnn": "12719000",
+     "street": "TURK ST",
+     "rate": 10.9345010352354,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@12719000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "9734000",
+     "street": "OFARRELL ST",
+     "rate": 10.897001855879228,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@9734000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "7116000",
+     "street": "HYDE ST",
+     "rate": 9.55920040942366,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@7116000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "5177000",
+     "street": "ELLIS ST",
+     "rate": 8.222236438640874,
+     "permits": 2,
+     "sumDays": 134,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-05251@5177000",
+      "26EXC-01206@5177000"
+     ],
+     "orgs": [
+      "J. Flores Construction Co.",
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "6116000",
+     "street": "GEARY ST",
+     "rate": 8.20701105691334,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@6116000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "5173000",
+     "street": "ELLIS ST",
+     "rate": 6.8261347171868865,
+     "permits": 2,
+     "sumDays": 145,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@5173000",
+      "26EXC-04374@5173000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc.",
+      "R & S Construction Management Inc"
+     ]
+    },
+    {
+     "cnn": "8891000",
+     "street": "MCALLISTER ST",
+     "rate": 8.178008662939899,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@8891000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "8131000",
+     "street": "LARKIN ST",
+     "rate": 7.749513899894038,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@8131000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "8132000",
+     "street": "LARKIN ST",
+     "rate": 7.660341705048121,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@8132000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "9732000",
+     "street": "OFARRELL ST",
+     "rate": 7.656528720462269,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@9732000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "7115000",
+     "street": "HYDE ST",
+     "rate": 7.646013397573602,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@7115000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "8130000",
+     "street": "LARKIN ST",
+     "rate": 7.50184512208336,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@8130000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "8242000",
+     "street": "LEAVENWORTH ST",
+     "rate": 5.768667309574488,
+     "permits": 3,
+     "sumDays": 141,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01641@8242000",
+      "26EXC-01206@8242000",
+      "26E-00589@8242000"
+     ],
+     "orgs": [
+      "Ronan Construction Inc.",
+      "Esquivel Grading & Paving, Inc.",
+      "QLM, Inc."
+     ]
+    },
+    {
+     "cnn": "7120000",
+     "street": "HYDE ST",
+     "rate": 6.096165006641282,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@7120000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "12429000",
+     "street": "TAYLOR ST",
+     "rate": 5.792165216916059,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@12429000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "6263000",
+     "street": "GOLDEN GATE AVE",
+     "rate": 4.100878409798755,
+     "permits": 2,
+     "sumDays": 163,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@6263000",
+      "26BW-00015@6263000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc.",
+      "GEI CONSULTANTS, INC."
+     ]
+    },
+    {
+     "cnn": "5058000",
+     "street": "EDDY ST",
+     "rate": 5.495348575898535,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@5058000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "6115000",
+     "street": "GEARY ST",
+     "rate": 5.459712123484,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@6115000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "5171000",
+     "street": "ELLIS ST",
+     "rate": 5.399950966010268,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@5171000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "8801000",
+     "street": "MASON ST",
+     "rate": 3.8693088923937915,
+     "permits": 2,
+     "sumDays": 151,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@8801000",
+      "26EXC-05070@8801000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc.",
+      "Pacific Gas & Electric"
+     ]
+    },
+    {
+     "cnn": "8890000",
+     "street": "MCALLISTER ST",
+     "rate": 4.103272846250095,
+     "permits": 2,
+     "sumDays": 142,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@8890000",
+      "26EXC-04816@8890000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc.",
+      "Pacific Gas & Electric"
+     ]
+    },
+    {
+     "cnn": "8243000",
+     "street": "LEAVENWORTH ST",
+     "rate": 3.7964913512079668,
+     "permits": 2,
+     "sumDays": 136,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01641@8243000",
+      "26EXC-01206@8243000"
+     ],
+     "orgs": [
+      "Ronan Construction Inc.",
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "9726000",
+     "street": "OFARRELL ST",
+     "rate": 4.09623560594714,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@9726000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "5172000",
+     "street": "ELLIS ST",
+     "rate": 4.09583178494785,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@5172000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "9729000",
+     "street": "OFARRELL ST",
+     "rate": 4.0836802352051125,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@9729000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "6110000",
+     "street": "GEARY ST",
+     "rate": 4.082906219714085,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-02181@6110000"
+     ],
+     "orgs": [
+      "Bay Area Lightworks"
+     ]
+    },
+    {
+     "cnn": "12720000",
+     "street": "TURK ST",
+     "rate": 3.4778824636955306,
+     "permits": 2,
+     "sumDays": 141,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@12720000",
+      "26EXC-05072@12720000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc.",
+      "Pacific Gas & Electric"
+     ]
+    },
+    {
+     "cnn": "8802000",
+     "street": "MASON ST",
+     "rate": 3.900385648440932,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@8802000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "7118000",
+     "street": "HYDE ST",
+     "rate": 3.8380024980967695,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@7118000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "12428000",
+     "street": "TAYLOR ST",
+     "rate": 3.8120381812783295,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@12428000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "8800000",
+     "street": "MASON ST",
+     "rate": 3.811704177657641,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@8800000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "10559000",
+     "street": "POLK ST",
+     "rate": 3.7678113235401574,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@10559000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "9731000",
+     "street": "OFARRELL ST",
+     "rate": 3.429850774831973,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@9731000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "7112000",
+     "street": "HYDE ST",
+     "rate": 3.143023104160028,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@7112000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "9727000",
+     "street": "OFARRELL ST",
+     "rate": 2.72858369920659,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@9727000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "9735000",
+     "street": "OFARRELL ST",
+     "rate": 2.7264276652168946,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@9735000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "12718000",
+     "street": "TURK ST",
+     "rate": 9.556613757017555,
+     "permits": 2,
+     "sumDays": 34,
+     "unionDays": 30,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-04492@12718000",
+      "26EXC-04705@12718000"
+     ],
+     "orgs": [
+      "San Francisco Water Department",
+      "Pacific Gas & Electric"
+     ]
+    },
+    {
+     "cnn": "8244000",
+     "street": "LEAVENWORTH ST",
+     "rate": 5.714988771581846,
+     "permits": 2,
+     "sumDays": 44,
+     "unionDays": 36,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01641@8244000",
+      "26EXC-05177@8244000"
+     ],
+     "orgs": [
+      "Ronan Construction Inc.",
+      "CableCom"
+     ]
+    },
+    {
+     "cnn": "7113000",
+     "street": "HYDE ST",
+     "rate": 1.9117560853333722,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@7113000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "7570000",
+     "street": "JONES ST",
+     "rate": 1.8921195509498845,
+     "permits": 2,
+     "sumDays": 122,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@7570000",
+      "26EXC-04836@7570000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc.",
+      "Pacific Gas & Electric"
+     ]
+    },
+    {
+     "cnn": "12430000",
+     "street": "TAYLOR ST",
+     "rate": 1.8860443325853418,
+     "permits": 1,
+     "sumDays": 121,
+     "unionDays": 121,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01206@12430000"
+     ],
+     "orgs": [
+      "Esquivel Grading & Paving, Inc."
+     ]
+    },
+    {
+     "cnn": "10552000",
+     "street": "POLK ST",
+     "rate": 11.386804196017128,
+     "permits": 1,
+     "sumDays": 20,
+     "unionDays": 20,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-05072@10552000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric"
+     ]
+    },
+    {
+     "cnn": "8128000",
+     "street": "LARKIN ST",
+     "rate": 7.500103132600342,
+     "permits": 1,
+     "sumDays": 29,
+     "unionDays": 29,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-05255@8128000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric"
+     ]
+    },
+    {
+     "cnn": "12722000",
+     "street": "TURK ST",
+     "rate": 9.486788002575832,
+     "permits": 1,
+     "sumDays": 20,
+     "unionDays": 20,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-05072@12722000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric"
+     ]
+    },
+    {
+     "cnn": "8239000",
+     "street": "LEAVENWORTH ST",
+     "rate": 11.465819439724406,
+     "permits": 1,
+     "sumDays": 15,
+     "unionDays": 15,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01641@8239000"
+     ],
+     "orgs": [
+      "Ronan Construction Inc."
+     ]
+    },
+    {
+     "cnn": "8120000",
+     "street": "LARKIN ST",
+     "rate": 3.8103787745322273,
+     "permits": 1,
+     "sumDays": 42,
+     "unionDays": 42,
+     "urgentDays": 0,
+     "deferable": [
+      "26BW-00016@8120000"
+     ],
+     "orgs": [
+      "GEI CONSULTANTS, INC."
+     ]
+    },
+    {
+     "cnn": "12721000",
+     "street": "TURK ST",
+     "rate": 6.312275597038726,
+     "permits": 1,
+     "sumDays": 20,
+     "unionDays": 20,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-05072@12721000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric"
+     ]
+    },
+    {
+     "cnn": "6259000",
+     "street": "GOLDEN GATE AVE",
+     "rate": 2.3276789292477726,
+     "permits": 2,
+     "sumDays": 45,
+     "unionDays": 30,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01641@6259000",
+      "26EXC-04705@6259000"
+     ],
+     "orgs": [
+      "Ronan Construction Inc.",
+      "Pacific Gas & Electric"
+     ]
+    },
+    {
+     "cnn": "6114000",
+     "street": "GEARY ST",
+     "rate": 6.813362884236452,
+     "permits": 2,
+     "sumDays": 14,
+     "unionDays": 13,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-04842@6114000",
+      "26EXC-05023@6114000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric"
+     ]
+    },
+    {
+     "cnn": "10556000",
+     "street": "POLK ST",
+     "rate": 3.859479142677583,
+     "permits": 1,
+     "sumDays": 24,
+     "unionDays": 24,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-04349@10556000"
+     ],
+     "orgs": [
+      "R & S Construction Management Inc"
+     ]
+    },
+    {
+     "cnn": "5061001",
+     "street": "EDDY ST",
+     "rate": 9.715609111943003,
+     "permits": 1,
+     "sumDays": 9,
+     "unionDays": 9,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-02625@5061001"
+     ],
+     "orgs": []
+    },
+    {
+     "cnn": "8238000",
+     "street": "LEAVENWORTH ST",
+     "rate": 5.699991031997533,
+     "permits": 1,
+     "sumDays": 15,
+     "unionDays": 15,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01641@8238000"
+     ],
+     "orgs": [
+      "Ronan Construction Inc."
+     ]
+    },
+    {
+     "cnn": "5061002",
+     "street": "EDDY ST",
+     "rate": 9.401287718358674,
+     "permits": 1,
+     "sumDays": 9,
+     "unionDays": 9,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-02625@5061002"
+     ],
+     "orgs": []
+    },
+    {
+     "cnn": "10553000",
+     "street": "POLK ST",
+     "rate": 3.8326683125608616,
+     "permits": 1,
+     "sumDays": 20,
+     "unionDays": 20,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-05072@10553000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric"
+     ]
+    },
+    {
+     "cnn": "8240000",
+     "street": "LEAVENWORTH ST",
+     "rate": 3.829215164873337,
+     "permits": 1,
+     "sumDays": 15,
+     "unionDays": 15,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01641@8240000"
+     ],
+     "orgs": [
+      "Ronan Construction Inc."
+     ]
+    },
+    {
+     "cnn": "8241000",
+     "street": "LEAVENWORTH ST",
+     "rate": 3.8127148003298608,
+     "permits": 1,
+     "sumDays": 15,
+     "unionDays": 15,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-01641@8241000"
+     ],
+     "orgs": [
+      "Ronan Construction Inc."
+     ]
+    },
+    {
+     "cnn": "6265000",
+     "street": "GOLDEN GATE AVE",
+     "rate": 1.3744866100690607,
+     "permits": 1,
+     "sumDays": 20,
+     "unionDays": 20,
+     "urgentDays": 0,
+     "deferable": [
+      "26EXC-05072@6265000"
+     ],
+     "orgs": [
+      "Pacific Gas & Electric"
+     ]
+    }
+   ],
+   "options": [
+    {
+     "id": "I0",
+     "label": "Calendrier autorisé",
+     "exposure": 50836.6,
+     "displaced": 0,
+     "eligible": true,
+     "meaning": "Référence administrative ; exécution non observée."
+    },
+    {
+     "id": "I2",
+     "label": "Coordination partielle des occupations",
+     "exposure": 49161.8,
+     "displaced": 0,
+     "eligible": true,
+     "meaning": "Hypothèse : seule la fraction déclarée des chevauchements est mutualisable ; aucun effet sur les accidents prédit."
+    },
+    {
+     "id": "I3",
+     "label": "Report des travaux non urgents",
+     "exposure": 40713.6,
+     "displaced": 10123,
+     "eligible": false,
+     "meaning": "Charge déplacée hors horizon, pas supprimée. Faisabilité et capacité de rattrapage inconnues : option non recommandable."
+    }
+   ],
+   "affectedPermits": {
+    "I2": 36,
+    "I3": 7
+   },
+   "quality": [
+    {
+     "source": "crashes-agg",
+     "grade": "B",
+     "why": "Accidents déclarés, décalage de 44 j ; rattachement par clé CNN, gravité classée"
+    },
+    {
+     "source": "hin",
+     "grade": "B",
+     "why": "Réseau HIN 2024 : désignation administrative fondée sur des années antérieures ; ne mesure pas le risque actuel."
+    },
+    {
+     "source": "permits",
+     "grade": "B",
+     "why": "permis approuvés, titulaires connus ; exécution non prouvée"
+    },
+    {
+     "source": "modèle",
+     "grade": "C",
+     "why": "indice exploratoire non calibré : aucune relation entre jours de travaux et accidents n’est établie"
+    }
+   ]
+  },
+  "discussion": [
+   {
+    "id": "D1",
+    "agent": "core.san-francisco.mobility.lead",
+    "kind": "proposal",
+    "claim": "Hypothèse modélisée : l’option I3 minimise l’indice dans l’horizon (40713.6, référence 50836.6). Examiner cette proposition.",
+    "epistemic": "modeled",
+    "evidence": [
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:10558000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:10558000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:9730000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:9730000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:6262000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:6262000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:9728000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:9728000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:8133000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:8133000"
+     }
+    ],
+    "respondsTo": null
+   },
+   {
+    "id": "D2",
+    "agent": "core.san-francisco.civil.works-coordination",
+    "kind": "counterproposal",
+    "claim": "Hypothèse modélisée : I2 concerne 36 permis ; comparer une mutualisation partielle (50 %) à la mutualisation totale supposée en Phase 10.",
+    "epistemic": "modeled",
+    "evidence": [
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@10558000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@9730000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@6262000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-05311@9728000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-03308@9728000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@9728000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@8133000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-02554@8133000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-03125@9733000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-02436@9733000"
+     }
+    ],
+    "respondsTo": "D1"
+   },
+   {
+    "id": "D3",
+    "agent": "core.san-francisco.safety.adversarial-reviewer",
+    "kind": "dissent",
+    "claim": "Objection modélisée : I3 déplace 10123 unités hors horizon ; le total conservé est 50836.6. Aucune capacité de rattrapage ni réduction causale d’accidents n’est établie.",
+    "epistemic": "modeled",
+    "evidence": [
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:10558000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:10558000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:9730000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:9730000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:6262000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:6262000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:9728000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:9728000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:8133000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:8133000"
+     }
+    ],
+    "respondsTo": "D1"
+   },
+   {
+    "id": "D4",
+    "agent": "core.san-francisco.research.evidence-verifier",
+    "kind": "evidence-review",
+    "claim": "Revue modélisée : 20 références doivent résoudre ; données datées du 2026-10-14, accidents jusqu’au 2026-08-31. Permis autorisés ≠ travaux observés.",
+    "epistemic": "modeled",
+    "evidence": [
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:10558000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:10558000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:9730000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:9730000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:6262000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:6262000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:9728000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:9728000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:8133000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:8133000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@10558000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@9730000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@6262000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-05311@9728000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-03308@9728000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@9728000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@8133000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-02554@8133000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-03125@9733000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-02436@9733000"
+     }
+    ],
+    "respondsTo": "D3"
+   },
+   {
+    "id": "D5",
+    "agent": "core.san-francisco.mobility.lead",
+    "kind": "revision",
+    "claim": "Révision modélisée : I2 mérite une étude de faisabilité. Retirer I3 des options recommandables ; conserver l’objection D3 et sa charge déplacée.",
+    "epistemic": "modeled",
+    "evidence": [
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:10558000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:10558000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:9730000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:9730000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:6262000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:6262000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:9728000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:9728000"
+     },
+     {
+      "type": "record",
+      "dataset": "hin",
+      "ref": "hin:8133000"
+     },
+     {
+      "type": "record",
+      "dataset": "crashes-agg",
+      "ref": "crashes-agg:8133000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@10558000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@9730000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@6262000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-05311@9728000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-03308@9728000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@9728000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-01206@8133000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-02554@8133000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-03125@9733000"
+     },
+     {
+      "type": "record",
+      "dataset": "study-permits",
+      "ref": "study-permits:26EXC-02436@9733000"
+     }
+    ],
+    "respondsTo": "D3"
+   }
+  ],
+  "sensitivity": [
+   {
+    "horizon": 60,
+    "weight": "all",
+    "coordination": 0,
+    "baseline": 27525.1,
+    "coordinated": 27525.1,
+    "displaced": 5319
+   },
+   {
+    "horizon": 60,
+    "weight": "all",
+    "coordination": 0.5,
+    "baseline": 27525.1,
+    "coordinated": 26290.8,
+    "displaced": 5319
+   },
+   {
+    "horizon": 60,
+    "weight": "all",
+    "coordination": 1,
+    "baseline": 27525.1,
+    "coordinated": 25056.6,
+    "displaced": 5319
+   },
+   {
+    "horizon": 60,
+    "weight": "severe",
+    "coordination": 0,
+    "baseline": 2698.9,
+    "coordinated": 2698.9,
+    "displaced": 1119.4
+   },
+   {
+    "horizon": 60,
+    "weight": "severe",
+    "coordination": 0.5,
+    "baseline": 2698.9,
+    "coordinated": 2646.3,
+    "displaced": 1119.4
+   },
+   {
+    "horizon": 60,
+    "weight": "severe",
+    "coordination": 1,
+    "baseline": 2698.9,
+    "coordinated": 2593.7,
+    "displaced": 1119.4
+   },
+   {
+    "horizon": 120,
+    "weight": "all",
+    "coordination": 0,
+    "baseline": 50836.6,
+    "coordinated": 50836.6,
+    "displaced": 10123
+   },
+   {
+    "horizon": 120,
+    "weight": "all",
+    "coordination": 0.5,
+    "baseline": 50836.6,
+    "coordinated": 49161.8,
+    "displaced": 10123
+   },
+   {
+    "horizon": 120,
+    "weight": "all",
+    "coordination": 1,
+    "baseline": 50836.6,
+    "coordinated": 47486.9,
+    "displaced": 10123
+   },
+   {
+    "horizon": 120,
+    "weight": "severe",
+    "coordination": 0,
+    "baseline": 5009.2,
+    "coordinated": 5009.2,
+    "displaced": 2155.9
+   },
+   {
+    "horizon": 120,
+    "weight": "severe",
+    "coordination": 0.5,
+    "baseline": 5009.2,
+    "coordinated": 4956.6,
+    "displaced": 2155.9
+   },
+   {
+    "horizon": 120,
+    "weight": "severe",
+    "coordination": 1,
+    "baseline": 5009.2,
+    "coordinated": 4904.1,
+    "displaced": 2155.9
+   },
+   {
+    "horizon": 180,
+    "weight": "all",
+    "coordination": 0,
+    "baseline": 74020,
+    "coordinated": 74020,
+    "displaced": 14940.2
+   },
+   {
+    "horizon": 180,
+    "weight": "all",
+    "coordination": 0.5,
+    "baseline": 74020,
+    "coordinated": 71953.6,
+    "displaced": 14940.2
+   },
+   {
+    "horizon": 180,
+    "weight": "all",
+    "coordination": 1,
+    "baseline": 74020,
+    "coordinated": 69887.2,
+    "displaced": 14940.2
+   },
+   {
+    "horizon": 180,
+    "weight": "severe",
+    "coordination": 0,
+    "baseline": 7319.6,
+    "coordinated": 7319.6,
+    "displaced": 3192.4
+   },
+   {
+    "horizon": 180,
+    "weight": "severe",
+    "coordination": 0.5,
+    "baseline": 7319.6,
+    "coordinated": 7267,
+    "displaced": 3192.4
+   },
+   {
+    "horizon": 180,
+    "weight": "severe",
+    "coordination": 1,
+    "baseline": 7319.6,
+    "coordinated": 7214.4,
+    "displaced": 3192.4
+   }
+  ],
+  "dissent": [
+   "D3"
+  ],
+  "modelCalls": 0,
+  "recommendation": {
+   "option": "I2",
+   "kind": "Étude de faisabilité uniquement",
+   "excluded": [
+    "I3"
+   ],
+   "constraints": [
+    "Urgences préservées",
+    "Aucun report recommandé sans capacité de rattrapage vérifiée",
+    "Aucune mise en œuvre sans autorisation humaine"
+   ]
+  },
+  "assumptions": [
+   "Association descriptive, pas de lien causal calibré.",
+   "La coordination mutualisable est une hypothèse, pas une mesure.",
+   "Un report déplace la charge ; il ne démontre aucun bénéfice durable.",
+   "Les fenêtres autorisées ne prouvent ni exécution ni occupation réelle.",
+   "Aucun débit, délai de trafic, coût ou gain réel n’est mesuré."
+  ],
+  "validation": [
+   "Faire confirmer par les services les permis, urgences, contraintes de réseaux et compatibilités de travaux.",
+   "Préenregistrer un protocole : occupation réelle en jours, accessibilité piétonne et délais de circulation ; seuils fixés par les ingénieurs avant mesure.",
+   "Mesurer une référence et des sites témoins comparables ; relever les facteurs de confusion et la saisonnalité.",
+   "Pilote autorisé par humains uniquement ; audits accessibilité et sécurité, critères d’arrêt, suivi de charge après horizon.",
+   "Publier résultats nuls/négatifs, intervalles d’incertitude et données agrégées ; aucune attribution causale sans protocole adapté."
+  ],
+  "gate": {
+   "state": "HUMAN_REVIEW",
+   "authorizes": false,
+   "implementation": "BLOCKED",
+   "implementationIssues": [
+    "Faisabilité administrative et technique non vérifiée",
+    "Effets réels non calibrés ; validation de terrain et autorisation humaine requises"
+   ],
+   "by": "core.san-francisco.governance.gateway",
+   "checks": [
+    "sources-hashed",
+    "references-resolved",
+    "source-mission-recomputed",
+    "bounded-sensitivity",
+    "dissent-preserved",
+    "displacement-explicit"
+   ]
+  },
+  "fingerprint": "ae3dc3aaa788410b65dabf223f8d65ada9bdd44896ad79f8584e12381d6d23e1"
+ }
+}

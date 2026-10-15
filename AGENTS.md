@@ -3,7 +3,7 @@
 Terre parallèle 3D, noir/cyan : globe cartographique et corridor synthétique séparé ; site statique compatible GitHub Pages.
 
 ## Périmètre et contexte
-- Phase 10 close ; Phase 11 non autorisée. Une phase autorisée à la fois ; arrêter au critère de fin. Commit, push, tag et déploiement seulement sur autorisation explicite.
+- Phase 10 close ; Phase 11 autorisée : intelligence scientifique, sans développement B2C. Une phase autorisée à la fois ; arrêter au critère de fin. Commit, push, tag et déploiement seulement sur autorisation explicite.
 - Lire `PROJECT_STATE.md` si nécessaire, `ROADMAP.md` pour une phase autorisée, les historiques pour une question non résolue. Réutiliser le contexte déjà chargé.
 - Un agent ; aucune délégation sans autorisation. Lectures ciblées, regroupées si indépendantes ; sorties bornées, grosses preuves dans des fichiers. Simulations longues : fournir la commande, sans boucles.
 - Préserver code, historique et travail utilisateur ; aucun refactoring superflu. Justifier chaque dépendance nouvelle. Jamais de force-push ; vérifier le distant et préserver les changements concurrents avant publication.
