@@ -14,6 +14,13 @@ __pycache__/
 data/raw/
 data/results.local.json
 .cache/
+# Local databases and browser profiles (INC-2026-10-15-01), wherever they are created
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+*.db
+*chrome-profile*/
 
 # Local supervisor state (Phase 8): queue, live status, STOP file
 .core-local/
