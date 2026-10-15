@@ -333,7 +333,15 @@ Correction: commit `6fb03e0`'s message says "122/122"; the real count at that co
 
 ## P. Deployment
 
-Filled after the merge to `main` and verification of GitHub Pages; see `docs/PHASE_10_CHECKPOINT.md`.
+**Release gate: PASS. Phase 10 is closed.** The verified production commit is `a25169cf2c0677fb1985d7843da8860bd76a4a3e`; the annotated `phase10-release` tag points to that exact commit. Phase 11 has not started.
+
+- **Deployment:** [GitHub Pages run 38660239289](https://github.com/vincentleg/core/actions/runs/38660239289) successfully built and deployed that commit; deployment completed on 2026-10-15 at 00:29:07 UTC (2026-10-14 in Los Angeles). Production: https://vincentleg.github.io/core/.
+- **Production browser verification:** Chrome 155.0.8059.40, 2026-10-15 00:29:16–00:29:57 UTC: 82 profiles in the registry, registered count and motion population; NYC corridor, works and neighbourhood-label layers with New York context; all 9 investor-demo steps reached, ending at 9/9. Across 516 observed requests: zero unintended NYC Open Data/model requests. Zero console errors, error-level browser log entries or uncaught JavaScript exceptions. Public mode remained recorded, not live.
+- **HTML anomaly resolved:** the browser response used a TLS certificate issued by NordVPN Threat Protection; the active local NordVPN protection network filter intercepted HTTPS. One fresh extension-disabled session, with page JavaScript disabled, cache disabled and service workers bypassed, confirmed the extra script was already in the raw response. Direct HTTP used a Let's Encrypt certificate and returned HTML byte-identical to the repository (SHA-256 `0e9f35c3b4b6d2383779d41a5f5a9eedde633b6b9c2acd0a990aceeca1c361c3`). Removing the locally injected script and normalizing equivalent HTML/CSP formatting yielded the repository content; CSP permissions were unchanged. This was local security interception, not a deployment change.
+- **Local evidence (not committed):** `/tmp/core-phase10-production-evidence.json` and `/tmp/core-phase10-raw-investigation/summary.json`. The initial browser byte-match failure is retained in the evidence; the targeted investigation resolved it with release gate PASS.
+- **Still unverified:** Firefox, Safari and the hourly cron. Scheduled refresh commits were preserved during reconciliation, but they do not establish hourly-cron operation. These limitations remain open.
+
+Closure changes documentation only; no feature rebuild, full test rerun or additional browser suite was performed.
 
 ## Q. Recommendations (Phase 11 needs an explicit request)
 
