@@ -4,7 +4,7 @@ Instruction fondatrice du 2026-10-14 : le code original CORE reste **provisoirem
 
 | Périmètre vérifié | Droits / preuves | Obligation ou limite |
 | --- | --- | --- |
-| MapLibre 5.7.3 embarqué | `assets/vendor/maplibre-gl-5.7.3/LICENSE.txt`, BSD-3-Clause | Conserver copyright, conditions et disclaimer ; pas de réattribution propriétaire de ce composant |
+| MapLibre 6.11.2 embarqué (D090) | `assets/vendor/maplibre-gl-6.11.2/LICENSE.txt`, BSD-3-Clause | Conserver copyright, conditions et disclaimer ; pas de réattribution propriétaire de ce composant |
 | Oxanium, IBM Plex Sans/Mono | Trois `assets/fonts/OFL-*.txt`, SIL OFL 1.1 | Notices conservées ; règles noms réservés et redistribution à respecter ; aucune modification de fonte |
 | OSM / OpenMapTiles et bases dérivées | Attribution à l’écran et manifests/README OSM ; [règles officielles](https://www.openstreetmap.org/copyright) | ODbL/attribution et obligations de bases dérivées ne disparaissent pas avec FD05 ; licence des données distincte du code CORE |
 | DataSF SF / NYC | `docs/DATA_SOURCES.md` et manifests datés, licences/conditions/transformations | Agrégats et contexte existants seulement ; ne pas transformer permission d’accès en validation scientifique ou licence universelle |

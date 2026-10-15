@@ -8,6 +8,7 @@ const FILE = 'index.html', check = process.argv.includes('--check');
 const html = fs.readFileSync(FILE, 'utf8');
 const inline = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1]);
 const hashes = inline.map(s => `'sha256-${crypto.createHash('sha256').update(s, 'utf8').digest('base64')}'`);
+// MapLibre 6 runs its worker from a same-origin module file (no blob: workers).
 // Every external origin is listed for a reason (see docs/PHASE_7_SECURITY_REVIEW.md). Quarantined sources are absent.
 const TILES = ['https://tiles.openfreemap.org', 'https://s3.amazonaws.com', 'https://gibs.earthdata.nasa.gov'];
 const policy = [
@@ -17,7 +18,7 @@ const policy = [
   "font-src 'self'",
   `img-src 'self' data: blob: ${TILES.join(' ')}`,
   `connect-src 'self' ${TILES.join(' ')} https://data.sf.gov https://earthquake.usgs.gov https://api.weather.gov https://api.github.com http://127.0.0.1:11434 http://localhost:11434 http://127.0.0.1:8080`,
-  'worker-src blob:', 'child-src blob:', "object-src 'none'", "base-uri 'self'", "form-action 'self'",
+  "worker-src 'self'", "child-src 'self'", "object-src 'none'", "base-uri 'self'", "form-action 'self'",
 ].join('; ');
 const tag = `<meta http-equiv="Content-Security-Policy" content="${policy}">`;
 const re = /<meta http-equiv="Content-Security-Policy" content="[^"]*">/;

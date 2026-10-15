@@ -158,9 +158,13 @@ test('local control centre: loopback only, token, host and origin checks, allowl
 test('privacy and supply chain: MapLibre self-hosted and SRI-verified, no third-party code CDN', () => {
   const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
   assert.doesNotMatch(html, /unpkg\.com|jsdelivr|fonts\.googleapis/);
-  for (const [f, h] of [['maplibre-gl.js', '58glfsJ+cxARGnts6etFXqTluJx24YUgVY1WQxNLIfLkwT7yJfBORU1dKLD/YFTG'], ['maplibre-gl.css', 'gNYNsUmuZqDYiT3gbirWTV5K7rt71RoveS/yXAaU09d4ZUmeDVTD3XoqB6uJAIFR']]) {
-    assert.equal(crypto.createHash('sha384').update(fs.readFileSync(path.join(ROOT, 'assets/vendor/maplibre-gl-5.7.3', f))).digest('base64'), h); assert.ok(html.includes(`integrity="sha384-${h}"`)); }
-  assert.ok(fs.existsSync(path.join(ROOT, 'assets/vendor/maplibre-gl-5.7.3/LICENSE.txt')));
+  // MapLibre 6.11.2 (GHSA-jrc7-96c5-q579 fixed in 6.4.1): entry and shared modules SRI-pinned via modulepreload; the worker
+  // module cannot carry SRI (Worker has no integrity option), so its exact hash is pinned here instead.
+  for (const [f, h] of [['maplibre-gl.mjs', 'KQzExYlfg1SnYNpLaXHTnaCTjr5wmiZ6X3sasvPb94caZfH+3+T1Sl4eJziXUtmN'], ['maplibre-gl-shared.mjs', 'V59ofCEPEqpSk5Mswc19DtDYbZWJtne210dFzS328Il6O31eLwTV7v57+Z3NjW/7'], ['maplibre-gl.css', 'ntw3zEt6rcVML7jDK0ULmHa5hxLB23afsPqzqfY+gLgMfAkbFCnCgPpkZvV5mmZX']]) {
+    assert.equal(crypto.createHash('sha384').update(fs.readFileSync(path.join(ROOT, 'assets/vendor/maplibre-gl-6.11.2', f))).digest('base64'), h); assert.ok(html.includes(`integrity="sha384-${h}"`)); }
+  assert.equal(crypto.createHash('sha384').update(fs.readFileSync(path.join(ROOT, 'assets/vendor/maplibre-gl-6.11.2/maplibre-gl-worker.mjs'))).digest('base64'), 'BfIf+4jO28q62q2VTXccpqCPJDpfdf/laFAz1VjwenAq0+Mxw7Mlx4Uf/UZxIY6U');
+  assert.ok(fs.existsSync(path.join(ROOT, 'assets/vendor/maplibre-gl-6.11.2/LICENSE.txt'))); assert.ok(!fs.existsSync(path.join(ROOT, 'assets/vendor/maplibre-gl-5.7.3')), 'vulnerable 5.7.3 removed');
+  assert.match(html, /<script type="module" src="src\/maplibre-loader\.mjs"><\/script>/); assert.doesNotMatch(html, /worker-src blob:/);
   const ctl = fs.readFileSync(path.join(ROOT, 'control.html'), 'utf8'); assert.match(ctl, /noindex/); assert.match(ctl, /local/i);
   const P = require('../src/data-policy.js'); for (const k of ['dataset:crashes-agg', 'dataset:hin', 'dataset:flood-zone', 'dataset:neighborhoods']) assert.equal(P.get(k).status, 'eligible');
   const crashes = read('data/sf9/crashes-agg.json'); assert.ok(crashes.rows.every(r => Object.keys(r).sort().join() === 'cnn,group,killed,n,nhood,severity'), 'aggregates only');

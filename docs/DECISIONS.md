@@ -362,3 +362,17 @@ The current founder directive establishes Kardashev research and peaceful, free,
 ## D089 — Protection requires a verified automation path, not a bypass
 
 Main is unprotected; Actions PR permission disabled; admin available, public Free-compatible capability, exact account plan unknown. Prepare complete inactive PR template and CI-bound protection payload; preserve current cron. Existing OP01 exact-setting/review-latency approval and a real verified PR path are not established. No remote setting, bot exemption, PAT, automatic data merge or billing change is implicit.
+
+## D090 — MapLibre 6.11.2 replaces 5.7.3 (security)
+
+GHSA-jrc7-96c5-q579 (CVE-2026-85061, critical) affects maplibre-gl ≤ 6.4.0: `DOM.sanitize()` iterated live attributes while removing them, so attribution HTML could keep an event handler. CORE's CSP already blocked inline handlers, but the fix is the upgrade. **6.11.2** was chosen: patched, latest patch of its minor line, about 3 weeks old, no advisory listed. 6.14.0 (4 days old) was not chosen. The npm tarball integrity was checked by npm, and all vendored files are byte-identical to jsDelivr. The patched loop (`getAttributeNames()` snapshot) was confirmed in the bundle.
+
+v6 is ESM-only (no UMD), with the worker loaded from a same-origin module file:
+- `src/maplibre-loader.mjs` exposes the `maplibregl` global, and the inline app starts on `core:maplibre` (fallback `DOMContentLoaded` keeps the "moteur de carte" message).
+- The CSP has `worker-src 'self'` and `child-src 'self'` (no `blob:`).
+- Entry and shared modules are SRI-pinned via `modulepreload`. The worker module cannot carry SRI, so its hash is pinned in `test/phase9.test.js`.
+- `map.transform` was removed in v6, so `CORE_MOTION.camera()` derives the camera from public state (equal to MapLibre's internal value within about 3.5 m and 0.3 m at the audited view).
+- The browser audit no longer reads private `source._data` (it uses `getData()`).
+- Its occlusion check now tests the property against the selected tower alone. The surrounding-tower "front" assertion was tile-dependent: it failed in a standalone probe under v5.7.3 as well.
+
+Results: Chromium 155 main audit 159/159 (twice), negative audit 12/12, lab 7/7, with 0 errors and 0 external requests. Firefox and Safari were not run. WebGL2 is now required.

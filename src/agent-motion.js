@@ -134,12 +134,19 @@
     }
     void k; return false;
   }
+  // MapLibre 6 removed map.transform: derive the camera ground position and altitude (m) from public state
+  // (centre, zoom, pitch, bearing, vertical field of view). Terrain elevation is ignored, as for the illustrative occlusion.
+  function camera() {
+    const m = S.map, c = m.getCenter(), pitch = m.getPitch(), mpp = 40075016.686 * Math.cos(c.lat * RAD) / (512 * 2 ** m.getZoom());
+    const fov = (m.getVerticalFieldOfView ? m.getVerticalFieldOfView() : 36.87) * RAD, dpx = 0.5 / Math.tan(fov / 2) * m.getCanvas().clientHeight;
+    const back = dpx * mpp * Math.sin(pitch * RAD), br = m.getBearing() * RAD;
+    return { cam: [c.lng - back * Math.sin(br) / (111320 * Math.cos(c.lat * RAD)), c.lat - back * Math.cos(br) / 110540], alt: dpx * mpp * Math.cos(pitch * RAD) };
+  }
   function occlusion() {
     const m = S.map, pitch = m.getPitch();
     if (pitch < 20 || m.getZoom() < ZOOM_ZONES) { for (const A of S.agents.values()) { if (A.occ) S.dirty = true; A.occ = false; } return; }
     const t = performance.now(); if (!S.bld || S.bldAt !== S.moveSeq || (!S.bld.list.length && t - (S.bldTime || 0) > 1000)) { buildingIndex(); S.bldAt = S.moveSeq; S.bldTime = t; }
-    const cam = m.transform.getCameraLngLat().toArray(), c = m.getCenter(), mpp = 40075016.686 * Math.cos(c.lat * RAD) / (512 * 2 ** m.getZoom());
-    const dpx = m.transform.cameraToCenterDistance || 0.5 / Math.tan(0.6435 / 2) * m.getCanvas().clientHeight, alt = dpx * mpp * Math.cos(pitch * RAD);
+    const { cam, alt } = camera();
     const b = m.getBounds();
     for (const A of S.agents.values()) { const o = A.visible && A.pos[0] > b.getWest() && A.pos[0] < b.getEast() && A.pos[1] > b.getSouth() && A.pos[1] < b.getNorth() ? occludedAt(cam, alt, A.pos) : false; if (o !== A.occ) S.dirty = true; A.occ = o; }
   }
@@ -246,5 +253,5 @@
     map.on('idle', () => { S.moveSeq = (S.moveSeq || 0) + 1; }); // tiles finished loading: rebuild the building index
   }
   function counts() { const c = {}; for (const A of S.agents.values()) c[A.st] = (c[A.st] || 0) + 1; return { total: S.agents.size, shown: S.shown.size, byStatus: c, dom: S.dom.size, live: [...S.agents.values()].filter(A => A.mode === 'live').length, replay: [...S.agents.values()].filter(A => A.mode === 'replay').length }; }
-  G.CORE_MOTION = { init, ensure, go, toPost, occlusion, occludedAt, setFilter, select, follow, unfollow, drive, release, dim, refreshStatus, counts, pollLive, state: S, COLORS, MODE_FR, ZOOM_DOM, ZOOM_ZONES, SPEED };
+  G.CORE_MOTION = { init, ensure, go, toPost, occlusion, occludedAt, camera, setFilter, select, follow, unfollow, drive, release, dim, refreshStatus, counts, pollLive, state: S, COLORS, MODE_FR, ZOOM_DOM, ZOOM_ZONES, SPEED };
 })();

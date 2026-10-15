@@ -34,7 +34,7 @@ flowchart LR
 
 ## Globe
 
-`index.html` embeds styling and application JavaScript. MapLibre GL JS 5.7.3 comes from unpkg (pinned; 5.6.0 crashed on terrain/navigation, see D010). It reads OpenFreeMap vector tiles/glyphs, optional AWS-hosted Terrarium elevation. Esri and Nominatim requests are disabled; search resolves pilot cities and coordinates locally. Extrusion heights use `render_height` with an 8 m fallback. The SoMa marker links to the separate synthetic corridor; it does not feed geometry into the simulator.
+`index.html` embeds styling and application JavaScript. MapLibre GL JS 6.11.2 is self-hosted under `assets/vendor/` as ES modules, loaded by `src/maplibre-loader.mjs` (D090; earlier 5.6.0 crashed on terrain/navigation, see D010). It reads OpenFreeMap vector tiles/glyphs, optional AWS-hosted Terrarium elevation. Esri and Nominatim requests are disabled; search resolves pilot cities and coordinates locally. Extrusion heights use `render_height` with an 8 m fallback. The SoMa marker links to the separate synthetic corridor; it does not feed geometry into the simulator.
 
 ## San Francisco world (Phase 2B)
 

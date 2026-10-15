@@ -2,12 +2,14 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-oLIQleRoPCX7qYVFEIrxP7xwxJIyiYhyXx92kKX7IhQ='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https://tiles.openfreemap.org https://s3.amazonaws.com https://gibs.earthdata.nasa.gov; connect-src 'self' https://tiles.openfreemap.org https://s3.amazonaws.com https://gibs.earthdata.nasa.gov https://data.sf.gov https://earthquake.usgs.gov https://api.weather.gov https://api.github.com http://127.0.0.1:11434 http://localhost:11434 http://127.0.0.1:8080; worker-src blob:; child-src blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-D6zDNoGHDrqKVF7vsnN2cJD1ZM1SZYiWmklQXU7QMSw='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https://tiles.openfreemap.org https://s3.amazonaws.com https://gibs.earthdata.nasa.gov; connect-src 'self' https://tiles.openfreemap.org https://s3.amazonaws.com https://gibs.earthdata.nasa.gov https://data.sf.gov https://earthquake.usgs.gov https://api.weather.gov https://api.github.com http://127.0.0.1:11434 http://localhost:11434 http://127.0.0.1:8080; worker-src 'self'; child-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CORE</title>
 <meta name="description" content="CORE — Creation of Reborn Earth : un double numérique de la Terre où des agents spécialisés étudient des problèmes réels à partir de données publiques ; les décisions restent humaines.">
 <link rel="icon" href="assets/brand/core-mark.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/vendor/maplibre-gl-5.7.3/maplibre-gl.css" integrity="sha384-gNYNsUmuZqDYiT3gbirWTV5K7rt71RoveS/yXAaU09d4ZUmeDVTD3XoqB6uJAIFR">
+<link rel="stylesheet" href="assets/vendor/maplibre-gl-6.11.2/maplibre-gl.css" integrity="sha384-ntw3zEt6rcVML7jDK0ULmHa5hxLB23afsPqzqfY+gLgMfAkbFCnCgPpkZvV5mmZX">
+<link rel="modulepreload" href="assets/vendor/maplibre-gl-6.11.2/maplibre-gl.mjs" integrity="sha384-KQzExYlfg1SnYNpLaXHTnaCTjr5wmiZ6X3sasvPb94caZfH+3+T1Sl4eJziXUtmN">
+<link rel="modulepreload" href="assets/vendor/maplibre-gl-6.11.2/maplibre-gl-shared.mjs" integrity="sha384-V59ofCEPEqpSk5Mswc19DtDYbZWJtne210dFzS328Il6O31eLwTV7v57+Z3NjW/7">
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <style>
 /* Layout: full-screen globe; floating console top-left; layer switches top-right; status bar bottom. Single dark look. */
@@ -433,7 +435,7 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
     <p><b>Repères 3D (APPROXIMATIF) :</b> Golden Gate Bridge, Salesforce Tower et Transamerica Pyramid sont des modèles procéduraux CORE (dimensions publiées, positions et emprises OSM ; câbles épaissis pour la lisibilité). Ferry Building, Coit Tower et City Hall proviennent de la cartographie OSM. Aucun n’est un relevé.</p>
     <p><b>Simulation séparée :</b> corridor et trafic synthétiques, référence supposée, résultats non calibrés. <b>Observations de trafic validées : aucune.</b></p>
     <p><b>Domaines (Phase 2D) :</b> arbres d’alignement et avis d’abattage (Public Works), permis de construire (DBI), bilans énergétiques déclarés (SF Environment), parcs (Rec & Parks), largeurs de trottoir 2014 (SFMTA) — DataSF, domaine public. Société : aucune donnée intégrée. Aucun gain énergétique, écologique, de trafic ou de coût n’est estimé.</p>
-    <p>Nominatim désactivé : limites globales non garanties par ce site statique. Esri désactivé : droits non vérifiés. Recherche locale sans appel réseau. Moteur MapLibre 5.7.3 (BSD-3-Clause) et polices (SIL OFL) hébergés par CORE. <a href="https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCES.md">Inventaire et limitations</a>.</p>
+    <p>Nominatim désactivé : limites globales non garanties par ce site statique. Esri désactivé : droits non vérifiés. Recherche locale sans appel réseau. Moteur MapLibre 6.11.2 (BSD-3-Clause) et polices (SIL OFL) hébergés par CORE. <a href="https://github.com/vincentleg/core/blob/main/docs/DATA_SOURCES.md">Inventaire et limitations</a>.</p>
   </details>
   </div>
 </div>
@@ -513,7 +515,7 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
 
 <div class="panel status" aria-live="polite"><b id="pos">—</b> · zoom <b id="zoom">—</b> · <span id="msg">Chargement de la Terre…</span><span id="net" hidden> · <span class="warn">tuiles partielles (réseau)</span></span></div>
 
-<script src="assets/vendor/maplibre-gl-5.7.3/maplibre-gl.js" integrity="sha384-58glfsJ+cxARGnts6etFXqTluJx24YUgVY1WQxNLIfLkwT7yJfBORU1dKLD/YFTG"></script>
+<script type="module" src="src/maplibre-loader.mjs"></script>
 <script src="src/sf-world.js"></script>
 <script src="src/sf-view.js"></script>
 <script src="src/coord.js"></script>
@@ -561,7 +563,8 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
 <script src="src/demo.js"></script>
 <script src="src/platform.js"></script>
 <script>
-(() => {
+{ // MapLibre 6 loads as an ES module (src/maplibre-loader.mjs): start once it is ready, or at DOMContentLoaded so a failed load shows the engine message.
+const coreStart = () => {
   const $ = id => document.getElementById(id);
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const msg = t => { $('msg').textContent = t; };
@@ -695,7 +698,10 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
     try { map.setTerrain(relief ? { source: 'dem', exaggeration: 1.4 } : null); press('l-relief', relief); press('l-trame', !relief); msg(relief ? 'Relief 3D activé.' : 'Relief 3D désactivé.'); }
     catch (err) { relief = false; press('l-relief', false); msg('Relief 3D indisponible dans ce mode.'); }
   });
-})();
+};
+let coreStarted = false; const coreGo = () => { if (!coreStarted) { coreStarted = true; coreStart(); } };
+if (globalThis.maplibregl) coreGo(); else { addEventListener('core:maplibre', coreGo, { once: true }); addEventListener('DOMContentLoaded', coreGo, { once: true }); }
+}
 </script>
 </body>
 </html>
