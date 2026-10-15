@@ -16,6 +16,11 @@ test('coordinates: local plane round-trips, steps do not accumulate error, re-an
   const square = { type: 'Polygon', coordinates: [[[-1, -1], [1, -1], [1, 1], [-1, 1], [-1, -1]].map(([x, y]) => G.fromLocal(FOLSOM, [x * 10, y * 10]))] };
   assert.equal(G.distanceToGeometry(FOLSOM, square), 0);
   assert.ok(Math.abs(G.distanceToGeometry(G.step(FOLSOM, 90, 25), square) - 15) < 0.01);
+  const line = { type: 'LineString', coordinates: [G.fromLocal(FOLSOM, [-50, 3]), G.fromLocal(FOLSOM, [0, 3]), G.fromLocal(FOLSOM, [50, 3])] };
+  const parts = G.clipToCircle(line, FOLSOM, 10); assert.equal(parts.length, 1, 'contiguous segments stay one part');
+  const len = parts[0].slice(1).reduce((a, p, i) => a + G.distance(parts[0][i], p), 0);
+  assert.ok(Math.abs(len - 2 * Math.sqrt(100 - 9)) < 0.01, `clipped length ${len}`);
+  assert.deepEqual(G.clipToCircle(line, G.step(FOLSOM, 0, 40), 10), []);
   const c = G.circle(FOLSOM, 10); assert.ok(c.coordinates[0].every(pt => Math.abs(G.distance(FOLSOM, pt) - 10) < 0.01));
 });
 

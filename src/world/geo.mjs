@@ -59,3 +59,23 @@ export function circle(center, metres, n = 48) {
   const ring = []; for (let i = 0; i <= n; i++) ring.push(fromLocal(center, [Math.sin(2 * Math.PI * i / n) * metres, Math.cos(2 * Math.PI * i / n) * metres]));
   return { type: 'Polygon', coordinates: [ring] };
 }
+// Clip a LineString/MultiLineString to a circle (centre, metres). Returns an array of coordinate arrays (lng/lat).
+// Used so that realistic roads and sidewalks appear exactly within the radius instead of whole features.
+export function clipToCircle(geometry, center, metres) {
+  const lines = geometry.type === 'LineString' ? [geometry.coordinates] : geometry.type === 'MultiLineString' ? geometry.coordinates : [];
+  const out = [], r2 = metres * metres;
+  for (const line of lines) {
+    let cur = null; const pts = line.map(c => toLocal(center, c));
+    for (let i = 1; i < pts.length; i++) {
+      const [ax, ay] = pts[i - 1], [bx, by] = pts[i], dx = bx - ax, dy = by - ay;
+      const A = dx * dx + dy * dy, B = 2 * (ax * dx + ay * dy), C = ax * ax + ay * ay - r2, disc = B * B - 4 * A * C;
+      if (A === 0 || disc <= 0) { cur = null; continue; }
+      const s = Math.sqrt(disc), t0 = Math.max(0, (-B - s) / (2 * A)), t1 = Math.min(1, (-B + s) / (2 * A));
+      if (t0 >= t1) { cur = null; continue; }
+      const p0 = fromLocal(center, [ax + t0 * dx, ay + t0 * dy]), p1 = fromLocal(center, [ax + t1 * dx, ay + t1 * dy]);
+      if (cur && t0 === 0) cur.push(p1); else { cur = [p0, p1]; out.push(cur); }
+      if (t1 < 1) cur = null;
+    }
+  }
+  return out;
+}
