@@ -13,7 +13,7 @@
 | B5 | Minors: participation design and legal assessment (COPPA, GDPR Art. 8, UK AADC) | OPEN | None |
 | B6 | DPIA for location-based participation | OPEN | None |
 | B7 | Retention, deletion and rights workflow implemented and tested (physical purge) | OPEN | Design in DATA_PROCESSING_INVENTORY |
-| B8 | Upgrade vendored MapLibre to ≥ 6.4.1 (S2) | OPEN | Mitigated by CSP only |
+| B8 | Upgrade vendored MapLibre to ≥ 6.4.1 (S2) | DONE on branch (6.11.2, D090); deploy pending | Production still on 5.7.3 until merge |
 | B9 | Server security for any backend (authn/z, rate limits, CSRF, uploads, headers) | N/A until a backend exists | — |
 | B10 | `main` protection (OP01) | OPEN | Ruleset prepared |
 | B11 | Accessibility WCAG 2.2 AA target: `index.html` landmarks and heading; slider target size; full keyboard and screen-reader pass; Firefox and Safari | PARTIAL | See below |
