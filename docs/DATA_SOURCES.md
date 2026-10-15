@@ -21,10 +21,12 @@ Inventory revisited at Phase 2B closure (2026-10-13). A reachable URL is not a l
 
 The globe currently falls back to an 8 m display height where `render_height` is absent. The source panel now discloses the fallback and explicitly states observation dates are unknown. A map-backed building is not a validated engineering model. Map/font requests go directly from browsers to providers. Search text now stays local; no Nominatim or Esri requests are made.
 
-Overpass, SUMO, observed traffic counts, EnergyPlus, underground network plans and LLM APIs are future possibilities only; none is integrated. Free/open tools and accessible data have separate licenses. CORE repository licensing remains undecided.
+Overpass, SUMO, observed traffic counts, EnergyPlus, underground network plans and LLM APIs are future possibilities only; none is integrated. Free/open tools and accessible data have separate licenses. CORE code is provisionally proprietary (FD05), with no open-source project grant; third-party licenses remain distinct. See IP_AND_ATTRIBUTION.md.
 
 San Francisco candidate sources researched in Phase 2A are listed in [SF_DATA_INVENTORY.md](SF_DATA_INVENTORY.md); only the six DataSF datasets above are integrated. OSM-derived geometry embedded in `src/sf-world.js` (Transamerica footprint, tower positions) is © OpenStreetMap contributors under ODbL and attributed on screen. Hillshade (AWS Terrain Tiles) now loads by default from zoom 10.
 
 Phase 2D multidomain datasets (street trees, tree removal notices, building permits, energy benchmarks, parks, sidewalk widths) and identified-but-not-integrated candidates are documented in [DATA_SOURCE_REGISTRY.md](DATA_SOURCE_REGISTRY.md); all are DataSF ODC-PDDL, bounded to the corridor, PII-scrubbed and checksummed in `data/sf/manifest.json`.
 
 Phase 11 reuses the existing `data/sf9` snapshot only: Analysis Neighborhoods (`j2bu-swwd`), 2024 High Injury Network (`enwt-3u8m`), Traffic Crashes Resulting in Injury (`ubvf-ztfx`, aggregate counts only), and Street-Use Permits (`b6tj-gt35`). Each manifest entry identifies DataSF PDDL, provider, retrieval date, transformations and SHA-256. `scripts/science.mjs` publishes derived comparisons in `data/science/sf-traffic.json`; no new collection, proprietary source, personal contact data or service is introduced. Dossier links retain attribution. The uncalibrated index is not a forecast of accidents or traffic.
+
+FD06 source qualification only: SFMTA count candidates are inventoried in [pilot/source-manifest.json](pilot/source-manifest.json). Access was checked, reuse rights remain UNVERIFIED, and no measured SFMTA count payload is redistributed or used for calibration.

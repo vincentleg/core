@@ -1,0 +1,16 @@
+# CORE — Constitution V1
+
+**Baseline fondatrice approuvée, version 1.0 — 2026-10-14 (America/Los_Angeles).** Provenance : instruction explicite du fondateur « FOUNDER DECISIONS IMPLEMENTATION », FD01–FD08, enregistrée dans [FOUNDER_DECISIONS.md](FOUNDER_DECISIONS.md). C’est une approbation dans la session de travail, pas une signature authentifiée d’intervention réelle ni la récupération d’une constitution ancienne.
+
+1. **Finalité.** « Solve in the virtual world. Improve the real one. » Civilization est prioritaire ; Business est l’offre professionnelle future ; World est une extension B2C optionnelle et distante.
+2. **Intégrité scientifique.** Séparer données mesurées/rapportées, hypothèses, estimations simulées et effets validés. Exiger traçabilité et incertitude ; publier les échecs. Rejeu déterministe ou consensus d’agents ne constitue pas une validation scientifique indépendante.
+3. **Dissidence utile.** Préserver critiques, révisions, abstentions, alternatives et désaccords avec leurs preuves. Ni popularité, ni vote, ni multiplication de comptes/citations ne crée une vérité scientifique.
+4. **Vérification déterministe.** Les agents recherchent et proposent ; les passerelles recalculent et vérifient. Preuve absente, contrainte échouée ou résultat non reproductible : échec fermé. Une revue favorable ne constitue pas une autorisation d’exécution réelle.
+5. **Autorité humaine stricte.** Recherche, simulation, proposition, critique et révision autonomes dans des limites locales autorisées. Action réelle ou impact externe significatif : autorisation humaine obligatoire. `human:name`, un jeton local ou un état APPROVED dans une mémoire de prototype n’authentifie pas une telle autorisation. Aucune action réelle activée par cette constitution.
+6. **Vie privée et sécurité.** Minimiser les données, protéger secrets et actifs sensibles, borner permissions/outils/coûts, conserver les traces et refuser les élévations implicites. Pas d’ouverture à contributions publiques sans protections proportionnées contre Sybil, bots et manipulation coordonnée.
+7. **Honnêteté et droits.** Afficher simulation, rejeu, calibration absente et limites. Respecter licences et attribution des tiers. Code CORE provisoirement propriétaire ; aucune confidentialité déduite du dépôt public. Aucun nouvel outil ou coût adopté implicitement.
+8. **Continuité.** Préserver les décisions et numérotations historiques, suivre les exigences scientifiques différées et privilégier calibration/validation indépendante aux nouvelles fonctions visuelles. Toute modification future de cette baseline garde date, portée et provenance explicites.
+
+## Politiques qui restent OPEN
+
+Les principes ci-dessus sont approuvés. Les propositions détaillées de GOVERNANCE_DRAFT ne sont **pas ratifiées en bloc** : identité/mandats, délégations professionnelles, signatures, TTL/révocation, ancrage d’audit, seuils scientifiques, réviseurs nommés, conservation/résidence des données, recours et détails anti-manipulation restent à spécifier et valider. Voir [AUTHORITY_POLICY.md](AUTHORITY_POLICY.md) et les décisions opérationnelles OP01–OP06 dans FOUNDER_DECISIONS. Aucun connecteur terrain ni nouveau produit autorisé.

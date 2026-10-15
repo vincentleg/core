@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "purpose": "Source qualification only; no measured data redistributed or calibrated",
+  "checkedOn": "2026-10-14 America/Los_Angeles",
+  "sources": [
+    {
+      "id": "sfmta-corridor-counts",
+      "kind": "measured-candidate-not-ingested",
+      "provider": "SFMTA; source/vendor varies per record",
+      "catalogUrl": "https://www.sfmta.com/TrafficCounts",
+      "sourceUrl": "https://www.sfmta.com/media/40635/download?inline=",
+      "access": "CSV downloaded for metadata inspection only",
+      "rawSha256": "b049deed278be9205f1d47190f8e8e5b706c46505c58fc22b6a8d75391ec2044",
+      "coverage": "Catalog label 2014-2022; inspected records also predate 2014. Dates are row-level; no present-day validity inferred.",
+      "fields": ["CNN", "PRIMARY_STREET", "CROSS_STREET_1", "CROSS_ST_2", "DIRECTION", "DATE", "DATA_SOURCE", "VOLUME_ADT", "VOLUME_AM_PEAK", "VOLUME_PM_PEAK"],
+      "limitations": ["Not valid UTF-8 as retrieved; encoding not declared/verified", "Duplicate and blank columns/records require explicit normalization", "ADT versus measured daily total must be resolved per record", "No signal timings", "No suitable multi-day holdout established"],
+      "rights": {"status": "UNVERIFIED", "license": null, "reason": "No explicit reuse grant established for this CSV; DataSF PDDL cannot be borrowed for another website"}
+    },
+    {
+      "id": "sfmta-intersection-counts",
+      "kind": "measured-candidate-not-ingested",
+      "provider": "SFMTA",
+      "catalogUrl": "https://www.sfmta.com/TrafficCounts",
+      "sourceUrl": "https://www.sfmta.com/media/40634/download?inline=",
+      "access": "Official link verified; payload/schema/coverage not independently parsed",
+      "rights": {"status": "UNVERIFIED", "license": null}
+    },
+    {
+      "id": "howard-location-6",
+      "kind": "measured-candidate-not-ingested",
+      "provider": "Quality Counts, LLC; published by SFMTA",
+      "sourceUrl": "https://www.sfmta.com/media/27438/download?inline=",
+      "access": "One-page PDF read; no table copied into repository",
+      "corridor": "Howard Street between 6th and 7th",
+      "observedDate": "2018-10-17",
+      "direction": "WB",
+      "method": "Tube count; hourly volumes for one day",
+      "limitations": ["Single day, no independent-day holdout", "No signal configuration", "Historical geometry/timings must match 2018", "Access is not a redistribution license"],
+      "rights": {"status": "UNVERIFIED", "license": null}
+    },
+    {
+      "id": "existing-datasf-context",
+      "kind": "administrative-and-reported-context-not-flow",
+      "sourceUrl": "https://data.sf.gov/d/b6tj-gt35",
+      "existingManifest": "data/sf9/manifest.json",
+      "rights": {"status": "PREVIOUSLY_DOCUMENTED", "license": "ODC-PDDL-1.0", "evidenceUrl": "https://data.sfgov.org/d/b6tj-gt35/about"},
+      "limitations": ["Permits and reported collisions do not measure vehicle flow or signal timing"]
+    }
+  ],
+  "selection": "CONDITIONAL_SHORTLIST",
+  "calibrationReady": false,
+  "independentValidation": false,
+  "authorizesRealWorld": false
+}

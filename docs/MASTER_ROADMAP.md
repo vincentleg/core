@@ -1,6 +1,6 @@
 # CORE — master roadmap consolidé
 
-Statut : reconstruction documentaire, pas ratification rétroactive. Base auditée : `1f0adb4` ; Phases 10/11 livrées à `a25169c` / `088ebe4`. Mission actuelle : consolidation, **aucune Phase 12 autorisée**. Les décisions de conversation absentes du dépôt restent UNVERIFIED / FOUNDER CONFIRMATION REQUIRED.
+Statut : reconstruction documentaire, pas ratification rétroactive. Base auditée : `1f0adb4` ; Phases 10/11 livrées à `a25169c` / `088ebe4`. Mission actuelle : application des FD01–FD08 approuvées le 2026-10-14, **aucune Phase 12 autorisée**. Constitution V1 et directions actuelles : [FOUNDER_DECISIONS.md](FOUNDER_DECISIONS.md). Les décisions de conversation absentes du dépôt restent UNVERIFIED / FOUNDER CONFIRMATION REQUIRED.
 
 ## Hiérarchie des preuves et produits
 
@@ -10,7 +10,7 @@ Une instruction explicite du fondateur définit le périmètre autorisé ; un co
 - **CORE Business — professionnel** : futur parcours ville/opérateur/validateur, actifs et permissions territoriales, identité réelle, signatures, responsabilité, audit et validation terrain. Non livré par un prototype public ou un préfixe `human:`.
 - **CORE World — B2C lointain et optionnel** : bac à sable grand public/XR ; ni priorité actuelle ni dépendance de Civilization. La navigation « Monde » et la carte 3D sont un contexte géographique, pas la preuve d’un produit B2C.
 
-Cette séparation est explicitée par la mission actuelle ; son éventuelle formulation exacte dans les anciennes conversations est non récupérée. Ne pas inventer une validation historique des trois noms.
+Cette séparation est approuvée par FD02 ; son éventuelle formulation exacte dans les anciennes conversations est non récupérée. Ne pas inventer une validation historique des trois noms.
 
 ## Numérotation originelle O — `7824682:ROADMAP.md`, confirmée par HANDOFF §7
 
@@ -60,9 +60,9 @@ Les chemins des rapports ci-dessus sont sous `docs/`. Statut « livré/clos » :
 
 ## Ordre stratégique après consolidation
 
-1. Fondateur : confirmer cette correspondance, le texte de gouvernance et les choix ouverts, sans effacer les engagements O/F.
+1. Appliquer Constitution V1 et FD02 : science/calibration/revue indépendante prioritaires ; correspondance historique O/F/L conservée avec ses inconnues, sans demander une nouvelle approbation des huit orientations.
 2. Sécurité de publication : approuver une transition compatible des protections de `main` et du bot ; données actuelles toujours soumises à intégrité/fraîcheur. Voir [SECURITY_BASELINE.md](SECURITY_BASELINE.md).
 3. Qualifier légalement un jeu de comptages et préenregistrer un pilote borné ; obtenir revue indépendante et mesures avant calibration/claims. Voir [SCIENTIFIC_PILOT_PLAN.md](SCIENTIFIC_PILOT_PLAN.md).
 4. Business multiutilisateur seulement après identité, responsabilité, séparation territoriale, audit ancré et autorisations authentifiées. World B2C reste optionnel/distant.
 
-La consolidation n’autorise aucune de ces nouvelles phases fonctionnelles. Constitution, protections GitHub, licence du projet et pilote terrain restent des décisions explicites du fondateur.
+Les FD01–FD08 approuvent Constitution V1, code provisoirement propriétaire et préparation scientifique ; aucune Phase 12 ni action terrain. Réglages GitHub, droits/époque du pilote, seuils/relecteurs et politiques professionnelles : dépendances opérationnelles OP01–OP06, pas orientations stratégiques à ratifier de nouveau.

@@ -30,3 +30,9 @@ Vérification avec la skill OpenAI Docs : la [documentation officielle AGENTS.md
 Avant tout ajout futur : version et origine épinglées, licence vérifiée, permissions/réseau/stockage documentés, secrets et rétention évalués, pas de commande arbitraire ni fournisseur payant par défaut ; test d’ablation reproductible sur le même travail (temps, appels/outils, tokens/crédits si disponibles, qualité/régressions et charge mémoire). Un gain supposé n’autorise ni installation ni achat.
 
 Ajout futur potentiellement utile : **SUMO offline seulement après qualification des comptages et approbation du pilote**, car il comble un manque scientifique documenté. Les autres outils restent optionnels ; le cache exact de validation et les checkpoints répondent déjà au besoin immédiat sans dépendance.
+
+## Actualisation FD08 — 2026-10-14
+
+Critères de minimalisme, confiance, compatibilité et coût désormais approuvés ; aucun outil tiers ratifié par simple mention. Présence des exécutables/configs recontrôlée : Codex/Claude dans PATH, Ollama binaire utilisateur présent hors PATH, Ruflo/claude-flow/OmniRoute/LiteLLM/SUMO/netconvert non trouvés dans PATH. Inventaire des plugins/skills/configurations de la consolidation conservé comme preuve historique ; configurations privées non recopiées ni services redémarrés. Gains de mémoire/compression/routing non mesurés.
+
+Besoin concret actuel : qualification des mesures et revue indépendante. Aucun orchestrateur, MCP ou routeur supplémentaire ne résout les droits/holdout ; ajouts différés. SUMO reste candidat après données adéquates et revue de version/licence, sans installation implicite. Autorisations/résidence/export ou coût non vérifiés = refus de nouvelle adoption.

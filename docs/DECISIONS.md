@@ -311,3 +311,24 @@ core-verify covers push and PR with pinned existing actions and no write permiss
 ## D077 — Hash-based CSP on the synthetic corridor
 
 A shared build assembler emits hashes for the two existing inline scripts, denies network connections and preserves the rendered interface. The integrity gate compares assembly in memory rather than rebuilding files. No traffic-engine logic or authorization threshold changes.
+
+
+## D078 — Founder-approved directions and Constitution V1, scoped ratification
+
+The founder message FOUNDER DECISIONS IMPLEMENTATION (2026-10-14 Pacific) approves FD01–FD08. CONSTITUTION_V1 is the approved principles baseline; detailed governance proposals and OP01–OP06 remain open. D074 describes the earlier unratified consolidation, not current ratification. The 17 commitments and O/F/L histories remain traceable; missing historical approvals are not invented. PROJECT_STATE is the sole current project-status document. No Phase 12 or field action authorized.
+
+## D079 — Local workflow approval never authorizes external execution
+
+Control-server POST actions are explicitly allowlisted through authority.mjs; external and unknown actions fail closed, even with a forged reviewer label. The owner token protects local access, not professional identity. Existing local reviews remain records; no real-world adapter, authenticated approval system or activation switch is added. Constitutional anti-manipulation prerequisites apply before public contribution features.
+
+## D080 — Rehearse the protected-main data flow before any remote switch
+
+Keep city-feed.yml byte-identical and its schedule/outputs working. Add a manual read-only rehearsal and strict generated-JSON candidate inspection; no remote write, PR or auto-merge. Inactive publication-tail example documents unique branches, normal pushes and human-reviewed PRs. Main is still unprotected and Actions PR creation disabled at inspection. OP01 must approve exact repository settings and human-review latency; no bypass or stronger token introduced. Free public-repository capability does not establish the user's exact billing plan.
+
+## D081 — Provisional proprietary code with distinct third-party rights
+
+FD05 selects provisional proprietary CORE code, no open-source project LICENSE. Public GitHub is not confidentiality; retained third-party licenses and data attribution remain applicable. Free static prototype hosting is retained; future commercial Business hosting, brand/domain and legal questions require separate qualified review.
+
+## D082 — Pilot preparation is not calibration or legal clearance
+
+FD06/FD07 authorize a reproducible preparation package, conditional SF corridor shortlist, normalized aggregate-count schema and fixture-tested metrics/gates. SFMTA counts are accessible but reuse rights, compatible timings and independent-day holdout are not qualified. No measured payload redistributed or normalized as cleared input; no simulator installed. Synthetic fixture opt-in is explicit. Input validation/replay is not independent scientific validation or real-world efficacy.

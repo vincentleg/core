@@ -1,0 +1,41 @@
+{
+  "manifest": {
+    "version": 1,
+    "id": "core-synthetic",
+    "kind": "synthetic-fixture",
+    "corridor": "SYNTHETIC-NOT-SF",
+    "sourceUrl": "https://github.com/vincentleg/core",
+    "retrievedAt": "2026-10-14T00:00:00Z",
+    "rights": {
+      "status": "VERIFIED",
+      "license": "CORE-SYNTHETIC-FIXTURE",
+      "evidenceUrl": "https://github.com/vincentleg/core",
+      "checkedAt": "2026-10-14T00:00:00Z"
+    },
+    "payloadSha256": "def41e8fd99bbc5c76c2ace8161f4e560544f76c99efb1c69c50f6e96e092169"
+  },
+  "rows": [
+    {
+      "start": "2026-10-01T08:00:00-07:00",
+      "end": "2026-10-01T08:15:00-07:00",
+      "site": "synthetic-1",
+      "direction": "WB",
+      "mode": "motor_vehicle",
+      "sourceId": "core-synthetic",
+      "corridor": "SYNTHETIC-NOT-SF",
+      "count": 12,
+      "unit": "count"
+    },
+    {
+      "start": "2026-10-01T08:15:00-07:00",
+      "end": "2026-10-01T08:30:00-07:00",
+      "site": "synthetic-1",
+      "direction": "WB",
+      "mode": "motor_vehicle",
+      "sourceId": "core-synthetic",
+      "corridor": "SYNTHETIC-NOT-SF",
+      "count": 18,
+      "unit": "count"
+    }
+  ]
+}

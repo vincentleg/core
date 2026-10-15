@@ -143,7 +143,12 @@ test('local control centre: loopback only, token, host and origin checks, allowl
     assert.equal((await req('/../../etc/passwd')).status, 404); assert.equal((await req('/data/sf/manifest.json')).status, 404);
     assert.equal((await req('/api/mission?id=../../x', { headers: { 'X-Core-Token': token } })).status, 400);
     assert.equal((await req('/api/decide', { method: 'POST', headers: { 'X-Core-Token': token, 'Content-Type': 'application/json' }, body: JSON.stringify({ id: 'civ:safety-works:mission@2026-10-14', reviewer: 'core.agent', decision: 'approve' }) })).status, 400);
-    assert.equal((await req('/api/shell', { method: 'POST', headers: { 'X-Core-Token': token } })).status, 404);
+    assert.equal((await req('/api/shell', { method: 'POST', headers: { 'X-Core-Token': token } })).status, 403);
+    assert.equal((await req('/api/authority')).status, 401);
+    const authority = JSON.parse((await req('/api/authority', { headers: { 'X-Core-Token': token } })).body);
+    assert.equal(authority.externalActionsEnabled, false); assert.equal(authority.authenticatedApprovalSystem, false);
+    const external = await req('/api/execute', { method: 'POST', headers: { 'X-Core-Token': token, 'Content-Type': 'application/json' }, body: JSON.stringify({ reviewer: 'human:test', decision: 'approve', authenticated: true }) });
+    assert.equal(external.status, 403); assert.equal(JSON.parse(external.body).authorizesRealWorld, false);
     const host = await new Promise(ok => { const r = require('node:http').request({ host: '127.0.0.1', port, path: '/api/status', headers: { Host: 'attacker.example', 'X-Core-Token': token } }, res => ok(res.statusCode)); r.end(); }); assert.equal(host, 421);
     assert.equal((await req('/control.html')).status, 200);
   } finally { child.kill(); }

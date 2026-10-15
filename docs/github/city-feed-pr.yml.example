@@ -1,0 +1,16 @@
+# INACTIVE publication tail; integrate after current collection, candidate, tests and security gates ONLY.
+# Requires OP01 approval, PR permission and a successful remote rehearsal; not a deployable full workflow.
+# Future publication job: contents: write, pull-requests: write (never global/admin/actions:write).
+- name: Publish reviewed candidate as a PR, never merge
+  env:
+    GH_TOKEN: ${{ github.token }}
+  run: |
+    node scripts/feed-candidate.mjs
+    if git diff --cached --quiet; then exit 0; fi
+    git config user.name "core-city-feed[bot]"
+    git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+    candidate_branch="city-feed/candidate-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+    git switch -c "$candidate_branch"
+    git commit -m "data: reviewed City Intelligence candidate"
+    git push origin "HEAD:refs/heads/$candidate_branch"
+    gh pr create --base main --head "$candidate_branch" --title "data: City Intelligence candidate" --body "Generated JSON candidate; human review and exact-revision core-verify required. No auto-merge."

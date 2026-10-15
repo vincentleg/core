@@ -1,0 +1,33 @@
+name: feed-rehearsal
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: feed-rehearsal
+  cancel-in-progress: false
+jobs:
+  candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version: '22'
+      - name: Collect candidate using existing bounded collectors
+        run: |
+          node scripts/city-feed.mjs
+          if node -e 'const s=require("./data/feeds/state.json"); process.exit(s.lastRun.added + s.lastRun.changed > 0 ? 0 : 1)'; then
+            node scripts/agents.mjs --question "Quels travaux et quels arbres sont concernés sur Howard entre la 8e et la 9e rue ?" --segment 7051000
+          fi
+      - name: Reject changes outside bounded generated JSON
+        run: node scripts/feed-candidate.mjs
+      - name: Verify candidate without publishing
+        run: |
+          git add data/feeds data/missions data/agents
+          node scripts/verify.mjs
+      - name: Summarize only; no remote mutation or auto-merge
+        run: node scripts/feed-candidate.mjs >> "$GITHUB_STEP_SUMMARY"

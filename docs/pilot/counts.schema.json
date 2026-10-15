@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CORE aggregate count observation v1; no personal data",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["start", "end", "site", "direction", "mode", "sourceId", "corridor", "count", "unit"],
+  "properties": {
+    "start": {"type": "string", "format": "date-time"},
+    "end": {"type": "string", "format": "date-time"},
+    "site": {"type": "string", "pattern": "^[A-Za-z0-9_-]{1,80}$"},
+    "direction": {"enum": ["NB", "SB", "EB", "WB", "BOTH"]},
+    "mode": {"enum": ["motor_vehicle", "bicycle", "pedestrian"]},
+    "sourceId": {"type": "string", "pattern": "^[a-z0-9-]{2,80}$"},
+    "corridor": {"type": "string", "minLength": 1},
+    "count": {"type": "integer", "minimum": 0, "maximum": 9007199254740991},
+    "unit": {"const": "count"}
+  }
+}

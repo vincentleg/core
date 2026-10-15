@@ -1,6 +1,8 @@
-# CORE — constitution et gouvernance proposées
+# CORE — propositions de gouvernance historiques (avant FD01)
 
-**DRAFT — NON RATIFIÉ PAR LE FONDATEUR.** Ce texte organise les engagements récupérés et propose les exigences manquantes ; il n’invente ni approbation ancienne, ni capacité technique, ni autorité juridique. Les protections existantes restent applicables. Ratification éventuelle = décision explicite, version, portée et preuve conservées dans un ADR ; pas un simple commit de ce brouillon.
+**ARCHIVE DU BROUILLON — principes remplacés par [CONSTITUTION_V1.md](CONSTITUTION_V1.md), approuvée le 2026-10-14 via FD01.** Les articles détaillés ci-dessous restent des propositions ; ils ne sont pas ratifiés en bloc. Le registre FD initial est historique : orientations désormais approuvées et choix opérationnels encore ouverts dans [FOUNDER_DECISIONS.md](FOUNDER_DECISIONS.md).
+
+**État du brouillon lors de la consolidation : DRAFT — NON RATIFIÉ.** Ce texte organise les engagements récupérés et propose les exigences manquantes ; il n’invente ni approbation ancienne, ni capacité technique, ni autorité juridique. Les protections existantes restent applicables. Ratification éventuelle = décision explicite, version, portée et preuve conservées dans un ADR ; pas un simple commit de ce brouillon.
 
 ## Articles proposés
 
@@ -17,7 +19,7 @@
 11. **Sécurité, IP et coût.** Revue des sources/outils, versions/licences et exposition ; secrets hors Git, correctifs contrôlés, publication traçable. Zéro dépense additionnelle, aucun abonnement/API payante/topup sans accord explicite. Pas d’installation/routage externe implicite. La licence du code CORE appartient au choix du fondateur, pas à l’agent.
 12. **Honnêteté et changement.** Rejeu, exécution locale et inférence réelle sont distingués. Démonstration ≠ validation terrain. Toute dérogation ou changement de produit/phase garde une décision sourcée ; aucun résumé récent n’efface un engagement antérieur.
 
-## Décisions réservées au fondateur — toutes OPEN
+## Ancien registre de consolidation — historique, remplacé par FOUNDER_DECISIONS
 
 | ID | Choix à confirmer | Dépendance / recommandation non appliquée |
 | --- | --- | --- |

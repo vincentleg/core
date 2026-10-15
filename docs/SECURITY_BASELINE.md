@@ -13,11 +13,13 @@ Périmètre : prototype statique public, exécution propriétaire locale, source
 | CSP | Globe conservé ; corridor : hashes exacts des deux scripts, pas eval/inline script libre, réseau interdit, fontes locales ; build et vérification reproductibles | Meta CSP ne fournit pas `frame-ancestors`/reporting. Hébergement à en-têtes adaptés à qualifier avant interfaces sensibles |
 | Permissions / injection | Registre/outils, validation déterministe, budgets, STOP, assertions/citations, tests négatifs existants conservés | Même processus Node/JS ≠ isolation OS ; aucune prétention de protection universelle contre injection |
 | Autorisation / journaux | Serveur local loopback, token, Host/Origin, chemins/action allowlists, corps bornés ; chaînes SHA-256 | `human:` n’authentifie pas un ingénieur ; journal non ancré indépendamment ; aucun rôle Business réel |
-| Dépendances / IP | Aucun nouveau paquet ; MapLibre/fontes auto-hébergés avec licences/SRI ; sources existantes seulement | Pas de scan CVE exhaustif, licence CORE/marque non tranchées, conditions commerciales à revoir |
+| Dépendances / IP | Aucun nouveau paquet ; MapLibre/fontes auto-hébergés avec licences/SRI ; sources existantes seulement | Pas de scan CVE exhaustif, code CORE provisoirement propriétaire (FD05), marque et droits commerciaux à qualifier, conditions commerciales à revoir |
 
 Les anciens examens `PHASE_7_SECURITY_REVIEW.md` / `PHASE_8_SECURITY_REVIEW.md` sont des preuves historiques ; les affirmations absolues « aucun secret » ou « impossible de réécrire » ne valent pas certification actuelle.
 
 ## GitHub Free et configuration recommandée — NON APPLIQUÉE
+
+Actualisation FD03 : [GITHUB_PROTECTION_MIGRATION.md](GITHUB_PROTECTION_MIGRATION.md) contient la lecture API, le rehearsal read-only et les réglages OP01 restant à autoriser. Les huit orientations sont approuvées ; aucune configuration distante ni bascule du cron effectuée.
 
 Lecture API : propriétaire de type `User`, dépôt `public`, branche `main` avec `protected: false`. Plan de facturation personnel non inspecté. [GitHub confirme les protected branches pour les dépôts publics avec GitHub Free](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches). [Les runners standards des dépôts publics sont gratuits](https://docs.github.com/en/billing/concepts/product-billing/github-actions). Cette CI utilise `ubuntu-24.04` standard, aucun runner large, stockage d’artefacts facturable, marketplace payante ou cache distant ajouté. Aucun changement de plan requis pour les contrôles proposés.
 

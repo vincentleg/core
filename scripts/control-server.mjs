@@ -4,10 +4,12 @@
 // (header X-Core-Token); Host must be 127.0.0.1:<port> or localhost:<port> (DNS-rebinding defence); Origin, when present,
 // must match; no file path is ever taken from the client (static files come from a fixed allowlist); actions are an
 // allowlist (start, decision, world, discover, decide, stop, resume, export); request bodies are size-limited JSON; human decisions require a
-// reviewer name matching human:<name>. The public site has no access to this server and never contacts it.
+// reviewer label matching human:<name> (not authenticated identity or real-world approval).
+// The public site has no access to this server and never contacts it.
 import http from 'node:http';
 import fs from 'node:fs';
 import crypto from 'node:crypto';
+import { AUTHORITY, controlAuthority } from './lib/authority.mjs';
 import { createRuntime, STOP, LIVE } from './lib/civ-runtime.mjs';
 import { createInterpreter } from './lib/civ-llm.mjs';
 import { openScheduler } from './lib/civd-core.mjs';
@@ -51,6 +53,8 @@ const server = http.createServer(async (req, res) => {
     if (!url.pathname.startsWith('/api/')) return send(res, 404, { error: 'introuvable' });
     const tok = req.headers['x-core-token'] || ''; if (tok.length !== TOKEN.length || !crypto.timingSafeEqual(Buffer.from(tok), Buffer.from(TOKEN))) return send(res, 401, { error: 'jeton requis' });
     const route = `${req.method} ${url.pathname}`;
+    if (req.method === 'POST' && !controlAuthority(url.pathname).allowed) return send(res, 403, controlAuthority(url.pathname));
+    if (route === 'GET /api/authority') return send(res, 200, AUTHORITY);
     if (route === 'GET /api/status') return send(res, 200, { busy, stopped: fs.existsSync(STOP), problems: rt.engine.discoverAll(), missions: rt.missions().map(m => ({ id: m.id, title: m.title, nhood: m.nhood, state: m.state, decision: m.decision && m.decision.state, human: m.human || null, metrics: m.metrics || null })), live: fs.existsSync(LIVE) ? JSON.parse(fs.readFileSync(LIVE, 'utf8')) : null, memory: rt.memory.verify(), model: llm ? { available: llm.available, model: llm.model } : { available: false }, ...world() });
     if (route === 'GET /api/mission') { const id = url.searchParams.get('id') || ''; if (!MISSION.test(id)) return send(res, 400, { error: 'identifiant invalide' }); const m = rt.load(id); return m ? send(res, 200, summary(m)) : send(res, 404, { error: 'mission inconnue' }); }
     if (route === 'GET /api/memory') { const agent = url.searchParams.get('agent') || ''; if (!rt.registry.agents.some(a => a.id === agent)) return send(res, 400, { error: 'agent inconnu' }); return send(res, 200, { identity: rt.memory.identity(agent), knowledge: rt.memory.knowledge(agent), episodes: rt.memory.episodes(agent, { limit: 20 }), institutional: rt.memory.entries().filter(e => e.origin === agent || e.body.agent === agent) }); }

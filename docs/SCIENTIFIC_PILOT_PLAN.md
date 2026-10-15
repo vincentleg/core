@@ -1,4 +1,6 @@
-# CORE — plan pilote scientifique gratuit (DRAFT, non exécuté)
+# CORE — plan pilote scientifique gratuit (protocole DRAFT, non exécuté)
+
+FD06/FD07 : principes approuvés, pas les seuils ou personnes. Paquet courant : [pilot/README.md](pilot/README.md), manifeste de sources, schéma, préenregistrement et checklist. Le corridor reste une shortlist conditionnelle, faute de droits et couverture qualifiés.
 
 Statut : protocole proposé, **pas un pilote calibré ni une Phase 12 autorisée**. Aucun comptage collecté, simulateur installé, bénéfice estimé ou intervention réelle autorisée par cette mission. Le dossier L11 conserve son indice exploratoire ; cet indice n’est ni un délai de trafic, ni un risque causal d’accident.
 
@@ -12,7 +14,7 @@ Le choix est candidat, à confirmer par le fondateur et les services ; ne pas ch
 
 | Source candidate | Faits récupérés / usage possible | Condition préalable / limite |
 | --- | --- | --- |
-| [SFMTA Howard RAISE data repository](https://www.sfmta.com/ja/node/25936) | Résultat de recherche primaire identifiant deux rapports de comptages, locations 6/7, Howard 6th–7th, octobre 2018 | Page complète/PDF non récupérés par l’outil pendant cette mission ; licence, tables et couverture **UNVERIFIED**. Aucune copie ni nombre intégré. Accès gratuit ne vaut pas licence de redistribution |
+| [SFMTA Howard RAISE data repository](https://www.sfmta.com/ja/node/25936) | Résultat de recherche primaire identifiant deux rapports de comptages, locations 6/7, Howard 6th–7th, octobre 2018 | Actualisation FD06 : page complète et PDF location 6 récupérés ; un jour de comptages tube le 2018-10-17. Licence de réutilisation/holdout **UNVERIFIED**. Aucune table de mesures intégrée. Accès gratuit ne vaut pas licence de redistribution |
 | DataSF existant | Permis, HIN et collisions agrégées PDDL, collectés en octobre 2026 ; manifest/version connus | Contexte administratif seulement : pas des comptages de débit ni des plans de feux ; ne pas calibrer avec l’indice L11 |
 | OpenStreetMap | Géométrie candidate sous ODbL avec attribution/partage à l’identique des bases dérivées | Vérifier sens de circulation, voies, traversées et époque ; état 2026 non substituable à un comptage 2018 |
 | Nouveaux comptages agrégés par humains autorisés | Alternative sans achat/API : nombres par mouvement et intervalle, sans image/visage/plaque/trajectoire individuelle | Mandat, sécurité de collecte, droits/licence et protocole à approuver ; aucune collecte déclenchée |
@@ -52,4 +54,4 @@ Terrain : identité et mandat du validateur, autorisation des services, sécurit
 
 ## État de préparation
 
-G0 : données/époque/droits non qualifiés ; G1 : DRAFT ; G2 : simulateur absent ; G3 : relecteur non confirmé ; G4 : BLOCKED. Le **plan** est prêt à examen, le **pilote scientifique** ne l’est pas. Prochaine décision fondateur FD06/FD07 ; coût additionnel autorisé : zéro.
+G0 : données/époque/droits non qualifiés ; G1 : DRAFT ; G2 : simulateur absent ; G3 : relecteur non confirmé ; G4 : BLOCKED. Le **plan** est prêt à examen, le **pilote scientifique** ne l’est pas. Prochaine qualification opérationnelle OP03/OP04 (principes FD06/FD07 approuvés) ; coût additionnel autorisé : zéro.
