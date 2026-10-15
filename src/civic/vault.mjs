@@ -56,3 +56,25 @@ export async function open(box, passphrase) {
   try { return JSON.parse(dec.decode(await subtle().decrypt({ name: 'AES-GCM', iv: unb64(box.iv) }, key, unb64(box.ct)))); }
   catch { throw Error('phrase secrète incorrecte ou coffre altéré'); }
 }
+
+// Word-level comparison of two versions (LCS, bounded): [{ op: 'same' | 'add' | 'del', text }].
+export function diffWords(a, b, max = 1500) {
+  const A = String(a).split(/(\s+)/).slice(0, max), B = String(b).split(/(\s+)/).slice(0, max), n = A.length, m = B.length;
+  const T = Array.from({ length: n + 1 }, () => new Uint16Array(m + 1));
+  for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--) T[i][j] = A[i] === B[j] ? T[i + 1][j + 1] + 1 : Math.max(T[i + 1][j], T[i][j + 1]);
+  const out = [], push = (op, text) => { const l = out.at(-1); if (l && l.op === op) l.text += text; else out.push({ op, text }); };
+  let i = 0, j = 0; while (i < n && j < m) { if (A[i] === B[j]) { push('same', A[i]); i++; j++; } else if (T[i + 1][j] >= T[i][j + 1]) push('del', A[i++]); else push('add', B[j++]); }
+  while (i < n) push('del', A[i++]); while (j < m) push('add', B[j++]);
+  return out;
+}
+export function removeIdea(vault, id, actor) {
+  const idea = vault.ideas.find(i => i.id === id); if (!idea) return { ok: false, error: 'idée inconnue' };
+  if (idea.owner !== actor) return { ok: false, error: 'seul l’auteur supprime une idée' };
+  return { ok: true, value: { ...vault, ideas: vault.ideas.filter(i => i.id !== id) } };
+}
+export const CATEGORIES = ['infrastructure', 'accessibilité', 'énergie', 'environnement', 'éducation', 'santé publique', 'autre'];
+export function setMeta(idea, { category, notes }, actor) {
+  if (actor !== idea.owner) return { ok: false, error: 'seul l’auteur modifie l’idée' };
+  if (category && !CATEGORIES.includes(category)) return { ok: false, error: 'catégorie inconnue' };
+  return { ok: true, value: { ...idea, ...(category ? { category } : {}), ...(notes != null ? { notes: String(notes).slice(0, 4000) } : {}) } };
+}

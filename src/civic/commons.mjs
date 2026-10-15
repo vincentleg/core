@@ -11,6 +11,7 @@ import * as K from '../kb/knowledge.mjs';
 import * as NAV from '../shell/nav.mjs';
 import * as J from '../shell/journey.mjs';
 import * as VS from './vault-session.mjs';
+import * as UJ from './ui-journey.mjs';
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -98,6 +99,8 @@ function renderVault(B) {
       idea = await V.addVersion(idea, { title: $('vf-t').value, problem: $('vf-p').value, solution: $('vf-s').value, evidence: $('vf-e').value, problemId: pid });
       S.vault.ideas = [...ideas.filter(i => i.id !== idea.id), idea]; S.sel = idea.id; await persistVault(); render(); toast(`Version ${idea.versions.length} enregistrée et chiffrée.`); } catch (err) { toast(err.message); } };
   if (cur) {
+    UJ.renderVaultTools(B, cur, { owner: S.profile.id, toast, save: async next => { S.vault.ideas = S.vault.ideas.map(x => x.id === next.id ? next : x); await persistVault(); },
+      after: removed => { if (removed) { S.vault = VS.vault(); S.sel = null; } render(); } });
     V.verifyChain(cur).then(r => { const el = $('v-chain'); if (el) el.textContent = r.ok ? `Chaîne intacte : ${r.length} version(s), chaque empreinte recalculée.` : `Chaîne ROMPUE à la version ${r.at}.`; });
     $('v-labs').onchange = async e => { const r = V.grant(cur, 'labsAnalysis', e.target.checked, S.profile.id); if (!r.ok) return toast(r.error); S.vault.ideas = ideas.map(i => i.id === cur.id ? r.value : i); await persistVault(); render(); };
     $('vp').onsubmit = async e => { e.preventDefault(); const r = V.publish(cur, { actor: S.profile.id, version: Number($('vp-v').value), licence: $('vp-l').value, pseudonym: S.profile.pseudonym, confirmDisclosure: $('vp-c').checked });
@@ -120,6 +123,7 @@ function renderLabs(B) {
     S.labsLog.push({ idea: cur.id, at: r.value.at }); saveCommons(); S.vault.ideas = ideas.map(i => i.id === cur.id ? { ...i, reviews: [...i.reviews, r.value] } : i); S.sel = cur.id; await persistVault(); render(); };
   B.querySelectorAll('[data-contest]').forEach(f => f.onsubmit = async e => { e.preventDefault(); const r = L.contest(cur, { reviewIndex: Number(f.dataset.contest), reason: f.querySelector('input').value, actor: S.profile.id });
     if (!r.ok) return toast(r.error); S.vault.ideas = ideas.map(i => i.id === cur.id ? r.value : i); await persistVault(); render(); });
+  if (cur) UJ.renderDossier(B, cur, { toast });
 }
 
 // ---------- Arena (fictional demo) ----------
@@ -214,7 +218,7 @@ async function renderKnowledge(B) {
   B.querySelectorAll('[data-kq]').forEach(b => b.onclick = () => go(b.dataset.kq));
 }
 
-const RENDER = { knowledge: renderKnowledge, profile: renderProfile, vault: renderVault, labs: renderLabs, arena: renderArena, academy: renderAcademy, progress: renderProgress };
+const RENDER = { journey: UJ.renderJourney, trust: UJ.renderTrust, knowledge: renderKnowledge, profile: renderProfile, vault: renderVault, labs: renderLabs, arena: renderArena, academy: renderAcademy, progress: renderProgress };
 // ---------- routing: commons.html#section?key=value (deep links, back button, no reload) ----------
 function route() {
   const [sec, q] = location.hash.slice(1).split('?'), hp = new URLSearchParams(q || '');

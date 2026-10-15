@@ -109,3 +109,37 @@ test('progress: virtual and Earth systems separate, sourced indicators only, no 
   assert.ok(!Object.keys(G).some(k => /score|index|civilization/i.test(k)), 'no universal score function exists');
   assert.equal(G.kardashev(1e16).K, 1); assert.equal(G.kardashev(1e26).K, 2); assert.throws(() => G.kardashev(0));
 });
+
+test('labs dossier: structured, missing evidence named, arithmetic only on recorded values, never a validation', async () => {
+  const V = await load('vault.mjs'), L = await load('labs.mjs');
+  const problem = json('data/problems/registry.json').problems.find(p => p.id === 'sidewalk-below-bsp-min:5665000');
+  const sidewalk = json('data/sf/sidewalks.geojson').features.find(f => f.properties.record_id === '8562').properties;
+  let idea = V.newIdea({ id: 'i9', owner: 'core:me' });
+  idea = await V.addVersion(idea, { title: 'Élargir', problem: 'Trottoir étroit', solution: 'Élargir le trottoir', problemId: problem.id });
+  let x = L.dossier(idea, { problem, sidewalk });
+  assert.equal(x.level, 'draft'); assert.match(x.disclaimer, /ni une validation scientifique/);
+  assert.deepEqual(x.calculation.inputs, { width_ft: 10, min_ft: 12, recommended_ft: 15 });
+  assert.deepEqual(x.calculation.result, { toMinimum_ft: 2, toMinimum_m: 0.61, toRecommended_ft: 5, toRecommended_m: 1.52 });
+  assert.match(x.calculation.note, /2014/);
+  assert.ok(['current-measure', 'usage', 'cost', 'authority', 'alternatives', 'mechanism', 'tests'].every(id => x.missingEvidence.some(m => m.id === id)));
+  idea = { ...idea, dialogueDraft: { proposal: 'Élargir le trottoir', mechanism: 'afin de laisser passer deux fauteuils', assumptions: ['la chaussée peut céder 2 ft'], constraints: ['coût de 50000 dollars', 'permis de la ville'], alternatives: ['ne rien faire'], risks: ['moins de stationnement'], tests: ['compter les piétons avant et après pendant 3 mois'] } };
+  x = L.dossier(idea, { problem, sidewalk });
+  assert.deepEqual(x.missingEvidence.map(m => m.id), ['current-measure'], 'only the 2014 measurement remains missing');
+  assert.equal(x.level, 'incomplete'); assert.notEqual(x.levelLabel, 'validé');
+  assert.match(x.hypothesis, /Si l’on met en œuvre « Élargir le trottoir », alors laisser passer deux fauteuils ; cela se vérifierait par : compter/);
+  assert.ok(x.evidence.some(e => e.ref === 'sidewalks:8562' && e.basis === 'observed'));
+  const other = { id: 'z', versions: [{ n: 1, hash: 'h', problem: 'p', solution: 's', evidence: '' }] };
+  assert.equal(L.dossier(other, {}).calculation.available, false, 'no recorded measurement, no calculation');
+  assert.match(L.dossierMarkdown(x), /Prêt à être relu|Incomplet/);
+});
+
+test('vault: word diff between versions, owner-only deletion and metadata', async () => {
+  const V = await load('vault.mjs');
+  assert.deepEqual(V.diffWords('élargir le trottoir', 'élargir vite le trottoir').map(d => d.op), ['same', 'add', 'same']);
+  assert.equal(V.diffWords('a b', 'a b').every(d => d.op === 'same'), true);
+  const vault = { owner: 'core:me', ideas: [V.newIdea({ id: 'x', owner: 'core:me' })] };
+  assert.equal(V.removeIdea(vault, 'x', 'core:other').ok, false);
+  assert.equal(V.removeIdea(vault, 'x', 'core:me').value.ideas.length, 0);
+  assert.equal(V.setMeta(vault.ideas[0], { category: 'magie' }, 'core:me').ok, false);
+  assert.equal(V.setMeta(vault.ideas[0], { category: 'accessibilité', notes: 'n' }, 'core:me').value.category, 'accessibilité');
+});

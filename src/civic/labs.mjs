@@ -41,3 +41,55 @@ export function contest(idea, { reviewIndex, reason, actor, at = new Date().toIS
   if (!idea.reviews[reviewIndex]) return { ok: false, error: 'analyse inconnue' };
   return { ok: true, value: { ...idea, contests: [...idea.contests, { reviewIndex, reason: String(reason).slice(0, 1000), at, status: 'en attente d’un humain (aucun relecteur dans ce prototype)' }] } };
 }
+
+// ---------- V6: from idea to a review-ready research dossier (deterministic; never a validation) ----------
+const lines = (t, re) => String(t || '').split('\n').map(x => x.trim()).filter(x => re.test(x)).map(x => x.replace(re, '').replace(/^[-•]\s*/, '').trim()).filter(Boolean);
+function listUnder(text, header) { const m = String(text || '').split(new RegExp(`\\n${header} :\\n`))[1]; return m ? m.split('\n').filter(l => l.startsWith('- ')).map(l => l.slice(2)) : []; }
+export const DOSSIER_LEVELS = { draft: 'Brouillon', incomplete: 'Incomplet', ready: 'Prêt à être relu — NON validé' };
+
+// problem: the CORE problem record (or null); sidewalk: the sidewalk dataset record for that segment (or null).
+export function dossier(idea, { problem = null, sidewalk = null } = {}) {
+  const v = idea.versions.at(-1); if (!v) throw Error('aucune version');
+  const d = idea.dialogueDraft || {};
+  const pick = (k, h) => (d[k] && d[k].length ? d[k] : listUnder(v.solution, h));
+  const assumptions = pick('assumptions', 'Hypothèses'), constraints = pick('constraints', 'Contraintes'), alternatives = pick('alternatives', 'Alternatives'), risks = pick('risks', 'Risques'), tests = pick('tests', 'Tests');
+  const proposal = d.proposal || v.solution.split('\n')[0], mechanism = d.mechanism || lines(v.solution, /^Mécanisme supposé :\s*/)[0] || '';
+  const evidence = [...(problem ? problem.evidence.map(e => ({ ref: e.ref, url: e.url, basis: problem.status })) : []),
+    ...String(v.evidence || '').split('\n').map(l => l.trim()).filter(Boolean).map(l => ({ ref: l.split(' ')[0], url: (l.match(/https:\/\/\S+/) || [null])[0], basis: 'cité par l’auteur' }))]
+    .filter((e, i, a) => a.findIndex(x => x.ref === e.ref) === i);
+  // Deterministic calculation only where the inputs are recorded measurements.
+  let calculation = { available: false, note: 'Aucune simulation validée n’existe pour ce type de problème : aucun résultat n’est calculé.' };
+  if (problem?.metrics?.width_ft != null && problem.metrics.min_ft != null) {
+    const w = problem.metrics.width_ft, min = problem.metrics.min_ft, rec = sidewalk?.recommended_ft ?? null, m = ft => Math.round(ft * 0.3048 * 100) / 100;
+    calculation = { available: true, kind: 'arithmétique sur valeurs enregistrées', inputs: { width_ft: w, min_ft: min, ...(rec != null ? { recommended_ft: rec } : {}) },
+      result: { toMinimum_ft: min - w, toMinimum_m: m(min - w), ...(rec != null ? { toRecommended_ft: rec - w, toRecommended_m: m(rec - w) } : {}) },
+      note: `Écart calculé sur la mesure de 2014 (${w} ft) : à recalculer avec une mesure actuelle. Un écart géométrique ne dit rien de l’usage réel ni de la faisabilité.` };
+  }
+  const missing = [];
+  if (problem && /2014/.test(problem.caveat || '')) missing.push({ id: 'current-measure', label: 'Mesure actuelle de la largeur (le relevé date de 2014)' });
+  if (!tests.some(t => /compt|debit|débit|pieton|piéton/i.test(t))) missing.push({ id: 'usage', label: 'Données d’usage (comptages de piétons, fauteuils, poussettes) : aucun jeu de données CORE ne les contient' });
+  if (!constraints.some(c => /\d/.test(c) && /cout|coût|budget|\$|€|dollar|euro/i.test(c))) missing.push({ id: 'cost', label: 'Estimation de coût chiffrée' });
+  if (!constraints.some(c => /permis|autoris|ville|sfmta|dpw/i.test(c))) missing.push({ id: 'authority', label: 'Autorité compétente et autorisations nécessaires' });
+  if (!alternatives.length) missing.push({ id: 'alternatives', label: 'Au moins une alternative, dont « ne rien faire »' });
+  if (!mechanism) missing.push({ id: 'mechanism', label: 'Mécanisme : pourquoi la proposition réduirait le problème' });
+  if (!tests.length) missing.push({ id: 'tests', label: 'Méthode de mesure avant/après' });
+  const level = !proposal || !mechanism ? 'draft' : missing.length ? 'incomplete' : 'ready';
+  return {
+    method: { ...METHOD, part: 'dossier' }, idea: idea.id, version: v.n, hash: v.hash, level, levelLabel: DOSSIER_LEVELS[level],
+    problemStatement: problem ? `${problem.title} — ${problem.place}. ${problem.statement} (statut : ${problem.status}).` : v.problem,
+    hypothesis: `Si l’on met en œuvre « ${proposal} »${mechanism ? `, alors ${mechanism.replace(/^(afin de|pour que|parce que|car)\s*/i, '')}` : ''}${tests.length ? ` ; cela se vérifierait par : ${tests[0]}` : ' ; (méthode de vérification à définir)'}.`,
+    assumptions, evidence, alternatives: alternatives.length ? alternatives : ['à préciser (dont « ne rien faire »)'], risks: risks.length ? risks : ['à identifier'], constraints,
+    validationPlan: [`Mesure de référence datée avant toute intervention${problem ? ` sur ${problem.place}` : ''}`, ...(tests.length ? tests : ['Indicateur et méthode de mesure à définir']), 'Préenregistrer seuils de succès et d’échec avant la mesure (FD07)', 'Relecture par une personne compétente et indépendante'],
+    prototypePlan: ['Maquette ou marquage temporaire réversible, si l’autorité compétente l’autorise', 'Durée et périmètre limités, comparés à un tronçon témoin', 'Arrêt immédiat si un risque identifié se réalise'],
+    successMetrics: tests.length ? tests.map(t => `Amélioration mesurée de : ${t}`) : ['à définir avant toute mesure'],
+    failureCriteria: ['Aucune différence mesurable avec le tronçon témoin', 'Un risque identifié se réalise (accessibilité, sécurité, riverains)', 'La mesure actuelle montre que le problème n’existe plus'],
+    calculation, missingEvidence: missing,
+    disclaimer: 'Dossier structuré par règles déterministes : il organise la proposition et ses manques. Il ne constitue ni une validation scientifique, ni une recommandation, ni une autorisation.',
+  };
+}
+export function dossierMarkdown(x) {
+  const L = (h, a) => [`## ${h}`, ...a.map(i => `- ${typeof i === 'string' ? i : i.label || `${i.ref}${i.url ? ` (${i.url})` : ''} — ${i.basis}`}`), ''];
+  return [`# Dossier CORE Labs — idée ${x.idea}, version ${x.version}`, '', `Niveau : ${x.levelLabel}. ${x.disclaimer}`, `Empreinte de la version : ${x.hash}`, '', '## Problème', x.problemStatement, '', '## Hypothèse testable', x.hypothesis, '',
+    ...L('Hypothèses sous-jacentes', x.assumptions), ...L('Preuves', x.evidence), ...L('Alternatives', x.alternatives), ...L('Risques', x.risks), ...L('Plan de validation', x.validationPlan), ...L('Plan de prototype', x.prototypePlan),
+    ...L('Indicateurs de succès', x.successMetrics), ...L('Critères d’échec', x.failureCriteria), '## Calcul', x.calculation.available ? `${JSON.stringify(x.calculation.result)} — ${x.calculation.note}` : x.calculation.note, '', ...L('Preuves manquantes', x.missingEvidence)].join('\n');
+}
