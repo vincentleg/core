@@ -4,9 +4,7 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 
 test('committed corridor matches source assembly exactly', () => {
-  const expected = fs.readFileSync('src/template.html', 'utf8')
-    .replace('/*ENGINE*/', () => fs.readFileSync('src/engine.js', 'utf8'))
-    .replace('/*APP*/', () => fs.readFileSync('src/app.js', 'utf8'));
+  const expected = require('../scripts/lib/corridor-build.cjs').assemble(fs.readFileSync('src/template.html', 'utf8'), fs.readFileSync('src/engine.js', 'utf8'), fs.readFileSync('src/app.js', 'utf8'));
   assert.equal(fs.readFileSync('corridor.html', 'utf8'), expected);
 });
 

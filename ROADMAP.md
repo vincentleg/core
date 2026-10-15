@@ -1,5 +1,7 @@
 # CORE — delivery roadmap
 
+Delivery history, not a claim that all original scientific criteria are complete. For preserved original/rebased numbering, deferred acceptance and dependencies see [MASTER_ROADMAP](docs/MASTER_ROADMAP.md); missing founder decisions remain unverified. Consolidation is authorized; Phase 12 is not.
+
 This roadmap replaces the historical phase numbering in HANDOFF.md and the prototype UI. Historical phases 0 (synthetic corridor) and 1 (globe implementation) are existing assets, not evidence of production readiness. Deliver one phase at a time; no phase below authorizes an agent to execute infrastructure changes.
 
 | Phase | Scope | Acceptance criteria | Status |

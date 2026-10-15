@@ -295,3 +295,19 @@ A newer snapshot supersedes older findings of the same problem. Old entries are 
 
 In New York, collisions recorded on the FDR Drive, bridges, tunnels or expressways are not attributed to surface pedestrian corridors, even within 20 m. The exclusions are counted in the manifest.
 
+
+## D074 — Consolidation preserves commitments without retroactive ratification
+
+The current founder mandate authorizes consolidation only. MASTER_ROADMAP maps original O, rebased F and delivered L numbering; FOUNDER_COMMITMENTS records provenance and unknown approvals. GOVERNANCE_DRAFT remains unratified. No Phase 12 or external intervention is authorized.
+
+## D075 — Shared integrity and explicit historical/current snapshot modes
+
+The Node runtime now checks raw source hashes, metadata and filesystem boundaries through scripts/lib/snapshot.mjs. Historical replay remains supported and labelled; --current-data rejects stale/unclassified source collection dates against existing city budgets. Collection freshness does not certify observation recency or causal validity.
+
+## D076 — Fresh read-only CI and exact-runtime local verification reuse
+
+core-verify covers push and PR with pinned existing actions and no write permission. Per-commit added-line security checks remain; Markdown-only changes avoid application tests. Runtime/data changes need full validation or a matching local proof no older than 24 h, bound to code/data/tests/config, Node and platform. CI does not trust that local cache. This supersedes the blanket full-suite pre-push behavior described in D034; no server protection is silently enabled.
+
+## D077 — Hash-based CSP on the synthetic corridor
+
+A shared build assembler emits hashes for the two existing inline scripts, denies network connections and preserves the rendered interface. The integrity gate compares assembly in memory rather than rebuilding files. No traffic-engine logic or authorization threshold changes.

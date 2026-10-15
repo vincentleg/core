@@ -8,6 +8,8 @@
 import fs from 'node:fs';
 import crypto from 'node:crypto';
 import { execFileSync } from 'node:child_process';
+import { createRequire } from 'node:module';
+const { assemble } = createRequire(import.meta.url)('./lib/corridor-build.cjs');
 
 const git = (...a) => execFileSync('git', a, { encoding: 'utf8', maxBuffer: 256 * 1024 * 1024 });
 const args = process.argv.slice(2), mode = args[0] || '--staged';
@@ -53,17 +55,17 @@ for (const f of files) {
   if (fs.existsSync(f.path) && fs.statSync(f.path).size > MAX_BYTES) findings.push({ rule: 'file-size', path: f.path, detail: `${fs.statSync(f.path).size} bytes > ${MAX_BYTES}` });
   if (f.path.endsWith('.json') && fs.existsSync(f.path)) { try { JSON.parse(fs.readFileSync(f.path, 'utf8')); } catch (e) { findings.push({ rule: 'invalid-json', path: f.path, detail: e.message }); } }
   f.lines.forEach((line, i) => {
-    for (const [rule, re] of SECRET_RULES) { const m = line.match(re); if (m && !allowed(rule, f.path, m[0])) findings.push({ rule, path: f.path, detail: `${m[0].slice(0, 12)}…` }); }
+    for (const [rule, re] of SECRET_RULES) { const m = line.match(re); if (m && !allowed(rule, f.path, m[0])) findings.push({ rule, path: f.path, detail: 'matched value withheld' }); }
     for (const [rule, re, applies] of PII_RULES) {
       if (!applies(f.path)) continue;
-      for (const m of line.matchAll(re)) if (!allowed(rule, f.path, m[0])) findings.push({ rule, path: f.path, detail: m[0] });
+      for (const m of line.matchAll(re)) if (!allowed(rule, f.path, m[0])) findings.push({ rule, path: f.path, detail: 'matched value withheld' });
     }
   });
 }
 // The generated corridor must match its sources (never hand-edited).
-if (files.some(f => /^(src\/(template\.html|app\.js|engine\.js)|corridor\.html|build\.js)$/.test(f.path)) || mode === '--all') {
-  const before = fs.readFileSync('corridor.html', 'utf8'); execFileSync('node', ['build.js'], { stdio: 'ignore' });
-  if (fs.readFileSync('corridor.html', 'utf8') !== before) { fs.writeFileSync('corridor.html', before); findings.push({ rule: 'corridor-drift', path: 'corridor.html', detail: 'run node build.js and stage corridor.html' }); }
+if (files.some(f => /^(src\/(template\.html|app\.js|engine\.js)|corridor\.html|build\.js|scripts\/lib\/corridor-build\.cjs)$/.test(f.path)) || mode === '--all') {
+  const expected = assemble(fs.readFileSync('src/template.html', 'utf8'), fs.readFileSync('src/engine.js', 'utf8'), fs.readFileSync('src/app.js', 'utf8'));
+  if (fs.readFileSync('corridor.html', 'utf8') !== expected) findings.push({ rule: 'corridor-drift', path: 'corridor.html', detail: 'run node build.js and stage corridor.html' });
 }
 
 const uniq = [...new Map(findings.map(f => [`${f.rule}|${f.path}|${f.detail}`, f])).values()];

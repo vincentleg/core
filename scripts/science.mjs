@@ -6,7 +6,8 @@ import { createRuntime, STOP } from './lib/civ-runtime.mjs';
 const require = createRequire(import.meta.url), SCI = require('../src/science.js');
 const path = 'data/science/sf-traffic.json', args = process.argv.slice(2);
 if (fs.existsSync(STOP)) { console.error('BLOCKED: arrêt d’urgence actif'); process.exit(1); }
-const rt = await createRuntime({ memoryFile: '.core-local/science.sqlite' });
+const rt = await createRuntime({ memoryFile: '.core-local/science.sqlite', snapshotMode: args.includes('--current-data') ? 'current' : 'replay' });
+console.log(args.includes('--current-data') ? 'Current-data freshness gate enabled.' : 'Historical snapshot execution: not a current-data validity claim.');
 try {
   const mission = await rt.runFocused('city', { city: 'san-francisco', workflow: 'decision-safety-works', nhood: 'Tenderloin' });
   if (mission.refused) throw Error(mission.refused);

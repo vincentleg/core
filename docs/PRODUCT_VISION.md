@@ -1,5 +1,7 @@
 # Product vision
 
+Read with [MASTER_ROADMAP](MASTER_ROADMAP.md) and [FOUNDER_COMMITMENTS](FOUNDER_COMMITMENTS.md): software releases do not close deferred calibration, identity or field-validation commitments.
+
 CORE — Creation Of Reborn Earth — aims to make infrastructure decisions testable before they affect people. A parallel Earth provides context; the central product is the evidence and human decision process connecting a proposal to implementation.
 
 The intended first customer problem is coordination of road and utility works: evaluate joint schedules and closures so cities and operators can avoid reopening the same street unnecessarily. Traffic signals are the current visual demonstration, not evidence that a roadworks coordination product already exists.

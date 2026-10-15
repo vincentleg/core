@@ -1,6 +1,6 @@
 # CORE — instructions for Claude Code
 
-Read `AGENTS.md`, `PROJECT_STATE.md` and `docs/PHASE_1_REPORT.md` first, then only relevant source files. Phases 1, 2A–2D and 3–11 are closed; **no subsequent phase is authorized**. For San Francisco work read `docs/PHASE_2A_TECHNICAL_AUDIT.md` and its companion docs.
+Follow `AGENTS.md`; load current state only when needed, `docs/MASTER_ROADMAP.md` for commitments and relevant files for the task. Historical reports only for unresolved questions. Phases 1, 2A–2D and 3–11 are closed; **no subsequent phase is authorized**. For San Francisco work read `docs/PHASE_2A_TECHNICAL_AUDIT.md` and its companion docs.
 
 CORE is building evidence-backed infrastructure decision review. The current application is a static MapLibre globe and a separate synthetic corridor. Agents propose; deterministic code checks proposal eligibility; humans must authorize; nothing controls real infrastructure. “La Trame” is deprecated. CORE is the product; CORE World is temporary wording only. Keep internal IDs and filenames unless a change is necessary.
 
@@ -17,6 +17,6 @@ Rules:
 - Validate with `node --test test/*.test.js` and local `python3 -m http.server 8000 --bind 127.0.0.1`. Record actual browser versions, failures and unavailable coverage honestly.
 - Keep documentation consistent, PROJECT_STATE.md at 10 lines max, and clearly distinguish geography, assumptions, synthetic traffic, simulation output and validated observations (currently none).
 - Work autonomously on routine authorized repairs. Ask only for genuine blockers, security concerns or paid-service requirements. Do not change machine-wide browser settings merely to make a test pass.
-- At the end of each phase, update its report/roadmap/state, build, test, inspect staged content, commit and push main without force. Stop before the next phase.
+- Commit/push/deploy only within explicit authorization. Use proportional validation and `node scripts/verify.mjs` for major integration/release; reuse identical-runtime proof in hooks, never bypass security. Stop before an unauthorized phase.
 
-Full historical business/design context is preserved in `HANDOFF.md`; current truth is in `PROJECT_STATE.md` and `docs/PHASE_1_REPORT.md`.
+Full historical business/design context is preserved in `HANDOFF.md`; current delivery state is in `PROJECT_STATE.md`; recovered commitments and unresolved authority are in `docs/MASTER_ROADMAP.md` and `docs/FOUNDER_COMMITMENTS.md`.

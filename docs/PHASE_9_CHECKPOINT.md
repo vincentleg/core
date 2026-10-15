@@ -1,3 +1,5 @@
+> Historical checkpoint, superseded by the released phase report. Its stop/merge/resume instructions are not current authorization. See MASTER_ROADMAP.md and PROJECT_STATE.md.
+
 # Phase 9 — emergency checkpoint (2026-10-14, ~17:15 UTC)
 
 **Paused at the founder's request** (usage limit). Phase 9 is **implemented and tested locally but not released**.

@@ -1,10 +1,10 @@
-# CORE — état du projet, Phase 11
-- Phases 0–11 closes ; production vérifiée : 088ebe4, tag phase11-release ; docs/PHASE_11_REPORT.md.
-- Civilization → Science & décisions : dossier SF Tenderloin, 70 tronçons, référence exploratoire 50 836,6 à 120 j.
-- Quatre agents à règles existants : proposition, contre-proposition, critique, preuves, révision ; dissidence conservée ; 0 appel modèle.
-- I0 / I2 coordination partielle / I3 report : charge déplacée explicite, I3 écartée ; 18 cas de sensibilité.
-- Quatre sources DataSF PDDL datées/hachées ; mission source recalculée ; dossier altéré ou preuve absente → BLOCKED.
-- Relecture publique et recalcul navigateur distincts ; exécution locale : node scripts/science.mjs --record ; mémoire isolée, STOP respecté.
-- Revue humaine seulement ; mise en œuvre bloquée ; aucun gain réel mesuré, modèle non calibré ; protocole de validation terrain explicite.
-- Node 130/130 ; Chrome science local et production 10/10 ; production : 0 erreur, 0 requête modèle/NYC ; Firefox/Safari, assistance et cron non vérifiés.
-- Aucun développement B2C ni phase suivante autorisés ; SF/NY et les 82 profils existants préservés.
+# CORE — état du projet, consolidation
+- Phases 0–11 closes ; production Phase 11 : 088ebe4, tag phase11-release ; docs/PHASE_11_REPORT.md.
+- Civilization : SF/NY, 82 profils, dossier scientifique Tenderloin ; agents à règles, relecture publique et calcul local explicites.
+- Quatre sources DataSF datées/hachées ; trois options, dissidence et 18 sensibilités ; preuves altérées → BLOCKED.
+- Aucun gain réel mesuré ni modèle calibré ; mise en œuvre bloquée sans validation terrain et autorisation humaine.
+- Résultats historiques Phase 11 : Node 130/130, Chrome local/production 10/10, zéro erreur et requête modèle/NYC.
+- Consolidation autorisée, Phase 12 interdite : docs/MASTER_ROADMAP.md distingue livraisons et exigences originales différées.
+- Gouvernance DRAFT, FD01–FD08 ouvertes ; pilote SF non prêt, droits des comptages candidats non vérifiés.
+- Intégrité/fraîcheur mutualisée, CI minimale et CSP corridor ; local Node 136/136, Chrome corridor 6/6 et science 10/10 ; docs/CONSOLIDATION_REPORT.md.
+- Firefox, Safari, accessibilité assistée et cron non vérifiés ; aucun B2C, outil payant ou réglage GitHub ajouté.

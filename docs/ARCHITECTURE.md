@@ -1,5 +1,7 @@
 # Existing architecture
 
+Historical architecture through Phase 4; later layers: PHASE_9_ARCHITECTURE.md, PHASE_10_REPORT.md, PHASE_11_REPORT.md. Consolidation controls and remaining boundaries: SECURITY_BASELINE.md; authority/sequence: MASTER_ROADMAP.md. This document is not a current completeness claim.
+
 Current state: Phase 4 (model-assisted agents, evaluated learning, living City Intelligence) complete — see `PHASE_4_REPORT.md`, `PHASE_4_AUDIT.md` and `CITY_INTELLIGENCE_ARCHITECTURE.md`.
 
 CORE is a static two-page application with committed public-data snapshots. There is no backend, database, account system, worker pool, LLM service, telemetry pipeline, or infrastructure actuator.

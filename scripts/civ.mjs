@@ -15,7 +15,8 @@ if (cmd === 'stop') { fs.mkdirSync('.core-local', { recursive: true }); fs.write
 if (cmd === 'resume') { if (!/^human:[A-Za-z0-9._-]{2,40}$/.test(opt('--reviewer') || '')) { console.error('human reviewer required'); process.exit(1); } fs.rmSync(STOP, { force: true }); console.log('stop lifted by', opt('--reviewer')); process.exit(0); }
 const llm = args.includes('--model') ? await createInterpreter() : null;
 if (llm && !llm.available) console.log('Ollama unavailable: model-assisted interpretation skipped.');
-const rt = await createRuntime({ llm: llm && llm.available ? llm : null, onEvent: ev => { if (ev.kind === 'stage') console.log(`${ev.at} ${ev.mission} → ${ev.data.stage}`); } });
+const rt = await createRuntime({ llm: llm && llm.available ? llm : null, snapshotMode: args.includes('--current-data') ? 'current' : 'replay', onEvent: ev => { if (ev.kind === 'stage') console.log(`${ev.at} ${ev.mission} → ${ev.data.stage}`); } });
+console.log(args.includes('--current-data') ? 'Current-data freshness gate enabled.' : 'Historical snapshot execution: not a current-data validity claim.');
 if (cmd === 'run') {
   const r = await rt.runAll({ concurrency: Math.min(4, +(opt('--concurrency') || 2)) });
   if (r.refused) { console.error(r.refused); process.exit(1); }

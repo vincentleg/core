@@ -6,19 +6,22 @@ import fs from 'node:fs';
 import os from 'node:os';
 import { createRequire } from 'node:module';
 import { loadEnv } from './core-env.mjs';
+import { loadSnapshot } from './snapshot.mjs';
 const require = createRequire(import.meta.url);
 const CITIES = require('../../src/cities.js'), WD = require('../../src/civ-world.js'), CT = require('../../src/civ-tools.js'), E = require('../../src/civ-engine.js'), MEM = require('../../src/civ-memory.js'), ORG = require('../../src/org.js'), KN = require('../../src/knowledge.js');
 export const DIR = '.core-local', LIVE = `${DIR}/civ-live.json`, STOP = `${DIR}/STOP`, MEMFILE = `${DIR}/memory.sqlite`;
 const PERM_ACTIONS = { read: ['lire les sources autorisées'], analyze: ['exécuter ses outils autorisés', 'produire des constats sourcés'], propose: ['planifier une mission', 'déléguer des sous-tâches bornées', 'proposer une recommandation'], review: ['contester une source', 'rejeter un constat non étayé', 'vérifier les preuves'], govern: ['proposer une décision à la revue humaine'] };
 const ROLE_CLASS = { executive: 'opérationnel autonome', coordinator: 'opérationnel autonome', lead: 'opérationnel autonome', 'lead (relais)': 'opérationnel autonome' };
 
-export async function createRuntime({ llm = null, memoryFile = MEMFILE, onEvent = null } = {}) {
+export async function createRuntime({ llm = null, memoryFile = MEMFILE, onEvent = null, snapshotMode = 'replay', snapshotNow = new Date().toISOString() } = {}) {
   fs.mkdirSync(DIR, { recursive: true });
   // Phase 10: every operational city (src/cities.js) gets its own verified snapshot and engine; one shared memory.
   const { env, manifest: corridor } = loadEnv(), registry = ORG.buildWorld(), cxs = {}, manifests = {};
-  for (const c of CITIES.operational()) { const man = JSON.parse(fs.readFileSync(`${c.studyArea.dataDir}/manifest.json`, 'utf8')), data = {};
-    for (const d of man.datasets) data[d.file.replace('.json', '')] = JSON.parse(fs.readFileSync(`${c.studyArea.dataDir}/${d.file}`, 'utf8'));
-    cxs[c.id] = CT.context({ manifest: man, data, city: c.id }); manifests[c.id] = man; }
+  for (const c of CITIES.operational()) {
+    const policies = Object.fromEntries(Object.values(c.sources).map(s => [s.id, s]));
+    const { manifest: man, data, freshness } = loadSnapshot(c.studyArea.dataDir, { mode: snapshotMode, policies, now: snapshotNow });
+    cxs[c.id] = CT.context({ manifest: man, data, city: c.id }); cxs[c.id].snapshotHealth = freshness; manifests[c.id] = man;
+  }
   const manifest = manifests['san-francisco'], cx = cxs['san-francisco'];
   const memory = MEM.open(memoryFile), live = { version: 'core-civ-live-v1', mode: 'local-civ', pid: process.pid, running: [], events: [], updated: null, stopped: fs.existsSync(STOP) };
   const writeLive = () => { live.updated = new Date().toISOString(); live.stopped = fs.existsSync(STOP); live.queued = []; fs.writeFileSync(LIVE, JSON.stringify(live)); };

@@ -1,3 +1,5 @@
+> Historical checkpoint, superseded by the released phase report. Its stop/merge/resume instructions are not current authorization. See MASTER_ROADMAP.md and PROJECT_STATE.md.
+
 # Phase 10 — checkpoint (saved on founder request, 2026-10-14)
 
 **Branch:** `phase10`; the commit SHA is in the final report and `git log -1 phase10`. **`main` is untouched**: it holds the Phase 9 release (`d5b52bf`, tag `phase9-release` = `84f356c`) and is deployed on GitHub Pages. Do not merge until the gates below pass.
