@@ -58,7 +58,9 @@ try {
     await call('session.new', { capabilities: {} });
     context = (await call('browsingContext.create', { type: 'tab' })).context;
     await call('session.subscribe', { events: ['log.entryAdded'] });
-  } else { await call('Page.enable'); await call('Runtime.enable'); await call('Log.enable'); }
+    // Audit the files on disk, never a cached copy (network.setCacheBehavior needs Firefox 133+; older builds: use a fresh profile).
+    await call('network.setCacheBehavior', { cacheBehavior: 'bypass' }).catch(() => console.log('NOTE cache bypass unsupported by this Firefox; use a fresh profile per run'));
+  } else { await call('Page.enable'); await call('Runtime.enable'); await call('Log.enable'); await call('Network.enable'); await call('Network.setCacheDisabled', { cacheDisabled: true }); }
   await viewport(1440, 1000, false);
   // ---- Phase 7: opening experience (natural Earth, wordmark, ENTER CORE, skip) ----
   await navigate('http://localhost:8000/');
@@ -339,7 +341,7 @@ try {
   await evaluate(`CORE_AGENTS_WORLD.play(false); CORE_AGENTS_WORLD.seek(9000); 0`); await pause(300); await shot('replay');
   check('agents act during the replay (non-idle states at a recorded moment)', await evaluate(`[...CORE_AGENTS_WORLD.state.avatars.values()].some(a => a.visible && a.state !== 'idle')`));
   await evaluate(`__CORE_MAP.jumpTo({ zoom: 11 }); 0`); await pause(300);
-  check('level of detail: no articulated avatars at district zoom, zone aggregates instead', await evaluate(`new Promise(r => setTimeout(r, 900)).then(() => document.querySelectorAll('.agent-av').length === 0 && __CORE_MAP.queryRenderedFeatures({ layers: ['pop-zone-area'] }).length > 0)`));
+  check('level of detail: no articulated avatars at district zoom, zone aggregates instead', await rendered(`document.querySelectorAll('.agent-av').length === 0 && __CORE_MAP.queryRenderedFeatures({ layers: ['pop-zone-area'] }).length > 0`));
   await evaluate(`CORE_AGENTS_WORLD.follow('core.san-francisco.public-space.accessibility-analyst'); 0`); await pause(1200);
   check('agent-follow camera centres on the agent', await evaluate(`CORE_MOTION.state.follow === 'core.san-francisco.public-space.accessibility-analyst' && __CORE_MAP.getZoom() >= 16`));
   await evaluate(`CORE_AGENTS_WORLD.follow('core.san-francisco.public-space.accessibility-analyst'); CORE_AGENTS_WORLD.select('core.san-francisco.public-space.accessibility-analyst'); 0`); await pause(1500);
@@ -408,9 +410,18 @@ try {
   await evaluate(`CORE_PLATFORM.show('world'); CORE_CAMERA.view('street'); 0`); await pause(4200);
   check('camera presets stay within readable limits (pitch ≤ 75°)', await evaluate(`__CORE_MAP.getMaxPitch() === 75 && __CORE_MAP.getPitch() <= 75 && __CORE_MAP.getZoom() > 16.5`));
   check('content security policy is declared', await evaluate(`!!document.querySelector('meta[http-equiv="Content-Security-Policy"]')`));
+  // Layout guard: visible floating panels never overlap (inspector > Explorer > Activity > Population bar).
+  const overlaps = `(() => { const vis = el => { const cs = getComputedStyle(el), r = el.getBoundingClientRect(); return cs.display !== 'none' && cs.visibility !== 'hidden' && !el.hidden && r.width > 0 && r.height > 0 ? r : null; };
+    const items = ['.console', '.layers', '.pop-bar', '.activity', '#sf-panel', '#ws', '.agent-card', '.cam', '#appnav'].flatMap(s => [...document.querySelectorAll(s)].map(el => [s, vis(el)])).filter(x => x[1]), out = [];
+    for (let i = 0; i < items.length; i++) for (let j = i + 1; j < items.length; j++) { const a = items[i][1], b = items[j][1]; if (Math.min(a.right, b.right) - Math.max(a.left, b.left) > 2 && Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > 2) out.push(items[i][0] + ' x ' + items[j][0]); }
+    return out.join(', '); })()`;
+  { const o = await evaluate(overlaps); if (o) console.log('overlaps:', o); check('desktop: city panel, Explorer, layers, population and activity do not overlap', o === ''); }
   await evaluate('document.querySelector("#sf-close").click()');
+  await viewport(820, 1180, false); await pause(400);
+  { const o = await evaluate(overlaps); if (o) console.log('overlaps:', o); check('tablet: floating panels do not overlap', o === ''); }
   await viewport(390, 844, true); await pause(300);
   check('mobile map fits viewport', await evaluate('document.documentElement.scrollWidth <= innerWidth'));
+  { const o = await evaluate(overlaps); if (o) console.log('overlaps:', o); check('mobile: floating panels do not overlap', o === ''); }
   await shot('mobile-map');
   await evaluate('document.querySelector("#pilot-btn").click()');
   await pause(700); if (!bidi) { await call('Runtime.disable'); await call('Runtime.enable'); }

@@ -111,7 +111,7 @@ body.agents-wide.sf-open .layers { right: calc(min(480px, 100vw - 32px) + 28px);
 .findings button { width: 100%; text-align: left; background: #061223; color: var(--ink); border: 1px solid var(--line); display: grid; grid-template-columns: 10px 1fr auto; gap: 2px 8px; align-items: center; font: 12px var(--body); padding: 6px 8px; }
 .findings button i { width: 10px; height: 10px; border-radius: 2px; grid-row: span 2; } .findings button span { grid-column: 2; color: var(--muted); font-size: 11px; } .findings button small { grid-column: 2; color: var(--muted); font-size: 10px; }
 .findings button em { grid-row: 1; grid-column: 3; font: normal 600 10px var(--mono); } .findings button.sel { border-color: var(--amber); } .findings button.suggest { border-color: var(--cyan); }
-em.ok, .state.ok { color: #7ee0a0; } em.warn, .state.warn { color: var(--amber); } em.fail, .state.fail { color: #ff7b7b; }
+em.ok, .state.ok { color: #7ee0a0; } .state.info { color: var(--accent); } em.warn, .state.warn { color: var(--amber); } em.fail, .state.fail { color: #ff7b7b; }
 #cw-detail h3 { margin: 8px 0 2px; font: 600 15px var(--display); } #cw-detail h4 { margin: 10px 0 4px; font: 600 12px var(--display); letter-spacing: .1em; text-transform: uppercase; color: var(--cyan); }
 .scen-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
 .scen { background: #061223; color: var(--ink); border: 1px solid var(--line); text-align: left; display: flex; flex-direction: column; gap: 3px; padding: 6px; font: 11.5px var(--body); }
@@ -356,6 +356,20 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 input[type=range] { min-height: 24px; }
 #th-list label { min-height: 24px; }
+/* Layout guard: floating panels never overlap. Priority: inspector (city panel, workspace, cards) > Explorer > Activity > Population bar. */
+.layers { z-index: 7; }
+@media (min-width: 1101px) {
+  body.sf-open .pop-bar { left: calc(var(--dock-w) + 2 * var(--gap)); right: calc(var(--insp-w) + 2 * var(--gap)); transform: none; max-width: none; top: calc(var(--navh) + var(--gap) + 44px); }
+}
+@media (max-width: 1100px) {
+  .pop-bar { left: calc(var(--dock-w) + 2 * var(--gap)); right: var(--gap); top: calc(var(--navh) + var(--gap) + 44px); bottom: auto; }
+  body.sf-open .pop-bar, body.sf-open .activity, body.card-open .activity { display: none; }
+  body.sf-open .console, body.ws-open .console { display: none; }
+}
+@media (max-width: 700px) {
+  .pop-bar { left: var(--gap); }
+  .activity { display: none; }
+}
 </style>
 <link rel="stylesheet" href="src/science.css">
 </head>
