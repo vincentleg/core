@@ -92,3 +92,12 @@ test('entitlements: the free tier keeps participation; no tier sells influence, 
   for (const t of E.TIERS) for (const k of E.NEVER_FOR_SALE) assert.ok(!E.entitlements(t.id).has(k), `${t.id} must not include ${k}`);
   assert.ok(E.entitlements('expert').has('submit-idea') && E.entitlements('expert').size > free.size);
 });
+
+test('economic model: reproducible arithmetic, VAT and payment fees deducted, free users carry a cost', async () => {
+  const E = await import(path.join(ROOT, 'scripts/lib/economics.mjs'));
+  const one = E.run({ mau: 1000, paidConversion: 0.1, infraPerMau: 0.1, inferencePerMau: 0, moderationPerMau: 0, supportPctOfConsumer: 0, contracts: { city: [1, 12000] }, salesPctOfInstitutional: 0, team: { fte: 0, loadedMonthly: 0 }, dataLicences: 0, legalCompliance: 0 },
+    { vat: 0.2, paymentPct: 0, paymentFixed: 0, tierMix: { plus: 1 } }, { plus: 12 });
+  assert.equal(one.payers, 100); assert.equal(one.revenue.consumerNet, 1000); assert.equal(one.revenue.city, 1000); assert.equal(one.costs.infrastructure, 100);
+  for (const s of Object.values(E.SCENARIOS)) { const o = E.run(s); assert.ok(o.freeUserMonthlyCost > 0); assert.ok(Math.abs(o.revenue.total - Object.entries(o.revenue).filter(([k]) => k !== 'total').reduce((a, [, v]) => a + v, 0)) <= 5, 'parts add up to the total (rounding)'); }
+  assert.ok(E.run(E.SCENARIOS.conservative).operatingResult < 0, 'the conservative scenario is loss-making and must be reported as such');
+});

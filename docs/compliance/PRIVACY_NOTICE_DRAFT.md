@@ -37,6 +37,7 @@ Ces données restent sur votre appareil ; le site n’a aucun moyen technique de
 | localStorage | `core.feeds.browser.v1` | Éléments publics récupérés par votre navigateur lors de la veille et réglages d’actualisation | Jusqu’à effacement |
 | localStorage | `core.missions.v1` | Résumé des 10 dernières missions que vous avez lancées dans ce navigateur (identifiant, état, décision, empreinte, heure) | Jusqu’à effacement |
 | localStorage | `core.human-decisions.v1` | Le choix et la note facultative (200 caractères au plus) que vous saisissez dans le panneau de revue humaine ; évitez d’y écrire des données personnelles | Jusqu’à effacement |
+| localStorage | `core.world.v1` | Prototype CORE World (`world.html`) : avatar choisi (modèle, couleur, coiffure), pseudonyme facultatif (24 caractères) et contributions saisies (texte de 500 caractères au plus, données personnelles retirées), jamais transmis. La position de l’avatar et les conversations ne sont pas enregistrées | Jusqu’à effacement (bouton « Supprimer » par contribution) |
 
 [OPEN — avis juridique : exemption « strictement nécessaire / demandé par l’utilisateur » pour ces clés (L4)]
 

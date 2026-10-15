@@ -75,6 +75,17 @@ Green means **a check passed**. It never means approved: approval is a human act
 - **Contrast (computed 2026-10-15, WCAG 2 formula):** every token text colour on `--panel`, `--surface` and `--void` is at least 5.88:1 (`--muted` on `--surface`; `--ink` reaches 16:1). Every hard-coded dark-on-light pair is at least 9.7:1 (buttons, ENTER CORE, attribution, skip link). This treats translucent panels as solid. Text drawn directly on the map, placeholders and disabled states were not measured.
 - Not yet done: screen-reader runs (VoiceOver/NVDA). Do not claim WCAG conformance.
 
+## CORE World prototype (`world.html`, V3)
+
+- **Two realities, one map.** The holographic palette (brand tokens) stays everywhere. Within the avatar's radius, buildings interpolate to a neutral material palette (stone, brick, concrete, stucco), and the ground, road surface and street trees take realistic tones. A blurred cyan ring marks the transition. On-screen labels say that this is a material convention on OpenStreetMap geometry, not photogrammetry.
+- **Humans versus agents.** Humans are full-colour human figures labelled "humain". Agents are hexagonal, emblem-and-halo figures labelled "agent", never human-shaped, with the note that their position is a virtual post.
+- **Status.** World reuses the evidence badges above (`observed`, `approx`, `info` for review-pending) and the 14-stage pathway list, in which missing stages read "non atteint".
+- **Accessibility.**
+  - Every World action is reachable without the avatar, through the "Explorer sans avatar" mode and the information panel.
+  - Keyboard controls support QWERTY and AZERTY.
+  - Phones get a joystick, with the economical rendering mode by default.
+  - Reduced motion removes the flight, the walk cycle and the halo pulse.
+
 ## Known design debt (not changed in this pass)
 
 - Three `:root` blocks and per-phase override layers in `index.html`. Consolidate the tokens into one block before any visual redesign.
