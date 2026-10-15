@@ -166,7 +166,7 @@
       }
      ],
      "value": 0,
-     "asOf": "2026-10-15T11:26:48.126Z",
+     "asOf": "2026-10-15T16:59:52.146Z",
      "agent": "core.san-francisco.climate.weather-alerts",
      "tool": "resilience.weather-alerts"
     }
@@ -215,7 +215,7 @@
    "tool": "knowledge.retrieve",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 1,
+   "ms": 2,
    "records": 2,
    "error": null,
    "findings": [
@@ -341,7 +341,7 @@
     }
    ],
    "value": 0,
-   "asOf": "2026-10-15T11:26:48.126Z",
+   "asOf": "2026-10-15T16:59:52.146Z",
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts"
   },
@@ -706,38 +706,38 @@
   },
   {
    "seq": 16,
-   "t": 3,
+   "t": 4,
    "kind": "task",
    "task": "task-4",
    "agent": "core.san-francisco.regulatory.knowledge-research",
    "tool": "knowledge.retrieve",
    "state": "succeeded",
-   "text": "2 constat(s), 2 enregistrement(s), 1 ms"
+   "text": "2 constat(s), 2 enregistrement(s), 2 ms"
   },
   {
    "seq": 17,
-   "t": 3,
+   "t": 4,
    "kind": "mission",
    "state": "reviewing",
    "text": "Mission → reviewing"
   },
   {
    "seq": 18,
-   "t": 3,
+   "t": 4,
    "kind": "review",
    "agent": "core.san-francisco.research.evidence-verifier",
    "text": "Vérification indépendante : 7/7 constats entièrement sourcés."
   },
   {
    "seq": 19,
-   "t": 3,
+   "t": 4,
    "kind": "review",
    "agent": "core.san-francisco.safety.adversarial-reviewer",
    "text": "Revue adversariale : 0 désaccord(s), 0 sensibilité(s), 1 limite(s), 0 tâche(s) non abouties."
   },
   {
    "seq": 20,
-   "t": 3,
+   "t": 4,
    "kind": "synthesis",
    "agent": "core.san-francisco.manager",
    "text": "Synthèse : 4 énoncé(s) sourcé(s) ; action suivante : Aucune action proposée : surveiller les révisions USGS ; une évaluation d’impact exigerait des données structurelles et géotechniques non disponibles."
@@ -760,9 +760,9 @@
  "fingerprint": "16bcf0ae69b48d15",
  "recorded": {
   "by": "scripts/agents.mjs (Node)",
-  "at": "2026-10-15T11:27:08.052Z",
+  "at": "2026-10-15T17:00:16.713Z",
   "wallMs": 5,
   "snapshot": "2026-10-13T18:25:19.678Z",
-  "feedUpdate": "2026-10-15T11:26:48.126Z"
+  "feedUpdate": "2026-10-15T16:59:52.146Z"
  }
 }

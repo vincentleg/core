@@ -1,31 +1,30 @@
 {
  "version": "core-city-feed-state-v2",
  "lastRun": {
-  "started": "2026-10-15T11:26:48.126Z",
+  "started": "2026-10-15T16:59:52.146Z",
   "added": 7,
-  "changed": 5,
+  "changed": 15,
   "failed": [],
   "skipped": [
    "legistar",
    "rss-sfpuc",
-   "datasf-311-soma",
    "datasf-business-soma",
    "openmeteo-aq"
   ],
   "runner": {
    "kind": "github-actions",
    "event": "schedule",
-   "runId": "38727373370",
-   "runUrl": "https://github.com/vincentleg/core/actions/runs/38727373370"
+   "runId": "38773610006",
+   "runUrl": "https://github.com/vincentleg/core/actions/runs/38773610006"
   }
  },
- "lastSuccessfulUpdate": "2026-10-15T11:26:48.126Z",
+ "lastSuccessfulUpdate": "2026-10-15T16:59:52.146Z",
  "nextScheduledUpdate": null,
  "scheduler": "GitHub Actions (cron .github/workflows/city-feed.yml) — exécution planifiée indépendante du navigateur ; horaires GitHub non garantis (retards possibles, désactivation après 60 jours sans activité du dépôt)",
  "sources": {
   "datasf-street-use": {
-   "lastAttempt": "2026-10-15T11:26:48.126Z",
-   "lastSuccess": "2026-10-15T11:26:48.126Z",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
    "lastCount": 7,
    "lastAdded": 0,
@@ -33,17 +32,17 @@
    "request": "https://data.sf.gov/resource/b6tj-gt35.json?$query=SELECT%20permit_number%2C%20permit_type%2C%20status%2C%20streetname%2C%20cross_street_1%2C%20cross_street_2%2C%20cnn%2C%20agent%2C%20approved_date%2C%20permit_start_date%2C%20permit_end_date%2C%20latitude%2C%20longitude%20WHERE%20cnn%20in%20('5660000'%2C'5661000'%2C'5662000'%2C'5663000'%2C'5664000'%2C'5665000'%2C'5666000'%2C'5667000'%2C'5668000'%2C'5669000'%2C'5670000'%2C'5671000'%2C'5672000'%2C'5673000'%2C'5674000'%2C'5675000'%2C'5676000'%2C'5677000'%2C'5678000'%2C'5679000'%2C'5680000'%2C'5681000'%2C'5682000'%2C'7035000'%2C'7036000'%2C'7037000'%2C'7038000'%2C'7039001'%2C'7041000'%2C'7042000'%2C'7043000'%2C'7044000'%2C'7045000'%2C'7046000'%2C'7047000'%2C'7048000'%2C'7049000'%2C'7050000'%2C'7051000'%2C'7052000'%2C'7053000'%2C'7054000'%2C'7055000'%2C'7056000')%20AND%20approved_date%20%3E%3D%20'2026-09-15'%20AND%20permit_type%20in%20('Excavation'%2C'ExcStreet'%2C'StrtImprov'%2C'Boring'%2C'Emergency')%20ORDER%20BY%20approved_date%20DESC%20LIMIT%20200"
   },
   "datasf-building": {
-   "lastAttempt": "2026-10-15T11:26:48.126Z",
-   "lastSuccess": "2026-10-15T11:26:48.126Z",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
-   "lastCount": 98,
-   "lastAdded": 0,
-   "lastChanged": 0,
+   "lastCount": 103,
+   "lastAdded": 5,
+   "lastChanged": 5,
    "request": "https://data.sf.gov/resource/i98e-djp9.json?$query=SELECT%20permit_number%2C%20permit_type_definition%2C%20status%2C%20filed_date%2C%20issued_date%2C%20street_number%2C%20street_name%2C%20street_suffix%2C%20description%2C%20location%20WHERE%20within_box(location%2C%2037.7895%2C%20-122.4190%2C%2037.7700%2C%20-122.3945)%20AND%20filed_date%20%3E%3D%20'2026-09-15'%20ORDER%20BY%20filed_date%20DESC%20LIMIT%20200"
   },
   "datasf-tree-removals": {
-   "lastAttempt": "2026-10-15T11:26:48.126Z",
-   "lastSuccess": "2026-10-15T11:26:48.126Z",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
    "lastCount": 4,
    "lastAdded": 0,
@@ -51,8 +50,8 @@
    "request": "https://data.sf.gov/resource/qrwx-q4gg.json?$query=SELECT%20treeid%2C%20postedtype%2C%20posteddate%2C%20species%2C%20lat%2C%20long%20WHERE%20posteddate%20%3E%3D%20'2026-07-17'%20AND%20lat%3A%3Anumber%20between%2037.7700%20and%2037.7895%20AND%20long%3A%3Anumber%20between%20-122.4190%20and%20-122.3945%20ORDER%20BY%20posteddate%20DESC%20LIMIT%20200"
   },
   "datasf-closures": {
-   "lastAttempt": "2026-10-15T11:26:48.126Z",
-   "lastSuccess": "2026-10-15T11:26:48.126Z",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
    "lastCount": 3,
    "lastAdded": 0,
@@ -60,8 +59,8 @@
    "request": "https://data.sf.gov/resource/8x25-yybr.json?$query=SELECT%20objectid%2C%20type%2C%20status%2C%20street%2C%20from_st%2C%20to_st%2C%20cnn%2C%20case_name%2C%20start_date%2C%20end_date%2C%20created_date%2C%20shape%20WHERE%20cnn%20in%20('5660000'%2C'5661000'%2C'5662000'%2C'5663000'%2C'5664000'%2C'5665000'%2C'5666000'%2C'5667000'%2C'5668000'%2C'5669000'%2C'5670000'%2C'5671000'%2C'5672000'%2C'5673000'%2C'5674000'%2C'5675000'%2C'5676000'%2C'5677000'%2C'5678000'%2C'5679000'%2C'5680000'%2C'5681000'%2C'5682000'%2C'7035000'%2C'7036000'%2C'7037000'%2C'7038000'%2C'7039001'%2C'7041000'%2C'7042000'%2C'7043000'%2C'7044000'%2C'7045000'%2C'7046000'%2C'7047000'%2C'7048000'%2C'7049000'%2C'7050000'%2C'7051000'%2C'7052000'%2C'7053000'%2C'7054000'%2C'7055000'%2C'7056000')%20AND%20end_date%20%3E%3D%20'2026-10-15'%20LIMIT%20200"
   },
   "usgs-quakes": {
-   "lastAttempt": "2026-10-15T11:26:48.126Z",
-   "lastSuccess": "2026-10-15T11:26:48.126Z",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
    "lastCount": 6,
    "lastAdded": 0,
@@ -69,8 +68,8 @@
    "request": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&latitude=37.7749&longitude=-122.4194&maxradiuskm=100&starttime=2026-09-15&minmagnitude=2.5&orderby=time&limit=100"
   },
   "nws-alerts": {
-   "lastAttempt": "2026-10-15T11:26:48.126Z",
-   "lastSuccess": "2026-10-15T11:26:48.126Z",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
    "lastCount": 0,
    "lastAdded": 0,
@@ -87,8 +86,8 @@
    "request": "https://webapi.legistar.com/v1/sfgov/matters?$orderby=MatterLastModifiedUtc%20desc&$top=10"
   },
   "rss-sfmta": {
-   "lastAttempt": "2026-10-15T11:26:48.126Z",
-   "lastSuccess": "2026-10-15T11:26:48.126Z",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
    "lastCount": 10,
    "lastAdded": 0,
@@ -96,8 +95,8 @@
    "request": "https://www.sfmta.com/blog/rss.xml"
   },
   "rss-publicworks": {
-   "lastAttempt": "2026-10-15T11:26:48.126Z",
-   "lastSuccess": "2026-10-15T11:26:48.126Z",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
    "lastCount": 10,
    "lastAdded": 0,
@@ -114,21 +113,21 @@
    "request": "https://www.sfpuc.gov/rss.xml"
   },
   "datasf-planning": {
-   "lastAttempt": "2026-10-15T11:26:48.126Z",
-   "lastSuccess": "2026-10-15T11:26:48.126Z",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
    "lastCount": 100,
-   "lastAdded": 6,
-   "lastChanged": 5,
+   "lastAdded": 0,
+   "lastChanged": 0,
    "request": "https://data.sf.gov/resource/qvu5-m3a2.json?$query=SELECT%20record_id%2C%20record_type%2C%20project_name%2C%20description%2C%20record_status%2C%20project_address%2C%20open_date%2C%20number_of_units_net%20WHERE%20record_type%20%3D%20'PRJ'%20AND%20open_date%20%3E%3D%20'2026-09-15'%20ORDER%20BY%20open_date%20DESC%20LIMIT%20100"
   },
   "datasf-311-soma": {
-   "lastAttempt": "2026-10-15T06:03:45.421Z",
-   "lastSuccess": "2026-10-15T06:03:45.421Z",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
    "lastCount": 10,
-   "lastAdded": 10,
-   "lastChanged": 0,
+   "lastAdded": 0,
+   "lastChanged": 9,
    "request": "https://data.sf.gov/resource/vw6y-z8j6.json?$query=SELECT%20service_name%2C%20count(*)%20AS%20count%20WHERE%20requested_datetime%20%3E%3D%20'2026-10-08'%20AND%20analysis_neighborhood%20%3D%20'South%20of%20Market'%20GROUP%20BY%20service_name%20ORDER%20BY%20count%20DESC%20LIMIT%2010"
   },
   "datasf-business-soma": {
@@ -141,17 +140,17 @@
    "request": "https://data.sf.gov/resource/g8m3-pdis.json?$query=SELECT%20count(*)%20AS%20count%20WHERE%20dba_start_date%20%3E%3D%20'2026-09-15'%20AND%20neighborhoods_analysis_boundaries%20%3D%20'South%20of%20Market'"
   },
   "rss-recpark": {
-   "lastAttempt": "2026-10-15T11:26:48.126Z",
-   "lastSuccess": "2026-10-15T11:26:48.126Z",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
    "lastCount": 49,
-   "lastAdded": 0,
+   "lastAdded": 2,
    "lastChanged": 0,
    "request": "https://sfrecpark.org/RSSFeed.aspx?ModID=1&CID=All-newsflash.xml"
   },
   "rss-sffire": {
-   "lastAttempt": "2026-10-15T11:26:48.126Z",
-   "lastSuccess": "2026-10-15T11:26:48.126Z",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
    "lastCount": 10,
    "lastAdded": 0,
@@ -159,12 +158,12 @@
    "request": "https://sf-fire.org/rss.xml"
   },
   "caiso-fuelmix": {
-   "lastAttempt": "2026-10-15T11:26:48.126Z",
-   "lastSuccess": "2026-10-15T11:26:48.126Z",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
    "lastCount": 1,
-   "lastAdded": 1,
-   "lastChanged": 0,
+   "lastAdded": 0,
+   "lastChanged": 1,
    "request": "https://www.caiso.com/outlook/current/fuelsource.csv"
   },
   "openmeteo-aq": {
@@ -190,12 +189,12 @@
     "level": "high",
     "limitations": "Un permis n’est pas la preuve que les travaux ont lieu."
    },
-   "lastSuccess": "2026-10-15T11:26:48.126Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
-   "lastAttempt": "2026-10-15T11:26:48.126Z",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
    "items": 7,
    "newestPublished": "2026-10-07T16:32:00.000Z",
-   "freshness": "7 j",
+   "freshness": "8 j",
    "ok": true
   },
   {
@@ -210,12 +209,12 @@
     "level": "high",
     "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
    },
-   "lastSuccess": "2026-10-15T11:26:48.126Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
-   "lastAttempt": "2026-10-15T11:26:48.126Z",
-   "items": 100,
-   "newestPublished": "2026-10-13T22:56:15.000Z",
-   "freshness": "1 j",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
+   "items": 105,
+   "newestPublished": "2026-10-14T23:17:46.000Z",
+   "freshness": "0 j",
    "ok": true
   },
   {
@@ -230,9 +229,9 @@
     "level": "high",
     "limitations": "Un avis ne confirme pas l’abattage."
    },
-   "lastSuccess": "2026-10-15T11:26:48.126Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
-   "lastAttempt": "2026-10-15T11:26:48.126Z",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
    "items": 4,
    "newestPublished": "2026-09-17T07:00:00.000Z",
    "freshness": "28 j",
@@ -250,9 +249,9 @@
     "level": "high",
     "limitations": "Permis SFMTA uniquement."
    },
-   "lastSuccess": "2026-10-15T11:26:48.126Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
-   "lastAttempt": "2026-10-15T11:26:48.126Z",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
    "items": 6,
    "newestPublished": "2026-10-14T07:03:19.000Z",
    "freshness": "1 j",
@@ -270,12 +269,12 @@
     "level": "high",
     "limitations": "Les solutions automatiques sont révisables."
    },
-   "lastSuccess": "2026-10-15T11:26:48.126Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
-   "lastAttempt": "2026-10-15T11:26:48.126Z",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
    "items": 7,
    "newestPublished": "2026-09-29T16:06:37.440Z",
-   "freshness": "15 j",
+   "freshness": "16 j",
    "ok": true
   },
   {
@@ -290,9 +289,9 @@
     "level": "high",
     "limitations": "Alerte ou prévision, pas une observation."
    },
-   "lastSuccess": "2026-10-15T11:26:48.126Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
-   "lastAttempt": "2026-10-15T11:26:48.126Z",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
    "items": 0,
    "newestPublished": null,
    "freshness": "no items",
@@ -330,9 +329,9 @@
     "level": "medium",
     "limitations": "Communication de l’agence sur ses propres actions."
    },
-   "lastSuccess": "2026-10-15T11:26:48.126Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
-   "lastAttempt": "2026-10-15T11:26:48.126Z",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
    "items": 10,
    "newestPublished": "2026-10-09T07:00:00.000Z",
    "freshness": "6 j",
@@ -350,9 +349,9 @@
     "level": "medium",
     "limitations": "Communication de l’agence sur ses propres actions."
    },
-   "lastSuccess": "2026-10-15T11:26:48.126Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
-   "lastAttempt": "2026-10-15T11:26:48.126Z",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
    "items": 17,
    "newestPublished": "2026-10-14T23:29:09.000Z",
    "freshness": "0 j",
@@ -390,9 +389,9 @@
     "level": "high",
     "limitations": "Une demande déposée n’est pas une autorisation ; noms des demandeurs et instructeurs exclus."
    },
-   "lastSuccess": "2026-10-15T11:26:48.126Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
-   "lastAttempt": "2026-10-15T11:26:48.126Z",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
    "items": 108,
    "newestPublished": "2026-10-14T07:00:00.000Z",
    "freshness": "1 j",
@@ -410,9 +409,9 @@
     "level": "medium",
     "limitations": "Demandes signalées par le public, non des incidents vérifiés ; comptes agrégés par catégorie."
    },
-   "lastSuccess": "2026-10-15T06:03:45.421Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
-   "lastAttempt": "2026-10-15T06:03:45.421Z",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
    "items": 30,
    "newestPublished": "2026-10-15T00:00:00.000Z",
    "freshness": "0 j",
@@ -450,12 +449,12 @@
     "level": "medium",
     "limitations": "Communication de l’agence sur ses propres projets et évènements."
    },
-   "lastSuccess": "2026-10-15T11:26:48.126Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
-   "lastAttempt": "2026-10-15T11:26:48.126Z",
-   "items": 51,
-   "newestPublished": "2026-10-15T05:36:12.000Z",
-   "freshness": "0 j",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
+   "items": 53,
+   "newestPublished": "2026-10-15T17:38:00.000Z",
+   "freshness": "-1 j",
    "ok": true
   },
   {
@@ -470,9 +469,9 @@
     "level": "medium",
     "limitations": "Avis administratifs du service ; pas un flux d’incidents."
    },
-   "lastSuccess": "2026-10-15T11:26:48.126Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
-   "lastAttempt": "2026-10-15T11:26:48.126Z",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
    "items": 10,
    "newestPublished": "2026-09-22T23:05:55.000Z",
    "freshness": "22 j",
@@ -490,11 +489,11 @@
     "level": "high",
     "limitations": "Zone CAISO (Californie), pas spécifique à San Francisco ; données opérationnelles révisables."
    },
-   "lastSuccess": "2026-10-15T11:26:48.126Z",
+   "lastSuccess": "2026-10-15T16:59:52.146Z",
    "lastError": null,
-   "lastAttempt": "2026-10-15T11:26:48.126Z",
+   "lastAttempt": "2026-10-15T16:59:52.146Z",
    "items": 3,
-   "newestPublished": "2026-10-15T11:26:48.126Z",
+   "newestPublished": "2026-10-15T16:59:52.146Z",
    "freshness": "0 j",
    "ok": true
   },
