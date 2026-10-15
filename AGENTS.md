@@ -1,31 +1,22 @@
-# CORE — règles pour l'agent de code (Codex, Claude Code)
+# CORE — règles des agents de code
 
-CORE vise une Terre parallèle en 3D (style CORE : fond noir, arêtes cyan). Le dépôt contient actuellement
-un globe cartographique et un corridor synthétique séparé. La Passerelle produit des propositions de permis
-à faire signer par un humain. Site statique compatible GitHub Pages ; publication à vérifier séparément.
+Terre parallèle 3D, noir/cyan : globe cartographique et corridor synthétique séparé ; site statique compatible GitHub Pages.
 
-## Fichiers
-- `index.html` : la Terre réelle (MapLibre GL 5.7.3 en globe, tuiles OpenFreeMap, bâtiments 3D, recherche locale) + vue San Francisco (`src/sf-world.js`, `src/sf-view.js`, données `data/sf` régénérées par `node scripts/sf-snapshot.mjs`, jamais éditées à la main) + agents de coordination déterministes (`src/coord.js`, `src/coord-view.js`) + intelligence urbaine multidomaine (`src/domains.js`, `src/graph.js`, `src/simulation.js`, `src/city-agents.js`, `src/city-view.js`, données via `node scripts/city-snapshot.mjs`) + organisation d’agents, missions, veille urbaine et plateforme (`src/org.js`, `src/tools.js`, `src/missions.js`, `src/knowledge.js`, `src/feeds.js`, `src/llm.js`, `src/evals.js`, `src/platform.js`, `src/camera.js` ; scripts `city-feed.mjs`, `agents.mjs`, `llm-check.mjs`) + Phase 4 : agents assistés par modèle local et apprentissage contrôlé (`src/llm.js`, `src/cognitive.js`, `src/cognitive-view.js`, `src/learning.js` ; scripts `cognitive.mjs`, `learn.mjs`, `integrity-check.mjs` ; planification `.github/workflows/city-feed.yml` ; tests réels `test/live/`). Le modèle ne calcule ni ne décide ; activer les crochets : `git config core.hooksPath .githooks`.
-- `src/engine.js` : moteur de trafic, agents, adversaires, Passerelle. Ne pas modifier sa logique sans demande explicite.
-- `src/app.js` + `src/template.html` → `corridor.html` via `node build.js` (ne jamais éditer `corridor.html` à la main).
-- `HANDOFF.md` : contexte historique. `ROADMAP.md` : phases actuelles (nouvelle Phase 0 fondations). `PROJECT_STATE.md` : état courant (10 lignes max). `docs/PHASE_0_AUDIT.md` : constats et validations.
+## Périmètre et contexte
+- Phase 10 close ; Phase 11 non autorisée. Une phase autorisée à la fois ; arrêter au critère de fin. Commit, push, tag et déploiement seulement sur autorisation explicite.
+- Lire `PROJECT_STATE.md` si nécessaire, `ROADMAP.md` pour une phase autorisée, les historiques pour une question non résolue. Réutiliser le contexte déjà chargé.
+- Un agent ; aucune délégation sans autorisation. Lectures ciblées, regroupées si indépendantes ; sorties bornées, grosses preuves dans des fichiers. Simulations longues : fournir la commande, sans boucles.
+- Préserver code, historique et travail utilisateur ; aucun refactoring superflu. Justifier chaque dépendance nouvelle. Jamais de force-push ; vérifier le distant et préserver les changements concurrents avant publication.
 
-## Règles de travail (économiser les tokens)
-- Lis `PROJECT_STATE.md` et seulement les fichiers nécessaires à la phase en cours.
-- Une phase à la fois ; arrête-toi dès que son critère de fin (ROADMAP.md) est atteint.
-- Pas de refonte du code existant, pas de nouvelle dépendance sans la justifier en une ligne.
-- Outils et données gratuits uniquement, sans clé ni compte. Bibliothèques depuis unpkg, versions épinglées.
-- Les simulations longues : donne la commande, ne les lance pas en boucle.
-- Ne colle pas de grosses données dans la conversation ; écris-les dans des fichiers.
-- Vérifier : `python3 -m http.server 8000` puis ouvrir http://localhost:8000.
-- Construire avec `node build.js` ; tester avec `node --test test/*.test.js`. Déclarer toute validation navigateur manquante.
-- Fin de phase : `node build.js` si `src/` a changé, commit, `PROJECT_STATE.md` mis à jour (10 lignes max), `git push`.
-- Préserver l'historique et les modifications de l'utilisateur ; jamais de force-push. Vérifier le distant avant de publier.
-- Examiner les fichiers et l'historique avant publication : aucun secret, identifiant d'accès, fichier sensible, cache ou gros résultat généré.
-- Outils libres uniquement ; aucune API payante, aucun abonnement ni facturation automatique. Les services existants non conformes sont inventoriés dans `docs/DATA_SOURCES.md`.
-- Garder le moteur et la Passerelle déterministes et testables. Aucun refactoring non nécessaire ; avancer de façon autonome sur les tâches courantes autorisées.
+## Garanties
+- Moteur et Passerelle déterministes et testables ; calculs et validation des preuves en code, jamais par le modèle. Preuves invalides, inconnues ou incomplètes : bloquer. Logique de `src/engine.js` : modification sur demande explicite seulement.
+- `src/app.js` + `src/template.html` → `corridor.html` via `node build.js` ; jamais d’édition manuelle du résultat. Régénérer `data/` avec ses scripts.
+- Outils/données libres, gratuits, sans clé ni compte ; aucun service payant, abonnement ou facturation automatique. Versions épinglées ; vérifier licences, attribution, confidentialité et redistribution des sources concernées (`docs/DATA_SOURCES.md`).
+- Avant publication : examiner fichiers et historique concernés ; aucun secret, identifiant d’accès, donnée personnelle/sensible, base locale, cache ou gros résultat généré. Activer `git config core.hooksPath .githooks` ; ne contourner aucun contrôle de sécurité ou de preuves.
+- Afficher ce qui est synthétique, précalculé, approximatif ou non calibré ; distinguer observations, hypothèses, simulations et relectures. Aucun gain non calibré n’est une amélioration réelle mesurée. Agents : propositions ; Passerelle : état du permis ; humain : autorisation. « Prêt pour signature » ≠ « approuvé » ; aucune action réelle ni relecture présentée comme du direct.
 
-## Honnêteté du produit
-- Tout ce qui est synthétique, précalculé ou non calibré est indiqué à l'écran.
-- Les agents proposent ; la Passerelle (code déterministe) décide de l'état du permis ; rien n'est appliqué au monde réel.
-- « Prêt pour signature » ne signifie jamais « approuvé ». Aucun gain non calibré ne représente une amélioration réelle mesurée.
+## Validation et checkpoints
+- Tests affectés d’abord ; suite `node --test test/*.test.js` pour intégration majeure/release. Répéter seulement après changement pertinent, échec ou incertitude justifiée ; investigation ciblée. Préserver les contrôles de sécurité, de preuves et de déterminisme.
+- `node build.js` si ses entrées changent. Navigateur si nécessaire : `python3 -m http.server 8000 --bind 127.0.0.1`, puis http://localhost:8000. Déclarer toute validation manquante.
+- Documentation seule : revue du diff, `git diff --check`, intégrité applicable ; aucun test applicatif/navigateur sans raison liée au changement.
+- Checkpoints : état, commit, validations et périmètre, liens de preuves, blocages. `PROJECT_STATE.md` : 10 lignes maximum, actualiser si l’état change. Distinguer résultats enregistrés et nouveaux ; ne présumer aucun succès.
