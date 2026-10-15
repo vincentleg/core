@@ -7,10 +7,10 @@ This extends [SECURITY_BASELINE.md](../SECURITY_BASELINE.md) and [CORE_AGENT_SEC
 | # | Finding | Severity | Status | Remediation |
 |---|---|---|---|---|
 | S1 | **Exposed local HTTP server** (assessment below; LAN-reachable; served a Chrome profile with encrypted claude.ai/luma.com cookies). A `python -m http.server 8000` (started 2026-10-13, outside this session) served the repository root on **all interfaces**. `.core-local/*.sqlite` (agent memory, scheduler queue, research and science memory) and `.git/` returned HTTP 200 locally. The machine was on a private LAN (10.0.21.x) | High (exposure); impact assessed Low–Medium (no credentials in `.git/config`; databases hold agent and system records, no visitor data) | **Contained**: process stopped 2026-10-15 with founder approval | Serve only with `--bind 127.0.0.1` (already in AGENTS.md). Future: serve a built public directory, never the repo root. See the incident record below |
-| S2 | **Vendored MapLibre 5.7.3: GHSA-jrc7-96c5-q579 (CVE-2026-85061, critical)**, an XSS sanitizer bypass in `DOM.sanitize()` via attribution strings; fixed in **6.4.1** | Critical upstream; **mitigated** in CORE | **Fixed on branch (D090, local commit), not yet deployed**: production still serves 5.7.3 until merge | CSP `script-src 'self' 'sha256-…'` (no `'unsafe-inline'`/`'unsafe-hashes'`) blocks inline event handlers, so script execution is mitigated. HTML injection into attribution from a compromised third-party style (OpenFreeMap) remains possible. CORE's own attributions are static. **Upgrade to ≥ 6.4.1** in a dedicated change: new vendored bundle with licence, SRI and hash updates, then browser regression (major version; founder approval) |
+| S2 | **Vendored MapLibre 5.7.3: GHSA-jrc7-96c5-q579 (CVE-2026-85061, critical)**, an XSS sanitizer bypass in `DOM.sanitize()` via attribution strings; fixed in **6.4.1** | Critical upstream; **mitigated** in CORE | **Fixed on branch (D090)**, pushed to PR #3 at `98a90e2` (core-verify success on push and PR runs), **not merged, not deployed**: `main` and production still serve 5.7.3 | CSP `script-src 'self' 'sha256-…'` (no `'unsafe-inline'`/`'unsafe-hashes'`) blocks inline event handlers, so script execution is mitigated. HTML injection into attribution from a compromised third-party style (OpenFreeMap) remains possible. CORE's own attributions are static. **Upgrade to ≥ 6.4.1** in a dedicated change: new vendored bundle with licence, SRI and hash updates, then browser regression (major version; founder approval) |
 | S3 | `frame-ancestors` cannot be set by `<meta>` CSP, and GitHub Pages sets no headers | Low (no state-changing actions on the site) | Open | Accept for the static prototype; set headers at a future host |
 | S4 | Public Git history contains a personal author email (3 commits) | Low (privacy) | Open | Use the GitHub no-reply email going forward; history rewrite not recommended (force-push forbidden) |
-| S5 | `innerHTML` used 63 times in `src/`; modules define `esc()` for external values | Medium (XSS surface) | Partially verified (escaping helpers exist; not every call audited) | Targeted review of each `innerHTML` with external data; consider a lint rule |
+| S5 | HTML sinks: 72 `innerHTML` assignments (61 in 17 `src/` modules, 11 in `control.html`); no `outerHTML`/`insertAdjacentHTML`; `research-view.js` uses none | Medium (XSS surface) → **Low after review** | **Reviewed 2026-10-15** (classification below). No confirmed injection. One defect fixed: the corridor `esc()` did not escape `'` | All 19 escapers are now tested; keep `esc()`/`safeUrl()` for every external string or URL |
 | S6 | Local control centre | Low | Verified | 127.0.0.1 bind, token, Host/Origin checks, CSP, `nosniff` (agent security review) |
 | S7 | Secrets | Low | Verified | Integrity scanner in hooks; Claude deny rules for `.env*`, `*.pem`, `*.key`; no secrets found (0 findings, 363 files) |
 | S8 | Dependency inventory | Low | Verified | No `package.json`; the only third-party code is vendored MapLibre (S2) and self-hosted fonts |
@@ -46,6 +46,46 @@ API-key rotation is not warranted by the evidence: no keys were found in served 
 - The server was stopped earlier.
 - `README.md` now uses `--bind 127.0.0.1`.
 - A regression test (`test/consolidation.test.js`) fails if any tracked instruction serves with `http.server` unbound.
+
+## S5 classification — HTML sinks (review 2026-10-15)
+
+Method: every sink was listed by script, every `${…}` interpolation inside it was extracted, and each unescaped one was traced to its source. This is a manual code review, not a penetration test.
+
+| Class | Sinks | Finding |
+|---|---|---|
+| Static markup or fixed constants (`LEGEND`, `GROUPS`, `D.DOMAINS`, `W.PLACES`, `TABS`, status labels) | ~25 | Not exploitable |
+| External strings (DataSF/NYC/USGS/NWS snapshots, live browser feed items, GitHub API runs, recorded missions, agent registry) | ~35 | All pass through `esc()`; every link built from external data goes through `safeUrl()` (https only) or is built by CORE code with `encodeURIComponent` |
+| Numbers | many | Counts, engine outputs, or fields coerced with `num()` at snapshot time (e.g. `site_eui`, `width_ft`) |
+| `control.html` (local control centre, served only on 127.0.0.1 with a token) | 11 | All external strings escaped |
+
+- **CONFIRMED and fixed:** `src/app.js` `esc()` did not escape `'` and threw on `null`. No single-quoted attribute received external data, so no exploit path was found; aligned anyway, with a test covering all escapers (`test/consolidation.test.js`).
+- **POTENTIAL (defence in depth):** a few `href` values from first-party manifests (`d.page`) use `esc()` without `safeUrl()`. Those values are written by CORE's own snapshot scripts; the CSP (no `'unsafe-inline'`) also blocks `javascript:` URLs.
+- **NOT APPLICABLE:** no server-side rendering, no user-generated HTML, no stored visitor content.
+
+## Current state check — 2026-10-15, later the same day (local, read-only)
+
+| Item | State observed | Evidence |
+|---|---|---|
+| Repository server on port 8000 | Not running unbound; only a `--bind 127.0.0.1` server started for this audit | `lsof` |
+| macOS application firewall | **Still disabled**; `/usr/bin/python3` still "Allow incoming connections" | `socketfilterfw` |
+| Chrome profile `test-results/phase4/chrome-profile/` | **Still inside the repository** and still in use. **Correction:** the process using it is not an interactive browser. It is an orphaned **headless Chrome (PID 30675) started 2026-10-13 17:36 with `--remote-debugging-port=9222`** (bound to 127.0.0.1). Any local process can drive it through that port, including reading its cookies | `ps`, `lsof` |
+| Other listeners on **all interfaces** (not CORE, out of scope, not touched) | `python -m http.server 8765` serving another project's build output from a Claude scratchpad since 2026-10-09; `next-server` on 3101 (`vincent-portfolio`) since 2026-10-11; Apple WebDriver HTTP service on 8080 since 2026-10-12 (does not answer HTTP on localhost) | `lsof`, `ps` |
+| Session invalidation (claude.ai, luma.com), password changes, router check | **Cannot be verified from this machine by an agent**; treated as OPEN | — |
+| Commit protection | Since `b4cae03` (local branch), the integrity gate rejects `.sqlite`/`.db`, `.core-local/` and Chrome profile stores at any path, and `.gitignore` excludes them | `test/phase4.test.js` |
+
+### Founder action checklist (status = what an agent could verify)
+
+| # | Action | Status |
+|---|---|---|
+| F1 | Sign out of all sessions on claude.ai and luma.com, then sign in again | OPEN (not verifiable by an agent) |
+| F2 | Change any password saved in the exposed profile, if any | OPEN (contents of `Login Data` deliberately not read) |
+| F3 | Stop the orphaned headless Chrome (PID 30675, DevTools port 9222), then move `test-results/phase4/chrome-profile/` out of the repository or delete it | OPEN (profile present, process running) |
+| F4 | Turn on the macOS firewall; remove the "allow incoming" rule for `python3` | OPEN (firewall state 0) |
+| F5 | Decide on the other all-interface servers (8765, 3101, 8080): stop them, or rebind them to 127.0.0.1 | OPEN (outside CORE) |
+| F6 | Optionally check the router for port forwarding to this Mac | OPEN (router not inspected) |
+| F7 | Define a backup scope for `.core-local/` (S9) | OPEN |
+
+The incident is **contained, not resolved**: the server is stopped, but whether data was accessed remains unknown, and F1–F4 are pending.
 
 ## Incident-response framework (draft; untested)
 

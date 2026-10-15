@@ -13,7 +13,7 @@
 | B5 | Minors: participation design and legal assessment (COPPA, GDPR Art. 8, UK AADC) | OPEN | None |
 | B6 | DPIA for location-based participation | OPEN | None |
 | B7 | Retention, deletion and rights workflow implemented and tested (physical purge) | OPEN | Design in DATA_PROCESSING_INVENTORY |
-| B8 | Upgrade vendored MapLibre to ≥ 6.4.1 (S2) | DONE on branch (6.11.2, D090); deploy pending | Production still on 5.7.3 until merge |
+| B8 | Upgrade vendored MapLibre to ≥ 6.4.1 (S2) | DONE on branch (6.11.2, D090), pushed to PR #3; deploy pending | Production still on 5.7.3 until merge; deployment and rollback plan in D090 |
 | B9 | Server security for any backend (authn/z, rate limits, CSRF, uploads, headers) | N/A until a backend exists | — |
 | B10 | `main` protection (OP01) | OPEN | Ruleset prepared |
 | B11 | Accessibility WCAG 2.2 AA target: landmarks, headings and target size fixed locally; screen-reader runs, contrast measurement, Firefox and Safari still missing | PARTIAL | See below |
@@ -35,7 +35,8 @@ Checked with a scratch DOM probe and the existing audits, which are not a WCAG c
 
 Existing browser evidence:
 - Chromium 155: `index.html`/`corridor.html` audit **159/159**; `research.html` **7/7**, 0 errors, 0 external requests.
-- Firefox and Safari: **not run** (historical blockers recorded in the Phase 8/9 reports).
+- Firefox 122 (WebDriver BiDi): `index.html`/`corridor.html` audit **159/159** on MapLibre 6.11.2 (2026-10-15, local branch).
+- Safari/WebKit: **not run** (requires the founder to enable Safari's "Allow Remote Automation").
 
 ## Website fundamentals
 

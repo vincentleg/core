@@ -376,3 +376,11 @@ v6 is ESM-only (no UMD), with the worker loaded from a same-origin module file:
 - Its occlusion check now tests the property against the selected tower alone. The surrounding-tower "front" assertion was tile-dependent: it failed in a standalone probe under v5.7.3 as well.
 
 Results: Chromium 155 main audit 159/159 (twice), negative audit 12/12, lab 7/7, with 0 errors and 0 external requests. Firefox and Safari were not run. WebGL2 is now required.
+
+**Update 2026-10-15 (local branch `upgrade/v2-hardening`).** Firefox 122 (WebDriver BiDi, headless) passes the main audit **159/159** on 6.11.2, after render checks were made to wait (at most 20 s) for slow software WebGL; Chromium 155 still passes 159/159, the negative audit 12/12 and the lab 7/7. **Safari/WebKit is not tested:** it needs Safari's "Allow Remote Automation" setting, which only the founder should enable. Browsers without WebGL2 (e.g. iOS/Safari before 15) cannot show the map and get the existing "moteur de carte" message. Firefox 122 on this machine is itself out of date.
+
+**Deployment and rollback plan (not executed).**
+1. Merge PR #3 normally after review; GitHub Pages republishes `main`.
+2. On the live site, check that `assets/vendor/maplibre-gl-6.11.2/maplibre-gl.mjs` is served and the old 5.7.3 path returns 404, and that `index.html#app` shows the globe with no console error. Run `scripts/research-browser.mjs` against `https://vincentleg.github.io/core/research.html`.
+3. Check one tile-heavy view (San Francisco 3D) and the agent theatre on a phone-sized viewport.
+4. **Rollback:** `git revert -m 1 <merge>` in a new PR (no force-push). This brings back the vulnerable 5.7.3, so roll back only for a breaking regression, and prefer a forward fix. The CSP mitigation stays in place either way.
