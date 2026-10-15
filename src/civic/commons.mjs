@@ -13,6 +13,7 @@ import * as J from '../shell/journey.mjs';
 import * as VS from './vault-session.mjs';
 import * as UJ from './ui-journey.mjs';
 import * as UK from './ui-knowledge.mjs';
+import * as UN from './ui-network.mjs';
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -199,7 +200,7 @@ async function renderProgress(B) {
 // ---------- Knowledge (V6): see ui-knowledge.mjs ----------
 const renderKnowledge = B => UK.renderKnowledge(B, S, { go, toast, profile: S.profile });
 
-const RENDER = { journey: UJ.renderJourney, trust: UJ.renderTrust, knowledge: renderKnowledge, profile: renderProfile, vault: renderVault, labs: renderLabs, arena: renderArena, academy: renderAcademy, progress: renderProgress };
+const RENDER = { experts: B => UN.renderExperts(B, S, { toast, go }), communities: B => UN.renderCommunities(B, S, { toast, go }), journey: UJ.renderJourney, trust: UJ.renderTrust, knowledge: renderKnowledge, profile: renderProfile, vault: renderVault, labs: renderLabs, arena: renderArena, academy: renderAcademy, progress: renderProgress };
 // ---------- routing: commons.html#section?key=value (deep links, back button, no reload) ----------
 function route() {
   const [sec, q] = location.hash.slice(1).split('?'), hp = new URLSearchParams(q || '');

@@ -143,3 +143,40 @@ test('vault: word diff between versions, owner-only deletion and metadata', asyn
   assert.equal(V.setMeta(vault.ideas[0], { category: 'magie' }, 'core:me').ok, false);
   assert.equal(V.setMeta(vault.ideas[0], { category: 'accessibilité', notes: 'n' }, 'core:me').value.category, 'accessibilité');
 });
+
+test('expert network: fictional only, topic matching with reasons, explicit sharing, labelled fictional advice, author decides', async () => {
+  const N = await load('network.mjs'), V = await load('vault.mjs');
+  assert.ok(N.EXPERTS.every(x => /fictif/i.test(x.name) && /fictif/i.test(x.affiliation) && x.verification === 'synthetic'));
+  assert.ok(!N.EXPERTS.some(x => /MIT|Stanford|Harvard|Berkeley|universit/i.test(JSON.stringify(x))), 'no real institution');
+  const m = N.match('élargir le trottoir et compter les piétons', { domain: 'accessibility' });
+  assert.equal(m[0].expert.id, 'xp-a'); assert.match(m[0].why, /sujets en commun/);
+  let idea = await V.addVersion(V.newIdea({ id: 'i', owner: 'core:me' }), { title: 'T', problem: 'P secret', solution: 'S secret' });
+  assert.match(N.request(idea, { expertId: 'xp-a', share: 'summary' }).error, /confirmez/);
+  idea = N.request(idea, { expertId: 'xp-b', share: 'summary', confirmed: true, at: '2026-10-15T00:00:00Z' }).value;
+  const rq = idea.reviewRequests[0];
+  assert.deepEqual(Object.keys(rq.snapshot), ['title', 'problem'], 'summary shares no solution'); assert.ok(rq.coi, 'expert conflict surfaced');
+  idea = N.fictionalResponse(idea, rq.id, { missing: [{ label: 'Mesure actuelle de la largeur' }] }).value;
+  const r = idea.reviewRequests[0];
+  assert.equal(r.state, 'answered-fictional'); assert.match(r.response.label, /AVIS FICTIF.*ni validation/); assert.match(r.response.text, /mesure actuelle de la largeur/);
+  assert.equal(N.fictionalResponse(idea, rq.id).ok, false, 'one response per request');
+  assert.equal(N.decide(idea, rq.id, { decision: 'accept', actor: 'core:other' }).ok, false);
+  assert.match(N.decide(idea, rq.id, { decision: 'disagree', reason: 'non', actor: 'core:me' }).error, /motive/);
+  assert.match(N.decide(idea, rq.id, { decision: 'accept', actor: 'core:me' }).value.reviewRequests[0].authorDecision.scope, /n’engage personne/);
+});
+
+test('communities: fictional members, adults only, local drafts never published, report → simulated moderation with rule → appeal to a human', async () => {
+  const N = await load('network.mjs');
+  assert.ok(N.COMMUNITIES.every(c => c.adultsOnly && c.members.every(([, n]) => /fictif/.test(n))));
+  assert.ok(N.COMMUNITIES.find(c => c.id === 'cm-folsom').threads[0].posts[0].evidence.includes('sidewalks:8562'));
+  assert.equal(N.draftPost('cm-folsom', { text: 'connard' }).ok, false);
+  const d = N.draftPost('cm-folsom', { thread: 't1', text: 'Je peux mesurer samedi ; écrivez-moi à ' + ['x', 'y.org'].join('@') }).value;
+  assert.equal(d.state, 'draft-local'); assert.ok(!d.text.includes('y.org'));
+  const post = N.COMMUNITIES[0].threads[0].posts[1];
+  assert.equal(N.report(post, { reason: '' }).ok, false);
+  const rep = N.report(post, { reason: 'hors sujet' }).value;
+  assert.match(N.moderate(rep, { outcome: 'removed' }).error, /cite la règle/);
+  const mod = N.moderate(rep, { outcome: 'kept', rule: 'Le désaccord argumenté est bienvenu' }).value;
+  assert.match(mod.mod.by, /SIMULÉE/);
+  const ap = N.appeal(mod, { reason: 'Je pense que la règle a été mal appliquée.' }).value;
+  assert.equal(ap.mod.state, 'appealed'); assert.match(N.MOD.appealed, /humain/);
+});
