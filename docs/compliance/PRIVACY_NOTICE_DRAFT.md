@@ -38,6 +38,8 @@ Ces données restent sur votre appareil ; le site n’a aucun moyen technique de
 | localStorage | `core.missions.v1` | Résumé des 10 dernières missions que vous avez lancées dans ce navigateur (identifiant, état, décision, empreinte, heure) | Jusqu’à effacement |
 | localStorage | `core.human-decisions.v1` | Le choix et la note facultative (200 caractères au plus) que vous saisissez dans le panneau de revue humaine ; évitez d’y écrire des données personnelles | Jusqu’à effacement |
 | localStorage | `core.world.v1` | Prototype CORE World (`world.html`) : avatar choisi (modèle, couleur, coiffure), pseudonyme facultatif (24 caractères) et contributions saisies (texte de 500 caractères au plus, données personnelles retirées), jamais transmis. La position de l’avatar et les conversations ne sont pas enregistrées | Jusqu’à effacement (bouton « Supprimer » par contribution) |
+| localStorage | `core.commons.v1` | Prototype CORE Commons (`commons.html`) : profil pseudonyme (identifiant CORE, pseudonyme, tranche d’âge, biographie, compétences déclarées, centres d’intérêt, visibilité par champ) et journal des analyses Labs (date, identifiant d’idée) | Jusqu’à effacement (« Supprimer mon profil local ») |
+| localStorage | `core.vault.v1` | Idées privées **chiffrées** (AES-GCM, clé dérivée de votre phrase secrète, jamais stockée) ; illisibles sans la phrase | Jusqu’à effacement |
 
 [OPEN — avis juridique : exemption « strictement nécessaire / demandé par l’utilisateur » pour ces clés (L4)]
 
