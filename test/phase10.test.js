@@ -199,14 +199,16 @@ test('persistent scheduler: queue survives a crash (running items resumed), budg
     const db = new DatabaseSync(path.join(ROOT, qf));
     db.exec("CREATE TABLE queue (id INTEGER PRIMARY KEY AUTOINCREMENT, key TEXT UNIQUE, kind TEXT, city TEXT, payload TEXT, priority REAL, status TEXT, attempts INTEGER DEFAULT 0, created TEXT, updated TEXT, result TEXT); CREATE TABLE log (n INTEGER PRIMARY KEY AUTOINCREMENT, at TEXT, kind TEXT, detail TEXT);");
     db.prepare("INSERT INTO queue (key, kind, city, payload, priority, status, attempts, created, updated) VALUES (?, 'investigate', 'new-york', ?, 9999, 'running', 1, 'x', 'x')").run('investigate|crashed', JSON.stringify({ city: 'new-york', workflow: 'ramps-works', nhood: 'Chinatown-Two Bridges' })); db.close();
-    const before = fs.statSync(path.join(ROOT, 'data/civ/index.json')).mtimeMs;
+    const before = fs.statSync(path.join(ROOT, 'data/civ/index.json')).mtimeMs, ownerStatus = path.join(ROOT, '.core-local/civd-status.json'), ownerBefore = fs.existsSync(ownerStatus) ? fs.readFileSync(ownerStatus, 'utf8') : null;
     const r = spawnSync(process.execPath, ['scripts/civd.mjs', '--once', '--queue', qf, '--memory', mf, '--max-missions', '2'], { cwd: ROOT, encoding: 'utf8', timeout: 180000 });
     if (fs.existsSync(path.join(ROOT, '.core-local/STOP'))) return; // emergency stop active on this machine: the scheduler must do nothing
     assert.equal(r.status, 0, r.stderr); const out = JSON.parse(r.stdout.slice(r.stdout.indexOf('{\n')));
     assert.equal(out.recovered, 1); assert.ok(out.discovered >= 5); assert.ok(Array.isArray(out.ran) && out.ran.length <= 2 && out.ran.some(x => /chinatown/.test(x)), 'crashed item resumed first (highest priority)');
     const db2 = new DatabaseSync(path.join(ROOT, qf)); const st = db2.prepare("SELECT status FROM queue WHERE key = 'investigate|crashed'").get().status; db2.close(); assert.equal(st, 'awaiting-human');
     assert.equal(fs.statSync(path.join(ROOT, 'data/civ/index.json')).mtimeMs, before, 'publication stays explicit');
-  } finally { for (const f of [qf, mf]) for (const x of ['', '-wal', '-shm']) fs.rmSync(path.join(ROOT, f + x), { force: true }); }
+    assert.equal(fs.existsSync(ownerStatus) ? fs.readFileSync(ownerStatus, 'utf8') : null, ownerBefore, 'an isolated run never overwrites the owner\'s scheduler status');
+    assert.ok(fs.existsSync(path.join(ROOT, qf.replace(/\.sqlite$/, '-status.json'))), 'isolated status written next to its queue');
+  } finally { for (const f of [qf, mf]) for (const x of ['', '-wal', '-shm']) fs.rmSync(path.join(ROOT, f + x), { force: true }); fs.rmSync(path.join(ROOT, qf.replace(/\.sqlite$/, '-status.json')), { force: true }); }
 });
 
 test('control centre (Phase 10 actions): allowlisted cities and neighbourhoods, emergency stop, human-only decisions, no process spawning', async () => {
