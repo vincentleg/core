@@ -37,4 +37,10 @@ Observations are dated administrative records; assumptions, projections and mode
 
 ## Deployment
 
-Pending verified Phase 11 production deployment. Tag only after production checks pass. Phase 12 is not authorized.
+**Phase 11 CLOSED — production gate PASS.** Verified application commit: `088ebe41f2f1fb9b10c54c700ac512779644cd44`, annotated tag `phase11-release`.
+
+- [Pages run 38662718836](https://github.com/vincentleg/core/actions/runs/38662718836) successfully deployed that exact commit to https://vincentleg.github.io/core/.
+- Production Chrome 155.0.8059.40 audit started 2026-10-15 00:55:36 UTC: **10/10 checks passed**, zero console errors/uncaught exceptions and zero model or NYC API requests across 144 observed requests. The existing 82-profile registry loaded. Civilization → Science & décisions opened the verified recorded dossier; interactive zero-feasibility and horizon changes recomputed correctly; provenance/accessibility controls, 390px layout and fail-closed tamper handling passed. Screenshots were captured; local desktop/mobile layout was visually inspected.
+- Direct production bytes matched `src/science.js`, `src/science-view.js`, `src/science.css` and `data/science/sf-traffic.json` from the verified commit. The previously diagnosed local NordVPN HTML interception is distinct from these static release assets; no protection was disabled.
+- Local release evidence: `/tmp/core-phase11-browser-production.json` and sibling screenshots; local reproduction command `node scripts/science.mjs --verify` passed. Evidence artifacts remain outside Git. Final documentation changes require whitespace/integrity checks only.
+- Phase 12 is not authorized. Next scientific milestone, subject to a new request: agency-confirmed feasibility and preregistered field measurements/calibration; no field benefit is claimed now.
