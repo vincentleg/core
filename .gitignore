@@ -17,3 +17,6 @@ data/results.local.json
 
 # Local supervisor state (Phase 8): queue, live status, STOP file
 .core-local/
+
+# Claude Code personal overrides (project .claude/settings.json is shared)
+.claude/settings.local.json
