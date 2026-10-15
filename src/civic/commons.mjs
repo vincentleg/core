@@ -194,7 +194,7 @@ async function renderKnowledge(B) {
     catch (e) { B.innerHTML = `<p class="warn">Registres indisponibles (${esc(e.message)}). Aucune réponse n’est donnée sans ses sources.</p>`; return; } }
   const a = S.kbAnswer, f = S.kb.files;
   B.innerHTML = `<div class="card"><h2>CORE Knowledge — réponses citées</h2>
-    <p class="fine">Méthode ${esc(K.METHOD.id)} v${esc(K.METHOD.version)} : ${esc(K.METHOD.kind)}. Sources lues : ${Object.values(f).map(x => `<code>${esc(x.path)}</code> (${esc(x.integrity === 'verified' ? 'intégrité vérifiée' : x.integrity === 'unanchored' ? 'empreinte calculée, sans référence externe' : 'INTÉGRITÉ ROMPUE')})`).join(', ')}. Aucune donnée privée n’est accessible.</p>
+    <p class="fine">Méthode ${esc(K.METHOD.id)} v${esc(K.METHOD.version)} : ${esc(K.METHOD.kind)}. Sources lues : ${Object.values(f).map(x => `<code>${esc(x.path)}</code> (${esc(x.integrity === 'verified' ? 'intégrité vérifiée' : 'INTÉGRITÉ ROMPUE')})`).join(', ')}. Aucune donnée privée n’est accessible.</p>
     <form class="form" id="kb-f"><label>Votre question <input id="kb-q" maxlength="500" autocomplete="off" value="${esc(a?.question || '')}"></label><button type="submit" class="primary">Demander</button></form>
     <div class="chips">${EXAMPLES.map(q => `<button type="button" data-kq="${esc(q)}">${esc(q)}</button>`).join('')}</div></div>
     ${a ? `<div class="card" id="kb-answer" aria-live="polite">

@@ -94,3 +94,34 @@ test('coverage: every one of the 98 problems is answerable by id, with evidence 
     assert.ok(e.kind === 'answer' || e.refusal.code === 'no-evidence', `${p.id}: ${e.refusal?.reason}`);
   }
 });
+
+test('anchoring: committed anchors match the files, the pinned hash matches the anchors, and every link of the chain is enforced', async () => {
+  const crypto = require('node:crypto'), sha = s => crypto.createHash('sha256').update(s).digest('hex');
+  const { k, ix } = await index();
+  assert.equal(sha(read('data/integrity/anchors.json')), k.ANCHORS_SHA256, 'pinned constant = committed anchors file (regenerate with scripts/anchor-data.mjs)');
+  assert.ok(Object.values(ix.files).every(f => f.integrity === 'verified'), JSON.stringify(Object.values(ix.files).map(f => [f.path, f.integrity])));
+  const anchors = JSON.parse(read('data/integrity/anchors.json'));
+  for (const f of anchors.files) assert.equal(sha(read(f.path)), f.sha256, `${f.path} anchored`);
+  assert.ok(!anchors.files.some(f => f.path === 'data/integrity/anchors.json'), 'the anchors file is not self-anchored');
+  // 1) a registry edited without re-anchoring
+  const reg = read('data/problems/registry.json').replace('"width_ft": 10', '"width_ft": 11');
+  const a = await index({ 'data/problems/registry.json': reg });
+  assert.equal(a.ix.files.problems.integrity, 'MISMATCH');
+  assert.equal((await a.k.ask('Quels problèmes de trottoir sur Folsom ?', a.ix)).refusal.code, 'integrity');
+  // 2) registry AND anchors edited consistently: the pinned code hash no longer matches, so nothing is trusted
+  const forged = JSON.parse(read('data/integrity/anchors.json')); forged.files[0].sha256 = sha(reg);
+  const b = await index({ 'data/problems/registry.json': reg, 'data/integrity/anchors.json': JSON.stringify(forged, null, 1) + '\n' });
+  assert.ok(Object.values(b.ix.files).every(f => f.integrity === 'MISMATCH'), 'an untrusted anchors file invalidates the whole chain');
+  assert.equal((await b.k.ask('Combien de problèmes ?', b.ix)).refusal.code, 'integrity');
+  // 3) a dataset AND its SF manifest edited consistently: the manifest is anchored, so both fail
+  const sw = read('data/sf/sidewalks.geojson').replace('"width_ft":10', '"width_ft":14');
+  const man = JSON.parse(read('data/sf/manifest.json')); man.datasets.find(d => d.file === 'sidewalks.geojson').sha256 = sha(sw);
+  const c = await index({ 'data/sf/sidewalks.geojson': sw, 'data/sf/manifest.json': JSON.stringify(man, null, 2) });
+  assert.equal(c.ix.files.manifest.integrity, 'MISMATCH'); assert.equal(c.ix.files.sidewalks.integrity, 'MISMATCH');
+  assert.equal((await c.k.ask('Quelles preuves pour le trottoir Folsom 5th Falmouth ?', c.ix)).refusal.code, 'integrity');
+});
+
+test('anchoring: the anchor script reports the repository as current', () => {
+  const out = require('node:child_process').execFileSync('node', ['scripts/anchor-data.mjs', '--check'], { cwd: path.join(__dirname, '..'), encoding: 'utf8' });
+  assert.match(out, /anchors current \(3 files\)/);
+});

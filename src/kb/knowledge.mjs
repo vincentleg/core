@@ -6,7 +6,11 @@ import { screen } from '../world/safety.mjs';
 
 export const METHOD = { id: 'core-knowledge', version: '5.1.0', kind: 'deterministic retrieval over allowlisted public records (no language model)' };
 // The ONLY files this module may read. Private stores (.core-local, browser storage, vault) are never reachable.
-export const SOURCES = { problems: 'data/problems/registry.json', agents: 'data/agents/registry.json', manifest: 'data/sf/manifest.json', sidewalks: 'data/sf/sidewalks.geojson', permits: 'data/sf/permits.geojson' };
+export const SOURCES = { anchors: 'data/integrity/anchors.json', problems: 'data/problems/registry.json', agents: 'data/agents/registry.json', manifest: 'data/sf/manifest.json', sidewalks: 'data/sf/sidewalks.geojson', permits: 'data/sf/permits.geojson' };
+// Independent anchoring: data/integrity/anchors.json is written offline by scripts/anchor-data.mjs and committed; its own
+// SHA-256 is pinned here, in reviewed code. Tampering with a registry therefore requires changing the data, the anchors file
+// and this constant together. A hash computed at load is only ever compared to these references, never trusted alone.
+export const ANCHORS_SHA256 = 'a8d9c30037cdc5ac651d9532ed7e3d7df12cdccafe3bc8a4dcd87d03aa2ac9c5';
 const ALLOWED = new Set(Object.values(SOURCES));
 export function assertAllowed(p) {
   if (typeof p !== 'string' || !ALLOWED.has(p)) throw Error(`source non autorisée : ${String(p).slice(0, 80)}`);
@@ -26,13 +30,16 @@ const toks = s => norm(s).replace(/(\d+)(st|nd|rd|th|e|eme)\b/g, '$1').match(/[a
 export async function buildIndex(load) {
   const files = {};
   for (const [k, p] of Object.entries(SOURCES)) { const text = await load(assertAllowed(p)); files[k] = { path: p, sha256: await sha256(text), json: JSON.parse(text) }; }
+  // Chain: pinned constant → anchors file → registries and SF manifest → SF dataset files.
+  const anchorsTrusted = files.anchors.sha256 === ANCHORS_SHA256;
+  files.anchors.integrity = anchorsTrusted ? 'verified' : 'MISMATCH';
+  for (const k of ['problems', 'agents', 'manifest']) files[k].integrity = anchorsTrusted && files.anchors.json.files.some(f => f.path === SOURCES[k] && f.sha256 === files[k].sha256) ? 'verified' : 'MISMATCH';
   const man = files.manifest.json;
   for (const k of ['sidewalks', 'permits']) {
     const d = man.datasets.find(x => x.file === SOURCES[k].split('/').pop());
-    files[k].integrity = d && d.sha256 === files[k].sha256 ? 'verified' : 'MISMATCH';
+    files[k].integrity = files.manifest.integrity === 'verified' && d && d.sha256 === files[k].sha256 ? 'verified' : 'MISMATCH';
     files[k].meta = d ? { id: d.id, title: d.title, provider: d.provider, page: d.page, retrieved_at: d.retrieved_at, license: d.license?.name } : null;
   }
-  files.problems.integrity = files.agents.integrity = files.manifest.integrity = 'unanchored'; // hashed at load; no external reference hash exists
   const records = new Map();
   for (const f of files.sidewalks.json.features) records.set(`sidewalks:${f.properties.record_id}`, f.properties);
   for (const f of files.permits.json.features) records.set(`permits:${f.properties.record_id}`, f.properties);

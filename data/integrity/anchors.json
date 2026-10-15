@@ -1,0 +1,22 @@
+{
+ "version": 1,
+ "generator": "scripts/anchor-data.mjs",
+ "note": "SHA-256 of files cited by CORE Knowledge; committed reference, not computed at load",
+ "files": [
+  {
+   "path": "data/problems/registry.json",
+   "bytes": 251937,
+   "sha256": "ee4884fcc47afe2e835f23f3d25cb6d386e91318bef52b8e2544f77779b4e93e"
+  },
+  {
+   "path": "data/agents/registry.json",
+   "bytes": 72053,
+   "sha256": "bcb4cfe4bb950088d2359db8407a5f9a43b9755bdd1611ebd81d292720c6f4e7"
+  },
+  {
+   "path": "data/sf/manifest.json",
+   "bytes": 29156,
+   "sha256": "e966f1c8d4915e9a53c7e7f79a0735b1c140c83983c591ed554db2cd9de3aa1f"
+  }
+ ]
+}
