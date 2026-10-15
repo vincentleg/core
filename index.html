@@ -352,6 +352,10 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
   .agent-av.occluded { opacity: .18; } .agent-av.occluded .tag { display: none; }
   body.landing .activity, body.ws-open .activity { display: none; } body.demo-on .activity { left: auto; right: 12px; bottom: 64px; width: min(420px, calc(100vw - 24px)); } body.theatre-on .activity { display: none; }
   @media (max-width: 700px) { .activity { bottom: 100px; max-height: 22vh; } body.card-open .activity { display: none; } }
+/* Accessibility (WCAG 2.2): screen-reader-only heading; range sliders keep a 24 px minimum target height (SC 2.5.8). */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+input[type=range] { min-height: 24px; }
+#th-list label { min-height: 24px; }
 </style>
 <link rel="stylesheet" href="src/science.css">
 </head>
@@ -378,6 +382,8 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
   </div>
   <span class="navmeta" id="navmeta">—</span><a class="navlink" href="privacy.html">Confidentialité</a>
 </nav>
+<main id="core-main">
+<h1 class="sr-only">CORE — Creation Of Reborn Earth : globe, villes, agents et preuves</h1>
 <div id="map" role="region" aria-label="Globe 3D de CORE"></div>
 <div id="legacy-sec" hidden><button type="button" data-sec="agents">agents</button><button type="button" data-sec="cities">cities</button><button type="button" data-sec="problems">problems</button><button type="button" data-sec="activity">activity</button><button type="button" data-sec="sims">sims</button><button type="button" data-sec="decisions">decisions</button><button type="button" data-sec="data">data</button><button type="button" data-sec="health">health</button><button type="button" data-sec="demo">demo</button></div>
 <section class="panel ws" id="ws" hidden aria-live="polite"><header><h2 id="ws-title"></h2><button type="button" class="ghost small" id="ws-close">Fermer</button></header><div class="ws-tabs" id="ws-tabs" role="tablist"></div><div class="wsbody" id="ws-body"></div></section>
@@ -515,6 +521,7 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
 
 <div class="panel status" aria-live="polite"><b id="pos">—</b> · zoom <b id="zoom">—</b> · <span id="msg">Chargement de la Terre…</span><span id="net" hidden> · <span class="warn">tuiles partielles (réseau)</span></span></div>
 
+</main>
 <script type="module" src="src/maplibre-loader.mjs"></script>
 <script src="src/sf-world.js"></script>
 <script src="src/sf-view.js"></script>
