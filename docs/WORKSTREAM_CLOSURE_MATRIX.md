@@ -21,6 +21,6 @@ Statuts autorisés : IMPLEMENTED_AND_TESTED (capacité logicielle délimitée), 
 
 ## Ordre des gates restants
 
-1. Cron : correction de l’assertion temporelle, rehearsal puis run réel ; publier les résultats exacts dans le rapport. FD03 : autorisation OP01 et PR réelle avant protection, aucun bypass.
+1. Cron récupéré : correction temporelle, rehearsal et vrai workflow manuel réussis (159/159, zéro source en échec), commit bot a646c84 ; prochain trigger schedule non attesté. Résultats exacts dans le rapport. FD03 : autorisation OP01 et PR réelle avant protection, aucun bypass.
 2. Pilote Howard 6th–7th conditionnel : droits et observations/époque/timings, préenregistrement/version de baseline, holdout indépendant et relecteur avant calibration. Folsom/Main reste second candidat, pas substitution silencieuse.
 3. Après preuve du pilote : généralisation scientifique à énergie/eau/climat avec modèles spécialisés. Public/Business seulement après gates d’identité, droits, modération et gouvernance ; World immersif demeure lointain. Aucune Phase 12 cosmétique ouverte.
