@@ -25,6 +25,8 @@ Absence aux emplacements inspectés n’est pas une preuve d’absence sur toute
 
 Réutiliser Node, Git, outils navigateur existants, CI standard publique et mémoire métier. N’ajouter aucun routage, orchestrateur, serveur MCP, mémoire ou compression. Les bibliothèques CORE restent sans nouveau gestionnaire de paquets.
 
+Vérification avec la skill OpenAI Docs : la [documentation officielle AGENTS.md](https://learn.chatgpt.com/docs/agent-configuration/agents-md) décrit les instructions hiérarchiques et leur chargement au démarrage. Cette portée explique l’intérêt de règles courtes et ciblées ; elle ne mesure pas une économie de tokens pour CORE. Aucun réglage de modèle ou de compte modifié.
+
 Avant tout ajout futur : version et origine épinglées, licence vérifiée, permissions/réseau/stockage documentés, secrets et rétention évalués, pas de commande arbitraire ni fournisseur payant par défaut ; test d’ablation reproductible sur le même travail (temps, appels/outils, tokens/crédits si disponibles, qualité/régressions et charge mémoire). Un gain supposé n’autorise ni installation ni achat.
 
 Ajout futur potentiellement utile : **SUMO offline seulement après qualification des comptages et approbation du pilote**, car il comble un manque scientifique documenté. Les autres outils restent optionnels ; le cache exact de validation et les checkpoints répondent déjà au besoin immédiat sans dépendance.
