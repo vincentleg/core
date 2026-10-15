@@ -59,7 +59,7 @@ const DOMAIN = { accessibility: /trottoir|sidewalk|accessib|largeur|pieton/, inf
 const STREETS = ['folsom', 'howard'];
 
 function match(ix, q) {
-  const t = toks(q), street = STREETS.filter(s => t.includes(s)), nums = t.filter(x => /^\d+$/.test(x));
+  const t = toks(q), street = STREETS.filter(s => t.includes(s)), nums = t.filter(x => /^\d+$/.test(x)).map(x => x.replace(/^0+(?=\d)/, ''));
   const dom = Object.entries(DOMAIN).filter(([, re]) => re.test(q)).map(([d]) => d);
   const direct = ix.problems.filter(p => norm(q).includes(norm(p.id)));
   if (direct.length) return direct;

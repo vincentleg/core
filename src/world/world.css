@@ -80,3 +80,12 @@ textarea { width: 100%; min-height: 84px; resize: vertical; }
   .joy { left: 12px; bottom: 40px; } .toast { top: auto; bottom: 150px; }
 }
 @media (prefers-reduced-motion: reduce) { .avatar-mk.walking .leg, .avatar-mk.walking .arm, .agent-mk .halo { animation: none !important; } }
+/* CORE shell navigation (src/shell/nav.mjs), shared by World, Dialogue and Commons */
+.bar .mark { text-decoration: none; }
+.core-nav { flex: 1; min-width: 0; overflow-x: auto; scrollbar-width: none; } .core-nav::-webkit-scrollbar { display: none; }
+.core-nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 2px; white-space: nowrap; }
+.core-nav a { display: inline-block; padding: 6px 10px; border-radius: 6px; color: var(--muted); text-decoration: none; font: 500 13px var(--body); min-height: 24px; }
+.core-nav a:hover { color: var(--ink); background: #ffffff0d; } .core-nav a[aria-current="page"] { color: var(--cyan); background: #78e8ff14; }
+.core-nav a.primary-link { color: var(--ink); font-weight: 600; }
+.journey-chip { font: 600 11.5px var(--mono); color: var(--accent); border: 1px solid #1f4757; border-radius: 999px; padding: 3px 9px; text-decoration: none; white-space: nowrap; }
+@media (max-width: 700px) { .bar .proto { display: none; } .core-nav a { padding: 6px 7px; font-size: 12.5px; } }

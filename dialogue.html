@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<title>CORE Dialogue — prototype local</title>
+<meta name="description" content="Salle de travail privée avec un agent CORE : raisonnement guidé, preuves citées de CORE Knowledge, idée enregistrée dans un coffre chiffré.">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="src/world/world.css">
+<link rel="stylesheet" href="src/civic/commons.css">
+<link rel="stylesheet" href="src/dialogue/room.css">
+</head>
+<body class="commons dialogue">
+<a class="skip" href="#dl-input">Aller à la saisie</a>
+<header class="bar" id="core-nav"></header>
+<main id="dl-main">
+  <h1 class="sr-only">CORE Dialogue</h1>
+  <section class="room" aria-label="Salle de dialogue">
+    <div class="scene" id="dl-scene" aria-hidden="true"></div>
+    <div class="room-head"><h2 id="dl-title">Salle de dialogue</h2><p class="fine" id="dl-engine"></p></div>
+    <ol class="convo" id="dl-convo" aria-live="polite" aria-label="Conversation"></ol>
+    <div class="chips" id="dl-chips"></div>
+    <form class="composer" id="dl-form"><label class="sr-only" for="dl-input">Votre message</label>
+      <textarea id="dl-input" maxlength="500" rows="2" placeholder="Votre message (500 caractères). Une question finissant par « ? » interroge CORE Knowledge."></textarea>
+      <button type="submit" class="primary">Envoyer</button></form>
+  </section>
+  <aside class="side" aria-label="Espace de travail">
+    <div class="tabs" role="tablist" aria-label="Espace de travail">
+      <button type="button" role="tab" data-side="idea" aria-selected="true">Idée</button>
+      <button type="button" role="tab" data-side="evidence" aria-selected="false">Preuves</button>
+      <button type="button" role="tab" data-side="session" aria-selected="false">Session</button>
+    </div>
+    <div id="dl-side" role="tabpanel" tabindex="-1"></div>
+  </aside>
+  <p id="toast" class="toast" role="status" aria-live="polite"></p>
+</main>
+<script type="module" src="src/dialogue/room.mjs"></script>
+</body>
+</html>

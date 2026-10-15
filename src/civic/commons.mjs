@@ -8,6 +8,9 @@ import * as A from './arena.mjs';
 import * as C from './academy.mjs';
 import * as G from './progress.mjs';
 import * as K from '../kb/knowledge.mjs';
+import * as NAV from '../shell/nav.mjs';
+import * as J from '../shell/journey.mjs';
+import * as VS from './vault-session.mjs';
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -18,7 +21,9 @@ const saveCommons = () => put('core.commons.v1', { profile: S.profile, labsLog: 
 let toastT; const toast = t => { $('toast').textContent = t; clearTimeout(toastT); toastT = setTimeout(() => { $('toast').textContent = ''; }, 6000); };
 const params = new URLSearchParams(location.search);
 
-async function persistVault() { if (!S.pass) return; put('core.vault.v1', await V.seal(S.vault, S.pass)); }
+// The vault lives in the shared, auto-locking session (vault-session.mjs); S.vault mirrors it while unlocked.
+async function persistVault() { if (VS.unlocked()) await VS.save(S.vault); }
+VS.onChange(open => { if (!open && S.vault) { S.vault = null; S.sel = null; toast('Coffre verrouillé automatiquement.'); render(); } });
 const short = h => h ? `${h.slice(0, 12)}…` : '—';
 
 // ---------- Profile ----------
@@ -64,10 +69,10 @@ function renderVault(B) {
       <p class="fine">Vos idées privées sont chiffrées dans ce navigateur (AES-GCM, clé dérivée de votre phrase secrète par PBKDF2). Sans la phrase, personne — ni CORE — ne peut les lire, et elles sont perdues si vous l’oubliez.</p>
       <form class="form" id="vk"><label>Phrase secrète (12 caractères au moins) <input id="vk-p" type="password" minlength="12" autocomplete="${exists ? 'current-password' : 'new-password'}" required></label><button type="submit" class="primary">${exists ? 'Ouvrir' : 'Créer'}</button></form></div>`;
     $('vk').onsubmit = async e => { e.preventDefault(); const p = $('vk-p').value; if (p.length < 12) return toast('12 caractères au moins.');
-      try { S.vault = exists ? await V.open(get('core.vault.v1'), p) : { owner: S.profile.id, ideas: [] }; S.pass = p; await persistVault(); render(); } catch (err) { toast(err.message); } };
+      try { S.vault = await VS.unlock(p, S.profile.id); render(); } catch (err) { toast(err.message); } };
     return;
   }
-  const ideas = S.vault.ideas, cur = ideas.find(i => i.id === S.sel) || null, pid = params.get('problem');
+  const ideas = S.vault.ideas, cur = ideas.find(i => i.id === S.sel) || null, pid = S.problemId || null;
   B.innerHTML = `<div class="warn">Une empreinte SHA-256 prouve qu’un texte existait dans ce coffre à une heure locale enregistrée. Ce n’est ni un brevet, ni un horodatage certifié, ni une preuve de nouveauté ou de propriété. Une publication peut compromettre une future demande de brevet.</div>
     <div class="grid2"><div class="card"><h2>Mes idées (${ideas.length})</h2><ul>${ideas.map(i => `<li><button type="button" class="ghost small" data-open="${esc(i.id)}">${esc(i.versions.at(-1).title)}</button> · v${i.versions.length}${i.permissions.publication ? ' · publiée (locale)' : ' · privée'}</li>`).join('') || '<li class="fine">aucune</li>'}</ul>
       <button type="button" id="v-new">Nouvelle idée</button> <button type="button" class="ghost small" id="v-lock">Verrouiller</button></div>
@@ -87,7 +92,7 @@ function renderVault(B) {
       ${cur.permissions.publication ? `<p>Publication : v${cur.permissions.publication.version} · ${esc(cur.permissions.publication.licence)} · attribution « ${esc(cur.permissions.publication.attribution)} » · <span class="hash">${esc(short(cur.permissions.publication.hash))}</span></p>` : ''}</div>` : ''}`;
   B.querySelectorAll('[data-open]').forEach(b => b.onclick = () => { S.sel = b.dataset.open; render(); });
   $('v-new').onclick = () => { S.sel = null; render(); };
-  $('v-lock').onclick = () => { S.vault = null; S.pass = null; S.sel = null; render(); toast('Coffre verrouillé.'); };
+  $('v-lock').onclick = () => { VS.lock(); };
   $('vf').onsubmit = async e => { e.preventDefault();
     try { let idea = cur || V.newIdea({ id: `idea-${Date.now().toString(36)}`, owner: S.profile.id });
       idea = await V.addVersion(idea, { title: $('vf-t').value, problem: $('vf-p').value, solution: $('vf-s').value, evidence: $('vf-e').value, problemId: pid });
@@ -210,8 +215,22 @@ async function renderKnowledge(B) {
 }
 
 const RENDER = { knowledge: renderKnowledge, profile: renderProfile, vault: renderVault, labs: renderLabs, arena: renderArena, academy: renderAcademy, progress: renderProgress };
-function render() { document.querySelectorAll('.cm-tabs [data-tab]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab === S.tab))); RENDER[S.tab]($('cm-body')); }
-document.querySelectorAll('.cm-tabs [data-tab]').forEach(b => b.onclick = () => { S.tab = b.dataset.tab; render(); $('cm-body').focus(); });
-if (params.get('tab') && RENDER[params.get('tab')]) S.tab = params.get('tab');
+// ---------- routing: commons.html#section?key=value (deep links, back button, no reload) ----------
+function route() {
+  const [sec, q] = location.hash.slice(1).split('?'), hp = new URLSearchParams(q || '');
+  S.tab = RENDER[sec] ? sec : RENDER[params.get('tab')] ? params.get('tab') : 'profile';
+  S.route = Object.fromEntries(hp); if (hp.get('idea')) S.sel = hp.get('idea');
+  if (hp.get('problem')) S.problemId = hp.get('problem'); else if (params.get('problem')) S.problemId = params.get('problem');
+}
+export function go(section, query = {}) { const q = new URLSearchParams(query).toString(); location.hash = section + (q ? `?${q}` : ''); }
+function render() {
+  const g = NAV.groupOf(S.tab); NAV.render($('core-nav'), { active: g?.id });
+  const bar = document.querySelector('.cm-tabs');
+  bar.innerHTML = (g?.sections || []).map(([id, label]) => `<button type="button" role="tab" data-tab="${id}" aria-selected="${id === S.tab}">${esc(label)}</button>`).join('');
+  bar.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { go(b.dataset.tab); $('cm-body').focus(); });
+  RENDER[S.tab]($('cm-body'));
+}
+addEventListener('hashchange', () => { route(); render(); });
+route();
 render();
-globalThis.CORE_COMMONS = { state: S, render };
+globalThis.CORE_COMMONS = { state: S, render, go };

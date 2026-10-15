@@ -9,6 +9,8 @@ import { screen } from './safety.mjs';
 import { reply } from './dialogue.mjs';
 import { draft, transition, STATES, PROTOTYPE_LIMIT } from './contributions.mjs';
 import { check as geoCheck } from './geo-policy.mjs';
+import * as NAV from '../shell/nav.mjs';
+import * as J from '../shell/journey.mjs';
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -278,6 +280,7 @@ async function bench({ radius = 10, ms = 4000, quality = 'high' } = {}) {
 
 // ---------- start ----------
 async function start() {
+  NAV.render($('core-nav'), { active: 'world' });
   try { S.data = await loadData(); } catch (e) { $('fatal').hidden = false; $('fatal').textContent = `Données CORE indisponibles (${e.message}). Aucune information n’est affichée sans ses enregistrements.`; return; }
   try { S.map = makeMap(S.data); } catch (e) { $('fatal').hidden = false; $('fatal').textContent = 'Carte indisponible : WebGL2 requis. Le panneau d’information reste accessible.'; $('hud').hidden = false; return; }
   S.map.on('error', e => { if (/tile|fetch|load/i.test(String(e.error && e.error.message))) toast('Une source cartographique est indisponible ; affichage potentiellement incomplet.'); });
