@@ -1,4 +1,10 @@
-# CORE — constitutional reconciliation proposals: FD02, FD10 R1, art. 1, art. 8 (V5.1, 2026-10-15) — NOT APPLIED
+# CORE — constitutional reconciliation proposals: FD02, FD10 R1, art. 1, art. 8 (V5.1, 2026-10-15) — APPLIED AS FD11
+
+> **Status (2026-10-15 UTC): approved by the founder and applied.** The founder's message « CORE — COMPLETE PREVIOUSLY AUTHORIZED REMEDIATIONS » approved the direction. The final wording was adjusted to that message and is recorded in **FD11** (`docs/FOUNDER_DECISIONS.md`) and the **Constitution V1.1** (`docs/CONSTITUTION_V1_1.md`):
+> - validation gates *scientific claims, recommendations, measured impact and consequential real-world actions*;
+> - immersive and participatory development is permitted without being presented as validation.
+>
+> The proposal texts below are kept for traceability.
 
 **Purpose.** The founder's stated direction (2026-10-15):
 - CORE World becomes the central human interface;

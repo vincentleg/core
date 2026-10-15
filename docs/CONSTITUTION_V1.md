@@ -1,5 +1,7 @@
 # CORE — Constitution V1
 
+> **Historique.** Les articles 1 et 8 sont remplacés par la [Constitution V1.1](CONSTITUTION_V1_1.md) (FD11, 2026-10-15 UTC). Le texte ci-dessous est conservé tel qu’approuvé le 2026-10-14.
+
 **Baseline fondatrice approuvée, version 1.0 — 2026-10-14 (America/Los_Angeles).** Provenance : instruction explicite du fondateur « FOUNDER DECISIONS IMPLEMENTATION », FD01–FD08, enregistrée dans [FOUNDER_DECISIONS.md](FOUNDER_DECISIONS.md). C’est une approbation dans la session de travail, pas une signature authentifiée d’intervention réelle ni la récupération d’une constitution ancienne.
 
 1. **Finalité.** « Solve in the virtual world. Improve the real one. » Civilization est prioritaire ; Business est l’offre professionnelle future ; World est une extension B2C optionnelle et distante.
