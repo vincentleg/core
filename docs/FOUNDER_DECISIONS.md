@@ -1,4 +1,4 @@
-# CORE — décisions fondatrices FD01–FD08
+# CORE — décisions fondatrices FD01–FD09
 
 Date : **2026-10-14 America/Los_Angeles** (2026-10-15 UTC). Origine : message explicite du fondateur « CORE — FOUNDER DECISIONS IMPLEMENTATION », dans cette session. Les huit orientations ci-dessous sont **APPROUVÉES**, sans approbation rétroactive de conversations non retrouvées. Base de travail : `95a1cf4`. L’exécution, le commit, la publication sûre et la vérification de cette mission sont autorisés séparément par ses règles A–F ; ni achat, réglage externe implicite, bypass, intervention réelle ou nouvelle phase visuelle.
 
@@ -12,6 +12,7 @@ Date : **2026-10-14 America/Los_Angeles** (2026-10-15 UTC). Origine : message ex
 | FD06 | Priorité corridor SF avec données légalement réutilisables/traçables ; aucun accès contrôleurs/propriétaire/coopération publique supposé | Paquet `docs/pilot/`, shortlist conditionnelle ; droits insuffisants = pas d’ingestion de mesures réelles ni de pilote prétendu prêt |
 | FD07 | Préenregistrement, baseline, holdout si possible, incertitudes/sensibilités, critères d’échec, calibration et revue indépendante avant efficacité réelle | Protocole et validation d’entrées reproductible ; seuils/relecteur/holdout terrain non inventés ; aucune causalité démontrée |
 | FD08 | Outillage minimal, sûr, coût additionnel nul ; mémoire/MCP/routing/multiagents seulement si besoin, confiance, compatibilité et coût démontrés | Inventaire observé et critères conservés ; aucune installation/adoption automatique ni pourcentage d’économie promis |
+| FD09 | **Règle permanente d’accès et d’usage des données** (message fondateur explicite, 2026-10-15 UTC) : aucun accès, téléchargement, scraping, traitement, redistribution ou transmission d’un jeu de données sans autorisation démontrée de l’accès et de l’usage visés. Disponibilité publique ≠ réutilisation libre. Pour toute source externe : source officielle, conditions applicables, usages permis (scientifique et commercial si pertinent), attribution et restrictions vérifiés. Jamais de contournement d’authentification, contrôle d’accès, paywall, limite d’API ou licence ; jamais de miroir non officiel en substitut d’une source officielle indisponible ou restreinte | Autorisation incertaine → arrêter cette opération de données, documenter le blocage, demander approbation/clarification au fondateur ; les autres travaux autorisés continuent. S’applique au pilote NYC Canal St et à toute expérience scientifique future ; registre des sources : DATA_SOURCES.md |
 
 ## Choix opérationnels encore ouverts — pas de nouvelle ratification des FD requise
 

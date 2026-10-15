@@ -53,3 +53,10 @@ Live API: `main` has 0 effective rules and no rulesets; the repo is public, so b
   4. Then apply the ruleset: `gh api -X POST repos/vincentleg/core/rulesets --input docs/github/main-ruleset.proposed.json`.
   5. Verify with `gh api repos/vincentleg/core/rules/branches/main`.
   No bypass is granted to the bot.
+
+**Template hardening (2026-10-15, inactive).** `city-feed-pr.yml.example` stays manual-only, behind `CORE_FEED_PR_ENABLED`, with no `schedule:`, merge or approve step (enforced by `test/founder-decisions.test.js`). It now:
+- opens **one candidate at a time**: if a `city-feed/candidate-*` PR is open, it collects nothing;
+- writes run URL, trigger, base SHA, collection summary and the `feed-candidate` scope report into the PR body;
+- **dispatches `core-verify` on the candidate branch** (`actions: write`), because events created with `GITHUB_TOKEN` do not start new workflow runs, except `workflow_dispatch`. The required check then exists on the exact candidate commit.
+
+When it eventually replaces the cron's direct push, a separate approval must add the existing schedules and freshness gate. The live `city-feed.yml` is unchanged.

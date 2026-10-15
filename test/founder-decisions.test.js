@@ -79,5 +79,7 @@ test('prepared main protection binds CI issuer and grants no bot or administrato
   assert.match(s, /scripts\/feed-candidate.mjs/); assert.match(s, /scripts\/verify.mjs/);
   assert.match(s, /HEAD:refs\/heads\/\$candidate_branch/);
   assert.doesNotMatch(s, /schedule:|--force|--admin|--auto|gh pr merge|gh pr review|pull_request_target|secrets\./);
+  assert.match(s, /startswith\("city-feed\/candidate-"\)/, 'one open candidate at a time'); assert.match(s, /gh workflow run verify\.yml --ref "\$candidate_branch"/, 'required check dispatched on the exact candidate');
+  assert.match(s, /actions\/runs\/\$\{GITHUB_RUN_ID\}/, 'run provenance in PR body');
   assert.equal(fs.existsSync('.github/workflows/city-feed-pr-candidate.yml'), false, 'migration is not silently activated');
 });
