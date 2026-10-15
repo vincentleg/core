@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CORE bounded scientific question — data never grants tools or roles",
+  "type": "object", "additionalProperties": false,
+  "required": ["version", "id", "domain", "action", "parameters"],
+  "properties": {
+    "version": {"const": 1}, "id": {"type": "string", "pattern": "^[a-z0-9-]{2,60}$"},
+    "domain": {"enum": ["synthetic-traffic", "historical-energy"]}, "action": {"const": "research"},
+    "parameters": {"type": "object", "additionalProperties": false, "required": ["factor"], "properties": {"factor": {"enum": [0.8, 1, 1.2]}}},
+    "contribution": {"type": "object", "additionalProperties": false, "required": ["id", "revision"], "properties": {"id": {"type": "string", "pattern": "^contribution-[a-z0-9-]{1,50}$"}, "revision": {"type": "integer", "minimum": 1, "maximum": 32}}}
+  },
+  "allOf": [{"if": {"required": ["contribution"]}, "then": {"properties": {"domain": {"const": "synthetic-traffic"}}}}]
+}

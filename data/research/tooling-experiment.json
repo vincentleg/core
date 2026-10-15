@@ -1,0 +1,15 @@
+{
+  "mode": "two local executions; no LLM; timings are one sample, not benchmark guarantees",
+  "firstMs": 8.107125,
+  "secondMs": 2.4143749999999997,
+  "firstWrites": 7,
+  "secondWrites": 0,
+  "firstEvents": 7,
+  "secondEvents": 7,
+  "sameFingerprint": true,
+  "catalogChars": 10655,
+  "retrievedExcerptChars": 543,
+  "retrievedDocuments": 3,
+  "tokenSavings": "NOT_MEASURED",
+  "rssMiB": 53
+}

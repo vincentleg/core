@@ -8,6 +8,19 @@
   const round = n => +n.toFixed(1);
   const PREFIX = 'core.san-francisco.';
   const ROLES = { planner: PREFIX + 'mobility.lead', verifier: PREFIX + 'research.evidence-verifier', critic: PREFIX + 'safety.adversarial-reviewer', gateway: PREFIX + 'governance.gateway' };
+  // Shared scientific council trace: role policies, never independent empirical validation.
+  function council(registry, events) {
+    if (!Array.isArray(events) || events.length < 4 || events.length > 8) throw Error('Conseil hors limites');
+    const permissions = { proposal: 'propose', counterproposal: 'analyze', dissent: 'review', 'evidence-review': 'review', revision: 'propose' }, seen = new Set();
+    for (const e of events) {
+      const agent = registry?.agents?.find(a => a.id === e.agent);
+      if (!agent || agent.permission !== permissions[e.kind] || seen.has(e.id) || !e.claim || e.claim.length > 1600 || !e.evidence?.length || e.evidence.length > 30 || e.respondsTo && !seen.has(e.respondsTo)) throw Error('Conseil : rôle, preuve ou fil invalide');
+      if (e.kind === 'dissent' && e.agent !== ROLES.critic || e.kind === 'evidence-review' && e.agent !== ROLES.verifier) throw Error('Conseil : revue attribuée au mauvais rôle');
+      seen.add(e.id);
+    }
+    if (!['proposal', 'dissent', 'evidence-review', 'revision'].every(k => events.some(e => e.kind === k))) throw Error('Conseil incomplet');
+    return events;
+  }
   function parameters(p = {}) {
     const v = { horizon: p.horizon ?? 120, topN: p.topN ?? 5, coordination: p.coordination ?? 0.5, weight: p.weight ?? 'all' };
     if (![60, 120, 180].includes(v.horizon) || ![3, 5, 10].includes(v.topN) || ![0, 0.25, 0.5, 0.75, 1].includes(v.coordination) || !['all', 'severe'].includes(v.weight)) throw Error('Paramètres hors limites');
@@ -34,13 +47,13 @@
     const event = (id, agent, kind, claim, evidence, respondsTo = null) => ({ id, agent, kind, claim, epistemic: 'modeled', evidence, respondsTo });
     // Executable role policies: ranking, feasibility challenge and revision depend on the current computed results.
     const proposed = [...result.options.slice(1)].sort((a, b) => a.exposure - b.exposure || a.id.localeCompare(b.id))[0];
-    return [
+    return council(registry, [
       event('D1', ROLES.planner, 'proposal', `Hypothèse modélisée : l’option ${proposed.id} minimise l’indice dans l’horizon (${proposed.exposure}, référence ${i0.exposure}). Examiner cette proposition.`, refs),
       event('D2', works.id, 'counterproposal', `Hypothèse modélisée : I2 concerne ${result.affectedPermits.I2} permis ; comparer une mutualisation partielle (${p.coordination * 100} %) à la mutualisation totale supposée en Phase 10.`, permitRefs, 'D1'),
       event('D3', ROLES.critic, 'dissent', `Objection modélisée : I3 déplace ${i3.displaced} unités hors horizon ; le total conservé est ${round(i3.exposure + i3.displaced)}. Aucune capacité de rattrapage ni réduction causale d’accidents n’est établie.`, refs, 'D1'),
       event('D4', ROLES.verifier, 'evidence-review', `Revue modélisée : ${refs.length + permitRefs.length} références doivent résoudre ; données datées du ${cx.asOf}, accidents jusqu’au ${cx.data['crashes-agg'].window.to}. Permis autorisés ≠ travaux observés.`, [...refs, ...permitRefs], 'D3'),
       event('D5', ROLES.planner, 'revision', `Révision modélisée : ${i2.exposure < i0.exposure ? 'I2 mérite une étude de faisabilité' : 'conserver I0 ; aucun avantage d’indice pour I2 sous ces hypothèses'}. Retirer I3 des options recommandables ; conserver l’objection D3 et sa charge déplacée.`, [...refs, ...permitRefs], 'D3'),
-    ];
+    ]);
   }
   async function inputs(bundle) {
     if (!bundle || !bundle.manifest || !bundle.raw || !bundle.registry || !bundle.mission) throw Error('Entrées ou preuves manquantes');
@@ -89,6 +102,6 @@
       return { state: 'HUMAN_REVIEW', authorizes: false, fingerprint: expected.fingerprint, issues: [] };
     } catch (e) { return { state: 'BLOCKED', authorizes: false, issues: [e.message] }; }
   }
-  const api = { VERSION, ROLES, parameters, stable, hash, run, verify };
+  const api = { VERSION, ROLES, council, parameters, stable, hash, run, verify };
   if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.CORE_SCIENCE = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

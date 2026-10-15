@@ -1,0 +1,854 @@
+{
+  "version": "core-research-demo-v1",
+  "mode": "recorded-offline-research; no live LLM or public accounts",
+  "beforeConsent": null,
+  "historyVerified": true,
+  "contribution": {
+    "id": "contribution-phase13-queue",
+    "revision": 2,
+    "mode": "synthetic-demo",
+    "author": "Observateur-Cyan",
+    "avatar": null,
+    "interests": [],
+    "expertise": [],
+    "location": {
+      "city": "san-francisco",
+      "neighborhood": "South of Market",
+      "precision": "neighborhood"
+    },
+    "observation": {
+      "statement": "Dans cet exemple inventé, une file revient à certaines heures.",
+      "at": "2026-10-01T15:00:00Z",
+      "epistemic": "synthetic-testimony",
+      "uncertainty": "Ni fréquence ni délai réellement mesurés."
+    },
+    "interpretation": "Une capacité insuffisante est une hypothèse fictive, pas un constat vérifié.",
+    "proposal": "Comparer deux capacités abstraites dans un calcul borné ; aucun réglage de feu réel.",
+    "relations": {
+      "problems": [
+        "demo-queue"
+      ],
+      "reuses": [],
+      "supersedes": []
+    },
+    "evidence": [
+      {
+        "id": "demo-testimony",
+        "kind": "SYNTHETIC_TESTIMONY",
+        "source": "fixture:demo-testimony",
+        "observedAt": "2026-10-01T15:00:00Z",
+        "retrievedAt": "2026-10-14T20:00:00Z",
+        "payloadSha256": "bcdf3b1a5cacd330b5768b836bd95ff99904332030f138f19a208ae8d2b5dac4",
+        "license": "DEMO_ONLY_NO_COMMERCIAL_GRANT",
+        "uncertainty": "Invented fixture; no measured SF observation or efficacy."
+      },
+      {
+        "id": "demo-counts",
+        "kind": "SYNTHETIC_COUNTS",
+        "source": "fixture:demo-counts",
+        "observedAt": "2026-10-01T15:00:00Z",
+        "retrievedAt": "2026-10-14T20:00:00Z",
+        "payloadSha256": "6ab176da7f86f6c51ac6720d51368cd08f6ee9789dc61f1245a314f9d783354d",
+        "license": "DEMO_ONLY_NO_COMMERCIAL_GRANT",
+        "uncertainty": "Invented fixture; no measured SF observation or efficacy."
+      }
+    ],
+    "objections": [
+      {
+        "revision": 1,
+        "by": "demo.reviewer",
+        "code": "TESTIMONY_NOT_CORROBORATED",
+        "explanation": "Testimony is context, not independently verified fact.",
+        "epistemic": "synthetic-review-not-independent-validation"
+      },
+      {
+        "revision": 2,
+        "by": "demo.reviewer",
+        "code": "TESTIMONY_NOT_CORROBORATED",
+        "explanation": "Testimony is context, not independently verified fact.",
+        "epistemic": "synthetic-review-not-independent-validation"
+      }
+    ],
+    "simulation": {
+      "kind": "SIMULATION",
+      "synthetic": true,
+      "calibrated": false,
+      "efficacyValidated": false,
+      "units": "synthetic queue-count sum, not delay or safety benefit",
+      "inputHash": "6ab176da7f86f6c51ac6720d51368cd08f6ee9789dc61f1245a314f9d783354d",
+      "baseline": 6,
+      "alternative": 3,
+      "sensitivity": [
+        {
+          "demandFactor": 0.8,
+          "baseline": 2.4000000000000004,
+          "alternative": 0
+        },
+        {
+          "demandFactor": 1,
+          "baseline": 6,
+          "alternative": 3
+        },
+        {
+          "demandFactor": 1.2,
+          "baseline": 14.399999999999995,
+          "alternative": 6.599999999999998
+        }
+      ]
+    },
+    "rights": {
+      "permission": "SYNTHETIC_DEMO_DISPLAY_ONLY",
+      "commercialReuse": "NOT_AUTHORIZED",
+      "compensation": "UNDECIDED"
+    },
+    "progression": {
+      "enabled": false,
+      "badges": []
+    },
+    "research": {
+      "questionId": "ws12-queue",
+      "fingerprint": "ad1603e7dcd8f560e7401bb3baee747c13d55eb3950a81360d808fd3ea6b9265",
+      "kind": "synthetic-research-result",
+      "authorizesRealWorld": false
+    },
+    "organizationsConsidering": [],
+    "realWorldStatus": "NOT_AUTHORIZED",
+    "authorizesRealWorld": false,
+    "measuredImpact": null,
+    "state": "PUBLISHED",
+    "history": [
+      {
+        "sequence": 1,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.participant",
+        "from": null,
+        "to": "DRAFT",
+        "revision": 1
+      },
+      {
+        "sequence": 2,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.participant",
+        "from": "DRAFT",
+        "to": "SUBMITTED",
+        "revision": 1
+      },
+      {
+        "sequence": 3,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.moderator",
+        "from": "SUBMITTED",
+        "to": "SCREENED",
+        "revision": 1
+      },
+      {
+        "sequence": 4,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.reviewer",
+        "from": "SCREENED",
+        "to": "UNDER_REVIEW",
+        "revision": 1
+      },
+      {
+        "sequence": 5,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.reviewer",
+        "from": "UNDER_REVIEW",
+        "to": "EVIDENCE_ASSESSED",
+        "revision": 1
+      },
+      {
+        "sequence": 6,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.simulator",
+        "from": "EVIDENCE_ASSESSED",
+        "to": "SIMULATED",
+        "revision": 1
+      },
+      {
+        "sequence": 7,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.participant",
+        "from": "SIMULATED",
+        "to": "REVISED",
+        "revision": 2
+      },
+      {
+        "sequence": 8,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.participant",
+        "from": "REVISED",
+        "to": "SUBMITTED",
+        "revision": 2
+      },
+      {
+        "sequence": 9,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.moderator",
+        "from": "SUBMITTED",
+        "to": "SCREENED",
+        "revision": 2
+      },
+      {
+        "sequence": 10,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.reviewer",
+        "from": "SCREENED",
+        "to": "UNDER_REVIEW",
+        "revision": 2
+      },
+      {
+        "sequence": 11,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.reviewer",
+        "from": "UNDER_REVIEW",
+        "to": "EVIDENCE_ASSESSED",
+        "revision": 2
+      },
+      {
+        "sequence": 12,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.simulator",
+        "from": "EVIDENCE_ASSESSED",
+        "to": "SIMULATED",
+        "revision": 2
+      },
+      {
+        "sequence": 13,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.simulator",
+        "from": "SIMULATED",
+        "to": "SIMULATED",
+        "revision": 2,
+        "research": {
+          "questionId": "ws12-queue",
+          "fingerprint": "ad1603e7dcd8f560e7401bb3baee747c13d55eb3950a81360d808fd3ea6b9265"
+        }
+      },
+      {
+        "sequence": 14,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.publisher",
+        "from": "SIMULATED",
+        "to": "APPROVED_FOR_PUBLICATION",
+        "revision": 2
+      },
+      {
+        "sequence": 15,
+        "at": "2026-10-14T20:00:00Z",
+        "actor": "demo.publisher",
+        "from": "APPROVED_FOR_PUBLICATION",
+        "to": "PUBLISHED",
+        "revision": 2
+      }
+    ],
+    "publicFingerprint": "9c03f23456ef513e913e95bb06eafc0bb27a7d5bc6ebb7d0ba51446672b057b4",
+    "persistence": "Local SQLite; not immutable or perpetual"
+  },
+  "traffic": {
+    "version": "core-research-v1",
+    "question": {
+      "version": 1,
+      "id": "ws12-queue",
+      "domain": "synthetic-traffic",
+      "action": "research",
+      "parameters": {
+        "factor": 1
+      },
+      "contribution": {
+        "id": "contribution-phase13-queue",
+        "revision": 2
+      }
+    },
+    "title": "Howard 6th–7th : expérience de file entièrement synthétique",
+    "runtime": "deterministic-offline-policy-agents",
+    "modelCalls": 0,
+    "sources": [
+      {
+        "id": "synthetic-counts",
+        "kind": "synthetic-fixture",
+        "url": "test/fixtures/pilot-synthetic.json",
+        "sha256": "def41e8fd99bbc5c76c2ace8161f4e560544f76c99efb1c69c50f6e96e092169",
+        "hashScope": "JSON.stringify(rows)",
+        "rights": "CORE-SYNTHETIC-FIXTURE",
+        "observedAt": null,
+        "warning": "Invented counts, not measured Howard traffic."
+      }
+    ],
+    "hypotheses": [
+      "H1 : une capacité abstraite accrue réduit la file dans ce modèle.",
+      "H2 : une hypothèse de demande différente ou des contraintes omises peuvent annuler la pertinence pratique."
+    ],
+    "options": [
+      {
+        "id": "baseline",
+        "label": "Capacité 12 / intervalle",
+        "capacity": 12,
+        "sum": 6,
+        "terminal": 6,
+        "peak": 6,
+        "bins": [
+          0,
+          6
+        ]
+      },
+      {
+        "id": "capacity-15",
+        "label": "Capacité 15 / intervalle",
+        "capacity": 15,
+        "sum": 3,
+        "terminal": 3,
+        "peak": 3,
+        "bins": [
+          0,
+          3
+        ]
+      },
+      {
+        "id": "capacity-18",
+        "label": "Capacité 18 / intervalle",
+        "capacity": 18,
+        "sum": 0,
+        "terminal": 0,
+        "peak": 0,
+        "bins": [
+          0,
+          0
+        ]
+      }
+    ],
+    "sensitivity": [
+      {
+        "factor": 0.8,
+        "interpretation": "assumed stress factor; not confidence interval",
+        "options": [
+          {
+            "capacity": 12,
+            "sum": 2.4000000000000004,
+            "terminal": 2.4000000000000004,
+            "peak": 2.4000000000000004,
+            "bins": [
+              0,
+              2.4000000000000004
+            ]
+          },
+          {
+            "capacity": 15,
+            "sum": 0,
+            "terminal": 0,
+            "peak": 0,
+            "bins": [
+              0,
+              0
+            ]
+          },
+          {
+            "capacity": 18,
+            "sum": 0,
+            "terminal": 0,
+            "peak": 0,
+            "bins": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "factor": 1,
+        "interpretation": "assumed stress factor; not confidence interval",
+        "options": [
+          {
+            "capacity": 12,
+            "sum": 6,
+            "terminal": 6,
+            "peak": 6,
+            "bins": [
+              0,
+              6
+            ]
+          },
+          {
+            "capacity": 15,
+            "sum": 3,
+            "terminal": 3,
+            "peak": 3,
+            "bins": [
+              0,
+              3
+            ]
+          },
+          {
+            "capacity": 18,
+            "sum": 0,
+            "terminal": 0,
+            "peak": 0,
+            "bins": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "factor": 1.2,
+        "interpretation": "assumed stress factor; not confidence interval",
+        "options": [
+          {
+            "capacity": 12,
+            "sum": 14.399999999999995,
+            "terminal": 11.999999999999996,
+            "peak": 11.999999999999996,
+            "bins": [
+              2.3999999999999986,
+              11.999999999999996
+            ]
+          },
+          {
+            "capacity": 15,
+            "sum": 6.599999999999998,
+            "terminal": 6.599999999999998,
+            "peak": 6.599999999999998,
+            "bins": [
+              0,
+              6.599999999999998
+            ]
+          },
+          {
+            "capacity": 18,
+            "sum": 3.599999999999998,
+            "terminal": 3.599999999999998,
+            "peak": 3.599999999999998,
+            "bins": [
+              0,
+              3.599999999999998
+            ]
+          }
+        ]
+      }
+    ],
+    "discussion": [
+      {
+        "id": "R1",
+        "agent": "core.san-francisco.mobility.lead",
+        "kind": "proposal",
+        "claim": "Comparer deux capacités hypothétiques au baseline, avec la même demande et le même horizon.",
+        "epistemic": "synthetic-model",
+        "evidence": [
+          "synthetic-counts"
+        ],
+        "respondsTo": null
+      },
+      {
+        "id": "R2",
+        "agent": "core.san-francisco.safety.adversarial-reviewer",
+        "kind": "dissent",
+        "claim": "Capacités inventées : aucune configuration de feux, faisabilité, sécurité, délai ou observation terrain ne les valide. La file terminale reste visible ; horizon de deux intervalles seulement.",
+        "epistemic": "synthetic-model",
+        "evidence": [
+          "synthetic-counts"
+        ],
+        "respondsTo": "R1"
+      },
+      {
+        "id": "R3",
+        "agent": "core.san-francisco.research.evidence-verifier",
+        "kind": "evidence-review",
+        "claim": "Fixture locale identifiée par empreinte ; témoignage synthétique et non corroboré. Pas de calibration.",
+        "epistemic": "synthetic-model",
+        "evidence": [
+          "synthetic-counts"
+        ],
+        "respondsTo": "R2"
+      },
+      {
+        "id": "R4",
+        "agent": "core.san-francisco.mobility.lead",
+        "kind": "revision",
+        "claim": "Conserver les trois scénarios et l’objection R2. Retirer toute recommandation de mise en œuvre ; demander données, contraintes et revue indépendante.",
+        "epistemic": "synthetic-model",
+        "evidence": [
+          "synthetic-counts"
+        ],
+        "respondsTo": "R2"
+      }
+    ],
+    "dissent": [
+      "R2"
+    ],
+    "units": "Somme des files en fin d’intervalle ; unités synthétiques, ni délai ni accidents",
+    "limitations": [
+      "Capacités inventées : aucune configuration de feux, faisabilité, sécurité, délai ou observation terrain ne les valide. La file terminale reste visible ; horizon de deux intervalles seulement.",
+      "Reproductibilité et contrôles de provenance ≠ validation indépendante ou causalité.",
+      "Sensibilités hypothétiques, pas intervalles de confiance.",
+      "Aucun bénéfice réel, adoption municipale ou autorisation terrain."
+    ],
+    "gate": {
+      "state": "RESEARCH_REVIEW_ONLY",
+      "by": "core.san-francisco.governance.gateway",
+      "reproducible": true,
+      "calibrated": false,
+      "independentReview": false,
+      "authorizesRealWorld": false,
+      "implementation": "BLOCKED",
+      "checks": [
+        "question-schema",
+        "pinned-local-inputs",
+        "role-policies",
+        "bounded-calculation",
+        "dissent-preserved"
+      ]
+    },
+    "fingerprint": "ad1603e7dcd8f560e7401bb3baee747c13d55eb3950a81360d808fd3ea6b9265"
+  },
+  "energy": {
+    "version": "core-research-v1",
+    "question": {
+      "version": 1,
+      "id": "civilization-energy",
+      "domain": "historical-energy",
+      "action": "research",
+      "parameters": {
+        "factor": 1
+      }
+    },
+    "title": "Énergie et civilisation : que signifie un changement de puissance ?",
+    "runtime": "deterministic-offline-policy-agents",
+    "modelCalls": 0,
+    "sources": [
+      {
+        "id": "sagan-1973",
+        "kind": "research-reference",
+        "url": "https://assets.cambridge.org/97805217/83033/frontmatter/9780521783033_frontmatter.pdf",
+        "citation": "Carl Sagan (1973), The Cosmic Connection; Cambridge reissue bibliography",
+        "checkedOn": "2026-10-15",
+        "reviewAfterDays": 3650,
+        "sha256": "f8d62c3b765081b8680aabdec23c7d2356b167a65a228cea3a6e1bc975aecbd0",
+        "hashScope": "catalog bytes, not remote source authenticity",
+        "rights": "Reference and original CORE summary only; full source not bundled",
+        "locator": "Publisher front matter only; original interpolation passage not independently inspected"
+      },
+      {
+        "id": "cramer-2021",
+        "kind": "research-reference",
+        "url": "https://www.npl.washington.edu/AV/altvw215.html",
+        "citation": "John G. Cramer (2021), Kardashev Civilizations, Dyson Spheres, and Black Holes",
+        "checkedOn": "2026-10-15",
+        "reviewAfterDays": 3650,
+        "sha256": "f8d62c3b765081b8680aabdec23c7d2356b167a65a228cea3a6e1bc975aecbd0",
+        "hashScope": "catalog bytes, not remote source authenticity",
+        "rights": "Reference and original CORE summary only; full source not bundled",
+        "locator": "Author discussion of Sagan index and power conventions"
+      },
+      {
+        "id": "si",
+        "kind": "research-reference",
+        "url": "https://www.bipm.org/documents/d/guest/si-brochure-9-pdf",
+        "citation": "BIPM, The International System of Units, 9th edition",
+        "checkedOn": "2026-10-15",
+        "reviewAfterDays": 3650,
+        "sha256": "f8d62c3b765081b8680aabdec23c7d2356b167a65a228cea3a6e1bc975aecbd0",
+        "hashScope": "catalog bytes, not remote source authenticity",
+        "rights": "Reference and original CORE summary only; full source not bundled",
+        "locator": "Derived SI units: joule and watt"
+      },
+      {
+        "id": "ei-2025",
+        "kind": "reported-historical",
+        "url": "https://energyinst.org/statistical-review/insights-by-source",
+        "citation": "Energy Institute, Statistical Review 2025: 2024 key highlights",
+        "checkedOn": "2026-10-15",
+        "reviewAfterDays": 365,
+        "sha256": "f8d62c3b765081b8680aabdec23c7d2356b167a65a228cea3a6e1bc975aecbd0",
+        "hashScope": "catalog bytes, not remote source authenticity",
+        "rights": "Reference and original CORE summary only; full source not bundled",
+        "locator": "2024 total energy supply 592 EJ; historical edition, not latest 2026 estimate"
+      },
+      {
+        "id": "boundaries-2023",
+        "kind": "research-reference",
+        "url": "https://doi.org/10.1126/sciadv.adh2458",
+        "citation": "Richardson et al. (2023), Earth beyond six of nine planetary boundaries, Science Advances 9, eadh2458",
+        "checkedOn": "2026-10-15",
+        "reviewAfterDays": 730,
+        "sha256": "f8d62c3b765081b8680aabdec23c7d2356b167a65a228cea3a6e1bc975aecbd0",
+        "hashScope": "catalog bytes, not remote source authenticity",
+        "rights": "Reference and original CORE summary only; full source not bundled",
+        "locator": "Abstract and framework; historical 2023 assessment, not present boundary count"
+      },
+      {
+        "id": "wright-2023",
+        "kind": "research-reference",
+        "url": "https://arxiv.org/abs/2309.06564v2",
+        "citation": "Jason T. Wright (2023), Application of the Thermodynamics of Radiation to Dyson Spheres, arXiv:2309.06564v2",
+        "checkedOn": "2026-10-15",
+        "reviewAfterDays": 730,
+        "sha256": "f8d62c3b765081b8680aabdec23c7d2356b167a65a228cea3a6e1bc975aecbd0",
+        "hashScope": "catalog bytes, not remote source authenticity",
+        "rights": "Reference and original CORE summary only; full source not bundled",
+        "locator": "Author abstract: radiative work, waste heat, limitations of shell models"
+      },
+      {
+        "id": "undp",
+        "kind": "research-reference",
+        "url": "https://hdr.undp.org/data-center/human-development-index",
+        "citation": "UNDP, Human Development Index methodology",
+        "checkedOn": "2026-10-15",
+        "reviewAfterDays": 365,
+        "sha256": "f8d62c3b765081b8680aabdec23c7d2356b167a65a228cea3a6e1bc975aecbd0",
+        "hashScope": "catalog bytes, not remote source authenticity",
+        "rights": "Reference and original CORE summary only; full source not bundled",
+        "locator": "Health, education, standard of living and limitations"
+      }
+    ],
+    "hypotheses": [
+      "H1 : à durée fixe, la puissance moyenne varie avec la fourniture énergétique.",
+      "H2 : augmenter K ne démontre aucun progrès humain ; réduire la consommation ne garantit pas les mêmes services."
+    ],
+    "options": [
+      {
+        "id": "baseline",
+        "label": "Fourniture totale 2024",
+        "energyEJ": 592,
+        "days": 366,
+        "averageWatts": 18720906699048.777,
+        "index": 0.7272326878849616,
+        "convention": "Sagan interpolation; total energy supply proxy, not useful work",
+        "civilizationRank": null,
+        "efficacyValidated": false,
+        "authorizesRealWorld": false
+      },
+      {
+        "id": "demand-minus-10",
+        "label": "Hypothèse −10 % à services inconnus",
+        "energyEJ": 532.8000000000001,
+        "days": 366,
+        "averageWatts": 16848816029143.9,
+        "index": 0.722656938828894,
+        "convention": "Sagan interpolation; total energy supply proxy, not useful work",
+        "civilizationRank": null,
+        "efficacyValidated": false,
+        "authorizesRealWorld": false
+      },
+      {
+        "id": "supply-plus-10",
+        "label": "Hypothèse +10 % à impacts inconnus",
+        "energyEJ": 651.2,
+        "days": 366,
+        "averageWatts": 20592997368953.652,
+        "index": 0.731371956400784,
+        "convention": "Sagan interpolation; total energy supply proxy, not useful work",
+        "civilizationRank": null,
+        "efficacyValidated": false,
+        "authorizesRealWorld": false
+      }
+    ],
+    "sensitivity": [
+      {
+        "factor": 0.8,
+        "interpretation": "assumed stress factor; not confidence interval",
+        "options": [
+          {
+            "energyEJ": 473.6,
+            "days": 366,
+            "averageWatts": 14976725359239.02,
+            "index": 0.7175416865841558,
+            "convention": "Sagan interpolation; total energy supply proxy, not useful work",
+            "civilizationRank": null,
+            "efficacyValidated": false,
+            "authorizesRealWorld": false
+          },
+          {
+            "energyEJ": 426.24000000000007,
+            "days": 366,
+            "averageWatts": 13479052823315.121,
+            "index": 0.7129659375280883,
+            "convention": "Sagan interpolation; total energy supply proxy, not useful work",
+            "civilizationRank": null,
+            "efficacyValidated": false,
+            "authorizesRealWorld": false
+          },
+          {
+            "energyEJ": 520.96,
+            "days": 366,
+            "averageWatts": 16474397895162.924,
+            "index": 0.7216809550999784,
+            "convention": "Sagan interpolation; total energy supply proxy, not useful work",
+            "civilizationRank": null,
+            "efficacyValidated": false,
+            "authorizesRealWorld": false
+          }
+        ]
+      },
+      {
+        "factor": 1,
+        "interpretation": "assumed stress factor; not confidence interval",
+        "options": [
+          {
+            "energyEJ": 592,
+            "days": 366,
+            "averageWatts": 18720906699048.777,
+            "index": 0.7272326878849616,
+            "convention": "Sagan interpolation; total energy supply proxy, not useful work",
+            "civilizationRank": null,
+            "efficacyValidated": false,
+            "authorizesRealWorld": false
+          },
+          {
+            "energyEJ": 532.8000000000001,
+            "days": 366,
+            "averageWatts": 16848816029143.9,
+            "index": 0.722656938828894,
+            "convention": "Sagan interpolation; total energy supply proxy, not useful work",
+            "civilizationRank": null,
+            "efficacyValidated": false,
+            "authorizesRealWorld": false
+          },
+          {
+            "energyEJ": 651.2,
+            "days": 366,
+            "averageWatts": 20592997368953.652,
+            "index": 0.731371956400784,
+            "convention": "Sagan interpolation; total energy supply proxy, not useful work",
+            "civilizationRank": null,
+            "efficacyValidated": false,
+            "authorizesRealWorld": false
+          }
+        ]
+      },
+      {
+        "factor": 1.2,
+        "interpretation": "assumed stress factor; not confidence interval",
+        "options": [
+          {
+            "energyEJ": 710.4,
+            "days": 366,
+            "averageWatts": 22465088038858.53,
+            "index": 0.735150812489724,
+            "convention": "Sagan interpolation; total energy supply proxy, not useful work",
+            "civilizationRank": null,
+            "efficacyValidated": false,
+            "authorizesRealWorld": false
+          },
+          {
+            "energyEJ": 639.36,
+            "days": 366,
+            "averageWatts": 20218579234972.676,
+            "index": 0.7305750634336565,
+            "convention": "Sagan interpolation; total energy supply proxy, not useful work",
+            "civilizationRank": null,
+            "efficacyValidated": false,
+            "authorizesRealWorld": false
+          },
+          {
+            "energyEJ": 781.44,
+            "days": 366,
+            "averageWatts": 24711596842744.383,
+            "index": 0.7392900810055465,
+            "convention": "Sagan interpolation; total energy supply proxy, not useful work",
+            "civilizationRank": null,
+            "efficacyValidated": false,
+            "authorizesRealWorld": false
+          }
+        ]
+      }
+    ],
+    "discussion": [
+      {
+        "id": "R1",
+        "agent": "core.san-francisco.energy.lead",
+        "kind": "proposal",
+        "claim": "Comparer le baseline énergétique historique à deux variations hypothétiques, en unités SI.",
+        "epistemic": "derived-historical-scenario",
+        "evidence": [
+          "sagan-1973",
+          "cramer-2021",
+          "si",
+          "ei-2025",
+          "boundaries-2023",
+          "wright-2023",
+          "undp"
+        ],
+        "respondsTo": null
+      },
+      {
+        "id": "R2",
+        "agent": "core.san-francisco.safety.adversarial-reviewer",
+        "kind": "dissent",
+        "claim": "Fourniture totale ≠ électricité ou exergie. Plus de watts ne démontre ni paix, ni bien-être, ni soutenabilité ; les services rendus et impacts écologiques manquent.",
+        "epistemic": "derived-historical-scenario",
+        "evidence": [
+          "sagan-1973",
+          "cramer-2021",
+          "si",
+          "ei-2025",
+          "boundaries-2023",
+          "wright-2023",
+          "undp"
+        ],
+        "respondsTo": "R1"
+      },
+      {
+        "id": "R3",
+        "agent": "core.san-francisco.research.evidence-verifier",
+        "kind": "evidence-review",
+        "claim": "592 EJ concerne 2024 ; année bissextile de 366 jours. Atlas daté ; le passage original Sagan reste partiellement vérifié.",
+        "epistemic": "derived-historical-scenario",
+        "evidence": [
+          "sagan-1973",
+          "cramer-2021",
+          "si",
+          "ei-2025",
+          "boundaries-2023",
+          "wright-2023",
+          "undp"
+        ],
+        "respondsTo": "R2"
+      },
+      {
+        "id": "R4",
+        "agent": "core.san-francisco.energy.lead",
+        "kind": "revision",
+        "claim": "Conserver les trois scénarios et l’objection R2. Retirer toute recommandation de mise en œuvre ; demander données, contraintes et revue indépendante.",
+        "epistemic": "derived-historical-scenario",
+        "evidence": [
+          "sagan-1973",
+          "cramer-2021",
+          "si",
+          "ei-2025",
+          "boundaries-2023",
+          "wright-2023",
+          "undp"
+        ],
+        "respondsTo": "R2"
+      }
+    ],
+    "dissent": [
+      "R2"
+    ],
+    "units": "EJ par année 2024 ; W moyens = J/s ; K = (log10(P/W) − 6)/10",
+    "limitations": [
+      "Fourniture totale ≠ électricité ou exergie. Plus de watts ne démontre ni paix, ni bien-être, ni soutenabilité ; les services rendus et impacts écologiques manquent.",
+      "Reproductibilité et contrôles de provenance ≠ validation indépendante ou causalité.",
+      "Sensibilités hypothétiques, pas intervalles de confiance.",
+      "Aucun bénéfice réel, adoption municipale ou autorisation terrain."
+    ],
+    "gate": {
+      "state": "RESEARCH_REVIEW_ONLY",
+      "by": "core.san-francisco.governance.gateway",
+      "reproducible": true,
+      "calibrated": false,
+      "independentReview": false,
+      "authorizesRealWorld": false,
+      "implementation": "BLOCKED",
+      "checks": [
+        "question-schema",
+        "pinned-local-inputs",
+        "role-policies",
+        "bounded-calculation",
+        "dissent-preserved"
+      ]
+    },
+    "fingerprint": "f14960d852c21b85ea4ed5061c11cb3d064d511ba30203715223dc2405485208"
+  }
+}

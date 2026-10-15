@@ -1,13 +1,8 @@
 // Exploratory energy accounting, never a human-worth score or evidence of field efficacy.
 import { createRequire } from 'node:module';
 const KNOW = createRequire(import.meta.url)('../../src/knowledge.js');
-const positive = x => { if (!Number.isFinite(x) || x <= 0) throw Error('Positive finite SI quantity required'); return x; };
-export const averagePower = (joules, seconds) => positive(positive(joules) / positive(seconds));
-export const saganIndex = watts => (Math.log10(positive(watts)) - 6) / 10;
-export function energyScenario(ej, days) {
-  const watts = averagePower(positive(ej) * 1e18, positive(days) * 86400);
-  return { energyEJ: ej, days, averageWatts: watts, index: saganIndex(watts), convention: 'Sagan interpolation; total energy supply proxy, not useful work', civilizationRank: null, efficacyValidated: false, authorizesRealWorld: false };
-}
+const RESEARCH = createRequire(import.meta.url)('../../src/research.js');
+export const { averagePower, saganIndex, energyScenario } = RESEARCH;
 export function validateResearch(catalog, { now = new Date().toISOString().slice(0, 10) } = {}) {
   const issues = [], ids = new Set();
   const day = s => typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s) && Number.isFinite(Date.parse(s)) && new Date(s).toISOString().slice(0, 10) === s && s <= now;
