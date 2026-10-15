@@ -7,6 +7,7 @@ import { loadIndex } from '../kb/browser.mjs';
 
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const safeUrl = u => (/^https:\/\//i.test(String(u || '')) ? u : '#');
+const vtext = v => [v.title, v.problem, v.solution].join('\n'); // diff input (plain text); the diff output is escaped
 export function download(name, text, type = 'text/markdown') { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type })); a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
 
 // Labs: structured dossier for the selected idea, appended under the checklist.
@@ -39,7 +40,7 @@ export function renderVaultTools(host, idea, { owner, save, toast, after }) {
     <div class="form">${last > 1 ? `<label>Comparer <select id="v-a">${vs.map(v => `<option ${v.n === last - 1 ? 'selected' : ''}>${v.n}</option>`).join('')}</select> avec <select id="v-b">${vs.map(v => `<option ${v.n === last ? 'selected' : ''}>${v.n}</option>`).join('')}</select></label><div id="v-diff" class="diff"></div>` : '<p class="fine">Une seule version : la comparaison apparaîtra à la prochaine révision.</p>'}</div></div>
     <div class="row2"><a class="btn" href="dialogue.html#idea=${encodeURIComponent(idea.id)}">Continuer dans Dialogue</a><button type="button" id="v-export">Exporter (déchiffré, sur cet appareil)</button><button type="button" class="ghost small" id="v-del">Supprimer l’idée</button></div></div>`);
   const showDiff = () => { const a = vs.find(v => v.n === +host.querySelector('#v-a').value), b = vs.find(v => v.n === +host.querySelector('#v-b').value);
-    host.querySelector('#v-diff').innerHTML = V.diffWords(`${a.title}\n${a.problem}\n${a.solution}`, `${b.title}\n${b.problem}\n${b.solution}`).map(d => d.op === 'same' ? esc(d.text) : `<${d.op === 'add' ? 'ins' : 'del'}>${esc(d.text)}</${d.op === 'add' ? 'ins' : 'del'}>`).join(''); };
+    host.querySelector('#v-diff').innerHTML = V.diffWords(vtext(a), vtext(b)).map(d => d.op === 'same' ? esc(d.text) : `<${d.op === 'add' ? 'ins' : 'del'}>${esc(d.text)}</${d.op === 'add' ? 'ins' : 'del'}>`).join(''); };
   if (last > 1) { host.querySelector('#v-a').onchange = host.querySelector('#v-b').onchange = showDiff; showDiff(); }
   host.querySelector('#v-meta').onsubmit = async e => { e.preventDefault(); const r = V.setMeta(idea, { category: host.querySelector('#v-cat').value || undefined, notes: host.querySelector('#v-notes').value }, owner); if (!r.ok) return toast(r.error); await save(r.value); toast('Enregistré (chiffré).'); after(); };
   host.querySelector('#v-export').onclick = () => { if (!confirm('Le fichier exporté n’est PAS chiffré. Continuer ?')) return; download(`core-idee-${idea.id}.json`, JSON.stringify({ exportedAt: new Date().toISOString(), note: 'Export local non chiffré. Une empreinte n’est ni un brevet ni une preuve de nouveauté.', idea }, null, 1), 'application/json'); };

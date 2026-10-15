@@ -94,3 +94,4 @@ textarea { width: 100%; min-height: 84px; resize: vertical; }
 .maplibregl-popup-anchor-bottom .maplibregl-popup-tip, .maplibregl-popup-anchor-bottom-left .maplibregl-popup-tip, .maplibregl-popup-anchor-bottom-right .maplibregl-popup-tip { border-top-color: #0d1117; }
 .maplibregl-popup-anchor-top .maplibregl-popup-tip, .maplibregl-popup-anchor-top-left .maplibregl-popup-tip, .maplibregl-popup-anchor-top-right .maplibregl-popup-tip { border-bottom-color: #0d1117; }
 .maplibregl-popup-anchor-left .maplibregl-popup-tip { border-right-color: #0d1117; } .maplibregl-popup-anchor-right .maplibregl-popup-tip { border-left-color: #0d1117; }
+body:has(#world-panel:not([hidden])) .perf { display: none; }
