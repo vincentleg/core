@@ -36,3 +36,8 @@ Ajout futur potentiellement utile : **SUMO offline seulement après qualificatio
 Critères de minimalisme, confiance, compatibilité et coût désormais approuvés ; aucun outil tiers ratifié par simple mention. Présence des exécutables/configs recontrôlée : Codex/Claude dans PATH, Ollama binaire utilisateur présent hors PATH, Ruflo/claude-flow/OmniRoute/LiteLLM/SUMO/netconvert non trouvés dans PATH. Inventaire des plugins/skills/configurations de la consolidation conservé comme preuve historique ; configurations privées non recopiées ni services redémarrés. Gains de mémoire/compression/routing non mesurés.
 
 Besoin concret actuel : qualification des mesures et revue indépendante. Aucun orchestrateur, MCP ou routeur supplémentaire ne résout les droits/holdout ; ajouts différés. SUMO reste candidat après données adéquates et revue de version/licence, sans installation implicite. Autorisations/résidence/export ou coût non vérifiés = refus de nouvelle adoption.
+
+
+## Réinspection de récupération — 2026-10-15 UTC
+
+Contrôle borné des exécutables : Codex et Claude CLI présents dans PATH ; Ollama, Ruflo/claude-flow, OmniRoute, LiteLLM, SUMO/netconvert absents de PATH. Les emplacements privés/plugins/configurations de la précédente inspection n’ont pas été rescannés : leurs états restent historiques, pas fraîchement attestés. Services et inférence non démarrés ; licences d’outils non adoptés non certifiées. Aucun outil, MCP, cache distant, routage, modèle ou skill installé. Réutilisation de Node/Git/GitHub CLI et du moteur de connaissances ; aucune économie en pourcentage affirmée. La disponibilité d’un outil de l’hôte n’en fait pas une dépendance du produit.

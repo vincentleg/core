@@ -38,3 +38,15 @@ Les 17 engagements initiaux ci-dessus restent traçables. Les cinq suivants prov
 | FC20 — Traçabilité contribution/impact et états d’autorisation distincts | WS12 D/H/J ; APPROUVÉ fondations | Ledger/tests/exemple synthétique ; preuve/revue/calcul/publication séparés ; états d’impact réel désactivés | Mandat/identité/validation avant toute opération terrain |
 | FC21 — Versions, échecs, corrections, attribution, export/retrait/effacement et transfert générationnel | WS12 A/F ; APPROUVÉ principes | SQLite privée, chronologie et export propriétaire ; suppression logique seulement | Rétention/succession/sauvegardes/droits restent OPEN |
 | FC22 — CORE Public → Civilization → Business sans fuite ni autorisation implicite | WS12 G ; APPROUVÉ frontière, modalités commerciales OPEN | Aucune base B2B interrogée, aucun privilège ou licence commerciale accordé | Approbation explicite crédit/licences/consentement/rémunération avant réutilisation commerciale |
+
+
+## Mandat de consolidation finale — 2026-10-15 UTC
+
+Origine : message explicite « FINAL CONSOLIDATION, SECURITY RECOVERY & SCIENTIFIC READINESS ». FC01–FC22 restent intacts ; pas de récupération fictive d’une décision ancienne.
+
+| ID / exigence | Origine / portée approuvée | Preuve et état | Prochaine action |
+| --- | --- | --- | --- |
+| FC23 — CORE = Creation Of Reborn Earth, entreprise soutenable et noyau participatif de savoir | Identité du mandat actuel ; vision approuvée, pas statut juridique ni communauté livrée | CIVILIZATION_RESEARCH, matrice WS1–12 et limites des trois produits | Préserver science et droits avant service |
+| FC24 — Kardashev comme fondation de recherche, énergie non suffisante pour le progrès | Phases E/identité du mandat ; recherche/calculs bornés autorisés | Catalogue daté, recherche locale existante réutilisée, calculs SI/testés ; origine Sagan détaillée encore partielle | Revue experte et métriques multi-axes sans classement humain |
+| FC25 — Paix, prospérité, liberté, coopération, soutenabilité et inspiration optimiste | Vision actuelle explicite ; aucune efficacité humanitaire inventée | Cadre proposé dans CIVILIZATION_RESEARCH ; pas d’index/poids ratifiés ou de mesures d’impact | Choisir indicateurs/sources/revue avant allégation |
+| FC26 — Récupérer cron et renforcer main sans casser l’automatisation | Phases B/C/H ; corrections/release autorisées, réglages conditionnés à OP01 et transition vérifiée | Régression temporelle corrigée ; payload/template PR inactifs, état API documenté | Rehearsal/run réel ; accord OP01, PR vérifiée puis protection sans bypass |

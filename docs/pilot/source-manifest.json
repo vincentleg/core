@@ -1,7 +1,7 @@
 {
   "version": 1,
   "purpose": "Source qualification only; no measured data redistributed or calibrated",
-  "checkedOn": "2026-10-14 America/Los_Angeles",
+  "checkedOn": "2026-10-15 UTC",
   "sources": [
     {
       "id": "sfmta-corridor-counts",
@@ -12,9 +12,31 @@
       "access": "CSV downloaded for metadata inspection only",
       "rawSha256": "b049deed278be9205f1d47190f8e8e5b706c46505c58fc22b6a8d75391ec2044",
       "coverage": "Catalog label 2014-2022; inspected records also predate 2014. Dates are row-level; no present-day validity inferred.",
-      "fields": ["CNN", "PRIMARY_STREET", "CROSS_STREET_1", "CROSS_ST_2", "DIRECTION", "DATE", "DATA_SOURCE", "VOLUME_ADT", "VOLUME_AM_PEAK", "VOLUME_PM_PEAK"],
-      "limitations": ["Not valid UTF-8 as retrieved; encoding not declared/verified", "Duplicate and blank columns/records require explicit normalization", "ADT versus measured daily total must be resolved per record", "No signal timings", "No suitable multi-day holdout established"],
-      "rights": {"status": "UNVERIFIED", "license": null, "reason": "No explicit reuse grant established for this CSV; DataSF PDDL cannot be borrowed for another website"}
+      "fields": [
+        "CNN",
+        "PRIMARY_STREET",
+        "CROSS_STREET_1",
+        "CROSS_ST_2",
+        "DIRECTION",
+        "DATE",
+        "DATA_SOURCE",
+        "VOLUME_ADT",
+        "VOLUME_AM_PEAK",
+        "VOLUME_PM_PEAK"
+      ],
+      "limitations": [
+        "Not valid UTF-8 as retrieved; encoding not declared/verified",
+        "Duplicate and blank columns/records require explicit normalization",
+        "ADT versus measured daily total must be resolved per record",
+        "No signal timings",
+        "No suitable multi-day holdout established"
+      ],
+      "rights": {
+        "status": "UNVERIFIED",
+        "license": null,
+        "reason": "No explicit reuse grant established for this CSV; DataSF PDDL cannot be borrowed for another website"
+      },
+      "metadataRecheck": "2026-10-15: identical raw SHA-256; Folsom Beale–Main block, CNN 5652000, dates 2017-12-13/14; no exact Howard 6th–7th corridor match established in this CSV. Street strings/CNN need geometric verification."
     },
     {
       "id": "sfmta-intersection-counts",
@@ -22,8 +44,19 @@
       "provider": "SFMTA",
       "catalogUrl": "https://www.sfmta.com/TrafficCounts",
       "sourceUrl": "https://www.sfmta.com/media/40634/download?inline=",
-      "access": "Official link verified; payload/schema/coverage not independently parsed",
-      "rights": {"status": "UNVERIFIED", "license": null}
+      "access": "CSV retrieved for metadata inspection only; UTF-8; 1189 non-header rows, including possible blanks; no measured table redistributed",
+      "rights": {
+        "status": "UNVERIFIED",
+        "license": null
+      },
+      "rawSha256": "d6f7809d7b68ab416bb68776edc56c5b05dbacf7bf52df2e16ef6ab494384c55",
+      "coverage": "Howard/6th 2016-01-21; Howard/7th 2015-02-11, 2015-06-30, 2016-01-14, 2016-01-21 from row-level metadata. No exact Folsom/Main intersection match identified.",
+      "limitations": [
+        "Historical isolated dates; not present-day flow",
+        "No compatible signal configuration established",
+        "Repeated dates/records do not establish independent holdout",
+        "Missing approach counts/units and source method require row-level qualification"
+      ]
     },
     {
       "id": "howard-location-6",
@@ -35,20 +68,53 @@
       "observedDate": "2018-10-17",
       "direction": "WB",
       "method": "Tube count; hourly volumes for one day",
-      "limitations": ["Single day, no independent-day holdout", "No signal configuration", "Historical geometry/timings must match 2018", "Access is not a redistribution license"],
-      "rights": {"status": "UNVERIFIED", "license": null}
+      "limitations": [
+        "Single day, no independent-day holdout",
+        "No signal configuration",
+        "Historical geometry/timings must match 2018",
+        "Access is not a redistribution license"
+      ],
+      "rights": {
+        "status": "UNVERIFIED",
+        "license": null
+      }
     },
     {
       "id": "existing-datasf-context",
       "kind": "administrative-and-reported-context-not-flow",
       "sourceUrl": "https://data.sf.gov/d/b6tj-gt35",
       "existingManifest": "data/sf9/manifest.json",
-      "rights": {"status": "PREVIOUSLY_DOCUMENTED", "license": "ODC-PDDL-1.0", "evidenceUrl": "https://data.sfgov.org/d/b6tj-gt35/about"},
-      "limitations": ["Permits and reported collisions do not measure vehicle flow or signal timing"]
+      "rights": {
+        "status": "PREVIOUSLY_DOCUMENTED",
+        "license": "ODC-PDDL-1.0",
+        "evidenceUrl": "https://data.sfgov.org/d/b6tj-gt35/about"
+      },
+      "limitations": [
+        "Permits and reported collisions do not measure vehicle flow or signal timing"
+      ]
     }
   ],
   "selection": "CONDITIONAL_SHORTLIST",
   "calibrationReady": false,
   "independentValidation": false,
-  "authorizesRealWorld": false
+  "authorizesRealWorld": false,
+  "rightsReview": {
+    "url": "https://www.sfmta.com/terms-of-use",
+    "checkedOn": "2026-10-15",
+    "finding": "Copyright clause reserves rights in editorial/creative assets; no explicit reuse grant established for vendor count tables. Not a legal conclusion that facts cannot be used. No measured payload redistributed."
+  },
+  "rankedConditionalShortlist": [
+    {
+      "rank": 1,
+      "corridor": "Howard 6th–7th",
+      "reason": "Prior 2018-10-17 tube-count PDF and adjacent historical intersection records; geometry/timings/rights unresolved",
+      "ready": false
+    },
+    {
+      "rank": 2,
+      "corridor": "Folsom/Main",
+      "reason": "Nearby Beale–Main corridor metadata on two 2017 days; exact intersection/timing and daily independence not established",
+      "ready": false
+    }
+  ]
 }
