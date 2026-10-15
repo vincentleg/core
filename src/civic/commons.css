@@ -1,0 +1,18 @@
+/* CORE Commons — scrollable document page on top of the World tokens (src/world/world.css). */
+html, body.commons { overflow: auto; height: auto; }
+#cm-main { max-width: 980px; margin: 0 auto; padding: calc(var(--navh) + 18px) 16px 60px; }
+#cm-main h1 { font: 600 24px var(--display); margin: 0 0 6px; }
+.cm-tabs { padding: 10px 0 0; border-bottom: 1px solid var(--line); }
+#cm-body { padding: 14px 0; display: grid; gap: 12px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; display: grid; gap: 8px; }
+.card h2 { margin: 0; font: 600 16px var(--display); } .card h3 { margin: 4px 0 0; font: 600 14px var(--display); }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.form { display: grid; gap: 8px; } .form label { display: grid; gap: 3px; font-size: 13px; } .form .inline { display: flex; gap: 8px; align-items: center; }
+.warn { border: 1px solid #5b4a1d; background: #f0b72f14; color: #f5d68a; border-radius: 6px; padding: 8px 10px; font-size: 13px; }
+.fict { border: 1px dashed var(--magenta); color: #ffc2ee; border-radius: 6px; padding: 6px 10px; font: 600 12px var(--mono); }
+.hash { font: 11.5px var(--mono); color: var(--muted); word-break: break-all; }
+.check { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; } .check li { padding: 6px 8px; border-radius: 6px; background: #0d1117; border-left: 3px solid var(--line); }
+.check li.present { border-left-color: #7ee0a0; } .check li.missing { border-left-color: var(--amber); }
+.tbl { width: 100%; border-collapse: collapse; font-size: 13px; } .tbl th, .tbl td { text-align: left; padding: 4px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; } .kpi { background: #0d1117; border: 1px solid var(--line); border-radius: 6px; padding: 8px; } .kpi b { display: block; font: 600 20px var(--display); color: var(--accent); }
+@media (max-width: 700px) { .bar nav a:nth-child(2) { display: none; } }

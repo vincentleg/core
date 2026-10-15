@@ -198,7 +198,8 @@ function renderPanel() {
     <h3>Preuves</h3><ul>${problem.evidence.map(e => `<li><a href="${esc(safeUrl(e.url))}" target="_blank" rel="noopener noreferrer">${esc(e.ref)}</a></li>`).join('')}</ul>
     <h3>Étapes du parcours scientifique</h3><ol class="stages">${stg.map(([l, ok]) => `<li class="${ok ? 'yes' : 'no'}"><b>${ok ? '✓' : '·'}</b>${esc(l)}${ok ? '' : ' — non atteint'}</li>`).join('')}</ol>
     <p class="fine">Aucune étape manquante n’est complétée par CORE : « non atteint » signifie qu’aucun enregistrement n’existe.</p>
-    <div class="row2"><button type="button" data-go="contribute">Contribuer</button><button type="button" data-go="chat">Interroger l’agent</button></div>`; }
+    <div class="row2"><button type="button" data-go="contribute">Contribuer</button><button type="button" data-go="chat">Interroger l’agent</button></div>
+    <p><a href="commons.html?tab=vault&amp;problem=${encodeURIComponent(PROBLEM_ID)}">Développer une idée en privé (coffre chiffré, CORE Commons) →</a></p>`; }
   if (S.tab === 'chat') {
     B.innerHTML = `<p class="fine">Réponses déterministes construites à partir des enregistrements (aucune IA générative). Conversation privée, non enregistrée, effacée à la fermeture du panneau.</p>
     <div class="chat" id="chat-log" aria-live="polite">${S.chat.map(m => `<div class="msg ${m.who}">${esc(m.text)}${m.note ? `<small>${esc(m.note)}</small>` : ''}</div>`).join('') || `<div class="msg agent">Bonjour. Je suis ${esc(agent.code)}. Que voulez-vous savoir sur ce trottoir ?<small>réponse déterministe · règles CORE</small></div>`}</div>

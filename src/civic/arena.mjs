@@ -40,9 +40,9 @@ export function judge(t, { who, entry, scores, notes }) {
   if (t.phase !== 'judging') return { ok: false, error: 'notation hors phase de jugement' };
   if (j.conflicts.includes(entry)) return { ok: false, error: 'conflit d’intérêts : ce juge ne note pas cette proposition' };
   if (!t.submissions[entry]) return { ok: false, error: 'proposition inconnue' };
-  for (const [id] of t.challenge.criteria) {
-    if (!Number.isInteger(scores[id]) || scores[id] < 0 || scores[id] > 4) return { ok: false, error: `note 0–4 requise pour ${id}` };
-    if (String(notes?.[id] ?? '').trim().length < 10) return { ok: false, error: `justification requise pour ${id}` };
+  for (const [id, label] of t.challenge.criteria) {
+    if (!Number.isInteger(scores[id]) || scores[id] < 0 || scores[id] > 4) return { ok: false, error: `note 0–4 requise : « ${label} »` };
+    if (String(notes?.[id] ?? '').trim().length < 10) return { ok: false, error: `justification requise : « ${label} »` };
   }
   return { ok: true, value: { ...t, sheets: { ...t.sheets, [`${who}→${entry}`]: { judge: who, entry, scores, notes } } } };
 }

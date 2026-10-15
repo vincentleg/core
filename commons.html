@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<title>CORE Commons — prototype local</title>
+<meta name="description" content="Prototype local de la couche humaine de CORE : identité pseudonyme, coffre à idées chiffré, Labs, arène fictive, Académie (démonstration enseignant), progrès.">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="src/world/world.css">
+<link rel="stylesheet" href="src/civic/commons.css">
+</head>
+<body class="commons">
+<a class="skip" href="#cm-body">Aller au contenu</a>
+<header class="bar">
+  <span class="mark">C<span>◯</span>RE <b>Commons</b></span>
+  <span class="proto">PROTOTYPE LOCAL · V4</span>
+  <nav aria-label="Liens"><a href="world.html">CORE World</a><a href="index.html#app">CORE Intelligence</a><a href="privacy.html">Confidentialité</a></nav>
+</header>
+<main id="cm-main">
+  <h1>La couche humaine de CORE</h1>
+  <p class="fine">Tout reste dans ce navigateur : pas de compte, pas de serveur, rien n’est transmis. Les idées privées ne sont enregistrées que chiffrées avec votre phrase secrète. Les défis de l’arène et les élèves de l’Académie sont <b>fictifs</b>.</p>
+  <div class="tabs cm-tabs" role="tablist" aria-label="Sections">
+    <button type="button" role="tab" data-tab="profile" aria-selected="true">Profil</button>
+    <button type="button" role="tab" data-tab="vault" aria-selected="false">Coffre à idées</button>
+    <button type="button" role="tab" data-tab="labs" aria-selected="false">Labs</button>
+    <button type="button" role="tab" data-tab="arena" aria-selected="false">Arène (fictive)</button>
+    <button type="button" role="tab" data-tab="academy" aria-selected="false">Académie</button>
+    <button type="button" role="tab" data-tab="progress" aria-selected="false">Progrès</button>
+  </div>
+  <section id="cm-body" role="tabpanel" tabindex="-1" aria-live="polite"></section>
+  <p id="toast" class="toast" role="status" aria-live="polite"></p>
+</main>
+<script type="module" src="src/civic/commons.mjs"></script>
+</body>
+</html>
