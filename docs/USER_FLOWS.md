@@ -1,7 +1,7 @@
 # CORE — user flows (implemented features only, 2026-10-15)
 
 Each flow names what exists today, how it fails, and which automated check covers it.
-- "Main audit" is `scripts/browser-audit.mjs` (Chromium 155 and Firefox 122: 162/162 on 2026-10-15).
+- "Main audit" is `scripts/browser-audit.mjs`. On 2026-10-15: Chromium 155 162/162 (three runs). Firefox 122: 159/159 once on MapLibre 6.11.2, then 161/162 and twice 117/162, when the map stopped drawing mid-run (see `docs/development/MASTER_UPGRADE_V2_REPORT.md`).
 - "Negative" is `scripts/browser-negative-audit.mjs` (Chromium only).
 - "Lab" is `scripts/research-browser.mjs`.
 

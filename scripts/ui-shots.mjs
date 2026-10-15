@@ -1,7 +1,9 @@
 // Screenshots of key states for visual review (Phase 6). node scripts/ui-shots.mjs [url] [outPrefix] [width] [height]
 import fs from 'node:fs';
+// DevTools port of an isolated browser you started (never a personal profile). CORE_CDP_PORT overrides the default 9222.
+const CDP = Number(process.env.CORE_CDP_PORT || 9222);
 const [url = 'http://localhost:8000/', prefix = 'test-results/phase6/shot', W = '1440', H = '900'] = process.argv.slice(2);
-const tab = await (await fetch('http://127.0.0.1:9222/json/new?about:blank', { method: 'PUT' })).json();
+const tab = await (await fetch(`http://127.0.0.1:${CDP}/json/new?about:blank`, { method: 'PUT' })).json();
 const ws = new WebSocket(tab.webSocketDebuggerUrl); await new Promise(r => ws.addEventListener('open', r, { once: true }));
 let n = 0; const pend = new Map(), errors = [];
 ws.addEventListener('message', e => { const m = JSON.parse(e.data); if (m.id) pend.get(m.id)?.(m); else if (m.method === 'Runtime.exceptionThrown') errors.push(m.params.exceptionDetails.text + ' ' + (m.params.exceptionDetails.exception?.description || '').slice(0, 200)); });
@@ -24,4 +26,4 @@ const defaults = [
 ];
 for (const [name, js, ms] of steps.length ? steps : defaults) { await ev(js); await wait(ms); await shot(name); }
 console.log(JSON.stringify({ errors }));
-ws.close(); await fetch(`http://127.0.0.1:9222/json/close/${tab.id}`);
+ws.close(); await fetch(`http://127.0.0.1:${CDP}/json/close/${tab.id}`);
