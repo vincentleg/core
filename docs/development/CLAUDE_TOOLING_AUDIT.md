@@ -74,3 +74,21 @@ The Edit/data guard is therefore defence in depth, not a complete barrier. The `
 - Approve or discard these uncommitted changes. Nothing has been committed or pushed.
 - Identify "Edge Rope" if it was not Edgee.
 - Optionally approve a one-off run of `claude-code-setup` as a second opinion.
+
+## Advertised Claude skills (UI/UX, SEO, accessibility, marketing, legal checklists…) — 2026-10-15
+
+No specific skill package or source was supplied, so none can be verified or installed. Any proposed skill must pass these checks before use:
+- authentic source and maintainer, licence, and full read of its instructions and scripts;
+- filesystem, network and secret access, and external transmission of repository content;
+- supply-chain risk and compatibility with `.claude/settings.json` deny rules and FD08/FD09;
+- measured incremental value and cost.
+
+Skills that hide AI use, bypass provider limits or evade security controls are refused outright.
+
+The compliance audit (`docs/compliance/`) was done with existing tools only:
+- `grep`;
+- the repository's Chromium audits;
+- a scratch CDP DOM probe, not committed;
+- GitHub's public advisory API, which received only the public package name.
+
+Built-in Claude Code skills (`/code-review`, `/security-review`, `/simplify`) cover review needs. Marketing claims about token savings or productivity are not treated as evidence. **Decision: nothing installed.**

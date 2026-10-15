@@ -60,7 +60,16 @@ Stored word for word in [docs/history/2026-10-15_CORE_FOUNDATIONAL_SPEC_v0.1.md]
 - **§13:** the counts 14/11/6/3/6/4 = 44 match the reconciled matrix.
 - **§14:** the acceptance principle matches the audit's evidence rule.
 
-### Conflicts and differences — OPEN, FOUNDER DECISION REQUIRED
+### Conflicts and differences — R1–R5 resolved by founder decision FD10 (2026-10-15)
+
+Resolutions, in short:
+- **R1.** Civilization stays the immediate technical priority. World is the long-term participatory interface, distinct but connected, with its own milestones. It is not optional-forever and not decorative.
+- **R2.** AI-infrastructure, energy, cooling, water and computing efficiency is retained as a *potential* initial Business opportunity. The Phase 14 pilot is unchanged without authorization, and FD09 applies.
+- **R3.** Avatar evolution may reflect verified contributions and outcomes, and never ranks human worth (FC19).
+- **R4.** All V1 and FD01–FD09 protections remain; none is weakened.
+- **R5.** Nothing historical is invented; missing sources stay declared missing.
+
+The table below keeps the original wording of each conflict for traceability.
 | # | V0.1 | Ratified repository text | Decision needed |
 |---|---|---|---|
 | R1 | Two systems: **CORE Business** and **CORE World**, where World is "the accessible, participatory civilizational platform" with its own governance | Constitution V1 §1 and FD02/FC13: **Civilization is the priority**, Business is the future professional offer, **World is an optional, distant B2C extension**; WS12 adds "CORE Public" for participation | Is V0.1 "World" the same as V1 "Civilization" plus "Public"? Does World's priority change? Until decided, V1 wording and priority apply |
@@ -74,4 +83,4 @@ Stored word for word in [docs/history/2026-10-15_CORE_FOUNDATIONAL_SPEC_v0.1.md]
 - **Virtual Earth showing five epistemic categories** (§3: real observation, model, simulated scenario, unverified proposal, measured impact): current UI labels distinguish synthetic, recorded and local-live, and the science pages label hypotheses. No unified five-category legend exists, and "measured impact" has no instance. It would be PARTIAL.
 - **Measured-outcome tracking for Business clients** (§2): none. It would be MISSING (depends on R2 and Track 2 "impact targets").
 
-Track 1 priorities are unchanged. Track 2 stays blocked on the original briefs and on the OPEN items in V0.1 §§2, 4, 5, 10, 15 and R1–R5.
+Track 1 priorities are unchanged. Track 2 stays blocked on the original briefs and on the OPEN items in V0.1 §§2, 4, 5, 10 and 15. R1–R5 are resolved (FD10); the civilization details, Business terms, identity and avatar mechanics, impact framework and historical briefs remain OPEN — FOUNDER DECISION REQUIRED.

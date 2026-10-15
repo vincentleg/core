@@ -2,7 +2,7 @@
 Provenance: pasted verbatim by the founder in the Claude Code session of 2026-10-15 (UTC), on branch
 consolidation/phase9-13 at bb0f4ff, after the foundational audit. Self-declared status: "Draft for founder review,
 not a final ratified constitution". It is a reconstruction written on 2026-10-15, NOT an original historical brief.
-It does not supersede Constitution V1 or FD01–FD09. Reconciliation: docs/development/CORE_IMPLEMENTATION_RECOVERY_PLAN.md
+It does not supersede Constitution V1 or FD01–FD09. Reconciliation: docs/development/CORE_FOUNDATIONAL_RECOVERY_PLAN.md
 § "Reconstructed specification V0.1". Text below is unedited.
 -->
 

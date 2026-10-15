@@ -42,7 +42,7 @@ Branch `consolidation/phase9-13` @ `5f20d09` + this audit. Evidence = code, test
 
 | Principle | Source | Enforced in code | Only described | Status |
 |---|---|---|---|---|
-| Business and World as distinct layers | FC13, FC22, FD02 | Boundary only: no B2B data path; `authorizesRealWorld:false` | Business (identity, RBAC, signatures) and World (B2C/XR) exist only as text | **DOCUMENTED ONLY** (both layers) |
+| Business and World as distinct layers | FC13, FC22, FD02 | Boundary only: no B2B data path; `authorizesRealWorld:false` | Business (identity, RBAC, signatures) and World exist only as text; priorities fixed by FD10 R1/R2 (Civilization first; World the long-term participatory interface; Business potential AI-infrastructure efficiency) | **DOCUMENTED ONLY** (both layers) |
 | Accessible public participation | FC19, WS12 | Synthetic contribution sandbox (`scripts/lib/contributions.mjs`), static accessible lab page | No public submission, accounts or moderation | **PROTOTYPE** |
 | Transparent scientific proposals | FC01, P11, P13 | Dossiers with sources, hashes, dissent and limits; `research.html` | — | **VERIFIED COMPLETE** (bounded adapters) |
 | Evidence verification | FC03 | Gateways recompute; pinned hashes; fail-closed tests | — | **VERIFIED COMPLETE** (deterministic checks); not field verification |
@@ -93,6 +93,7 @@ Branch `consolidation/phase9-13` @ `5f20d09` + this audit. Evidence = code, test
 | Data rights per source (FD09) | **PARTIAL** | `docs/DATA_SOURCES.md`; NYC ATR blocked; SF counts unverified |
 | `main` protection | **BLOCKED** (OP01) | Live API: unprotected; proposal ready |
 | Test isolation from owner state | **VERIFIED COMPLETE** (defect fixed in this audit) | The scheduler test overwrote `.core-local/civd-status.json`, which the control centre shows as real activity. Isolated queues now report next to themselves; the test asserts the owner's file is untouched. The owner's current file still holds test output until the next real run. Every test that writes `.core-local` was reviewed: the others work in temporary directories (`process.chdir(mkdtemp)`) or per-process files that they remove |
+| Known vulnerabilities in vendored code | **PARTIAL** | MapLibre 5.7.3 is affected by GHSA-jrc7-96c5-q579 (critical XSS sanitizer bypass, fixed in 6.4.1). Mitigated by the CSP (no inline handlers); upgrade pending founder approval; `docs/compliance/SECURITY_AND_INCIDENT_READINESS.md` S2 |
 | Browsers beyond Chromium | **MISSING** | Firefox/Safari never verified |
 
 ## Commitments that cannot be recovered from repository evidence
@@ -119,11 +120,13 @@ Reconciled 2026-10-15. Changes from the first count:
 | Status | Rows |
 |---|---|
 | Verified complete | 14 |
-| Partial | 11 |
+| Partial | 12 |
 | Prototype | 6 |
 | Documented only | 3 |
 | Missing | 6 |
 | Blocked | 4 |
-| **Total** | **44** |
+| **Total** | **45** |
 
 No foundational *civilization* or *validation* requirement is complete. The verified rows are infrastructure for truthfulness (identities, memory, provenance, gates, honest labels), not the civilization or the empirical results themselves.
+
+Compliance, privacy, security and launch readiness: [`docs/compliance/`](../compliance/CORE_COMPLIANCE_AUDIT.md). Founder rulings R1–R5 on the reconstructed spec V0.1: FD10.
