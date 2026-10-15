@@ -72,9 +72,10 @@
       else if (x.type === 'decision') setState(x.from, 'coordinate', 'reporting', 'décision proposée à la revue humaine (relecture)');
       await wait(900);
     }
-    await wait(1500);
+    // A stopped run must not touch the world again: a mission replay may have taken over the agents meanwhile.
+    await wait(1500); if (run !== S.run) return;
     for (const id of parts) { const A = M().state.agents.get(id); if (A && A.mode !== 'post') M().toPost(id, 'retour au poste après la mission (relecture)', 5000 / S.speed); }
-    await wait(2500); M().dim(null); arc(null);
+    await wait(2500); if (run !== S.run) return; M().dim(null); arc(null);
   }
   // Great-circle arc between the participating cities (display only), with the recorded mission's label.
   function arc(m) {

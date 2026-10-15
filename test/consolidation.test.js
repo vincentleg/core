@@ -92,3 +92,27 @@ test('every HTML escaper escapes the five HTML-significant characters (S5 innerH
   assert.ok(seen >= 15, `escapers found: ${seen}`);
 });
 
+
+test('a stopped activity playback cannot undo a mission replay that started after it (dim / return-to-post race)', async () => {
+  const vm = require('node:vm');
+  // Inert DOM and map: any property is a callable that returns another inert object.
+  const inert = () => new Proxy(function () {}, { get: (t, k) => k === Symbol.toPrimitive ? () => '' : k in t ? t[k] : (t[k] = inert()), set: (t, k, v) => { t[k] = v; return true; }, apply: () => inert() });
+  const timers = [], dims = [], posts = [];
+  const msg = { type: 'note', from: 'a', to: 'a', purpose: 'p', at: '2026-10-15T00:00:00Z' };
+  const mission = { id: 'm1', title: 't', nhood: 'n', messages: [msg], subtasks: [] };
+  const agents = new Map([['a', { agent: { id: 'a', code: 'A' }, pos: [0, 0], mode: 'coordinate' }], ['r', { agent: { id: 'r', code: 'R' }, pos: [0, 0], mode: 'replay' }]]);
+  const ctx = { document: inert(), matchMedia: () => ({ matches: false }), performance: { now: () => 0 }, requestAnimationFrame: () => 0, CustomEvent: function () {},
+    setTimeout: f => timers.push(f), fetch: async u => ({ ok: true, json: async () => (u.includes('index') ? { missions: [{ id: 'm1', file: 'm1.json' }] } : mission) }),
+    CORE_MOTION: { state: { ready: true, map: inert(), agents, dirty: false }, ensure: async () => {}, dim: ids => dims.push(ids), toPost: id => posts.push(id), go() {} } };
+  vm.createContext(ctx); vm.runInContext(fs.readFileSync(path.join(__dirname, '..', 'src/civ-activity.js'), 'utf8'), ctx);
+  const A = ctx.CORE_ACTIVITY, tick = () => new Promise(r => setImmediate(r));
+  const done = A.playOnly('m1');
+  for (let i = 0; i < 5; i++) await tick();
+  timers.shift()(); await tick();                 // the single recorded message has played; the 1.5 s pause is pending
+  assert.equal(timers.length, 1);
+  A.stop(); ctx.CORE_MOTION.dim(['r']); posts.length = 0; // a mission replay takes over the world
+  while (timers.length) { timers.shift()(); await tick(); }
+  await done;
+  assert.deepEqual(dims.at(-1), ['r'], 'the replay keeps its dimming');
+  assert.deepEqual(posts, [], 'no replay participant is sent back to its post by the stopped playback');
+});
