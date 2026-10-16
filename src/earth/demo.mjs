@@ -1,83 +1,127 @@
-// CORE V8 — « Experience CORE »: an autonomous guided tour of about four minutes in 12 acts, driven through the public
-// World API (no private data, nothing shared, nothing recorded). Start, pause, skip and exit at any time; Space pauses,
-// → skips, Esc exits. Reduced motion: camera jumps instead of flights. Every act states what is real, synthetic or simulated.
-import { lang } from '../i18n/i18n.mjs';
+// CORE — « Experience CORE »: one state-driven controller, two modes over the SAME stages, scenes, data and evidence.
+//  • auto   — the Autonomous Tour: automated navigation and playback (not autonomous AI). Each stage runs its actions,
+//             waits until its scene is actually ready (completion condition, bounded), then holds for its duration.
+//             A manual interaction with the map pauses the tour; Resume continues from where it stopped.
+//  • manual — Step by Step: the same stages; nothing advances until the person presses Next.
+// Controls: Previous, Next, Pause/Resume, Restart, Exit, progress and current title; Space / ← / → / Esc. Captions are
+// always shown; narration (device voices only, never cloud speech) is optional and off by default. If a stage's scene
+// cannot load, its fallback runs and the tour continues. Nothing is shared or stored by the tour.
+import { T, lang } from '../i18n/i18n.mjs';
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const wait = ms => new Promise(r => setTimeout(r, ms));
-const T = {
-  en: { title: 'Experience CORE', start: 'Start the tour', pause: 'Pause', resume: 'Resume', skip: 'Next', exit: 'Exit', of: 'of',
-    intro: 'A four-minute guided tour in 12 acts. You can pause, skip or leave at any moment. Nothing you do is recorded or shared.',
-    acts: [
-      ['Earth', 'This is Earth — the real one, drawn from open map data and NASA imagery. CORE builds a parallel version of it.'],
-      ['A region', 'Every layer is labelled: observed, derived, simulated or unknown. Here, the San Francisco Bay Area.'],
-      ['A city', 'In San Francisco, CORE runs research missions on public, dated data: housing, energy, road safety, mobility.'],
-      ['The agents', 'These holograms are registered CORE agents — software identities with roles, not people, and not free-running AI. Their work is coded computation.'],
-      ['A mission', 'The mobility mission asks: what could reduce delays on Folsom Street without harming buses, safety or equity — and what can we actually know?'],
-      ['What we do not know', 'No public traffic counts. Signal timings unpublished. CORE declares these gaps instead of filling them with guesses.'],
-      ['Simulate: a bus lane', 'A recorded SUMO simulation on the real street network. In this uncalibrated model, the bus lane breaks where Folsom narrows — buses get trapped. Not supported.'],
-      ['Compare: adaptive signals', 'Actuated signals cut modelled delays for cars and buses. Promising — but only in a model without real counts. Human review required.'],
-      ['Street level', 'Walk the street among the agents. They stand on mapped walkways, never inside buildings.'],
-      ['Your turn', '“I noticed something.” Describe what you see; CORE structures it. You decide whether it stays private or is shared — never automatically.'],
-      ['Honest progress', 'Knowledge, gaps, simulations and participation are counted separately. Verified real-world impact: zero. Energy use: Kardashev ≈ 0.73.'],
-      ['CORE', 'A parallel world to help humanity improve the real one.'],
-    ] },
-  fr: { title: 'Découvrir CORE', start: 'Commencer la visite', pause: 'Pause', resume: 'Reprendre', skip: 'Suivant', exit: 'Quitter', of: 'sur',
-    intro: 'Une visite guidée de quatre minutes en 12 actes. Vous pouvez mettre en pause, passer ou quitter à tout moment. Rien n’est enregistré ni partagé.',
-    acts: [
-      ['La Terre', 'Voici la Terre — la vraie, dessinée à partir de cartes ouvertes et d’images de la NASA. CORE en construit une version parallèle.'],
-      ['Une région', 'Chaque couche est étiquetée : observée, dérivée, simulée ou inconnue. Ici, la baie de San Francisco.'],
-      ['Une ville', 'À San Francisco, CORE mène des missions de recherche sur des données publiques datées : logement, énergie, sécurité routière, mobilité.'],
-      ['Les agents', 'Ces hologrammes sont des agents CORE enregistrés — des identités logicielles avec un rôle, pas des personnes, ni des IA libres. Leur travail est du calcul codé.'],
-      ['Une mission', 'La mission mobilité demande : qu’est-ce qui pourrait réduire les retards sur Folsom sans nuire aux bus, à la sécurité ni à l’équité — et que peut-on vraiment en savoir ?'],
-      ['Ce que l’on ne sait pas', 'Aucun comptage public. Minutage des feux non publié. CORE déclare ces lacunes au lieu de les combler par des suppositions.'],
-      ['Simuler : une voie de bus', 'Une simulation SUMO enregistrée sur le vrai réseau. Dans ce modèle non calibré, la voie bus casse là où Folsom se rétrécit — les bus restent bloqués. Non étayé.'],
-      ['Comparer : feux adaptatifs', 'Les feux actionnés réduisent les retards modélisés des voitures et des bus. Prometteur — mais seulement dans un modèle sans comptages réels. Revue humaine requise.'],
-      ['À hauteur humaine', 'Marchez dans la rue parmi les agents. Ils se tiennent sur les trottoirs cartographiés, jamais dans les bâtiments.'],
-      ['À vous', '« J’ai remarqué quelque chose. » Décrivez ce que vous voyez ; CORE le structure. Vous décidez s’il reste privé ou s’il est partagé — jamais automatiquement.'],
-      ['Un progrès honnête', 'Connaissance, lacunes, simulations et participation sont comptées séparément. Impact réel vérifié : zéro. Énergie : Kardashev ≈ 0,73.'],
-      ['CORE', 'Un monde parallèle pour aider l’humanité à améliorer le monde réel.'],
-    ] },
-};
-export const ACT_MS = 20000;
+const MOB = 'mission.sf.mobility';
+const P = (en, fr) => ({ en, fr });
+const scroll = sel => { const el = document.querySelector(sel); el?.scrollIntoView({ block: 'center', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); return !!el; };
+const panelIs = (E, kind) => !document.getElementById('ea-panel').hidden && E.state.panelKind?.kind === kind;
+const closePanel = () => { document.getElementById('ea-panel').hidden = true; };
+const leave = async E => { if (E.state.mode === 'human') E.leaveHuman(); };
 
-// E: the World API (CORE_EARTH). Returns a controller.
-export function createDemo(E, root = document.body) {
-  const L = T[lang()] || T.en, reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const S = { i: -1, paused: false, left: 0, t0: 0, timer: 0, running: false, done: false };
-  const el = document.createElement('section'); el.className = 'demo le-glass'; el.setAttribute('role', 'region'); el.setAttribute('aria-label', L.title); el.setAttribute('aria-live', 'polite');
-  root.append(el);
-  const panelOff = () => { const p = document.getElementById('ea-panel'); if (p) p.hidden = true; };
-  const ACTS = [
-    async () => { panelOff(); E.revealMap(); await E.goScale('planet'); },
-    async () => { await E.goScale('region'); },
-    async () => { await E.flyTo([-122.4085, 37.7790], 15.2); E.setLayer('hybrid'); },
-    async () => { E.setLayer('agents'); const R = E.civ(); const busy = R?.agents.find(a => R.activity(a.id).state === 'working' || R.activity(a.id).state === 'inspecting'); if (busy) E.followAgent(busy.id); },
-    async () => { E.state.follow = null; E.setLayer('hybrid'); E.showMission('mission.sf.mobility'); },
-    async () => { const p = document.querySelector('#ea-panel .pp-unc'); p?.scrollIntoView({ block: 'center', behavior: reduced ? 'auto' : 'smooth' }); },
-    async () => { await E.playSimulation('A'); },
-    async () => { await E.playSimulation('B'); document.querySelector('#ea-panel .scn-table')?.scrollIntoView({ block: 'center' }); },
-    async () => { E.hideSimulation?.(true); if (E.state.quality !== 'low') { await E.enterHuman(); } },
-    async () => { if (E.state.mode === 'human') await E.goScale('city'); E.showNoticed(); const t = document.getElementById('nt-text'); if (t) { t.value = L === T.fr ? 'Le matin, les bus restent bloqués sur Folsom entre la 5th et la 6th ; peut-être à cause des voitures qui tournent.' : 'In the morning, buses get stuck on Folsom between 5th and 6th; maybe because of turning cars.'; document.getElementById('nt-form')?.requestSubmit(); } },
-    async () => { panelOff(); },
-    async () => { panelOff(); await E.goScale('planet'); },
-  ];
+// Each stage: id, title, say (caption, ~1–2 sentences), info (what / why / doing / real / simulated / interact / next),
+// run(E) actions, ready(E) completion condition, ms (hold duration in auto mode), fallback(E).
+export const STAGES = [
+  { id: 'welcome', ms: 15000, title: P('Welcome to CORE', 'Bienvenue dans CORE'),
+    say: P('CORE is a parallel version of Earth, built to help solve problems in the real one. Software agents investigate real problems; people can join them.', 'CORE est une version parallèle de la Terre, conçue pour aider à résoudre des problèmes dans le monde réel. Des agents logiciels examinent des problèmes réels ; chacun peut les rejoindre.'),
+    info: { what: P('The globe you can explore.', 'Le globe que vous pouvez explorer.'), why: P('Real problems need evidence, many skills and many people.', 'Les problèmes réels demandent des preuves, des compétences et beaucoup de monde.'), doing: P('Nothing yet: this is the starting point.', 'Rien encore : c’est le point de départ.'), real: P('Geography and imagery (OpenStreetMap, NASA).', 'Géographie et imagerie (OpenStreetMap, NASA).'), simulated: P('Nothing on this screen.', 'Rien sur cet écran.'), interact: P('Drag to turn the globe.', 'Faites glisser pour tourner le globe.') },
+    run: async E => { await leave(E); closePanel(); E.revealMap(); E.setLayer('real', { intro: false }); await E.goScale('planet'); }, ready: E => E.state.scale === 'planet' },
+  { id: 'real-earth', ms: 16000, title: P('The Real Earth', 'La Terre réelle'),
+    say: P('This layer is the physical world: real geography and public data, each item labelled as observed, derived, simulated or unknown.', 'Cette couche est le monde physique : géographie réelle et données publiques, chaque élément étiqueté observé, dérivé, simulé ou inconnu.'),
+    info: { what: P('The San Francisco Bay Area, Real Earth view.', 'La baie de San Francisco, vue Terre réelle.'), why: P('Every investigation starts from evidence about a real place.', 'Toute investigation part de preuves sur un lieu réel.'), doing: P('Showing recorded problems from public datasets.', 'Affichage des problèmes enregistrés depuis des jeux publics.'), real: P('Streets, terrain, recorded problems.', 'Rues, relief, problèmes enregistrés.'), simulated: P('None.', 'Aucun.'), interact: P('Markers open the recorded problem and its source.', 'Les marqueurs ouvrent le problème enregistré et sa source.') },
+    run: async E => { E.setLayer('real', { intro: false }); await E.goScale('region'); }, ready: E => E.state.scale === 'region' },
+  { id: 'parallel-earth', ms: 17000, title: P('The Parallel Earth', 'La Terre parallèle'),
+    say: P('Switching to CORE World: the parallel research civilisation. Each light is a registered software agent — not a person, and not an independent AI. Bright ones are assigned to a task.', 'Passage au Monde CORE : la civilisation de recherche parallèle. Chaque lumière est un agent logiciel enregistré — pas une personne, ni une IA indépendante. Les plus lumineux sont affectés à une tâche.'),
+    info: { what: P('501 registered agent identities in San Francisco, organised in teams.', '501 identités d’agents enregistrées à San Francisco, organisées en équipes.'), why: P('Big problems need many specialities working in parallel.', 'Les grands problèmes demandent de nombreuses spécialités en parallèle.'), doing: P('A deterministic engine assigns tasks; a local language model is used only for explicitly marked steps.', 'Un moteur déterministe affecte les tâches ; un modèle de langage local n’est utilisé que pour des étapes explicitement marquées.'), real: P('The tasks, messages and evidence are recorded events.', 'Les tâches, messages et preuves sont des événements enregistrés.'), simulated: P('Agent positions are a visualisation; posts are virtual.', 'Les positions des agents sont une visualisation ; les postes sont virtuels.'), interact: P('Click an agent to see what it is doing.', 'Cliquez un agent pour voir ce qu’il fait.') },
+    run: async E => { closePanel(); E.setLayer('agents', { intro: false }); await E.flyTo([-122.418, 37.768], 12.6); }, ready: E => E.state.layer?.mode === 'agents' },
+  { id: 'city-challenges', ms: 17000, title: P('A City With Real Challenges', 'Une ville aux défis réels'),
+    say: P('San Francisco is the first city. Housing, mobility, energy, road safety, the urban forest: each domain is shown with its maturity — active research, exploratory, demonstration or planned.', 'San Francisco est la première ville. Logement, mobilité, énergie, sécurité routière, forêt urbaine : chaque domaine est montré avec sa maturité — recherche active, exploratoire, démonstration ou prévue.'),
+    info: { what: P('The Problems & missions panel.', 'Le panneau Problèmes et missions.'), why: P('CORE is about many problems, not one street.', 'CORE porte sur de nombreux problèmes, pas une seule rue.'), doing: P('Listing each mission’s findings, gaps and simulation status.', 'Liste des constats, lacunes et simulations de chaque mission.'), real: P('Findings are computed on dated public data.', 'Les constats sont calculés sur des données publiques datées.'), simulated: P('Only the mobility mission has a (recorded) simulation.', 'Seule la mission mobilité a une simulation (enregistrée).'), interact: P('Open any mission.', 'Ouvrez n’importe quelle mission.') },
+    run: async E => { E.setLayer('hybrid', { intro: false }); await E.flyTo([-122.405, 37.778], 14.4); E.showProblems(); }, ready: E => panelIs(E, 'problems') },
+  { id: 'choose-problem', ms: 18000, title: P('Choose a Problem', 'Choisir un problème'),
+    say: P('We open the mobility mission: delays on Folsom Street in SoMa. The mission states the problem, why it matters, what is known, what is not, and what you can do.', 'Nous ouvrons la mission mobilité : les retards sur Folsom Street, à SoMa. La mission dit le problème, pourquoi il compte, ce qui est connu, ce qui ne l’est pas, et ce que vous pouvez faire.'),
+    info: { what: P('The mission workspace.', 'L’espace de la mission.'), why: P('Congestion slows buses many residents depend on.', 'La congestion ralentit des bus dont dépendent de nombreux habitants.'), doing: P('Agents retrieve data, simulate, critique and write a dossier.', 'Les agents récupèrent des données, simulent, critiquent et rédigent un dossier.'), real: P('The OpenStreetMap network and DataSF signal locations.', 'Le réseau OpenStreetMap et l’emplacement des feux DataSF.'), simulated: P('Traffic demand and signal timing.', 'La demande de trafic et le minutage des feux.'), interact: P('Scroll the mission; every claim cites its source.', 'Faites défiler la mission ; chaque affirmation cite sa source.') },
+    run: async E => { await E.openMission(MOB); }, ready: E => panelIs(E, 'mission') },
+  { id: 'agent-civilization', ms: 16000, title: P('Meet the Agent Civilisation', 'La civilisation des agents'),
+    say: P('Agents are organised as software coordination, not power: global coordination, councils, the city, mission teams and specialists. No level can approve a conclusion or authorise real action.', 'Les agents sont organisés comme une coordination logicielle, pas un pouvoir : coordination globale, conseils, ville, équipes de mission et spécialistes. Aucun niveau ne peut approuver une conclusion ni autoriser une action réelle.'),
+    info: { what: P('The organisation of the 510 registered agents.', 'L’organisation des 510 agents enregistrés.'), why: P('Specialists, critics and verifiers need clear roles.', 'Spécialistes, critiques et vérificateurs ont besoin de rôles clairs.'), doing: P('Routing tasks by speciality.', 'Répartition des tâches par spécialité.'), real: P('A published registry of identities.', 'Un registre publié d’identités.'), simulated: P('Identities are generated; none is a person or a professional.', 'Les identités sont générées ; aucune n’est une personne ni un professionnel.'), interact: P('Open any team or agent.', 'Ouvrez n’importe quelle équipe ou agent.') },
+    run: async E => { E.showHierarchy(); }, ready: E => panelIs(E, 'hierarchy') },
+  { id: 'agents-work', ms: 18000, title: P('Watch Agents Work', 'Les agents au travail'),
+    say: P('The team workspace lists every task of the mission, which agents did it, what they produced and which evidence they shared. Nothing here is drawn without a recorded event behind it.', 'L’espace d’équipe liste chaque tâche de la mission, les agents qui l’ont faite, ce qu’ils ont produit et les preuves partagées. Rien n’est affiché sans événement enregistré derrière.'),
+    info: { what: P('Tasks, outputs, disagreements, blockers.', 'Tâches, productions, désaccords, blocages.'), why: P('You should be able to check what an agent actually did.', 'Vous devez pouvoir vérifier ce qu’un agent a réellement fait.'), doing: P('Retrieval, simulation reading, critique, dossier.', 'Récupération, lecture des simulations, critique, dossier.'), real: P('A hash-chained event log in this browser.', 'Un journal d’événements chaîné dans ce navigateur.'), simulated: P('Agent identities and pacing.', 'Identités et rythme des agents.'), interact: P('Click a task output to read the message.', 'Cliquez une production pour lire le message.') },
+    run: async E => { E.showTeam(MOB); }, ready: E => panelIs(E, 'team') },
+  { id: 'evidence', ms: 17000, title: P('Understand the Evidence', 'Comprendre les preuves'),
+    say: P('Known facts are separated from missing data: there are no public traffic counts and no published signal timing. CORE declares these gaps instead of guessing.', 'Les faits connus sont séparés des données manquantes : aucun comptage public, aucun minutage de feux publié. CORE déclare ces lacunes au lieu de deviner.'),
+    info: { what: P('Dated findings and declared gaps.', 'Constats datés et lacunes déclarées.'), why: P('A conclusion is only as good as its weakest evidence.', 'Une conclusion ne vaut que par sa preuve la plus faible.'), doing: P('Citing each source with its retrieval date.', 'Citation de chaque source avec sa date de récupération.'), real: P('Findings with sources.', 'Constats sourcés.'), simulated: P('Findings marked “simulated”.', 'Constats marqués « simulé ».'), interact: P('Follow a source link.', 'Suivez un lien de source.') },
+    run: async E => { await E.openMission(MOB); await wait(500); scroll('#ea-panel .pp-unc'); }, ready: E => panelIs(E, 'mission') },
+  { id: 'walk-inside', ms: 16000, title: P('Walk Inside CORE', 'Marcher dans CORE'),
+    say: P('At street level you walk as your own avatar among the holographic agents. They stand on mapped walkways, never inside buildings; you can talk to any of them.', 'À hauteur de rue, vous marchez avec votre avatar parmi les agents holographiques. Ils se tiennent sur des trottoirs cartographiés, jamais dans les bâtiments ; vous pouvez parler à chacun.'),
+    info: { what: P('Folsom Street at human scale.', 'Folsom Street à hauteur humaine.'), why: P('Problems are easier to understand where they happen.', 'Les problèmes se comprennent mieux là où ils se produisent.'), doing: P('Agents work around the mission’s field point.', 'Les agents travaillent autour du point de terrain de la mission.'), real: P('Street layout and building footprints.', 'Tracé des rues et emprises des bâtiments.'), simulated: P('Façades are procedural; agents are holograms.', 'Les façades sont procédurales ; les agents sont des hologrammes.'), interact: P('W/A/S/D to walk, E to talk.', 'W/A/S/D pour marcher, E pour parler.') },
+    run: async E => { closePanel(); E.setLayer('hybrid', { intro: false }); if (E.state.quality !== 'low') await E.enterHuman(); }, ready: E => E.state.mode === 'human' || E.state.quality === 'low', timeout: 30000,
+    fallback: async E => { await E.flyTo([-122.4045, 37.7795], 17.5); } },
+  { id: 'system-in-motion', ms: 18000, title: P('See the System in Motion', 'Le système en mouvement'),
+    say: P('Now the recorded traffic: cars and buses from a SUMO simulation of the baseline, replayed on the real street network. Demand is synthetic; the model is uncalibrated.', 'Voici le trafic enregistré : voitures et bus d’une simulation SUMO de la référence, rejoués sur le vrai réseau. La demande est synthétique ; le modèle n’est pas calibré.'),
+    info: { what: P('The baseline replay (scenario S0).', 'La relecture de référence (scénario S0).'), why: P('To compare interventions you first need a reference.', 'Pour comparer des interventions, il faut d’abord une référence.'), doing: P('Replaying a recorded trace (seed 1, ×12).', 'Relecture d’une trace enregistrée (graine 1, ×12).'), real: P('The road network geometry.', 'La géométrie du réseau routier.'), simulated: P('Every vehicle and its movement.', 'Chaque véhicule et son mouvement.'), interact: P('Pause or replay in the panel.', 'Mettez en pause ou rejouez dans le panneau.') },
+    run: async E => { await leave(E); await E.playSimulation('S0'); }, ready: E => panelIs(E, 'simulation') && (E.state.scn?.state.vehicles.length > 0) },
+  { id: 'test-solutions', ms: 20000, title: P('Test Possible Solutions', 'Tester des solutions'),
+    say: P('Intervention A: a bus-only lane on Folsom (in red). In this model it backfires: where Folsom narrows the lane breaks, queues spill back, and buses get stuck.', 'Intervention A : une voie réservée bus sur Folsom (en rouge). Dans ce modèle elle se retourne contre les bus : là où Folsom se rétrécit, la voie s’interrompt, les files remontent et les bus restent bloqués.'),
+    info: { what: P('Scenario A replay and its result card.', 'La relecture du scénario A et sa fiche.'), why: P('A popular idea must be tested, not assumed.', 'Une idée populaire doit être testée, pas présumée.'), doing: P('Showing recorded results over 5 seeds.', 'Affichage des résultats enregistrés sur 5 graines.'), real: P('Which Folsom segments have fewer than 3 lanes (OSM).', 'Quels tronçons de Folsom ont moins de 3 voies (OSM).'), simulated: P('The traffic response.', 'La réponse du trafic.'), interact: P('Switch scenarios with the cards.', 'Changez de scénario avec les fiches.') },
+    run: async E => { await E.playSimulation('A'); }, ready: E => E.state.scn?.state.scenario === 'A' && E.state.scn.state.playing },
+  { id: 'compare', ms: 20000, title: P('Compare Outcomes', 'Comparer les résultats'),
+    say: P('Intervention B: adaptive signals. In this model they cut car delay by about 46% and bus time by 14% — beyond seed noise. Promising, but only a hypothesis until real counts and signal plans exist.', 'Intervention B : des feux adaptatifs. Dans ce modèle, ils réduisent le retard voiture d’environ 46 % et le temps bus de 14 % — au-delà du bruit des graines. Prometteur, mais seulement une hypothèse tant qu’il n’existe ni comptages ni plans de feux réels.'),
+    info: { what: P('Scenario cards, charts with 95% intervals.', 'Fiches de scénarios, graphiques avec intervalles à 95 %.'), why: P('Trade-offs and uncertainty must be visible.', 'Compromis et incertitude doivent être visibles.'), doing: P('Reading results; never inventing numbers.', 'Lecture des résultats ; aucun chiffre inventé.'), real: P('Recorded model output.', 'Sortie de modèle enregistrée.'), simulated: P('All metrics are model results.', 'Toutes les mesures sont des résultats de modèle.'), interact: P('Open the detailed table.', 'Ouvrez le tableau détaillé.') },
+    run: async E => { await E.playSimulation('B'); await wait(400); scroll('#ea-panel .scn-answer'); }, ready: E => E.state.scn?.state.scenario === 'B' },
+  { id: 'challenge', ms: 17000, title: P('Challenge the Conclusion', 'Contester la conclusion'),
+    say: P('Competing hypotheses stay open, and criticism is kept on record: an uncalibrated model cannot justify recommending an intervention. The research team can also be asked a question, with a sceptical critic built in.', 'Les hypothèses concurrentes restent ouvertes, et les critiques sont conservées : un modèle non calibré ne permet pas de recommander une intervention. On peut aussi poser une question à l’équipe, qui inclut un critique sceptique.'),
+    info: { what: P('Hypotheses, dissent, local-model work.', 'Hypothèses, dissidences, travail du modèle local.'), why: P('Science advances by trying to prove itself wrong.', 'La science avance en essayant de se réfuter.'), doing: P('Keeping disagreement visible.', 'Garder le désaccord visible.'), real: P('Recorded critiques with citations.', 'Critiques enregistrées avec citations.'), simulated: P('—', '—'), interact: P('“Ask the research team a question” runs the local model (about a minute).', '« Poser une question à l’équipe » utilise le modèle local (environ une minute).') },
+    run: async E => { E.hideSimulation({ quiet: true }); await E.openMission(MOB); await wait(500); scroll('#ea-panel .cv-hyp'); }, ready: E => panelIs(E, 'mission') },
+  { id: 'contribute', ms: 17000, title: P('Contribute as a Human', 'Contribuer en tant qu’humain'),
+    say: P('Anyone can notice something. You describe it, CORE helps structure it, and you choose: keep it private, or share it with the mission after an explicit confirmation. Nothing is shared during this tour.', 'Chacun peut remarquer quelque chose. Vous le décrivez, CORE aide à le structurer, et vous choisissez : le garder privé, ou le partager avec la mission après une confirmation explicite. Rien n’est partagé pendant cette visite.'),
+    info: { what: P('The contribution form, structured.', 'Le formulaire de contribution, structuré.'), why: P('Local knowledge is evidence no dataset has.', 'Le savoir local est une preuve qu’aucun jeu de données n’a.'), doing: P('Structuring only — no sharing.', 'Structuration seulement — aucun partage.'), real: P('Your text stays in this browser.', 'Votre texte reste dans ce navigateur.'), simulated: P('—', '—'), interact: P('Try it yourself after the tour.', 'Essayez vous-même après la visite.') },
+    run: async E => { E.showContribute(MOB); await wait(300); const t = document.getElementById('nt-text'); if (t) { t.value = T('In the morning, buses get stuck on Folsom between 5th and 6th; maybe because of cars turning right.', 'Le matin, les bus restent bloqués sur Folsom entre la 5th et la 6th ; peut-être à cause des voitures qui tournent à droite.'); document.getElementById('nt-form')?.requestSubmit(); } },
+    ready: E => !!document.getElementById('nt-next') },
+  { id: 'research-to-reality', ms: 15000, final: true, title: P('From Research to Reality', 'De la recherche à la réalité'),
+    say: P('A dossier is a proposal for consideration. Real change still needs human review, authorisation, implementation and measurement — and CORE counts real impact only when it is independently verified. Today that number is zero.', 'Un dossier est une proposition soumise à examen. Un vrai changement exige encore revue humaine, autorisation, mise en œuvre et mesure — et CORE ne compte un impact réel que s’il est vérifié indépendamment. Aujourd’hui, ce nombre est zéro.'),
+    info: { what: P('The path from proposal to measured impact.', 'Le chemin de la proposition à l’impact mesuré.'), why: P('Simulations are not proof of real-world impact.', 'Les simulations ne prouvent pas un impact réel.'), doing: P('Waiting for human review.', 'Attente de la revue humaine.'), real: P('Verified impact: 0.', 'Impact vérifié : 0.'), simulated: P('—', '—'), interact: P('Open the research dossier or the Progress page.', 'Ouvrez le dossier de recherche ou la page Progrès.') },
+    run: async E => { closePanel(); await leave(E); E.setLayer('hybrid', { intro: false }); await E.goScale('planet'); }, ready: E => E.state.scale === 'planet' },
+];
+const LBL = { what: P('What we are looking at', 'Ce que l’on regarde'), why: P('Why it matters', 'Pourquoi c’est important'), doing: P('What CORE is doing', 'Ce que fait CORE'), real: P('Based on real data', 'Fondé sur des données réelles'), simulated: P('Simulated or visual', 'Simulé ou visuel'), interact: P('You can', 'Vous pouvez') };
+const tx = x => T(x.en, x.fr);
+
+export function createDemo(E, { mode = 'auto', root = document.body } = {}) {
+  const S = { mode, i: -1, paused: false, running: true, done: false, left: 0, t0: 0, timer: 0, token: 0, narrate: false, statuses: [] };
+  const el = document.createElement('section'); el.className = 'demo le-glass'; el.setAttribute('role', 'region'); el.setAttribute('aria-live', 'polite'); el.dataset.mode = mode; root.append(el);
+  const say = text => { if (!S.narrate || !globalThis.speechSynthesis) return; const v = speechSynthesis.getVoices().filter(x => x.localService && x.lang.toLowerCase().startsWith(lang())); speechSynthesis.cancel(); if (!v[0]) return; const u = new SpeechSynthesisUtterance(text); u.voice = v[0]; u.lang = v[0].lang; speechSynthesis.speak(u); };
   function view() {
-    if (S.i < 0) { el.innerHTML = `<h2>${esc(L.title)}</h2><p>${esc(L.intro)}</p><div class="le-row"><button type="button" class="primary" data-d="start">${esc(L.start)}</button><button type="button" data-d="exit">${esc(L.exit)}</button></div>`; return; }
-    const [h, p] = L.acts[S.i], last = S.i === ACTS.length - 1;
-    el.innerHTML = `<p class="le-eyebrow">${S.i + 1} ${esc(L.of)} ${ACTS.length}</p><h2>${esc(h)}</h2><p class="${last ? 'demo-last' : ''}">${esc(p)}</p>
-      <div class="demo-bar" aria-hidden="true"><i style="width:${((S.i + 1) / ACTS.length) * 100}%"></i></div>
-      <div class="le-row"><button type="button" data-d="pause">${esc(S.paused ? L.resume : L.pause)}</button>${last ? '' : `<button type="button" data-d="skip">${esc(L.skip)}</button>`}<button type="button" data-d="exit">${esc(L.exit)}</button></div>`;
+    const st = STAGES[S.i]; el.setAttribute('aria-label', T('Experience CORE', 'Découvrir CORE'));
+    if (!st) return;
+    const last = S.i === STAGES.length - 1, auto = S.mode === 'auto';
+    el.innerHTML = `<div class="demo-top"><p class="le-eyebrow">${auto ? T('Autonomous Tour', 'Visite automatique') : T('Step by step', 'Pas à pas')} · ${S.i + 1} / ${STAGES.length}</p><button type="button" class="ghost small" data-d="exit" aria-label="${T('Exit the tour', 'Quitter la visite')}">✕</button></div>
+      <h2>${esc(tx(st.title))}</h2><p class="demo-say">${esc(tx(st.say))}</p>
+      <details class="demo-info"${auto ? '' : ' open'}><summary>${T('Details', 'Détails')}</summary><dl>${Object.entries(st.info).map(([k, v]) => `<dt>${esc(tx(LBL[k]))}</dt><dd>${esc(tx(v))}</dd>`).join('')}</dl></details>
+      ${last ? `<p class="demo-last">${T('A parallel world to help humanity improve the real one.', 'Un monde parallèle pour aider l’humanité à améliorer le monde réel.')}</p><p class="le-row"><a class="btn small" href="report.html#mission=${MOB}">${T('Research dossier', 'Dossier de recherche')}</a><a class="btn small" href="progress.html">${T('Progress', 'Progrès')}</a><a class="btn small" href="manifesto.html">${T('Manifesto', 'Manifeste')}</a></p>` : ''}
+      <div class="demo-bar" aria-hidden="true"><i style="width:${((S.i + 1) / STAGES.length) * 100}%"></i></div>
+      <div class="le-row demo-ctl"><button type="button" class="small" data-d="prev"${S.i ? '' : ' disabled'}>← ${T('Previous', 'Précédent')}</button>${auto ? `<button type="button" class="small" data-d="pause">${S.paused ? T('Resume', 'Reprendre') : T('Pause', 'Pause')}</button>` : ''}${last ? `<button type="button" class="small primary" data-d="restart">${T('Restart', 'Recommencer')}</button>` : `<button type="button" class="small primary" data-d="next">${T('Next', 'Suivant')} →</button>`}${last ? '' : `<button type="button" class="ghost small" data-d="restart">${T('Restart', 'Recommencer')}</button>`}
+        <label class="fine demo-nar"><input type="checkbox" data-d="narrate"${S.narrate ? ' checked' : ''}> ${T('Narration', 'Narration')}</label></div>
+      ${S.paused && S.pausedByUser ? `<p class="fine">${T('Paused because you interacted with the map. Resume to continue.', 'En pause car vous avez interagi avec la carte. Reprenez pour continuer.')}</p>` : ''}`;
   }
   async function go(i) {
-    clearTimeout(S.timer); S.i = i; if (i >= ACTS.length) return exit(true);
-    view(); try { await ACTS[i](); } catch (e) { console.warn('demo act', i + 1, e); }
-    if (S.i !== i || !S.running) return; S.left = i === ACTS.length - 1 ? 9000 : ACT_MS; arm();
+    clearTimeout(S.timer); if (i < 0) i = 0; if (i >= STAGES.length) return finish();
+    const tk = ++S.token; S.i = i; S.paused = false; S.pausedByUser = false; view(); const st = STAGES[i];
+    say(tx(st.say));
+    let ok = false;
+    try { await st.run(E); const end = performance.now() + (st.timeout || 15000); while (performance.now() < end && tk === S.token) { if (st.ready(E)) { ok = true; break; } await wait(200); } } catch (e) { console.warn('demo stage', st.id, e); }
+    if (!ok && tk === S.token && st.fallback) { try { await st.fallback(E); ok = true; } catch {} }
+    if (tk !== S.token) return; S.statuses[i] = { id: st.id, ready: ok };
+    if (S.mode === 'auto') { S.left = st.final ? st.ms : st.ms; arm(); }
   }
-  function arm() { clearTimeout(S.timer); if (S.paused) return; S.t0 = performance.now(); const i = S.i; S.timer = setTimeout(() => { if (S.i === i) go(i + 1); }, S.left); }
-  function pause() { if (S.i < 0) return; S.paused = !S.paused; if (S.paused) { clearTimeout(S.timer); S.left = Math.max(0, S.left - (performance.now() - S.t0)); E.state.scn?.stop?.(); } else arm(); view(); }
-  function exit(done = false) { clearTimeout(S.timer); S.running = false; S.done = done; el.remove(); removeEventListener('keydown', keys, true); history.replaceState(null, '', location.pathname); }
-  function keys(e) { if (!S.running || e.target.closest?.('input, textarea, select')) return; if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); exit(); } else if (e.key === ' ' && E.state.mode !== 'human') { e.preventDefault(); pause(); } else if (e.key === 'ArrowRight' && E.state.mode !== 'human') { e.preventDefault(); go(S.i + 1); } }
-  el.addEventListener('click', e => { const b = e.target.closest('[data-d]'); if (!b) return; const d = b.dataset.d; if (d === 'start') go(0); else if (d === 'pause') pause(); else if (d === 'skip') go(S.i + 1); else exit(); });
-  addEventListener('keydown', keys, true); S.running = true; view();
-  return { state: S, start: () => go(0), pause, skip: () => go(S.i + 1), exit, acts: ACTS.length, text: L };
+  function arm() { clearTimeout(S.timer); if (S.paused || !S.running) return; S.t0 = performance.now(); const tk = S.token; S.timer = setTimeout(() => { if (tk === S.token) { if (S.i === STAGES.length - 1) finish(); else go(S.i + 1); } }, S.left); }
+  function pause(byUser = false) { if (S.mode !== 'auto' || S.paused) return; S.paused = true; S.pausedByUser = byUser; clearTimeout(S.timer); S.left = Math.max(0, S.left - (performance.now() - S.t0)); E.state.map?.stop?.(); E.state.scn?.stop?.(); globalThis.speechSynthesis?.pause?.(); view(); }
+  function resume() { if (!S.paused) return; S.paused = false; S.pausedByUser = false; globalThis.speechSynthesis?.resume?.(); if (E.state.panelKind?.kind === 'simulation' && E.state.scn?.state.on && !E.state.scn.state.playing) E.state.scn.play(); view(); arm(); }
+  function finish() { clearTimeout(S.timer); S.done = true; if (S.mode === 'auto') view(); }
+  function exit() { clearTimeout(S.timer); S.token++; S.running = false; globalThis.speechSynthesis?.cancel?.(); el.remove(); removeEventListener('keydown', keys, true); E.state.map?.getCanvas().removeEventListener('pointerdown', touched); history.replaceState(null, '', location.pathname); }
+  function keys(e) { if (!S.running || e.target.closest?.('input, textarea, select') || E.state.mode === 'human') return; if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); exit(); } else if (e.key === ' ' && S.mode === 'auto') { e.preventDefault(); S.paused ? resume() : pause(); } else if (e.key === 'ArrowRight') { e.preventDefault(); go(S.i + 1); } else if (e.key === 'ArrowLeft') { e.preventDefault(); go(S.i - 1); } }
+  const touched = () => { if (S.mode === 'auto' && S.running && !S.paused && !S.done) pause(true); }; // manual map interaction pauses the tour
+  el.addEventListener('click', e => { const b = e.target.closest('[data-d]'); if (!b) return; const d = b.dataset.d;
+    if (d === 'narrate') { S.narrate = b.checked; if (!S.narrate) globalThis.speechSynthesis?.cancel?.(); else say(tx(STAGES[S.i].say)); return; }
+    if (d === 'next') go(S.i + 1); else if (d === 'prev') go(S.i - 1); else if (d === 'pause') (S.paused ? resume() : pause()); else if (d === 'restart') { S.done = false; go(0); } else if (d === 'exit') exit(); });
+  addEventListener('keydown', keys, true); E.state.map?.getCanvas().addEventListener('pointerdown', touched);
+  return { state: S, stages: STAGES, start: () => go(0), next: () => go(S.i + 1), prev: () => go(S.i - 1), pause, resume, restart: () => go(0), exit, relabel: view };
 }

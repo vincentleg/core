@@ -8,9 +8,10 @@ import { buildMissions } from './missions.mjs';
 import { createRuntime, VERSION } from './runtime.mjs';
 import { createPool, ollamaJSON } from '../intelligence/pool.mjs';
 import { ollamaAvailable } from '../intelligence/orchestrator.mjs';
+import { investigate } from '../intelligence/investigate.mjs';
 export const KEY = 'core.civ.v72';
 const listeners = new Set();
-let R = null, pool = null, poolInfo = { state: 'off' }, writer = false, timer = 0, speed = 1, paused = false, lastSave = 0, ready = null;
+let R = null, DATA = null, REG = null, pool = null, poolInfo = { state: 'off' }, writer = false, timer = 0, speed = 1, paused = false, lastSave = 0, ready = null;
 // One retry on a network error only (local static servers sometimes drop a connection on a cold load).
 const getJSON = async u => { const r = await fetch(u).catch(() => new Promise(ok => setTimeout(ok, 400)).then(() => fetch(u))); if (!r.ok) throw Error(`${u} : HTTP ${r.status}`); return r.json(); };
 const store = { get: () => { try { return localStorage.getItem(KEY); } catch { return null; } }, set: v => { try { localStorage.setItem(KEY, v); return true; } catch { return false; } } };
@@ -26,7 +27,7 @@ export function start() {
   if (ready) return ready;
   ready = (async () => {
     const D = {}; await Promise.all(Object.entries(A.FILES).map(async ([k, u]) => { D[k] = await getJSON(u); }));
-    const reg = await getJSON('data/agents/sf-civilization.json');
+    const reg = await getJSON('data/agents/sf-civilization.json'); DATA = D; REG = reg;
     R = createRuntime({ registry: reg, missions: buildMissions(D, reg, { today: new Date().toISOString() }), keepEvents: 1200 });
     const saved = store.get(); if (saved) R.restore(saved);
     // A local background worker (scripts/civ-worker.mjs) may have advanced the same civilisation: resume from it when
@@ -59,7 +60,7 @@ export async function enableReasoning(on) {
   if (!on) { pool?.stop(); pool = null; poolInfo = { state: 'off' }; R?.setReasoning(false); notify(); return poolInfo; }
   poolInfo = { state: 'detecting' }; notify();
   const a = await ollamaAvailable();
-  if (!a.ok || !a.models.length) { poolInfo = { state: 'unavailable', reason: 'aucun modèle local détecté (Ollama doit tourner sur cet ordinateur)' }; R?.setReasoning(false); notify(); return poolInfo; }
+  if (!a.ok || !a.models.length) { poolInfo = { state: 'unavailable', reason: 'no local model detected (Ollama must be running on this computer) / aucun modèle local détecté' }; R?.setReasoning(false); notify(); return poolInfo; }
   const model = a.models.includes(p.model) ? p.model : a.models[0];
   pool = createPool({ generate: ollamaJSON({ model }), workers: 1 }); poolInfo = { state: 'on', model }; R?.setReasoning(writer); notify(); return poolInfo;
 }
@@ -86,4 +87,20 @@ export async function submit(mission, input) {
   const id = Math.random().toString(36).slice(2);
   const r = await new Promise((res, rej) => { waiting.set(id, res); BC.postMessage({ type: 'submit', id, mission, input }); setTimeout(() => { if (waiting.delete(id)) rej(Error('le moteur (onglet CORE World) ne répond pas')); }, 4000); });
   if (!r.ok) throw Error(r.error); return r.input;
+}
+
+// V9 — a visitor's question to a mission's research team: six roles, a bounded local model (if one runs on this computer)
+// and deterministic tools (src/intelligence/investigate.mjs). Contacts only 127.0.0.1:11434, only on this explicit request.
+// The result is recorded in the mission log (writer tab) and kept in this browser (core.investigations.v1, last 10).
+export const INV_KEY = 'core.investigations.v1';
+export async function localModel() { const a = await ollamaAvailable(); const p = pref(); return a.ok && a.models.length ? (a.models.includes(p.model) ? p.model : a.models[0]) : null; }
+export async function runInvestigation(missionId, question, onStep = () => {}) {
+  await ready; const m = R.M.get(missionId); if (!m) throw Error('unknown mission');
+  const model = await localModel().catch(() => null), team = m.coordinator.split('.')[2];
+  const pick = (t, role) => REG.agents.find(x => x.team === `team.${t}` && x.teamRole === role)?.id;
+  const agents = { coordinator: m.coordinator, evidence: pick(team, 'source-verifier') || pick('research', 'source-verifier'), analyst: pick(team, 'scientific-analyst'), simulation: pick('simulation', 'simulation-engineer'), critic: pick('safety', 'skeptical-reviewer'), synthesis: pick(team, 'report-author') };
+  const res = await investigate({ mission: m, question: String(question).slice(0, 300), mobility: DATA?.mobility, generate: model ? ollamaJSON({ model }) : null, agents, onStep });
+  if (writer) { R.recordInvestigation(missionId, res); save(); notify(); }
+  try { const all = JSON.parse(localStorage.getItem(INV_KEY) || '[]'); all.push({ mission: missionId, question: res.question, at: res.startedAt, runtime: res.runtime, model: res.model, answer: res.answer, steps: res.steps.map(x => ({ role: x.role, provenance: x.provenance, status: x.status, tool: x.tool || null, ms: x.ms || 0, issues: x.issues || [] })) }); localStorage.setItem(INV_KEY, JSON.stringify(all.slice(-10))); } catch {}
+  return res;
 }

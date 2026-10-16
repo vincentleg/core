@@ -7,12 +7,12 @@ test('scenarios: every scenario renders with its status, uncertainty, verdict an
   const SC = await imp('src/earth/scenarios.mjs'), D = mobility();
   for (const s of D.results.scenarios) {
     const h = SC.panelHTML(D, s.id, false);
-    assert.match(h, /modèle non calibré/); assert.match(h, /Ce que ce modèle ne sait pas/); assert.match(h, /une relecture, pas une simulation en direct/);
-    assert.ok(h.includes('Verdict') && h.includes('Retirer de la carte'));
-    assert.doesNotMatch(h, /prouvé|recommandé :|validé|vérifié dans la réalité/i);
+    assert.match(h, /uncalibrated model/); assert.match(h, /What this model does not know/); assert.match(h, /a replay, not a live simulation/); assert.match(h, /Recorded SUMO simulation — synthetic demand, uncalibrated model/);
+    assert.ok(h.includes('Verdict') && h.includes('Remove from the map') && h.includes('What this does NOT prove'));
+    assert.doesNotMatch(h.replace(/not a validated recommendation|no scenario can be recommended|before any recommendation/gi, ''), /proven|recommended:|(?<!not )validated|verified in reality/i);
   }
-  for (const [k, [label, tone]] of Object.entries(SC.STATUS)) { assert.notEqual(tone, 'ok', `${k} must not use the "proven" green`); assert.doesNotMatch(label, /prouvé|validé/i); }
-  assert.match(SC.STATUS['promising-uncalibrated'][0], /revue humaine requise/);
+  for (const [k, [label, tone, fr]] of Object.entries(SC.STATUS)) { assert.notEqual(tone, 'ok', `${k} must not use the "proven" green`); assert.doesNotMatch(`${label} ${fr}`, /prouvé|validé|proven|validated/i); }
+  assert.match(SC.STATUS['promising-uncalibrated'][0], /human review required/); assert.match(SC.STATUS['promising-uncalibrated'][2], /revue humaine requise/);
   for (const p of Object.values(SC.PRIMITIVES)) assert.doesNotMatch(p.color, /^#(2|3)[0-9a-f]c[0-9a-f]{3}$|green/i);
 });
 
@@ -38,7 +38,7 @@ test('traces: one per scenario, bounded, same window and step, ids stable, coord
 
 test('world: the scenario layer is reachable from the mobility mission and by link, and is reversible', () => {
   const app = read('src/earth/app.mjs'), panels = read('src/earth/civ-panels.mjs'), miss = read('src/civilization/missions.mjs');
-  assert.match(panels, /data-sim="S0"/); assert.match(miss, /simulation: 'SUMO 1\.27\.1/);
+  assert.match(panels, /data-sim="S0"/); assert.match(miss, /simulation: B\('SUMO 1\.27\.1/);
   assert.match(app, /h\.get\('sim'\)/); assert.match(app, /function hideSimulation/); assert.match(app, /data-scn-off/);
 });
 
@@ -78,14 +78,16 @@ test('companion: the mission index matches the runtime missions; voice is on-dev
   const nav = read('src/shell/nav.mjs'); assert.match(nav, /import\('\.\.\/voice\/companion\.mjs'\)/); // loaded only on demand
 });
 
-test('i18n: ten languages, English default and fallback, Arabic right-to-left, drafts labelled unreviewed', async () => {
+test('i18n: English default and canonical fallback; only complete languages are selectable; locale formatting', async () => {
   const I = await imp('src/i18n/i18n.mjs'), { STRINGS } = await imp('src/i18n/strings.mjs');
-  assert.deepEqual(I.LANGS.map(l => l[0]), ['en', 'zh-Hans', 'hi', 'es', 'fr', 'ar', 'pt', 'bn', 'ru', 'ja']);
+  assert.deepEqual(I.LANGS.map(l => l[0]), ['en', 'fr']); assert.deepEqual(I.PLANNED, ['zh-Hans', 'hi', 'es', 'ar', 'pt', 'bn', 'ru', 'ja']);
   const st = { m: new Map(), getItem(k) { return this.m.get(k) ?? null; }, setItem(k, v) { this.m.set(k, v); } };
-  assert.equal(I.lang(st), 'en'); st.setItem('core.lang', 'xx'); assert.equal(I.lang(st), 'en'); st.setItem('core.lang', 'ar'); assert.equal(I.lang(st), 'ar'); assert.equal(I.dir('ar'), 'rtl'); assert.equal(I.dir('ja'), 'ltr');
-  assert.equal(I.t('cmp.history', {}, 'ja'), STRINGS.en['cmp.history']);
-  for (const [c] of I.LANGS) { for (const k of ['nav.explore', 'nav.create', 'nav.together', 'nav.me', 'nav.language', 'cmp.title', 'cmp.do', 'lang.draft']) assert.ok(STRINGS[c][k] || STRINGS.en[k], `${c} ${k}`); if (c !== 'en') assert.equal(I.STATUS[c], 'draft-unreviewed'); }
-  for (const [c] of I.LANGS) for (const [k, v] of Object.entries(STRINGS[c])) { assert.ok(k in STRINGS.en, `${c}: unknown key ${k}`); assert.deepEqual((v.match(/\{\w+\}/g) || []).sort(), (STRINGS.en[k].match(/\{\w+\}/g) || []).sort(), `${c} ${k} placeholders`); }
+  assert.equal(I.lang(st), 'en'); st.setItem('core.lang', 'ja'); assert.equal(I.lang(st), 'en', 'a planned language falls back to English'); st.setItem('core.lang', 'fr'); assert.equal(I.lang(st), 'fr');
+  for (const k of Object.keys(STRINGS.en)) assert.ok(STRINGS.fr[k], `fr missing ${k}`);
+  for (const [k, v] of Object.entries(STRINGS.fr)) { assert.ok(k in STRINGS.en, `unknown key ${k}`); assert.deepEqual((v.match(/\{\w+\}/g) || []).sort(), (STRINGS.en[k].match(/\{\w+\}/g) || []).sort(), `${k} placeholders`); }
+  assert.equal(I.T('Hello', 'Bonjour', 'en'), 'Hello'); assert.equal(I.T('Hello', 'Bonjour', 'fr'), 'Bonjour'); assert.equal(I.L({ en: 'a', fr: 'b' }, 'fr'), 'b'); assert.equal(I.L('plain', 'fr'), 'plain');
+  assert.equal(I.num(4520, {}, 'en'), '4,520'); assert.equal(I.num(4520, {}, 'fr').replace(/\s/g, ' '), '4 520');
+  assert.equal(I.plural(1, { en: { one: '{n} agent', other: '{n} agents' } }, 'en'), '1 agent'); assert.equal(I.plural(3, { en: { one: '{n} agent', other: '{n} agents' } }, 'en'), '3 agents');
 });
 
 test('participation: CORE structures the words, the person decides, agents evaluate FORM only, nothing is accepted', async () => {
@@ -95,9 +97,9 @@ test('participation: CORE structures the words, the person decides, agents evalu
   const idx = missions.map(m => ({ id: m.id, title: m.title }));
   const st = C.structure('Le matin, les bus restent bloqués sur Folsom entre la 5th et la 6th; peut-être à cause des voitures qui tournent.', { missions: idx, findingsOf: id => byId.get(id).findings, suggest: t => A.suggestMission(t, idx) });
   assert.equal(st.kind, 'hypothesis'); assert.equal(st.mission, 'mission.sf.mobility'); assert.ok(st.title.length <= 110); assert.ok(st.text.includes('Folsom'));
-  assert.ok(!st.missing.some(m => /Où/.test(m)), 'a street was given'); assert.equal(st.privacy, null);
+  assert.ok(!st.missing.some(m => /Where/.test(m.en)), 'a street was given'); assert.equal(st.privacy, null);
   assert.equal(C.structure('   ', {}), null);
-  assert.match(C.structure('Je vis au coin de Folsom et mon adresse est connue des voisins.', { missions: idx }).privacy || '', /personnelles/);
+  assert.match(C.structure('Je vis au coin de Folsom et mon adresse est connue des voisins.', { missions: idx }).privacy?.en || '', /personal data/);
   // Evaluation outcomes are about form; an evidence without a source is never examined as evidence.
   const mob = byId.get('mission.sf.mobility').findings;
   assert.equal(C.evaluate({ kind: 'evidence', title: 'Comptages', text: 'Il y a 4000 voitures par heure sur Folsom.' }, mob).outcome, 'needs-source');
@@ -107,9 +109,9 @@ test('participation: CORE structures the words, the person decides, agents evalu
   assert.throws(() => r.submitHumanInput('mission.sf.mobility', { kind: 'observation', title: 'x', text: 'y' }), /consentement/);
   const h = r.submitHumanInput('mission.sf.mobility', { kind: 'observation', title: st.title, text: st.text, consent: true });
   for (let i = 0; i < 900 && !h.evaluation; i++) r.step(1);
-  assert.ok(h.evaluation, 'evaluated within 15 runtime minutes'); assert.match(h.evaluation.method, /forme/); assert.ok(['évaluée', 'en attente de revue humaine'].includes(h.state));
-  assert.ok(r.S.events.some(e => e.type === 'review' && e.to === 'human:local' && /pas une validation/.test(e.text)));
-  assert.doesNotMatch(JSON.stringify(h), /accept|(?<!non )validée|approved/i);
+  assert.ok(h.evaluation, 'evaluated within 15 runtime minutes'); assert.match(h.evaluation.method.en, /form check/); assert.match(h.evaluation.method.fr, /forme/); assert.ok(['évaluée', 'en attente de revue humaine'].includes(h.state));
+  assert.ok(r.S.events.some(e => e.type === 'review' && e.to === 'human:local' && /not a validation/.test(e.text.en) && /pas une validation/.test(e.text.fr)));
+  assert.doesNotMatch(JSON.stringify(h), /accept|(?<!non )validée|(?<!not )validated|approved/i);
   assert.equal(C.stageOf(h), h.evaluation.outcome === 'to-investigate' ? 'human' : 'evaluated');
 });
 
@@ -148,15 +150,6 @@ test('manifesto: original text in English (reference) and French, same principle
   assert.equal(TEXT.en.principles.length, 10); assert.equal(TEXT.fr.principles.length, 10);
   assert.equal(TEXT.en.sign, 'A parallel world to help humanity improve the real one.');
   assert.match(TEXT.en.principles.map(p => p[1]).join(' '), /that number is zero/);
-});
-
-test('demo: 12 acts, 3–5 minutes, pause/skip/exit and keyboard, ends on the CORE line in every provided language', () => {
-  const src = read('src/earth/demo.mjs'), acts = (src.match(/^\s{4}async \(\) => \{/gm) || []).length;
-  assert.equal(acts, 12); const actMs = +src.match(/ACT_MS = (\d+)/)[1], total = (11 * actMs + 9000) / 1000; assert.ok(total >= 180 && total <= 300, `${total} s`);
-  for (const k of ["data-d=\"pause\"", "data-d=\"skip\"", "data-d=\"exit\"", "data-d=\"start\"", "'Escape'", "'ArrowRight'", "' '"]) assert.ok(src.includes(k), k);
-  assert.match(src, /A parallel world to help humanity improve the real one\./); assert.match(src, /Un monde parallèle pour aider l’humanité à améliorer le monde réel\./);
-  assert.doesNotMatch(src, /submitHumanInput|CIV\.submit|localStorage\.setItem/); // the tour never shares or stores anything
-  assert.match(read('demo.html'), /url=world\.html#demo/); assert.match(read('src/earth/app.mjs'), /h\.has\('demo'\)/);
 });
 
 test('vehicle prototype: capped speed, stopped by buildings and agents, never enters a footprint', async () => {

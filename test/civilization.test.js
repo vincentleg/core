@@ -32,7 +32,7 @@ test('analyses: housing findings are recomputed from the dated snapshot and carr
   const e = mean(yrs.filter(r => r.year <= 2020)), l = mean(yrs.filter(r => r.year >= 2021));
   assert.equal(f('h.production-trend').value, +((l - e) / e).toFixed(3));
   assert.equal(f('h.pipeline').value, D.pipeline.features.filter(x => !/Completed/i.test(x.properties.status || '')).reduce((s, x) => s + x.properties.affordable, 0));
-  for (const x of h.findings) { assert.ok(x.limits, x.id); if (x.status !== 'gap') { assert.ok(x.source?.retrieved, x.id); assert.ok(/\d/.test(x.claim), x.id); } }
+  for (const x of h.findings) { assert.ok(x.limits, x.id); if (x.status !== 'gap') { assert.ok(x.source?.retrieved, x.id); assert.ok(/\d/.test(x.claim.en) && /\d/.test(x.claim.fr), x.id); } }
   assert.ok(h.findings.some(x => x.id === 'g.rent-burden' && x.status === 'gap'), 'missing rent data is declared, never estimated');
   assert.equal(h.hypotheses.length, 3); assert.ok(h.dissent.length >= 3);
   assert.doesNotMatch(JSON.stringify(h), /prouvé|démontré|validé par/i);
@@ -45,7 +45,7 @@ test('runtime: deterministic, hash-chained, recoverable without duplicates', asy
   const c = mk(); assert.ok(c.restore(a.serialize())); assert.equal(c.S.integrity, 'ok');
   run(a, 200); run(c, 200); assert.equal(a.S.hash, c.S.hash, 'a restored runtime continues exactly like the original');
   const seqs = a.S.events.map(e => e.seq); assert.equal(new Set(seqs).size, seqs.length);
-  const tampered = JSON.parse(a.serialize()); tampered.events[5].text = 'falsifié'; const d = mk(); d.restore(JSON.stringify(tampered)); assert.equal(d.S.integrity, 'rompue');
+  const tampered = JSON.parse(a.serialize()); tampered.events[5].text = 'falsifié'; const d = mk(); d.restore(JSON.stringify(tampered)); assert.equal(d.S.integrity, 'broken');
 });
 
 test('runtime: the flagship mission moves through the scientific stages, fails honestly where data is missing, and stops at human review', async () => {
@@ -55,7 +55,7 @@ test('runtime: the flagship mission moves through the scientific stages, fails h
   for (const s of ['OBSERVE', 'FORMULATE', 'RETRIEVE', 'ANALYZE', 'REQUEST_REVIEW', 'COLLABORATE', 'HYPOTHESES', 'SIMULATE', 'CRITIQUE', 'REVISE', 'DOSSIER', 'HUMAN_REVIEW'])
     assert.ok(plan.some(t => t.stage === s && ['done', 'failed'].includes(ms.tasks[t.id].state)), s);
   assert.ok(r.S.events.some(e => e.mission === m && e.kind === 'stage' && e.stage === 'MONITOR'), 'monitoring after the dossier');
-  assert.equal(ms.tasks['get-rent'].state, 'failed'); assert.match(ms.tasks['get-rent'].reason, /clé/);
+  assert.equal(ms.tasks['get-rent'].state, 'failed'); assert.match(ms.tasks['get-rent'].reason.en, /key/); assert.match(ms.tasks['get-rent'].reason.fr, /clé/);
   const types = new Set(r.S.events.filter(e => e.mission === m && e.kind === 'message').map(e => e.type));
   for (const t of ['request', 'evidence', 'analysis', 'challenge', 'alternative', 'review-request', 'review', 'dossier-update', 'escalate']) assert.ok(types.has(t), t);
   assert.ok(!r.S.events.some(e => /RECOMMENDATION/.test(e.stage || '')), 'no recommendation without a human');
@@ -67,7 +67,7 @@ test('runtime: bounded concurrency, real audits, many distinct agents, honest id
   assert.ok(max > 30 && max <= 140, `${max}`);
   const worked = new Set(r.S.events.flatMap(e => e.agents || [])); assert.ok(worked.size >= 150, `${worked.size}`);
   const au = r.S.missions['mission.sf.housing-resilience'].audits['pipeline-dates']; assert.ok(au.checked > 0 && Object.keys(au.tallies).length + Object.keys(au.lastTallies || {}).length > 0);
-  const idle = r.agents.find(a => a.city === 'san-francisco' && !r.S.busy[a.id] && a.level === 'agent'); assert.match(r.activity(idle.id).label, /inactif|regagne/);
+  const idle = r.agents.find(a => a.city === 'san-francisco' && !r.S.busy[a.id] && a.level === 'agent'); assert.match(r.activity(idle.id).label.en, /idle|returning/); assert.match(r.activity(idle.id).label.fr, /inactif|regagne/);
   assert.equal(r.S.missions['mission.sf.water'].status, 'gap', 'a team without data does no fabricated work');
 });
 
@@ -75,7 +75,7 @@ test('runtime: cancellation frees agents; human contributions require consent an
   const { mk } = await env(), r = run(mk(), 60);
   assert.throws(() => r.submitHumanInput('mission.sf.housing-resilience', { kind: 'hypothesis', title: 'x', text: 'y' }), /consentement/);
   const h = r.submitHumanInput('mission.sf.housing-resilience', { kind: 'hypothesis', title: 'Densifier près des transports', text: 'texte', consent: true });
-  run(r, 30); assert.equal(h.state, 'en revue'); assert.ok(r.S.events.some(e => e.type === 'human-input') && r.S.events.some(e => e.type === 'review-request' && /aucune validation automatique/.test(e.text)));
+  run(r, 30); assert.equal(h.state, 'en revue'); assert.ok(r.S.events.some(e => e.type === 'human-input') && r.S.events.some(e => e.type === 'review-request' && /no automatic validation/.test(e.text.en) && /aucune validation automatique/.test(e.text.fr)));
   assert.ok(r.cancel('mission.sf.energy-benchmarks', 'test')); assert.equal(r.S.missions['mission.sf.energy-benchmarks'].status, 'cancelled');
   assert.ok(!Object.values(r.S.busy).some(k => k.startsWith('mission.sf.energy-benchmarks#')));
 });
@@ -98,7 +98,7 @@ test('V8 reasoning cycles: only when enabled, role-assigned, validated results b
   r.setReasoning(true); run(r, 5);
   const jobs = r.pendingJobs(); assert.ok(jobs.length >= 2, `${jobs.length}`);
   const j = jobs.find(x => x.mission === m); assert.equal(j.kind, 'gaps'); assert.equal(r.byId.get(j.agent).teamRole, 'researcher');
-  assert.match(r.activity(j.agent).label, /modèle local/);
+  assert.match(r.activity(j.agent).label.en, /local model/); assert.match(r.activity(j.agent).label.fr, /modèle local/);
   const before = JSON.stringify(r.M.get(m).findings);
   r.markJobRunning(j.id); r.completeJob(j.id, { ok: true, output: { questions: [{ question: 'Q ?', why: 'w', needs: 'data', related: ['g.counts'] }] }, entry: { ms: 10, tokens: 20, model: 'test' } });
   assert.equal(JSON.stringify(r.M.get(m).findings), before, 'a proposal never modifies findings');

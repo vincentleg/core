@@ -5,6 +5,7 @@
 // they are recorded with their provenance and can never modify findings, evidence, secrets or decisions.
 // Budgets: per-job timeout, one retry, max output tokens, max jobs per hour, max queue length.
 import { verify } from './verifier.mjs';
+const en = x => (x && typeof x === 'object' ? x.en ?? '' : x ?? ''); // bilingual data → English (prompts are in English)
 
 export const KINDS = {
   gaps: { label: 'Identifier les preuves manquantes', schema: { type: 'object', required: ['questions'], properties: { questions: { type: 'array', maxItems: 4, items: { type: 'object', required: ['question', 'why', 'needs', 'related'], properties: { question: { type: 'string', maxLength: 240 }, why: { type: 'string', maxLength: 240 }, needs: { type: 'string', enum: ['data', 'method', 'review', 'local-knowledge'] }, related: { type: 'array', items: { type: 'string' } } } } } } } },
@@ -24,13 +25,13 @@ export function checkSchema(v, s, path = '$') {
 
 // Prompt: findings numbered by id; the model may only cite these ids; text constraints mirror the verifier.
 export function prompt(kind, { mission, findings, hypothesis = null }) {
-  const ev = findings.map(f => `- ${f.id} [${f.status}] ${f.claim}`).join('\n');
-  const rules = 'Réponds en français, en JSON conforme au schéma. Cite uniquement les identifiants de constats fournis. N’invente aucun chiffre, aucune date, aucun statut juridique (norme, loi, obligatoire) et n’affirme aucune certitude, cause prouvée, danger ou validation. Une hypothèse reste une hypothèse.';
-  const task = { gaps: 'Quelles questions de recherche manquent pour avancer ? Indique pour chacune ce qu’il faudrait (données, méthode, revue, connaissance locale).',
-    hypothesis: 'Propose au plus deux hypothèses testables, différentes de celles déjà listées, chacune appuyée sur au moins un constat cité, avec un test et une condition de réfutation.',
-    critique: `Conteste cette hypothèse comme un relecteur sceptique : « ${hypothesis?.title} — ${hypothesis?.statement} ». Objections de données, de méthode, de causalité ou d’équité.`,
-    synthesis: 'Rédige une synthèse prudente pour un décideur : ce qui est établi (identifiants), ce qui reste incertain (identifiants).' }[kind];
-  return [{ role: 'system', content: `Tu es un agent de recherche de CORE. ${rules}` }, { role: 'user', content: `Mission : ${mission.title}\nQuestion : ${mission.question}\nHypothèses déjà ouvertes : ${(mission.hypotheses || []).map(h => `${h.id} ${h.title}`).join(' ; ') || 'aucune'}\nConstats :\n${ev}\n\nTâche : ${task}` }];
+  const ev = findings.map(f => `- ${f.id} [${f.status}] ${en(f.claim)}`).join('\n');
+  const rules = 'Answer in English, as JSON matching the schema. Cite only the finding identifiers provided. Invent no number, no date, no legal status (standard, law, mandatory) and assert no certainty, proven cause, danger or validation. A hypothesis remains a hypothesis.';
+  const task = { gaps: 'Which research questions are missing to make progress? For each, say what would be needed (data, method, review, local knowledge).',
+    hypothesis: 'Propose at most two testable hypotheses, different from those already listed, each supported by at least one cited finding, with a test and a falsification condition.',
+    critique: `Challenge this hypothesis as a sceptical reviewer: “${en(hypothesis?.title)} — ${en(hypothesis?.statement)}”. Objections about data, method, causality or equity.`,
+    synthesis: 'Write a careful synthesis for a decision-maker: what is established (identifiers), what remains uncertain (identifiers).' }[kind];
+  return [{ role: 'system', content: `You are a CORE research agent. ${rules}` }, { role: 'user', content: `Mission: ${en(mission.title)}\nQuestion: ${en(mission.question)}\nHypotheses already open: ${(mission.hypotheses || []).map(h => `${h.id} ${en(h.title)}`).join('; ') || 'none'}\nFindings:\n${ev}\n\nTask: ${task}` }];
 }
 
 // Validation of a parsed answer against the mission's findings.
@@ -41,7 +42,7 @@ export function validate(kind, out, findings) {
   if (kind === 'hypothesis') for (const h of out.hypotheses || []) { for (const r of h.supports || []) if (!ids.has(r)) issues.push(`constat inexistant : ${r}`); texts.push(h.statement, h.test, h.falsifiedIf); }
   if (kind === 'critique') for (const o of out.objections || []) texts.push(o.text);
   if (kind === 'synthesis') { for (const r of [...(out.established || []), ...(out.uncertain || [])]) if (!ids.has(r)) issues.push(`constat inexistant : ${r}`); texts.push(out.summary); }
-  const ev = findings.filter(f => f.status !== 'gap').map(f => ({ text: f.claim, record: f.id }));
+  const ev = findings.filter(f => f.status !== 'gap').map(f => ({ text: en(f.claim), record: f.id }));
   for (const t of texts.filter(Boolean)) { const v = verify(t, ev, { requireCitation: false }); for (const i of v.issues) issues.push(`${i.code} : ${i.detail}`); }
   return { ok: issues.length === 0, issues: [...new Set(issues)].slice(0, 8) };
 }

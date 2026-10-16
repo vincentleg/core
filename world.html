@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -7,8 +7,8 @@
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex">
 <meta name="core-ready" content="CORE_EARTH">
-<title>CORE — Living Earth</title>
-<meta name="description" content="Explorez notre monde. Comprenez ses défis. Aidez à façonner la suite. Prototype local de CORE : une Terre en 3D, un problème réel enregistré à San Francisco et ses preuves.">
+<title data-fr="CORE — un monde parallèle pour résoudre des problèmes réels">CORE — a parallel world to solve real problems</title>
+<meta name="description" content="CORE: a parallel digital Earth where AI agents investigate real-world problems and anyone can contribute evidence, ideas and simulations. Local prototype.">
 <link rel="stylesheet" href="assets/vendor/maplibre-gl-6.11.2/maplibre-gl.css" integrity="sha384-ntw3zEt6rcVML7jDK0ULmHa5hxLB23afsPqzqfY+gLgMfAkbFCnCgPpkZvV5mmZX">
 <link rel="modulepreload" href="assets/vendor/maplibre-gl-6.11.2/maplibre-gl.mjs" integrity="sha384-KQzExYlfg1SnYNpLaXHTnaCTjr5wmiZ6X3sasvPb94caZfH+3+T1Sl4eJziXUtmN">
 <link rel="modulepreload" href="assets/vendor/maplibre-gl-6.11.2/maplibre-gl-shared.mjs" integrity="sha384-V59ofCEPEqpSk5Mswc19DtDYbZWJtne210dFzS328Il6O31eLwTV7v57+Z3NjW/7">
@@ -18,73 +18,83 @@
 <link rel="stylesheet" href="src/earth/earth.css">
 </head>
 <body class="earth">
-<a class="skip" href="#ea-list-btn">Aller à la liste des problèmes (navigation sans 3D)</a>
+<a class="skip" href="#ea-problems-btn" data-fr="Aller aux problèmes et missions (navigation sans 3D)">Skip to problems and missions (no 3D needed)</a>
 <header class="bar" id="core-nav"></header>
 <main id="ea-main">
-  <h1 class="sr-only">CORE World — Living Earth</h1>
-  <div id="map" role="region" aria-label="Terre en 3D. Glisser pour tourner, molette ou pincement pour zoomer, flèches du clavier pour se déplacer."></div>
+  <h1 class="sr-only">CORE — <span data-fr="un monde parallèle conçu pour résoudre des problèmes dans le monde réel">a parallel world built to solve problems in the real one</span></h1>
+  <div id="map" role="region" aria-label="3D Earth. Drag to rotate, scroll or pinch to zoom, arrow keys to move." data-fr-label="Terre en 3D. Glisser pour tourner, molette ou pincement pour zoomer, flèches du clavier pour se déplacer."></div>
 
   <div class="ea-vignette" id="ea-vignette" aria-hidden="true"></div>
   <section id="ea-hero" class="ea-hero" aria-labelledby="ea-hero-title">
     <p class="le-eyebrow">CORE · Creation Of Reborn Earth</p>
-    <h2 id="ea-hero-title" class="le-display">Explorez notre monde.<br><span>Comprenez ses défis.</span><br>Aidez à façonner la suite.</h2>
-    <p class="le-lede">Des problèmes réels, leurs preuves publiques et leurs incertitudes, sur une Terre que vous pouvez parcourir. Vous y réfléchissez avec des agents qui citent leurs sources — et vos idées restent les vôtres.</p>
-    <div class="le-row"><button type="button" class="primary" id="ea-start">Explorer San Francisco <span aria-hidden="true">→</span></button><button type="button" id="ea-how" aria-expanded="false" aria-controls="ea-howto">Comment ça marche</button></div>
-    <ol class="le-steps ea-howto" id="ea-howto" hidden>
-      <li><div><b>Découvrez</b> un problème réel, enregistré depuis une source publique.</div></li>
-      <li><div><b>Examinez</b> ce qui est mesuré, ce qui ne l’est pas, et où en est l’examen.</div></li>
-      <li><div><b>Proposez</b> une idée avec un agent ; elle reste privée et chiffrée chez vous.</div></li>
-      <li><div><b>Suivez</b> ce qui se passe ensuite : aucune validation n’est jamais simulée.</div></li></ol>
-    <p class="fine ea-hero-note">Prototype local · données publiques (OpenStreetMap, DataSF, NASA, USGS) · aucun compte, rien n’est transmis ni publié.</p>
+    <h2 id="ea-hero-title" class="le-display" data-fr="Un monde parallèle conçu pour <span>résoudre des problèmes dans le monde réel.</span>">A parallel world built to <span>solve problems in the real one.</span></h2>
+    <p class="le-lede" data-fr="Une Terre numérique en évolution, où des agents d’IA examinent les grands défis de l’humanité — et où chacun peut les rejoindre pour transformer preuves, idées et simulations en solutions qui méritent d’être testées.">An evolving digital Earth where AI agents investigate humanity’s greatest challenges — and anyone can join them to turn evidence, ideas, and simulations into solutions worth testing.</p>
+    <div class="le-row ea-ctas"><button type="button" class="primary ea-cta-demo" id="ea-demo-cta" data-fr="Lancer la démo CORE">Launch CORE Demo</button><button type="button" id="ea-start" data-fr="Explorer le monde">Explore the World</button><a class="ea-vision" href="manifesto.html" data-fr="Découvrir la vision CORE →">Discover the CORE Vision →</a></div>
+    <ol class="ea-flow" aria-label="How CORE works" data-fr-label="Comment fonctionne CORE">
+      <li><b data-fr="Terre réelle">Real Earth</b><span data-fr="Des problèmes réels, des données publiques datées, leurs lacunes.">Real problems, dated public data, and their gaps.</span></li>
+      <li><b data-fr="Monde CORE">CORE World</b><span data-fr="Une Terre parallèle où des agents logiciels examinent ces problèmes.">A parallel Earth where software agents investigate them.</span></li>
+      <li><b data-fr="Humains + IA">Human + AI</b><span data-fr="Vous observez, proposez et contestez aux côtés des agents.">You observe, propose and challenge alongside the agents.</span></li>
+      <li><b data-fr="Propositions testées">Tested proposals</b><span data-fr="Les idées sont confrontées aux preuves et aux simulations.">Ideas are tested against evidence and simulations.</span></li>
+      <li><b data-fr="Examen dans le réel">Real-world review</b><span data-fr="Rien n’agit sans examen ni autorisation humaine ; l’impact se mesure.">Nothing acts without human review and authorisation; impact must be measured.</span></li></ol>
+    <p class="fine ea-hero-note" data-fr="Prototype local · données publiques (OpenStreetMap, DataSF, NASA, USGS, EIA) · aucun compte · rien n’est transmis ni publié · aucun impact réel n’est encore vérifié.">Local prototype · public data (OpenStreetMap, DataSF, NASA, USGS, EIA) · no account · nothing is transmitted or published · no real-world impact has been verified yet.</p>
   </section>
 
-  <div class="ea-layers le-glass" id="ea-layers" role="radiogroup" aria-label="Couche de la Terre">
-    <button type="button" role="radio" data-layer="real" aria-checked="true" title="La Terre physique : géographie, données publiques, humains" data-i18n="world.real">Real</button>
-    <button type="button" role="radio" data-layer="agents" aria-checked="false" title="La couche de calcul : la civilisation des agents CORE projetée sur la même géographie" data-i18n="world.agents">Agents</button>
-    <button type="button" role="radio" data-layer="hybrid" aria-checked="false" title="Humains et agents ensemble" data-i18n="world.hybrid">Hybrid</button>
-    <span class="ea-sep" aria-hidden="true"></span><button type="button" id="ea-activity-btn" aria-controls="ea-panel" data-i18n="world.activity">Activity</button></div>
-  <nav class="ea-scales le-glass" id="ea-scales" aria-label="Échelle" hidden></nav>
+  <div class="ea-layers le-glass" id="ea-layers" role="radiogroup" aria-label="World layer" data-fr-label="Couche du monde">
+    <button type="button" role="radio" data-layer="real" aria-checked="true" title="Real Earth: physical geography, public data, people" data-fr-title="Terre réelle : géographie physique, données publiques, personnes"><span class="lg" data-fr="Terre réelle">Real Earth</span><span class="sm" data-fr="Réel">Real</span></button>
+    <button type="button" role="radio" data-layer="agents" aria-checked="false" title="CORE World: the parallel research civilisation of software agents" data-fr-title="Monde CORE : la civilisation de recherche parallèle des agents logiciels"><span class="lg" data-fr="Monde CORE">CORE World</span><span class="sm">CORE</span></button>
+    <button type="button" role="radio" data-layer="hybrid" aria-checked="false" title="Hybrid View: agents working on physical-world problems" data-fr-title="Vue hybride : les agents au travail sur des problèmes du monde physique"><span class="lg" data-fr="Vue hybride">Hybrid View</span><span class="sm" data-fr="Hybride">Hybrid</span></button>
+    <button type="button" class="ghost small ea-layer-help" id="ea-layer-help" aria-expanded="false" aria-controls="ea-layer-intro" aria-label="What do these views mean?" data-fr-label="Que signifient ces vues ?">?</button></div>
+  <aside id="ea-layer-intro" class="ea-layer-intro le-glass" hidden aria-live="polite"></aside>
+  <nav class="ea-scales le-glass" id="ea-scales" aria-label="Scale" data-fr-label="Échelle" hidden></nav>
 
   <div class="ea-tools" id="ea-tools" hidden>
-    <div class="ea-search le-glass"><label class="sr-only" for="ea-q">Rechercher un lieu ou un problème enregistré</label>
-      <input id="ea-q" type="search" data-i18n-ph="world.search" placeholder="Search a recorded problem, a street…" autocomplete="off" list="ea-ql"><datalist id="ea-ql"></datalist></div>
-    <button type="button" class="le-glass ea-ic" id="ea-list-btn" aria-expanded="false" aria-controls="ea-list" data-i18n="world.list">List</button>
-    <button type="button" class="le-glass ea-ic" id="ea-noticed-btn" aria-controls="ea-panel" data-i18n="world.noticed">I noticed something</button>
+    <div class="ea-search le-glass"><label class="sr-only" for="ea-q" data-fr="Rechercher un lieu, un problème ou une mission">Search a place, a problem or a mission</label>
+      <input id="ea-q" type="search" placeholder="Search places, problems, missions…" data-fr-ph="Rechercher lieux, problèmes, missions…" autocomplete="off" list="ea-ql"><datalist id="ea-ql"></datalist></div>
+    <button type="button" class="le-glass ea-ic" id="ea-problems-btn" aria-expanded="false" aria-controls="ea-panel" data-fr="Problèmes et missions">Problems &amp; missions</button>
+    <button type="button" class="le-glass ea-ic" id="ea-noticed-btn" aria-controls="ea-panel" data-fr="Contribuer">Contribute</button>
   </div>
 
   <aside id="ea-list" class="ea-list le-glass" hidden aria-labelledby="ea-list-h" tabindex="-1">
-    <header><h2 id="ea-list-h">Problèmes enregistrés</h2><button type="button" class="ghost small" data-close="ea-list" aria-label="Fermer la liste">✕</button></header>
-    <p class="fine">Corridor Folsom / Howard, San Francisco · navigation sans 3D.</p><ul id="ea-list-ul"></ul></aside>
+    <header><h2 id="ea-list-h" data-fr="Problèmes enregistrés">Recorded problems</h2><button type="button" class="ghost small" data-close="ea-list" aria-label="Close the list" data-fr-label="Fermer la liste">✕</button></header>
+    <p class="fine" data-fr="Corridor Folsom / Howard, San Francisco · navigation sans 3D.">Folsom / Howard corridor, San Francisco · no 3D needed.</p><ul id="ea-list-ul"></ul></aside>
 
   <aside id="ea-panel" class="ea-panel le-glass" hidden aria-labelledby="pp-title" tabindex="-1">
-    <button type="button" class="ghost small ea-close" data-close="ea-panel" aria-label="Fermer le panneau">✕</button>
+    <button type="button" class="ghost small ea-close" data-close="ea-panel" aria-label="Close the panel" data-fr-label="Fermer le panneau">✕</button>
     <div id="ea-panel-body"></div>
-    <div class="ea-human"><button type="button" id="ea-human">Descendre à hauteur humaine</button><a href="avatar.html" class="fine">Personnaliser mon avatar</a></div>
+    <div class="ea-human"><button type="button" id="ea-human" data-fr="Descendre à hauteur humaine">Walk at street level</button><a href="avatar.html" class="fine" data-fr="Personnaliser mon avatar">Customise my avatar</a></div>
   </aside>
 
   <div id="ea-hud" class="ea-hud" hidden>
     <div class="ea-hud-l le-glass"><span class="le-avatar-chip" id="ea-me"></span><span class="fine" id="ea-hint"></span></div>
-    <div class="ea-hud-c le-glass" role="toolbar" aria-label="Contrôles à hauteur humaine">
-      <button type="button" class="small" id="ea-cam" aria-pressed="false">Vue : 3e personne</button>
-      <button type="button" class="small accent" id="ea-talk" disabled>Parler à l’agent (E)</button>
-      <button type="button" class="small" id="ea-up">Remonter</button>
-      <label class="fine">Qualité <select id="ea-quality"><option value="high">Haute</option><option value="balanced">Équilibrée</option><option value="low">Économe</option></select></label>
+    <div class="ea-hud-c le-glass" role="toolbar" aria-label="Street-level controls" data-fr-label="Contrôles à hauteur humaine">
+      <button type="button" class="small" id="ea-cam" aria-pressed="false"></button>
+      <button type="button" class="small accent" id="ea-talk" disabled></button>
+      <button type="button" class="small" id="ea-up" data-fr="Remonter">Back to the map</button>
+      <label class="fine"><span data-fr="Qualité">Quality</span> <select id="ea-quality"><option value="high" data-fr="Haute">High</option><option value="balanced" data-fr="Équilibrée">Balanced</option><option value="low" data-fr="Économe">Light</option></select></label>
     </div>
     <div id="ea-joy" class="ea-joy" aria-hidden="true"><i></i></div>
   </div>
   <div class="ea-legend le-glass" id="ea-legend" hidden>
-    <span><i style="--c:var(--le-observed)"></i>Observé</span><span><i style="--c:var(--le-risk)"></i>Risque potentiel</span><span><i style="--c:var(--le-hypothesis)"></i>Hypothèse</span><span class="ea-leg-agents"><i style="--c:#62d8f2"></i>Agent au travail</span><span class="ea-leg-agents"><i style="--c:#4f6782"></i>Agent inactif</span>
-    <button type="button" class="ghost small" id="ea-about-btn" aria-expanded="false" aria-controls="ea-about">Ce que vous voyez</button></div>
+    <span><i style="--c:var(--le-observed)"></i><span data-fr="Observé">Observed</span></span><span><i style="--c:var(--le-risk)"></i><span data-fr="Risque potentiel">Potential risk</span></span><span><i style="--c:var(--le-hypothesis)"></i><span data-fr="Hypothèse">Hypothesis</span></span><span class="ea-leg-agents"><i style="--c:#62d8f2"></i><span data-fr="Agent au travail">Agent at work</span></span><span class="ea-leg-agents"><i style="--c:#4f6782"></i><span data-fr="Agent inactif">Idle agent</span></span>
+    <button type="button" class="ghost small" id="ea-about-btn" aria-expanded="false" aria-controls="ea-about" data-fr="Ce que vous voyez">What you see</button></div>
   <aside id="ea-about" class="ea-about le-glass" hidden>
-    <h2>Ce que vous voyez</h2>
+    <h2 data-fr="Ce que vous voyez">What you see</h2>
     <ul>
-      <li><b>Géographie réelle</b> : rues et emprises de bâtiments OpenStreetMap ; relief USGS ; imagerie NASA à l’échelle planétaire.</li>
-      <li><b>Bâtiments proches</b> : formes et hauteurs réelles, <b>façades procédurales</b> (convention visuelle, pas des photos ; pas de photogrammétrie).</li>
-      <li><b>Arbres</b> : positions réelles de l’inventaire DataSF ; taille approximative d’après la classe de diamètre ; forme générique.</li>
-      <li><b>Soleil</b> : fin d’après-midi fixe (choix artistique, pas le ciel actuel).</li>
-      <li><b>Marqueurs</b> : problèmes enregistrés par CORE, colorés selon le niveau de preuve.</li>
-      <li><b>Agents (couches Agents et Hybride)</b> : identités du registre CORE animées par un moteur local déterministe ; silhouettes holographiques, jamais des personnes ; déplacements accélérés ; postes et points de réunion virtuels.</li></ul></aside>
-  <p id="toast" class="toast" role="status" aria-live="polite"></p>
+      <li data-fr="<b>Géographie réelle</b> : rues et emprises de bâtiments OpenStreetMap ; relief USGS ; imagerie NASA à l’échelle planétaire."><b>Real geography</b>: OpenStreetMap streets and building footprints; USGS relief; NASA imagery at planet scale.</li>
+      <li data-fr="<b>Bâtiments proches</b> : formes et hauteurs réelles, <b>façades procédurales</b> (convention visuelle, pas des photos)."><b>Nearby buildings</b>: real shapes and heights, <b>procedural façades</b> (a visual convention, not photographs).</li>
+      <li data-fr="<b>Arbres</b> : positions réelles de l’inventaire DataSF ; taille approximative ; forme générique."><b>Trees</b>: real positions from the DataSF inventory; approximate size; generic shape.</li>
+      <li data-fr="<b>Marqueurs</b> : problèmes enregistrés par CORE, colorés selon le niveau de preuve."><b>Markers</b>: problems recorded by CORE, coloured by level of evidence.</li>
+      <li data-fr="<b>Agents (Monde CORE et Vue hybride)</b> : identités logicielles du registre CORE animées par un moteur local déterministe ; silhouettes holographiques, jamais des personnes ; dessinées sur des trottoirs cartographiés ; déplacements accélérés."><b>Agents (CORE World and Hybrid View)</b>: software identities from the CORE registry, animated by a deterministic local engine; holographic figures, never people; drawn on mapped walkways; movement is accelerated.</li>
+      <li data-fr="<b>Véhicules</b> : uniquement pendant la relecture d’une simulation SUMO enregistrée (demande synthétique, modèle non calibré)."><b>Vehicles</b>: only while replaying a recorded SUMO simulation (synthetic demand, uncalibrated model).</li></ul></aside>
+  <section id="ea-demo-choice" class="ea-demo-choice le-glass" hidden role="dialog" aria-modal="true" aria-labelledby="ea-dc-h">
+    <h2 id="ea-dc-h" data-fr="Découvrir CORE">Experience CORE</h2>
+    <p class="fine" data-fr="Les deux modes utilisent les mêmes scènes, données et preuves. Environ 5 minutes.">Both modes use the same scenes, data and evidence. About 5 minutes.</p>
+    <div class="ea-dc-opts">
+      <button type="button" class="ea-dc-opt" data-demo-mode="auto"><b data-fr="Regarder la visite automatique">Watch the Autonomous Tour</b><span data-fr="CORE vous guide automatiquement : d’un problème réel à la recherche des agents, aux simulations, à la contribution humaine et à l’examen scientifique. (Navigation automatisée — pas une IA autonome.)">CORE guides you through the entire experience automatically, from a real-world problem to agent research, simulations, human contribution and scientific review. (Automated navigation and playback — not autonomous AI.)</span></button>
+      <button type="button" class="ea-dc-opt" data-demo-mode="manual"><b data-fr="Explorer pas à pas">Explore Step by Step</b><span data-fr="Vous gardez la main. Avancez quand vous voulez, inspectez les preuves et interagissez avec les agents.">Control the experience yourself. Advance when you’re ready, inspect the evidence, and interact with the agents.</span></button></div>
+    <button type="button" class="ghost small" data-demo-mode="exit" data-fr="Quitter">Exit</button>
+  </section>
+<p id="toast" class="toast" role="status" aria-live="polite"></p>
   <p id="fatal" class="fatal" role="alert" hidden></p>
 </main>
 <script type="module" src="src/earth/app.mjs"></script>

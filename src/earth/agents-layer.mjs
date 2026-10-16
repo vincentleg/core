@@ -20,21 +20,21 @@ export function createAgentLayer(map, { runtime, onAgent, onHub, onNetwork, pos 
   const sf = R.agents.filter(a => a.city === 'san-francisco' && a.post && !['council', 'assembly', 'global'].includes(a.level));
   map.addSource('civ-agents', { type: 'geojson', data: EMPTY });
   map.addSource('civ-links', { type: 'geojson', data: EMPTY });
-  map.addSource('civ-hubs', { type: 'geojson', data: { type: 'FeatureCollection', features: R.agents.filter(a => a.level === 'team-lead' && a.post).map(a => ({ type: 'Feature', geometry: { type: 'Point', coordinates: a.post }, properties: { id: a.id, team: a.teamName || a.team, dept: a.department } })) } });
+  map.addSource('civ-hubs', { type: 'geojson', data: { type: 'FeatureCollection', features: R.agents.filter(a => a.level === 'team-lead' && a.post).map(a => ({ type: 'Feature', geometry: { type: 'Point', coordinates: a.post }, properties: { id: a.id, team: a.teamName || a.team, team_en: a.en?.teamName || a.teamName || a.team, dept: a.department } })) } });
   const nyc = [-73.985, 40.722], sfc = [-122.42, 37.765];
   map.addSource('civ-net', { type: 'geojson', data: { type: 'FeatureCollection', features: [
-    { type: 'Feature', geometry: { type: 'Point', coordinates: sfc }, properties: { kind: 'city', status: 'active', label: `San Francisco · ${R.agents.filter(a => a.city === 'san-francisco').length} agents enregistrés`, id: 'san-francisco' } },
-    { type: 'Feature', geometry: { type: 'Point', coordinates: nyc }, properties: { kind: 'city', status: 'partial', label: 'New York · missions enregistrées (registre non chargé)', id: 'new-york' } },
-    { type: 'Feature', geometry: { type: 'LineString', coordinates: arc(sfc, nyc) }, properties: { kind: 'link', label: 'Enquête inter-villes enregistrée (Phase 10)' } }] } });
+    { type: 'Feature', geometry: { type: 'Point', coordinates: sfc }, properties: { kind: 'city', status: 'active', label: `San Francisco · ${R.agents.filter(a => a.city === 'san-francisco').length} agents enregistrés`, label_en: `San Francisco · ${R.agents.filter(a => a.city === 'san-francisco').length} registered agents`, id: 'san-francisco' } },
+    { type: 'Feature', geometry: { type: 'Point', coordinates: nyc }, properties: { kind: 'city', status: 'partial', label: 'New York · missions enregistrées (registre non chargé)', label_en: 'New York · recorded missions (registry not loaded)', id: 'new-york' } },
+    { type: 'Feature', geometry: { type: 'LineString', coordinates: arc(sfc, nyc) }, properties: { kind: 'link', label: 'Enquête inter-villes enregistrée (Phase 10)', label_en: 'Recorded cross-city investigation (Phase 10)' } }] } });
   const before = map.getLayer('marker-halo') ? 'marker-halo' : undefined;
   const L = [
     { id: 'civ-net-link', type: 'line', source: 'civ-net', maxzoom: 8, filter: ['==', ['get', 'kind'], 'link'], paint: { 'line-color': '#9fb8ff', 'line-width': 1.6, 'line-dasharray': [2, 2], 'line-opacity': 0.8 } },
     { id: 'civ-net-glow', type: 'circle', source: 'civ-net', maxzoom: 9, filter: ['==', ['get', 'kind'], 'city'], paint: { 'circle-radius': ['case', ['==', ['get', 'status'], 'active'], 26, 12], 'circle-color': ['case', ['==', ['get', 'status'], 'active'], '#62d8f2', '#b9a2ff'], 'circle-opacity': 0.25, 'circle-blur': 0.7 } },
     { id: 'civ-net-city', type: 'circle', source: 'civ-net', maxzoom: 9, filter: ['==', ['get', 'kind'], 'city'], paint: { 'circle-radius': ['case', ['==', ['get', 'status'], 'active'], 9, 5], 'circle-color': ['case', ['==', ['get', 'status'], 'active'], '#62d8f2', 'transparent'], 'circle-stroke-color': ['case', ['==', ['get', 'status'], 'active'], '#e8fbff', '#b9a2ff'], 'circle-stroke-width': 2 } },
-    { id: 'civ-net-label', type: 'symbol', source: 'civ-net', maxzoom: 9, filter: ['==', ['get', 'kind'], 'city'], layout: { 'text-field': ['get', 'label'], 'text-font': ['Noto Sans Regular'], 'text-size': 12, 'text-offset': [0, 1.6], 'text-anchor': 'top' }, paint: { 'text-color': '#dff6ff', 'text-halo-color': '#020a16', 'text-halo-width': 1.4 } },
+    { id: 'civ-net-label', type: 'symbol', source: 'civ-net', maxzoom: 9, filter: ['==', ['get', 'kind'], 'city'], layout: { 'text-field': ['get', 'label_en'], 'text-font': ['Noto Sans Regular'], 'text-size': 12, 'text-offset': [0, 1.6], 'text-anchor': 'top' }, paint: { 'text-color': '#dff6ff', 'text-halo-color': '#020a16', 'text-halo-width': 1.4 } },
     { id: 'civ-links', type: 'line', source: 'civ-links', minzoom: 11, paint: { 'line-color': ['match', ['get', 'kind'], 'meeting', '#b9a2ff', '#62d8f2'], 'line-width': Z(11, 0.6, 17, 1.6), 'line-opacity': 0.55, 'line-dasharray': [1.5, 1.5] } },
     { id: 'civ-hubs', type: 'circle', source: 'civ-hubs', minzoom: 10.5, paint: { 'circle-radius': Z(11, 4, 16, 9), 'circle-color': 'transparent', 'circle-stroke-color': '#62d8f2', 'circle-stroke-width': 1.4, 'circle-stroke-opacity': 0.8 } },
-    { id: 'civ-hubs-label', type: 'symbol', source: 'civ-hubs', minzoom: 13.5, maxzoom: 19, layout: { 'text-field': ['concat', 'Pôle virtuel · ', ['get', 'team']], 'text-font': ['Noto Sans Regular'], 'text-size': 10.5, 'text-offset': [0, 1.3], 'text-anchor': 'top', 'text-optional': true }, paint: { 'text-color': '#9fe7f8', 'text-halo-color': '#020a16', 'text-halo-width': 1.2 } },
+    { id: 'civ-hubs-label', type: 'symbol', source: 'civ-hubs', minzoom: 13.5, maxzoom: 19, layout: { 'text-field': ['concat', 'Virtual hub · ', ['get', 'team_en']], 'text-font': ['Noto Sans Regular'], 'text-size': 10.5, 'text-offset': [0, 1.3], 'text-anchor': 'top', 'text-optional': true }, paint: { 'text-color': '#9fe7f8', 'text-halo-color': '#020a16', 'text-halo-width': 1.2 } },
     { id: 'civ-agents-glow', type: 'circle', source: 'civ-agents', minzoom: 9.5, filter: ['!=', ['get', 'state'], 'idle'], paint: { 'circle-radius': Z(10, 3, 15, 7, 18, 12), 'circle-color': STATE_EXPR, 'circle-opacity': 0.25, 'circle-blur': 0.8, 'circle-pitch-alignment': 'viewport' } },
     { id: 'civ-agents', type: 'circle', source: 'civ-agents', minzoom: 9.5, maxzoom: 19.2, paint: { 'circle-radius': Z(10, 2, 13, 3, 15, 4, 17, 5.5), 'circle-color': STATE_EXPR, 'circle-stroke-color': '#020a16', 'circle-stroke-width': Z(13, 0, 15, 1), 'circle-pitch-alignment': 'viewport' } },
     { id: 'civ-agents-label', type: 'symbol', source: 'civ-agents', minzoom: 16.3, maxzoom: 19.2, filter: ['!=', ['get', 'state'], 'idle'], layout: { 'text-field': ['get', 'code'], 'text-font': ['Noto Sans Regular'], 'text-size': 10, 'text-offset': [0, 1.1], 'text-anchor': 'top', 'text-optional': true }, paint: { 'text-color': '#c9f3ff', 'text-halo-color': '#020a16', 'text-halo-width': 1.2 } },
@@ -68,5 +68,10 @@ export function createAgentLayer(map, { runtime, onAgent, onHub, onNetwork, pos 
     }
     update();
   }
-  return { setMode, update, get mode() { return mode; }, agents: sf };
+  // Language of the map labels (English by default).
+  function relabel(code) {
+    if (map.getLayer('civ-hubs-label')) map.setLayoutProperty('civ-hubs-label', 'text-field', code === 'fr' ? ['concat', 'Pôle virtuel · ', ['get', 'team']] : ['concat', 'Virtual hub · ', ['get', 'team_en']]);
+    if (map.getLayer('civ-net-label')) map.setLayoutProperty('civ-net-label', 'text-field', ['get', code === 'fr' ? 'label' : 'label_en']);
+  }
+  return { setMode, update, relabel, get mode() { return mode; }, agents: sf };
 }

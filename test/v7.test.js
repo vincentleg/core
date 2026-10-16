@@ -30,13 +30,13 @@ test('map style: every remote source host is exactly what the World CSP allows (
 
 test('problem view: plain language by default, identifiers only in the technical details, and everything escaped', async () => {
   const V = await imp('src/earth/problem-view.mjs');
-  assert.equal(V.humanPlace('FOLSOM ST 05TH ST → FALMOUTH ST'), 'Folsom St, entre 5th St et Falmouth St');
+  assert.equal(V.humanPlace('FOLSOM ST 05TH ST → FALMOUTH ST'), 'Folsom St, between 5th St and Falmouth St'); assert.equal(V.humanPlace('FOLSOM ST 05TH ST → FALMOUTH ST', 'fr'), 'Folsom St, entre 5th St et Falmouth St'); // V9: English default
   const reg = JSON.parse(read('data/problems/registry.json')), p = reg.problems.find(x => x.id === 'sidewalk-below-bsp-min:5665000');
   const html = V.problemHTML(p, {});
-  assert.match(html, /10 ft/); assert.match(html, /3,05 m/); assert.match(html, /Ce que l’on ne sait pas/); assert.match(html, /Revue humaine/);
+  assert.match(html, /10 ft/); assert.match(html, /3\.05 m/); assert.match(html, /What we do not know/); assert.match(html, /Human review/); assert.match(html, /Sidewalk narrower than the Better Streets Plan minimum/);
   const visible = html.split('<details')[0].replace(/<[^>]+>/g, ' ');
   assert.ok(!visible.includes('5665000') && html.split('<details')[1].includes('sidewalk-below-bsp-min:5665000'), 'registry id shown only inside the technical details');
-  assert.doesNotMatch(html.replace(/non validée?s?/gi, ''), /validé|approuvé|prouvé/i, 'no approval language (the record’s own “non validée” is fine)');
+  assert.doesNotMatch(html.replace(/non validée?s?|not validated/gi, ''), /validé|approuvé|prouvé|validated|approved|proven/i, 'no approval language (the record’s own “non validée” is fine)');
   const evil = { ...p, title: '<img src=x onerror=1>', statement: '"><script>x</script>', caveat: '<b id=evil>', evidence: [{ ref: '<i id=evil>', url: 'javascript:alert(1)' }] };
   const e = V.problemHTML(evil, {});
   assert.doesNotMatch(e, /<img|<script|<b id=evil>|<i id=evil>|javascript:/);
