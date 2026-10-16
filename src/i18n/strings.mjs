@@ -1,6 +1,7 @@
 // CORE V8 — interface strings. English is the reference. Other languages: drafts by the coding model, NOT reviewed by
 // native speakers (see STATUS in i18n.mjs); any missing key falls back to English.
 const en = {
+  'world.real': 'Real', 'world.agents': 'Agents', 'world.hybrid': 'Hybrid', 'world.activity': 'Activity', 'world.list': 'List', 'world.search': 'Search a recorded problem, a street…', 'world.noticed': 'I noticed something',
   'nav.explore': 'Explore', 'nav.create': 'Create', 'nav.together': 'Together', 'nav.me': 'My CORE', 'nav.trust': 'TRUST', 'nav.journey': 'Journey',
   'nav.proto': 'LOCAL PROTOTYPE', 'nav.manifesto': 'Manifesto', 'nav.demo': 'Experience CORE', 'nav.progress': 'Progress', 'nav.language': 'Language', 'nav.voice': 'Companion (voice or text)', 'nav.main': 'Main navigation',
   'cmp.title': 'CORE companion', 'cmp.intro': 'Say or type what you want to do. I only perform actions from a fixed list, and I never share, delete or publish anything for you.',
@@ -18,6 +19,7 @@ const en = {
   'lang.draft': 'Draft translation, not yet reviewed by a native speaker. English is the reference.',
 };
 const fr = {
+  'world.real': 'Réel', 'world.agents': 'Agents', 'world.hybrid': 'Hybride', 'world.activity': 'Activité', 'world.list': 'Liste', 'world.search': 'Rechercher un problème, une rue…', 'world.noticed': 'J’ai remarqué…',
   'nav.explore': 'Explorer', 'nav.create': 'Créer', 'nav.together': 'Ensemble', 'nav.me': 'Mon CORE', 'nav.trust': 'TRUST', 'nav.journey': 'Parcours',
   'nav.proto': 'PROTOTYPE LOCAL', 'nav.manifesto': 'Manifeste', 'nav.demo': 'Découvrir CORE', 'nav.progress': 'Progrès', 'nav.language': 'Langue', 'nav.voice': 'Compagnon (voix ou texte)', 'nav.main': 'Navigation principale',
   'cmp.title': 'Compagnon CORE', 'cmp.intro': 'Dites ou écrivez ce que vous voulez faire. Je n’exécute que des actions d’une liste fixe, et je ne partage, ne supprime ni ne publie rien à votre place.',
@@ -35,6 +37,7 @@ const fr = {
   'lang.draft': 'Traduction provisoire, non relue par une personne de langue maternelle. L’anglais fait référence.',
 };
 const es = {
+  'world.real': 'Real', 'world.hybrid': 'Híbrido', 'world.activity': 'Actividad', 'world.list': 'Lista', 'world.noticed': 'He notado algo',
   'nav.explore': 'Explorar', 'nav.create': 'Crear', 'nav.together': 'Juntos', 'nav.me': 'Mi CORE', 'nav.journey': 'Recorrido', 'nav.proto': 'PROTOTIPO LOCAL', 'nav.manifesto': 'Manifiesto', 'nav.demo': 'Descubrir CORE', 'nav.progress': 'Progreso', 'nav.language': 'Idioma', 'nav.voice': 'Compañero (voz o texto)', 'nav.main': 'Navegación principal',
   'cmp.title': 'Compañero CORE', 'cmp.intro': 'Di o escribe lo que quieres hacer. Solo ejecuto acciones de una lista fija y nunca comparto, borro ni publico nada por ti.', 'cmp.placeholder': 'p. ej. «muestra la simulación del carril bus»', 'cmp.do': 'Ir', 'cmp.mic': 'Hablar', 'cmp.mic_stop': 'Dejar de escuchar', 'cmp.listening': 'Escuchando — solo en este dispositivo',
   'cmp.mic_unavailable': 'La voz requiere reconocimiento en el dispositivo, que este navegador no ofrece. Escribir funciona siempre; nunca se envía audio a un servidor.', 'cmp.not_understood': 'No lo entendí. Prueba uno de los ejemplos.', 'cmp.confirm': 'Esto requiere tu propia acción explícita.', 'cmp.open': 'Abrir la página', 'cmp.examples': 'Ejemplos', 'cmp.close': 'Cerrar',
@@ -42,34 +45,41 @@ const es = {
   'lang.draft': 'Traducción provisional, aún no revisada por una persona nativa. El inglés es la referencia.',
 };
 const pt = {
+  'world.real': 'Real', 'world.hybrid': 'Híbrido', 'world.activity': 'Atividade', 'world.list': 'Lista', 'world.noticed': 'Reparei em algo',
   'nav.explore': 'Explorar', 'nav.create': 'Criar', 'nav.together': 'Juntos', 'nav.me': 'Meu CORE', 'nav.journey': 'Percurso', 'nav.proto': 'PROTÓTIPO LOCAL', 'nav.manifesto': 'Manifesto', 'nav.demo': 'Conhecer o CORE', 'nav.progress': 'Progresso', 'nav.language': 'Idioma', 'nav.voice': 'Companheiro (voz ou texto)', 'nav.main': 'Navegação principal',
   'cmp.title': 'Companheiro CORE', 'cmp.intro': 'Diga ou escreva o que quer fazer. Só executo ações de uma lista fixa e nunca partilho, apago ou publico nada por si.', 'cmp.do': 'Ir', 'cmp.mic': 'Falar', 'cmp.listening': 'A ouvir — apenas neste dispositivo', 'cmp.not_understood': 'Não percebi. Experimente um dos exemplos.', 'cmp.close': 'Fechar', 'cmp.examples': 'Exemplos',
   'act.change_language': 'Idioma: {lang}.', 'lang.draft': 'Tradução provisória, ainda não revista por um falante nativo. O inglês é a referência.',
 };
 const zh = {
+  'world.real': '现实', 'world.agents': '智能体', 'world.hybrid': '混合', 'world.activity': '活动', 'world.list': '列表', 'world.noticed': '我注意到一件事',
   'nav.explore': '探索', 'nav.create': '创造', 'nav.together': '协作', 'nav.me': '我的 CORE', 'nav.journey': '旅程', 'nav.proto': '本地原型', 'nav.manifesto': '宣言', 'nav.demo': '体验 CORE', 'nav.progress': '进展', 'nav.language': '语言', 'nav.voice': '助手（语音或文字）', 'nav.main': '主导航',
   'cmp.title': 'CORE 助手', 'cmp.intro': '说出或输入你想做的事。我只执行固定列表中的操作，绝不替你分享、删除或发布任何内容。', 'cmp.do': '执行', 'cmp.mic': '说话', 'cmp.listening': '正在聆听——仅在本设备上', 'cmp.not_understood': '我没有听懂。请试试下面的示例。', 'cmp.close': '关闭', 'cmp.examples': '示例',
   'act.change_language': '语言：{lang}。', 'lang.draft': '草稿译文，尚未经母语者审校。以英文为准。',
 };
 const hi = {
+  'world.real': 'वास्तविक', 'world.agents': 'एजेंट', 'world.hybrid': 'मिश्रित', 'world.activity': 'गतिविधि', 'world.list': 'सूची', 'world.noticed': 'मैंने कुछ देखा',
   'nav.explore': 'खोजें', 'nav.create': 'रचें', 'nav.together': 'साथ मिलकर', 'nav.me': 'मेरा CORE', 'nav.journey': 'यात्रा', 'nav.proto': 'स्थानीय प्रोटोटाइप', 'nav.manifesto': 'घोषणापत्र', 'nav.demo': 'CORE का अनुभव करें', 'nav.progress': 'प्रगति', 'nav.language': 'भाषा', 'nav.voice': 'साथी (आवाज़ या टेक्स्ट)', 'nav.main': 'मुख्य नेविगेशन',
   'cmp.title': 'CORE साथी', 'cmp.do': 'जाएँ', 'cmp.mic': 'बोलें', 'cmp.close': 'बंद करें', 'cmp.examples': 'उदाहरण', 'act.change_language': 'भाषा: {lang}।', 'lang.draft': 'मसौदा अनुवाद, अभी किसी मूल भाषी द्वारा जाँचा नहीं गया। अंग्रेज़ी संदर्भ है।',
 };
 const ar = {
+  'world.real': 'الواقع', 'world.agents': 'الوكلاء', 'world.hybrid': 'مختلط', 'world.activity': 'النشاط', 'world.list': 'القائمة', 'world.noticed': 'لاحظتُ شيئًا',
   'nav.explore': 'استكشف', 'nav.create': 'أنشئ', 'nav.together': 'معًا', 'nav.me': 'CORE الخاص بي', 'nav.journey': 'المسار', 'nav.proto': 'نموذج أولي محلي', 'nav.manifesto': 'البيان', 'nav.demo': 'اكتشف CORE', 'nav.progress': 'التقدّم', 'nav.language': 'اللغة', 'nav.voice': 'المرافق (صوت أو نص)', 'nav.main': 'التنقل الرئيسي',
   'cmp.title': 'مرافق CORE', 'cmp.intro': 'قل أو اكتب ما تريد فعله. أنفّذ فقط إجراءات من قائمة ثابتة، ولا أشارك أو أحذف أو أنشر أي شيء نيابةً عنك.', 'cmp.do': 'تنفيذ', 'cmp.mic': 'تحدّث', 'cmp.listening': 'أستمع — على هذا الجهاز فقط', 'cmp.not_understood': 'لم أفهم. جرّب أحد الأمثلة أدناه.', 'cmp.close': 'إغلاق', 'cmp.examples': 'أمثلة',
   'act.change_language': 'اللغة: {lang}.', 'lang.draft': 'ترجمة مبدئية لم يراجعها بعد متحدث أصلي. الإنجليزية هي المرجع.',
 };
 const bn = {
+  'world.real': 'বাস্তব', 'world.agents': 'এজেন্ট', 'world.hybrid': 'মিশ্র', 'world.activity': 'কার্যকলাপ', 'world.list': 'তালিকা', 'world.noticed': 'আমি কিছু লক্ষ করেছি',
   'nav.explore': 'অন্বেষণ', 'nav.create': 'সৃষ্টি', 'nav.together': 'একসাথে', 'nav.me': 'আমার CORE', 'nav.journey': 'যাত্রা', 'nav.proto': 'স্থানীয় প্রোটোটাইপ', 'nav.manifesto': 'ইশতেহার', 'nav.demo': 'CORE অভিজ্ঞতা', 'nav.progress': 'অগ্রগতি', 'nav.language': 'ভাষা', 'nav.voice': 'সঙ্গী (কণ্ঠ বা লেখা)', 'nav.main': 'প্রধান নেভিগেশন',
   'cmp.title': 'CORE সঙ্গী', 'cmp.do': 'যান', 'cmp.mic': 'বলুন', 'cmp.close': 'বন্ধ', 'cmp.examples': 'উদাহরণ', 'act.change_language': 'ভাষা: {lang}।', 'lang.draft': 'খসড়া অনুবাদ, এখনও কোনো মাতৃভাষী পর্যালোচনা করেননি। ইংরেজিই রেফারেন্স।',
 };
 const ru = {
+  'world.real': 'Реальность', 'world.agents': 'Агенты', 'world.hybrid': 'Гибрид', 'world.activity': 'Активность', 'world.list': 'Список', 'world.noticed': 'Я кое-что заметил(а)',
   'nav.explore': 'Исследовать', 'nav.create': 'Создавать', 'nav.together': 'Вместе', 'nav.me': 'Мой CORE', 'nav.journey': 'Маршрут', 'nav.proto': 'ЛОКАЛЬНЫЙ ПРОТОТИП', 'nav.manifesto': 'Манифест', 'nav.demo': 'Знакомство с CORE', 'nav.progress': 'Прогресс', 'nav.language': 'Язык', 'nav.voice': 'Помощник (голос или текст)', 'nav.main': 'Основная навигация',
   'cmp.title': 'Помощник CORE', 'cmp.intro': 'Скажите или напишите, что хотите сделать. Я выполняю только действия из фиксированного списка и никогда не делюсь, не удаляю и не публикую ничего за вас.', 'cmp.do': 'Выполнить', 'cmp.mic': 'Говорить', 'cmp.listening': 'Слушаю — только на этом устройстве', 'cmp.not_understood': 'Я не понял. Попробуйте один из примеров.', 'cmp.close': 'Закрыть', 'cmp.examples': 'Примеры',
   'act.change_language': 'Язык: {lang}.', 'lang.draft': 'Черновой перевод, ещё не проверенный носителем языка. Эталон — английский.',
 };
 const ja = {
+  'world.real': '現実', 'world.agents': 'エージェント', 'world.hybrid': 'ハイブリッド', 'world.activity': '活動', 'world.list': '一覧', 'world.noticed': '気づいたことがある',
   'nav.explore': '探索', 'nav.create': '創る', 'nav.together': 'みんなで', 'nav.me': 'マイ CORE', 'nav.journey': '旅程', 'nav.proto': 'ローカル試作版', 'nav.manifesto': 'マニフェスト', 'nav.demo': 'CORE を体験', 'nav.progress': '進捗', 'nav.language': '言語', 'nav.voice': 'コンパニオン（音声または文字）', 'nav.main': 'メインナビゲーション',
   'cmp.title': 'CORE コンパニオン', 'cmp.intro': 'やりたいことを話すか入力してください。決められた一覧の操作だけを行い、あなたの代わりに共有・削除・公開することはありません。', 'cmp.do': '実行', 'cmp.mic': '話す', 'cmp.listening': '聞き取り中 — この端末内のみ', 'cmp.not_understood': '理解できませんでした。下の例を試してください。', 'cmp.close': '閉じる', 'cmp.examples': '例',
   'act.change_language': '言語：{lang}。', 'lang.draft': '翻訳の草稿で、まだネイティブスピーカーの確認を受けていません。英語が基準です。',

@@ -151,7 +151,7 @@ function renderSide() {
 function proposeForm() {
   const prof = getJ('core.commons.v1')?.profile, mine = T.R.S.missions[T.m.id].humanInputs;
   return `<section class="ds-sec" id="tm-propose"><h3>Proposer à la mission</h3>
-    <form class="form" id="tm-form"><label>Type <select id="tm-kind"><option value="hypothesis">Hypothèse</option><option value="evidence">Preuve (avec sa source)</option><option value="question">Question de recherche</option><option value="challenge">Contestation</option></select></label>
+    <form class="form" id="tm-form"><label>Type <select id="tm-kind"><option value="observation">Observation (ce que j’ai remarqué)</option><option value="hypothesis">Hypothèse</option><option value="evidence">Preuve (avec sa source)</option><option value="question">Question de recherche</option><option value="challenge">Contestation</option></select></label>
       <label>Titre <input id="tm-title" maxlength="120" required></label><label>Texte <textarea id="tm-text" maxlength="1000" required></textarea></label>
       <div class="le-row"><button type="button" id="tm-private">Garder en privé (coffre chiffré)</button></div>
       <label class="inline"><input type="checkbox" id="tm-consent"> Je consens à partager ce titre et ce texte avec le conseil de mission (stockés dans ce navigateur, visibles dans CORE World ; aucune publication).</label>
@@ -161,6 +161,9 @@ function proposeForm() {
 }
 function wirePropose() {
   const val = () => ({ kind: $('tm-kind').value, title: $('tm-title').value.trim(), text: $('tm-text').value.trim() });
+  // V8: text structured in CORE World (« J’ai remarqué… ») arrives pre-filled; nothing is shared until the person decides.
+  let pre = null; try { pre = JSON.parse(sessionStorage.getItem('core.dialogue.prefill') || 'null'); } catch {}
+  if (pre && typeof pre === 'object' && pre.title) { sessionStorage.removeItem('core.dialogue.prefill'); if ([...$('tm-kind').options].some(o => o.value === pre.kind)) $('tm-kind').value = pre.kind; $('tm-title').value = String(pre.title).slice(0, 120); $('tm-text').value = String(pre.text || '').slice(0, 1000); }
   $('tm-prof')?.addEventListener('click', () => { try { const c = getJ('core.commons.v1') || {}; c.profile = I.createProfile({ pseudonym: $('tm-ps').value }); putJ('core.commons.v1', c); renderSide(); } catch (e) { toast(e.message); } });
   $('tm-unlock')?.addEventListener('click', async () => { try { await VS.unlock($('tm-pass').value, getJ('core.commons.v1').profile.id); renderSide(); } catch (e) { toast(e.message); } });
   $('tm-private').onclick = async () => {
@@ -197,6 +200,7 @@ export async function boot(h) {
   $('dl-chips').querySelectorAll('[data-consult]').forEach(b => b.onclick = () => consult(b.dataset.consult));
   $('dl-input').placeholder = 'Posez une question à l’équipe (logement, inondation, expulsions, production…)';
   $('dl-form').onsubmit = e => { e.preventDefault(); ask($('dl-input').value); };
+  try { const q = sessionStorage.getItem('core.dialogue.prefill'); if (q && q[0] !== '{') { sessionStorage.removeItem('core.dialogue.prefill'); $('dl-input').value = q.slice(0, 300); } } catch {} // companion: pre-filled, not sent
   $('dl-input').addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); ask($('dl-input').value); } });
   const stop = document.createElement('button'); stop.type = 'button'; stop.id = 'dl-stop'; stop.className = 'small'; stop.hidden = true; stop.textContent = 'Arrêter la reformulation'; stop.onclick = () => T.abort?.abort(); $('dl-form').append(stop);
   tabs.forEach(b => b.onclick = () => { T.side = b.dataset.side; renderSide(); });

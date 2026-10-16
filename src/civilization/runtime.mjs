@@ -10,6 +10,7 @@
 //    saved and restored; the clock only advances while a page runs the runtime ("progresses while CORE is open").
 //  • No agent here is a language model. Their "work" is the computation of findings on dated public data; positions are
 //    a visualisation of where that work points (virtual posts, evidence locations, virtual meeting points).
+import { evaluate as evaluateContribution } from '../contrib/contributions.mjs';
 export const VERSION = 'core-civ-runtime-v1';
 export const STAGES = ['OBSERVE', 'FORMULATE', 'RETRIEVE', 'ANALYZE', 'REQUEST_REVIEW', 'COLLABORATE', 'HYPOTHESES', 'SIMULATE', 'CRITIQUE', 'REVISE', 'DOSSIER', 'HUMAN_REVIEW', 'RECOMMENDATION', 'MONITOR'];
 export const STAGE_FR = { REASON: 'Raisonner (modèle local)', OBSERVE: 'Observer', FORMULATE: 'Formuler la question', RETRIEVE: 'Récupérer les preuves', ANALYZE: 'Analyser', REQUEST_REVIEW: 'Demander une revue', COLLABORATE: 'Collaborer', HYPOTHESES: 'Former des hypothèses', SIMULATE: 'Simuler', CRITIQUE: 'Critiquer', REVISE: 'Réviser', DOSSIER: 'Produire le dossier', HUMAN_REVIEW: 'Revue humaine', RECOMMENDATION: 'Recommandation', MONITOR: 'Surveiller' };
@@ -119,8 +120,14 @@ export function createRuntime({ registry, missions, maxTasks = 140, perMission =
       }
       // Human inputs are triaged by the research team (no automatic acceptance).
       for (const h of ms.humanInputs) if (h.state === 'reçue' && running < maxTasks) { const t = { id: `triage-${h.id}`, stage: 'COLLABORATE', team: 'research', role: 'sources', n: 1, at: 'hub', dur: 12 };
-        const free = candidates(m, t).find(id => !S.busy[id]); if (!free) continue; h.state = 'en revue'; h.by = free;
+        const free = candidates(m, t).find(id => !S.busy[id]); if (!free) continue; h.state = 'en revue'; h.by = free; h.reviewAt = S.clock;
         emit({ kind: 'message', mission: m.id, task: t.id, stage: 'COLLABORATE', type: 'review-request', from: free, to: m.council, agents: [free], text: `Contribution humaine « ${h.title} » transmise au conseil comme ${h.kind === 'evidence' ? 'preuve à vérifier' : 'hypothèse à examiner'} ; aucune validation automatique, aucun relecteur humain vérifié pour l’instant.`, evidence: [] }); }
+      // V8: after 30 runtime seconds in review, a deterministic FORM check (sources, numbers, overclaims, personal data,
+      // relation to the findings). The outcome is reported to the person; nothing is accepted automatically.
+      for (const h of ms.humanInputs) if (h.state === 'en revue' && S.clock - (h.reviewAt ?? S.clock) >= 30) {
+        h.evaluation = evaluateContribution(h, m.findings); h.state = h.evaluation.outcome === 'to-investigate' ? 'en attente de revue humaine' : 'évaluée';
+        emit({ kind: 'message', mission: m.id, task: `triage-${h.id}`, stage: 'COLLABORATE', type: 'review', from: h.by, to: 'human:local', agents: [h.by], text: `Contribution « ${h.title} » : ${h.evaluation.label}.${h.evaluation.related.length ? ` Constats liés : ${h.evaluation.related.join(', ')}.` : ''} Contrôle de forme automatique ; pas une validation.`, evidence: h.evaluation.related });
+      }
     }
   }
   function startAudit(m, a, st) {
@@ -225,10 +232,10 @@ export function createRuntime({ registry, missions, maxTasks = 140, perMission =
   }
   function submitHumanInput(missionId, { kind, title, text, consent }) {
     if (!consent) throw Error('consentement explicite requis pour partager une contribution avec la mission');
-    if (!['hypothesis', 'evidence', 'question', 'challenge'].includes(kind)) throw Error('type de contribution inconnu');
+    if (!['observation', 'hypothesis', 'evidence', 'question', 'challenge'].includes(kind)) throw Error('type de contribution inconnu');
     const ms = S.missions[missionId]; if (!ms) throw Error('mission inconnue');
     const h = { id: `h${ms.humanInputs.length + 1}`, kind, title: String(title || '').slice(0, 120), text: String(text || '').slice(0, 1000), state: 'reçue', at: S.clock };
-    ms.humanInputs.push(h); emit({ kind: 'message', mission: missionId, type: 'human-input', from: 'human:local', to: M.get(missionId).council, text: `${{ hypothesis: 'Hypothèse', evidence: 'Preuve', question: 'Question', challenge: 'Contestation' }[kind]} proposée par une personne : « ${h.title} »`, evidence: [] });
+    ms.humanInputs.push(h); emit({ kind: 'message', mission: missionId, type: 'human-input', from: 'human:local', to: M.get(missionId).council, text: `${{ observation: 'Observation', hypothesis: 'Hypothèse', evidence: 'Preuve', question: 'Question', challenge: 'Contestation' }[kind]} proposée par une personne : « ${h.title} »`, evidence: [] });
     return h;
   }
   const serialize = () => JSON.stringify(S);

@@ -87,3 +87,28 @@ test('i18n: ten languages, English default and fallback, Arabic right-to-left, d
   for (const [c] of I.LANGS) { for (const k of ['nav.explore', 'nav.create', 'nav.together', 'nav.me', 'nav.language', 'cmp.title', 'cmp.do', 'lang.draft']) assert.ok(STRINGS[c][k] || STRINGS.en[k], `${c} ${k}`); if (c !== 'en') assert.equal(I.STATUS[c], 'draft-unreviewed'); }
   for (const [c] of I.LANGS) for (const [k, v] of Object.entries(STRINGS[c])) { assert.ok(k in STRINGS.en, `${c}: unknown key ${k}`); assert.deepEqual((v.match(/\{\w+\}/g) || []).sort(), (STRINGS.en[k].match(/\{\w+\}/g) || []).sort(), `${c} ${k} placeholders`); }
 });
+
+test('participation: CORE structures the words, the person decides, agents evaluate FORM only, nothing is accepted', async () => {
+  const C = await imp('src/contrib/contributions.mjs'), A = await imp('src/voice/actions.mjs'), AN = await imp('src/civilization/analyses.mjs'), MS = await imp('src/civilization/missions.mjs'), RT = await imp('src/civilization/runtime.mjs');
+  const D = {}; for (const [k, p] of Object.entries(AN.FILES)) D[k] = JSON.parse(read(p));
+  const reg = json('data/agents/sf-civilization.json'), missions = MS.buildMissions(D, reg, { today: '2026-10-16T00:00:00Z' }), byId = new Map(missions.map(m => [m.id, m]));
+  const idx = missions.map(m => ({ id: m.id, title: m.title }));
+  const st = C.structure('Le matin, les bus restent bloqués sur Folsom entre la 5th et la 6th; peut-être à cause des voitures qui tournent.', { missions: idx, findingsOf: id => byId.get(id).findings, suggest: t => A.suggestMission(t, idx) });
+  assert.equal(st.kind, 'hypothesis'); assert.equal(st.mission, 'mission.sf.mobility'); assert.ok(st.title.length <= 110); assert.ok(st.text.includes('Folsom'));
+  assert.ok(!st.missing.some(m => /Où/.test(m)), 'a street was given'); assert.equal(st.privacy, null);
+  assert.equal(C.structure('   ', {}), null);
+  assert.match(C.structure('Je vis au coin de Folsom et mon adresse est connue des voisins.', { missions: idx }).privacy || '', /personnelles/);
+  // Evaluation outcomes are about form; an evidence without a source is never examined as evidence.
+  const mob = byId.get('mission.sf.mobility').findings;
+  assert.equal(C.evaluate({ kind: 'evidence', title: 'Comptages', text: 'Il y a 4000 voitures par heure sur Folsom.' }, mob).outcome, 'needs-source');
+  assert.equal(C.evaluate({ kind: 'hypothesis', title: 'Chats', text: 'Les chats préfèrent les jardins ensoleillés.' }, mob).outcome, 'lead');
+  // Runtime: consent required, triage, then a deterministic evaluation reported to the person; never "accepted".
+  const r = RT.createRuntime({ registry: reg, missions });
+  assert.throws(() => r.submitHumanInput('mission.sf.mobility', { kind: 'observation', title: 'x', text: 'y' }), /consentement/);
+  const h = r.submitHumanInput('mission.sf.mobility', { kind: 'observation', title: st.title, text: st.text, consent: true });
+  for (let i = 0; i < 900 && !h.evaluation; i++) r.step(1);
+  assert.ok(h.evaluation, 'evaluated within 15 runtime minutes'); assert.match(h.evaluation.method, /forme/); assert.ok(['évaluée', 'en attente de revue humaine'].includes(h.state));
+  assert.ok(r.S.events.some(e => e.type === 'review' && e.to === 'human:local' && /pas une validation/.test(e.text)));
+  assert.doesNotMatch(JSON.stringify(h), /accept|(?<!non )validée|approved/i);
+  assert.equal(C.stageOf(h), h.evaluation.outcome === 'to-investigate' ? 'human' : 'evaluated');
+});

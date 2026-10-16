@@ -23,3 +23,7 @@
   .me-hero { grid-template-columns: 1fr; } .me-portrait { width: 100%; height: 240px; }
   .me-card, .me-card.third { grid-column: span 12; } .me-steps { grid-template-columns: repeat(2, 1fr); }
 }
+/* V8 — contribution stages */
+.me-stages { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 8px 0; }
+.me-stages li { font-size: 12px; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--le-hairline); color: var(--le-text-3); }
+.me-stages li.done { color: var(--le-text-2); border-color: var(--le-hairline-2); } .me-stages li.now { color: var(--le-cyan); border-color: var(--le-cyan); }

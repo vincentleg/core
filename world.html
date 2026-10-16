@@ -39,16 +39,17 @@
   </section>
 
   <div class="ea-layers le-glass" id="ea-layers" role="radiogroup" aria-label="Couche de la Terre">
-    <button type="button" role="radio" data-layer="real" aria-checked="true" title="La Terre physique : géographie, données publiques, humains">Réel</button>
-    <button type="button" role="radio" data-layer="agents" aria-checked="false" title="La couche de calcul : la civilisation des agents CORE projetée sur la même géographie">Agents</button>
-    <button type="button" role="radio" data-layer="hybrid" aria-checked="false" title="Humains et agents ensemble">Hybride</button>
-    <span class="ea-sep" aria-hidden="true"></span><button type="button" id="ea-activity-btn" aria-controls="ea-panel">Activité</button></div>
+    <button type="button" role="radio" data-layer="real" aria-checked="true" title="La Terre physique : géographie, données publiques, humains" data-i18n="world.real">Real</button>
+    <button type="button" role="radio" data-layer="agents" aria-checked="false" title="La couche de calcul : la civilisation des agents CORE projetée sur la même géographie" data-i18n="world.agents">Agents</button>
+    <button type="button" role="radio" data-layer="hybrid" aria-checked="false" title="Humains et agents ensemble" data-i18n="world.hybrid">Hybrid</button>
+    <span class="ea-sep" aria-hidden="true"></span><button type="button" id="ea-activity-btn" aria-controls="ea-panel" data-i18n="world.activity">Activity</button></div>
   <nav class="ea-scales le-glass" id="ea-scales" aria-label="Échelle" hidden></nav>
 
   <div class="ea-tools" id="ea-tools" hidden>
     <div class="ea-search le-glass"><label class="sr-only" for="ea-q">Rechercher un lieu ou un problème enregistré</label>
-      <input id="ea-q" type="search" placeholder="Rechercher un problème, une rue…" autocomplete="off" list="ea-ql"><datalist id="ea-ql"></datalist></div>
-    <button type="button" class="le-glass ea-ic" id="ea-list-btn" aria-expanded="false" aria-controls="ea-list">Liste</button>
+      <input id="ea-q" type="search" data-i18n-ph="world.search" placeholder="Search a recorded problem, a street…" autocomplete="off" list="ea-ql"><datalist id="ea-ql"></datalist></div>
+    <button type="button" class="le-glass ea-ic" id="ea-list-btn" aria-expanded="false" aria-controls="ea-list" data-i18n="world.list">List</button>
+    <button type="button" class="le-glass ea-ic" id="ea-noticed-btn" aria-controls="ea-panel" data-i18n="world.noticed">I noticed something</button>
   </div>
 
   <aside id="ea-list" class="ea-list le-glass" hidden aria-labelledby="ea-list-h" tabindex="-1">

@@ -14,7 +14,8 @@ import { createAgentLayer } from './agents-layer.mjs';
 import * as CP from './civ-panels.mjs';
 import * as SCN from './scenarios.mjs';
 import { createGround } from './ground.mjs';
-import { PLACES as VPLACES } from '../voice/actions.mjs';
+import { PLACES as VPLACES, suggestMission } from '../voice/actions.mjs';
+import * as CONTRIB from '../contrib/contributions.mjs';
 
 const $ = id => document.getElementById(id);
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -202,6 +203,7 @@ function wire() {
   $('ea-quality').value = S.quality;
   $('ea-quality').onchange = e => { const before = S.quality; S.quality = e.target.value;
     if ((before === 'high') !== (S.quality === 'high')) toast('Le relief s’active ou se désactive au prochain chargement de la page (qualité « Haute » seulement).'); if (S.scene) { S.scene.setQuality(S.quality === 'high' ? 'high' : 'balanced'); if (S.quality === 'low') { $('ea-up').click(); } else S.buildings = S.scene.refreshBuildings(); } };
+  $('ea-noticed-btn').onclick = () => { revealMap(); showNoticed(); };
   $('ea-list-btn').onclick = () => { const l = $('ea-list'); l.hidden = !l.hidden; $('ea-list-btn').setAttribute('aria-expanded', String(!l.hidden)); if (!l.hidden) { if (!$('ea-hero').hidden) start(); l.focus(); } };
   $('ea-about-btn').onclick = () => { const a = $('ea-about'); a.hidden = !a.hidden; $('ea-about-btn').setAttribute('aria-expanded', String(!a.hidden)); };
   document.querySelectorAll('[data-close]').forEach(b => b.onclick = () => { $(b.dataset.close).hidden = true; });
@@ -258,6 +260,30 @@ async function playSimulation(id = 'S0') { await showSimulation(id); S.scn?.rend
 function revealMap() { S.spinning = false; $('ea-hero').hidden = true; $('ea-vignette').hidden = true; $('ea-scales').hidden = false; $('ea-tools').hidden = false; $('ea-legend').hidden = false; S.map.setPadding({ left: 0, right: 0, top: 0, bottom: 0 }); }
 async function flyTo(center, zoom) { if (S.mode === 'human') leaveHuman(); revealMap(); await fly({ center, zoom, pitch: zoom > 14 ? 58 : 40, bearing: -30 }, 2600); syncScale(); }
 function followAgent(id) { if (!S.civ?.byId.has(id)) return; revealMap(); if (S.layer?.mode === 'real') setLayer('hybrid'); S.follow = id; S.map.jumpTo({ center: posOf(id), zoom: Math.max(S.map.getZoom(), 17), pitch: 60 }); showAgent(id); }
+// V8 participation: « I noticed something » → CORE structures the words → the person continues in the mission team,
+// where they choose to keep it private (encrypted vault) or share it with consent. Nothing is stored or shared here.
+function showNoticed() {
+  panel('noticed', null, `<header class="pp-head"><p class="le-eyebrow">Participer</p><h2 id="pp-title">J’ai remarqué quelque chose</h2><p class="pp-lede">Décrivez ce que vous avez vu, avec vos mots. CORE le structure ; vous décidez ensuite de le garder privé ou de le partager.</p></header>
+    <form class="form" id="nt-form"><label>Ce que j’ai remarqué <textarea id="nt-text" maxlength="1000" required placeholder="Ex. : Le matin, les bus restent bloqués sur Folsom entre la 5th et la 6th ; peut-être à cause des voitures qui tournent."></textarea></label>
+      <button type="submit" class="primary">Structurer avec CORE</button></form><div id="nt-out"></div>
+    <p class="fine">Rien n’est envoyé ni enregistré à cette étape. La structuration est un code déterministe (pas un modèle de langage).</p>`);
+  $('nt-form').onsubmit = e => { e.preventDefault(); const R = S.civ; if (!R) return;
+    const missions = [...R.M.values()].map(m => ({ id: m.id, title: m.title })), place = S.map.getZoom() >= 15 ? S.map.getCenter().toArray().map(x => +x.toFixed(5)) : null;
+    const st = CONTRIB.structure($('nt-text').value, { missions, findingsOf: id => R.M.get(id)?.findings || [], suggest: t => suggestMission(t, missions), place });
+    if (!st) return; const m = st.mission && R.M.get(st.mission);
+    $('nt-out').innerHTML = `<div class="pp-sec"><h3>Structuré par CORE</h3><form class="form" id="nt-next">
+      <label>Type <select id="nt-kind">${Object.entries(CONTRIB.KINDS).map(([k, l]) => `<option value="${k}"${k === st.kind ? ' selected' : ''}>${esc(l)}</option>`).join('')}</select></label>
+      <label>Titre <input id="nt-title" maxlength="120" value="${esc(st.title)}"></label>
+      <label>Mission <select id="nt-mission">${missions.map(x => `<option value="${esc(x.id)}"${x.id === st.mission ? ' selected' : ''}>${esc(x.title)}</option>`).join('')}</select></label>
+      ${st.related.length ? `<p class="fine">Constats liés : ${st.related.map(id => `<b>${esc(id)}</b> — ${esc(m.findings.find(f => f.id === id)?.claim || '')}`).join(' · ')}</p>` : '<p class="fine">Aucun constat existant n’est lié pour l’instant.</p>'}
+      ${st.missing.length ? `<div class="pp-unc"><b>Ce qui aiderait</b>${st.missing.map(x => `<p>${esc(x)}</p>`).join('')}</div>` : ''}
+      ${st.privacy ? `<p class="cmp-err">${esc(st.privacy)} Retirez-les avant de partager.</p>` : ''}
+      <button type="submit" class="primary">Continuer : garder privé ou partager</button></form></div>`;
+    $('nt-next').onsubmit = ev => { ev.preventDefault(); const mid = $('nt-mission').value;
+      try { sessionStorage.setItem('core.dialogue.prefill', JSON.stringify({ kind: $('nt-kind').value, title: $('nt-title').value, text: st.text + (st.place ? `\n(Lieu : ${st.place[1]}, ${st.place[0]})` : '') })); } catch {}
+      location.href = `dialogue.html#mission=${encodeURIComponent(mid)}&intent=propose`; };
+  };
+}
 function hideSimulation() { S.scn?.hide(); S.traffic?.update([]); $('ea-panel').hidden = true; history.replaceState(null, '', location.pathname + location.search); toast('Scénario retiré : la carte montre de nouveau la rue réelle.'); }
 function refreshPanel() {
   const k = S.panelKind; if (!k || $('ea-panel').hidden || $('ea-panel').contains(document.activeElement) && document.activeElement.tagName === 'BUTTON') return;
@@ -335,4 +361,4 @@ function wireCiv() {
     } else if (!h.get('sim')) { if (innerWidth > 860) S.map.setPadding({ left: Math.min(760, innerWidth * 0.48), right: 0, top: 0, bottom: 0 }); spin(); }
   });
 })();
-globalThis.CORE_EARTH = { state: S, goScale, openPanel, focusSegment, enterHuman, start, setLayer, showAgent, showMission, showActivity, showEvent, showHierarchy, showSimulation, hideSimulation, playSimulation, flyTo, followAgent, civ: () => S.civ, get fps() { const f = S.frames; return f.length ? f.length / f.reduce((a, b) => a + b, 0) : 0; } };
+globalThis.CORE_EARTH = { state: S, goScale, openPanel, focusSegment, enterHuman, start, setLayer, showAgent, showMission, showActivity, showEvent, showHierarchy, showSimulation, hideSimulation, playSimulation, showNoticed, flyTo, followAgent, civ: () => S.civ, get fps() { const f = S.frames; return f.length ? f.length / f.reduce((a, b) => a + b, 0) : 0; } };

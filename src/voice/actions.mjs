@@ -44,13 +44,15 @@ function agentRef(t, ctx) {
   return null;
 }
 function missionRef(t, ctx) {
-  const KEY = [['mobility', /mobil|traffic|trafic|congestion|transport/], ['housing', /housing|logement|loyer|rent/], ['ai-compute', /\b(ai|ia)\b|compute|calcul/], ['energy', /energ/], ['safety', /safety|securite|accident|collision/], ['forest', /tree|arbre|forest|foret|canopy|canopee/], ['sidewalk', /sidewalk|trottoir/], ['freshness', /fresh|fraicheur/], ['food', /food|aliment/], ['schools', /school|ecole|scolaire/], ['water', /water|\beau\b/]];
+  const KEY = [['mobility', /mobil|traffic|trafic|congestion|transport|\bbus\b|voiture|\bcars?\b|parking|\bfeux\b|signal|velo|\bbike/], ['housing', /housing|logement|loyer|rent/], ['ai-compute', /\b(ai|ia)\b|compute|calcul/], ['energy', /energ/], ['safety', /safety|securite|accident|collision/], ['forest', /tree|arbre|forest|foret|canopy|canopee/], ['sidewalk', /sidewalk|trottoir/], ['freshness', /fresh|fraicheur/], ['food', /food|aliment/], ['schools', /school|ecole|scolaire/], ['water', /water|\beau\b/]];
   for (const [k, re] of KEY) if (re.test(t)) { const m = ctx.missions?.find(x => x.id.includes(k) || norm(x.title).includes(k)); if (m) return m.id; }
   const words = t.split(' ').filter(w => w.length >= 6);
   for (const w of words) { const m = ctx.missions?.find(x => norm(x.title).includes(w)); if (m) return m.id; }
   return null;
 }
 const first = (t, table) => table.find(([, re]) => re.test(t))?.[0] || null;
+
+export const suggestMission = (text, missions) => missionRef(norm(text), { missions });
 
 // Text → { name, params } or { name: null, reason }. Deterministic; English and French phrasings.
 export function parse(text, ctx = {}) {
