@@ -26,8 +26,8 @@ try {
   await call('Network.setCacheDisabled', { cacheDisabled: true });
   await call('Emulation.setDeviceMetricsOverride', { width: 1366, height: 900, deviceScaleFactor: 1, mobile: false });
   // 1. World
-  await go('world.html', '!!globalThis.CORE_WORLD && !!CORE_WORLD.state.map'); await ev('localStorage.clear(), 1');
-  await go('world.html', '!!globalThis.CORE_WORLD && !!CORE_WORLD.state.map');
+  await go('world-classic.html', '!!globalThis.CORE_WORLD && !!CORE_WORLD.state.map'); await ev('localStorage.clear(), 1');
+  await go('world-classic.html', '!!globalThis.CORE_WORLD && !!CORE_WORLD.state.map');
   await ev(`document.getElementById('enter').click(), 1`); await wait(200); await ev(`document.getElementById('confirm').click(), 1`);
   check('1. enter CORE World with an avatar in San Francisco', await until(`CORE_WORLD.state.mode === 'avatar'`, 20000));
   await ev(`document.getElementById('goto').click(), 1`); await until(`!document.getElementById('talk').disabled`, 6000);

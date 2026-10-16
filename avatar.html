@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self' blob: data:; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<title>CORE — Votre avatar</title>
+<meta name="description" content="Créez votre avatar CORE : silhouette, teint, coiffure, tenue et pseudonyme. Gratuit, local, sans compte.">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="src/world/world.css">
+<link rel="stylesheet" href="src/ui/living-earth.css">
+<link rel="stylesheet" href="src/earth/studio.css">
+</head>
+<body class="studio">
+<a class="skip" href="#st-panel">Aller aux options de l’avatar</a>
+<header class="bar" id="core-nav"></header>
+<main id="st-main">
+  <section class="st-stage" aria-label="Aperçu 3D de votre avatar">
+    <canvas id="st-canvas" aria-label="Aperçu 3D de votre avatar. Faites glisser pour tourner." role="img"></canvas>
+    <div class="st-overlay">
+      <p class="le-eyebrow">Mon CORE · Avatar</p>
+      <h1 class="st-title">Votre présence<br>dans CORE</h1>
+      <p class="fine st-note">Votre avatar ne donne ni statut ni autorité : il vous représente, c’est tout. Toutes les options sont gratuites et restent dans ce navigateur.</p>
+    </div>
+    <div class="st-stage-tools le-glass" role="toolbar" aria-label="Aperçu">
+      <button type="button" class="small ghost" id="st-rot-l" aria-label="Tourner à gauche">⟲</button>
+      <button type="button" class="small ghost" id="st-pose" aria-pressed="false">Marcher</button>
+      <button type="button" class="small ghost" id="st-talk" aria-pressed="false">Parler</button>
+      <button type="button" class="small ghost" id="st-rot-r" aria-label="Tourner à droite">⟳</button>
+    </div>
+    <p class="st-loading" id="st-loading" role="status">Chargement des modèles 3D…</p>
+  </section>
+  <aside class="st-panel le-glass" id="st-panel" tabindex="-1" aria-labelledby="st-h">
+    <h2 id="st-h" class="sr-only">Options de l’avatar</h2>
+    <div class="st-group"><h3>Point de départ</h3><div class="st-presets" id="st-presets" role="radiogroup" aria-label="Avatars prêts à l’emploi"></div></div>
+    <div class="st-group"><h3>Silhouette</h3><div class="st-seg" id="st-body" role="radiogroup" aria-label="Silhouette"></div></div>
+    <div class="st-group"><h3>Teint</h3><div class="st-sw" id="st-skin" role="radiogroup" aria-label="Teint"></div></div>
+    <div class="st-group"><h3>Coiffure</h3><div class="st-seg wrap" id="st-hair" role="radiogroup" aria-label="Coiffure"></div><div class="st-sw" id="st-hairc" role="radiogroup" aria-label="Couleur des cheveux"></div>
+      <label class="st-check" id="st-beard-l"><input type="checkbox" id="st-beard"> Barbe</label></div>
+    <div class="st-group"><h3>Haut</h3><div class="st-seg" id="st-top" role="radiogroup" aria-label="Haut"></div><div class="st-sw" id="st-topc" role="radiogroup" aria-label="Couleur du haut"></div></div>
+    <div class="st-group"><h3>Bas</h3><div class="st-seg" id="st-bottom" role="radiogroup" aria-label="Bas"></div><div class="st-sw" id="st-bottomc" role="radiogroup" aria-label="Couleur du bas"></div></div>
+    <div class="st-group"><h3>Chaussures</h3><div class="st-sw" id="st-shoes" role="radiogroup" aria-label="Couleur des chaussures"></div></div>
+    <div class="st-group"><h3>Pseudonyme</h3><input id="st-name" maxlength="24" autocomplete="off" placeholder="facultatif — jamais votre vrai nom">
+      <p class="fine">Pas de compte, pas de profil public. Stocké localement (<code>core.avatar.v2</code>) ; effaçable depuis TRUST.</p></div>
+    <div class="st-id" id="st-id" aria-live="polite"></div>
+    <div class="le-row st-actions"><button type="button" id="st-save">Enregistrer</button><button type="button" class="primary" id="st-enter">Entrer dans CORE World →</button></div>
+  </aside>
+  <p id="toast" class="toast" role="status" aria-live="polite"></p>
+</main>
+<script type="module" src="src/earth/studio.mjs"></script>
+</body>
+</html>

@@ -5,14 +5,19 @@ const ROOT = path.join(__dirname, '..'), read = p => fs.readFileSync(path.join(R
 const V6 = ['src/dialogue/engine.mjs', 'src/dialogue/room.mjs', 'src/shell/nav.mjs', 'src/shell/journey.mjs', 'src/civic/vault-session.mjs', 'src/civic/ui-journey.mjs', 'src/civic/ui-knowledge.mjs', 'src/civic/ui-network.mjs', 'src/civic/ui-more.mjs', 'src/civic/network.mjs', 'src/civic/debate.mjs', 'src/kb/contributions.mjs', 'src/kb/graph.mjs', 'src/kb/browser.mjs'];
 
 test('pages: strict CSP — no inline or external scripts; Dialogue and Commons can only talk to this site', () => {
-  for (const f of ['dialogue.html', 'commons.html', 'world.html']) {
+  for (const f of ['dialogue.html', 'commons.html', 'world.html', 'world-classic.html', 'avatar.html']) {
     const csp = read(f).match(/http-equiv="Content-Security-Policy" content="([^"]+)"/)[1];
     assert.match(csp, /script-src 'self';/, f); assert.doesNotMatch(csp, /unsafe-eval|script-src[^;]*unsafe-inline/, f);
     assert.match(csp, /object-src 'none'/, f); assert.match(csp, /form-action 'none'/, f);
     assert.doesNotMatch(read(f), /<script(?![^>]*src="src\/)/, `${f}: only same-origin module scripts`);
   }
   for (const f of ['dialogue.html', 'commons.html']) assert.match(read(f), /connect-src 'self';/, f);
-  assert.match(read('world.html'), /connect-src 'self' https:\/\/tiles\.openfreemap\.org;/);
+  assert.match(read('world-classic.html'), /connect-src 'self' https:\/\/tiles\.openfreemap\.org;/);
+  // V7 World: exactly the three public, keyless sources reviewed in docs/v7/TOOLING_AND_COSTS.md (OpenFreeMap tiles,
+  // NASA GIBS imagery, AWS Terrain Tiles relief). blob:/data: are the map's own decoded resources, never remote.
+  const w = read('world.html').match(/connect-src ([^;]+);/)[1].split(/\s+/).sort();
+  assert.deepEqual(w, ["'self'", 'blob:', 'data:', 'https://gibs.earthdata.nasa.gov', 'https://s3.amazonaws.com', 'https://tiles.openfreemap.org'].sort());
+  assert.match(read('avatar.html'), /connect-src 'self' blob: data:;/);
 });
 
 test('no V6 module contacts anything but this site: no absolute URL fetches, no sockets, no beacons, no storage of secrets in clear', () => {

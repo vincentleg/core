@@ -3,76 +3,83 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self' https://tiles.openfreemap.org; worker-src 'self'; child-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self' blob: data: https://tiles.openfreemap.org https://gibs.earthdata.nasa.gov https://s3.amazonaws.com; worker-src 'self' blob:; child-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex">
-<title>CORE World — prototype local</title>
-<meta name="description" content="Prototype local de CORE World : un avatar humain explore la Terre holographique de CORE, rencontre un agent et un problème réel enregistré.">
+<title>CORE — Living Earth</title>
+<meta name="description" content="Explorez notre monde. Comprenez ses défis. Aidez à façonner la suite. Prototype local de CORE : une Terre en 3D, un problème réel enregistré à San Francisco et ses preuves.">
 <link rel="stylesheet" href="assets/vendor/maplibre-gl-6.11.2/maplibre-gl.css" integrity="sha384-ntw3zEt6rcVML7jDK0ULmHa5hxLB23afsPqzqfY+gLgMfAkbFCnCgPpkZvV5mmZX">
 <link rel="modulepreload" href="assets/vendor/maplibre-gl-6.11.2/maplibre-gl.mjs" integrity="sha384-KQzExYlfg1SnYNpLaXHTnaCTjr5wmiZ6X3sasvPb94caZfH+3+T1Sl4eJziXUtmN">
 <link rel="modulepreload" href="assets/vendor/maplibre-gl-6.11.2/maplibre-gl-shared.mjs" integrity="sha384-V59ofCEPEqpSk5Mswc19DtDYbZWJtne210dFzS328Il6O31eLwTV7v57+Z3NjW/7">
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="src/world/world.css">
+<link rel="stylesheet" href="src/ui/living-earth.css">
+<link rel="stylesheet" href="src/earth/earth.css">
 </head>
-<body class="intro">
-<a class="skip" href="#world-panel">Aller au panneau d’information</a>
+<body class="earth">
+<a class="skip" href="#ea-list-btn">Aller à la liste des problèmes (navigation sans 3D)</a>
 <header class="bar" id="core-nav"></header>
-<main id="world-main">
-  <h1 class="sr-only">CORE World — prototype</h1>
-  <div id="map" role="region" aria-label="Terre de CORE en 3D"></div>
+<main id="ea-main">
+  <h1 class="sr-only">CORE World — Living Earth</h1>
+  <div id="map" role="region" aria-label="Terre en 3D. Glisser pour tourner, molette ou pincement pour zoomer, flèches du clavier pour se déplacer."></div>
 
-  <section id="intro" class="screen" aria-labelledby="intro-title">
-    <h2 id="intro-title">Entrez dans la Terre de CORE</h2>
-    <p>Les agents de CORE travaillent dans le monde holographique. Autour de vous, la réalité apparaît : bâtiments, rues, trottoirs et arbres proches prennent leur aspect matériel.</p>
-    <p class="fine">Prototype local : un lieu (Folsom Street, San Francisco), un agent réel du registre CORE, un problème réel enregistré. Rien n’est transmis ni publié.</p>
-    <div class="actions"><button type="button" id="enter" class="primary">ENTER CORE</button><button type="button" id="no-avatar" class="ghost">Explorer sans avatar</button></div>
+  <div class="ea-vignette" id="ea-vignette" aria-hidden="true"></div>
+  <section id="ea-hero" class="ea-hero" aria-labelledby="ea-hero-title">
+    <p class="le-eyebrow">CORE · Creation Of Reborn Earth</p>
+    <h2 id="ea-hero-title" class="le-display">Explorez notre monde.<br><span>Comprenez ses défis.</span><br>Aidez à façonner la suite.</h2>
+    <p class="le-lede">Des problèmes réels, leurs preuves publiques et leurs incertitudes, sur une Terre que vous pouvez parcourir. Vous y réfléchissez avec des agents qui citent leurs sources — et vos idées restent les vôtres.</p>
+    <div class="le-row"><button type="button" class="primary" id="ea-start">Explorer San Francisco <span aria-hidden="true">→</span></button><button type="button" id="ea-how" aria-expanded="false" aria-controls="ea-howto">Comment ça marche</button></div>
+    <ol class="le-steps ea-howto" id="ea-howto" hidden>
+      <li><div><b>Découvrez</b> un problème réel, enregistré depuis une source publique.</div></li>
+      <li><div><b>Examinez</b> ce qui est mesuré, ce qui ne l’est pas, et où en est l’examen.</div></li>
+      <li><div><b>Proposez</b> une idée avec un agent ; elle reste privée et chiffrée chez vous.</div></li>
+      <li><div><b>Suivez</b> ce qui se passe ensuite : aucune validation n’est jamais simulée.</div></li></ol>
+    <p class="fine ea-hero-note">Prototype local · données publiques (OpenStreetMap, DataSF, NASA, USGS) · aucun compte, rien n’est transmis ni publié.</p>
   </section>
 
-  <section id="choose" class="screen" hidden aria-labelledby="choose-title">
-    <h2 id="choose-title">Choisissez votre avatar</h2>
-    <div id="presets" class="presets" role="radiogroup" aria-label="Avatars"></div>
-    <fieldset class="custom"><legend>Personnaliser</legend>
-      <div class="row"><span id="top-label">Tenue</span><div id="tops" class="swatches" role="radiogroup" aria-labelledby="top-label"></div></div>
-      <label class="row">Coiffure <select id="hair"></select></label>
-      <label class="row">Nom affiché <input id="display-name" maxlength="24" autocomplete="off" placeholder="facultatif, pseudonyme"></label>
-      <p class="fine">Votre avatar et votre nom restent dans ce navigateur (localStorage <code>core.world.v1</code>). L’apparence n’a aucun effet sur ce que vous pouvez faire ou sur le poids de vos contributions.</p>
-    </fieldset>
-    <div class="actions"><button type="button" id="back" class="ghost">Retour</button><button type="button" id="confirm" class="primary">Confirmer et entrer</button></div>
-  </section>
+  <nav class="ea-scales le-glass" id="ea-scales" aria-label="Échelle" hidden></nav>
 
-  <div id="hud" hidden>
-    <div class="labels" aria-live="polite">
-      <span class="tag holo">HOLOGRAPHIQUE · monde des agents</span>
-      <span class="tag real">RÉALISTE · rayon <b id="r-val">10</b> m</span>
-      <span class="tag fine">Aspect réaliste = matériaux génériques sur géométrie OpenStreetMap, arbres et trottoirs du registre DataSF ; pas de photogrammétrie.</span>
-    </div>
-    <div class="tools" role="toolbar" aria-label="Contrôles">
-      <button type="button" id="cam" aria-pressed="false">Vue : 3e personne</button>
-      <button type="button" id="talk" disabled>Parler à l’agent (E)</button>
-      <button type="button" id="goto">Aller au problème</button>
-      <button type="button" id="open-panel">Informations</button>
-      <label>Rayon <input id="radius" type="range" min="0" max="50" step="5" value="10"></label>
-      <label>Qualité <select id="quality"><option value="high">Haute</option><option value="low">Économe</option></select></label>
-    </div>
-    <p class="help" id="help">Déplacement : W/Z ou ↑ avancer, S ou ↓ reculer, A/Q ou ← et D ou → tourner, Maj courir, C changer de vue, E parler, Échap fermer.</p>
-    <p class="perf" id="perf" aria-hidden="true"></p>
-    <div id="joy" class="joy" aria-hidden="true"><div class="knob"></div></div>
+  <div class="ea-tools" id="ea-tools" hidden>
+    <div class="ea-search le-glass"><label class="sr-only" for="ea-q">Rechercher un lieu ou un problème enregistré</label>
+      <input id="ea-q" type="search" placeholder="Rechercher un problème, une rue…" autocomplete="off" list="ea-ql"><datalist id="ea-ql"></datalist></div>
+    <button type="button" class="le-glass ea-ic" id="ea-list-btn" aria-expanded="false" aria-controls="ea-list">Liste</button>
   </div>
 
-  <aside id="world-panel" class="panel" hidden aria-labelledby="panel-title" tabindex="-1">
-    <header><h2 id="panel-title">Agent</h2><button type="button" id="panel-close" class="ghost small" aria-label="Fermer le panneau">✕</button></header>
-    <div class="tabs" role="tablist">
-      <button type="button" role="tab" data-tab="agent" aria-selected="true">Agent</button>
-      <button type="button" role="tab" data-tab="problem" aria-selected="false">Problème</button>
-      <button type="button" role="tab" data-tab="chat" aria-selected="false">Conversation</button>
-      <button type="button" role="tab" data-tab="contribute" aria-selected="false">Contribuer</button>
-      <button type="button" role="tab" data-tab="mine" aria-selected="false">Mes contributions</button>
-    </div>
-    <div id="panel-body" role="tabpanel"></div>
+  <aside id="ea-list" class="ea-list le-glass" hidden aria-labelledby="ea-list-h" tabindex="-1">
+    <header><h2 id="ea-list-h">Problèmes enregistrés</h2><button type="button" class="ghost small" data-close="ea-list" aria-label="Fermer la liste">✕</button></header>
+    <p class="fine">Corridor Folsom / Howard, San Francisco · navigation sans 3D.</p><ul id="ea-list-ul"></ul></aside>
+
+  <aside id="ea-panel" class="ea-panel le-glass" hidden aria-labelledby="pp-title" tabindex="-1">
+    <button type="button" class="ghost small ea-close" data-close="ea-panel" aria-label="Fermer le panneau">✕</button>
+    <div id="ea-panel-body"></div>
+    <div class="ea-human"><button type="button" id="ea-human">Descendre à hauteur humaine</button><a href="avatar.html" class="fine">Personnaliser mon avatar</a></div>
   </aside>
+
+  <div id="ea-hud" class="ea-hud" hidden>
+    <div class="ea-hud-l le-glass"><span class="le-avatar-chip" id="ea-me"></span><span class="fine" id="ea-hint"></span></div>
+    <div class="ea-hud-c le-glass" role="toolbar" aria-label="Contrôles à hauteur humaine">
+      <button type="button" class="small" id="ea-cam" aria-pressed="false">Vue : 3e personne</button>
+      <button type="button" class="small accent" id="ea-talk" disabled>Parler à l’agent (E)</button>
+      <button type="button" class="small" id="ea-up">Remonter</button>
+      <label class="fine">Qualité <select id="ea-quality"><option value="high">Haute</option><option value="balanced">Équilibrée</option><option value="low">Économe</option></select></label>
+    </div>
+    <div id="ea-joy" class="ea-joy" aria-hidden="true"><i></i></div>
+  </div>
+  <div class="ea-legend le-glass" id="ea-legend" hidden>
+    <span><i style="--c:var(--le-observed)"></i>Observé</span><span><i style="--c:var(--le-risk)"></i>Risque potentiel</span><span><i style="--c:var(--le-hypothesis)"></i>Hypothèse</span>
+    <button type="button" class="ghost small" id="ea-about-btn" aria-expanded="false" aria-controls="ea-about">Ce que vous voyez</button></div>
+  <aside id="ea-about" class="ea-about le-glass" hidden>
+    <h2>Ce que vous voyez</h2>
+    <ul>
+      <li><b>Géographie réelle</b> : rues et emprises de bâtiments OpenStreetMap ; relief USGS ; imagerie NASA à l’échelle planétaire.</li>
+      <li><b>Bâtiments proches</b> : formes et hauteurs réelles, <b>façades procédurales</b> (convention visuelle, pas des photos ; pas de photogrammétrie).</li>
+      <li><b>Arbres</b> : positions réelles de l’inventaire DataSF ; taille approximative d’après la classe de diamètre ; forme générique.</li>
+      <li><b>Soleil</b> : fin d’après-midi fixe (choix artistique, pas le ciel actuel).</li>
+      <li><b>Marqueurs</b> : problèmes enregistrés par CORE, colorés selon le niveau de preuve.</li>
+      <li><b>Agent</b> : forme non humaine, volontairement ; un agent n’a aucune présence physique.</li></ul></aside>
   <p id="toast" class="toast" role="status" aria-live="polite"></p>
   <p id="fatal" class="fatal" role="alert" hidden></p>
 </main>
-<script type="module" src="src/world/app.mjs"></script>
+<script type="module" src="src/earth/app.mjs"></script>
 </body>
 </html>

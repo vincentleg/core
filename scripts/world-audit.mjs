@@ -5,7 +5,7 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 const [port, out = '/tmp/core-world', ...flags] = process.argv.slice(2), BENCH = flags.includes('--bench');
-const URL = 'http://localhost:8000/world.html';
+const URL = process.env.CORE_WORLD_URL || 'http://localhost:8000/world-classic.html';
 const tab = await (await fetch(`http://127.0.0.1:${port}/json/new?about:blank`, { method: 'PUT' })).json();
 const ws = new WebSocket(tab.webSocketDebuggerUrl); await new Promise(r => ws.addEventListener('open', r, { once: true }));
 let n = 0; const pend = new Map(), errors = [], hosts = new Set(), methods = new Set(), results = [];

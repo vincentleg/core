@@ -215,9 +215,12 @@ function route() {
 export function go(section, query = {}) { const q = new URLSearchParams(query).toString(); location.hash = section + (q ? `?${q}` : ''); }
 function render() {
   const g = NAV.groupOf(S.tab); NAV.render($('core-nav'), { active: g?.id });
+  const sec = g?.sections?.find(([id]) => id === S.tab);
+  $('cm-eyebrow').textContent = g?.label || 'CORE'; document.querySelector('#cm-main h1').textContent = sec?.[1] || 'La couche humaine de CORE';
+  document.title = `CORE — ${sec?.[1] || 'Commons'}`;
   const bar = document.querySelector('.cm-tabs');
-  bar.innerHTML = (g?.sections || []).map(([id, label]) => `<button type="button" role="tab" data-tab="${id}" aria-selected="${id === S.tab}">${esc(label)}</button>`).join('');
-  bar.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { go(b.dataset.tab); $('cm-body').focus(); });
+  bar.innerHTML = NAV.subnav(g?.id, S.tab);
+  bar.querySelectorAll('a[href^="commons.html#"]').forEach(a => a.onclick = e => { e.preventDefault(); go(a.getAttribute('href').split('#')[1]); $('cm-body').focus(); });
   RENDER[S.tab]($('cm-body'));
 }
 addEventListener('hashchange', () => { route(); render(); });

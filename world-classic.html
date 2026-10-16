@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self' https://tiles.openfreemap.org; worker-src 'self'; child-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<title>CORE World classique (V3–V6) — prototype local</title>
+<meta name="description" content="Prototype local de CORE World : un avatar humain explore la Terre holographique de CORE, rencontre un agent et un problème réel enregistré.">
+<link rel="stylesheet" href="assets/vendor/maplibre-gl-6.11.2/maplibre-gl.css" integrity="sha384-ntw3zEt6rcVML7jDK0ULmHa5hxLB23afsPqzqfY+gLgMfAkbFCnCgPpkZvV5mmZX">
+<link rel="modulepreload" href="assets/vendor/maplibre-gl-6.11.2/maplibre-gl.mjs" integrity="sha384-KQzExYlfg1SnYNpLaXHTnaCTjr5wmiZ6X3sasvPb94caZfH+3+T1Sl4eJziXUtmN">
+<link rel="modulepreload" href="assets/vendor/maplibre-gl-6.11.2/maplibre-gl-shared.mjs" integrity="sha384-V59ofCEPEqpSk5Mswc19DtDYbZWJtne210dFzS328Il6O31eLwTV7v57+Z3NjW/7">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="src/world/world.css">
+</head>
+<body class="intro">
+<a class="skip" href="#world-panel">Aller au panneau d’information</a>
+<header class="bar" id="core-nav"></header>
+<main id="world-main">
+  <h1 class="sr-only">CORE World — prototype</h1>
+  <div id="map" role="region" aria-label="Terre de CORE en 3D"></div>
+
+  <section id="intro" class="screen" aria-labelledby="intro-title">
+    <h2 id="intro-title">Entrez dans la Terre de CORE</h2>
+    <p>Les agents de CORE travaillent dans le monde holographique. Autour de vous, la réalité apparaît : bâtiments, rues, trottoirs et arbres proches prennent leur aspect matériel.</p>
+    <p class="fine">Prototype local : un lieu (Folsom Street, San Francisco), un agent réel du registre CORE, un problème réel enregistré. Rien n’est transmis ni publié.</p>
+    <div class="actions"><button type="button" id="enter" class="primary">ENTER CORE</button><button type="button" id="no-avatar" class="ghost">Explorer sans avatar</button></div>
+  </section>
+
+  <section id="choose" class="screen" hidden aria-labelledby="choose-title">
+    <h2 id="choose-title">Choisissez votre avatar</h2>
+    <div id="presets" class="presets" role="radiogroup" aria-label="Avatars"></div>
+    <fieldset class="custom"><legend>Personnaliser</legend>
+      <div class="row"><span id="top-label">Tenue</span><div id="tops" class="swatches" role="radiogroup" aria-labelledby="top-label"></div></div>
+      <label class="row">Coiffure <select id="hair"></select></label>
+      <label class="row">Nom affiché <input id="display-name" maxlength="24" autocomplete="off" placeholder="facultatif, pseudonyme"></label>
+      <p class="fine">Votre avatar et votre nom restent dans ce navigateur (localStorage <code>core.world.v1</code>). L’apparence n’a aucun effet sur ce que vous pouvez faire ou sur le poids de vos contributions.</p>
+    </fieldset>
+    <div class="actions"><button type="button" id="back" class="ghost">Retour</button><button type="button" id="confirm" class="primary">Confirmer et entrer</button></div>
+  </section>
+
+  <div id="hud" hidden>
+    <div class="labels" aria-live="polite">
+      <span class="tag holo">HOLOGRAPHIQUE · monde des agents</span>
+      <span class="tag real">RÉALISTE · rayon <b id="r-val">10</b> m</span>
+      <span class="tag fine">Aspect réaliste = matériaux génériques sur géométrie OpenStreetMap, arbres et trottoirs du registre DataSF ; pas de photogrammétrie.</span>
+    </div>
+    <div class="tools" role="toolbar" aria-label="Contrôles">
+      <button type="button" id="cam" aria-pressed="false">Vue : 3e personne</button>
+      <button type="button" id="talk" disabled>Parler à l’agent (E)</button>
+      <button type="button" id="goto">Aller au problème</button>
+      <button type="button" id="open-panel">Informations</button>
+      <label>Rayon <input id="radius" type="range" min="0" max="50" step="5" value="10"></label>
+      <label>Qualité <select id="quality"><option value="high">Haute</option><option value="low">Économe</option></select></label>
+    </div>
+    <p class="help" id="help">Déplacement : W/Z ou ↑ avancer, S ou ↓ reculer, A/Q ou ← et D ou → tourner, Maj courir, C changer de vue, E parler, Échap fermer.</p>
+    <p class="perf" id="perf" aria-hidden="true"></p>
+    <div id="joy" class="joy" aria-hidden="true"><div class="knob"></div></div>
+  </div>
+
+  <aside id="world-panel" class="panel" hidden aria-labelledby="panel-title" tabindex="-1">
+    <header><h2 id="panel-title">Agent</h2><button type="button" id="panel-close" class="ghost small" aria-label="Fermer le panneau">✕</button></header>
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" data-tab="agent" aria-selected="true">Agent</button>
+      <button type="button" role="tab" data-tab="problem" aria-selected="false">Problème</button>
+      <button type="button" role="tab" data-tab="chat" aria-selected="false">Conversation</button>
+      <button type="button" role="tab" data-tab="contribute" aria-selected="false">Contribuer</button>
+      <button type="button" role="tab" data-tab="mine" aria-selected="false">Mes contributions</button>
+    </div>
+    <div id="panel-body" role="tabpanel"></div>
+  </aside>
+  <p id="toast" class="toast" role="status" aria-live="polite"></p>
+  <p id="fatal" class="fatal" role="alert" hidden></p>
+</main>
+<script type="module" src="src/world/app.mjs"></script>
+</body>
+</html>
