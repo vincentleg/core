@@ -30,3 +30,15 @@ Phase 2D multidomain datasets (street trees, tree removal notices, building perm
 Phase 11 reuses the existing `data/sf9` snapshot only: Analysis Neighborhoods (`j2bu-swwd`), 2024 High Injury Network (`enwt-3u8m`), Traffic Crashes Resulting in Injury (`ubvf-ztfx`, aggregate counts only), and Street-Use Permits (`b6tj-gt35`). Each manifest entry identifies DataSF PDDL, provider, retrieval date, transformations and SHA-256. `scripts/science.mjs` publishes derived comparisons in `data/science/sf-traffic.json`; no new collection, proprietary source, personal contact data or service is introduced. Dossier links retain attribution. The uncalibrated index is not a forecast of accidents or traffic.
 
 FD06 source qualification only: SFMTA count candidates are inventoried in [pilot/source-manifest.json](pilot/source-manifest.json). Access was checked, reuse rights remain UNVERIFIED, and no measured SFMTA count payload is redistributed or used for calibration.
+
+## V7 additions (2026-10-15, branch `v7/living-earth`)
+| Provider / component | V7 use | Licence / terms and limitations |
+| --- | --- | --- |
+| NASA GIBS Blue Marble (already registered, Phase 7) | `world.html` planet scale, faded out by zoom 10.5; never evidence | NASA open data; acknowledgement requested ("NASA GIBS" credit shown). No key. |
+| AWS Terrain Tiles (already registered) | `world.html` relief and hillshade, **"Haute" quality only**, tiles capped at zoom 12 | Public-domain US sources (USGS 3DEP/SRTM) with credit lines; "USGS 3DEP/SRTM via AWS Terrain Tiles" shown. No account. |
+| OpenFreeMap / OpenStreetMap (already registered) | City and street geometry; street-scale buildings re-drawn in 3D from the same footprints and heights | As above (ODbL attribution retained by MapLibre). Façades are procedural and labelled as such. |
+| Quaternius — Universal Base Characters, Universal Animation Library (Standard) | Avatar bodies, hair and 5 animations (`assets/avatars/`) | CC0 1.0 (bundled licence files and itch.io pages); provenance and archive hashes in `assets/avatars/README.md`. Release-gate note: the publisher's site also shows a newer custom licence; see `docs/v7/TOOLING_AND_COSTS.md`. |
+| three.js 0.186.1 | 3D rendering (avatars, street scene, studio, portrait) | MIT; bundled with esbuild, no WebAssembly (`assets/vendor/three-0.186.1/BUILD.md`). |
+| Inter 4.1 (variable) | UI typeface | SIL OFL 1.1 (`assets/fonts/OFL-inter.txt`). |
+| Lucide 0.545 (subset, inline SVG) | Icons | ISC (`assets/vendor/LUCIDE-LICENSE.txt`). |
+| Ollama + a model already on the person's computer | Optional local reformulation of cited Knowledge claims in Dialogue, off by default, loopback only | Runs on the user's machine; nothing leaves it. Model licences vary (qwen3: Apache-2.0). Not a hosted service. |
