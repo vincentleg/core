@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self' blob: data:; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<meta name="core-ready" content="CORE_REPORT">
+<title>CORE — Report</title>
+<meta name="description" content="CORE mission report: a proposal for consideration, never a recommendation.">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="src/world/world.css">
+<link rel="stylesheet" href="src/civic/commons.css">
+<link rel="stylesheet" href="src/ui/living-earth.css">
+<link rel="stylesheet" href="src/me/me.css">
+<link rel="stylesheet" href="src/report/report.css">
+</head>
+<body class="commons me">
+<a class="skip" href="#rp-doc">Skip to content</a>
+<header class="bar" id="core-nav"></header>
+<main id="rp-main">
+  <div class="rp-tools le-row"><label>Mission <select id="rp-mission"></select></label><button type="button" class="primary small" id="rp-print">Imprimer / PDF</button><span class="fine">Le PDF est produit par votre navigateur ; rien n’est envoyé.</span></div>
+  <article id="rp-doc" class="rp-doc" tabindex="-1"><p class="fine">Chargement…</p></article>
+</main>
+<script type="module" src="src/report/page.mjs"></script>
+<script type="module" src="src/ui/boot-guard.mjs"></script>
+</body>
+</html>

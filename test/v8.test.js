@@ -125,3 +125,27 @@ test('progress: separate dimensions, no composite score; simulations never raise
   assert.ok(Object.keys(E.series.total.values).length > 40); for (const s of Object.values(E.series)) assert.match(s.id, /^INTL\.\d+-2-WORL-QBTU\.A$/);
   assert.match(read('scripts/progress-energy.mjs'), /copyright !== 'None'/); // any non-public-domain series stops the build (FD09)
 });
+
+test('report: 20 sections for every mission, a proposal for consideration, never a recommendation; PDF script is local-only', async () => {
+  const RP = await imp('src/report/report.mjs'), AN = await imp('src/civilization/analyses.mjs'), MS = await imp('src/civilization/missions.mjs');
+  const D = {}; for (const [k, p] of Object.entries(AN.FILES)) D[k] = JSON.parse(read(p));
+  const missions = MS.buildMissions(D, json('data/agents/sf-civilization.json'), { today: '2026-10-16T00:00:00Z' }), mobility = json('data/mobility/results.json'), manifest = json('data/mobility/manifest.json');
+  assert.equal(RP.TITLES.length, 20);
+  for (const m of missions) {
+    const S = RP.sections(m, { mobility, manifest, civ: null, generated: '2026-10-16' }); assert.equal(S.length, 20, m.id);
+    const all = S.map(s => s.html).join('\n');
+    assert.match(S[0].html, /Proposition soumise à examen/); assert.match(S[19].html, /Impact réel vérifié : aucun/);
+    assert.doesNotMatch(all.replace(/ni une recommandation|pas une recommandation|ni la preuve|ne constitue ni/g, ''), /\b(nous recommandons|il est recommandé|approuvé|prouvé)\b/i);
+    assert.doesNotMatch(all, /<script|javascript:/i);
+  }
+  const mob = RP.sections(missions.find(m => m.id === 'mission.sf.mobility'), { mobility, manifest }); assert.match(mob[9].html, /± /); assert.match(mob[7].html, /NON CALIBRÉ|non calibré/i);
+  const pdf = read('scripts/report-pdf.mjs'); assert.match(pdf, /port === '9222'/); assert.match(pdf, /127\\\.0\\\.0\\\.1/); assert.match(pdf, /printToPDF/);
+  assert.match(read('src/report/report.css'), /@media print/);
+});
+
+test('manifesto: original text in English (reference) and French, same principles, ends on the CORE line', async () => {
+  const src = read('src/manifesto/manifesto.mjs'); const { TEXT } = await import('data:text/javascript,' + encodeURIComponent(src.slice(src.indexOf('export const TEXT'), src.indexOf('function render'))));
+  assert.equal(TEXT.en.principles.length, 10); assert.equal(TEXT.fr.principles.length, 10);
+  assert.equal(TEXT.en.sign, 'A parallel world to help humanity improve the real one.');
+  assert.match(TEXT.en.principles.map(p => p[1]).join(' '), /that number is zero/);
+});

@@ -53,7 +53,7 @@ export function missionHTML(R, mid) {
     ${modelWorkHTML(R, mid)}
     <div class="pp-sec"><h3>Échanges récents entre agents</h3><ul class="cv-feed">${msgs.map(e => eventLine(R, e)).join('') || '<li class="fine">Aucun échange pour l’instant.</li>'}</ul></div>
     <div class="pp-sec"><h3>Contributions humaines</h3>${ms.humanInputs.length ? `<ul>${ms.humanInputs.map(h => `<li>${esc(h.title)} — <span class="fine">${esc(h.state)}</span></li>`).join('')}</ul>` : '<p class="fine">Aucune. Vous pouvez proposer une hypothèse, une preuve ou une contestation : elle reste privée tant que vous ne consentez pas à la partager avec la mission.</p>'}</div>
-    <nav class="pp-actions" aria-label="Participer"><a class="btn" href="dialogue.html#mission=${encodeURIComponent(mid)}">Séance d’équipe</a><a class="btn primary" href="dialogue.html#mission=${encodeURIComponent(mid)}&intent=propose">Proposer</a><a class="btn" href="#" data-follow-mission="${esc(mid)}">Suivre</a></nav>
+    <nav class="pp-actions" aria-label="Participer"><a class="btn" href="dialogue.html#mission=${encodeURIComponent(mid)}">Séance d’équipe</a><a class="btn primary" href="dialogue.html#mission=${encodeURIComponent(mid)}&intent=propose">Proposer</a><a class="btn" href="report.html#mission=${encodeURIComponent(mid)}">Rapport</a><a class="btn" href="#" data-follow-mission="${esc(mid)}">Suivre</a></nav>
     <p class="fine">${esc(HONESTY)}</p>`;
 }
 

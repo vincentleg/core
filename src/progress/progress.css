@@ -1,5 +1,5 @@
 /* CORE V8 — progress page */
-#pg-main { max-width: 1180px; margin: 0 auto; padding: 24px 16px 64px; }
+#pg-main { max-width: 1180px; margin: 0 auto; padding: 80px 16px 64px; }
 .pg-hero { margin: 12px 0 22px; } .pg-hero h1 { margin: 6px 0 10px; }
 .pg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-bottom: 18px; }
 .pg-val { margin: 6px 0; } .pg-val b { font-size: 30px; font-weight: 600; color: var(--le-text); } .pg-val span { color: var(--le-text-2); }

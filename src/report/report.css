@@ -1,0 +1,14 @@
+/* CORE V8 — report (screen + print) */
+#rp-main { max-width: 900px; margin: 0 auto; padding: 80px 16px 64px; }
+.rp-tools { gap: 12px; align-items: center; margin-bottom: 18px; flex-wrap: wrap; } .rp-tools select { max-width: 100%; }
+.rp-doc h1 { margin: 6px 0; } .rp-sec { margin: 26px 0; } .rp-sec h2 { font-size: 19px; border-bottom: 1px solid var(--le-hairline); padding-bottom: 6px; } .rp-sec h2 span { color: var(--le-text-3); }
+.rp-doc .tbl { width: 100%; border-collapse: collapse; font-size: 13px; } .rp-doc .tbl td, .rp-doc .tbl th { padding: 6px; border-bottom: 1px solid var(--le-hairline); text-align: left; vertical-align: top; }
+.rp-toc ol { columns: 2; font-size: 14px; } .rp-doc { overflow-wrap: anywhere; }
+@media print {
+  @page { size: A4; margin: 16mm 14mm; }
+  html, body { background: #fff !important; color: #111 !important; }
+  .bar, .rp-tools, .skip, #toast, .le-nav { display: none !important; }
+  #rp-main { max-width: none; padding: 0; } .rp-doc, .rp-doc * { color: #111 !important; background: transparent !important; box-shadow: none !important; }
+  .rp-doc a { color: #111 !important; text-decoration: underline; } .rp-sec { break-inside: auto; } .rp-sec h2 { break-after: avoid; border-color: #999; }
+  .rp-doc .tbl td, .rp-doc .tbl th { border-color: #bbb; } .rp-toc { break-after: page; }
+}
