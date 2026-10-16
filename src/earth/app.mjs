@@ -27,7 +27,7 @@ const $ = id => document.getElementById(id);
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 const FLAGSHIP = 'sidewalk-below-bsp-min:5665000', FLAGSHIP_MISSION = 'mission.sf.mobility';
 const SF = [-122.4, 37.776];
-const toast = msg => { const t = $('toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('on'), 3600); };
+const toast = msg => { const t = $('toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => { t.classList.remove('on'); t.textContent = ''; }, 3600); }; // the CSS shows any non-empty toast
 const lowDevice = () => (navigator.deviceMemory && navigator.deviceMemory <= 4) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) || matchMedia('(pointer: coarse)').matches;
 const qp = new URLSearchParams(location.search).get('quality');
 const S = { map: null, data: null, scale: 'planet', mode: 'map', sel: null, quality: ['high', 'balanced', 'low'].includes(qp) ? qp : lowDevice() ? 'balanced' : 'high', scene: null, keys: new Set(), joy: { x: 0, y: 0 }, heading: 0, cam: 'third', pos: null, nearAgent: false, spinning: false, frames: [], ready: false, humanReady: false, buildings: 0 };

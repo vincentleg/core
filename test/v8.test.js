@@ -52,7 +52,11 @@ test('companion: words become one typed action with validated parameters; sharin
   assert.equal(P('compare scenarios').name, 'compare_scenarios');
   assert.deepEqual(P('open the mobility mission'), { name: 'open_mission', params: { mission: 'mission.sf.mobility' } });
   assert.deepEqual(P('switch to the hybrid layer'), { name: 'switch_world_layer', params: { layer: 'hybrid' } });
-  assert.deepEqual(P('change language to Japanese'), { name: 'change_language', params: { lang: 'ja' } });
+  assert.deepEqual(P('change language to French'), { name: 'change_language', params: { lang: 'fr' } }); assert.deepEqual(P('change language to Japanese'), { name: null, reason: 'language-not-available' });
+  assert.equal(P('Start the guided demo').name, 'start_demo'); assert.equal(P('What are the agents investigating?').name, 'agents_investigating'); assert.equal(P('What evidence is missing?').name, 'missing_evidence');
+  assert.equal(P('How can I contribute?').name, 'how_to_contribute'); assert.equal(P('Open my saved ideas').name, 'open_saved'); assert.equal(P('Show me the manifesto').name, 'open_manifesto');
+  assert.equal(P('Explain the difference between the real world and CORE World').name, 'explain_layers'); assert.equal(P('Show me the San Francisco mobility mission').name, 'open_mission');
+  assert.equal(P('Why did the bus lane perform badly?').name, 'ask_question'); assert.equal(P('Why are so many projects in the flood zone?').name, 'ask_question');
   const code = reg.agents.find(a => a.code).code;
   assert.equal(P(`follow ${code}`).name, 'follow_agent'); assert.equal(P(`find ${code.toLowerCase()}`).params.agent, reg.agents.find(a => a.code === code).id);
   const ask = P(`ask ${code}: why is Folsom congested?`); assert.equal(ask.name, 'ask_agent'); assert.equal(ask.params.question, 'why is Folsom congested?');

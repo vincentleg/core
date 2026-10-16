@@ -44,40 +44,40 @@ test('labs: explainable checklist, no score, permission required, throttled, con
   const V = await load('vault.mjs'), L = await load('labs.mjs');
   let idea = V.newIdea({ id: 'i2', owner: 'core:me' });
   idea = await V.addVersion(idea, { title: 'T', problem: 'Court', solution: 'Faire quelque chose' });
-  assert.match(L.review(idea).error, /non autorisée/);
+  assert.match(L.review(idea).error, /not allowed/); // V9: English default (French in the fr interface)
   idea = V.grant(idea, 'labsAnalysis', true, 'core:me').value;
   const weak = L.review(idea).value;
   assert.equal(weak.items.length, 8); assert.ok(weak.items.every(i => i.status === 'missing' && i.note.length > 20));
-  assert.ok(!('score' in weak) && /pas une note|ni une note/.test(weak.limits) && weak.method.kind.includes('no language model'));
+  assert.ok(!('score' in weak) && /pas une note|ni une note/.test(weak.limits) && weak.method.kind.en.includes('no language model'));
   idea = await V.addVersion(idea, { title: 'T2', problem: 'Sur le tronçon Folsom 5e–Falmouth, le trottoir mesure 10 ft (relevé 2014), sous le minimum de 12 ft.', evidence: 'https://data.sf.gov/d/4g86-grxu',
     solution: 'Élargir le trottoir afin de laisser 12 ft, plutôt que de déplacer le mobilier ; coût et permis à estimer ; risque : réduction du stationnement ; mesurer la largeur avant/après et le débit piéton.' });
   const strong = L.review({ ...idea, reviews: [] }).value;
   assert.ok(strong.items.filter(i => i.status === 'present').length >= 7, JSON.stringify(strong.items.map(i => [i.id, i.status])));
   const at = '2026-10-15T12:00:00Z', recent = Array.from({ length: 5 }, () => ({ idea: 'i2', at: '2026-10-15T08:00:00Z' }));
-  assert.match(L.review(idea, { at, recent }).error, /limite de 5/);
+  assert.match(L.review(idea, { at, recent }).error, /limit of 5/);
   assert.equal(L.contest({ ...idea, reviews: [strong] }, { reviewIndex: 0, reason: 'court', actor: 'core:me' }).ok, false);
-  assert.match(L.contest({ ...idea, reviews: [strong] }, { reviewIndex: 0, reason: 'Le critère simulation ne s’applique pas ici.', actor: 'core:me' }).value.contests[0].status, /humain/);
+  assert.match(L.contest({ ...idea, reviews: [strong] }, { reviewIndex: 0, reason: 'Le critère simulation ne s’applique pas ici.', actor: 'core:me' }).value.contests[0].status, /human/);
 });
 
 test('arena: fictional, no public voting, conflict-free independent judges, sealed sheets, median result authorises nothing', async () => {
   const A = await load('arena.mjs');
-  let t = A.newTournament(); assert.ok(t.challenge.fictional && /FICTIF/.test(t.challenge.label));
+  let t = A.newTournament(); assert.ok(t.challenge.fictional && /FICTIONAL/.test(t.challenge.label.en) && /FICTIF/.test(t.challenge.label.fr));
   const ok = r => { assert.ok(r.ok, r.error); return r.value; };
   t = ok(A.register(t, { who: 'p1', role: 'participant' })); t = ok(A.register(t, { who: 'p2', role: 'participant' }));
-  assert.match(A.register(t, { who: 'v', role: 'spectator-voter' }).error, /vote public désactivé/);
-  assert.match(A.register(t, { who: 'jx', role: 'judge', conflicts: ['p1'] }).error, /conflit/);
+  assert.match(A.register(t, { who: 'v', role: 'spectator-voter' }).error, /public voting disabled/);
+  assert.match(A.register(t, { who: 'jx', role: 'judge', conflicts: ['p1'] }).error, /conflict/);
   for (const j of ['j1', 'j2', 'j3']) t = ok(A.register(t, { who: j, role: 'judge' }));
-  assert.match(A.register(t, { who: 'p1', role: 'judge' }).error, /déjà inscrit/);
+  assert.match(A.register(t, { who: 'p1', role: 'judge' }).error, /already registered/);
   t = ok(A.close(t, 'submission'));
   t = ok(A.submit(t, { who: 'p1', text: 'Voiles d’ombrage démontables et deux arbres en bacs, budget détaillé, mesure de température avant et après.' }));
   t = ok(A.submit(t, { who: 'p2', text: 'Peinture claire au sol et brumisateurs, budget estimé, risque de consommation d’eau surveillé.' }));
-  assert.match(A.judge(t, { who: 'j1', entry: 'p1', scores: {}, notes: {} }).error, /hors phase/);
+  assert.match(A.judge(t, { who: 'j1', entry: 'p1', scores: {}, notes: {} }).error, /outside the judging phase/);
   t = ok(A.close(t, 'judging'));
   const sheet = (s, n = 'justification suffisante') => ({ scores: { evidence: s, feasibility: s, equity: s, risks: s, measurement: s }, notes: Object.fromEntries(['evidence', 'feasibility', 'equity', 'risks', 'measurement'].map(k => [k, n])) });
   assert.match(A.judge(t, { who: 'j1', entry: 'p1', ...sheet(3, 'court') }).error, /justification/);
   for (const [j, a, b] of [['j1', 3, 2], ['j2', 4, 2], ['j3', 2, 3]]) { t = ok(A.judge(t, { who: j, entry: 'p1', ...sheet(a) })); t = ok(A.judge(t, { who: j, entry: 'p2', ...sheet(b) })); }
   assert.equal(A.visibleSheets(t, 'j1').every(s => s.judge === 'j1'), true, 'judges do not see each other before closure');
-  assert.match(A.results(t).error, /clôture/);
+  assert.match(A.results(t).error, /closing/);
   t = ok(A.close(t, 'closed')); const r = ok(A.results(t));
   assert.deepEqual(r.ranking.map(x => [x.entry, x.total, x.rank]), [['p1', 15, 1], ['p2', 10, 2]]);
   assert.equal(r.authorizes, false); assert.equal(r.scientificValidation, false); assert.equal(r.sheets.length, 6);
@@ -85,8 +85,8 @@ test('arena: fictional, no public voting, conflict-free independent judges, seal
 
 test('academy: teacher-demo only, synthetic learners, open answers reviewed by the teacher, no ranking', async () => {
   const C = await load('academy.mjs');
-  assert.match(C.startSession({ teacher: 't', mode: 'classroom' }).error, /aucun mineur réel/);
-  assert.match(C.startSession({ teacher: 't', learners: ['real-child'] }).error, /fictifs/);
+  assert.match(C.startSession({ teacher: 't', mode: 'classroom' }).error, /no real minor/);
+  assert.match(C.startSession({ teacher: 't', learners: ['real-child'] }).error, /fictional/);
   let s = C.startSession({ teacher: 'prof' }).value; assert.deepEqual(s.features, { learnerChat: false, ranking: false, publicProfiles: false });
   s = C.answer(s, { learner: 'eleve-A', question: 'q1', value: 0 }).value; s = C.answer(s, { learner: 'eleve-B', question: 'q1', value: 2 }).value;
   s = C.answer(s, { learner: 'eleve-A', question: 'q4', value: 'mesurer à nouveau' }).value;
@@ -104,7 +104,7 @@ test('progress: virtual and Earth systems separate, sourced indicators only, no 
   assert.equal(v.find(x => x.id === 'real-impact').value, 0); assert.equal(v.find(x => x.id === 'problems-recorded').value, 98);
   const e = G.earthIndicators({ energy: json('data/sf/energy-benchmarks.geojson'), sidewalks: json('data/sf/sidewalks.geojson') });
   for (const i of e) for (const k of ['source', 'url', 'period', 'method', 'uncertainty', 'scope']) assert.ok(i[k], `${i.id}.${k}`);
-  assert.ok(e.every(i => /aucune tendance/.test(i.trend)));
+  assert.ok(e.every(i => /no trend/.test(i.trend.en) && /aucune tendance/.test(i.trend.fr)));
   assert.throws(() => G.indicator({ id: 'x', value: 42 }), /refusé/);
   assert.ok(!Object.keys(G).some(k => /score|index|civilization/i.test(k)), 'no universal score function exists');
   assert.equal(G.kardashev(1e16).K, 1); assert.equal(G.kardashev(1e26).K, 2); assert.throws(() => G.kardashev(0));
@@ -117,7 +117,7 @@ test('labs dossier: structured, missing evidence named, arithmetic only on recor
   let idea = V.newIdea({ id: 'i9', owner: 'core:me' });
   idea = await V.addVersion(idea, { title: 'Élargir', problem: 'Trottoir étroit', solution: 'Élargir le trottoir', problemId: problem.id });
   let x = L.dossier(idea, { problem, sidewalk });
-  assert.equal(x.level, 'draft'); assert.match(x.disclaimer, /ni une validation scientifique/);
+  assert.equal(x.level, 'draft'); assert.match(x.disclaimer, /neither a scientific validation/);
   assert.deepEqual(x.calculation.inputs, { width_ft: 10, min_ft: 12, recommended_ft: 15 });
   assert.deepEqual(x.calculation.result, { toMinimum_ft: 2, toMinimum_m: 0.61, toRecommended_ft: 5, toRecommended_m: 1.52 });
   assert.match(x.calculation.note, /2014/);
@@ -126,11 +126,11 @@ test('labs dossier: structured, missing evidence named, arithmetic only on recor
   x = L.dossier(idea, { problem, sidewalk });
   assert.deepEqual(x.missingEvidence.map(m => m.id), ['current-measure'], 'only the 2014 measurement remains missing');
   assert.equal(x.level, 'incomplete'); assert.notEqual(x.levelLabel, 'validé');
-  assert.match(x.hypothesis, /Si l’on met en œuvre « Élargir le trottoir », alors laisser passer deux fauteuils ; cela se vérifierait par : compter/);
+  assert.match(x.hypothesis, /If “Élargir le trottoir” is implemented, then laisser passer deux fauteuils; this would be checked by: compter/);
   assert.ok(x.evidence.some(e => e.ref === 'sidewalks:8562' && e.basis === 'observed'));
   const other = { id: 'z', versions: [{ n: 1, hash: 'h', problem: 'p', solution: 's', evidence: '' }] };
   assert.equal(L.dossier(other, {}).calculation.available, false, 'no recorded measurement, no calculation');
-  assert.match(L.dossierMarkdown(x), /Prêt à être relu|Incomplet/);
+  assert.match(L.dossierMarkdown(x), /Ready for review|Incomplete/);
 });
 
 test('vault: word diff between versions, owner-only deletion and metadata', async () => {
