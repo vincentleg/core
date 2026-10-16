@@ -14,6 +14,7 @@ import { createAgentLayer } from './agents-layer.mjs';
 import * as CP from './civ-panels.mjs';
 import * as SCN from './scenarios.mjs';
 import { createGround } from './ground.mjs';
+import { createVehicle } from './vehicle.mjs';
 import { PLACES as VPLACES, suggestMission } from '../voice/actions.mjs';
 import * as CONTRIB from '../contrib/contributions.mjs';
 
@@ -146,7 +147,7 @@ async function enterHuman() {
     S.mode = 'human'; S.scale = 'human'; renderScales();
     $('ea-hud').hidden = false; $('ea-panel').hidden = true; $('ea-human').hidden = true;
     $('ea-me').innerHTML = `<i style="${CFG.chipStyle(me.appearance)}"></i><b>${esc(me.identity.pseudonym || 'Vous')}</b>`;
-    $('ea-hint').textContent = matchMedia('(pointer: coarse)').matches ? 'Joystick pour marcher · approchez un agent pour lui parler' : 'W/↑ avancer · A/D tourner · Maj courir · Espace sauter · C vue · E parler à l’agent le plus proche';
+    $('ea-hint').textContent = matchMedia('(pointer: coarse)').matches ? 'Joystick pour marcher · approchez un agent pour lui parler' : 'W/↑ avancer · A/D tourner · Maj courir · Espace sauter · V véhicule · C vue · E parler à l’agent le plus proche';
     if (S.layer && S.layer.mode === 'real') setLayer('hybrid');
     S.map.keyboard.disable(); S.map.dragPan.disable();
     // Street level is flat SoMa: relief is switched off here (the 3D layer would otherwise sit under the terrain mesh).
@@ -159,7 +160,14 @@ async function enterHuman() {
     console.error(err); toast(`La vue 3D n’a pas pu démarrer (${err.message}). La carte et les panneaux restent disponibles.`);
   } finally { $('ea-human').disabled = false; $('ea-human').textContent = 'Descendre à hauteur humaine'; }
 }
+function toggleCar() {
+  if (S.mode !== 'human' || !S.humanReady) return;
+  S.car ||= createVehicle(S.scene);
+  if (!S.car.state.on) { S.car.enter(S.pos, S.heading); toast('Véhicule prototype (V pour descendre) : un jouet de démonstration, pas une simulation de trafic. Bâtiments et agents l’arrêtent.'); }
+  else { const o = S.car.exit(); if (!S.scene.blocked(o.pos[0], o.pos[1])) S.pos = o.pos; S.heading = o.heading; S.avatar.root.visible = true; }
+}
 function leaveHuman() {
+  if (S.car?.state.on) toggleCar();
   if (S.mode !== 'human') return; S.mode = 'map'; S.humanReady = false; $('ea-hud').hidden = true; if (S.savedTerrain) S.map.setTerrain(S.savedTerrain); S.scene.setAvatar(null); S.scene.refreshBuildings(0); S.scene.state.onFrame = null;
   S.map.keyboard.enable(); S.map.dragPan.enable(); S.avatar = null; for (const m of S.plates?.values() || []) m.remove(); S.plates?.clear();
 }
@@ -173,6 +181,11 @@ function tick(dt) {
   const k = S.keys, fwd = (k.has('w') || k.has('z') || k.has('arrowup') ? 1 : 0) - (k.has('s') || k.has('arrowdown') ? 1 : 0) - S.joy.y;
   const turn = (k.has('d') || k.has('arrowright') ? 1 : 0) - (k.has('a') || k.has('q') || k.has('arrowleft') ? 1 : 0) + S.joy.x;
   const run = k.has('shift');
+  if (S.car?.state.on) { // V8 prototype vehicle
+    S.car.step(dt, { fwd, turn }, (x, z, pad) => S.scene.blocked(x, z, pad), (x, z) => (S.layer?.mode !== 'real' ? S.crowd?.nearest([x, z])?.d : null) ?? 99);
+    S.pos = [...S.car.state.pos]; S.heading = S.car.state.heading; S.avatar.root.visible = false; S.crowd?.update(dt, reduced());
+    const ll = S.toLngLat(S.pos[0], S.pos[1]); S.map.jumpTo({ center: ll, zoom: 20.4, pitch: 72, bearing: S.heading }); return;
+  }
   if (turn) S.heading = (S.heading + turn * 85 * dt + 360) % 360;
   if (Math.abs(fwd) > 0.05) {
     const sp = (run ? 3.4 : 1.45) * Math.sign(fwd) * Math.min(1, Math.abs(fwd)), b = S.heading * Math.PI / 180;
@@ -213,7 +226,7 @@ function wire() {
     const k = e.key.toLowerCase();
     if (k === 'escape') { for (const id of ['ea-about', 'ea-list', 'ea-panel']) if (!$(id).hidden) { $(id).hidden = true; return; } }
     if (S.mode !== 'human') return;
-    if (k === 'c') $('ea-cam').click(); else if (k === 'e' && S.nearAgent) $('ea-talk').click(); else if (k === ' ') { e.preventDefault(); if (S.jump == null && !reduced()) S.jump = 0; } else { S.keys.add(k === 'shift' ? 'shift' : k); if (k.startsWith('arrow')) e.preventDefault(); }
+    if (k === 'c') $('ea-cam').click(); else if (k === 'v') toggleCar(); else if (k === 'e' && S.nearAgent && !S.car?.state.on) $('ea-talk').click(); else if (k === ' ') { e.preventDefault(); if (S.jump == null && !reduced()) S.jump = 0; } else { S.keys.add(k === 'shift' ? 'shift' : k); if (k.startsWith('arrow')) e.preventDefault(); }
   });
   addEventListener('keyup', e => S.keys.delete(e.key.toLowerCase()));
   addEventListener('blur', () => S.keys.clear());
@@ -362,4 +375,4 @@ function wireCiv() {
     } else if (!h.get('sim')) { if (innerWidth > 860) S.map.setPadding({ left: Math.min(760, innerWidth * 0.48), right: 0, top: 0, bottom: 0 }); spin(); }
   });
 })();
-globalThis.CORE_EARTH = { state: S, goScale, openPanel, focusSegment, enterHuman, start, setLayer, showAgent, showMission, showActivity, showEvent, showHierarchy, showSimulation, hideSimulation, playSimulation, showNoticed, revealMap, flyTo, followAgent, civ: () => S.civ, get fps() { const f = S.frames; return f.length ? f.length / f.reduce((a, b) => a + b, 0) : 0; } };
+globalThis.CORE_EARTH = { state: S, goScale, openPanel, focusSegment, enterHuman, start, setLayer, showAgent, showMission, showActivity, showEvent, showHierarchy, showSimulation, hideSimulation, playSimulation, showNoticed, revealMap, toggleCar, flyTo, followAgent, civ: () => S.civ, get fps() { const f = S.frames; return f.length ? f.length / f.reduce((a, b) => a + b, 0) : 0; } };

@@ -158,3 +158,15 @@ test('demo: 12 acts, 3–5 minutes, pause/skip/exit and keyboard, ends on the CO
   assert.doesNotMatch(src, /submitHumanInput|CIV\.submit|localStorage\.setItem/); // the tour never shares or stores anything
   assert.match(read('demo.html'), /url=world\.html#demo/); assert.match(read('src/earth/app.mjs'), /h\.has\('demo'\)/);
 });
+
+test('vehicle prototype: capped speed, stopped by buildings and agents, never enters a footprint', async () => {
+  const VH = await imp('src/earth/vehicle.mjs');
+  class O { constructor() { this.position = { set() {} }; this.rotation = { y: 0 }; this.visible = true; } add() {} }
+  class G { rotateZ() {} } const THREE = { Group: O, Mesh: O, BoxGeometry: G, CylinderGeometry: G, MeshStandardMaterial: O, MeshBasicMaterial: O };
+  const v = VH.createVehicle({ THREE, world: { add() {} } }); v.enter([0, 0], 0);
+  const wall = (x, z) => z < -30; // a building north of z = −30
+  for (let i = 0; i < 600; i++) v.step(1 / 60, { fwd: 1, turn: 0 }, (x, z, pad = 0) => wall(x, z - pad), () => 99);
+  assert.ok(v.state.speed <= VH.LIMITS.max && v.state.pos[1] > -30, JSON.stringify(v.state)); assert.ok(v.state.bumped > 0);
+  v.enter([0, 0], 90); for (let i = 0; i < 200; i++) v.step(1 / 60, { fwd: 1, turn: 0 }, () => false, (x) => (x > 5 ? 0.5 : 99));
+  assert.ok(v.state.pos[0] < 5);
+});
