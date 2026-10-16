@@ -4,8 +4,9 @@
 // (.claude/skills/core-browser-audit). Never attach to a browser you did not start.
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
+const CORE_BASE = process.env.CORE_BASE || 'http://localhost:8000/'; // override to audit another local server
 const [port, out = '/tmp/core-world', ...flags] = process.argv.slice(2), BENCH = flags.includes('--bench');
-const URL = process.env.CORE_WORLD_URL || 'http://localhost:8000/world-classic.html';
+const URL = process.env.CORE_WORLD_URL || CORE_BASE + 'world-classic.html';
 const tab = await (await fetch(`http://127.0.0.1:${port}/json/new?about:blank`, { method: 'PUT' })).json();
 const ws = new WebSocket(tab.webSocketDebuggerUrl); await new Promise(r => ws.addEventListener('open', r, { once: true }));
 let n = 0; const pend = new Map(), errors = [], hosts = new Set(), methods = new Set(), results = [];
@@ -87,7 +88,7 @@ try {
   check('conversation memory ends when the panel closes', await ev(`${W}.chat.length === 0`));
   await ev(`CORE_WORLD.openPanel('contribute'), document.getElementById('c-kind').value = 'idea', document.getElementById('c-text').value = 'Élargir le trottoir côté nord ; contact ' + ['a.b', 'example.org'].join('@'), document.getElementById('contrib-form').requestSubmit(), 1`); await wait(300);
   check('contribution: stored locally as Soumise (author), PII removed, listed in history, nothing transmitted', await ev(`(c => c.state === 'submitted' && c.scope === 'local-only' && c.history[0].actor === 'author' && !/example\\.org/.test(c.text))(JSON.parse(localStorage.getItem('core.world.v1')).contributions[0]) && /Soumise/.test(document.getElementById('panel-body').textContent)`));
-  check('only GET requests, to this site and the map tile service', methods.size === 0 && [...hosts].every(h => ['localhost:8000', 'tiles.openfreemap.org'].includes(h)), [...hosts, ...methods].join(','));
+  check('only GET requests, to this site and the map tile service', methods.size === 0 && [...hosts].every(h => [CORE_BASE.replace(/^https?:\/\/|\/.*$/g, ''), 'tiles.openfreemap.org'].includes(h)), [...hosts, ...methods].join(','));
   if (BENCH) {
     const rows = [];
     for (const [radius, quality] of [[0, 'high'], [10, 'high'], [25, 'high'], [50, 'high'], [10, 'low']]) rows.push(await ev(`CORE_WORLD.bench({ radius: ${radius}, quality: '${quality}', ms: 5000 })`));

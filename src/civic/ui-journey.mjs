@@ -64,7 +64,8 @@ export function renderJourney(B) {
 // TRUST: what CORE keeps in this browser, how it is protected, and a one-click wipe.
 const KEYS = [['core.world.v1', 'Avatar, pseudonyme et contributions CORE World', 'clair'], ['core.commons.v1', 'Profil pseudonyme et journal Labs', 'clair'], ['core.vault.v1', 'Idées privées, sessions de dialogue enregistrées', 'chiffré (AES-GCM)'],
   ['core.journey.v1', 'Parcours (identifiants et dates)', 'clair, sans contenu privé'], ['core.kbcontrib.v1', 'Contributions de connaissances (candidates)', 'clair'], ['core.network.v1', 'Brouillons de communauté et demandes de revue', 'clair'],
-  ['core.feeds.browser.v1', 'Veille publique (CORE Intelligence)', 'clair'], ['core.missions.v1', 'Missions lancées (CORE Intelligence)', 'clair'], ['core.human-decisions.v1', 'Revue humaine locale (CORE Intelligence)', 'clair']];
+  ['core.feeds.browser.v1', 'Veille publique (CORE Intelligence)', 'clair'], ['core.missions.v1', 'Missions lancées (CORE Intelligence)', 'clair'], ['core.human-decisions.v1', 'Revue humaine locale (CORE Intelligence)', 'clair'],
+  ['core.avatar.v2', 'Avatar 3D (apparence) et pseudonyme (V7)', 'clair'], ['core.intelligence.v1', 'Choix du moteur de réponse (jamais de contenu)', 'clair']];
 export function renderTrust(B) {
   const size = k => { try { return (localStorage.getItem(k) || '').length; } catch { return 0; } };
   B.innerHTML = `<div class="card"><h2>CORE TRUST — vos données et la sécurité</h2>

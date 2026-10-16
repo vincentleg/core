@@ -3,6 +3,7 @@
 // node scripts/browser-negative-audit.mjs 9222 /tmp/core-chrome-negative
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
+const CORE_BASE = process.env.CORE_BASE || 'http://localhost:8000/'; // override to audit another local server
 const port = Number(process.argv[2] || 9222), output = process.argv[3] || '/tmp/core-browser-negative';
 const results = [], log = [];
 const pause = ms => new Promise(r => setTimeout(r, ms));
@@ -39,7 +40,7 @@ async function tab(blocked = []) {
 try {
   // 1. Map engine unavailable: honest message, corridor stays reachable.
   let t = await tab(['*maplibre-gl-6.11.2/maplibre-gl.mjs*']); // MapLibre 6.11.2 is self-hosted (ES module)
-  await t.call('Page.navigate', { url: 'http://localhost:8000/' }); await t.until('document.readyState === "complete"'); await pause(500);
+  await t.call('Page.navigate', { url: CORE_BASE }); await t.until('document.readyState === "complete"'); await pause(500);
   check('engine blocked shows message', await t.evaluate('document.querySelector("#msg").textContent.includes("Impossible de charger le moteur")'));
   await t.evaluate('document.querySelector("#pilot-btn").click()'); await t.until('location.pathname.endsWith("corridor.html") && !!globalThis.__CORE_APP');
   check('corridor reachable without map engine', true);
@@ -47,13 +48,13 @@ try {
 
   // 2. Vector tiles and terrain unavailable: status warns of incomplete data, no crash.
   t = await tab(['*tiles.openfreemap.org*', '*elevation-tiles-prod*']);
-  await t.call('Page.navigate', { url: 'http://localhost:8000/' }); await t.until('/indisponible/.test(document.querySelector("#msg").textContent)');
+  await t.call('Page.navigate', { url: CORE_BASE }); await t.until('/indisponible/.test(document.querySelector("#msg").textContent)');
   check('blocked tiles show unavailable-source message', true);
   check('blocked tiles: no uncaught errors', t.errors.length === 0); await t.close();
 
   // 3. Rapid terrain/building toggles during flights.
   t = await tab();
-  await t.call('Page.navigate', { url: 'http://localhost:8000/' }); await t.until('!document.querySelector("#l-relief").disabled');
+  await t.call('Page.navigate', { url: CORE_BASE }); await t.until('!document.querySelector("#l-relief").disabled');
   for (const go of ['sf', 'paris', 'globe', 'tokyo']) {
     await t.evaluate(`document.querySelector('[data-go=${go}]').click()`);
     for (let i = 0; i < 6; i++) { await t.evaluate('document.querySelector("#l-relief").click();document.querySelector("#l-buildings").click()'); await pause(150); }
@@ -65,7 +66,7 @@ try {
 
   // 4. Hidden tab aborts agents; 5. clipboard failure shows selectable JSON.
   t = await tab();
-  await t.call('Page.navigate', { url: 'http://localhost:8000/corridor.html' }); await t.until('!!globalThis.__CORE_APP');
+  await t.call('Page.navigate', { url: CORE_BASE + 'corridor.html' }); await t.until('!!globalThis.__CORE_APP');
   await t.evaluate('__CORE_APP.dive()'); await t.until('__CORE_APP.S.mode === "city"');
   await t.evaluate(`globalThis.auditRun = __CORE_APP.runAgents(); setTimeout(() => { Object.defineProperty(document, 'hidden', { configurable: true, get: () => true }); document.dispatchEvent(new Event('visibilitychange')); }, 300); 0`);
   await t.until('!__CORE_APP.S.running');

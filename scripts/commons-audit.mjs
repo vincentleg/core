@@ -3,6 +3,7 @@
 // Isolated headless Chrome + `python3 -m http.server 8000 --bind 127.0.0.1` (see .claude/skills/core-browser-audit).
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
+const CORE_BASE = process.env.CORE_BASE || 'http://localhost:8000/'; // override to audit another local server
 const [port, out = '/tmp/core-commons'] = process.argv.slice(2);
 const tab = await (await fetch(`http://127.0.0.1:${port}/json/new?about:blank`, { method: 'PUT' })).json();
 const ws = new WebSocket(tab.webSocketDebuggerUrl); await new Promise(r => ws.addEventListener('open', r, { once: true }));
@@ -25,7 +26,7 @@ try {
   for (const m of ['Page.enable', 'Runtime.enable', 'Network.enable']) await call(m);
   await call('Network.setCacheDisabled', { cacheDisabled: true });
   await call('Emulation.setDeviceMetricsOverride', { width: 1280, height: 900, deviceScaleFactor: 1, mobile: false });
-  await call('Page.navigate', { url: 'http://localhost:8000/commons.html' }); await until('!!globalThis.CORE_COMMONS');
+  await call('Page.navigate', { url: CORE_BASE + 'commons.html' }); await until('!!globalThis.CORE_COMMONS');
   await ev(`localStorage.clear(), 1`); await call('Page.reload'); await until('!!globalThis.CORE_COMMONS');
   check('page: one main and h1, strict CSP, local-only notice', await ev(`document.querySelectorAll('main').length === 1 && document.querySelectorAll('h1').length === 1 && /script-src 'self';/.test(document.querySelector('meta[http-equiv="Content-Security-Policy"]').content) && /rien n’est transmis/.test(document.body.textContent)`));
   await set('#pf-ps', 'a@b'); await submit('#pf');
@@ -103,7 +104,7 @@ try {
   check('knowledge: markup in a question is never executed or rendered', !(await ev(`!!window.__pwned || !!document.querySelector('#cm-body img')`)) && /Trottoir plus étroit/.test(await body()));
   await call('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true }); await wait(300);
   check('mobile: no horizontal overflow', await ev(`document.documentElement.scrollWidth <= innerWidth`));
-  check('only GET requests to this site', methods.size === 0 && [...hosts].every(h => h === 'localhost:8000'), [...hosts].join(','));
+  check('only GET requests to this site', methods.size === 0 && [...hosts].every(h => h === CORE_BASE.replace(/^https?:\/\/|\/.*$/g, '')), [...hosts].join(','));
   check('no uncaught JavaScript errors', errors.length === 0, errors.join(' | ').slice(0, 300));
   console.log('RESULTS', results.length);
 } catch (e) { console.error(e.message); console.log('RESULTS', results.length, 'errors', JSON.stringify(errors).slice(0, 400)); process.exitCode = 1; }

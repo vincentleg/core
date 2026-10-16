@@ -4,7 +4,8 @@
 //   node scripts/world-audit.mjs-style usage: node scripts/v6-journey-audit.mjs <cdp-port> <out-prefix>
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
-const [port, out = '/tmp/core-v6'] = process.argv.slice(2), BASE = 'http://localhost:8000/';
+const CORE_BASE = process.env.CORE_BASE || 'http://localhost:8000/'; // override to audit another local server
+const [port, out = '/tmp/core-v6'] = process.argv.slice(2), BASE = CORE_BASE;
 const PRIVATE = 'PHRASE-PRIVEE-7Q3X', PASS = 'une phrase secrète de démonstration', XSS = '<img src=x onerror="window.__pwned=1">';
 const tab = await (await fetch(`http://127.0.0.1:${port}/json/new?about:blank`, { method: 'PUT' })).json();
 const ws = new WebSocket(tab.webSocketDebuggerUrl); await new Promise(r => ws.addEventListener('open', r, { once: true }));
@@ -82,7 +83,7 @@ try {
   // Privacy and safety across the whole journey
   check('14. the private phrase exists only inside the encrypted vault', await ev(`(() => { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i), v = localStorage.getItem(k); if (k !== 'core.vault.v1' && v.includes(${JSON.stringify(PRIVATE)})) return false; } return !localStorage.getItem('core.vault.v1').includes(${JSON.stringify(PRIVATE)}); })()`));
   check('15. no injected script ran on any page', !(await pwned()));
-  check('16. only GET requests, to this site and the map tile service', methods.size === 0 && [...hosts].every(h => ['localhost:8000', 'tiles.openfreemap.org'].includes(h)), [...hosts, ...methods].join(','));
+  check('16. only GET requests, to this site and the map tile service', methods.size === 0 && [...hosts].every(h => [CORE_BASE.replace(/^https?:\/\/|\/.*$/g, ''), 'tiles.openfreemap.org'].includes(h)), [...hosts, ...methods].join(','));
   check('17. no uncaught JavaScript errors', errors.length === 0, errors.join(' | ').slice(0, 300));
   console.log('RESULTS', results.length);
 } catch (e) { console.error(e.message); console.log('RESULTS', results.length, 'errors', JSON.stringify(errors).slice(0, 400)); process.exitCode = 1; }

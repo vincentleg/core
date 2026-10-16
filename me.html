@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self' blob: data:; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<title>CORE — Mon CORE</title>
+<meta name="description" content="Votre espace personnel CORE : avatar, idées privées, parcours, problèmes suivis, apprentissage et confidentialité. Local, sans compte.">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="src/world/world.css">
+<link rel="stylesheet" href="src/civic/commons.css">
+<link rel="stylesheet" href="src/ui/living-earth.css">
+<link rel="stylesheet" href="src/me/me.css">
+</head>
+<body class="commons me">
+<a class="skip" href="#me-body">Aller au contenu</a>
+<header class="bar" id="core-nav"></header>
+<main id="me-main">
+  <nav class="le-subnav" id="me-sub" aria-label="Mon CORE"></nav>
+  <section class="me-hero" aria-labelledby="me-name">
+    <div class="me-portrait"><canvas id="me-canvas" role="img" aria-label="Votre avatar"></canvas></div>
+    <div class="me-id">
+      <p class="le-eyebrow">Mon CORE</p>
+      <h1 id="me-name">Vous</h1>
+      <p class="me-sub" id="me-meta"></p>
+      <div class="le-row"><a class="btn" href="avatar.html">Modifier mon avatar</a><a class="btn" href="commons.html#profile">Identité pseudonyme</a><a class="btn" href="commons.html#trust">Confidentialité</a></div>
+    </div>
+    <div class="me-facts" id="me-facts"></div>
+  </section>
+  <div id="me-body" class="me-grid" tabindex="-1"></div>
+  <p id="toast" class="toast" role="status" aria-live="polite"></p>
+</main>
+<script type="module" src="src/me/me.mjs"></script>
+</body>
+</html>

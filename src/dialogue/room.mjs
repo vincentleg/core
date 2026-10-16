@@ -140,7 +140,7 @@ function renderProvider() {
   $('dl-provider-btn').innerHTML = `${icon('cpu', 15)} ${esc(R.provider === 'ollama' ? `Modèle local · ${R.model || '?'}` : 'Déterministe')}`;
   $('dl-provider').innerHTML = `<p class="fine" style="margin:0">Qui formule les réponses factuelles ? Les faits viennent toujours de CORE Knowledge ; un modèle ne peut que les reformuler, et chaque reformulation est vérifiée (chiffres, dates, statut juridique, certitude, citations) avant d’être affichée.</p>
     <label><input type="radio" name="dl-prov" value="deterministic" ${R.provider === 'deterministic' ? 'checked' : ''}><b>${esc(O.PROVIDERS.deterministic.label)}</b><span class="fine">${esc(O.PROVIDERS.deterministic.kind)} Par défaut.</span></label>
-    <label><input type="radio" name="dl-prov" value="ollama" ${R.provider === 'ollama' ? 'checked' : ''} ${R.local.ok && R.local.models.length ? '' : 'disabled'}><b>${esc(O.PROVIDERS.ollama.label)}</b><span class="fine">${R.local.ok ? `Détecté sur cet ordinateur (${esc(R.local.models.join(', ') || 'aucun modèle')}). Vos questions vont à ce processus local, jamais sur Internet ; vos notes privées ne lui sont jamais envoyées.` : 'Non détecté (Ollama doit tourner sur cet ordinateur, 127.0.0.1:11434).'} Expérimental : plus lent, et ses brouillons écartés restent visibles.</span></label>
+    <label><input type="radio" name="dl-prov" value="ollama" ${R.provider === 'ollama' ? 'checked' : ''} ${R.local.ok && R.local.models.length ? '' : 'disabled'}><b>${esc(O.PROVIDERS.ollama.label)}</b><span class="fine">${R.local.ok ? `Détecté sur cet ordinateur (${esc(R.local.models.join(', ') || 'aucun modèle')}). Vos questions vont à ce processus local, jamais sur Internet ; vos notes privées ne lui sont jamais envoyées.` : (R.probed ? 'Non détecté (Ollama doit tourner sur cet ordinateur, 127.0.0.1:11434).' : 'Recherche du modèle local…')} Expérimental : plus lent, et ses brouillons écartés restent visibles.</span></label>
     ${R.local.models.length > 1 ? `<label class="fine">Modèle <select id="dl-model">${R.local.models.map(m => `<option ${m === R.model ? 'selected' : ''}>${esc(m)}</option>`).join('')}</select></label>` : ''}
     <label><input type="radio" disabled><b>${esc(O.PROVIDERS.remote.label)}</b><span class="fine">${esc(O.PROVIDERS.remote.kind)}</span></label>`;
   $('dl-provider').querySelectorAll('input[name=dl-prov]').forEach(i => i.onchange = () => { R.provider = i.value; R.model = R.provider === 'ollama' ? (R.model && R.local.models.includes(R.model) ? R.model : R.local.models[0]) : null; putJ(PKEY, { provider: R.provider, model: R.model }); renderProvider(); });
@@ -182,9 +182,11 @@ async function boot() {
   $('dl-input').addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send($('dl-input').value); } });
   document.querySelectorAll('[data-side]').forEach(b => b.onclick = () => { R.side = b.dataset.side; renderSide(); });
   document.querySelectorAll('.dl-mode [data-mode]').forEach(b => b.onclick = () => setMode(b.dataset.mode));
-  $('dl-provider-btn').onclick = () => { const p = $('dl-provider'); p.hidden = !p.hidden; $('dl-provider-btn').setAttribute('aria-expanded', String(!p.hidden)); };
+  // The local model is looked for only when the person opens this panel or has chosen it before: no background probing.
+  const probe = () => O.ollamaAvailable().then(r => { R.local = r; R.probed = true; if (R.provider === 'ollama' && !(r.ok && r.models.includes(R.model))) { R.provider = 'deterministic'; R.model = null; } renderProvider(); });
+  $('dl-provider-btn').onclick = () => { const p = $('dl-provider'); p.hidden = !p.hidden; $('dl-provider-btn').setAttribute('aria-expanded', String(!p.hidden)); if (!p.hidden && !R.probed) probe(); };
   renderProvider();
-  O.ollamaAvailable().then(r => { R.local = r; if (R.provider === 'ollama' && !(r.ok && r.models.includes(R.model))) { R.provider = 'deterministic'; R.model = null; } renderProvider(); });
+  if (R.provider === 'ollama') probe();
   if (h.mode === 'studio') setMode('studio');
   if (h.mode === 'understand') send('Que sait-on de ce trottoir ?');
   if (h.mode === 'propose') { R.s = D.goTo(R.s, 'proposal'); renderAll(); $('dl-input').focus(); }

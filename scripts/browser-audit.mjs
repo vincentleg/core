@@ -6,6 +6,7 @@ import fs from 'node:fs';
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import { createRequire } from 'node:module';
+const CORE_BASE = process.env.CORE_BASE || 'http://localhost:8000/'; // override to audit another local server
 const port = Number(process.argv[2] || 9222), output = process.argv[3] || '/tmp/core-browser', bidi = process.argv[4] === 'bidi';
 let wsUrl;
 if (bidi) wsUrl = `ws://127.0.0.1:${port}/session`;
@@ -63,7 +64,7 @@ try {
   } else { await call('Page.enable'); await call('Runtime.enable'); await call('Log.enable'); await call('Network.enable'); await call('Network.setCacheDisabled', { cacheDisabled: true }); }
   await viewport(1440, 1000, false);
   // ---- Phase 7: opening experience (natural Earth, wordmark, ENTER CORE, skip) ----
-  await navigate('http://localhost:8000/');
+  await navigate(CORE_BASE);
   await until('!!(window.CORE_ENTRY && CORE_ENTRY.state.map && __CORE_MAP.loaded())', 240); await pause(1500);
   check('landing shows the CORE wordmark, tagline and ENTER CORE over the natural Earth', await evaluate(`!document.querySelector('#landing').hidden && document.body.classList.contains('landing') && document.querySelector('#enter-core').textContent.trim() === 'ENTER CORE' && /Creation of Reborn Earth/i.test(document.querySelector('#landing').textContent) && __CORE_MAP.getPaintProperty('natural-earth', 'raster-opacity') === 1 && /NASA/.test(document.querySelector('.landing-credit').textContent)`));
   await shot('landing');
@@ -72,7 +73,7 @@ try {
   await until(`(c => Math.abs(c.lng + 122.418) < 0.05 && Math.abs(c.lat - 37.782) < 0.05)(__CORE_MAP.getCenter()) && !__CORE_MAP.isMoving()`, 200);
   check('the flight ends over San Francisco with the holographic style', await evaluate(`__CORE_MAP.getZoom() > 12 && __CORE_MAP.getPaintProperty('natural-earth', 'raster-opacity') === 0`));
   await shot('entered');
-  await navigate('http://localhost:8000/#app');
+  await navigate(CORE_BASE + '#app');
   await until('document.querySelector("#l-buildings") && !document.querySelector("#l-buildings").disabled', 240);
   check('direct access (#app) skips the landing', await evaluate(`document.querySelector('#landing').hidden && !document.body.classList.contains('landing')`));
   await pause(1800); await shot('globe');
