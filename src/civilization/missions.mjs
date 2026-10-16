@@ -101,6 +101,7 @@ export function buildMissions(D, reg, { today = new Date().toISOString() } = {})
     title: 'Mobilité et congestion — SoMa, San Francisco',
     question: 'Quelles interventions pourraient réduire les retards sur le corridor Folsom / Howard sans dégrader les bus, la sécurité ni l’équité — et que peut-on réellement en savoir ?',
     scope: 'Grille de SoMa (3rd–9th, Folsom / Howard) ; réseau réel OpenStreetMap ; demande, feux et bus synthétiques ; modèle NON CALIBRÉ.',
+    simulation: 'SUMO 1.27.1, 5 scénarios × 5 graines, relecture enregistrée de 20 s ; modèle non calibré.',
     findings: mob.findings, hypotheses: mob.hypotheses, dissent: mob.dissent, verdict: mob.verdict,
     plan: [
       { id: 'open', stage: 'OBSERVE', team: 'mobility', lead: true, n: 1, at: 'hub', dur: 10, msgs: [['status', 'city', 'Mission ouverte : mobilité et congestion à SoMa.']] },

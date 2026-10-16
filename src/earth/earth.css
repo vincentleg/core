@@ -114,3 +114,12 @@ button.ea-agent-tag { grid-auto-flow: column; display: inline-grid; gap: 8px; al
 button.ea-agent-tag .le-agent-id::before { width: 12px; height: 12px; }
 .cv-tree { margin: 0; padding-left: 18px; display: grid; gap: 10px; font-size: 14px; } .cv-tree ul { margin: 6px 0 0; padding-left: 18px; display: grid; gap: 4px; font-size: 13px; }
 .cv-teams { max-height: 320px; overflow: auto; }
+/* V8 — scenario panel */
+.scn-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 12px 0; }
+.scn-tabs button { min-width: 44px; } .scn-tabs button[aria-selected="true"] { border-color: var(--le-cyan); color: var(--le-cyan); }
+.scn-table { overflow-x: auto; } .scn-table table { border-collapse: collapse; font-size: 13px; width: 100%; }
+.scn-table th, .scn-table td { padding: 6px 6px; text-align: right; border-bottom: 1px solid rgba(147,165,189,.18); vertical-align: top; white-space: nowrap; }
+.scn-table th:first-child { text-align: left; white-space: normal; } .scn-table .cur { background: rgba(98,216,242,.08); }
+.scn-table .better { color: var(--le-cyan); } .scn-table .worse { color: #f0b45c; }
+.ea-panel, #ea-panel-body { grid-template-columns: minmax(0, 1fr); }
+#ea-panel-body .le-badge { white-space: normal; max-width: 100%; }

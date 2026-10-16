@@ -182,7 +182,7 @@ export function createScene3D(maplibregl, { origin, quality = 'high' }) {
     for (const id of S.detailIds) map.setFeatureState({ source: 'omt', sourceLayer: 'building', id }, { detail: false });
     S.detailIds.clear();
     if (S.buildings) { world.remove(S.buildings); S.buildings.geometry.dispose(); S.buildings = null; }
-    if (!radius) return 0;
+    if (!radius) { S.rings = []; return 0; }
     const seen = new Map();
     for (const f of map.querySourceFeatures('omt', { sourceLayer: 'building' })) {
       if (f.id == null || !/Polygon/.test(f.geometry.type)) continue;
@@ -195,12 +195,23 @@ export function createScene3D(maplibregl, { origin, quality = 'high' }) {
     const geo = buildingGeometry(feats, S.origin);
     const mesh = new THREE.Mesh(geo, facadeMaterial()); mesh.material.side = THREE.DoubleSide; mesh.castShadow = S.quality === 'high'; mesh.receiveShadow = S.quality === 'high'; mesh.name = 'core-buildings';
     world.add(mesh); S.buildings = mesh;
+    // V8: footprints in local metres for collision (avatar) and placement checks; outer rings, with bounding boxes.
+    S.rings = feats.flatMap(f => (f.geometry.type === 'Polygon' ? [f.geometry.coordinates] : f.geometry.coordinates).map(poly => { const r = poly[0].map(c => toLocal(S.origin, c)); let x0 = Infinity, x1 = -Infinity, z0 = Infinity, z1 = -Infinity; for (const [x, z] of r) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); } return { r, x0, x1, z0, z1 }; }));
     for (const k of seen.keys()) { const id = Number(k); map.setFeatureState({ source: 'omt', sourceLayer: 'building', id }, { detail: true }); S.detailIds.add(id); }
     map.triggerRepaint(); return seen.size;
+  }
+  // True when (x, z) — local metres — lies inside a loaded building footprint (pad: body radius).
+  function blocked(x, z, pad = 0.3) {
+    for (const g of S.rings || []) {
+      if (x < g.x0 - pad || x > g.x1 + pad || z < g.z0 - pad || z > g.z1 + pad) continue;
+      let inside = false; const r = g.r; for (let i = 0, j = r.length - 1; i < r.length; j = i++) { const [xi, zi] = r[i], [xj, zj] = r[j]; if ((zi > z) !== (zj > z) && x < (xj - xi) * (z - zi) / (zj - zi) + xi) inside = !inside; }
+      if (inside) return true;
+    }
+    return false;
   }
   function setTrees(features) { if (S.trees) S.trees.forEach(o => world.remove(o)); S.trees = treeMeshes(features, S.origin); S.trees.forEach(o => world.add(o)); }
   function setAvatar(a) { if (S.avatar) world.remove(S.avatar.root); S.avatar = a; if (a) world.add(a.root); }
   function setAgent(g, at) { if (S.agent) world.remove(S.agent); S.agent = g; if (g) { g.position.set(at[0], 0, at[1]); world.add(g); } }
   function setQuality(q) { S.quality = q; if (renderer) { renderer.shadowMap.enabled = q === 'high'; sun.castShadow = q === 'high'; scene.traverse(o => { if (o.material) o.material.needsUpdate = true; }); } }
-  return { layer, state: S, refreshBuildings, setTrees, setAvatar, setAgent, setQuality, THREE, world, get renderer() { return renderer; } };
+  return { layer, state: S, refreshBuildings, blocked, setTrees, setAvatar, setAgent, setQuality, THREE, world, get renderer() { return renderer; } };
 }

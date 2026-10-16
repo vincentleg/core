@@ -15,7 +15,7 @@ const HOLO = {
 };
 const arc = (a, b, n = 64) => Array.from({ length: n + 1 }, (_, i) => { const t = i / n, lng = a[0] + (b[0] - a[0]) * t, lat = a[1] + (b[1] - a[1]) * t + Math.sin(Math.PI * t) * 6; return [lng, lat]; });
 
-export function createAgentLayer(map, { runtime, onAgent, onHub, onNetwork }) {
+export function createAgentLayer(map, { runtime, onAgent, onHub, onNetwork, pos = null }) {
   const R = runtime, saved = {}; let mode = 'real';
   const sf = R.agents.filter(a => a.city === 'san-francisco' && a.post && !['council', 'assembly', 'global'].includes(a.level));
   map.addSource('civ-agents', { type: 'geojson', data: EMPTY });
@@ -50,7 +50,7 @@ export function createAgentLayer(map, { runtime, onAgent, onHub, onNetwork }) {
     if (mode === 'real') return;
     const feats = [], links = [], groups = new Map();
     for (const a of sf) {
-      const p = R.posOf(a.id), act = R.activity(a.id);
+      const p = (pos || R.posOf)(a.id), act = R.activity(a.id);
       feats.push({ type: 'Feature', geometry: { type: 'Point', coordinates: p }, properties: { id: a.id, code: a.code, state: act.state } });
       if (act.task && act.state !== 'travelling') { const k = `${act.mission}#${act.task}`; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(p); }
     }

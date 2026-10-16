@@ -12,6 +12,8 @@ import * as CIV from '../civilization/client.mjs';
 import { PLACES } from '../civilization/missions.mjs';
 import { createAgentLayer } from './agents-layer.mjs';
 import * as CP from './civ-panels.mjs';
+import * as SCN from './scenarios.mjs';
+import { createGround } from './ground.mjs';
 
 const $ = id => document.getElementById(id);
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -142,7 +144,7 @@ async function enterHuman() {
     S.mode = 'human'; S.scale = 'human'; renderScales();
     $('ea-hud').hidden = false; $('ea-panel').hidden = true; $('ea-human').hidden = true;
     $('ea-me').innerHTML = `<i style="${CFG.chipStyle(me.appearance)}"></i><b>${esc(me.identity.pseudonym || 'Vous')}</b>`;
-    $('ea-hint').textContent = matchMedia('(pointer: coarse)').matches ? 'Joystick pour marcher · approchez un agent pour lui parler' : 'W/↑ avancer · A/D tourner · Maj courir · C vue · E parler à l’agent le plus proche';
+    $('ea-hint').textContent = matchMedia('(pointer: coarse)').matches ? 'Joystick pour marcher · approchez un agent pour lui parler' : 'W/↑ avancer · A/D tourner · Maj courir · Espace sauter · C vue · E parler à l’agent le plus proche';
     if (S.layer && S.layer.mode === 'real') setLayer('hybrid');
     S.map.keyboard.disable(); S.map.dragPan.disable();
     // Street level is flat SoMa: relief is switched off here (the 3D layer would otherwise sit under the terrain mesh).
@@ -173,13 +175,16 @@ function tick(dt) {
   if (Math.abs(fwd) > 0.05) {
     const sp = (run ? 3.4 : 1.45) * Math.sign(fwd) * Math.min(1, Math.abs(fwd)), b = S.heading * Math.PI / 180;
     const nx = S.pos[0] + Math.sin(b) * sp * dt, nz = S.pos[1] - Math.cos(b) * sp * dt;
-    if (!S.scene.blocked?.(nx, nz)) S.pos = [nx, nz];
+    const other = S.layer?.mode !== 'real' ? S.crowd?.nearest([nx, nz]) : null, bump = other && other.d < 0.7 && other.d < (S.crowd.nearest(S.pos)?.d ?? 9);
+    if (!S.scene.blocked?.(nx, nz) && !bump) S.pos = [nx, nz];
     S.avatar.play(run ? 'Jog_Fwd_Loop' : 'Walk_Loop', 0.25);
   } else S.avatar.play(S.nearAgent ? 'Idle_Talking_Loop' : 'Idle_Loop', 0.4);
-  S.avatar.root.position.set(S.pos[0], 0, S.pos[1]); S.avatar.root.rotation.y = Math.PI - S.heading * Math.PI / 180;
+  if (S.jump != null) { S.jump += dt; if (S.jump > 0.62) S.jump = null; }
+  const hop = S.jump != null ? 4 * 0.42 * (S.jump / 0.62) * (1 - S.jump / 0.62) : 0; // simple ballistic arc; the CC0 clip set has no jump animation
+  S.avatar.root.position.set(S.pos[0], hop, S.pos[1]); S.avatar.root.rotation.y = Math.PI - S.heading * Math.PI / 180;
   if (S.avatar.model) S.avatar.model.visible = S.cam !== 'first';
   S.crowd?.update(dt, reduced());
-  const nb = S.layer?.mode !== 'real' ? S.crowd?.nearest(S.pos) : null, near = nb && nb.d < 4.5 ? nb.id : null;
+  const nb = S.layer?.mode !== 'real' ? S.crowd?.nearest(S.pos) : null, near = nb && (nb.d < 6 || (nb.id === S.nearAgent && nb.d < 12)) ? nb.id : null; // hysteresis: a walking agent stays reachable
   if (near !== S.nearAgent) { S.nearAgent = near; $('ea-talk').disabled = !near; const a = near && S.civ.byId.get(near);
     $('ea-talk').textContent = a ? `Parler à ${a.code} (E)` : 'Parler à un agent (E)'; if (a) toast(`${a.code} — ${a.role} : ${S.civ.activity(near).label}. (E pour ouvrir sa fiche)`); }
   S.map.jumpTo(camFor());
@@ -205,7 +210,7 @@ function wire() {
     const k = e.key.toLowerCase();
     if (k === 'escape') { for (const id of ['ea-about', 'ea-list', 'ea-panel']) if (!$(id).hidden) { $(id).hidden = true; return; } }
     if (S.mode !== 'human') return;
-    if (k === 'c') $('ea-cam').click(); else if (k === 'e' && S.nearAgent) $('ea-talk').click(); else { S.keys.add(k === 'shift' ? 'shift' : k); if (k.startsWith('arrow')) e.preventDefault(); }
+    if (k === 'c') $('ea-cam').click(); else if (k === 'e' && S.nearAgent) $('ea-talk').click(); else if (k === ' ') { e.preventDefault(); if (S.jump == null && !reduced()) S.jump = 0; } else { S.keys.add(k === 'shift' ? 'shift' : k); if (k.startsWith('arrow')) e.preventDefault(); }
   });
   addEventListener('keyup', e => S.keys.delete(e.key.toLowerCase()));
   addEventListener('blur', () => S.keys.clear());
@@ -235,17 +240,32 @@ const showMission = id => panel('mission', id, CP.missionHTML(S.civ, id));
 const showActivity = () => panel('activity', null, CP.activityHTML(S.civ, CIV.state()));
 const showEvent = seq => panel('event', seq, CP.eventHTML(S.civ, seq));
 const showHierarchy = () => panel('hierarchy', null, CP.hierarchyHTML(S.civ));
+// V8: recorded SUMO scenarios as a reversible overlay. One fixed camera for every scenario, so before/after line up.
+const SIM_CAM = { center: [-122.4038, 37.7793], zoom: 16.7, pitch: 58, bearing: -44 };
+async function showSimulation(id = 'S0', { camera = true } = {}) {
+  try {
+    S.mob ||= await SCN.loadMobility();
+    if (!S.mob.results.scenarios.some(x => x.id === id)) id = 'S0';
+    if (!S.scn) { S.scn = SCN.createScenarioLayer(S.map, S.mob); S.scn.state.onFrame = vs => { if (S.mode === 'human' && S.scene) { S.traffic ||= SCN.createTraffic3D(S.scene, S.toLocal); S.traffic.update(vs); } }; S.scn.state.onEnd = () => { if (S.panelKind?.kind === 'simulation') renderSimulation(); }; }
+    await S.scn.show(id); renderSimulation();
+    if (camera && S.mode !== 'human') { S.spinning = false; $('ea-hero').hidden = true; $('ea-vignette').hidden = true; $('ea-scales').hidden = false; $('ea-tools').hidden = false; $('ea-legend').hidden = false; S.map.setPadding({ left: 0, right: 0, top: 0, bottom: 0 }); const cam = { ...SIM_CAM, padding: { left: 0, top: 0, bottom: 0, right: innerWidth > 860 ? Math.min(480, innerWidth * 0.36) : 0 } }; reduced() ? S.map.jumpTo(cam) : S.map.easeTo({ ...cam, duration: 1400 }); S.scale = 'city'; renderScales(); }
+    history.replaceState(null, '', `#sim=${encodeURIComponent(id)}`);
+  } catch (e) { console.error(e); toast(`Simulation indisponible : ${e.message}`); }
+}
+const renderSimulation = () => panel('simulation', S.scn.state.scenario, SCN.panelHTML(S.mob, S.scn.state.scenario, S.scn.state.playing));
+function hideSimulation() { S.scn?.hide(); S.traffic?.update([]); $('ea-panel').hidden = true; history.replaceState(null, '', location.pathname + location.search); toast('Scénario retiré : la carte montre de nouveau la rue réelle.'); }
 function refreshPanel() {
   const k = S.panelKind; if (!k || $('ea-panel').hidden || $('ea-panel').contains(document.activeElement) && document.activeElement.tagName === 'BUTTON') return;
   const top = $('ea-panel').scrollTop;
   if (k.kind === 'agent') $('ea-panel-body').innerHTML = CP.agentHTML(S.civ, k.id); else if (k.kind === 'mission') $('ea-panel-body').innerHTML = CP.missionHTML(S.civ, k.id); else if (k.kind === 'activity') $('ea-panel-body').innerHTML = CP.activityHTML(S.civ, CIV.state()); else if (k.kind === 'hierarchy') $('ea-panel-body').innerHTML = CP.hierarchyHTML(S.civ);
   $('ea-panel').scrollTop = top;
 }
+const posOf = id => S.ground ? S.ground.pos(id) : S.civ.posOf(id); // V8: drawn on the validated pedestrian network
 function civTick() {
   const R = S.civ; if (!R) return; S.layer?.update();
-  if (S.follow && S.mode !== 'human') S.map.easeTo({ center: R.posOf(S.follow), duration: 240 });
+  if (S.follow && S.mode !== 'human') S.map.easeTo({ center: posOf(S.follow), duration: 240 });
   if (S.mode === 'human' && S.crowd && S.toLocal) {
-    const list = S.layer.agents.map(a => { const [x, z] = S.toLocal(R.posOf(a.id)), act = R.activity(a.id); return { id: a.id, x, z, state: act.state, dept: a.department, body: a.id.length % 2 ? 'f' : 'm' }; });
+    const list = S.layer.agents.map(a => { const [x, z] = S.toLocal(posOf(a.id)), act = R.activity(a.id); return { id: a.id, x, z, state: act.state, dept: a.department, body: a.id.length % 2 ? 'f' : 'm' }; });
     const c = S.crowd.sync(list, S.pos); S.crowdCounts = c;
     // Nameplates for the near agents (DOM, at most 12).
     S.plates ||= new Map(); const want = new Set();
@@ -253,9 +273,9 @@ function civTick() {
     const SHORT = { working: 'au travail', inspecting: 'vérifie', meeting: 'en réunion', travelling: 'en route', returning: 'en route', idle: 'inactif' };
     for (const a of close) { want.add(a.id); let mk = S.plates.get(a.id);
       const ag = R.byId.get(a.id), html = `<span class="le-agent-id">${esc(ag.code)}</span><span class="fine">${esc(SHORT[a.state] || a.state)}</span>`;
-      if (!mk) { const el = document.createElement('button'); el.type = 'button'; el.className = 'ea-agent-tag'; el.onclick = () => showAgent(a.id); mk = new maplibregl.Marker({ element: el, anchor: 'bottom', offset: [0, -96] }).setLngLat(R.posOf(a.id)).addTo(S.map); S.plates.set(a.id, mk); }
+      if (!mk) { const el = document.createElement('button'); el.type = 'button'; el.className = 'ea-agent-tag'; el.onclick = () => showAgent(a.id); mk = new maplibregl.Marker({ element: el, anchor: 'bottom', offset: [0, -96] }).setLngLat(posOf(a.id)).addTo(S.map); S.plates.set(a.id, mk); }
       const dd = Math.max(1, Math.hypot(a.x - S.pos[0], a.z - S.pos[1])); mk.setOffset([0, -Math.min(300, Math.max(40, 1900 / dd))]);
-      mk.getElement().innerHTML = html; mk.setLngLat(R.posOf(a.id)); mk.getElement().hidden = S.layer.mode === 'real'; mk.getElement().title = `${ag.role} — ${R.activity(a.id).label}`; }
+      mk.getElement().innerHTML = html; mk.setLngLat(posOf(a.id)); mk.getElement().hidden = S.layer.mode === 'real'; mk.getElement().title = `${ag.role} — ${R.activity(a.id).label}`; }
     for (const [id, mk] of S.plates) if (!want.has(id)) { mk.remove(); S.plates.delete(id); }
   }
   const now = performance.now(); if (now - (S.lastPanel || 0) > 2000) { S.lastPanel = now; refreshPanel(); }
@@ -263,12 +283,14 @@ function civTick() {
 async function startCivilisation() {
   try {
     const R = await CIV.start(); S.civ = R;
-    S.layer = createAgentLayer(S.map, { runtime: R, onAgent: showAgent, onHub: showAgent, onNetwork: id => { if (id === 'san-francisco') showHierarchy(); else panel('network', id, `<header class="pp-head"><h2 id="pp-title">New York</h2></header><p>Des missions inter-villes ont été <b>enregistrées</b> en Phase 10 (relecture). Le registre d’agents de New York n’est pas chargé dans cette version : aucune activité n’y est montrée comme réelle.</p>`); } });
+    createGround(R).then(g => { S.ground = g; }).catch(e => console.warn('réseau piéton indisponible', e));
+    S.layer = createAgentLayer(S.map, { runtime: R, pos: posOf, onAgent: showAgent, onHub: showAgent, onNetwork: id => { if (id === 'san-francisco') showHierarchy(); else panel('network', id, `<header class="pp-head"><h2 id="pp-title">New York</h2></header><p>Des missions inter-villes ont été <b>enregistrées</b> en Phase 10 (relecture). Le registre d’agents de New York n’est pas chargé dans cette version : aucune activité n’y est montrée comme réelle.</p>`); } });
     const h = new URLSearchParams(location.hash.slice(1)); let m = h.get('layer'); try { m ||= localStorage.getItem(LAYER_KEY); } catch {}
     setLayer(['real', 'agents', 'hybrid'].includes(m) ? m : 'real');
     CIV.onChange(civTick);
     if (h.get('mission') && R.M.has(h.get('mission'))) { $('ea-hero').hidden = true; $('ea-vignette').hidden = true; $('ea-scales').hidden = false; $('ea-tools').hidden = false; $('ea-legend').hidden = false; S.map.jumpTo({ center: PLACES.somaField, zoom: 16.2, pitch: 60, bearing: -40 }); S.scale = 'city'; renderScales(); if (S.layer.mode === 'real') setLayer('hybrid'); showMission(h.get('mission')); }
-    if (h.get('agent') && R.byId.has(h.get('agent'))) { $('ea-hero').hidden = true; $('ea-vignette').hidden = true; S.map.jumpTo({ center: R.posOf(h.get('agent')), zoom: 17, pitch: 60 }); if (S.layer.mode === 'real') setLayer('hybrid'); showAgent(h.get('agent')); }
+    if (h.get('sim')) showSimulation(h.get('sim'));
+    if (h.get('agent') && R.byId.has(h.get('agent'))) { $('ea-hero').hidden = true; $('ea-vignette').hidden = true; S.map.jumpTo({ center: posOf(h.get('agent')), zoom: 17, pitch: 60 }); if (S.layer.mode === 'real') setLayer('hybrid'); showAgent(h.get('agent')); }
     S.civReady = true;
   } catch (e) { console.error(e); toast(`Civilisation CORE indisponible : ${e.message}`); }
 }
@@ -276,8 +298,12 @@ function wireCiv() {
   document.querySelectorAll('#ea-layers [data-layer]').forEach(b => b.onclick = () => setLayer(b.dataset.layer));
   $('ea-activity-btn').onclick = () => { if (S.civ) { if (S.layer.mode === 'real') setLayer('hybrid'); showActivity(); } };
   $('ea-panel-body').addEventListener('click', e => {
-    const t = e.target.closest('[data-mission],[data-agent],[data-ev],[data-follow],[data-follow-mission],[data-speed],[data-hierarchy],[data-reason]'); if (!t) return;
+    const t = e.target.closest('[data-mission],[data-agent],[data-ev],[data-follow],[data-follow-mission],[data-speed],[data-hierarchy],[data-reason],[data-sim],[data-scn],[data-scn-play],[data-scn-off]'); if (!t) return;
     if (t.matches('a[href^="dialogue.html"]')) return; e.preventDefault();
+    if (t.dataset.sim) return void showSimulation(t.dataset.sim);
+    if (t.dataset.scn) return void showSimulation(t.dataset.scn, { camera: false });
+    if (t.dataset.scnPlay) { if (S.scn.state.playing) S.scn.stop(); else { if (S.scn.state.frame >= (S.scn.state.trace?.frames.length || 1) - 1) S.scn.render(0); S.scn.play(); } return void renderSimulation(); }
+    if (t.dataset.scnOff) return void hideSimulation();
     if (t.dataset.reason) { CIV.enableReasoning(t.dataset.reason === 'on').then(() => showActivity()); showActivity(); } else if (t.dataset.hierarchy) showHierarchy(); else if (t.dataset.mission) showMission(t.dataset.mission); else if (t.dataset.agent) showAgent(t.dataset.agent); else if (t.dataset.ev) showEvent(t.dataset.ev);
     else if (t.dataset.follow) { S.follow = S.follow === t.dataset.follow ? null : t.dataset.follow; toast(S.follow ? 'La caméra suit cet agent (cliquez « Suivre » à nouveau pour arrêter).' : 'Suivi arrêté.'); }
     else if (t.dataset.followMission) { try { const f = JSON.parse(localStorage.getItem('core.follow.v1') || '{}'); f.mission = t.dataset.followMission; f.title = S.civ.M.get(t.dataset.followMission)?.title; localStorage.setItem('core.follow.v1', JSON.stringify(f)); } catch {} J.mark('world', { problemId: t.dataset.followMission }); toast('Mission suivie : elle apparaît dans Mon CORE.'); }
@@ -299,7 +325,7 @@ function wireCiv() {
       $('ea-hero').hidden = true; $('ea-vignette').hidden = true; $('ea-scales').hidden = false; $('ea-tools').hidden = false; $('ea-legend').hidden = false;
       const e = S.data.bySeg.get(S.data.byId.get(FLAGSHIP).segment); S.map.jumpTo({ center: e.coord, zoom: 16.2, pitch: 60, bearing: e.along - 30 });
       focusSegment(e.items[0].segment, { open: false, instant: true }); S.map.once('idle', () => goScale('human'));
-    } else { if (innerWidth > 860) S.map.setPadding({ left: Math.min(760, innerWidth * 0.48), right: 0, top: 0, bottom: 0 }); spin(); }
+    } else if (!h.get('sim')) { if (innerWidth > 860) S.map.setPadding({ left: Math.min(760, innerWidth * 0.48), right: 0, top: 0, bottom: 0 }); spin(); }
   });
 })();
-globalThis.CORE_EARTH = { state: S, goScale, openPanel, focusSegment, enterHuman, start, setLayer, showAgent, showMission, showActivity, showEvent, showHierarchy, civ: () => S.civ, get fps() { const f = S.frames; return f.length ? f.length / f.reduce((a, b) => a + b, 0) : 0; } };
+globalThis.CORE_EARTH = { state: S, goScale, openPanel, focusSegment, enterHuman, start, setLayer, showAgent, showMission, showActivity, showEvent, showHierarchy, showSimulation, hideSimulation, civ: () => S.civ, get fps() { const f = S.frames; return f.length ? f.length / f.reduce((a, b) => a + b, 0) : 0; } };

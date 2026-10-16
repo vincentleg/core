@@ -11,7 +11,8 @@ import { ollamaAvailable } from '../intelligence/orchestrator.mjs';
 export const KEY = 'core.civ.v72';
 const listeners = new Set();
 let R = null, pool = null, poolInfo = { state: 'off' }, writer = false, timer = 0, speed = 1, paused = false, lastSave = 0, ready = null;
-const getJSON = async u => { const r = await fetch(u); if (!r.ok) throw Error(`${u} : HTTP ${r.status}`); return r.json(); };
+// One retry on a network error only (local static servers sometimes drop a connection on a cold load).
+const getJSON = async u => { const r = await fetch(u).catch(() => new Promise(ok => setTimeout(ok, 400)).then(() => fetch(u))); if (!r.ok) throw Error(`${u} : HTTP ${r.status}`); return r.json(); };
 const store = { get: () => { try { return localStorage.getItem(KEY); } catch { return null; } }, set: v => { try { localStorage.setItem(KEY, v); return true; } catch { return false; } } };
 const notify = () => listeners.forEach(f => { try { f(R); } catch (e) { console.error(e); } });
 export const onChange = f => { listeners.add(f); return () => listeners.delete(f); };
