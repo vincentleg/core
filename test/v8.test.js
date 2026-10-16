@@ -149,3 +149,12 @@ test('manifesto: original text in English (reference) and French, same principle
   assert.equal(TEXT.en.sign, 'A parallel world to help humanity improve the real one.');
   assert.match(TEXT.en.principles.map(p => p[1]).join(' '), /that number is zero/);
 });
+
+test('demo: 12 acts, 3–5 minutes, pause/skip/exit and keyboard, ends on the CORE line in every provided language', () => {
+  const src = read('src/earth/demo.mjs'), acts = (src.match(/^\s{4}async \(\) => \{/gm) || []).length;
+  assert.equal(acts, 12); const actMs = +src.match(/ACT_MS = (\d+)/)[1], total = (11 * actMs + 9000) / 1000; assert.ok(total >= 180 && total <= 300, `${total} s`);
+  for (const k of ["data-d=\"pause\"", "data-d=\"skip\"", "data-d=\"exit\"", "data-d=\"start\"", "'Escape'", "'ArrowRight'", "' '"]) assert.ok(src.includes(k), k);
+  assert.match(src, /A parallel world to help humanity improve the real one\./); assert.match(src, /Un monde parallèle pour aider l’humanité à améliorer le monde réel\./);
+  assert.doesNotMatch(src, /submitHumanInput|CIV\.submit|localStorage\.setItem/); // the tour never shares or stores anything
+  assert.match(read('demo.html'), /url=world\.html#demo/); assert.match(read('src/earth/app.mjs'), /h\.has\('demo'\)/);
+});

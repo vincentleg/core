@@ -235,7 +235,7 @@ function setLayer(m) {
   document.body.dataset.layer = m;
 }
 function panel(kind, id, html) {
-  S.panelKind = { kind, id }; $('ea-panel-body').innerHTML = html; $('ea-panel').hidden = false; $('ea-human').hidden = true;
+  const same = S.panelKind?.kind === kind && S.panelKind?.id === id; S.panelKind = { kind, id }; $('ea-panel-body').innerHTML = html; if (!same) $('ea-panel').scrollTop = 0; $('ea-panel').hidden = false; $('ea-human').hidden = true;
   $('ea-panel').classList.remove('le-enter'); void $('ea-panel').offsetWidth; $('ea-panel').classList.add('le-enter');
 }
 const showAgent = id => panel('agent', id, CP.agentHTML(S.civ, id));
@@ -358,7 +358,8 @@ function wireCiv() {
       const e = S.data.bySeg.get(S.data.byId.get(FLAGSHIP).segment); S.map.jumpTo({ center: e.coord, zoom: 16.2, pitch: 60, bearing: e.along - 30 });
       focusSegment(e.items[0].segment, { open: false, instant: true }); S.map.once('idle', () => goScale('human'));
     } else if (VPLACES[h.get('place')]) { const P = VPLACES[h.get('place')]; if (P.scale) { revealMap(); goScale(P.scale); } else flyTo(P.at, P.zoom);
+    } else if (h.has('demo')) { revealMap(); import('./demo.mjs').then(m => { S.demo = m.createDemo(globalThis.CORE_EARTH); });
     } else if (!h.get('sim')) { if (innerWidth > 860) S.map.setPadding({ left: Math.min(760, innerWidth * 0.48), right: 0, top: 0, bottom: 0 }); spin(); }
   });
 })();
-globalThis.CORE_EARTH = { state: S, goScale, openPanel, focusSegment, enterHuman, start, setLayer, showAgent, showMission, showActivity, showEvent, showHierarchy, showSimulation, hideSimulation, playSimulation, showNoticed, flyTo, followAgent, civ: () => S.civ, get fps() { const f = S.frames; return f.length ? f.length / f.reduce((a, b) => a + b, 0) : 0; } };
+globalThis.CORE_EARTH = { state: S, goScale, openPanel, focusSegment, enterHuman, start, setLayer, showAgent, showMission, showActivity, showEvent, showHierarchy, showSimulation, hideSimulation, playSimulation, showNoticed, revealMap, flyTo, followAgent, civ: () => S.civ, get fps() { const f = S.frames; return f.length ? f.length / f.reduce((a, b) => a + b, 0) : 0; } };

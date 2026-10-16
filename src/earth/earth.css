@@ -123,3 +123,9 @@ button.ea-agent-tag .le-agent-id::before { width: 12px; height: 12px; }
 .scn-table .better { color: var(--le-cyan); } .scn-table .worse { color: #f0b45c; }
 .ea-panel, #ea-panel-body { grid-template-columns: minmax(0, 1fr); }
 #ea-panel-body .le-badge { white-space: normal; max-width: 100%; }
+/* V8 — guided demo */
+.demo { position: fixed; z-index: 40; left: 120px; bottom: 76px; width: min(620px, calc(100vw - 32px)); padding: 18px 22px; border-radius: 20px; }
+.demo h2 { margin: 2px 0 6px; font-size: 21px; } .demo p { margin: 0 0 12px; color: var(--le-text-2); line-height: 1.5; } .demo .demo-last { font-size: 20px; color: var(--le-text); font-weight: 600; }
+.demo-bar { height: 3px; background: rgba(255, 255, 255, .08); border-radius: 3px; margin: 0 0 12px; } .demo-bar i { display: block; height: 100%; background: var(--le-cyan); border-radius: 3px; transition: width .4s; }
+@media (min-width: 861px) { .demo { width: min(560px, calc(100vw - 640px)); min-width: 340px; } }
+@media (max-width: 860px) { .demo { left: 50%; transform: translateX(-50%); bottom: 84px; padding: 14px 16px; } .demo h2 { font-size: 18px; } }
