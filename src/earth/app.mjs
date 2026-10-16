@@ -129,14 +129,15 @@ async function enterHuman() {
       S.scene.state.altitude = S.map.queryTerrainElevation?.(origin) || 0;
       S.scene.setTrees(S.data.trees.filter(t => Math.hypot((t.geometry.coordinates[0] - origin[0]) * 88000, (t.geometry.coordinates[1] - origin[1]) * 111000) < 420));
     }
-    // Agent: a virtual post 9 m to the side of the problem segment; avatar starts 28 m back along the street.
-    const side = [Math.cos(alongRad) * 9, Math.sin(alongRad) * 9];
+    // Agent: a virtual post on the sidewalk (~11 m from the street centreline, where the record is stored); the avatar
+    // starts 26 m back on the same sidewalk. Positions are a staging convention, not data.
+    const side = [Math.cos(alongRad) * 11, Math.sin(alongRad) * 11];
     S.agentAt = side; S.scene.setAgent(AV.buildAgent(), side);
     const tag = document.createElement('div'); tag.className = 'ea-agent-tag'; tag.innerHTML = `<span class="le-agent-id">${esc(S.data.agent.code)}</span><span>Agent CORE · non humain · analyse seulement</span>`;
     S.agentTag = new maplibregl.Marker({ element: tag, anchor: 'bottom', offset: [0, -70] }).setLngLat(toLngLat(origin, side[0], side[1])).addTo(S.map);
     const me = CFG.load(); S.me = me;
     const avatar = await AV.buildAvatar(me.appearance); S.scene.setAvatar(avatar); S.avatar = avatar;
-    const back = [-Math.sin(alongRad) * 26 + Math.cos(alongRad) * 6, Math.cos(alongRad) * 26 + Math.sin(alongRad) * 6];
+    const back = [-Math.sin(alongRad) * 26 + Math.cos(alongRad) * 11, Math.cos(alongRad) * 26 + Math.sin(alongRad) * 11];
     S.pos = back; S.heading = e.along; avatar.root.position.set(back[0], 0, back[1]); avatar.root.rotation.y = Math.PI - S.heading * Math.PI / 180;
     S.toLngLat = (x, z) => toLngLat(origin, x, z);
     S.mode = 'human'; S.scale = 'human'; renderScales();

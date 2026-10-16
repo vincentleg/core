@@ -175,7 +175,9 @@ export function createScene3D(maplibregl, { origin, quality = 'high' }) {
   };
 
   // Replace MapLibre's extrusions near the focus with detailed buildings (same footprints and heights).
-  function refreshBuildings(radius = S.quality === 'high' ? 260 : 0) {
+  // MapLibre stops drawing fill-extrusions above zoom ~20 (the human camera range), so the 3D layer always draws the
+  // street's buildings; quality only changes the radius and whether they cast shadows.
+  function refreshBuildings(radius = S.quality === 'high' ? 420 : 300) {
     if (!map) return 0;
     for (const id of S.detailIds) map.setFeatureState({ source: 'omt', sourceLayer: 'building', id }, { detail: false });
     S.detailIds.clear();
@@ -191,7 +193,7 @@ export function createScene3D(maplibregl, { origin, quality = 'high' }) {
     // Tiles split buildings at their edges: keep every piece of a building (pieces abut, so the result is continuous).
     const feats = [...seen.values()].flatMap(parts => { const key = new Set(); return parts.filter(p => { const s2 = JSON.stringify(p.geometry.coordinates).slice(0, 200); if (key.has(s2)) return false; key.add(s2); return true; }); });
     const geo = buildingGeometry(feats, S.origin);
-    const mesh = new THREE.Mesh(geo, facadeMaterial()); mesh.material.side = THREE.DoubleSide; mesh.castShadow = true; mesh.receiveShadow = true; mesh.name = 'core-buildings';
+    const mesh = new THREE.Mesh(geo, facadeMaterial()); mesh.material.side = THREE.DoubleSide; mesh.castShadow = S.quality === 'high'; mesh.receiveShadow = S.quality === 'high'; mesh.name = 'core-buildings';
     world.add(mesh); S.buildings = mesh;
     for (const k of seen.keys()) { const id = Number(k); map.setFeatureState({ source: 'omt', sourceLayer: 'building', id }, { detail: true }); S.detailIds.add(id); }
     map.triggerRepaint(); return seen.size;
