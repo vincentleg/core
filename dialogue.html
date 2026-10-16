@@ -3,33 +3,42 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' http://127.0.0.1:11434; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex">
-<title>CORE Dialogue — prototype local</title>
-<meta name="description" content="Salle de travail privée avec un agent CORE : raisonnement guidé, preuves citées de CORE Knowledge, idée enregistrée dans un coffre chiffré.">
+<title>CORE — Dialogue & Studio de recherche</title>
+<meta name="description" content="Réfléchissez avec un agent CORE : réponses citées depuis CORE Knowledge, dossier de recherche vivant, idée enregistrée dans un coffre chiffré.">
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="src/world/world.css">
 <link rel="stylesheet" href="src/civic/commons.css">
+<link rel="stylesheet" href="src/ui/living-earth.css">
 <link rel="stylesheet" href="src/dialogue/room.css">
 </head>
 <body class="commons dialogue">
 <a class="skip" href="#dl-input">Aller à la saisie</a>
 <header class="bar" id="core-nav"></header>
-<main id="dl-main">
-  <h1 class="sr-only">CORE Dialogue</h1>
-  <section class="room" aria-label="Salle de dialogue">
-    <div class="scene" id="dl-scene" aria-hidden="true"></div>
-    <div class="room-head"><h2 id="dl-title">Salle de dialogue</h2><p class="fine" id="dl-engine"></p></div>
+<main id="dl-main" data-mode="dialogue">
+  <h1 class="sr-only">CORE Dialogue et Studio de recherche</h1>
+  <section class="room" aria-label="Conversation">
+    <header class="dl-head">
+      <div class="dl-agent" id="dl-scene"></div>
+      <div class="dl-titles"><p class="le-eyebrow">Dialogue · problème enregistré</p><h2 id="dl-title">Salle de dialogue</h2><p class="fine" id="dl-engine"></p></div>
+      <div class="dl-controls">
+        <div class="dl-mode" role="radiogroup" aria-label="Mode de travail"><button type="button" role="radio" data-mode="dialogue" aria-checked="true">Conversation</button><button type="button" role="radio" data-mode="studio" aria-checked="false">Studio de recherche</button></div>
+        <button type="button" class="small" id="dl-provider-btn" aria-expanded="false" aria-controls="dl-provider"></button>
+      </div>
+    </header>
+    <div class="dl-provider le-glass" id="dl-provider" hidden></div>
     <ol class="convo" id="dl-convo" aria-live="polite" aria-label="Conversation"></ol>
-    <div class="chips" id="dl-chips"></div>
+    <div class="chips" id="dl-chips" aria-label="Suggestions"></div>
     <form class="composer" id="dl-form"><label class="sr-only" for="dl-input">Votre message</label>
-      <textarea id="dl-input" maxlength="500" rows="2" placeholder="Votre message (500 caractères). Une question finissant par « ? » interroge CORE Knowledge."></textarea>
-      <button type="submit" class="primary">Envoyer</button></form>
+      <textarea id="dl-input" maxlength="500" rows="2" placeholder="Écrivez à l’agent… Une question finissant par « ? » interroge CORE Knowledge."></textarea>
+      <button type="submit" class="primary" aria-label="Envoyer">Envoyer</button></form>
   </section>
-  <aside class="side" aria-label="Espace de travail">
-    <div class="tabs" role="tablist" aria-label="Espace de travail">
-      <button type="button" role="tab" data-side="idea" aria-selected="true">Idée</button>
+  <aside class="side" aria-label="Dossier de recherche">
+    <div class="dossier-head"><p class="le-eyebrow">Dossier de recherche</p><p class="fine" id="dl-dossier-state"></p></div>
+    <div class="tabs" role="tablist" aria-label="Dossier">
+      <button type="button" role="tab" data-side="idea" aria-selected="true">Dossier</button>
       <button type="button" role="tab" data-side="evidence" aria-selected="false">Preuves</button>
       <button type="button" role="tab" data-side="session" aria-selected="false">Session</button>
     </div>

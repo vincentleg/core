@@ -11,7 +11,9 @@ test('pages: strict CSP — no inline or external scripts; Dialogue and Commons 
     assert.match(csp, /object-src 'none'/, f); assert.match(csp, /form-action 'none'/, f);
     assert.doesNotMatch(read(f), /<script(?![^>]*src="src\/)/, `${f}: only same-origin module scripts`);
   }
-  for (const f of ['dialogue.html', 'commons.html']) assert.match(read(f), /connect-src 'self';/, f);
+  assert.match(read('commons.html'), /connect-src 'self';/);
+  // V7: Dialogue may also reach a LOCAL model on the loopback interface, used only when the person switches it on.
+  assert.match(read('dialogue.html'), /connect-src 'self' http:\/\/127\.0\.0\.1:11434;/);
   assert.match(read('world-classic.html'), /connect-src 'self' https:\/\/tiles\.openfreemap\.org;/);
   // V7 World: exactly the three public, keyless sources reviewed in docs/v7/TOOLING_AND_COSTS.md (OpenFreeMap tiles,
   // NASA GIBS imagery, AWS Terrain Tiles relief). blob:/data: are the map's own decoded resources, never remote.

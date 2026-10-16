@@ -6,7 +6,7 @@
 import { screen } from '../world/safety.mjs';
 import { ask } from '../kb/knowledge.mjs';
 
-export const ENGINE = { id: 'core-dialogue', version: '6.0.0', kind: 'raisonnement guidé par règles + recherche CORE Knowledge (aucun modèle de langage)' };
+export const ENGINE = { id: 'core-dialogue', version: '7.0.0', kind: 'raisonnement guidé par règles + recherche CORE Knowledge (aucun modèle de langage)' };
 export const PHASES = [
   ['situation', 'Votre situation', 'Racontez ce que vous avez constaté ou ce qui vous amène, sans données personnelles.'],
   ['problem', 'Le problème', 'En une ou deux phrases : quel est le problème, où, et pour qui ?'],
@@ -86,7 +86,9 @@ export function missing(session) {
 }
 
 // One user turn → updated session (pure; returns a new object). `ix` is a CORE Knowledge index, `problem` the record.
-export async function turn(session, input, { ix, problem = null, at = new Date().toISOString(), history = [] } = {}) {
+// `answerer` (optional): an async (question) => result in the shape of the V7 orchestrator (src/intelligence/), used for
+// factual questions instead of Knowledge directly; it must return Knowledge claims and may add a verified model wording.
+export async function turn(session, input, { ix, problem = null, at = new Date().toISOString(), history = [], answerer = null } = {}) {
   const s = structuredClone(session);
   const sc = screen(input, { history });
   if (!sc.ok) { s.turns.push({ role: 'agent', kind: 'system', text: sc.message, at }); return s; }
@@ -97,10 +99,11 @@ export async function turn(session, input, { ix, problem = null, at = new Date()
   if (QUESTION.test(t) && ix) {
     // Only deictic questions (« ce trottoir », « ici ») are about the current problem; anything else is asked as written.
     const q = problem && /\b(ce|cet|cette|ces|ici|this|here)\b/.test(t) && !/folsom|howard/.test(t) ? `${sc.text} ${problem.place}` : sc.text;
-    const a = await ask(q, ix, { history: [] });
+    const a = answerer ? await answerer(q) : await ask(q, ix, { history: [] });
     if (a.kind === 'refusal') s.turns.push({ role: 'agent', kind: 'system', text: `CORE Knowledge refuse : ${a.refusal.reason}`, at, refusal: a.refusal.code });
     else {
-      s.turns.push({ role: 'agent', kind: 'evidence', text: a.claims.map(c => c.text).join('\n'), citations: a.claims.flatMap(c => c.citations), statuses: a.claims.map(c => c.status), uncertainty: a.uncertainty, at, ...(a.refusal ? { refusal: a.refusal.code, caveat: a.refusal.reason } : {}) });
+      const gen = a.provider ? { provider: a.provider, ...(a.model ? { model: a.model } : {}), ...(a.verified ? { verified: true } : {}), ...(a.rejected ? { rejected: { issues: a.rejected.issues, model: a.rejected.model } } : {}), ...(a.fallback ? { fallback: a.fallback } : {}) } : {};
+      s.turns.push({ role: 'agent', kind: 'evidence', text: a.text ?? a.claims.map(c => c.text).join('\n'), claims: a.claims.map(c => c.text), citations: a.claims.flatMap(c => c.citations), statuses: a.claims.map(c => c.status), uncertainty: a.uncertainty, at, ...gen, ...(a.refusal ? { refusal: a.refusal.code, caveat: a.refusal.reason } : {}) });
       for (const c of a.claims.flatMap(c => c.citations)) if (!s.evidence.some(e => e.record === c.record)) s.evidence.push({ record: c.record, source: c.source, url: c.url ?? null, integrity: c.integrity });
     }
     s.turns.push({ role: 'agent', kind: 'reasoning', text: `Revenons à votre idée. ${PHASES.find(p => p[0] === s.phase)?.[2] || 'Voulez-vous enregistrer ce travail ?'}`, at });
