@@ -15,6 +15,7 @@ import * as UJ from './ui-journey.mjs';
 import * as UK from './ui-knowledge.mjs';
 import * as UN from './ui-network.mjs';
 import * as UM from './ui-more.mjs';
+import * as UMI from './ui-missions.mjs';
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -221,7 +222,7 @@ function render() {
   const bar = document.querySelector('.cm-tabs');
   bar.innerHTML = NAV.subnav(g?.id, S.tab);
   bar.querySelectorAll('a[href^="commons.html#"]').forEach(a => a.onclick = e => { e.preventDefault(); go(a.getAttribute('href').split('#')[1]); $('cm-body').focus(); });
-  RENDER[S.tab]($('cm-body'));
+  const B = $('cm-body'), tab = S.tab; Promise.resolve(RENDER[tab](B)).then(() => { if (S.tab === tab) return UMI.append(tab, B); }).catch(() => {});
 }
 addEventListener('hashchange', () => { route(); render(); });
 route();

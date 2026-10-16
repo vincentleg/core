@@ -72,3 +72,11 @@ body.dialogue { overflow: hidden; height: 100dvh; background: radial-gradient(10
 }
 #dl-main[data-mode="studio"] .chips { display: none; }
 .ds-sec textarea { min-height: 92px; }
+.tm-roster { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.tm-roster li { display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 10px 12px; border-radius: 14px; background: #fffdf8; border: 1px solid #e3dac9; font-size: 13.5px; }
+.side .cv-feed { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 13px; }
+.side .cv-ev { padding: 8px 10px; border-radius: 12px; background: #fffdf8; border: 1px solid #e3dac9; }
+.side .cv-type { font: 600 10.5px var(--le-mono); padding: 1px 8px; border-radius: 999px; border: 1px solid currentColor; color: #0f5d86; }
+.side .cv-type.t-challenge, .side .cv-type.t-escalate { color: #9a5b00; } .side .cv-type.t-alternative { color: #5b3fb0; }
+.side .ds-sec .form label.inline { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; }
+#dl-stop { margin-left: 4px; }

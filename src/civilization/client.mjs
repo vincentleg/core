@@ -43,3 +43,19 @@ export function start() {
   return ready;
 }
 export const runtime = () => R;
+// Human contributions reach the mission through the writer tab (the only one allowed to change the log). A reader page
+// sends the request on a BroadcastChannel and waits for the writer's acknowledgement; consent is checked on both sides.
+const BC = typeof BroadcastChannel === 'function' ? new BroadcastChannel('core-civ') : null;
+const waiting = new Map();
+BC?.addEventListener('message', e => { const m = e.data || {};
+  if (m.type === 'submit' && writer && R) { let res; try { res = { ok: true, input: R.submitHumanInput(m.mission, m.input) }; save(); notify(); } catch (err) { res = { ok: false, error: err.message }; } BC.postMessage({ type: 'ack', id: m.id, ...res }); }
+  if (m.type === 'ack' && waiting.has(m.id)) { waiting.get(m.id)(m); waiting.delete(m.id); } });
+export async function submit(mission, input) {
+  if (!input?.consent) throw Error('consentement explicite requis');
+  await ready;
+  if (writer) { const h = R.submitHumanInput(mission, input); save(); notify(); return h; }
+  if (!BC) throw Error('aucun canal vers le moteur');
+  const id = Math.random().toString(36).slice(2);
+  const r = await new Promise((res, rej) => { waiting.set(id, res); BC.postMessage({ type: 'submit', id, mission, input }); setTimeout(() => { if (waiting.delete(id)) rej(Error('le moteur (onglet CORE World) ne répond pas')); }, 4000); });
+  if (!r.ok) throw Error(r.error); return r.input;
+}

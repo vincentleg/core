@@ -4,12 +4,14 @@
 // (≤ 350 m, at most 220) as instanced holograms in an idle pose. Distances are measured from the person's avatar.
 import * as THREE from '../../assets/vendor/three-0.186.1/core3d.min.mjs';
 import { buildHologram, bakedHologramGeometry, hologramMaterial, HOLO_TIME } from './avatar3d.mjs';
-const NEAR = 60, FAR = 350, NEAR_MAX = 12, FAR_MAX = 220;
+// Budgets per quality: high = 12 animated + 220 instanced within 350 m; balanced (phones, low memory) = 6 + 40 within 160 m.
+export const BUDGETS = { high: { near: 60, far: 350, nearMax: 12, farMax: 220 }, balanced: { near: 45, far: 160, nearMax: 6, farMax: 40 } };
 const COLOR = { housing: '#62d8f2', climate: '#7fdcaa', social: '#f0b45c', inequality: '#f0b45c', research: '#b9a2ff', 'data-science': '#b9a2ff', ethics: '#f29ad0', safety: '#f29ad0', simulation: '#9fb8ff' };
 export const colorFor = dept => COLOR[dept] || '#62d8f2';
 const CLIP = { travelling: 'Walk_Loop', returning: 'Walk_Loop', meeting: 'Idle_Talking_Loop', inspecting: 'Interact', working: 'Idle_Talking_Loop', idle: 'Idle_Loop' };
 
-export function createCrowd(scene) {
+export function createCrowd(scene, quality = 'high') {
+  const { near: NEAR, far: FAR, nearMax: NEAR_MAX, farMax: FAR_MAX } = BUDGETS[quality] || BUDGETS.high;
   const group = new THREE.Group(); group.name = 'core-agents'; scene.world.add(group);
   const near = new Map(), pending = new Set(), cur = new Map(); let inst = null, ready = false, t = 0;
   Promise.all([bakedHologramGeometry('f'), bakedHologramGeometry('m')]).then(([gf, gm]) => {

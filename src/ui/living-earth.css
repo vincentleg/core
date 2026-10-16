@@ -151,3 +151,4 @@ body.commons { background: radial-gradient(1200px 600px at 80% -10%, #12345566, 
 .cm-tabs { background: linear-gradient(180deg, var(--le-ink-950) 70%, transparent); }
 /* Legacy small-screen rules hid some top-bar links; the four destinations are always visible. */
 .bar nav.le-nav a { display: inline-flex !important; }
+@media (max-width: 860px) { .toast { top: calc(var(--navh) + 8px) !important; bottom: auto !important; max-width: calc(100vw - 24px); font-size: 13px; } }

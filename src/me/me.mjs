@@ -49,6 +49,15 @@ function ideasCard() {
   return ideas.length ? `<ul class="me-list">${ideas.map(i => { const v = i.versions.at(-1); return `<li><span><b>${esc(v?.title || 'Idée')}</b><br><span class="fine">${i.versions.length} version(s) · ${esc(day(v?.at))} · privée${i.permissions?.publication ? ' · publiée' : ''}</span></span><span class="le-row"><a class="btn small" href="dialogue.html#idea=${encodeURIComponent(i.id)}">Reprendre</a><a class="btn small" href="commons.html#labs?idea=${encodeURIComponent(i.id)}">Labs</a></span></li>`; }).join('')}</ul>` : '<p class="fine">Votre coffre est vide.</p>';
 }
 
+// Followed mission and contributions shared WITH CONSENT, read from this browser (core.follow.v1, core.civ.v72).
+function missionsCard() {
+  const f = getJ('core.follow.v1'), civ = getJ('core.civ.v72'), ms = f?.mission && civ?.missions?.[f.mission];
+  if (!f?.mission) return `<p class="fine">Aucune mission suivie. Dans CORE World, couche « Agents », ouvrez une mission et choisissez « Suivre ».</p><a class="btn" href="world.html#layer=agents&mission=mission.sf.housing-resilience">${icon('explore', 16)} Voir la mission phare</a>`;
+  const ins = ms?.humanInputs || [];
+  return `<ul class="me-list"><li><span><b>${esc(f.title || f.mission)}</b><br><span class="fine">${ms ? esc({ open: 'en cours', 'awaiting-human': 'dossier prêt, en attente d’une revue humaine', monitoring: 'surveillance', gap: 'lacune', cancelled: 'annulée' }[ms.status] || ms.status) : 'état non disponible dans ce navigateur'}</span></span><span class="le-row"><a class="btn small" href="world.html#mission=${encodeURIComponent(f.mission)}">World</a><a class="btn small" href="dialogue.html#mission=${encodeURIComponent(f.mission)}">Séance</a></span></li>
+    ${ins.map(h => `<li><span>« ${esc(h.title)} »<br><span class="fine">${esc({ hypothesis: 'hypothèse', evidence: 'preuve', question: 'question', challenge: 'contestation' }[h.kind] || h.kind)} · ${esc(h.state)} · partagée avec votre consentement · aucune validation automatique</span></span></li>`).join('')}</ul>
+    ${ins.length ? '' : '<p class="fine">Aucune contribution partagée avec cette mission.</p>'}<p class="fine">Réutilisation par d’autres : aucune (rien n’est publié). Impact réel : aucun établi.</p>`;
+}
 function render() {
   const done = J.summary(j), followed = j.problemId ? problems.find(p => p.id === j.problemId) : null, drafts = (net.drafts || []).length, reports = (net.reports || []).length, kbN = (kb.items || kb.contributions || []).length;
   $('me-body').innerHTML = `
@@ -60,6 +69,7 @@ function render() {
   <section class="me-card"><h2>${icon('history', 18)} Ce qu’il est advenu de mes contributions</h2>
     <ol class="le-timeline">${j.ideaId ? `<li><b>Idée enregistrée</b> (${j.idea?.versions || 1} version(s)) — <span class="fine">privée, chiffrée, non publiée</span></li>` : ''}${j.steps.labs ? `<li><b>Analysée par CORE Labs</b> — <span class="fine">${j.idea?.missingEvidence != null ? `${j.idea.missingEvidence} preuve(s) manquante(s) signalée(s)` : 'analyse locale'} ; aucune validation</span></li>` : ''}${j.steps.review ? '<li><b>Demande de revue préparée</b> — <span class="fine">relecteurs fictifs : aucune revue humaine réelle</span></li>' : ''}
       <li><b>Revue humaine</b> — <span class="fine">aucune : aucun relecteur humain vérifié n’existe encore dans CORE</span></li><li><b>Réutilisation par d’autres</b> — <span class="fine">aucune : rien n’est publié dans ce prototype</span></li></ol></section>
+  <section class="me-card"><h2>${icon('flask', 18)} Missions suivies et contributions</h2>${missionsCard()}</section>
   <section class="me-card"><h2>${icon('collaborate', 18)} Collaboration</h2>
     <ul class="me-list"><li><span>Brouillons de communauté (locaux)</span><b>${drafts}</b></li><li><span>Signalements envoyés à la modération simulée</span><b>${reports}</b></li><li><span>Contributions de connaissances en quarantaine</span><b>${kbN}</b></li></ul>
     <p class="fine">Experts, membres et modérateurs sont fictifs dans ce prototype.</p></section>

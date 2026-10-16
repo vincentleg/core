@@ -62,7 +62,7 @@ export function activityHTML(R, ctl) {
     <div class="pp-sec"><h3>En attente d’une personne</h3><ul>${s.missions.filter(m => m.status === 'awaiting-human').map(m => `<li><a href="#" data-mission="${esc(m.id)}">${esc(m.title)}</a> — dossier prêt ; aucun relecteur humain vérifié n’existe encore</li>`).join('') || '<li class="fine">Rien.</li>'}</ul></div>
     <div class="pp-sec"><h3>Artefacts produits</h3><ul class="cv-feed">${artifacts.map(e => eventLine(R, e)).join('') || '<li class="fine">Aucun pour l’instant.</li>'}</ul></div>
     <div class="pp-sec"><h3>Derniers échanges</h3><ul class="cv-feed">${msgs.slice(-12).reverse().map(e => eventLine(R, e)).join('')}</ul></div>
-    <div class="pp-sec"><h3>Gouvernance</h3><p class="fine">Assemblée mondiale CORE → 7 conseils (géographiques, thématiques, de mission) → Direction San Francisco → 34 équipes → ${s.sanFrancisco - 35} agents. Les conseils organisent la délibération scientifique ; un consensus d’agents n’est jamais un consentement démocratique humain.</p></div>
+    <div class="pp-sec"><h3>Gouvernance</h3><p><a href="#" data-hierarchy="1">Voir la hiérarchie complète →</a></p><p class="fine">Assemblée mondiale CORE → 7 conseils (géographiques, thématiques, de mission) → Direction San Francisco → 34 équipes → ${s.sanFrancisco - 35} agents. Les conseils organisent la délibération scientifique ; un consensus d’agents n’est jamais un consentement démocratique humain.</p></div>
     <p class="fine">${esc(HONESTY)}</p>`;
 }
 
@@ -74,4 +74,17 @@ export function eventHTML(R, seq) {
     ${ev.length ? `<div class="pp-sec"><h3>Preuves citées</h3><ul>${ev.map(x => `<li>${esc(x.claim)}<br><span class="fine">${x.source ? esc(x.source.title) + ' · ' + esc(x.source.retrieved) : 'lacune'} · ${esc(x.limits)}</span></li>`).join('')}</ul></div>` : ''}
     <dl class="kv"><dt>Mission</dt><dd>${m ? `<a href="#" data-mission="${esc(m.id)}">${esc(m.title)}</a>` : '—'}</dd><dt>Tâche</dt><dd>${esc(e.task || '—')} · ${esc(STAGE_FR[e.stage] || e.stage || '')}</dd><dt>Agents</dt><dd>${(e.agents || []).map(a => `<a href="#" data-agent="${esc(a)}">${esc(short(R, a))}</a>`).join(', ') || '—'}</dd></dl>
     <p class="fine">Message produit par le moteur déterministe à partir des enregistrements cités ; ce n’est pas une conversation libre entre modèles.</p>`;
+}
+
+export function hierarchyHTML(R) {
+  const by = l => R.agents.filter(a => a.level === l), G = by('global')[0], ASM = by('assembly')[0], city = by('city')[0], leads = by('team-lead');
+  const size = t => R.agents.filter(a => a.team === t).length, busy = t => R.agents.filter(a => a.team === t && R.S.busy[a.id]).length;
+  const link = a => `<a href="#" data-agent="${esc(a.id)}">${esc(a.name || a.role)}</a>`;
+  return `<header class="pp-head"><p class="le-eyebrow">Hiérarchie de la civilisation CORE</p><h2 id="pp-title">${R.agents.length} agents enregistrés · ${R.agents.filter(a => a.city === 'san-francisco').length} à San Francisco</h2>
+    <p class="fine">Coordination et délibération, jamais autorité : aucun niveau ne peut approuver une conclusion scientifique, autoriser une action réelle ou décider à la place des humains.</p></header>
+    <ol class="cv-tree"><li><b>Niveau 1</b> — ${link(G)} <span class="fine">(coordination globale)</span></li>
+      <li><b>Niveau 2</b> — ${link(ASM)}<ul>${by('council').map(c => `<li>${link(c)} <span class="fine">· ${esc({ geographic: 'géographique', thematic: 'thématique', mission: 'de mission' }[c.kind] || c.kind)} · ${c.members.length} membre(s)${c.status === 'partial' ? ' · partiel (registre non chargé)' : ''}</span></li>`).join('')}</ul></li>
+      <li><b>Niveau 3</b> — ${link(city)} <span class="fine">(délègue aux équipes ; ne peut outrepasser ni la revue ni l’autorisation humaine)</span></li>
+      <li><b>Niveaux 4–5</b> — ${leads.length} équipes<ul class="cv-teams">${leads.map(l => `<li>${link(l)} <span class="fine">· ${size(l.team)} agents · ${busy(l.team)} au travail</span></li>`).join('')}</ul></li></ol>
+    <p class="fine">${esc(HONESTY)}</p>`;
 }

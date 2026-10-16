@@ -132,7 +132,7 @@ async function enterHuman() {
       S.map.addLayer(S.scene.layer, 'marker-halo');
       S.scene.state.altitude = S.map.queryTerrainElevation?.(origin) || 0;
       S.scene.setTrees(S.data.trees.filter(t => Math.hypot((t.geometry.coordinates[0] - origin[0]) * 88000, (t.geometry.coordinates[1] - origin[1]) * 111000) < 420));
-      if (!/nocrowd/.test(location.search)) S.crowd = A3.createCrowd(S.scene); S.toLocal = ll => toLocal(origin, ll);
+      S.crowd = A3.createCrowd(S.scene, S.quality === 'high' ? 'high' : 'balanced'); S.toLocal = ll => toLocal(origin, ll);
     }
     const me = CFG.load(); S.me = me;
     const avatar = await AV.buildAvatar(me.appearance); S.scene.setAvatar(avatar); S.avatar = avatar;
@@ -234,10 +234,11 @@ const showAgent = id => panel('agent', id, CP.agentHTML(S.civ, id));
 const showMission = id => panel('mission', id, CP.missionHTML(S.civ, id));
 const showActivity = () => panel('activity', null, CP.activityHTML(S.civ, CIV.state()));
 const showEvent = seq => panel('event', seq, CP.eventHTML(S.civ, seq));
+const showHierarchy = () => panel('hierarchy', null, CP.hierarchyHTML(S.civ));
 function refreshPanel() {
   const k = S.panelKind; if (!k || $('ea-panel').hidden || $('ea-panel').contains(document.activeElement) && document.activeElement.tagName === 'BUTTON') return;
   const top = $('ea-panel').scrollTop;
-  if (k.kind === 'agent') $('ea-panel-body').innerHTML = CP.agentHTML(S.civ, k.id); else if (k.kind === 'mission') $('ea-panel-body').innerHTML = CP.missionHTML(S.civ, k.id); else if (k.kind === 'activity') $('ea-panel-body').innerHTML = CP.activityHTML(S.civ, CIV.state());
+  if (k.kind === 'agent') $('ea-panel-body').innerHTML = CP.agentHTML(S.civ, k.id); else if (k.kind === 'mission') $('ea-panel-body').innerHTML = CP.missionHTML(S.civ, k.id); else if (k.kind === 'activity') $('ea-panel-body').innerHTML = CP.activityHTML(S.civ, CIV.state()); else if (k.kind === 'hierarchy') $('ea-panel-body').innerHTML = CP.hierarchyHTML(S.civ);
   $('ea-panel').scrollTop = top;
 }
 function civTick() {
@@ -253,6 +254,7 @@ function civTick() {
     for (const a of close) { want.add(a.id); let mk = S.plates.get(a.id);
       const ag = R.byId.get(a.id), html = `<span class="le-agent-id">${esc(ag.code)}</span><span class="fine">${esc(SHORT[a.state] || a.state)}</span>`;
       if (!mk) { const el = document.createElement('button'); el.type = 'button'; el.className = 'ea-agent-tag'; el.onclick = () => showAgent(a.id); mk = new maplibregl.Marker({ element: el, anchor: 'bottom', offset: [0, -96] }).setLngLat(R.posOf(a.id)).addTo(S.map); S.plates.set(a.id, mk); }
+      const dd = Math.max(1, Math.hypot(a.x - S.pos[0], a.z - S.pos[1])); mk.setOffset([0, -Math.min(300, Math.max(40, 1900 / dd))]);
       mk.getElement().innerHTML = html; mk.setLngLat(R.posOf(a.id)); mk.getElement().hidden = S.layer.mode === 'real'; mk.getElement().title = `${ag.role} — ${R.activity(a.id).label}`; }
     for (const [id, mk] of S.plates) if (!want.has(id)) { mk.remove(); S.plates.delete(id); }
   }
@@ -261,7 +263,7 @@ function civTick() {
 async function startCivilisation() {
   try {
     const R = await CIV.start(); S.civ = R;
-    S.layer = createAgentLayer(S.map, { runtime: R, onAgent: showAgent, onHub: showAgent, onNetwork: id => { if (id === 'san-francisco') { goScale('city'); showActivity(); } else panel('network', id, `<header class="pp-head"><h2 id="pp-title">New York</h2></header><p>Des missions inter-villes ont été <b>enregistrées</b> en Phase 10 (relecture). Le registre d’agents de New York n’est pas chargé dans cette version : aucune activité n’y est montrée comme réelle.</p>`); } });
+    S.layer = createAgentLayer(S.map, { runtime: R, onAgent: showAgent, onHub: showAgent, onNetwork: id => { if (id === 'san-francisco') showHierarchy(); else panel('network', id, `<header class="pp-head"><h2 id="pp-title">New York</h2></header><p>Des missions inter-villes ont été <b>enregistrées</b> en Phase 10 (relecture). Le registre d’agents de New York n’est pas chargé dans cette version : aucune activité n’y est montrée comme réelle.</p>`); } });
     const h = new URLSearchParams(location.hash.slice(1)); let m = h.get('layer'); try { m ||= localStorage.getItem(LAYER_KEY); } catch {}
     setLayer(['real', 'agents', 'hybrid'].includes(m) ? m : 'real');
     CIV.onChange(civTick);
@@ -274,11 +276,11 @@ function wireCiv() {
   document.querySelectorAll('#ea-layers [data-layer]').forEach(b => b.onclick = () => setLayer(b.dataset.layer));
   $('ea-activity-btn').onclick = () => { if (S.civ) { if (S.layer.mode === 'real') setLayer('hybrid'); showActivity(); } };
   $('ea-panel-body').addEventListener('click', e => {
-    const t = e.target.closest('[data-mission],[data-agent],[data-ev],[data-follow],[data-follow-mission],[data-speed]'); if (!t) return;
+    const t = e.target.closest('[data-mission],[data-agent],[data-ev],[data-follow],[data-follow-mission],[data-speed],[data-hierarchy]'); if (!t) return;
     if (t.matches('a[href^="dialogue.html"]')) return; e.preventDefault();
-    if (t.dataset.mission) showMission(t.dataset.mission); else if (t.dataset.agent) showAgent(t.dataset.agent); else if (t.dataset.ev) showEvent(t.dataset.ev);
+    if (t.dataset.hierarchy) showHierarchy(); else if (t.dataset.mission) showMission(t.dataset.mission); else if (t.dataset.agent) showAgent(t.dataset.agent); else if (t.dataset.ev) showEvent(t.dataset.ev);
     else if (t.dataset.follow) { S.follow = S.follow === t.dataset.follow ? null : t.dataset.follow; toast(S.follow ? 'La caméra suit cet agent (cliquez « Suivre » à nouveau pour arrêter).' : 'Suivi arrêté.'); }
-    else if (t.dataset.followMission) { try { localStorage.setItem('core.follow.v1', JSON.stringify({ mission: t.dataset.followMission })); } catch {} J.mark('world', { problemId: t.dataset.followMission }); toast('Mission suivie : elle apparaît dans Mon CORE.'); }
+    else if (t.dataset.followMission) { try { const f = JSON.parse(localStorage.getItem('core.follow.v1') || '{}'); f.mission = t.dataset.followMission; f.title = S.civ.M.get(t.dataset.followMission)?.title; localStorage.setItem('core.follow.v1', JSON.stringify(f)); } catch {} J.mark('world', { problemId: t.dataset.followMission }); toast('Mission suivie : elle apparaît dans Mon CORE.'); }
     else if (t.dataset.speed) { const x = Number(t.dataset.speed); if (!x) CIV.setPaused(!CIV.state().paused); else { CIV.setPaused(false); CIV.setSpeed(x); } showActivity(); }
   });
 }
@@ -288,7 +290,7 @@ function wireCiv() {
   try { S.data = await loadData(); } catch (e) { $('fatal').hidden = false; $('fatal').textContent = `Registres CORE indisponibles : ${e.message}`; return; }
   S.map = makeMap(S.data); wire(); wireCiv(); renderScales(); renderList();
   S.map.on('load', () => {
-    S.ready = true; const h = new URLSearchParams(location.hash.slice(1)); if (!/nociv/.test(location.search)) startCivilisation();
+    S.ready = true; const h = new URLSearchParams(location.hash.slice(1)); startCivilisation();
     if (h.get('problem') && S.data.byId.has(h.get('problem'))) {
       $('ea-hero').hidden = true; $('ea-vignette').hidden = true; $('ea-scales').hidden = false; $('ea-tools').hidden = false; $('ea-legend').hidden = false;
       const p = S.data.byId.get(h.get('problem')); S.map.jumpTo({ center: S.data.bySeg.get(p.segment)?.coord || SF, zoom: 16.4, pitch: 62, bearing: (S.data.bySeg.get(p.segment)?.along || 0) - 30 }); S.scale = 'city'; renderScales();
@@ -300,4 +302,4 @@ function wireCiv() {
     } else { if (innerWidth > 860) S.map.setPadding({ left: Math.min(760, innerWidth * 0.48), right: 0, top: 0, bottom: 0 }); spin(); }
   });
 })();
-globalThis.CORE_EARTH = { state: S, goScale, openPanel, focusSegment, enterHuman, start, setLayer, showAgent, showMission, showActivity, showEvent, civ: () => S.civ, get fps() { const f = S.frames; return f.length ? f.length / f.reduce((a, b) => a + b, 0) : 0; } };
+globalThis.CORE_EARTH = { state: S, goScale, openPanel, focusSegment, enterHuman, start, setLayer, showAgent, showMission, showActivity, showEvent, showHierarchy, civ: () => S.civ, get fps() { const f = S.frames; return f.length ? f.length / f.reduce((a, b) => a + b, 0) : 0; } };

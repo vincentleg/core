@@ -172,6 +172,8 @@ function start(fresh = false) {
 }
 
 async function boot() {
+  // V7.2: a mission link opens the team research mode (src/dialogue/team.mjs); the single-agent room is unchanged.
+  if (hash().mission) return (await import('./team.mjs')).boot(hash());
   NAV.render($('core-nav'), { active: 'dialogue' });
   try { R.ix = await loadIndex(); } catch (e) { $('dl-convo').innerHTML = `<li class="turn system">CORE Knowledge indisponible (${esc(e.message)}). Le dialogue ne répond pas sans ses sources.</li>`; return; }
   const h = hash(), pid = h.problem || J.read().problemId || DEFAULT_PROBLEM;
