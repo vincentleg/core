@@ -4,9 +4,9 @@
 //  • A standing agent is drawn on a network node near its runtime position; agents sharing a spot are spread over
 //    neighbouring nodes (deterministic, by id), so nobody stands inside a building or on top of another agent.
 //  • A moving agent follows the shortest network path between its two spots (binary-heap Dijkstra, cached per move).
-//  • Outside the network's coverage (> 45 m from a mapped walkway), the runtime position is drawn unchanged.
+//  • Outside the network's coverage (> 200 m from a mapped walkway), the runtime position is drawn unchanged.
 // Deterministic and presentation-only: findings, timing and the event log are not affected.
-const SNAP = 45;
+const SNAP = 200; // OSM maps few SoMa sidewalks as separate ways: a work point can sit ~100 m from the nearest mapped walkway
 
 export async function createGround(R, { url = 'data/osm/walk-network.json', raw = null } = {}) {
   if (!globalThis.CORE_POPULATION) await import('../agent-population.js');

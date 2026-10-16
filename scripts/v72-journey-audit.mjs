@@ -53,7 +53,7 @@ try {
   await ev(`(S => { const R = S.civ, id = window.__near, [x, z] = S.toLocal(R.posOf(id)); S.pos = [x + 1.5, z + 1.5]; })(CORE_EARTH.state), 1`);
   check('10. walking up to an agent makes it available to talk', await until(`!document.getElementById('ea-talk').disabled && /Parler à CORE-/.test(document.getElementById('ea-talk').textContent)`, 10000), await ev(`document.getElementById('ea-talk').textContent`));
   await ev(`document.getElementById('ea-talk').click(), 1`);
-  check('11. the agent’s identity, organisation, current activity and memory open', await ev(`(t => /Identité et organisation/.test(t) && /Maintenant/.test(t) && /Mémoire opérationnelle/.test(t) && /non humain/.test(t))(document.getElementById('ea-panel-body').textContent)`));
+  check('11. the agent’s identity, organisation, current activity and memory open', await ev(`(t => /Identité et organisation/.test(t) && /Ce sur quoi je travaille/.test(t) && /Mémoire opérationnelle/.test(t) && /non humain/.test(t))(document.getElementById('ea-panel-body').textContent)`));
   const agentId = await ev('CORE_EARTH.state.panelKind.id'); await shot('05-agent');
   await go(`dialogue.html#mission=${MID}&agent=${encodeURIComponent(agentId)}`, '!!globalThis.CORE_DIALOGUE && CORE_DIALOGUE.team');
   await ev(`CORE_DIALOGUE.send('Les nouveaux logements abordables sont-ils exposés aux inondations ?').then(() => 1)`); await wait(1500);

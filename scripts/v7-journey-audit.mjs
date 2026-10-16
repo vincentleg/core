@@ -64,7 +64,7 @@ try {
   metrics.humanFps = await ev('Math.round(CORE_EARTH.fps)'); metrics.layerMs = await ev('+(CORE_EARTH.state.scene.state.ms.reduce((a, b) => a + b, 0) / CORE_EARTH.state.scene.state.ms.length).toFixed(2)');
   check('   walking plays the walk animation and moves the avatar', await ev(`CORE_EARTH.state.avatar.clip === 'Walk_Loop'`), `${metrics.humanFps} fps, 3D layer ${metrics.layerMs} ms/frame`);
   await ev(`dispatchEvent(new KeyboardEvent('keyup', { key: 'w' })), 1`);
-  await ev(`(S => { const nb = S.crowd.nearest(S.pos), [x, z] = S.toLocal(S.civ.posOf(nb.id)); S.pos = [x + 1.5, z + 1.5]; })(CORE_EARTH.state), 1`);
+  await ev(`(S => { const nb = S.crowd.nearest(S.pos), [x, z] = S.toLocal(S.ground ? S.ground.pos(nb.id) : S.civ.posOf(nb.id)); S.pos = [x + 1.2, z + 1.2]; })(CORE_EARTH.state), 1`);
   check('   near the agent, "talk" becomes available', await until(`!document.getElementById('ea-talk').disabled`, 8000));
   await ev(`document.getElementById('ea-talk').click(), 1`);
   await wait(1200); await shot('04-human');

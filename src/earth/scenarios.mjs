@@ -34,7 +34,7 @@ export function createScenarioLayer(map, data) {
     map.getSource('scn-signals').setData({ type: 'FeatureCollection', features: data.geometry.signals.features.map(f => ({ ...f, properties: { ...f.properties, actuated: id === 'B' } })) });
   }
   async function show(id) {
-    S.scenario = id; S.on = true; for (const l of ids) map.setLayoutProperty(l, 'visibility', 'visible');
+    stop(); S.scenario = id; S.on = true; for (const l of ids) map.setLayoutProperty(l, 'visibility', 'visible');
     geometryFor(id); S.trace = await data.trace(id).catch(() => null); S.frame = 0; render(0);
   }
   function hide() { S.on = false; stop(); for (const l of ids) map.setLayoutProperty(l, 'visibility', 'none'); S.vehicles = []; S.onFrame?.([]); }
