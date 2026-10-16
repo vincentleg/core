@@ -5,7 +5,7 @@ const safe = u => (/^https:\/\//i.test(String(u || '')) ? String(u) : null);
 const nm = (R, id) => id === 'human:local' ? 'Une personne (vous)' : R.byId.get(id)?.name || R.byId.get(id)?.role || id || '—';
 const short = (R, id) => id === 'human:local' ? 'Vous' : R.byId.get(id)?.code || String(id || '').split('.').pop();
 const ago = (R, t) => { const d = Math.max(0, R.S.clock - t); return d < 60 ? `il y a ${Math.round(d)} s` : `il y a ${Math.round(d / 60)} min`; };
-const STATE_FR = { working: 'au travail', inspecting: 'vérifie sur place', meeting: 'en réunion', travelling: 'en déplacement', returning: 'regagne son poste', idle: 'inactif' };
+const STATE_FR = { reasoning: 'raisonne (modèle local)', working: 'au travail', inspecting: 'vérifie sur place', meeting: 'en réunion', travelling: 'en déplacement', returning: 'regagne son poste', idle: 'inactif' };
 export const HONESTY = 'Simulation locale déterministe : les agents sont des identités du registre CORE animées par le moteur CORE ; leurs constats sont des calculs codés sur des données publiques datées. Aucun agent n’est un modèle de langage indépendant ; aucune décision réelle n’est prise.';
 
 export function eventLine(R, e) {
@@ -44,6 +44,7 @@ export function missionHTML(R, mid) {
     ${m.hypotheses.length ? `<div class="pp-sec"><h3>Hypothèses concurrentes (aucune n’est établie)</h3>${m.hypotheses.map(h => `<div class="cv-hyp"><b>${esc(h.id)} — ${esc(h.title)}</b><p>${esc(h.statement)}</p><p class="fine">Appuis : ${h.support.map(s => esc(f(s)?.claim?.slice(0, 70) || s)).join(' · ')}<br>Ce qui manque : ${h.against.map(s => esc(f(s)?.claim?.slice(0, 80) || s)).join(' · ')}<br>Test proposé : ${esc(h.test)}</p></div>`).join('')}</div>` : ''}
     ${m.dissent.length ? `<div class="pp-sec"><h3>Dissidences conservées</h3><ul>${m.dissent.map(d => `<li><b>${esc(R.byId.get(`core.san-francisco.${d.by}.lead`)?.teamName || d.by)}</b> — ${esc(d.text)}</li>`).join('')}</ul></div>` : ''}
     ${(m.audits || []).length ? `<div class="pp-sec"><h3>Vérifications fiche par fiche</h3><ul>${m.audits.map(a => { const st = ms.audits[a.id]; const t = st.lastTallies || st.tallies; return `<li>${esc(a.label)} : ${st.checked} fiche(s) vérifiée(s), ${st.pass} passe(s) complète(s)${Object.keys(t).length ? ` — ${Object.entries(t).sort((x, y) => y[1] - x[1]).slice(0, 3).map(([k, n]) => `${n} « ${esc(k)} »`).join(', ')}` : ''}</li>`; }).join('')}</ul></div>` : ''}
+    ${modelWorkHTML(R, mid)}
     <div class="pp-sec"><h3>Échanges récents entre agents</h3><ul class="cv-feed">${msgs.map(e => eventLine(R, e)).join('') || '<li class="fine">Aucun échange pour l’instant.</li>'}</ul></div>
     <div class="pp-sec"><h3>Contributions humaines</h3>${ms.humanInputs.length ? `<ul>${ms.humanInputs.map(h => `<li>${esc(h.title)} — <span class="fine">${esc(h.state)}</span></li>`).join('')}</ul>` : '<p class="fine">Aucune. Vous pouvez proposer une hypothèse, une preuve ou une contestation : elle reste privée tant que vous ne consentez pas à la partager avec la mission.</p>'}</div>
     <nav class="pp-actions" aria-label="Participer"><a class="btn" href="dialogue.html#mission=${encodeURIComponent(mid)}">Séance d’équipe</a><a class="btn primary" href="dialogue.html#mission=${encodeURIComponent(mid)}&intent=propose">Proposer</a><a class="btn" href="#" data-follow-mission="${esc(mid)}">Suivre</a></nav>
@@ -56,6 +57,7 @@ export function activityHTML(R, ctl) {
   return `<header class="pp-head"><p class="le-eyebrow">Activité de la civilisation CORE · San Francisco</p><h2 id="pp-title">${s.busy} agents au travail sur ${s.sanFrancisco}</h2>
     <p class="fine">${s.inspecting} vérifient sur place · ${s.meeting} en réunion · ${s.travelling} en déplacement · ${s.idle} inactifs (honnêtement : aucune tâche) · ${s.events} événements journalisés</p>
     <div class="le-row cv-ctl"><button type="button" class="small" data-speed="0">${ctl.paused ? 'Reprendre' : 'Pause'}</button>${[1, 4, 16].map(x => `<button type="button" class="small" data-speed="${x}" aria-pressed="${ctl.speed === x && !ctl.paused}">×${x}</button>`).join('')}<span class="fine">${ctl.writer ? 'moteur actif dans cet onglet' : 'lecture : le moteur tourne dans un autre onglet'} · intégrité du journal ${R.S.integrity === 'ok' && R.verify() ? 'vérifiée' : 'ROMPUE'}</span></div></header>
+    <div class="pp-sec"><h3>Intelligence partagée (modèle local)</h3>${reasoningHTML(R, ctl)}</div>
     <div class="pp-sec"><h3>Missions</h3><ul class="cv-missions">${s.missions.map(m => `<li><a href="#" data-mission="${esc(m.id)}">${m.flagship ? '★ ' : ''}${esc(m.title)}</a> <span class="fine">· ${esc(STAGE_FR[m.stage] || m.stage)} · ${esc({ open: 'en cours', 'awaiting-human': 'attend une revue humaine', monitoring: 'surveillance', gap: 'lacune : aucune donnée', cancelled: 'annulée' }[m.status])}</span></li>`).join('')}</ul></div>
     <div class="pp-sec"><h3>Questions ouvertes</h3><ul>${R.missions.flatMap(m => m.hypotheses.map(h => `<li><a href="#" data-mission="${esc(m.id)}">${esc(h.id)} — ${esc(h.title)}</a> <span class="fine">(non établie)</span></li>`)).join('')}</ul></div>
     <div class="pp-sec"><h3>Constats contestés</h3><ul class="cv-feed">${challenges.map(e => eventLine(R, e)).join('') || '<li class="fine">Aucun.</li>'}</ul></div>
@@ -87,4 +89,17 @@ export function hierarchyHTML(R) {
       <li><b>Niveau 3</b> — ${link(city)} <span class="fine">(délègue aux équipes ; ne peut outrepasser ni la revue ni l’autorisation humaine)</span></li>
       <li><b>Niveaux 4–5</b> — ${leads.length} équipes<ul class="cv-teams">${leads.map(l => `<li>${link(l)} <span class="fine">· ${size(l.team)} agents · ${busy(l.team)} au travail</span></li>`).join('')}</ul></li></ol>
     <p class="fine">${esc(HONESTY)}</p>`;
+}
+
+function reasoningHTML(R, ctl) {
+  const r = ctl.reasoning || { state: 'off' }, jobs = Object.values(R.S.jobs || {}), cnt = st => jobs.filter(j => j.state === st).length;
+  const state = { off: 'désactivé', detecting: 'détection du modèle local…', unavailable: `indisponible — ${r.reason || ''}`, on: `activé — ${r.model}, ${r.workers} worker partagé par ${R.agents.length} agents` }[r.state] || r.state;
+  return `<p class="fine">Les agents ne possèdent pas chacun un modèle : une file partagée et bornée confie des tâches typées (preuves manquantes, hypothèse, objection) au modèle local, puis chaque réponse est validée (schéma, constats cités, vérificateur). Les résultats restent des <b>propositions non revues</b> ; ils ne modifient jamais les constats.</p>
+    <p class="le-row"><button type="button" class="small" data-reason="${r.state === 'on' ? 'off' : 'on'}">${r.state === 'on' ? 'Désactiver' : 'Activer'} le raisonnement local</button><span class="fine">État : ${esc(state)}${r.state === 'on' ? ` · file ${r.queued}, en cours ${r.running}` : ''}</span></p>
+    <p class="fine">Tâches : ${cnt('done')} validée(s), ${cnt('rejected')} écartée(s) par la validation, ${cnt('expired')} expirée(s), ${cnt('pending') + cnt('running')} en attente. Budget : 1 tâche à la fois, ${r.budget?.maxPerHour ?? 40} par heure au plus, ${Math.round((r.budget?.timeoutMs ?? 120000) / 1000)} s maximum chacune.</p>`;
+}
+export function modelWorkHTML(R, mid) {
+  const w = R.S.missions[mid]?.modelWork || []; if (!w.length) return '';
+  const item = x => x.kind === 'gaps' ? (x.output?.questions || []).map(q => esc(q.question)).join('<br>') : x.kind === 'hypothesis' ? (x.output?.hypotheses || []).map(h => `<b>${esc(h.title)}</b> — ${esc(h.statement)}<br><span class="fine">Test : ${esc(h.test)} · Réfutée si : ${esc(h.falsifiedIf)}</span>`).join('<br>') : (x.output?.objections || []).map(o => `${esc(o.kind)} : ${esc(o.text)}`).join('<br>');
+  return `<div class="pp-sec"><h3>Travail du modèle local — propositions non revues</h3><ul class="cv-findings">${w.slice(-6).reverse().map(x => `<li><span class="le-badge" data-s="${x.status === 'validé' ? 'local-model' : 'simulated'}">${x.status === 'validé' ? 'proposition validée (non revue)' : 'écartée par la validation'}</span> <span class="fine">${esc({ gaps: 'Preuves manquantes', hypothesis: 'Hypothèse', critique: `Objections à « ${x.target?.title || ''} »` }[x.kind])} · ${esc(R.byId.get(x.agent)?.code || x.agent)} · ${esc(x.model || '')}${x.ms ? ` · ${Math.round(x.ms / 1000)} s` : ''}</span><br>${x.status === 'validé' ? item(x) : esc((x.issues || []).join(' ; '))}</li>`).join('')}</ul></div>`;
 }

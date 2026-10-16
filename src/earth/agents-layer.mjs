@@ -5,7 +5,7 @@
 //  • hybrid  — the real Earth with the agents on top.
 // Positions and states come only from the civilisation runtime (src/civilization/runtime.mjs).
 const EMPTY = { type: 'FeatureCollection', features: [] };
-export const STATE_COLORS = { working: '#62d8f2', inspecting: '#7fdcaa', meeting: '#b9a2ff', travelling: '#cfe8f5', returning: '#7d93ab', idle: '#5f86ad' };
+export const STATE_COLORS = { working: '#62d8f2', inspecting: '#7fdcaa', meeting: '#b9a2ff', travelling: '#cfe8f5', reasoning: '#f29ad0', returning: '#7d93ab', idle: '#5f86ad' };
 const STATE_EXPR = ['match', ['get', 'state'], ...Object.entries(STATE_COLORS).flat(), '#5f86ad'];
 const Z = (...s) => ['interpolate', ['linear'], ['zoom'], ...s];
 // Agent mode restyle: paint values swapped in agents mode and restored for real/hybrid.

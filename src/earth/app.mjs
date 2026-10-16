@@ -276,9 +276,9 @@ function wireCiv() {
   document.querySelectorAll('#ea-layers [data-layer]').forEach(b => b.onclick = () => setLayer(b.dataset.layer));
   $('ea-activity-btn').onclick = () => { if (S.civ) { if (S.layer.mode === 'real') setLayer('hybrid'); showActivity(); } };
   $('ea-panel-body').addEventListener('click', e => {
-    const t = e.target.closest('[data-mission],[data-agent],[data-ev],[data-follow],[data-follow-mission],[data-speed],[data-hierarchy]'); if (!t) return;
+    const t = e.target.closest('[data-mission],[data-agent],[data-ev],[data-follow],[data-follow-mission],[data-speed],[data-hierarchy],[data-reason]'); if (!t) return;
     if (t.matches('a[href^="dialogue.html"]')) return; e.preventDefault();
-    if (t.dataset.hierarchy) showHierarchy(); else if (t.dataset.mission) showMission(t.dataset.mission); else if (t.dataset.agent) showAgent(t.dataset.agent); else if (t.dataset.ev) showEvent(t.dataset.ev);
+    if (t.dataset.reason) { CIV.enableReasoning(t.dataset.reason === 'on').then(() => showActivity()); showActivity(); } else if (t.dataset.hierarchy) showHierarchy(); else if (t.dataset.mission) showMission(t.dataset.mission); else if (t.dataset.agent) showAgent(t.dataset.agent); else if (t.dataset.ev) showEvent(t.dataset.ev);
     else if (t.dataset.follow) { S.follow = S.follow === t.dataset.follow ? null : t.dataset.follow; toast(S.follow ? 'La caméra suit cet agent (cliquez « Suivre » à nouveau pour arrêter).' : 'Suivi arrêté.'); }
     else if (t.dataset.followMission) { try { const f = JSON.parse(localStorage.getItem('core.follow.v1') || '{}'); f.mission = t.dataset.followMission; f.title = S.civ.M.get(t.dataset.followMission)?.title; localStorage.setItem('core.follow.v1', JSON.stringify(f)); } catch {} J.mark('world', { problemId: t.dataset.followMission }); toast('Mission suivie : elle apparaît dans Mon CORE.'); }
     else if (t.dataset.speed) { const x = Number(t.dataset.speed); if (!x) CIV.setPaused(!CIV.state().paused); else { CIV.setPaused(false); CIV.setSpeed(x); } showActivity(); }

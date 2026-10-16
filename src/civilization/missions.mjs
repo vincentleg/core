@@ -94,7 +94,29 @@ export function buildMissions(D, reg, { today = new Date().toISOString() } = {})
   };
   const corridorMid = Object.fromEntries((D.corridor?.features || []).map(f => { const [a, b] = f.geometry.coordinates; return [f.properties.cnn, [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]]; }));
   for (const list of Object.values(audits)) for (const a of list) a.items = a.items.map(i => ({ ...i, at: i.at || corridorMid[i.segment] || null })).filter(i => i.at);
-  return [housing,
+  // V8 — San Francisco mobility (SUMO). The simulation is computed outside the browser (scripts/mobility/build.py);
+  // agents here read and review the recorded, reproducible runs: they never claim to have run them live.
+  const mob = A.mobilitySim(D), mf = id => mob.findings.find(x => x.id === id), folsomSites = (D.corridor?.features || []).filter(x => /FOLSOM/.test(x.properties.streetname || '')).map(x => { const [a, b] = x.geometry.coordinates; return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]; });
+  const mobility = { id: 'mission.sf.mobility', flagship: true, city: 'san-francisco', council: 'core.council.geo.san-francisco', coordinator: L('mobility'),
+    title: 'Mobilité et congestion — SoMa, San Francisco',
+    question: 'Quelles interventions pourraient réduire les retards sur le corridor Folsom / Howard sans dégrader les bus, la sécurité ni l’équité — et que peut-on réellement en savoir ?',
+    scope: 'Grille de SoMa (3rd–9th, Folsom / Howard) ; réseau réel OpenStreetMap ; demande, feux et bus synthétiques ; modèle NON CALIBRÉ.',
+    findings: mob.findings, hypotheses: mob.hypotheses, dissent: mob.dissent, verdict: mob.verdict,
+    plan: [
+      { id: 'open', stage: 'OBSERVE', team: 'mobility', lead: true, n: 1, at: 'hub', dur: 10, msgs: [['status', 'city', 'Mission ouverte : mobilité et congestion à SoMa.']] },
+      { id: 'get-net', stage: 'RETRIEVE', team: 'mobility', role: 'walk', n: 2, at: 'hub', dur: 18, after: ['open'], msgs: [['evidence', 'lead', 'Réseau routier OpenStreetMap (ODbL) et feux recensés par DataSF récupérés ; aucun comptage de trafic public.', ['m.signals', 'g.counts']]] },
+      { id: 'verify-signals', stage: 'COLLABORATE', team: 'research', role: 'provenance', n: 1, at: 'hub', dur: 16, after: ['get-net'], msgs: [['review', 'mobility', mf('m.signals').claim, ['m.signals']]] },
+      { id: 'baseline', stage: 'SIMULATE', team: 'simulation', role: 'scenarios', n: 2, at: 'sites', dur: 26, after: ['get-net'], msgs: [['analysis', 'lead', mf('m.baseline').claim, ['m.baseline']]] },
+      ...['A', 'B', 'C', 'D'].map(k => ({ id: `scen-${k}`, stage: 'SIMULATE', team: 'simulation', role: 'scenarios', n: 2, at: 'sites', dur: 22, after: ['baseline'], msgs: [['analysis', 'lead', mf(`m.scenario-${k}`).claim, [`m.scenario-${k}`]]] })),
+      { id: 'search', stage: 'SIMULATE', team: 'simulation', role: 'uncertainty', n: 2, at: 'hub', dur: 24, after: ['scen-A', 'scen-B', 'scen-C', 'scen-D'], msgs: [['analysis', 'lead', mf('m.search').claim, ['m.search']]] },
+      { id: 'critique', stage: 'CRITIQUE', team: 'safety', role: 'adversarial', n: 2, at: PLACES.council, dur: 22, after: ['search'], msgs: [['challenge', 'mobility', mob.dissent[0].text, ['g.counts', 'g.timing']], ['challenge', 'mobility', mob.dissent[1].text, ['m.scenario-C']]] },
+      { id: 'hyp', stage: 'HYPOTHESES', team: 'mobility', role: 'access', n: 2, at: PLACES.council, dur: 22, after: ['critique'], msgs: mob.hypotheses.map(h => ['alternative', 'council', `${h.id} — ${h.title} : ${h.statement}`, h.support]) },
+      { id: 'dossier', stage: 'DOSSIER', team: 'mobility', lead: true, n: 1, at: PLACES.council, dur: 18, after: ['hyp'], msgs: [['dossier-update', 'city', mob.verdict]] },
+      { id: 'gateway', stage: 'HUMAN_REVIEW', team: 'safety', role: 'claims', n: 1, at: PLACES.cityHall, dur: 12, after: ['dossier'], msgs: [['status', 'city', 'En attente de revue humaine ; aucune intervention n’est recommandée sur un modèle non calibré.']] },
+    ],
+    sessions: { every: 90, dur: 36, at: PLACES.council },
+    monitor: { team: 'mobility', every: 50, sites: folsomSites, text: 'Surveillance : vérification des tronçons du corridor Folsom ; aucune nouvelle donnée téléchargée.' } };
+  return [housing, mobility,
     small('mission.sf.energy-benchmarks', 'Performance énergétique des bâtiments du corridor', 'energy', A.energy, { audits: audits['mission.sf.energy-benchmarks'] }),
     small('mission.sf.road-safety', 'Sécurité routière : réseau à haut risque', 'mobility', A.mobility, { audits: audits['mission.sf.road-safety'] }),
     small('mission.sf.urban-forest', 'Forêt urbaine du corridor Folsom / Howard', 'forestry', A.forest, { audits: audits['mission.sf.urban-forest'] }),

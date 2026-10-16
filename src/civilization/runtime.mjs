@@ -12,8 +12,10 @@
 //    a visualisation of where that work points (virtual posts, evidence locations, virtual meeting points).
 export const VERSION = 'core-civ-runtime-v1';
 export const STAGES = ['OBSERVE', 'FORMULATE', 'RETRIEVE', 'ANALYZE', 'REQUEST_REVIEW', 'COLLABORATE', 'HYPOTHESES', 'SIMULATE', 'CRITIQUE', 'REVISE', 'DOSSIER', 'HUMAN_REVIEW', 'RECOMMENDATION', 'MONITOR'];
-export const STAGE_FR = { OBSERVE: 'Observer', FORMULATE: 'Formuler la question', RETRIEVE: 'Récupérer les preuves', ANALYZE: 'Analyser', REQUEST_REVIEW: 'Demander une revue', COLLABORATE: 'Collaborer', HYPOTHESES: 'Former des hypothèses', SIMULATE: 'Simuler', CRITIQUE: 'Critiquer', REVISE: 'Réviser', DOSSIER: 'Produire le dossier', HUMAN_REVIEW: 'Revue humaine', RECOMMENDATION: 'Recommandation', MONITOR: 'Surveiller' };
-export const MSG_FR = { request: 'demande', evidence: 'preuve', analysis: 'analyse', challenge: 'contestation', alternative: 'hypothèse concurrente', 'review-request': 'demande de revue', review: 'revue', 'dossier-update': 'mise à jour du dossier', escalate: 'escalade', status: 'état', 'human-input': 'contribution humaine', delegate: 'délégation' };
+export const STAGE_FR = { REASON: 'Raisonner (modèle local)', OBSERVE: 'Observer', FORMULATE: 'Formuler la question', RETRIEVE: 'Récupérer les preuves', ANALYZE: 'Analyser', REQUEST_REVIEW: 'Demander une revue', COLLABORATE: 'Collaborer', HYPOTHESES: 'Former des hypothèses', SIMULATE: 'Simuler', CRITIQUE: 'Critiquer', REVISE: 'Réviser', DOSSIER: 'Produire le dossier', HUMAN_REVIEW: 'Revue humaine', RECOMMENDATION: 'Recommandation', MONITOR: 'Surveiller' };
+export const MSG_FR = { request: 'demande', evidence: 'preuve', analysis: 'analyse', challenge: 'contestation', alternative: 'hypothèse concurrente', 'review-request': 'demande de revue', review: 'revue', 'dossier-update': 'mise à jour du dossier', escalate: 'escalade', status: 'état', 'human-input': 'contribution humaine', delegate: 'délégation', 'model-proposal': 'proposition du modèle local' };
+export const REASON_KINDS = ['gaps', 'hypothesis', 'critique'];
+const REASON_FR = { gaps: 'identifier les preuves manquantes', hypothesis: 'proposer une hypothèse testable', critique: 'contester une hypothèse' };
 const ACT = { OBSERVE: 'observe', FORMULATE: 'délibère', RETRIEVE: 'récupère des données', ANALYZE: 'analyse', REQUEST_REVIEW: 'demande une revue', COLLABORATE: 'vérifie', HYPOTHESES: 'formule une hypothèse', SIMULATE: 'évalue la simulation', CRITIQUE: 'critique', REVISE: 'révise', DOSSIER: 'rédige le dossier', HUMAN_REVIEW: 'transmet à la revue humaine', MONITOR: 'surveille' };
 const fnv = s => { let h = 0x811c9dc5; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; } return h.toString(16).padStart(8, '0'); };
 const M_LAT = 110574, M_LON = lat => 111320 * Math.cos(lat * Math.PI / 180);
@@ -27,8 +29,8 @@ export function createRuntime({ registry, missions, maxTasks = 140, perMission =
   const lead = t => byId.get(`core.san-francisco.${t}.lead`);
   const hub = t => registry.departments.find(d => d.id === t)?.hub.post || [-122.4194, 37.7749];
   const director = agents.find(a => a.level === 'city')?.id;
-  const S = { v: VERSION, registry: registry.version, clock: 0, seq: 0, hash: '00000000', events: [], eventCount: 0, missions: {}, busy: {}, rr: {}, move: {}, memory: {}, integrity: 'ok' };
-  for (const m of missions) S.missions[m.id] = { status: 'open', stage: m.plan[0].stage, tasks: Object.fromEntries(m.plan.map(t => [t.id, { state: 'queued', agents: [], attempts: 0 }])), monitorN: 0, nextMonitor: null, humanInputs: [], audits: Object.fromEntries((m.audits || []).map(a => [a.id, { cursor: 0, pass: 0, running: [], tallies: {}, checked: 0, seq: 0 }])) };
+  const S = { v: VERSION, registry: registry.version, clock: 0, seq: 0, hash: '00000000', events: [], eventCount: 0, missions: {}, busy: {}, rr: {}, move: {}, memory: {}, integrity: 'ok', reasoning: false, jobs: {}, jobSeq: 0 };
+  for (const m of missions) S.missions[m.id] = { status: 'open', stage: m.plan[0].stage, tasks: Object.fromEntries(m.plan.map(t => [t.id, { state: 'queued', agents: [], attempts: 0 }])), monitorN: 0, nextMonitor: null, humanInputs: [], modelWork: [], reasonN: 0, nextReason: null, audits: Object.fromEntries((m.audits || []).map(a => [a.id, { cursor: 0, pass: 0, running: [], tallies: {}, checked: 0, seq: 0 }])) };
   const M = new Map(missions.map(m => [m.id, m]));
 
   function emit(e) {
@@ -96,6 +98,11 @@ export function createRuntime({ registry, missions, maxTasks = 140, perMission =
       if (planDone && ms.status === 'open') { ms.status = m.plan.some(t => t.stage === 'HUMAN_REVIEW') ? 'awaiting-human' : m.findings.every(f => f.status === 'gap') ? 'gap' : 'monitoring'; ms.nextMonitor = S.clock + 5;
         emit({ kind: 'mission.state', mission: m.id, text: { 'awaiting-human': 'Dossier prêt — en attente d’une revue humaine (aucun relecteur humain vérifié)', gap: 'Lacune déclarée — équipe en attente de données', monitoring: 'Constat versé au dossier — surveillance' }[ms.status] }); }
       if (planDone && m.monitor && ms.status !== 'gap' && ms.status !== 'cancelled' && !ms.monitorTask?.state?.match(/running/) && S.clock >= (ms.nextMonitor ?? Infinity) && running < maxTasks) { if (startMonitor(m)) running++; }
+      // V8 — bounded reasoning cycles with the shared local-model pool (only when the person switched it on).
+      // Budget: flagship missions only, at most 2 outstanding jobs city-wide (one local worker answers in ~15–45 s).
+      const outstanding = Object.values(S.jobs).filter(j => ['pending', 'running'].includes(j.state)).length;
+      if (planDone && S.reasoning && m.flagship && outstanding < 2 && ms.status !== 'cancelled' && !Object.values(S.jobs).some(j => j.mission === m.id && ['pending', 'running'].includes(j.state)) && S.clock >= (ms.nextReason ?? 0) && running < maxTasks) startReasoning(m);
+      for (const j of Object.values(S.jobs)) if (j.mission === m.id && ['pending', 'running'].includes(j.state) && S.clock - j.createdAt > 3600) { j.state = 'expired'; delete S.busy[j.agent]; emit({ kind: 'message', mission: m.id, task: j.id, stage: 'REASON', type: 'status', from: j.agent, to: m.coordinator, agents: [j.agent], text: `Tâche de raisonnement expirée (aucun modèle local n’a répondu) : ${REASON_FR[j.kind]}.`, evidence: [] }); }
       // Council sessions: after the dossier, the mission council meets periodically to review the latest audit passes and
       // human contributions. Its output states what changed; it never closes a dispute by itself.
       if (planDone && m.sessions && ms.status !== 'cancelled') {
@@ -134,6 +141,32 @@ export function createRuntime({ registry, missions, maxTasks = 140, perMission =
       emit({ kind: 'message', mission: m.id, task: r.id, stage: 'DOSSIER', type: 'dossier-update', from: m.coordinator, to: m.council, agents: [], text: `${a.label} — passe ${st.pass} terminée (${a.items.length} fiches) : ${Object.entries(st.tallies).sort((x, y) => y[1] - x[1]).map(([f, n]) => `${n} « ${f} »`).join(', ')}.`, evidence: [] });
       st.lastTallies = st.tallies; st.tallies = {}; }
   }
+  const byRole = (team, role) => agents.filter(a => a.team === `team.${team}` && a.teamRole === role && !S.busy[a.id]);
+  function startReasoning(m) {
+    const ms = S.missions[m.id], kind = REASON_KINDS[ms.reasonN % REASON_KINDS.length], home = byId.get(m.coordinator)?.department;
+    const pool = kind === 'critique' ? byRole('safety', 'skeptical-reviewer').concat(byRole(home, 'skeptical-reviewer')) : byRole(home, kind === 'gaps' ? 'researcher' : 'scientific-analyst').concat(byRole('research', kind === 'gaps' ? 'researcher' : 'scientific-analyst'));
+    const agent = pool[ms.reasonN % Math.max(1, pool.length)]; if (!agent) return false;
+    const lastHyp = [...ms.modelWork].reverse().find(w => w.kind === 'hypothesis' && w.status === 'validé')?.output?.hypotheses?.[0];
+    const id = `job-${++S.jobSeq}`; S.jobs[id] = { id, kind, mission: m.id, agent: agent.id, state: 'pending', createdAt: S.clock, target: kind === 'critique' ? (lastHyp ? { title: lastHyp.title, statement: lastHyp.statement, source: 'modèle' } : { title: m.hypotheses[0]?.title, statement: m.hypotheses[0]?.statement, source: m.hypotheses[0]?.id }) : null };
+    ms.reasonN++; S.busy[agent.id] = `${m.id}#reason:${id}`;
+    emit({ kind: 'task.start', mission: m.id, task: id, stage: 'REASON', agents: [agent.id], at: agent.post, text: `Raisonnement (modèle local, file partagée) — ${REASON_FR[kind]}` });
+    return true;
+  }
+  function pendingJobs() { return Object.values(S.jobs).filter(j => j.state === 'pending'); }
+  function markJobRunning(id) { const j = S.jobs[id]; if (j && j.state === 'pending') { j.state = 'running'; j.startedAt = S.clock; } }
+  function completeJob(id, res) {
+    const j = S.jobs[id]; if (!j || !['pending', 'running'].includes(j.state)) return false;
+    const m = M.get(j.mission), ms = S.missions[j.mission]; j.state = res.ok ? 'done' : 'rejected'; delete S.busy[j.agent];
+    const w = { id, kind: j.kind, agent: j.agent, status: res.ok ? 'validé' : 'rejeté', output: res.output || null, issues: res.issues || [], ms: res.entry?.ms ?? null, tokens: res.entry?.tokens ?? null, model: res.entry?.model ?? null, target: j.target, at: S.clock };
+    ms.modelWork.push(w); if (ms.modelWork.length > 30) ms.modelWork.shift();
+    const o = res.output || {}, text = !res.ok ? `Proposition du modèle local écartée par la validation (${(res.issues || []).slice(0, 2).join(' ; ')}).`
+      : j.kind === 'gaps' ? `Preuves manquantes proposées : ${(o.questions || []).map(q => q.question).join(' / ')}`
+      : j.kind === 'hypothesis' ? `Hypothèse(s) proposée(s), non revue(s) : ${(o.hypotheses || []).map(h => `${h.title} — ${h.statement}`).join(' / ')}`
+      : `Objections à « ${j.target?.title} » : ${(o.objections || []).map(x => x.text).join(' / ')}`;
+    emit({ kind: 'message', mission: j.mission, task: id, stage: 'REASON', type: 'model-proposal', from: j.agent, to: j.kind === 'critique' ? m.council : m.coordinator, agents: [j.agent], text, evidence: j.kind === 'gaps' ? [...new Set((o.questions || []).flatMap(q => q.related || []))] : j.kind === 'hypothesis' ? [...new Set((o.hypotheses || []).flatMap(h => h.supports || []))] : [], model: true, validated: !!res.ok });
+    ms.nextReason = S.clock + 45; return true;
+  }
+  const setReasoning = on => { S.reasoning = !!on; };
   function startSession(m) {
     const ms = S.missions[m.id], members = (byId.get(m.council)?.members || []).filter(id => !S.busy[id]); if (members.length < 3) return false;
     const n = (ms.sessionN = (ms.sessionN || 0) + 1), chosen = members.slice(0, 6), at = m.sessions.at;
@@ -175,6 +208,7 @@ export function createRuntime({ registry, missions, maxTasks = 140, perMission =
     const key = S.busy[id], a = byId.get(id);
     if (!key) { const mv = S.move[id]; return { state: mv && S.clock < mv.t1 ? 'returning' : 'idle', label: mv && S.clock < mv.t1 ? 'regagne son poste virtuel' : 'inactif — aucune tâche en cours', mission: null }; }
     const [mid, tid] = key.split('#'), m = M.get(mid), mv = S.move[id];
+    if (tid.startsWith('reason:')) { const j = S.jobs[tid.slice(7)]; return { state: 'reasoning', label: `raisonne avec le modèle local — ${REASON_FR[j?.kind] || ''} (${j?.state === 'running' ? 'en cours' : 'en file'})`, mission: mid, task: tid, stage: 'REASON', role: byId.get(id)?.role }; }
     if (tid.startsWith('audit:')) { const a = (m.audits || []).find(x => x.id === tid.split(':')[1]); return { state: mv && S.clock < mv.t1 ? 'travelling' : 'inspecting', label: `${mv && S.clock < mv.t1 ? 'se rend sur le lieu de la fiche' : 'vérifie des fiches'} — ${a?.label}`, mission: mid, task: tid, stage: 'ANALYZE', role: a ? byId.get(id)?.role : null }; }
     const t = m.plan.find(x => x.id === tid) || (tid.startsWith('session-') ? { stage: 'CRITIQUE', council: true } : { stage: 'MONITOR' });
     const moving = mv && S.clock < mv.t1, meeting = !!t.council || ['FORMULATE', 'COLLABORATE', 'CRITIQUE', 'DOSSIER'].includes(t.stage);
@@ -208,8 +242,8 @@ export function createRuntime({ registry, missions, maxTasks = 140, perMission =
   function summary() {
     const act = agents.filter(a => a.city === 'san-francisco').map(a => activity(a.id).state);
     const count = s => act.filter(x => x === s).length;
-    return { registered: agents.length, sanFrancisco: act.length, busy: Object.keys(S.busy).length, travelling: count('travelling'), meeting: count('meeting'), inspecting: count('inspecting'), working: count('working'), idle: count('idle') + count('returning'),
+    return { registered: agents.length, sanFrancisco: act.length, busy: Object.keys(S.busy).length, reasoning: count('reasoning'), jobs: Object.values(S.jobs).reduce((m, j) => (m[j.state] = (m[j.state] || 0) + 1, m), {}), travelling: count('travelling'), meeting: count('meeting'), inspecting: count('inspecting'), working: count('working'), idle: count('idle') + count('returning'),
       missions: missions.map(m => ({ id: m.id, title: m.title, stage: S.missions[m.id].stage, status: S.missions[m.id].status, flagship: !!m.flagship })), events: S.eventCount, clock: S.clock };
   }
-  return { S, step, posOf, activity, cancel, submitHumanInput, serialize, restore, verify, summary, missions, M, byId, agents };
+  return { S, step, posOf, activity, cancel, submitHumanInput, serialize, restore, verify, summary, missions, M, byId, agents, setReasoning, pendingJobs, markJobRunning, completeJob };
 }

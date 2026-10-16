@@ -7,6 +7,7 @@ export const FILES = {
   evictions: 'data/sf-housing/evictions-agg.json', housingManifest: 'data/sf-housing/manifest.json', flood: 'data/sf9/flood-zone.json', sf9Manifest: 'data/sf9/manifest.json',
   hin: 'data/sf9/hin.json', crashes: 'data/sf9/crashes-agg.json', energy: 'data/sf/energy-benchmarks.geojson', trees: 'data/sf/street-trees.geojson', removals: 'data/sf/tree-removals.geojson',
   sfManifest: 'data/sf/manifest.json', problems: 'data/problems/registry.json', corridor: 'data/sf/corridor.geojson',
+  mobility: 'data/mobility/results.json', mobilityManifest: 'data/mobility/manifest.json',
 };
 const fr = n => Number(n).toLocaleString('fr-FR');
 const pct = x => `${(x * 100).toFixed(1).replace('.', ',')} %`;
@@ -95,4 +96,30 @@ export function freshness(D, today) {
 export function sidewalk(D) {
   const p = D.problems.problems.find(x => x.id === 'sidewalk-below-bsp-min:5665000');
   return [{ id: 's.sidewalk', team: 'public-space', role: 'sidewalks', status: 'observed', value: p?.metrics?.width_ft, period: 'étude 2014', claim: `Test de régression : trottoir Folsom St mesuré ${p?.metrics?.width_ft} ft pour un minimum de ${p?.metrics?.min_ft} ft (étude 2014).`, source: { dataset: 'sidewalks:8562', title: 'Sidewalk Widths (2014)', retrieved: (p?.asOf || '').slice(0, 10) }, limits: p?.caveat || '' }];
+}
+
+// V8 — mobility simulation findings from the recorded SUMO runs (data/mobility). Everything here is a MODEL result: the network is
+// real (OpenStreetMap), demand, signal plans and bus headways are synthetic, and nothing is calibrated.
+export function mobilitySim(D) {
+  const R = D.mobility, M = D.mobilityManifest, src = { dataset: 'data/mobility/results.json', title: `Simulations SUMO 1.27.1 (${M.seeds.length} graines, ${M.simulatedSeconds / 60} min simulées)`, retrieved: M.generated_at.slice(0, 10), page: 'https://eclipse.dev/sumo/' };
+  const b = R.scenarios.find(x => x.id === 'S0').summary, f = [], s = n => Math.round(n);
+  f.push({ id: 'm.baseline', team: 'mobility', role: 'safety', status: 'simulated', value: b.carDelay.mean, period: 'modèle non calibré',
+    claim: `Référence modélisée (réseau OSM réel, demande synthétique) : retard moyen voiture ${s(b.carDelay.mean)} s (± ${s(b.carDelay.ci95)} s), temps de parcours bus ${s(b.busTravelTime.mean)} s sur la ligne synthétique de Folsom.`, source: src, limits: M.calibration });
+  for (const x of R.scenarios.filter(x => x.id !== 'S0')) {
+    const c = x.comparison;
+    f.push({ id: `m.scenario-${x.id}`, team: 'mobility', role: 'safety', status: 'simulated', value: c.carDelay.pct, period: 'modèle non calibré', scenario: x.id,
+      claim: `Scénario ${x.id} — ${x.label} : retard voiture ${c.carDelay.pct > 0 ? '+' : ''}${c.carDelay.pct} %, temps bus ${c.busTravelTime.pct > 0 ? '+' : ''}${c.busTravelTime.pct} %, CO2 estimé ${c.co2kg.pct > 0 ? '+' : ''}${c.co2kg.pct} % par rapport à la référence${c.carDelay.beyondNoise ? '' : ' (écart dans le bruit des graines)'}.`, source: src, limits: `${x.explanation} ${M.calibration}` });
+  }
+  f.push({ id: 'm.search', team: 'mobility', role: 'safety', status: 'simulated', value: R.search.simulated.length, period: 'modèle non calibré',
+    claim: `Recherche de scénarios : ${R.search.generated} configurations générées, ${R.search.rejected.length} rejetée(s) par contrainte, ${R.search.simulated.length} simulées (3 graines) ; front de Pareto : ${R.search.simulated.filter(x => x.pareto).map(x => `${x.network} à ${Math.round(x.demandScale * 100)} % de demande`).join(', ')}.`, source: src, limits: R.search.note });
+  f.push({ id: 'm.signals', team: 'research', role: 'provenance', status: 'observed', value: M.network.signalsMatchedWithin35m, period: 'instantané', claim: `${M.network.signalsMatchedWithin35m} des ${M.network.signalsInModel} feux du modèle correspondent à un feu recensé par DataSF (à moins de 35 m) ; ${M.network.signalsDataSF} feux recensés dans la zone.`, source: { dataset: 'ybh5-27n2', title: 'Traffic Signals (DataSF)', retrieved: M.sources.find(x => x.id === 'ybh5-27n2')?.retrieved_at?.slice(0, 10), page: 'https://data.sf.gov/d/ybh5-27n2' }, limits: 'Présence des feux seulement ; leur minutage n’est pas publié.' });
+  for (const [id, claim] of [['g.counts', 'Comptages de trafic : aucun jeu public trouvé — la demande est synthétique.'], ['g.timing', 'Minutage réel des feux : non publié — les plans de feux sont générés par SUMO.'], ['g.gtfs', 'Horaires Muni (GTFS) : l’accès exige d’accepter une licence (indemnisation, droit californien) — décision du fondateur ; la ligne de bus est une hypothèse.']])
+    f.push({ id, team: 'research', role: 'sources', status: 'gap', claim, source: null, limits: 'Lacune déclarée.' });
+  const H = [
+    { id: 'HM1', title: 'Feux actionnés', statement: 'Dans ce modèle, des feux actionnés réduisent le retard des voitures et des bus ; il faut vérifier avec les plans de feux réels.', support: ['m.scenario-B'], against: ['g.timing', 'g.counts'], test: 'Obtenir les plans de feux et des comptages, calibrer la référence, rejouer B.', team: 'mobility' },
+    { id: 'HM2', title: 'Voie bus continue', statement: 'Une voie bus n’aide les bus que si elle est continue : dans ce modèle, ses interruptions provoquent des remontées de files.', support: ['m.scenario-A'], against: ['g.counts', 'g.gtfs'], test: 'Simuler une voie bus continue avec files d’attente de virage (scénario à construire).', team: 'mobility' },
+    { id: 'HM3', title: 'Réduction de la demande', statement: 'Moins de trajets voiture réduit le retard ; ce n’est qu’une hypothèse de demande tant qu’aucune mesure concrète n’est modélisée.', support: ['m.scenario-D'], against: ['g.counts'], test: 'Modéliser une mesure précise (tarification, report modal) et ses effets mesurés ailleurs.', team: 'mobility' },
+  ];
+  const DISSENT = [{ by: 'safety', text: 'Un modèle non calibré ne permet pas de recommander une intervention : les classements peuvent s’inverser avec la demande réelle.' }, { by: 'ethics', text: 'Le régime de voirie dégrade le temps voiture dans ce modèle mais il ne simule pas les cyclistes ni la sécurité : ne pas le juger sur le seul retard voiture.' }];
+  return { findings: f, hypotheses: H, dissent: DISSENT, verdict: R.verdict };
 }

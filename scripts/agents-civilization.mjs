@@ -121,6 +121,16 @@ for (const [id, name] of DEPTS) {
       escalation: { to: leadOf[id].id, when: 'incertitude, conflit de preuves, demande hors permission' }, reviewState: 'non revu' });
   }
 }
+// V8: explicit roles inside every team (an agent may hold a role without having its own model process), and the
+// geographic directors between global coordination and the city (North America → Bay Area → San Francisco).
+export const TEAM_ROLES = ['researcher', 'data-investigator', 'scientific-analyst', 'simulation-engineer', 'optimization', 'skeptical-reviewer', 'source-verifier', 'safety-ethics', 'facilitator', 'report-author'];
+for (const [id] of DEPTS) {
+  leadOf[id].teamRole = 'coordinator';
+  agents.filter(a => a.team === `team.${id}` && a.level === 'agent').sort((a, b) => a.id.localeCompare(b.id)).forEach((a, i) => { a.teamRole = TEAM_ROLES[i % TEAM_ROLES.length]; });
+}
+const NA = add({ id: 'core.director.north-america', code: 'CORE-GEO-0001', name: 'Direction géographique — Amérique du Nord', level: 'geo-director', scope: 'continental', role: 'Coordonne les villes et régions d’Amérique du Nord ; aucune autorité sur les décisions locales', supervisor: G.id, executionMode: 'simulated', permission: 'propose', origin: 'generated-v8', city: null, teamRole: 'coordinator' });
+const BA = add({ id: 'core.director.bay-area', code: 'CORE-GEO-0002', name: 'Direction régionale — Baie de San Francisco', level: 'geo-director', scope: 'regional', role: 'Coordonne les missions régionales (Baie de San Francisco) et les dépendances entre villes', supervisor: NA.id, executionMode: 'simulated', permission: 'propose', origin: 'generated-v8', city: null, teamRole: 'coordinator' });
+byId.get(M.id).supervisor = BA.id; // the city direction now reports to the regional director (v1 file unchanged)
 // Council membership: leads of related teams + verification + ethics; the mission council gets the housing mission team.
 const member = (c, ids) => { for (const i of ids) if (byId.has(i)) { c.members.push(i); (byId.get(i).councils ||= []).push(c.id); } };
 const L = d => `core.san-francisco.${d}.lead`;
@@ -131,7 +141,7 @@ member(C['theme.society-health'], ['health', 'social', 'inequality', 'education'
 member(C['theme.methods-integrity'], ['research', 'data-science', 'simulation', 'safety', 'ethics'].map(L));
 member(C['mission.housing-resilience'], [L('housing'), L('climate'), L('inequality'), L('ethics'), L('research'), L('simulation'), 'core.san-francisco.housing.pipeline.001', 'core.san-francisco.housing.production.002', 'core.san-francisco.climate.flood.001', 'core.san-francisco.research.dates.002', 'core.san-francisco.safety.adversarial.001']);
 member(C['geo.new-york'], []); // registered council; NYC agents are not loaded in this registry (recorded NYC missions only)
-for (const a of agents) { a.councils ||= []; a.dataPermissions ||= []; a.capabilities ||= []; }
+for (const a of agents) { a.councils ||= []; a.teamRole ||= a.level === 'council' || a.level === 'assembly' ? 'deliberation' : a.level === 'global' ? 'coordinator' : 'researcher'; a.dataPermissions ||= []; a.capabilities ||= []; }
 
 const doc = { version: 'core-sf-civilization-v1', disclaimer: DISCLAIMER, generated_by: 'scripts/agents-civilization.mjs', inputs: { registry: 'data/agents/registry.json', registry_version: base.version, neighborhoods: 'data/sf-housing/neighborhoods.geojson' },
   honesty: 'Registered identities. Their activity in the browser is produced by the deterministic CORE runtime (src/civilization/runtime.mjs) on dated public data; only explicitly marked tasks may use an optional local model. No agent is an independent reasoning model; none has authority over people, science or real-world action.',

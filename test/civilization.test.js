@@ -91,3 +91,41 @@ test('team dialogue routing (pure): answers cite findings, causal questions add 
   assert.deepEqual(hits('Quel temps fera-t-il demain ?'), []);
   assert.match(src, /Je ne réponds pas sans preuve/); assert.match(src, /if \(!\$\('tm-consent'\)\.checked\)/);
 });
+
+test('V8 reasoning cycles: only when enabled, role-assigned, validated results become labelled proposals, never findings; jobs expire', async () => {
+  const { mk } = await env(), r = run(mk(), 400), m = 'mission.sf.mobility';
+  assert.equal(r.pendingJobs().length, 0, 'no model work unless the person switches reasoning on');
+  r.setReasoning(true); run(r, 5);
+  const jobs = r.pendingJobs(); assert.ok(jobs.length >= 2, `${jobs.length}`);
+  const j = jobs.find(x => x.mission === m); assert.equal(j.kind, 'gaps'); assert.equal(r.byId.get(j.agent).teamRole, 'researcher');
+  assert.match(r.activity(j.agent).label, /modèle local/);
+  const before = JSON.stringify(r.M.get(m).findings);
+  r.markJobRunning(j.id); r.completeJob(j.id, { ok: true, output: { questions: [{ question: 'Q ?', why: 'w', needs: 'data', related: ['g.counts'] }] }, entry: { ms: 10, tokens: 20, model: 'test' } });
+  assert.equal(JSON.stringify(r.M.get(m).findings), before, 'a proposal never modifies findings');
+  const ev = r.S.events.filter(e => e.type === 'model-proposal'); assert.ok(ev.length && ev.at(-1).model === true && ev.at(-1).validated === true);
+  assert.ok(!r.S.busy[j.agent]); run(r, 60);
+  const next = r.pendingJobs().find(x => x.mission === m); assert.equal(next.kind, 'hypothesis');
+  r.completeJob(next.id, { ok: false, issues: ['number : nombre absent des preuves : 42'] });
+  assert.equal(r.S.missions[m].modelWork.at(-1).status, 'rejeté');
+  run(r, 3700); assert.ok(Object.values(r.S.jobs).some(x => x.state === 'expired'), 'unanswered jobs expire and free their agent');
+  assert.ok(Object.values(r.S.jobs).filter(x => ['pending', 'running'].includes(x.state)).length <= 2, 'bounded outstanding jobs');
+});
+test('V8 hierarchy: geographic directors between global coordination and the city; explicit team roles everywhere', () => {
+  const by = id => reg.agents.find(a => a.id === id);
+  assert.equal(by('core.san-francisco.manager').supervisor, 'core.director.bay-area'); assert.equal(by('core.director.bay-area').supervisor, 'core.director.north-america'); assert.equal(by('core.director.north-america').supervisor, 'core.global.coordinator');
+  for (const r of ['coordinator', 'researcher', 'data-investigator', 'scientific-analyst', 'simulation-engineer', 'optimization', 'skeptical-reviewer', 'source-verifier', 'safety-ethics', 'facilitator', 'report-author']) assert.ok(reg.agents.some(a => a.teamRole === r), r);
+  assert.ok(reg.agents.every(a => a.teamRole));
+});
+test('V8 reasoning pool: schema and evidence validation, retry, budget, ledger', async () => {
+  const P = await imp('src/intelligence/pool.mjs'), { mk } = await env(), m = mk().M.get('mission.sf.housing-resilience');
+  let calls = 0; const answers = ['pas du json', JSON.stringify({ hypotheses: [{ title: 'T', statement: 'Le pipeline compte 10 100 logements abordables.', supports: ['h.pipeline'], test: 't', falsifiedIf: 'f' }] })];
+  const pool = P.createPool({ generate: async () => ({ text: answers[Math.min(calls++, 1)], tokens: 5, model: 'test' }) });
+  const ok = await pool.submit({ id: 'a', kind: 'hypothesis', agent: 'x', mission: m, findings: m.findings });
+  assert.equal(ok.ok, true); assert.equal(ok.entry.attempts, 2, 'one retry after a non-JSON answer');
+  const bad = P.createPool({ generate: async () => ({ text: JSON.stringify({ hypotheses: [{ title: 'T', statement: 'Il est prouvé que 99 % des loyers ont doublé.', supports: ['h.inexistant'], test: 't', falsifiedIf: 'f' }] }) }) });
+  const r = await bad.submit({ id: 'b', kind: 'hypothesis', agent: 'x', mission: m, findings: m.findings });
+  assert.equal(r.ok, false); assert.ok(r.issues.some(i => /inexistant/.test(i)) && r.issues.some(i => /number|overclaim/.test(i)));
+  const tiny = P.createPool({ generate: async () => ({ text: '{}' }), maxPerHour: 1 }); await tiny.submit({ id: 'c', kind: 'gaps', agent: 'x', mission: m, findings: m.findings });
+  await assert.rejects(tiny.submit({ id: 'd', kind: 'gaps', agent: 'x', mission: m, findings: m.findings }), /budget/);
+  assert.equal(pool.ledger.length, 1); assert.deepEqual(Object.keys(pool.ledger[0]).filter(k => ['agent', 'mission', 'evidence', 'attempts', 'status'].includes(k)).sort(), ['agent', 'attempts', 'evidence', 'mission', 'status']);
+});

@@ -21,6 +21,7 @@ test('map style: every remote source host is exactly what the World CSP allows (
   const { livingEarthStyle, HOSTS } = await imp('src/earth/style.mjs');
   const csp = read('world.html').match(/connect-src ([^;]+);/)[1].split(/\s+/);
   for (const h of HOSTS) assert.ok(csp.includes(h), `${h} is in the CSP`);
+  assert.ok(csp.filter(h => /^https?:/.test(h)).every(h => HOSTS.includes(h) || h === 'http://127.0.0.1:11434'), 'no other remote host');
   const urls = JSON.stringify(livingEarthStyle({})).match(/https:\/\/[^"]+/g);
   for (const u of urls) { assert.ok(HOSTS.some(h => u.startsWith(h)), u); assert.doesNotMatch(u, /key=|token=|access_token/i, u); }
   const noRelief = JSON.stringify(livingEarthStyle({ terrain: false }));

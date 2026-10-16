@@ -6,14 +6,16 @@
 import * as A from './analyses.mjs';
 import { buildMissions } from './missions.mjs';
 import { createRuntime, VERSION } from './runtime.mjs';
+import { createPool, ollamaJSON } from '../intelligence/pool.mjs';
+import { ollamaAvailable } from '../intelligence/orchestrator.mjs';
 export const KEY = 'core.civ.v72';
 const listeners = new Set();
-let R = null, writer = false, timer = 0, speed = 1, paused = false, lastSave = 0, ready = null;
+let R = null, pool = null, poolInfo = { state: 'off' }, writer = false, timer = 0, speed = 1, paused = false, lastSave = 0, ready = null;
 const getJSON = async u => { const r = await fetch(u); if (!r.ok) throw Error(`${u} : HTTP ${r.status}`); return r.json(); };
 const store = { get: () => { try { return localStorage.getItem(KEY); } catch { return null; } }, set: v => { try { localStorage.setItem(KEY, v); return true; } catch { return false; } } };
 const notify = () => listeners.forEach(f => { try { f(R); } catch (e) { console.error(e); } });
 export const onChange = f => { listeners.add(f); return () => listeners.delete(f); };
-export const state = () => ({ writer, speed, paused, version: VERSION });
+export const state = () => ({ writer, speed, paused, version: VERSION, reasoning: { ...poolInfo, queued: pool?.queued ?? 0, running: pool?.running ?? 0, workers: pool?.workers ?? 0, ledger: pool?.ledger?.length ?? 0, budget: pool?.budget } });
 export function setSpeed(x) { speed = x; notify(); }
 export function setPaused(p) { paused = p; notify(); }
 function save() { if (!writer || !R) return; store.set(R.serialize()); lastSave = performance.now(); }
@@ -26,11 +28,15 @@ export function start() {
     const reg = await getJSON('data/agents/sf-civilization.json');
     R = createRuntime({ registry: reg, missions: buildMissions(D, reg, { today: new Date().toISOString() }), keepEvents: 1200 });
     const saved = store.get(); if (saved) R.restore(saved);
+    // A local background worker (scripts/civ-worker.mjs) may have advanced the same civilisation: resume from it when
+    // its checkpoint is further along (local development server only; the file never exists on a public site).
+    try { const w = await fetch('.core-local/civ/state.json', { cache: 'no-store' }); if (w.ok) { const txt = await w.text(), clk = JSON.parse(txt).clock; if (clk > R.S.clock && R.restore(txt)) R.S.fromWorker = true; } } catch {}
     const run = () => {
       writer = true; let last = performance.now();
       timer = setInterval(() => { const now = performance.now(), dt = Math.min(1, (now - last) / 1000); last = now;
-        if (paused || document.hidden) return; R.step(dt * speed); if (now - lastSave > 5000) save(); notify(); }, 250);
+        if (paused || document.hidden) return; R.step(dt * speed); feedPool(); if (now - lastSave > 5000) save(); notify(); }, 250);
       addEventListener('pagehide', save); document.addEventListener('visibilitychange', () => { if (document.hidden) save(); });
+      if (pref().missions) enableReasoning(true);
       return new Promise(() => {}); // hold the lock while this page lives
     };
     if (navigator.locks?.request) navigator.locks.request('core-civ-runtime', { ifAvailable: true }, lock => lock ? run() : null);
@@ -43,6 +49,27 @@ export function start() {
   return ready;
 }
 export const runtime = () => R;
+// V8 — shared local reasoning. Only after the person switches it on (preference core.intelligence.v1.missions); Ollama is
+// then contacted on 127.0.0.1 only. One worker, bounded queue and hourly budget (src/intelligence/pool.mjs).
+const PREF = 'core.intelligence.v1';
+const pref = () => { try { return JSON.parse(localStorage.getItem(PREF)) || {}; } catch { return {}; } };
+export async function enableReasoning(on) {
+  const p = pref(); p.missions = !!on; try { localStorage.setItem(PREF, JSON.stringify(p)); } catch {}
+  if (!on) { pool?.stop(); pool = null; poolInfo = { state: 'off' }; R?.setReasoning(false); notify(); return poolInfo; }
+  poolInfo = { state: 'detecting' }; notify();
+  const a = await ollamaAvailable();
+  if (!a.ok || !a.models.length) { poolInfo = { state: 'unavailable', reason: 'aucun modèle local détecté (Ollama doit tourner sur cet ordinateur)' }; R?.setReasoning(false); notify(); return poolInfo; }
+  const model = a.models.includes(p.model) ? p.model : a.models[0];
+  pool = createPool({ generate: ollamaJSON({ model }), workers: 1 }); poolInfo = { state: 'on', model }; R?.setReasoning(writer); notify(); return poolInfo;
+}
+function feedPool() {
+  if (!pool || !writer) return;
+  for (const j of R.pendingJobs()) { if (pool.running + pool.queued >= pool.workers) break;
+    const m = R.M.get(j.mission); R.markJobRunning(j.id);
+    pool.submit({ id: j.id, kind: j.kind, agent: j.agent, mission: m, findings: m.findings, hypothesis: j.target, priority: 1 })
+      .then(res => { R.completeJob(j.id, res); save(); notify(); }, err => { R.completeJob(j.id, { ok: false, issues: [err.message] }); notify(); }); }
+}
+export const ledger = () => pool?.ledger || [];
 // Human contributions reach the mission through the writer tab (the only one allowed to change the log). A reader page
 // sends the request on a BroadcastChannel and waits for the writer's acknowledgement; consent is checked on both sides.
 const BC = typeof BroadcastChannel === 'function' ? new BroadcastChannel('core-civ') : null;
