@@ -42,3 +42,12 @@ FD06 source qualification only: SFMTA count candidates are inventoried in [pilot
 | Inter 4.1 (variable) | UI typeface | SIL OFL 1.1 (`assets/fonts/OFL-inter.txt`). |
 | Lucide 0.545 (subset, inline SVG) | Icons | ISC (`assets/vendor/LUCIDE-LICENSE.txt`). |
 | Ollama + a model already on the person's computer | Optional local reformulation of cited Knowledge claims in Dialogue, off by default, loopback only | Runs on the user's machine; nothing leaves it. Model licences vary (qwen3: Apache-2.0). Not a hosted service. |
+
+## V8 additions (2026-10-16, branch `v8/civilization-intelligence`)
+| Provider / component | V8 use | Licence / terms and limitations |
+| --- | --- | --- |
+| Eclipse SUMO 1.27.1 (`eclipse-sumo`, `sumo-data` wheels) + pyproj 3.6.1 | Traffic simulation pipeline `scripts/mobility/build.py` (build-time, in a separate Python environment; not shipped) | EPL-2.0 or GPL-2.0-or-later (SUMO); MIT (pyproj) |
+| OpenStreetMap via Overpass API — drivable streets, SoMa bbox | SUMO network (one bounded query; raw extract kept outside the repository, hash in `data/mobility/manifest.json`) | ODbL 1.0 — © OpenStreetMap contributors; derived lane geometry in `data/mobility/geometry.json` and traces carry the same attribution |
+| DataSF Traffic Signals (ybh5-27n2), Transit Only Lanes (tzh6-6j82) | Cross-check of modelled signals (69 of 73 matched within 35 m); context | ODC-PDDL |
+| **Not used:** SFMTA Muni GTFS | — | Download requires accepting a licence (indemnity, revocability, California law): founder decision. Bus headway is a labelled assumption |
+| **Not available:** traffic volumes, signal timing | — | No public source found on DataSF; demand and signal plans are synthetic and every result is uncalibrated |
