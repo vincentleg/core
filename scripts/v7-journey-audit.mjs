@@ -33,7 +33,7 @@ try {
   await go('world.html', '!!globalThis.CORE_EARTH && CORE_EARTH.state.ready'); metrics.worldReadyMs = Date.now() - t0;
   check('1. CORE opens on the Earth (globe projection, NASA imagery layer)', await ev(`CORE_EARTH.state.map.getProjection().type !== 'mercator' && !!CORE_EARTH.state.map.getLayer('imagery')`), `ready in ${metrics.worldReadyMs} ms`);
   check('2. the purpose is stated and the primary action is obvious', await ev(`/Explorez notre monde/.test(document.getElementById('ea-hero').textContent) && !!document.getElementById('ea-start')`));
-  check('   four primary destinations in the navigation', await ev(`[...document.querySelectorAll('.le-nav a')].map(a => a.textContent.trim()).join('|') === 'Explorer|Créer|Collaborer|Mon CORE'`));
+  check('   four primary destinations in the navigation', await ev(`[...document.querySelectorAll('.le-nav a')].map(a => a.textContent.trim()).join('|') === 'Explore|Create|Together|My CORE'`));
   await wait(2500); await shot('01-earth');
   // 3–6. Navigate to San Francisco, discover the recorded problem, open the panel, review the evidence.
   await ev('CORE_EARTH.start().then(() => 1)');

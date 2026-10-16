@@ -41,3 +41,49 @@ test('world: the scenario layer is reachable from the mobility mission and by li
   assert.match(panels, /data-sim="S0"/); assert.match(miss, /simulation: 'SUMO 1\.27\.1/);
   assert.match(app, /h\.get\('sim'\)/); assert.match(app, /function hideSimulation/); assert.match(app, /data-scn-off/);
 });
+
+test('companion: words become one typed action with validated parameters; sharing and deleting are never performed', async () => {
+  const A = await imp('src/voice/actions.mjs'), reg = json('data/agents/sf-civilization.json');
+  const ctx = { agents: reg.agents, missions: A.MISSION_INDEX };
+  const P = s => A.parse(s, ctx);
+  assert.deepEqual(P('Go to the Golden Gate'), { name: 'navigate_to_place', params: { place: 'golden-gate' } });
+  assert.deepEqual(P('rejoue la simulation des feux'), { name: 'start_simulation', params: { scenario: 'B' } });
+  assert.deepEqual(P('show the bus lane simulation'), { name: 'start_simulation', params: { scenario: 'A' } });
+  assert.equal(P('compare scenarios').name, 'compare_scenarios');
+  assert.deepEqual(P('open the mobility mission'), { name: 'open_mission', params: { mission: 'mission.sf.mobility' } });
+  assert.deepEqual(P('switch to the hybrid layer'), { name: 'switch_world_layer', params: { layer: 'hybrid' } });
+  assert.deepEqual(P('change language to Japanese'), { name: 'change_language', params: { lang: 'ja' } });
+  const code = reg.agents.find(a => a.code).code;
+  assert.equal(P(`follow ${code}`).name, 'follow_agent'); assert.equal(P(`find ${code.toLowerCase()}`).params.agent, reg.agents.find(a => a.code === code).id);
+  const ask = P(`ask ${code}: why is Folsom congested?`); assert.equal(ask.name, 'ask_agent'); assert.equal(ask.params.question, 'why is Folsom congested?');
+  assert.equal(P('open my profile').name, 'open_profile'); assert.equal(P('report on housing').params.mission, 'mission.sf.housing-resilience');
+  assert.equal(P('blah blah').name, null); assert.equal(P('follow CORE-ZZZ-9999').name, null);
+  // Injection: nothing outside the registry, no unvalidated values, no script in URLs.
+  for (const bad of [{ name: 'eval', params: {} }, { name: 'navigate_to_place', params: { place: 'javascript:alert(1)' } }, { name: 'open_mission', params: { mission: '"><img src=x>' } }, { name: 'switch_world_layer', params: { layer: 'real', extra: 1 } }, { name: 'ask_agent', params: { agent: reg.agents[0].id, question: 'x'.repeat(301) } }])
+    assert.equal(A.validate(bad, ctx).ok, false, JSON.stringify(bad).slice(0, 60));
+  const p = A.plan(P('<script>alert(1)</script> go to soma'), ctx); assert.ok(p.ok); assert.doesNotMatch(p.href, /[<>"]/);
+  for (const s of ['delete all my data', 'share my idea', 'publish this']) { const pl = A.plan(P(s), ctx); assert.equal(pl.confirm, true, s); assert.equal(pl.call, undefined, s); }
+  for (const k of Object.keys(A.ACTIONS)) assert.ok(A.plan({ name: k, params: {} }, ctx).ok === (Object.keys(A.ACTIONS[k].params).length === 0), k);
+});
+
+test('companion: the mission index matches the runtime missions; voice is on-device only and never auto-starts', async () => {
+  const A = await imp('src/voice/actions.mjs'), AN = await imp('src/civilization/analyses.mjs'), MS = await imp('src/civilization/missions.mjs');
+  const D = {}; for (const [k, p] of Object.entries(AN.FILES)) D[k] = JSON.parse(read(p));
+  const ids = MS.buildMissions(D, json('data/agents/sf-civilization.json'), { today: '2026-10-16T00:00:00Z' }).map(m => m.id);
+  assert.deepEqual(A.MISSION_INDEX.map(m => m.id), ids);
+  const src = read('src/voice/companion.mjs');
+  assert.doesNotMatch(src.replace(/\/\/.*$/gm, ''), /webkitSpeechRecognition/); assert.match(src, /processLocally = true/); assert.match(src, /localService/);
+  assert.doesNotMatch(src, /\beval\(|new Function|innerHTML = [^`]*\$\{(?!esc)/);
+  assert.match(src, /mic\.onclick = \(\) =>/); // the microphone starts only from an explicit press
+  const nav = read('src/shell/nav.mjs'); assert.match(nav, /import\('\.\.\/voice\/companion\.mjs'\)/); // loaded only on demand
+});
+
+test('i18n: ten languages, English default and fallback, Arabic right-to-left, drafts labelled unreviewed', async () => {
+  const I = await imp('src/i18n/i18n.mjs'), { STRINGS } = await imp('src/i18n/strings.mjs');
+  assert.deepEqual(I.LANGS.map(l => l[0]), ['en', 'zh-Hans', 'hi', 'es', 'fr', 'ar', 'pt', 'bn', 'ru', 'ja']);
+  const st = { m: new Map(), getItem(k) { return this.m.get(k) ?? null; }, setItem(k, v) { this.m.set(k, v); } };
+  assert.equal(I.lang(st), 'en'); st.setItem('core.lang', 'xx'); assert.equal(I.lang(st), 'en'); st.setItem('core.lang', 'ar'); assert.equal(I.lang(st), 'ar'); assert.equal(I.dir('ar'), 'rtl'); assert.equal(I.dir('ja'), 'ltr');
+  assert.equal(I.t('cmp.history', {}, 'ja'), STRINGS.en['cmp.history']);
+  for (const [c] of I.LANGS) { for (const k of ['nav.explore', 'nav.create', 'nav.together', 'nav.me', 'nav.language', 'cmp.title', 'cmp.do', 'lang.draft']) assert.ok(STRINGS[c][k] || STRINGS.en[k], `${c} ${k}`); if (c !== 'en') assert.equal(I.STATUS[c], 'draft-unreviewed'); }
+  for (const [c] of I.LANGS) for (const [k, v] of Object.entries(STRINGS[c])) { assert.ok(k in STRINGS.en, `${c}: unknown key ${k}`); assert.deepEqual((v.match(/\{\w+\}/g) || []).sort(), (STRINGS.en[k].match(/\{\w+\}/g) || []).sort(), `${c} ${k} placeholders`); }
+});

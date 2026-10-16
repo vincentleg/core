@@ -14,6 +14,7 @@ import { createAgentLayer } from './agents-layer.mjs';
 import * as CP from './civ-panels.mjs';
 import * as SCN from './scenarios.mjs';
 import { createGround } from './ground.mjs';
+import { PLACES as VPLACES } from '../voice/actions.mjs';
 
 const $ = id => document.getElementById(id);
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -253,6 +254,10 @@ async function showSimulation(id = 'S0', { camera = true } = {}) {
   } catch (e) { console.error(e); toast(`Simulation indisponible : ${e.message}`); }
 }
 const renderSimulation = () => panel('simulation', S.scn.state.scenario, SCN.panelHTML(S.mob, S.scn.state.scenario, S.scn.state.playing));
+async function playSimulation(id = 'S0') { await showSimulation(id); S.scn?.render(0); S.scn?.play(); renderSimulation(); }
+function revealMap() { S.spinning = false; $('ea-hero').hidden = true; $('ea-vignette').hidden = true; $('ea-scales').hidden = false; $('ea-tools').hidden = false; $('ea-legend').hidden = false; S.map.setPadding({ left: 0, right: 0, top: 0, bottom: 0 }); }
+async function flyTo(center, zoom) { if (S.mode === 'human') leaveHuman(); revealMap(); await fly({ center, zoom, pitch: zoom > 14 ? 58 : 40, bearing: -30 }, 2600); syncScale(); }
+function followAgent(id) { if (!S.civ?.byId.has(id)) return; revealMap(); if (S.layer?.mode === 'real') setLayer('hybrid'); S.follow = id; S.map.jumpTo({ center: posOf(id), zoom: Math.max(S.map.getZoom(), 17), pitch: 60 }); showAgent(id); }
 function hideSimulation() { S.scn?.hide(); S.traffic?.update([]); $('ea-panel').hidden = true; history.replaceState(null, '', location.pathname + location.search); toast('Scénario retiré : la carte montre de nouveau la rue réelle.'); }
 function refreshPanel() {
   const k = S.panelKind; if (!k || $('ea-panel').hidden || $('ea-panel').contains(document.activeElement) && document.activeElement.tagName === 'BUTTON') return;
@@ -289,7 +294,8 @@ async function startCivilisation() {
     setLayer(['real', 'agents', 'hybrid'].includes(m) ? m : 'real');
     CIV.onChange(civTick);
     if (h.get('mission') && R.M.has(h.get('mission'))) { $('ea-hero').hidden = true; $('ea-vignette').hidden = true; $('ea-scales').hidden = false; $('ea-tools').hidden = false; $('ea-legend').hidden = false; S.map.jumpTo({ center: PLACES.somaField, zoom: 16.2, pitch: 60, bearing: -40 }); S.scale = 'city'; renderScales(); if (S.layer.mode === 'real') setLayer('hybrid'); showMission(h.get('mission')); }
-    if (h.get('sim')) showSimulation(h.get('sim'));
+    if (h.get('sim')) (h.get('play') ? playSimulation : showSimulation)(h.get('sim'));
+    if (h.get('follow') && R.byId.has(h.get('agent'))) followAgent(h.get('agent'));
     if (h.get('agent') && R.byId.has(h.get('agent'))) { $('ea-hero').hidden = true; $('ea-vignette').hidden = true; S.map.jumpTo({ center: posOf(h.get('agent')), zoom: 17, pitch: 60 }); if (S.layer.mode === 'real') setLayer('hybrid'); showAgent(h.get('agent')); }
     S.civReady = true;
   } catch (e) { console.error(e); toast(`Civilisation CORE indisponible : ${e.message}`); }
@@ -325,7 +331,8 @@ function wireCiv() {
       $('ea-hero').hidden = true; $('ea-vignette').hidden = true; $('ea-scales').hidden = false; $('ea-tools').hidden = false; $('ea-legend').hidden = false;
       const e = S.data.bySeg.get(S.data.byId.get(FLAGSHIP).segment); S.map.jumpTo({ center: e.coord, zoom: 16.2, pitch: 60, bearing: e.along - 30 });
       focusSegment(e.items[0].segment, { open: false, instant: true }); S.map.once('idle', () => goScale('human'));
+    } else if (VPLACES[h.get('place')]) { const P = VPLACES[h.get('place')]; if (P.scale) { revealMap(); goScale(P.scale); } else flyTo(P.at, P.zoom);
     } else if (!h.get('sim')) { if (innerWidth > 860) S.map.setPadding({ left: Math.min(760, innerWidth * 0.48), right: 0, top: 0, bottom: 0 }); spin(); }
   });
 })();
-globalThis.CORE_EARTH = { state: S, goScale, openPanel, focusSegment, enterHuman, start, setLayer, showAgent, showMission, showActivity, showEvent, showHierarchy, showSimulation, hideSimulation, civ: () => S.civ, get fps() { const f = S.frames; return f.length ? f.length / f.reduce((a, b) => a + b, 0) : 0; } };
+globalThis.CORE_EARTH = { state: S, goScale, openPanel, focusSegment, enterHuman, start, setLayer, showAgent, showMission, showActivity, showEvent, showHierarchy, showSimulation, hideSimulation, playSimulation, flyTo, followAgent, civ: () => S.civ, get fps() { const f = S.frames; return f.length ? f.length / f.reduce((a, b) => a + b, 0) : 0; } };
