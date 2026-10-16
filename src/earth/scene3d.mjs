@@ -202,5 +202,5 @@ export function createScene3D(maplibregl, { origin, quality = 'high' }) {
   function setAvatar(a) { if (S.avatar) world.remove(S.avatar.root); S.avatar = a; if (a) world.add(a.root); }
   function setAgent(g, at) { if (S.agent) world.remove(S.agent); S.agent = g; if (g) { g.position.set(at[0], 0, at[1]); world.add(g); } }
   function setQuality(q) { S.quality = q; if (renderer) { renderer.shadowMap.enabled = q === 'high'; sun.castShadow = q === 'high'; scene.traverse(o => { if (o.material) o.material.needsUpdate = true; }); } }
-  return { layer, state: S, refreshBuildings, setTrees, setAvatar, setAgent, setQuality, THREE };
+  return { layer, state: S, refreshBuildings, setTrees, setAvatar, setAgent, setQuality, THREE, world, get renderer() { return renderer; } };
 }

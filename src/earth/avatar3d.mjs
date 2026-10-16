@@ -158,3 +158,53 @@ export function buildAgent(color = '#62d8f2') {
   g.userData.tick = t => { core.rotation.y = t * 0.8; hull.rotation.y = -t * 0.3; r1.rotation.z = t * 0.6; r2.rotation.x = t * 0.45; const b = 1 + Math.sin(t * 2) * 0.04; core.scale.setScalar(b); g.children.forEach(c => { if (c !== base && c !== beam) c.position.y = 1.35 + Math.sin(t * 1.3) * 0.05; }); };
   return g;
 }
+
+// ---------- CORE agents as holographic humanoids (V7.2) ----------
+// Same CC0 bodies and animations as people, rendered as light: translucent cyan body, bright Fresnel rim, slow scanlines
+// and a floating role marker. Unmistakably synthetic at every distance; never clothed or textured like a person.
+const holoMats = new Map();
+export const HOLO_TIME = { value: 0 };
+export function hologramMaterial(color = '#62d8f2', { skinned = true } = {}) {
+  const key = `${color}|${skinned}`; if (holoMats.has(key)) return holoMats.get(key);
+  const m = new THREE.MeshStandardMaterial({ color: '#2a6f93', emissive: new THREE.Color(color), emissiveIntensity: 0.9, roughness: 0.4, metalness: 0, transparent: true, depthWrite: true });
+  m.onBeforeCompile = sh => {
+    sh.uniforms.uTime = HOLO_TIME; sh.uniforms.uHolo = { value: new THREE.Color(color) };
+    sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nvarying float vHoloY;').replace('#include <project_vertex>', '#include <project_vertex>\nvHoloY = (modelMatrix * vec4(transformed, 1.0)).y;');
+    sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying float vHoloY;\nuniform float uTime;\nuniform vec3 uHolo;')
+      .replace('#include <dithering_fragment>', `#include <dithering_fragment>
+        float fres = pow(1.0 - abs(dot(normalize(normal), normalize(vViewPosition))), 2.2);
+        float scan = 0.72 + 0.28 * smoothstep(0.35, 0.65, fract(vHoloY * 7.0 - uTime * 0.6));
+        gl_FragColor.rgb = mix(gl_FragColor.rgb, uHolo * 0.8, 0.55) + uHolo * fres * 1.4;
+        gl_FragColor.a = clamp((0.55 + fres * 0.45) * scan, 0.0, 0.96);`);
+  };
+  m.customProgramCacheKey = () => `core-holo-${skinned}`;
+  holoMats.set(key, m); return m;
+}
+const roleMarker = color => { const g = new THREE.Group(); const hex = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.03, 6), new THREE.MeshBasicMaterial({ color })); hex.rotation.x = Math.PI / 2; g.add(hex);
+  const ring = new THREE.Mesh(new THREE.TorusGeometry(0.17, 0.008, 6, 36), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.7 })); g.add(ring); g.position.y = 2.05; g.name = 'role-marker'; return g; };
+export async function buildHologram({ body = 'f', color = '#62d8f2' } = {}) {
+  const [gl, anim] = await Promise.all([get(`${A}body-${body}.glb`), get(`${A}anim.glb`)]);
+  const root = new THREE.Group(), model = THREE.cloneSkinned(gl.scene); root.add(model); model.updateMatrixWorld(true);
+  const box = new THREE.Box3().setFromObject(model), k = TARGET_HEIGHT / (box.max.y - box.min.y); model.scale.setScalar(k); model.position.y = -box.min.y * k;
+  model.traverse(o => { if (o.isMesh) { o.material = hologramMaterial(color); o.castShadow = false; o.receiveShadow = false; o.frustumCulled = false; o.renderOrder = 2; } });
+  const marker = roleMarker(color); root.add(marker);
+  const mixer = new THREE.AnimationMixer(model), actions = Object.fromEntries(anim.animations.map(c => [c.name, mixer.clipAction(c)])); let cur = null;
+  const play = (n, f = 0.35) => { const a = actions[n]; if (!a || a === cur) return; a.reset().fadeIn(f).play(); cur?.fadeOut(f); cur = a; };
+  play('Idle_Loop', 0);
+  return { root, model, mixer, play, marker, update: (dt, t) => { mixer.update(dt); marker.rotation.z = t * 0.8; marker.position.y = 2.05 + Math.sin(t * 2) * 0.03; }, get clip() { return cur?.getClip().name; } };
+}
+// Distant agents: one body baked in its idle pose (CPU skinning once), drawn instanced with the hologram material.
+const baked = new Map();
+export async function bakedHologramGeometry(body = 'f') {
+  if (baked.has(body)) return baked.get(body);
+  const [gl, anim] = await Promise.all([get(`${A}body-${body}.glb`), get(`${A}anim.glb`)]);
+  const model = THREE.cloneSkinned(gl.scene), mixer = new THREE.AnimationMixer(model), idle = anim.animations.find(c => c.name === 'Idle_Loop');
+  if (idle) { mixer.clipAction(idle).play(); mixer.update(0.5); }
+  model.updateMatrixWorld(true);
+  const box = new THREE.Box3().setFromObject(model), k = TARGET_HEIGHT / (box.max.y - box.min.y), parts = [];
+  model.traverse(o => { if (!o.isSkinnedMesh || !/Superhero/.test(o.material?.name || '')) return; o.skeleton.update();
+    const g = new THREE.BufferGeometry(), n = o.geometry.attributes.position.count, pos = new Float32Array(n * 3), v = new THREE.Vector3();
+    for (let i = 0; i < n; i++) { o.getVertexPosition(i, v); v.applyMatrix4(o.matrixWorld); pos.set([v.x * k, (v.y - box.min.y) * k, v.z * k], i * 3); }
+    g.setAttribute('position', new THREE.BufferAttribute(pos, 3)); g.setIndex(o.geometry.index); g.computeVertexNormals(); parts.push(g); });
+  const geo = parts[0]; baked.set(body, geo); return geo;
+}

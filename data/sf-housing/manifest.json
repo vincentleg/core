@@ -1,0 +1,98 @@
+{
+ "generated_at": "2026-10-16T04:44:11.657Z",
+ "generator": "scripts/housing-snapshot.mjs",
+ "purpose": "V7.2 flagship mission: San Francisco housing affordability and urban resilience",
+ "datasets": [
+  {
+   "file": "pipeline.geojson",
+   "id": "aaxw-2cb8",
+   "title": "MOHCD Affordable Housing Pipeline",
+   "provider": "Mayor’s Office of Housing and Community Development",
+   "page": "https://data.sf.gov/d/aaxw-2cb8",
+   "license": {
+    "name": "ODC Public Domain Dedication and License (PDDL)",
+    "url": "https://opendatacommons.org/licenses/pddl/1-0/"
+   },
+   "raw_rows": 190,
+   "features": 190,
+   "request": "https://data.sf.gov/resource/aaxw-2cb8.json?$query=SELECT%20project_id%2C%20project_status%2C%20construction_status%2C%20city_analysis_neighborhood%2C%20supervisor_district%2C%20housing_tenure%2C%20project_type%2C%20general_housing_program%2C%20total_project_units%2C%20mohcd_affordable_units%2C%20estimated_construction_completion%2C%20latitude%2C%20longitude%20LIMIT%205000",
+   "retrieved_at": "2026-10-16T04:44:10.309Z",
+   "raw_sha256": "445cb994a349af457f48d3e82cb2d1acb401559ce539166a70f6a19843c40485",
+   "sha256": "844b699426135f5a0e733d8fda5e16e8c15c0835f4b45bd8270dfec361f2f5a6",
+   "note": "Pipeline = projects in planning, construction or completed under MOHCD programmes; status and completion dates are the department’s estimates."
+  },
+  {
+   "file": "production-by-year.json",
+   "id": "xdht-4php",
+   "title": "Housing Production 2005–present (aggregated by completion year)",
+   "provider": "San Francisco Planning Department",
+   "page": "https://data.sf.gov/d/xdht-4php",
+   "license": {
+    "name": "Public Domain U.S. Government",
+    "url": "https://data.sf.gov/d/xdht-4php"
+   },
+   "request": "https://data.sf.gov/resource/xdht-4php.json?$query=SELECT%20date_extract_y(first_completion_date)%20AS%20year%2C%20sum(net_units_completed)%20AS%20net_units%2C%20sum(affordable_units)%20AS%20affordable_units%2C%20count(*)%20AS%20permits%20WHERE%20first_completion_date%20IS%20NOT%20NULL%20GROUP%20BY%20year%20ORDER%20BY%20year%20LIMIT%20100",
+   "retrieved_at": "2026-10-16T04:44:10.465Z",
+   "raw_sha256": "b914aad93c82d285acf1c879e8db0f15d697e0ddf106bae16b5381766545d819",
+   "sha256": "e0ab088618bba5842a748aff8bb7cd691d0742b84c99d6f460776369445c77c4",
+   "note": "Net units completed; affordable units as reported (some are estimates per the source’s affordable_is_estimate flag)."
+  },
+  {
+   "file": "production-by-neighborhood.json",
+   "id": "xdht-4php",
+   "title": "Housing Production by analysis neighbourhood, completions since 2015",
+   "provider": "San Francisco Planning Department",
+   "page": "https://data.sf.gov/d/xdht-4php",
+   "license": {
+    "name": "Public Domain U.S. Government",
+    "url": "https://data.sf.gov/d/xdht-4php"
+   },
+   "request": "https://data.sf.gov/resource/xdht-4php.json?$query=SELECT%20analysis_neighborhood%20AS%20neighborhood%2C%20sum(net_units_completed)%20AS%20net_units%2C%20sum(affordable_units)%20AS%20affordable_units%20WHERE%20first_completion_date%20%3E%3D%20'2015-01-01'%20GROUP%20BY%20neighborhood%20ORDER%20BY%20net_units%20DESC%20LIMIT%20100",
+   "retrieved_at": "2026-10-16T04:44:10.609Z",
+   "raw_sha256": "024e7a28e42e0d6e1e5a77a68cc161192448e1f0b97aa077cfaeefd29b066cde",
+   "sha256": "8d9fc399b22e87abbf1e157ed01363e9c755419f7508140a04ef781b70cc7d1b",
+   "note": "Completions since 2015-01-01, summed by the source’s analysis_neighborhood field."
+  },
+  {
+   "file": "evictions-agg.json",
+   "id": "5cei-gny5",
+   "title": "Eviction Notices — aggregated counts (no record-level data kept)",
+   "provider": "San Francisco Rent Board",
+   "page": "https://data.sf.gov/d/5cei-gny5",
+   "license": {
+    "name": "ODC Public Domain Dedication and License (PDDL)",
+    "url": "https://opendatacommons.org/licenses/pddl/1-0/"
+   },
+   "request": "https://data.sf.gov/resource/5cei-gny5.json?$query=SELECT%20date_extract_y(file_date)%20AS%20year%2C%20count(*)%20AS%20notices%2C%20sum(case(ellis_act_withdrawal%2C%201%2C%20true%2C%200))%20AS%20ellis%2C%20sum(case(owner_move_in%2C%201%2C%20true%2C%200))%20AS%20omi%20WHERE%20file_date%20%3E%3D%20'2015-01-01'%20GROUP%20BY%20year%20ORDER%20BY%20year%20LIMIT%20100 + https://data.sf.gov/resource/5cei-gny5.json?$query=SELECT%20neighborhood%2C%20count(*)%20AS%20notices%20WHERE%20file_date%20%3E%3D%20'2020-01-01'%20GROUP%20BY%20neighborhood%20ORDER%20BY%20notices%20DESC%20LIMIT%20100",
+   "retrieved_at": "2026-10-16T04:44:10.815Z",
+   "raw_sha256": "1bcca08bd4c19a74134b05fcbfbebf98016628a69b16d91753a74314822e476a",
+   "sha256": "1b6758b6591b11ce33ab9920b0ab5e0ff82a62072d14b35c5364c58a93be9e47",
+   "note": "A notice filed with the Rent Board is not an eviction carried out; counts depend on filing practice."
+  },
+  {
+   "file": "neighborhoods.geojson",
+   "id": "j2bu-swwd",
+   "title": "Analysis Neighborhoods",
+   "provider": "City and County of San Francisco",
+   "page": "https://data.sf.gov/d/j2bu-swwd",
+   "license": {
+    "name": "ODC Public Domain Dedication and License (PDDL)",
+    "url": "https://opendatacommons.org/licenses/pddl/1-0/"
+   },
+   "features": 41,
+   "request": "https://data.sf.gov/resource/j2bu-swwd.json?$query=SELECT%20nhood%2C%20the_geom%20LIMIT%20100",
+   "retrieved_at": "2026-10-16T04:44:11.627Z",
+   "raw_sha256": "6e862cccd8180802414e52c621c2b6479683a79ebde366e479825d214a3df445",
+   "sha256": "2b84378e8d6502b5813dbfeeb4c67345915af01069a6b845a76086bdda945e8c",
+   "note": "Boundaries used for aggregation and agent posts only."
+  }
+ ],
+ "privacy": "No names, sponsors, owners, addresses or record-level eviction data are stored.",
+ "gaps": [
+  {
+   "topic": "rent burden, median rent, household income",
+   "source": "U.S. Census Bureau ACS 5-year (api.census.gov)",
+   "reason": "API redirected keyless requests to missing_key.html on 2026-10-15; CORE uses no API key without founder approval"
+  }
+ ]
+}

@@ -8,10 +8,14 @@ import * as CFG from './avatar-config.mjs';
 import * as NAV from '../shell/nav.mjs';
 import * as J from '../shell/journey.mjs';
 import { icon } from '../ui/icons.mjs';
+import * as CIV from '../civilization/client.mjs';
+import { PLACES } from '../civilization/missions.mjs';
+import { createAgentLayer } from './agents-layer.mjs';
+import * as CP from './civ-panels.mjs';
 
 const $ = id => document.getElementById(id);
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-const FLAGSHIP = 'sidewalk-below-bsp-min:5665000', AGENT_ID = 'core.san-francisco.public-space.sidewalks';
+const FLAGSHIP = 'sidewalk-below-bsp-min:5665000', AGENT_ID = 'core.san-francisco.public-space.sidewalks', FLAGSHIP_MISSION = 'mission.sf.housing-resilience';
 const SF = [-122.4, 37.776];
 const toast = msg => { const t = $('toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('on'), 3200); };
 const lowDevice = () => (navigator.deviceMemory && navigator.deviceMemory <= 4) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) || matchMedia('(pointer: coarse)').matches;
@@ -106,10 +110,10 @@ async function start() {
   $('ea-scales').hidden = false; $('ea-tools').hidden = false; $('ea-legend').hidden = false;
   await fly({ center: [-122.42, 37.77], zoom: 10.3, pitch: 45, bearing: -15 }, 4200);
   S.scale = 'region'; renderScales();
-  const e = S.data.bySeg.get(S.data.byId.get(FLAGSHIP).segment);
-  await fly({ center: e.coord, zoom: 16.3, pitch: 63, bearing: e.along - 30 }, 3600);
-  focusSegment(e.items[0].segment, { open: true, instant: true });
-  toast('Un problème réel est enregistré ici. Ouvrez ses preuves, ou descendez à hauteur humaine.');
+  await fly({ center: PLACES.somaField, zoom: 16.4, pitch: 62, bearing: -40 }, 3600);
+  S.scale = 'city'; renderScales();
+  if (S.layer) { setLayer('hybrid'); showMission(FLAGSHIP_MISSION); }
+  toast('Une mission de recherche est en cours ici : logement abordable et résilience. Passez en couche « Agents » pour voir la civilisation.');
 }
 
 // ---------- human scale ----------
@@ -119,22 +123,17 @@ async function enterHuman() {
   if (S.quality === 'low') { toast('Qualité « Économe » : la vue 3D à hauteur humaine est désactivée. Tout reste accessible via la liste et les panneaux.'); return; }
   $('ea-human').disabled = true; $('ea-human').textContent = 'Chargement de la scène…';
   try {
-    lib = lib || await Promise.all([import('./scene3d.mjs'), import('./avatar3d.mjs')]);
-    const [{ createScene3D, toLngLat }, AV] = lib;
-    const p = S.data.byId.get(FLAGSHIP), e = S.data.bySeg.get(p.segment), seg = S.data.segs.get(p.segment).geometry.coordinates;
+    lib = lib || await Promise.all([import('./scene3d.mjs'), import('./avatar3d.mjs'), import('./agents3d.mjs')]);
+    const [{ createScene3D, toLngLat, toLocal }, AV, A3] = lib;
+    const p = S.data.byId.get(FLAGSHIP), e = S.data.bySeg.get(p.segment);
     const origin = e.coord, alongRad = e.along * Math.PI / 180;
     if (!S.scene) {
       S.scene = createScene3D(maplibregl, { origin, quality: S.quality === 'high' ? 'high' : 'balanced' });
       S.map.addLayer(S.scene.layer, 'marker-halo');
       S.scene.state.altitude = S.map.queryTerrainElevation?.(origin) || 0;
       S.scene.setTrees(S.data.trees.filter(t => Math.hypot((t.geometry.coordinates[0] - origin[0]) * 88000, (t.geometry.coordinates[1] - origin[1]) * 111000) < 420));
+      if (!/nocrowd/.test(location.search)) S.crowd = A3.createCrowd(S.scene); S.toLocal = ll => toLocal(origin, ll);
     }
-    // Agent: a virtual post on the sidewalk (~11 m from the street centreline, where the record is stored); the avatar
-    // starts 26 m back on the same sidewalk. Positions are a staging convention, not data.
-    const side = [Math.cos(alongRad) * 11, Math.sin(alongRad) * 11];
-    S.agentAt = side; S.scene.setAgent(AV.buildAgent(), side);
-    const tag = document.createElement('div'); tag.className = 'ea-agent-tag'; tag.innerHTML = `<span class="le-agent-id">${esc(S.data.agent.code)}</span><span>Agent CORE · non humain · analyse seulement</span>`;
-    S.agentTag = new maplibregl.Marker({ element: tag, anchor: 'bottom', offset: [0, -70] }).setLngLat(toLngLat(origin, side[0], side[1])).addTo(S.map);
     const me = CFG.load(); S.me = me;
     const avatar = await AV.buildAvatar(me.appearance); S.scene.setAvatar(avatar); S.avatar = avatar;
     const back = [-Math.sin(alongRad) * 26 + Math.cos(alongRad) * 11, Math.cos(alongRad) * 26 + Math.sin(alongRad) * 11];
@@ -143,19 +142,22 @@ async function enterHuman() {
     S.mode = 'human'; S.scale = 'human'; renderScales();
     $('ea-hud').hidden = false; $('ea-panel').hidden = true; $('ea-human').hidden = true;
     $('ea-me').innerHTML = `<i style="${CFG.chipStyle(me.appearance)}"></i><b>${esc(me.identity.pseudonym || 'Vous')}</b>`;
-    $('ea-hint').textContent = matchMedia('(pointer: coarse)').matches ? 'Joystick pour marcher · l’agent est devant vous' : 'W/↑ avancer · A/D tourner · Maj courir · C vue · E parler';
+    $('ea-hint').textContent = matchMedia('(pointer: coarse)').matches ? 'Joystick pour marcher · approchez un agent pour lui parler' : 'W/↑ avancer · A/D tourner · Maj courir · C vue · E parler à l’agent le plus proche';
+    if (S.layer && S.layer.mode === 'real') setLayer('hybrid');
     S.map.keyboard.disable(); S.map.dragPan.disable();
+    // Street level is flat SoMa: relief is switched off here (the 3D layer would otherwise sit under the terrain mesh).
+    S.savedTerrain = S.map.getTerrain?.() || null; if (S.savedTerrain) S.map.setTerrain(null); S.scene.state.altitude = 0;
     await fly(camFor(), 2600);
     S.buildings = S.scene.refreshBuildings(); S.humanReady = true;
     S.scene.state.onFrame = tick; J.mark('world', { problemId: FLAGSHIP });
-    toast(`Vous êtes sur Folsom Street. L’agent ${S.data.agent.code} vous attend près du trottoir étudié.`);
+    toast('Vous êtes sur Folsom Street, dans SoMa. Les agents de la mission « logement et résilience » travaillent autour de vous.');
   } catch (err) {
     console.error(err); toast(`La vue 3D n’a pas pu démarrer (${err.message}). La carte et les panneaux restent disponibles.`);
   } finally { $('ea-human').disabled = false; $('ea-human').textContent = 'Descendre à hauteur humaine'; }
 }
 function leaveHuman() {
-  if (S.mode !== 'human') return; S.mode = 'map'; S.humanReady = false; $('ea-hud').hidden = true; S.scene.setAvatar(null); S.scene.refreshBuildings(0); S.scene.state.onFrame = null;
-  S.map.keyboard.enable(); S.map.dragPan.enable(); S.avatar = null; S.agentTag?.remove(); S.agentTag = null; S.scene.setAgent?.(null);
+  if (S.mode !== 'human') return; S.mode = 'map'; S.humanReady = false; $('ea-hud').hidden = true; if (S.savedTerrain) S.map.setTerrain(S.savedTerrain); S.scene.setAvatar(null); S.scene.refreshBuildings(0); S.scene.state.onFrame = null;
+  S.map.keyboard.enable(); S.map.dragPan.enable(); S.avatar = null; for (const m of S.plates?.values() || []) m.remove(); S.plates?.clear();
 }
 function camFor() {
   const ll = S.toLngLat(S.pos[0], S.pos[1]);
@@ -176,8 +178,10 @@ function tick(dt) {
   } else S.avatar.play(S.nearAgent ? 'Idle_Talking_Loop' : 'Idle_Loop', 0.4);
   S.avatar.root.position.set(S.pos[0], 0, S.pos[1]); S.avatar.root.rotation.y = Math.PI - S.heading * Math.PI / 180;
   if (S.avatar.model) S.avatar.model.visible = S.cam !== 'first';
-  const near = Math.hypot(S.pos[0] - S.agentAt[0], S.pos[1] - S.agentAt[1]) < 4.5;
-  if (near !== S.nearAgent) { S.nearAgent = near; $('ea-talk').disabled = !near; if (near) toast(`${S.data.agent.code} : « Je peux vous montrer ce qui est mesuré ici, et ce qui ne l’est pas. » (E pour ouvrir le dialogue)`); }
+  S.crowd?.update(dt, reduced());
+  const nb = S.layer?.mode !== 'real' ? S.crowd?.nearest(S.pos) : null, near = nb && nb.d < 4.5 ? nb.id : null;
+  if (near !== S.nearAgent) { S.nearAgent = near; $('ea-talk').disabled = !near; const a = near && S.civ.byId.get(near);
+    $('ea-talk').textContent = a ? `Parler à ${a.code} (E)` : 'Parler à un agent (E)'; if (a) toast(`${a.code} — ${a.role} : ${S.civ.activity(near).label}. (E pour ouvrir sa fiche)`); }
   S.map.jumpTo(camFor());
 }
 
@@ -188,7 +192,7 @@ function wire() {
   $('ea-human').onclick = () => goScale('human');
   $('ea-up').onclick = async () => { leaveHuman(); await goScale('city'); openPanel(FLAGSHIP); };
   $('ea-cam').onclick = () => { S.cam = S.cam === 'third' ? 'first' : 'third'; $('ea-cam').textContent = `Vue : ${S.cam === 'third' ? '3e' : '1re'} personne`; $('ea-cam').setAttribute('aria-pressed', String(S.cam === 'first')); };
-  $('ea-talk').onclick = () => { location.href = `dialogue.html#problem=${encodeURIComponent(FLAGSHIP)}&mode=understand&from=world`; };
+  $('ea-talk').onclick = () => { if (S.nearAgent) showAgent(S.nearAgent); };
   $('ea-quality').value = S.quality;
   $('ea-quality').onchange = e => { const before = S.quality; S.quality = e.target.value;
     if ((before === 'high') !== (S.quality === 'high')) toast('Le relief s’active ou se désactive au prochain chargement de la page (qualité « Haute » seulement).'); if (S.scene) { S.scene.setQuality(S.quality === 'high' ? 'high' : 'balanced'); if (S.quality === 'low') { $('ea-up').click(); } else S.buildings = S.scene.refreshBuildings(); } };
@@ -212,12 +216,79 @@ function wire() {
   const end = () => { jid = null; S.joy = { x: 0, y: 0 }; knob.style.transform = ''; }; joy.addEventListener('pointerup', end); joy.addEventListener('pointercancel', end);
 }
 
+// ---------- civilisation (V7.2): layers, panels, crowd ----------
+const LAYER_KEY = 'core.world.layer';
+function setLayer(m) {
+  if (!S.layer) return; S.layer.setMode(m); try { localStorage.setItem(LAYER_KEY, m); } catch {}
+  document.querySelectorAll('#ea-layers [data-layer]').forEach(b => b.setAttribute('aria-checked', String(b.dataset.layer === m)));
+  if (S.crowd) S.crowd.visible = m !== 'real';
+  const g = S.scene?.world?.getObjectByName('core-agents'); if (g) g.visible = m !== 'real';
+  for (const mk of S.plates?.values() || []) mk.getElement().hidden = m === 'real';
+  document.body.dataset.layer = m;
+}
+function panel(kind, id, html) {
+  S.panelKind = { kind, id }; $('ea-panel-body').innerHTML = html; $('ea-panel').hidden = false; $('ea-human').hidden = true;
+  $('ea-panel').classList.remove('le-enter'); void $('ea-panel').offsetWidth; $('ea-panel').classList.add('le-enter');
+}
+const showAgent = id => panel('agent', id, CP.agentHTML(S.civ, id));
+const showMission = id => panel('mission', id, CP.missionHTML(S.civ, id));
+const showActivity = () => panel('activity', null, CP.activityHTML(S.civ, CIV.state()));
+const showEvent = seq => panel('event', seq, CP.eventHTML(S.civ, seq));
+function refreshPanel() {
+  const k = S.panelKind; if (!k || $('ea-panel').hidden || $('ea-panel').contains(document.activeElement) && document.activeElement.tagName === 'BUTTON') return;
+  const top = $('ea-panel').scrollTop;
+  if (k.kind === 'agent') $('ea-panel-body').innerHTML = CP.agentHTML(S.civ, k.id); else if (k.kind === 'mission') $('ea-panel-body').innerHTML = CP.missionHTML(S.civ, k.id); else if (k.kind === 'activity') $('ea-panel-body').innerHTML = CP.activityHTML(S.civ, CIV.state());
+  $('ea-panel').scrollTop = top;
+}
+function civTick() {
+  const R = S.civ; if (!R) return; S.layer?.update();
+  if (S.follow && S.mode !== 'human') S.map.easeTo({ center: R.posOf(S.follow), duration: 240 });
+  if (S.mode === 'human' && S.crowd && S.toLocal) {
+    const list = S.layer.agents.map(a => { const [x, z] = S.toLocal(R.posOf(a.id)), act = R.activity(a.id); return { id: a.id, x, z, state: act.state, dept: a.department, body: a.id.length % 2 ? 'f' : 'm' }; });
+    const c = S.crowd.sync(list, S.pos); S.crowdCounts = c;
+    // Nameplates for the near agents (DOM, at most 12).
+    S.plates ||= new Map(); const want = new Set();
+    const close = list.map(a => ({ a, d: Math.hypot(a.x - S.pos[0], a.z - S.pos[1]) })).filter(x => x.d < 25).sort((x, y) => x.d - y.d).slice(0, 6).map(x => x.a);
+    const SHORT = { working: 'au travail', inspecting: 'vérifie', meeting: 'en réunion', travelling: 'en route', returning: 'en route', idle: 'inactif' };
+    for (const a of close) { want.add(a.id); let mk = S.plates.get(a.id);
+      const ag = R.byId.get(a.id), html = `<span class="le-agent-id">${esc(ag.code)}</span><span class="fine">${esc(SHORT[a.state] || a.state)}</span>`;
+      if (!mk) { const el = document.createElement('button'); el.type = 'button'; el.className = 'ea-agent-tag'; el.onclick = () => showAgent(a.id); mk = new maplibregl.Marker({ element: el, anchor: 'bottom', offset: [0, -96] }).setLngLat(R.posOf(a.id)).addTo(S.map); S.plates.set(a.id, mk); }
+      mk.getElement().innerHTML = html; mk.setLngLat(R.posOf(a.id)); mk.getElement().hidden = S.layer.mode === 'real'; mk.getElement().title = `${ag.role} — ${R.activity(a.id).label}`; }
+    for (const [id, mk] of S.plates) if (!want.has(id)) { mk.remove(); S.plates.delete(id); }
+  }
+  const now = performance.now(); if (now - (S.lastPanel || 0) > 2000) { S.lastPanel = now; refreshPanel(); }
+}
+async function startCivilisation() {
+  try {
+    const R = await CIV.start(); S.civ = R;
+    S.layer = createAgentLayer(S.map, { runtime: R, onAgent: showAgent, onHub: showAgent, onNetwork: id => { if (id === 'san-francisco') { goScale('city'); showActivity(); } else panel('network', id, `<header class="pp-head"><h2 id="pp-title">New York</h2></header><p>Des missions inter-villes ont été <b>enregistrées</b> en Phase 10 (relecture). Le registre d’agents de New York n’est pas chargé dans cette version : aucune activité n’y est montrée comme réelle.</p>`); } });
+    const h = new URLSearchParams(location.hash.slice(1)); let m = h.get('layer'); try { m ||= localStorage.getItem(LAYER_KEY); } catch {}
+    setLayer(['real', 'agents', 'hybrid'].includes(m) ? m : 'real');
+    CIV.onChange(civTick);
+    if (h.get('mission') && R.M.has(h.get('mission'))) { $('ea-hero').hidden = true; $('ea-vignette').hidden = true; $('ea-scales').hidden = false; $('ea-tools').hidden = false; $('ea-legend').hidden = false; S.map.jumpTo({ center: PLACES.somaField, zoom: 16.2, pitch: 60, bearing: -40 }); S.scale = 'city'; renderScales(); if (S.layer.mode === 'real') setLayer('hybrid'); showMission(h.get('mission')); }
+    if (h.get('agent') && R.byId.has(h.get('agent'))) { $('ea-hero').hidden = true; $('ea-vignette').hidden = true; S.map.jumpTo({ center: R.posOf(h.get('agent')), zoom: 17, pitch: 60 }); if (S.layer.mode === 'real') setLayer('hybrid'); showAgent(h.get('agent')); }
+    S.civReady = true;
+  } catch (e) { console.error(e); toast(`Civilisation CORE indisponible : ${e.message}`); }
+}
+function wireCiv() {
+  document.querySelectorAll('#ea-layers [data-layer]').forEach(b => b.onclick = () => setLayer(b.dataset.layer));
+  $('ea-activity-btn').onclick = () => { if (S.civ) { if (S.layer.mode === 'real') setLayer('hybrid'); showActivity(); } };
+  $('ea-panel-body').addEventListener('click', e => {
+    const t = e.target.closest('[data-mission],[data-agent],[data-ev],[data-follow],[data-follow-mission],[data-speed]'); if (!t) return;
+    if (t.matches('a[href^="dialogue.html"]')) return; e.preventDefault();
+    if (t.dataset.mission) showMission(t.dataset.mission); else if (t.dataset.agent) showAgent(t.dataset.agent); else if (t.dataset.ev) showEvent(t.dataset.ev);
+    else if (t.dataset.follow) { S.follow = S.follow === t.dataset.follow ? null : t.dataset.follow; toast(S.follow ? 'La caméra suit cet agent (cliquez « Suivre » à nouveau pour arrêter).' : 'Suivi arrêté.'); }
+    else if (t.dataset.followMission) { try { localStorage.setItem('core.follow.v1', JSON.stringify({ mission: t.dataset.followMission })); } catch {} J.mark('world', { problemId: t.dataset.followMission }); toast('Mission suivie : elle apparaît dans Mon CORE.'); }
+    else if (t.dataset.speed) { const x = Number(t.dataset.speed); if (!x) CIV.setPaused(!CIV.state().paused); else { CIV.setPaused(false); CIV.setSpeed(x); } showActivity(); }
+  });
+}
+
 // ---------- boot ----------
 (async () => {
   try { S.data = await loadData(); } catch (e) { $('fatal').hidden = false; $('fatal').textContent = `Registres CORE indisponibles : ${e.message}`; return; }
-  S.map = makeMap(S.data); wire(); renderScales(); renderList();
+  S.map = makeMap(S.data); wire(); wireCiv(); renderScales(); renderList();
   S.map.on('load', () => {
-    S.ready = true; const h = new URLSearchParams(location.hash.slice(1));
+    S.ready = true; const h = new URLSearchParams(location.hash.slice(1)); if (!/nociv/.test(location.search)) startCivilisation();
     if (h.get('problem') && S.data.byId.has(h.get('problem'))) {
       $('ea-hero').hidden = true; $('ea-vignette').hidden = true; $('ea-scales').hidden = false; $('ea-tools').hidden = false; $('ea-legend').hidden = false;
       const p = S.data.byId.get(h.get('problem')); S.map.jumpTo({ center: S.data.bySeg.get(p.segment)?.coord || SF, zoom: 16.4, pitch: 62, bearing: (S.data.bySeg.get(p.segment)?.along || 0) - 30 }); S.scale = 'city'; renderScales();
@@ -229,4 +300,4 @@ function wire() {
     } else { if (innerWidth > 860) S.map.setPadding({ left: Math.min(760, innerWidth * 0.48), right: 0, top: 0, bottom: 0 }); spin(); }
   });
 })();
-globalThis.CORE_EARTH = { state: S, goScale, openPanel, focusSegment, enterHuman, start, get fps() { const f = S.frames; return f.length ? f.length / f.reduce((a, b) => a + b, 0) : 0; } };
+globalThis.CORE_EARTH = { state: S, goScale, openPanel, focusSegment, enterHuman, start, setLayer, showAgent, showMission, showActivity, showEvent, civ: () => S.civ, get fps() { const f = S.frames; return f.length ? f.length / f.reduce((a, b) => a + b, 0) : 0; } };

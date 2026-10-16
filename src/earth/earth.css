@@ -84,3 +84,31 @@ body.earth { background: radial-gradient(1px 1px at 12% 18%, #ffffffaa, transpar
   .maplibregl-ctrl-bottom-right { display: none; }
 }
 .ea-agent-tag { display: grid; gap: 2px; justify-items: center; padding: 6px 12px; border-radius: 12px; background: var(--le-glass-strong); border: 1px solid var(--le-cyan-line); font-size: 11.5px; color: var(--le-text-2); white-space: nowrap; pointer-events: none; }
+
+/* ---------- V7.2: layers, civilisation panels ---------- */
+.ea-layers { position: fixed; z-index: 11; left: 16px; top: calc(var(--navh) + 8px); display: flex; gap: 2px; padding: 4px; border-radius: var(--le-r-pill); }
+.ea-layers button { border: 0; min-height: 30px; padding: 4px 14px; font-size: 13px; background: transparent; color: var(--le-text-2); }
+.ea-layers [aria-checked="true"] { background: var(--le-sand-50); color: #0b1426; }
+body[data-layer="agents"] .ea-layers [data-layer="agents"][aria-checked="true"] { background: var(--le-cyan); }
+.ea-leg-agents { display: none !important; } body[data-layer="agents"] .ea-leg-agents, body[data-layer="hybrid"] .ea-leg-agents { display: inline-flex !important; }
+.cv-feed { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 13px; }
+.cv-ev { padding: 8px 10px; border-radius: 12px; background: rgba(255, 255, 255, .03); border: 1px solid var(--le-hairline); cursor: pointer; }
+.cv-ev:hover { border-color: var(--le-hairline-2); } .cv-ev.sys { background: transparent; border-style: dashed; }
+.cv-ev .cv-txt { color: var(--le-text-2); }
+.cv-type { font: 600 10.5px var(--le-mono); letter-spacing: .04em; padding: 1px 8px; border-radius: var(--le-r-pill); border: 1px solid currentColor; color: var(--le-ocean-300); }
+.cv-type.t-challenge, .cv-type.t-escalate { color: var(--le-risk); } .cv-type.t-alternative { color: var(--le-hypothesis); } .cv-type.t-evidence, .cv-type.t-analysis { color: var(--le-observed); }
+.cv-type.t-dossier-update, .cv-type.t-review { color: var(--le-ok); } .cv-type.t-human-input { color: var(--le-sand-200); }
+.cv-stages { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.cv-stages li { font-size: 12px; padding: 3px 10px; border-radius: var(--le-r-pill); border: 1px solid var(--le-hairline); color: var(--le-text-3); }
+.cv-stages li.done { color: #06231a; background: var(--le-ok); border-color: transparent; } .cv-stages li.now { color: var(--le-cyan); border-color: var(--le-cyan); }
+.cv-findings { margin: 0; padding-left: 0; list-style: none; display: grid; gap: 10px; font-size: 14px; }
+.cv-hyp { padding: 10px 12px; border-radius: 12px; border: 1px solid #b9a2ff44; background: #b9a2ff0d; margin-bottom: 8px; } .cv-hyp p { margin: 4px 0 0; font-size: 13.5px; }
+.cv-missions { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: 13.5px; }
+.cv-ctl { margin-top: 6px; } .cv-ctl [aria-pressed="true"] { background: rgba(255, 255, 255, .12); }
+button.ea-agent-tag { cursor: pointer; pointer-events: auto; font: inherit; min-height: 0; }
+@media (max-width: 860px) { .ea-layers { left: 8px; top: calc(var(--navh) + 52px); } }
+#ea-panel-body { display: grid; gap: 18px; align-content: start; }
+.ea-layers .ea-sep { width: 1px; margin: 4px 4px; background: var(--le-hairline-2); }
+.ea-layers #ea-activity-btn { border: 0; min-height: 30px; padding: 4px 14px; font-size: 13px; background: transparent; color: var(--le-cyan); }
+button.ea-agent-tag { grid-auto-flow: column; display: inline-grid; gap: 8px; align-items: center; padding: 3px 10px; border-radius: var(--le-r-pill); font-size: 11px; }
+button.ea-agent-tag .le-agent-id::before { width: 12px; height: 12px; }
