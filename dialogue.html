@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' http://127.0.0.1:11434; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex">
+<meta name="core-ready" content="CORE_DIALOGUE">
 <title>CORE — Dialogue & Studio de recherche</title>
 <meta name="description" content="Réfléchissez avec un agent CORE : réponses citées depuis CORE Knowledge, dossier de recherche vivant, idée enregistrée dans un coffre chiffré.">
 <link rel="stylesheet" href="assets/fonts/fonts.css">
@@ -47,5 +48,6 @@
   <p id="toast" class="toast" role="status" aria-live="polite"></p>
 </main>
 <script type="module" src="src/dialogue/room.mjs"></script>
+<script type="module" src="src/ui/boot-guard.mjs"></script>
 </body>
 </html>

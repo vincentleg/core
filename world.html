@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self' blob: data: https://tiles.openfreemap.org https://gibs.earthdata.nasa.gov https://s3.amazonaws.com; worker-src 'self' blob:; child-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex">
+<meta name="core-ready" content="CORE_EARTH">
 <title>CORE — Living Earth</title>
 <meta name="description" content="Explorez notre monde. Comprenez ses défis. Aidez à façonner la suite. Prototype local de CORE : une Terre en 3D, un problème réel enregistré à San Francisco et ses preuves.">
 <link rel="stylesheet" href="assets/vendor/maplibre-gl-6.11.2/maplibre-gl.css" integrity="sha384-ntw3zEt6rcVML7jDK0ULmHa5hxLB23afsPqzqfY+gLgMfAkbFCnCgPpkZvV5mmZX">
@@ -81,5 +82,6 @@
   <p id="fatal" class="fatal" role="alert" hidden></p>
 </main>
 <script type="module" src="src/earth/app.mjs"></script>
+<script type="module" src="src/ui/boot-guard.mjs"></script>
 </body>
 </html>
