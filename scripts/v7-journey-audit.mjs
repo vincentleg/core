@@ -38,6 +38,9 @@ try {
   // 3–6. Navigate to San Francisco, discover the recorded problem, open the panel, review the evidence.
   await ev('CORE_EARTH.start().then(() => 1)');
   check('3. flies to San Francisco, city scale', await until(`CORE_EARTH.state.map.getZoom() > 15.5 && CORE_EARTH.state.scale === 'city'`, 20000));
+  // V7.2: the opening now lands on the flagship housing mission (Hybrid); the sidewalk problem stays the evidence regression.
+  check('3b. (V7.2) the opening lands on the flagship research mission', await until(`!document.getElementById('ea-panel').hidden && /Logement abordable et résilience/.test(document.getElementById('ea-panel-body').textContent)`, 20000));
+  await ev(`CORE_EARTH.focusSegment('5665000'), 1`);
   check('4. the recorded sidewalk problem is focused and its panel is open', await until(`!document.getElementById('ea-panel').hidden && /Better Streets Plan/.test(document.getElementById('pp-title').textContent)`));
   check('5. the panel speaks plainly: place, status explanation, review steps, Understand/Propose/Collaborate', await ev(`(t => /Folsom St, entre 5th St et Falmouth St/.test(t) && /un fait mesuré/.test(t) && /Revue humaine/.test(t) && /Comprendre/.test(t) && /Proposer/.test(t) && /Collaborer/.test(t))(document.getElementById('ea-panel').textContent)`));
   check('6. evidence: 10 ft vs 12 ft with metres, the DataSF source link, and what is unknown', await ev(`(p => /10 ft/.test(p.textContent) && /3,05 m/.test(p.textContent) && !!p.querySelector('a[href^="https://data.sf.gov/"]') && /Ce que l’on ne sait pas/.test(p.textContent))(document.getElementById('ea-panel'))`));
@@ -56,17 +59,19 @@ try {
   await ev(`document.getElementById('st-enter').click(), 1`);
   assert.ok(await until(`!!globalThis.CORE_EARTH && CORE_EARTH.state.mode === 'human' && CORE_EARTH.state.humanReady`, 60000), 'human mode');
   await wait(3000);
-  check('8. human scale: the avatar, the non-human agent and detailed buildings are in the scene', await ev(`!!CORE_EARTH.state.avatar && !!CORE_EARTH.state.scene.state.agent && CORE_EARTH.state.buildings > 0 && !!document.querySelector('.ea-agent-tag')`), await ev(`CORE_EARTH.state.buildings + ' buildings'`));
+  check('8. human scale: the avatar, holographic (non-human) agents and detailed buildings are in the scene', await until(`!!CORE_EARTH.state.avatar && CORE_EARTH.state.buildings > 0 && CORE_EARTH.state.crowdCounts && CORE_EARTH.state.crowdCounts.near + CORE_EARTH.state.crowdCounts.far > 0`, 15000), await ev(`CORE_EARTH.state.buildings + ' buildings'`));
   await ev(`dispatchEvent(new KeyboardEvent('keydown', { key: 'w' })), 1`); await wait(2500);
   metrics.humanFps = await ev('Math.round(CORE_EARTH.fps)'); metrics.layerMs = await ev('+(CORE_EARTH.state.scene.state.ms.reduce((a, b) => a + b, 0) / CORE_EARTH.state.scene.state.ms.length).toFixed(2)');
   check('   walking plays the walk animation and moves the avatar', await ev(`CORE_EARTH.state.avatar.clip === 'Walk_Loop'`), `${metrics.humanFps} fps, 3D layer ${metrics.layerMs} ms/frame`);
   await ev(`dispatchEvent(new KeyboardEvent('keyup', { key: 'w' })), 1`);
-  await ev(`(S => { const b = S.heading * Math.PI / 180; S.pos = [S.agentAt[0] - Math.sin(b) * 3, S.agentAt[1] + Math.cos(b) * 3]; })(CORE_EARTH.state), 1`);
+  await ev(`(S => { const nb = S.crowd.nearest(S.pos), [x, z] = S.toLocal(S.civ.posOf(nb.id)); S.pos = [x + 1.5, z + 1.5]; })(CORE_EARTH.state), 1`);
   check('   near the agent, "talk" becomes available', await until(`!document.getElementById('ea-talk').disabled`, 8000));
+  await ev(`document.getElementById('ea-talk').click(), 1`);
   await wait(1200); await shot('04-human');
   // 9–10. Start a natural conversation; propose an improvement.
-  await ev(`document.getElementById('ea-talk').click(), 1`);
-  assert.ok(await until(`!!globalThis.CORE_DIALOGUE && !!CORE_DIALOGUE.state.problem`, 30000), 'dialogue');
+  check('   (V7.2) talking opens the agent’s card', await until(`/Identité et organisation/.test(document.getElementById('ea-panel-body').textContent)`, 8000));
+  // The single-agent room (sidewalk evidence) is unchanged; reached from the problem panel's « Comprendre ».
+  await go('dialogue.html#problem=sidewalk-below-bsp-min%3A5665000&mode=understand&from=world', '!!globalThis.CORE_DIALOGUE && !!CORE_DIALOGUE.state.problem');
   check('9. the conversation starts with cited evidence from CORE Knowledge (deterministic, labelled)', await until(`!!document.querySelector('#dl-convo .turn.evidence .cites') && /Déterministe/.test(document.getElementById('dl-provider-btn').textContent)`, 15000));
   await wait(1500);
   await ev(`CORE_DIALOGUE.send(${JSON.stringify(`Vérifier la largeur actuelle puis élargir le trottoir en retirant une file de stationnement ${PRIVATE} ${XSS}`)}).then(() => 1)`); await wait(2200);

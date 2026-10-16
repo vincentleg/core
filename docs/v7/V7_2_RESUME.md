@@ -1,5 +1,7 @@
 # CORE V7.2 — Living Agent Civilization Engine: continuation checkpoint (2026-10-16)
 
+> **Update, 2026-10-16:** the 9 steps listed below were completed in the following session. See [V7_2_REPORT.md](V7_2_REPORT.md) for the delivered state; this file is kept as history.
+
 **Status:** paused at the founder's request (usage limit).
 - Nothing was pushed, merged or deployed. Cost: $0. No account, key or paid service.
 - Branch `v72/agent-civilization` was created from `v7/living-earth` (`c16425d`). Work commit: `334816b`.

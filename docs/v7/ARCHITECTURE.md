@@ -72,3 +72,21 @@ These are estimates for planning, not measurements of production.
 | 100,000 | ~470 GB/month → CDN | self-hosted | a few GB | paid tiers; costs to be quoted |
 
 Per-visit figures come from `RENDERING_BENCHMARK.md`: 4.7 MB from CORE's origin, uncompressed. Larger populations need a CDN, self-hosted tiles, read replicas and moderation capacity, each with its own budget decision.
+
+## V7.2 — agent civilisation engine (branch `v72/agent-civilization`)
+
+| Layer | Files | Role |
+|---|---|---|
+| Evidence | `scripts/housing-snapshot.mjs` → `data/sf-housing/` | DataSF housing records (PDDL / US public domain), aggregated where sensitive, with a manifest and hashes |
+| Registry | `scripts/agents-civilization.mjs` → `data/agents/sf-civilization.json` | 508 identities: the 68 Phase 3 profiles kept verbatim plus 440 generated; 5 levels; 34 teams; 7 councils; virtual posts |
+| Analyses | `src/civilization/analyses.mjs` | Cited findings computed from the snapshots; declared gaps; competing hypotheses; dissent |
+| Missions | `src/civilization/missions.mjs` | Task graphs per mission (flagship: 23 tasks over all stages), record-by-record audits, council sessions, monitoring |
+| Runtime | `src/civilization/runtime.mjs` | Deterministic event-driven scheduler:<br>• bounded concurrency;<br>• typed messages, hash-chained log, save/restore;<br>• cancellation, consent-gated human input;<br>• agent memory as an activity journal |
+| Client | `src/civilization/client.mjs` | Browser runner: Web Locks single writer, 4 Hz ticks, pause/speed, `localStorage` persistence, cross-tab submission (BroadcastChannel) |
+| World | `src/earth/agents-layer.mjs`, `civ-panels.mjs`, `agents3d.mjs`, `avatar3d.mjs` (holograms), `app.mjs` | Real / Agents / Hybride modes; agent, mission, activity, event and hierarchy panels; street-level holographic crowd with level of detail |
+| Dialogue | `src/dialogue/team.mjs` | Team research mode: routing to specialists, evidence verifier, reviewer, coordinator; consent-gated contributions |
+| Commons | `src/civic/ui-missions.mjs` | Mission views in Knowledge, Labs, Arena and Academy |
+
+**Reasoning agents:** none by default. The only model path is the optional local model rewording a coordinator synthesis, one call at a time, verified before display. Every other agent output is deterministic computation on dated public data, and each page says so.
+
+**Scaling path (not built):** move the runtime into a Web Worker or a server process, index agents spatially for city-wide queries, and keep the log in IndexedDB or PostgreSQL instead of `localStorage` (1,200-event window today).
