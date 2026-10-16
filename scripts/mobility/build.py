@@ -167,11 +167,11 @@ for sid, r in results.items():
 search = {'generated': len(SEARCH), 'rejected': [], 'simulated': [], 'note': 'Grille de 15 configurations ; filtrage par contraintes ; 3 graines chacune ; aucun modèle de substitution (surrogate) utilisé.'}
 for cid, net_id, scale in SEARCH:
     if net_id == 'diet' and scale < 0.9: search['rejected'].append({'id': cid, 'network': net_id, 'demandScale': scale, 'reason': 'Contrainte : un régime de voirie ne peut pas supposer en plus une baisse de demande non modélisée (double hypothèse non étayée).'}); continue
-    rs = [run(net_id, scale, s) for s in seeds[:3]]; sm = summarize(rs)
+    rs = [run(net_id, scale, s) for s in seeds[:3]]; sm = summarize(rs); search.setdefault('wallSec', 0); search['wallSec'] = round(search['wallSec'] + sum(r['wallSec'] for r in rs), 1)
     search['simulated'].append({'id': cid, 'network': net_id, 'demandScale': scale, 'carDelay': sm['carDelay']['mean'], 'busTravelTime': sm['busTravelTime']['mean'], 'co2kg': sm['co2kg']['mean']})
 pts = search['simulated']
 for p in pts: p['pareto'] = not any(q is not p and q['carDelay'] <= p['carDelay'] and q['busTravelTime'] <= p['busTravelTime'] and q['co2kg'] <= p['co2kg'] and (q['carDelay'] < p['carDelay'] or q['busTravelTime'] < p['busTravelTime'] or q['co2kg'] < p['co2kg']) for q in pts)
-compute_sec = round(time.time() - t_all, 1)
+compute_sec = round(sum(r['wallSec'] for x in results.values() for r in x['runs']) + sum(0 for _ in search['simulated']), 1)  # simulator wall time of the recorded runs (cache-independent)
 supported = [s for s, r in results.items() if r.get('status') == 'promising-uncalibrated']
 verdict = ('Aucune solution suffisamment étayée : ' if not supported else 'Pistes techniquement prometteuses dans un modèle non calibré : ' + ', '.join(supported) + '. ') + 'Le modèle n’est pas calibré (aucun comptage de trafic, aucun minutage de feux réel, demande synthétique) : aucun scénario ne peut être recommandé sans données réelles et revue humaine.'
 
@@ -190,7 +190,7 @@ def trace(net_id, scale, sid):
             if VIEW[0] <= x <= VIEW[2] and VIEW[1] <= y <= VIEW[3]: vs.append([v.get('id'), round(x, 6), round(y, 6), round(float(v.get('angle')), 0), 1 if v.get('type') == 'bus' else 0])
         frames[int(t)] = vs; el.clear()
     return {'scenario': sid, 'start': 600, 'step': 2, 'frames': [frames[k] for k in sorted(frames)]}
-traces = {sid: trace(n, sc, sid) for sid, n, sc in [('S0', 'base', 1.0), ('A', 'bus', 1.0), ('C', 'diet', 1.0)]}
+traces = {sid: trace(n, sc, sid) for sid, n, sc in [('S0', 'base', 1.0), ('A', 'bus', 1.0), ('B', 'act', 1.0), ('C', 'diet', 1.0), ('D', 'base', 0.85)]}
 lanes_geo = {'type': 'FeatureCollection', 'features': []}
 for e in folsom:
     if e.getLaneNumber() >= 3:
@@ -206,7 +206,7 @@ manifest = {'generated_at': now(), 'generator': 'scripts/mobility/build.py', 'en
   'calibration': 'NON CALIBRÉ — aucun résultat ne décrit le trafic réel de San Francisco.',
   'blockers': ['Comptages de trafic : aucun jeu public trouvé sur DataSF.', 'Minutage des feux : non publié.', 'GTFS Muni : accord de licence (indemnisation, droit californien) — décision du fondateur requise.'],
   'reproduce': 'python3 -m venv <venv> && <venv>/bin/pip install eclipse-sumo==1.27.1 sumo-data==1.27.1 && <venv>/bin/python scripts/mobility/build.py --fetch --seeds 5',
-  'computeSeconds': compute_sec}
+  'computeSeconds': compute_sec, 'searchComputeSeconds': search.get('wallSec')}
 json.dump(manifest, open(os.path.join(OUT, 'manifest.json'), 'w'), ensure_ascii=False, indent=1)
 json.dump({'scenarios': list(results.values()), 'search': search, 'verdict': verdict, 'busRoute': bus_path, 'objectives': ['retard moyen des voitures (s)', 'temps de parcours des bus (s)', 'CO2 estimé (kg)']}, open(os.path.join(OUT, 'results.json'), 'w'), ensure_ascii=False)
 json.dump({'folsomRightLanes': lanes_geo, 'signals': tls_geo}, open(os.path.join(OUT, 'geometry.json'), 'w'))
