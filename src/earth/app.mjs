@@ -15,7 +15,7 @@ const FLAGSHIP = 'sidewalk-below-bsp-min:5665000', AGENT_ID = 'core.san-francisc
 const SF = [-122.4, 37.776];
 const toast = msg => { const t = $('toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('on'), 3200); };
 const lowDevice = () => (navigator.deviceMemory && navigator.deviceMemory <= 4) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) || matchMedia('(pointer: coarse)').matches;
-const S = { map: null, data: null, scale: 'planet', mode: 'map', sel: null, quality: lowDevice() ? 'balanced' : 'high', three: null, scene: null, keys: new Set(), joy: { x: 0, y: 0 }, heading: 0, cam: 'third', pos: null, nearAgent: false, spinning: false, frames: [], ready: false, humanReady: false, buildings: 0 };
+const S = { map: null, data: null, scale: 'planet', mode: 'map', sel: null, quality: ['high', 'balanced', 'low'].includes(new URLSearchParams(location.search).get('quality')) ? new URLSearchParams(location.search).get('quality') : lowDevice() ? 'balanced' : 'high', three: null, scene: null, keys: new Set(), joy: { x: 0, y: 0 }, heading: 0, cam: 'third', pos: null, nearAgent: false, spinning: false, frames: [], ready: false, humanReady: false, buildings: 0 };
 NAV.render($('core-nav'), { active: 'world' });
 
 // ---------- data: published CORE records only ----------
@@ -34,7 +34,7 @@ async function loadData() {
 
 // ---------- map ----------
 function makeMap(d) {
-  const terrain = S.quality !== 'low';
+  const terrain = S.quality === 'high';
   const map = new maplibregl.Map({ container: 'map', style: livingEarthStyle({ markers: d.markers, corridor: d.corridor, terrain }), center: [-104, 32], zoom: 1.75, pitch: 0, maxPitch: 85, maxZoom: 23, attributionControl: false, fadeDuration: 150, canvasContextAttributes: { antialias: true } });
   map.addControl(new maplibregl.AttributionControl({ compact: true, customAttribution: 'CORE · DataSF (trottoirs 2014, arbres, tronçons)' }), 'bottom-left');
   map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'bottom-right');
@@ -189,7 +189,8 @@ function wire() {
   $('ea-cam').onclick = () => { S.cam = S.cam === 'third' ? 'first' : 'third'; $('ea-cam').textContent = `Vue : ${S.cam === 'third' ? '3e' : '1re'} personne`; $('ea-cam').setAttribute('aria-pressed', String(S.cam === 'first')); };
   $('ea-talk').onclick = () => { location.href = `dialogue.html#problem=${encodeURIComponent(FLAGSHIP)}&mode=understand&from=world`; };
   $('ea-quality').value = S.quality;
-  $('ea-quality').onchange = e => { S.quality = e.target.value; if (S.scene) { S.scene.setQuality(S.quality === 'high' ? 'high' : 'balanced'); if (S.quality === 'low') { $('ea-up').click(); } else S.buildings = S.scene.refreshBuildings(); } };
+  $('ea-quality').onchange = e => { const before = S.quality; S.quality = e.target.value;
+    if ((before === 'high') !== (S.quality === 'high')) toast('Le relief s’active ou se désactive au prochain chargement de la page (qualité « Haute » seulement).'); if (S.scene) { S.scene.setQuality(S.quality === 'high' ? 'high' : 'balanced'); if (S.quality === 'low') { $('ea-up').click(); } else S.buildings = S.scene.refreshBuildings(); } };
   $('ea-list-btn').onclick = () => { const l = $('ea-list'); l.hidden = !l.hidden; $('ea-list-btn').setAttribute('aria-expanded', String(!l.hidden)); if (!l.hidden) { if (!$('ea-hero').hidden) start(); l.focus(); } };
   $('ea-about-btn').onclick = () => { const a = $('ea-about'); a.hidden = !a.hidden; $('ea-about-btn').setAttribute('aria-expanded', String(!a.hidden)); };
   document.querySelectorAll('[data-close]').forEach(b => b.onclick = () => { $(b.dataset.close).hidden = true; });

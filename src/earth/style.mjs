@@ -22,7 +22,7 @@ const NIGHT = '#1f3d60';
 const STATUS = ['match', ['get', 'status'], 'observed', STATUS_COLORS.observed, 'potential-risk', STATUS_COLORS['potential-risk'], 'hypothesis', STATUS_COLORS.hypothesis, STATUS_COLORS.simulated];
 
 export function livingEarthStyle({ markers = EMPTY, corridor = EMPTY, focus = EMPTY, terrain = true } = {}) {
-  return {
+  const style = {
     version: 8,
     projection: { type: Z(9, 'vertical-perspective', 11, 'mercator') },
     glyphs: 'https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf',
@@ -35,7 +35,7 @@ export function livingEarthStyle({ markers = EMPTY, corridor = EMPTY, focus = EM
     sources: {
       omt: { type: 'vector', url: 'https://tiles.openfreemap.org/planet' },
       bluemarble: { type: 'raster', tiles: ['https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpeg'], tileSize: 256, maxzoom: 8, attribution: 'Imagerie : NASA GIBS (Blue Marble)' },
-      dem: { type: 'raster-dem', tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'], encoding: 'terrarium', tileSize: 256, maxzoom: 14, attribution: 'Relief : USGS 3DEP/SRTM via AWS Terrain Tiles' },
+      dem: { type: 'raster-dem', tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'], encoding: 'terrarium', tileSize: 256, maxzoom: 12, attribution: 'Relief : USGS 3DEP/SRTM via AWS Terrain Tiles' },
       markers: { type: 'geojson', data: markers }, corridor: { type: 'geojson', data: corridor }, focus: { type: 'geojson', data: focus },
     },
     layers: [
@@ -69,4 +69,7 @@ export function livingEarthStyle({ markers = EMPTY, corridor = EMPTY, focus = EM
       { id: 'street-name', type: 'symbol', source: 'omt', 'source-layer': 'transportation_name', minzoom: 15, maxzoom: 19.5, layout: { 'symbol-placement': 'line', 'text-field': name, 'text-font': ['Noto Sans Regular'], 'text-size': Z(15, 10.5, 19, 13), 'symbol-spacing': 380, 'text-padding': 8 }, paint: { 'text-color': Z(15, '#cfdbe8', 17, '#f4efe4'), 'text-halo-color': Z(15, '#04101e', 17, '#1d1f22'), 'text-halo-width': 1.4 } },
     ],
   };
+  // Relief costs ~6 MB of elevation tiles per visit: only in "Haute" quality. Without it nothing is requested from the DEM host.
+  if (!terrain) { delete style.sources.dem; style.layers = style.layers.filter(l => l.source !== 'dem'); }
+  return style;
 }
