@@ -1,0 +1,15 @@
+/* CORE V8 — progress page */
+#pg-main { max-width: 1180px; margin: 0 auto; padding: 24px 16px 64px; }
+.pg-hero { margin: 12px 0 22px; } .pg-hero h1 { margin: 6px 0 10px; }
+.pg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-bottom: 18px; }
+.pg-val { margin: 6px 0; } .pg-val b { font-size: 30px; font-weight: 600; color: var(--le-text); } .pg-val span { color: var(--le-text-2); }
+.pg-dim[data-dim="impact"] .pg-val b { color: var(--le-text-2); } .pg-not { color: var(--le-text-3); }
+.pg-chart { position: relative; margin: 14px 0; } .pg-chart svg { width: 100%; height: auto; display: block; touch-action: pan-y; }
+.pg-chart .grid { stroke: rgba(147, 165, 189, .16); stroke-width: 1; } .pg-chart .ax { fill: var(--le-text-3); font: 11px var(--le-mono); }
+.pg-chart .line { fill: none; stroke: var(--le-cyan); stroke-width: 2; stroke-linejoin: round; } .pg-chart .band { fill: rgba(98, 216, 242, .12); }
+.pg-chart .dot, .pg-chart .hov { fill: var(--le-cyan); stroke: #0b1426; stroke-width: 2; } .pg-chart .lbl { fill: var(--le-text); font: 12px var(--le-font); }
+.pg-chart .cross { stroke: rgba(238, 243, 248, .35); stroke-width: 1; }
+.pg-tip { position: absolute; top: 0; width: 220px; padding: 6px 10px; border-radius: 10px; background: #0b1426; border: 1px solid var(--le-hairline-2); font-size: 12px; color: var(--le-text); pointer-events: none; }
+.pg-bars { list-style: none; padding: 0; display: grid; gap: 6px; } .pg-bars li { display: grid; grid-template-columns: minmax(120px, 210px) 1fr 56px; gap: 10px; align-items: center; font-size: 13px; color: var(--le-text-2); }
+.pg-bars i { display: block; height: 10px; border-radius: 0 4px 4px 0; background: rgba(98, 216, 242, .7); } .pg-bars b { color: var(--le-text); text-align: right; font-weight: 500; }
+.pg-k { margin-top: 6px; }

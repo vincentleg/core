@@ -112,3 +112,16 @@ test('participation: CORE structures the words, the person decides, agents evalu
   assert.doesNotMatch(JSON.stringify(h), /accept|(?<!non )validée|approved/i);
   assert.equal(C.stageOf(h), h.evaluation.outcome === 'to-investigate' ? 'human' : 'evaluated');
 });
+
+test('progress: separate dimensions, no composite score; simulations never raise verified impact; Kardashev with formula, uncertainty, licence', async () => {
+  const P = await imp('src/progress/progress.mjs'), E = json('data/progress/energy.json');
+  const k = P.kardashev(606.037); assert.ok(Math.abs(k.terawatts - 20.26) < 0.01); assert.ok(Math.abs(k.K - 0.7307) < 1e-4); assert.ok(k.low < k.K && k.K < k.high);
+  assert.equal(P.kardashev(1e16 * P.YEAR_S / P.QBTU_J).K.toFixed(6), '1.000000');
+  const mob = json('data/mobility/results.json'), base = P.dimensions({ missions: [], mobility: null }), withSim = P.dimensions({ missions: [], mobility: mob, civ: { missions: { x: { humanInputs: [{ state: 'en attente de revue humaine', evaluation: {} }], tasks: { a: { state: 'done' } } } }, events: [] } });
+  assert.equal(withSim.find(d => d.id === 'impact').value, 0); assert.equal(base.find(d => d.id === 'impact').value, 0);
+  assert.ok(!withSim.some(d => /score|total|overall/i.test(d.id)));
+  for (const d of withSim) assert.ok(d.what && d.source && d.not, d.id);
+  assert.equal(E.terms.status, 'public domain (U.S. government work)'); assert.match(E.terms.acknowledgment, /^Source: U\.S\. Energy Information Administration/);
+  assert.ok(Object.keys(E.series.total.values).length > 40); for (const s of Object.values(E.series)) assert.match(s.id, /^INTL\.\d+-2-WORL-QBTU\.A$/);
+  assert.match(read('scripts/progress-energy.mjs'), /copyright !== 'None'/); // any non-public-domain series stops the build (FD09)
+});
