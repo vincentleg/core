@@ -1,6 +1,6 @@
 {
  "version": "core-missions-index-v1",
- "recorded_at": "2026-10-16T04:30:57.379Z",
+ "recorded_at": "2026-10-16T11:21:53.946Z",
  "missions": [
   {
    "id": "mission:b800f920af82",
@@ -25,7 +25,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 467
+   "ms": 292
   },
   {
    "id": "mission:5d7886b55a54",
@@ -50,7 +50,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 117
+   "ms": 75
   },
   {
    "id": "mission:5d2cb2e2f3a3",
@@ -75,7 +75,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 448
+   "ms": 273
   },
   {
    "id": "mission:28fc07fa8a08",
@@ -100,7 +100,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 121
+   "ms": 80
   },
   {
    "id": "mission:4095b1ece637",
@@ -125,7 +125,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 117
+   "ms": 73
   },
   {
    "id": "mission:ee4a55ff63fb",
@@ -144,7 +144,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 6
+   "ms": 4
   },
   {
    "id": "mission:ba5047a9073a",
@@ -169,7 +169,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 154
+   "ms": 104
   },
   {
    "id": "mission:c594c2dba81f",
@@ -194,7 +194,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 119
+   "ms": 76
   },
   {
    "id": "mission:756645a548a9",
@@ -219,7 +219,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 420
+   "ms": 269
   },
   {
    "id": "mission:b5514be8aea7",
@@ -244,7 +244,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 438
+   "ms": 284
   },
   {
    "id": "mission:2eb75be759c4",
@@ -269,7 +269,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 429
+   "ms": 277
   },
   {
    "id": "mission:830559f131bd",
@@ -293,7 +293,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 437
+   "ms": 272
   }
  ]
 }
