@@ -75,7 +75,7 @@ try {
   await ev(`(document.getElementById('db-kind').value = 'rebuttal', document.getElementById('db-target').value = 'a2', document.getElementById('db-text').value = ${JSON.stringify(XSS + ' Mesurons d’abord la largeur actuelle.')}, document.getElementById('db-ev').value = 'sidewalks:8562', document.getElementById('db-f').requestSubmit(), 1)`); await wait(500);
   check('11. a clearly fictional Arena compares approaches with sourced arguments; no winner, no vote; markup inert', await ev(`(t => /DÉBAT FICTIF/.test(t) && /Aucune proposition n’est déclarée gagnante/.test(t))(document.getElementById('debate').textContent)`) && !(await pwned()) && !(await ev(`!!document.querySelector('#debate img')`)));
   // 7. Back to World
-  await go('world.html#problem=sidewalk-below-bsp-min:5665000', '!!globalThis.CORE_WORLD && !!CORE_WORLD.state.map');
+  await go('world-classic.html#problem=sidewalk-below-bsp-min:5665000', '!!globalThis.CORE_WORLD && !!CORE_WORLD.state.map');
   await ev(`document.getElementById('no-avatar').click(), 1`); await until(`!document.getElementById('world-panel').hidden`, 20000);
   check('12. back in World, the problem panel shows the updated journey and that nothing is validated', await until(`(t => /Votre parcours sur ce problème/.test(t) && /2 version\\(s\\)/.test(t) && /aucune validation/.test(t))(document.getElementById('panel-body').textContent)`, 8000));
   await shot('world-return');
