@@ -4,9 +4,9 @@
 //             A manual interaction with the map pauses the tour; Resume continues from where it stopped.
 //  • manual — Step by Step: the same stages; nothing advances until the person presses Next.
 // Controls: Previous, Next, Pause/Resume, Restart, Exit, progress and current title; Space / ← / → / Esc. Captions are
-// always shown; narration (device voices only, never cloud speech) is optional and off by default. If a stage's scene
+// always shown; there is no spoken narration (no speech synthesis). If a stage's scene
 // cannot load, its fallback runs and the tour continues. Nothing is shared or stored by the tour.
-import { T, lang } from '../i18n/i18n.mjs';
+import { T } from '../i18n/i18n.mjs';
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const wait = ms => new Promise(r => setTimeout(r, ms));
 const MOB = 'mission.sf.mobility';
@@ -122,9 +122,8 @@ const NARR = {
 for (const st of STAGES) { const n = NARR[st.id]; if (n) { st.ms = n[0]; st.say = P(...n[1]); st.more = P(...n[2]); } }
 
 export function createDemo(E, { mode = 'auto', root = document.body } = {}) {
-  const S = { mode, i: -1, paused: false, running: true, done: false, left: 0, t0: 0, timer: 0, token: 0, narrate: false, statuses: [] };
+  const S = { mode, i: -1, paused: false, running: true, done: false, left: 0, t0: 0, timer: 0, token: 0, statuses: [] };
   const el = document.createElement('section'); el.className = 'demo le-glass'; el.setAttribute('role', 'region'); el.setAttribute('aria-live', 'polite'); el.dataset.mode = mode; root.append(el);
-  const say = text => { if (!S.narrate || !globalThis.speechSynthesis) return; const v = speechSynthesis.getVoices().filter(x => x.localService && x.lang.toLowerCase().startsWith(lang())); speechSynthesis.cancel(); if (!v[0]) return; const u = new SpeechSynthesisUtterance(text); u.voice = v[0]; u.lang = v[0].lang; speechSynthesis.speak(u); };
   function view() {
     const st = STAGES[S.i]; el.setAttribute('aria-label', T('Experience CORE', 'Découvrir CORE'));
     if (!st) return;
@@ -135,14 +134,12 @@ export function createDemo(E, { mode = 'auto', root = document.body } = {}) {
       ${last ? `<p class="demo-last">${T('A parallel world to help humanity improve the real one.', 'Un monde parallèle pour aider l’humanité à améliorer le monde réel.')}</p><p class="le-row"><a class="btn small" href="report.html#mission=${MOB}">${T('Research dossier', 'Dossier de recherche')}</a><a class="btn small" href="progress.html">${T('Progress', 'Progrès')}</a><a class="btn small" href="manifesto.html">${T('Manifesto', 'Manifeste')}</a></p>` : ''}
       <div class="demo-bar" aria-hidden="true"><i style="width:${((S.i + 1) / STAGES.length) * 100}%"></i></div>${auto && !last ? '<div class="demo-stagebar" aria-hidden="true"><i data-stagebar></i></div>' : ''}
       <div class="le-row demo-ctl">${auto ? (last ? '' : `<span class="fine demo-auto" data-countdown aria-live="off">${T('Advancing automatically', 'Avance automatiquement')}</span><button type="button" class="small" data-d="pause">${S.paused ? T('Resume', 'Reprendre') : T('Pause', 'Pause')}</button>`)
-          : `<button type="button" class="small" data-d="prev"${S.i ? '' : ' disabled'}>← ${T('Previous', 'Précédent')}</button>${last ? '' : `<button type="button" class="small primary" data-d="next">${T('Next', 'Suivant')} →</button>`}`}${last ? `<button type="button" class="small primary" data-d="restart">${T('Replay', 'Revoir')}</button><button type="button" class="small" data-d="exit">${T('Explore CORE', 'Explorer CORE')}</button>` : `<button type="button" class="ghost small" data-d="restart">${T('Restart', 'Recommencer')}</button>`}
-        <label class="fine demo-nar"><input type="checkbox" data-d="narrate"${S.narrate ? ' checked' : ''}> ${T('Narration', 'Narration')}</label></div>
+          : `<button type="button" class="small" data-d="prev"${S.i ? '' : ' disabled'}>← ${T('Previous', 'Précédent')}</button>${last ? '' : `<button type="button" class="small primary" data-d="next">${T('Next', 'Suivant')} →</button>`}`}${last ? `<button type="button" class="small primary" data-d="restart">${T('Replay', 'Revoir')}</button><button type="button" class="small" data-d="exit">${T('Explore CORE', 'Explorer CORE')}</button>` : `<button type="button" class="ghost small" data-d="restart">${T('Restart', 'Recommencer')}</button>`}</div>
       ${S.paused && S.pausedByUser ? `<p class="fine">${T('Paused while you explore the map; the tour continues by itself a few seconds after you stop.', 'En pause pendant que vous explorez la carte ; la visite reprend d’elle-même quelques secondes après.')}</p>` : ''}`;
   }
   async function go(i) {
     clearTimeout(S.timer); if (i < 0) i = 0; if (i >= STAGES.length) return finish();
     const tk = ++S.token; S.i = i; S.paused = false; S.pausedByUser = false; view(); const st = STAGES[i];
-    say(tx(st.say));
     let ok = false;
     try { await Promise.race([st.run(E), wait(st.timeout || 15000)]); const end = performance.now() + (st.timeout || 15000); while (performance.now() < end && tk === S.token) { if (st.ready(E)) { ok = true; break; } await wait(200); } } catch (e) { console.warn('demo stage', st.id, e); }
     if (!ok && tk === S.token && st.fallback) { try { await st.fallback(E); ok = true; } catch {} }
@@ -150,14 +147,13 @@ export function createDemo(E, { mode = 'auto', root = document.body } = {}) {
     if (S.mode === 'auto') { S.left = st.final ? st.ms : st.ms; arm(); }
   }
   function arm() { clearTimeout(S.timer); clearInterval(S.tick); if (S.mode === 'auto' && !S.paused && S.running) S.tick = setInterval(() => { const c = el.querySelector('[data-countdown]'); const sb = el.querySelector('[data-stagebar]'); if (sb) sb.style.width = `${Math.min(100, (performance.now() - S.t0) / Math.max(1, S.left) * 100)}%`; if (c) c.textContent = T(`Next stage in ${Math.max(0, Math.ceil((S.left - (performance.now() - S.t0)) / 1000))} s`, `Étape suivante dans ${Math.max(0, Math.ceil((S.left - (performance.now() - S.t0)) / 1000))} s`); }, 250); if (S.paused || !S.running) return; S.t0 = performance.now(); const tk = S.token; S.timer = setTimeout(() => { if (tk === S.token) { if (S.i === STAGES.length - 1) finish(); else go(S.i + 1); } }, S.left); }
-  function pause(byUser = false) { if (S.mode !== 'auto' || S.paused) return; S.paused = true;  clearInterval(S.tick); S.pausedByUser = byUser; clearTimeout(S.timer); S.left = Math.max(0, S.left - (performance.now() - S.t0)); E.state.map?.stop?.(); E.state.scn?.stop?.(); globalThis.speechSynthesis?.pause?.(); view(); }
-  function resume() { if (!S.paused) return; S.paused = false; S.pausedByUser = false; globalThis.speechSynthesis?.resume?.(); if (E.state.panelKind?.kind === 'simulation' && E.state.scn?.state.on && !E.state.scn.state.playing) E.state.scn.play(); view(); arm(); }
+  function pause(byUser = false) { if (S.mode !== 'auto' || S.paused) return; S.paused = true;  clearInterval(S.tick); S.pausedByUser = byUser; clearTimeout(S.timer); S.left = Math.max(0, S.left - (performance.now() - S.t0)); E.state.map?.stop?.(); E.state.scn?.stop?.(); view(); }
+  function resume() { if (!S.paused) return; S.paused = false; S.pausedByUser = false; if (E.state.panelKind?.kind === 'simulation' && E.state.scn?.state.on && !E.state.scn.state.playing) E.state.scn.play(); view(); arm(); }
   function finish() { clearTimeout(S.timer); clearInterval(S.tick); S.done = true; if (S.mode === 'auto') view(); }
-  function exit() { clearTimeout(S.timer); clearTimeout(S.idle); clearInterval(S.tick); S.token++; S.running = false; globalThis.speechSynthesis?.cancel?.(); el.remove(); removeEventListener('keydown', keys, true); E.state.map?.getCanvas().removeEventListener('pointerdown', touched); history.replaceState(null, '', location.pathname); }
+  function exit() { clearTimeout(S.timer); clearTimeout(S.idle); clearInterval(S.tick); S.token++; S.running = false; el.remove(); removeEventListener('keydown', keys, true); E.state.map?.getCanvas().removeEventListener('pointerdown', touched); history.replaceState(null, '', location.pathname); }
   function keys(e) { if (!S.running || e.target.closest?.('input, textarea, select') || E.state.mode === 'human') return; if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); exit(); } else if (e.key === ' ' && S.mode === 'auto') { e.preventDefault(); S.paused ? resume() : pause(); } else if (e.key === 'ArrowRight') { e.preventDefault(); go(S.i + 1); } else if (e.key === 'ArrowLeft') { e.preventDefault(); go(S.i - 1); } }
   const touched = () => { if (S.mode !== 'auto' || !S.running || S.done || (S.paused && !S.pausedByUser)) return; if (!S.paused) pause(true); clearTimeout(S.idle); S.idle = setTimeout(() => { if (S.paused && S.pausedByUser && S.running) resume(); }, 8000); }; // map interaction pauses the tour briefly; it resumes on its own
   el.addEventListener('click', e => { const b = e.target.closest('[data-d]'); if (!b) return; const d = b.dataset.d;
-    if (d === 'narrate') { S.narrate = b.checked; if (!S.narrate) globalThis.speechSynthesis?.cancel?.(); else say(tx(STAGES[S.i].say)); return; }
     if (d === 'next') go(S.i + 1); else if (d === 'prev') go(S.i - 1); else if (d === 'pause') (S.paused ? resume() : pause()); else if (d === 'restart') { S.done = false; go(0); } else if (d === 'exit') exit(); });
   addEventListener('keydown', keys, true); E.state.map?.getCanvas().addEventListener('pointerdown', touched);
   return { state: S, stages: STAGES, start: () => go(0), next: () => go(S.i + 1), prev: () => go(S.i - 1), pause, resume, restart: () => go(0), exit, relabel: view };

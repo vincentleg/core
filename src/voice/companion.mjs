@@ -5,11 +5,10 @@
 //  • Voice input is offered ONLY when the browser can recognise speech on the device (SpeechRecognition with
 //    processLocally). The microphone starts only on an explicit press; listening / processing / error states are shown;
 //    the transcript is placed in the box for the person to edit, and runs only when they press Go. Nothing is recorded.
-//  • Spoken answers are off by default and use only voices the device provides locally; Stop silences them.
+//  • Answers are written only: the companion never speaks (no speech synthesis).
 import * as A from './actions.mjs';
 import { t, T, L, lang, setLang } from '../i18n/i18n.mjs';
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const SPEAK_KEY = 'core.companion.speak';
 let dlg = null, rec = null, agentsCache = null, missionsCache = null;
 
 // Context: the live World runtime when present, otherwise the published registry and missions (fetched once, on demand).
@@ -46,11 +45,6 @@ export async function run(text) {
   return { ...out, href: p.href || null };
 }
 
-function speak(text) {
-  let on = false; try { on = localStorage.getItem(SPEAK_KEY) === '1'; } catch {} if (!on || !globalThis.speechSynthesis) return;
-  const v = speechSynthesis.getVoices().filter(x => x.localService && x.lang.toLowerCase().startsWith(lang()))[0];
-  if (!v) return; const u = new SpeechSynthesisUtterance(text); u.voice = v; u.lang = v.lang; speechSynthesis.cancel(); speechSynthesis.speak(u);
-}
 // On-device recognition only. Returns 'available' or a reason string.
 export async function voiceSupport(code = lang()) {
   const SR = globalThis.SpeechRecognition; // the prefixed webkitSpeechRecognition sends audio to a server: never used
@@ -60,7 +54,6 @@ export async function voiceSupport(code = lang()) {
 
 function render() {
   const ex = [T('Show me the San Francisco mobility mission', 'Montre-moi la mission mobilité de San Francisco'), T('What are the agents investigating?', 'Sur quoi travaillent les agents ?'), T('Explain the difference between the real world and CORE World', 'Explique la différence entre le monde réel et le Monde CORE'), T('Show the simulation', 'Montre la simulation'), T('Compare the scenarios', 'Compare les scénarios'), T('What evidence is missing?', 'Quelles preuves manquent ?'), T('How can I contribute?', 'Comment puis-je contribuer ?'), T('Open my saved ideas', 'Ouvre mes idées sauvegardées'), T('Start the guided demo', 'Lance la démo guidée'), T('Show me the manifesto', 'Montre-moi le manifeste'), T('Why did the bus lane perform badly?', 'Pourquoi la voie bus a-t-elle mal fonctionné ?')];
-  let speakOn = false; try { speakOn = localStorage.getItem(SPEAK_KEY) === '1'; } catch {}
   dlg.setAttribute('aria-label', t('cmp.title'));
   dlg.innerHTML = `<form method="dialog" class="cmp-head"><h2>${esc(t('cmp.title'))}</h2><button class="ghost small" value="close" aria-label="${esc(t('cmp.close'))}">✕</button></form>
     <p class="fine">${esc(T('Search, ask or go anywhere in CORE. I run actions from a fixed list, answer from recorded evidence, and never share, delete or publish anything for you.', 'Cherchez, demandez ou allez n’importe où dans CORE. J’exécute des actions d’une liste fixe, je réponds à partir des preuves enregistrées, et je ne partage, ne supprime ni ne publie rien à votre place.'))}</p>
@@ -69,7 +62,6 @@ function render() {
     <p class="cmp-live" data-cmp-live hidden role="status"><i aria-hidden="true"></i><span></span></p>
     <p class="fine" data-cmp-micnote></p>
     <div class="cmp-out" data-cmp-out aria-live="polite"></div>
-    <div class="cmp-speak"><label class="fine"><input type="checkbox" data-cmp-speak ${speakOn ? 'checked' : ''}> ${esc(t('cmp.speak'))}</label><button type="button" class="ghost small" data-cmp-stop>${esc(T('Stop speaking', 'Arrêter la lecture'))}</button></div>
     <details><summary>${esc(t('cmp.examples'))}</summary><ul class="cmp-ex">${ex.map(x => `<li><button type="button" class="ghost small" data-cmp-ex>${esc(x)}</button></li>`).join('')}</ul></details>`;
   const out = dlg.querySelector('[data-cmp-out]'), input = dlg.querySelector('input[name=q]'), live = dlg.querySelector('[data-cmp-live]');
   const status = (s, cls = '') => { live.hidden = !s; live.className = `cmp-live ${cls}`; live.querySelector('span').textContent = s || ''; };
@@ -78,15 +70,12 @@ function render() {
     let r; try { r = await run(text); } catch (e) { r = { ok: false, msg: e.message }; }
     status('');
     out.innerHTML = `<p class="${r.ok ? '' : 'cmp-err'}">${esc(r.msg)}</p>${r.html || ''}${r.confirm ? `<p class="fine">${esc(t('cmp.confirm'))}</p><a class="btn small" href="${esc(r.confirm)}">${esc(t('cmp.open'))}</a>` : ''}`;
-    speak(r.msg);
     out.querySelector('[data-cmp-team]')?.addEventListener('click', () => { const mid = r.team.mission; if (globalThis.CORE_EARTH?.showInvestigate) { dlg.close(); globalThis.CORE_EARTH.revealMap(); globalThis.CORE_EARTH.showInvestigate(mid, r.team.question); } else location.href = `world.html#investigate=${encodeURIComponent(mid)}`; });
     if (r.cmd?.name === 'change_language') render();
     if (r.href) setTimeout(() => { location.href = r.href; }, 700);
   };
   dlg.querySelector('[data-cmp-form]').onsubmit = e => { e.preventDefault(); const v = input.value.trim(); if (v) go(v); };
   dlg.querySelectorAll('[data-cmp-ex]').forEach(b => b.onclick = () => { input.value = b.textContent; go(b.textContent); });
-  dlg.querySelector('[data-cmp-speak]').onchange = e => { try { localStorage.setItem(SPEAK_KEY, e.target.checked ? '1' : '0'); } catch {} if (!e.target.checked) globalThis.speechSynthesis?.cancel(); };
-  dlg.querySelector('[data-cmp-stop]').onclick = () => globalThis.speechSynthesis?.cancel();
   const mic = dlg.querySelector('[data-cmp-mic]'), note = dlg.querySelector('[data-cmp-micnote]');
   voiceSupport().then(s => {
     if (s !== 'available') { note.textContent = t('cmp.mic_unavailable'); return; }

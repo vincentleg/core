@@ -167,7 +167,7 @@ dialog.cmp::backdrop { background: rgba(2, 6, 14, .55); }
 .cmp-row { display: flex; gap: 8px; margin: 12px 0 6px; } .cmp-row input { flex: 1; min-width: 0; }
 .cmp-live { display: inline-flex; align-items: center; gap: 8px; color: #ffb4ad; font-size: 13px; margin: 4px 0; } .cmp-live i { width: 10px; height: 10px; border-radius: 50%; background: #e5534b; box-shadow: 0 0 0 4px rgba(229, 83, 75, .25); }
 .cmp-out p { margin: 8px 0; } .cmp-err { color: #f0b45c; }
-.cmp-ex { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; } .cmp-speak { display: flex; gap: 8px; align-items: center; margin: 10px 0; }
+.cmp-ex { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
 html[dir="rtl"] .le-nav, html[dir="rtl"] .le-shell-right { direction: rtl; }
 /* V9 — shell: command entry, demo action, more menu */
 .le-cmp-btn { min-width: 0; } .le-cmp-btn kbd { font: 500 11px var(--le-mono); color: var(--le-text-3); border: 1px solid var(--le-hairline); border-radius: 6px; padding: 1px 5px; }

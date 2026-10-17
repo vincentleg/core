@@ -76,7 +76,8 @@ test('companion: the mission index matches the runtime missions; voice is on-dev
   const ids = MS.buildMissions(D, json('data/agents/sf-civilization.json'), { today: '2026-10-16T00:00:00Z' }).map(m => m.id);
   assert.deepEqual(A.MISSION_INDEX.map(m => m.id), ids);
   const src = read('src/voice/companion.mjs');
-  assert.doesNotMatch(src.replace(/\/\/.*$/gm, ''), /webkitSpeechRecognition/); assert.match(src, /processLocally = true/); assert.match(src, /localService/);
+  assert.doesNotMatch(src.replace(/\/\/.*$/gm, ''), /webkitSpeechRecognition/); assert.match(src, /processLocally = true/);
+  for (const f of ['src/voice/companion.mjs', 'src/earth/demo.mjs']) assert.doesNotMatch(read(f), /speechSynthesis|SpeechSynthesisUtterance/i, `${f}: no spoken output`); // V9: no voice narration or read-aloud
   assert.doesNotMatch(src, /\beval\(|new Function|innerHTML = [^`]*\$\{(?!esc)/);
   assert.match(src, /mic\.onclick = \(\) =>/); // the microphone starts only from an explicit press
   const nav = read('src/shell/nav.mjs'); assert.match(nav, /import\('\.\.\/voice\/companion\.mjs'\)/); // loaded only on demand
