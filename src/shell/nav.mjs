@@ -2,12 +2,13 @@
 // navigation. EXPLORE: the world and what is known about it. CREATE: think and develop ideas privately.
 // COLLABORATE: experts, communities, debate and learning (fictional participants for now). MY CORE: identity, avatar,
 // history and privacy. TRUST is always one click away. Deep links keep using the hash: commons.html#<section>?k=v.
+import { PUBLIC } from '../env.mjs';
 import { read } from './journey.mjs';
 import { icon } from '../ui/icons.mjs';
 import { t, T, lang, setLang, apply, LANGS } from '../i18n/i18n.mjs';
 export const GROUPS = [
   { id: 'explore', label: 'Explore', key: 'nav.explore', icon: 'explore', href: 'world.html', primary: true,
-    links: [['world', ['World', 'Monde'], 'world.html'], ['progress-page', ['Progress', 'Progrès'], 'progress.html'], ['intelligence', ['Intelligence (earlier prototype, French only)', 'Intelligence (prototype antérieur)'], 'index.html#app']],
+    links: [['world', ['World', 'Monde'], 'world.html'], ['progress-page', ['Progress', 'Progrès'], 'progress.html'], ...(PUBLIC ? [] : [['intelligence', ['Intelligence (earlier prototype, French only)', 'Intelligence (prototype antérieur)'], 'index.html#app']])],
     sections: [['knowledge', ['Knowledge', 'Connaissances']], ['progress', ['Progress log', 'Journal des progrès']], ['continuity', ['Continuity', 'Continuité']], ['institutions', ['Institutions (demo)', 'Institutions (démo)']]] },
   { id: 'create', label: 'Create', key: 'nav.create', icon: 'create', href: 'dialogue.html',
     links: [['dialogue', ['Dialogue & Studio', 'Dialogue et Studio'], 'dialogue.html']],
@@ -28,7 +29,7 @@ export function render(el, { active }) {
   apply(cur);
   // Four destinations; then one Command entry (search, ask, navigate — also Cmd/Ctrl-K), one clear Demo action,
   // the language, a small "More" menu (Progress, Manifesto, Journey) and TRUST, always visible.
-  el.innerHTML = `<a class="mark" href="world.html" aria-label="CORE — ${esc(t('nav.home'))}"><i class="orb" aria-hidden="true"></i>CORE</a><span class="proto">${esc(t('nav.proto'))}</span>
+  el.innerHTML = `<a class="mark" href="world.html" aria-label="CORE · ${esc(t('nav.home'))}"><i class="orb" aria-hidden="true"></i>CORE</a><span class="proto">${esc(t('nav.proto'))}</span>
     <nav class="le-nav" aria-label="${esc(t('nav.main'))}">${GROUPS.map(x => `<a href="${esc(x.href)}"${g && x.id === g.id ? ' aria-current="page"' : ''}>${icon(x.icon, 16)}<span>${esc(t(x.key))}</span></a>`).join('')}</nav>
     <div class="le-shell-right"><button type="button" class="le-cmp-btn" data-companion title="${esc(t('nav.voice'))}" aria-label="${esc(t('nav.voice'))}">${icon('search', 15)}<span class="le-cmp-txt">${esc(t('nav.command'))}</span><kbd aria-hidden="true">⌘K</kbd></button>
       <a class="le-demo-btn" href="world.html#demo" data-demo>${icon('play', 14)}<span>${esc(t('nav.demoShort'))}</span></a>

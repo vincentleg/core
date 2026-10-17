@@ -25,7 +25,7 @@ export function build(ix, { contributions = [] } = {}) {
       const rid = add(node(`record:${e.ref}`, 'evidence', r.kind === 'sidewalk' ? T(`Sidewalk survey ${r.record_id}`, `Relevé trottoir ${r.record_id}`) : T(`Permit ${r.permit_number || r.record_id}`, `Permis ${r.permit_number || r.record_id}`), { url: e.url, kind: r.kind }));
       link(`problem:${p.id}`, rid, 'cites'); link(rid, `dataset:${e.ref.split(':')[0]}`, 'from-dataset');
     }
-    for (const a of p.assignedAgents || []) { const g = ix.agents.find(x => x.id === a); if (g) link(`problem:${p.id}`, add(node(`agent:${g.id}`, 'agent', `${g.code} — ${g.role}`)), 'assigned-to'); }
+    for (const a of p.assignedAgents || []) { const g = ix.agents.find(x => x.id === a); if (g) link(`problem:${p.id}`, add(node(`agent:${g.id}`, 'agent', `${g.code} · ${g.role}`)), 'assigned-to'); }
     for (const rel of p.related || []) if (ix.problems.some(q => q.id === rel)) link(`problem:${p.id}`, `problem:${rel}`, 'listed-related');
   }
   const bySeg = {}; for (const p of ix.problems) if (p.segment) (bySeg[p.segment] ||= []).push(p.id);

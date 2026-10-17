@@ -36,11 +36,11 @@ export async function run(text) {
   if (p.answer === 'question') {
     const hits = A.answer(cmd.params.question, missions, lang()), mid = hits[0]?.mission || A.suggestMission(cmd.params.question, missions) || 'mission.sf.mobility';
     out.html = hits.length ? `<ul class="cmp-ans">${hits.map(h => `<li>${esc(h.text)} <span class="fine">[${esc(h.id)} · ${esc(h.status)}]</span></li>`).join('')}</ul>` : `<p>${T('No recorded finding answers this. CORE does not answer without evidence.', 'Aucun constat enregistré n’y répond. CORE ne répond pas sans preuve.')}</p>`;
-    out.html += `<p class="fine">${T('These are recorded findings, retrieved by matching words — not a reasoned answer.', 'Ce sont des constats enregistrés, retrouvés par correspondance de mots — pas une réponse raisonnée.')}</p><button type="button" class="small" data-cmp-team="${esc(mid)}">${T('Ask the research team (local model, about a minute)', 'Demander à l’équipe de recherche (modèle local, environ une minute)')}</button>`;
+    out.html += `<p class="fine">${T('These are recorded findings, retrieved by matching words, not a reasoned answer.', 'Ce sont des constats enregistrés, retrouvés par correspondance de mots, pas une réponse raisonnée.')}</p><button type="button" class="small" data-cmp-team="${esc(mid)}">${T('Ask the research team (local model, about a minute)', 'Demander à l’équipe de recherche (modèle local, environ une minute)')}</button>`;
     out.team = { mission: mid, question: cmd.params.question };
   }
   if (p.answer === 'gaps') { const m = missions.find(x => x.id === cmd.params.mission); out.html = m ? `<ul class="cmp-ans">${m.findings.filter(f => f.status === 'gap').map(f => `<li>${esc(L(f.claim))}</li>`).join('') || `<li>${T('No declared gap.', 'Aucune lacune déclarée.')}</li>`}</ul>` : ''; }
-  if (p.answer === 'missions') out.html = `<ul class="cmp-ans">${missions.map(m => `<li><b>${esc(L(m.title))}</b> — <span class="fine">${m.findings.filter(f => f.status !== 'gap').length} ${T('findings', 'constats')}, ${m.findings.filter(f => f.status === 'gap').length} ${T('gaps', 'lacunes')}</span></li>`).join('')}</ul>`;
+  if (p.answer === 'missions') out.html = `<ul class="cmp-ans">${missions.map(m => `<li><b>${esc(L(m.title))}</b>: <span class="fine">${m.findings.filter(f => f.status !== 'gap').length} ${T('findings', 'constats')}, ${m.findings.filter(f => f.status === 'gap').length} ${T('gaps', 'lacunes')}</span></li>`).join('')}</ul>`;
   const W = ctx.world, fn = p.call && W?.[p.call[0]];
   if (fn) { await fn(...p.call.slice(1)); return out; }
   return { ...out, href: p.href || null };

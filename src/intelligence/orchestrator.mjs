@@ -8,6 +8,7 @@ import { ask } from '../kb/knowledge.mjs';
 import { verify, privacyCheck } from './verifier.mjs';
 import { T, lang } from '../i18n/i18n.mjs';
 import { ptext } from '../earth/problem-view.mjs';
+import { PUBLIC } from '../env.mjs';
 
 const PV = (en, fr) => ({ get label() { return T(en[0], fr[0]); }, get kind() { return T(en[1], fr[1]); } });
 export const PROVIDERS = {
@@ -34,10 +35,12 @@ export function buildPrompt(question, evidence, problem, limits = []) {
 // Local model through Ollama's HTTP API on 127.0.0.1 only. Streams tokens to onToken. Never called unless the person
 // switched the provider on; no data leaves the machine.
 export async function ollamaAvailable({ fetchImpl = fetch, endpoint = PROVIDERS.ollama.endpoint } = {}) {
+  if (PUBLIC) return { ok: false, models: [], public: true }; // the public site never probes a visitor's machine
   try { const r = await fetchImpl(`${endpoint}/api/tags`, { signal: AbortSignal.timeout(1500) }); if (!r.ok) return { ok: false, models: [] }; const j = await r.json(); return { ok: true, models: (j.models || []).map(m => m.name) }; }
   catch { return { ok: false, models: [] }; }
 }
 export async function ollamaGenerate(messages, { model, onToken = () => {}, fetchImpl = fetch, endpoint = PROVIDERS.ollama.endpoint, signal } = {}) {
+  if (PUBLIC) throw Error(T('local model disabled on the public site', 'modèle local désactivé sur le site public'));
   const r = await fetchImpl(`${endpoint}/api/chat`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal, body: JSON.stringify({ model, messages, stream: true, think: false, options: { temperature: 0.1, num_predict: 260 } }) });
   if (!r.ok || !r.body) throw Error(T(`local model unavailable (HTTP ${r.status})`, `modèle local indisponible (HTTP ${r.status})`));
   const rd = r.body.getReader(), dec = new TextDecoder(); let buf = '', out = '';

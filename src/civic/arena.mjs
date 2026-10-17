@@ -5,7 +5,7 @@ const B = (en, fr) => ({ en, fr });
 export const ROLES = { spectator: B('Spectator', 'Spectateur'), 'spectator-voter': B('Spectator-voter', 'Spectateur-votant'), participant: B('Participant', 'Participant'), judge: B('Judge', 'Juge') };
 export const CHALLENGE = {
   id: 'arena-fictional-001', fictional: true,
-  label: B('FICTIONAL CHALLENGE — no real place, data or result', 'DÉFI FICTIF — aucun lieu, aucune donnée et aucun résultat réels'),
+  label: B('FICTIONAL CHALLENGE, no real place, data or result', 'DÉFI FICTIF : aucun lieu, aucune donnée et aucun résultat réels'),
   title: B('Cooling a schoolyard in Example Town during heatwaves', 'Rafraîchir une cour d’école à Ville-Exemple pendant les vagues de chaleur'),
   statement: B('Example Town (an imaginary town) has a 1,200 m² schoolyard, asphalted, without shade. Propose an improvement that can be done in one summer, with a fictional budget of €40,000.', 'Ville-Exemple (ville imaginaire) dispose d’une cour d’école de 1 200 m², asphaltée, sans ombre. Proposez une amélioration réalisable en un été, avec un budget fictif de 40 000 €.'),
   rules: [

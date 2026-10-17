@@ -8,7 +8,7 @@ const B = (en, fr) => ({ en, fr });
 const P1 = B('Fictional participant 1', 'Participant·e fictif·ve 1'), P2 = B('Fictional participant 2', 'Participant·e fictif·ve 2');
 export const DEBATE = {
   id: 'debate-folsom-001', fictional: true, problemId: 'sidewalk-below-bsp-min:5665000',
-  label: B('FICTIONAL DEBATE about a real recorded problem — demonstration participants, arguments and judgements', 'DÉBAT FICTIF sur un problème réel enregistré — participants, arguments et jugements de démonstration'),
+  label: B('FICTIONAL DEBATE about a real recorded problem, demonstration participants, arguments and judgements', 'DÉBAT FICTIF sur un problème réel enregistré, participants, arguments et jugements de démonstration'),
   question: B('How can the Folsom St sidewalk between 5th and Falmouth St be made usable?', 'Comment rendre praticable le trottoir de Folsom St entre la 5e et Falmouth St ?'),
   proposals: [
     { id: 'pa', by: P1, title: B('Widen the sidewalk by 2 ft', 'Élargir le trottoir de 2 ft'), summary: B('Take 2 ft from the roadway to reach the 12 ft minimum.', 'Prendre 2 ft sur la chaussée pour atteindre le minimum de 12 ft.') },

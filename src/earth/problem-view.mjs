@@ -25,7 +25,7 @@ const DICT = {
   'Résultat d’un modèle exploratoire ; aucun emplacement réel n’a été vérifié.': 'Output of an exploratory model; no real site has been checked.',
   faible: 'low', moyenne: 'medium', 'élevée': 'high', 'non évaluée': 'not assessed', 'règle déclarée par CORE (non validée)': 'rule declared by CORE (not validated)', 'aucune méthode de sévérité définie pour ce type': 'no severity method defined for this type',
   'aucune : question ouverte': 'none: open question', 'élevée pour le fait enregistré ; actualité non vérifiée': 'high for the recorded fact; currency not verified', 'moyenne : motif administratif, impact non mesuré': 'medium: administrative pattern, impact not measured', 'faible : modèle non calibré': 'low: uncalibrated model',
-  'aucune décision humaine enregistrée': 'no human decision recorded', 'aucun outil CORE ne peut y répondre': 'no CORE tool can answer it', 'analysé — preuves supplémentaires requises': 'analysed — more evidence required', 'analysé — revue humaine requise': 'analysed — human review required',
+  'aucune décision humaine enregistrée': 'no human decision recorded', 'aucun outil CORE ne peut y répondre': 'no CORE tool can answer it', 'analysé — preuves supplémentaires requises': 'analysed, more evidence required', 'analysé — revue humaine requise': 'analysed: human review required',
   'ÉLIGIBLE À LA REVUE HUMAINE': 'ELIGIBLE FOR HUMAN REVIEW', 'PREUVES SUPPLÉMENTAIRES REQUISES': 'MORE EVIDENCE REQUIRED', 'proposition (non vérifiée)': 'proposal (not verified)',
   'Scénarios de coordination S1–S4 calculés par le laboratoire déterministe (non validés sur le terrain)': 'Coordination scenarios S1–S4 computed by the deterministic lab (not validated on site)',
   'Alternative A3 de la simulation : planter après les travaux (simulé, non calibré)': 'Simulation alternative A3: plant after the works (simulated, uncalibrated)', 'Regroupement des fenêtres de travaux (scénarios S1–S4, non validés)': 'Grouping of works windows (scenarios S1–S4, not validated)',
@@ -47,7 +47,7 @@ const TEMPLATES = [
   [/^(\d+) permis concernés(?:, (\d+) organisations)?(?:, (\d+) jour\(s\) de chevauchement cumulé)?\.$/, (n, o, d) => `${n} permit(s) involved${o ? `, ${o} organisations` : ''}${d ? `, ${d} day(s) of cumulative overlap` : ''}.`],
   [/^(\d+) emplacement\(s\) simulé\(s\) à reporter \(modèle (.+), non calibré, empreinte (\w+)\)\.$/, (n, mo, f) => `${n} simulated site(s) to postpone (model ${mo}, uncalibrated, fingerprint ${f}).`],
   [/^(\d+) jour\(s\) de chevauchement cumulé \(≥ 60 élevée, ≥ 14 moyenne\)$/, d => `${d} day(s) of cumulative overlap (≥ 60 high, ≥ 14 medium)`],
-  [/^(\d+) emplacement\(s\) simulé\(s\) \(≥ 5 moyenne\) — simulation non calibrée$/, n => `${n} simulated site(s) (≥ 5 medium) — uncalibrated simulation`],
+  [/^(\d+) emplacement\(s\) simulé\(s\) \(≥ 5 moyenne\) — simulation non calibrée$/, n => `${n} simulated site(s) (≥ 5 medium): uncalibrated simulation`],
   [/^écart au minimum BSP : (\d+(?:[.,]\d+)?) ft \(≥ 3 ft élevée, ≥ 1 ft moyenne\)$/, d => `gap to the BSP minimum: ${d} ft (≥ 3 ft high, ≥ 1 ft medium)`],
 ];
 // French registry text → selected language.
@@ -73,7 +73,7 @@ export function reviewSteps(p) {
   return [
     [T('Recorded from a public source', 'Enregistré depuis une source publique'), true, p.asOf ? T(`snapshot of ${p.asOf.slice(0, 10)}`, `instantané du ${p.asOf.slice(0, 10)}`) : ''],
     [T('Analysed by CORE agents', 'Analysé par les agents CORE'), !!inv.task, inv.label ? ptext(inv.label) : T('no analysis recorded', 'aucune analyse enregistrée')],
-    [T('Human review', 'Revue humaine'), false, inv.state === 'awaiting-human' ? T('waiting — no verified human reviewer exists yet', 'en attente — aucun relecteur humain vérifié n’existe encore') : T('not started', 'non commencée')],
+    [T('Human review', 'Revue humaine'), false, inv.state === 'awaiting-human' ? T('waiting: no verified human reviewer exists yet', 'en attente : aucun relecteur humain vérifié n’existe encore') : T('not started', 'non commencée')],
     [T('Decision', 'Décision'), false, ptext(p.humanDecision || 'aucune décision humaine enregistrée')],
   ];
 }
@@ -84,7 +84,7 @@ export function problemHTML(p, { sidewalk = null, journey = null, count = 1 } = 
       <span class="le-eyebrow">${T('What was measured', 'Ce qui a été mesuré')}</span>
       <div class="le-row" style="justify-content:space-between;align-items:baseline"><span class="v">${esc(mt.width_ft)} ft <small class="fine">(${m(mt.width_ft)})</small></span><span class="fine">minimum ${esc(mt.min_ft)} ft (${m(mt.min_ft)})${sidewalk?.recommended_ft ? ` · ${T('recommended', 'recommandé')} ${esc(sidewalk.recommended_ft)} ft` : ''}</span></div>
       <div class="le-meter" role="img" aria-label="${T(`Measured width ${esc(mt.width_ft)} feet against a minimum of ${esc(mt.min_ft)} feet`, `Largeur mesurée ${esc(mt.width_ft)} pieds sur un minimum de ${esc(mt.min_ft)} pieds`)}"><i style="width:${Math.min(100, (mt.width_ft / Math.max(mt.min_ft, sidewalk?.recommended_ft || mt.min_ft)) * 100).toFixed(1)}%"></i><u style="left:${((mt.min_ft / Math.max(mt.min_ft, sidewalk?.recommended_ft || mt.min_ft)) * 100).toFixed(1)}%" data-l="min."></u></div>
-      <p class="src" style="margin-top:14px">${p.evidence.map(e => `<a href="${esc(safeUrl(e.url))}" target="_blank" rel="noopener noreferrer">${icon('external', 13)} DataSF · ${esc(e.ref)}</a>`).join(' · ')} — ${T('San Francisco sidewalk survey (2014)', 'étude des trottoirs de San Francisco (2014)')}</p></div>` : `<div class="le-evidence"><span class="le-eyebrow">${T('Evidence', 'Preuves')}</span><p>${esc(ptext(p.statement))}</p><p class="src">${p.evidence.map(e => `<a href="${esc(safeUrl(e.url))}" target="_blank" rel="noopener noreferrer">${esc(e.ref)}</a>`).join(' · ')}</p></div>`;
+      <p class="src" style="margin-top:14px">${p.evidence.map(e => `<a href="${esc(safeUrl(e.url))}" target="_blank" rel="noopener noreferrer">${icon('external', 13)} DataSF · ${esc(e.ref)}</a>`).join(' · ')} · ${T('San Francisco sidewalk survey (2014)', 'étude des trottoirs de San Francisco (2014)')}</p></div>` : `<div class="le-evidence"><span class="le-eyebrow">${T('Evidence', 'Preuves')}</span><p>${esc(ptext(p.statement))}</p><p class="src">${p.evidence.map(e => `<a href="${esc(safeUrl(e.url))}" target="_blank" rel="noopener noreferrer">${esc(e.ref)}</a>`).join(' · ')}</p></div>`;
   return `<header class="pp-head">
     <div class="le-row"><span class="le-badge" data-s="${esc(st)}">${esc(statusLabel(st))}</span><span class="fine">${esc(T(...(HELP[st] || ['', ''])))}</span></div>
     <h2 id="pp-title">${esc(ptext(p.title))}</h2>

@@ -62,8 +62,8 @@ export function contest(idea, { reviewIndex, reason, actor, at = new Date().toIS
 // ---------- V6: from idea to a review-ready research dossier (deterministic; never a validation) ----------
 const lines = (t, re) => String(t || '').split('\n').map(x => x.trim()).filter(x => re.test(x)).map(x => x.replace(re, '').replace(/^[-•]\s*/, '').trim()).filter(Boolean);
 function listUnder(text, header) { const m = String(text || '').split(new RegExp(`\\n${header} :\\n`))[1]; return m ? m.split('\n').filter(l => l.startsWith('- ')).map(l => l.slice(2)) : []; }
-export const DOSSIER_LEVELS = { draft: 'Brouillon', incomplete: 'Incomplet', ready: 'Prêt à être relu — NON validé' };
-const LEVELS_EN = { draft: 'Draft', incomplete: 'Incomplete', ready: 'Ready for review — NOT validated' };
+export const DOSSIER_LEVELS = { draft: 'Brouillon', incomplete: 'Incomplet', ready: 'Prêt à être relu : NON validé' };
+const LEVELS_EN = { draft: 'Draft', incomplete: 'Incomplete', ready: 'Ready for review, NOT validated' };
 
 // problem: the CORE problem record (or null); sidewalk: the sidewalk dataset record for that segment (or null).
 export function dossier(idea, { problem = null, sidewalk = null } = {}) {
@@ -94,7 +94,7 @@ export function dossier(idea, { problem = null, sidewalk = null } = {}) {
   const level = !proposal || !mechanism ? 'draft' : missing.length ? 'incomplete' : 'ready';
   return {
     method: { ...METHOD, part: 'dossier' }, idea: idea.id, version: v.n, hash: v.hash, level, levelLabel: T(LEVELS_EN[level], DOSSIER_LEVELS[level]),
-    problemStatement: problem ? T(`${problem.title} — ${problem.place}. ${problem.statement} (status: ${problem.status}).`, `${problem.title} — ${problem.place}. ${problem.statement} (statut : ${problem.status}).`) : v.problem,
+    problemStatement: problem ? T(`${problem.title} · ${problem.place}. ${problem.statement} (status: ${problem.status}).`, `${problem.title} · ${problem.place}. ${problem.statement} (statut : ${problem.status}).`) : v.problem,
     hypothesis: T(`If “${proposal}” is implemented${mechanism ? `, then ${mechanism.replace(/^(afin de|pour que|parce que|car|so that|because)\s*/i, '')}` : ''}${tests.length ? `; this would be checked by: ${tests[0]}` : '; (verification method to define)'}.`, `Si l’on met en œuvre « ${proposal} »${mechanism ? `, alors ${mechanism.replace(/^(afin de|pour que|parce que|car)\s*/i, '')}` : ''}${tests.length ? ` ; cela se vérifierait par : ${tests[0]}` : ' ; (méthode de vérification à définir)'}.`),
     assumptions, evidence, alternatives: alternatives.length ? alternatives : [T('to specify (including “do nothing”)', 'à préciser (dont « ne rien faire »)')], risks: risks.length ? risks : [T('to identify', 'à identifier')], constraints,
     validationPlan: [T(`Dated baseline measurement before any intervention${problem ? ` on ${problem.place}` : ''}`, `Mesure de référence datée avant toute intervention${problem ? ` sur ${problem.place}` : ''}`), ...(tests.length ? tests : [T('Indicator and measurement method to define', 'Indicateur et méthode de mesure à définir')]), T('Pre-register success and failure thresholds before measuring (FD07)', 'Préenregistrer seuils de succès et d’échec avant la mesure (FD07)'), T('Review by a competent, independent person', 'Relecture par une personne compétente et indépendante')],
@@ -106,8 +106,8 @@ export function dossier(idea, { problem = null, sidewalk = null } = {}) {
   };
 }
 export function dossierMarkdown(x) {
-  const L = (h, a) => [`## ${h}`, ...a.map(i => `- ${typeof i === 'string' ? i : i.label || `${i.ref}${i.url ? ` (${i.url})` : ''} — ${i.basis}`}`), ''];
-  return [T(`# CORE Labs dossier — idea ${x.idea}, version ${x.version}`, `# Dossier CORE Labs — idée ${x.idea}, version ${x.version}`), '', T(`Level: ${x.levelLabel}. ${x.disclaimer}`, `Niveau : ${x.levelLabel}. ${x.disclaimer}`), T(`Version fingerprint: ${x.hash}`, `Empreinte de la version : ${x.hash}`), '', T('## Problem', '## Problème'), x.problemStatement, '', T('## Testable hypothesis', '## Hypothèse testable'), x.hypothesis, '',
+  const L = (h, a) => [`## ${h}`, ...a.map(i => `- ${typeof i === 'string' ? i : i.label || `${i.ref}${i.url ? ` (${i.url})` : ''} · ${i.basis}`}`), ''];
+  return [T(`# CORE Labs dossier: idea ${x.idea}, version ${x.version}`, `# Dossier CORE Labs : idée ${x.idea}, version ${x.version}`), '', T(`Level: ${x.levelLabel}. ${x.disclaimer}`, `Niveau : ${x.levelLabel}. ${x.disclaimer}`), T(`Version fingerprint: ${x.hash}`, `Empreinte de la version : ${x.hash}`), '', T('## Problem', '## Problème'), x.problemStatement, '', T('## Testable hypothesis', '## Hypothèse testable'), x.hypothesis, '',
     ...L(T('Underlying assumptions', 'Hypothèses sous-jacentes'), x.assumptions), ...L(T('Evidence', 'Preuves'), x.evidence), ...L(T('Alternatives', 'Alternatives'), x.alternatives), ...L(T('Risks', 'Risques'), x.risks), ...L(T('Validation plan', 'Plan de validation'), x.validationPlan), ...L(T('Prototype plan', 'Plan de prototype'), x.prototypePlan),
-    ...L(T('Success indicators', 'Indicateurs de succès'), x.successMetrics), ...L(T('Failure criteria', 'Critères d’échec'), x.failureCriteria), T('## Calculation', '## Calcul'), x.calculation.available ? `${JSON.stringify(x.calculation.result)} — ${x.calculation.note}` : x.calculation.note, '', ...L(T('Missing evidence', 'Preuves manquantes'), x.missingEvidence)].join('\n');
+    ...L(T('Success indicators', 'Indicateurs de succès'), x.successMetrics), ...L(T('Failure criteria', 'Critères d’échec'), x.failureCriteria), T('## Calculation', '## Calcul'), x.calculation.available ? `${JSON.stringify(x.calculation.result)} · ${x.calculation.note}` : x.calculation.note, '', ...L(T('Missing evidence', 'Preuves manquantes'), x.missingEvidence)].join('\n');
 }

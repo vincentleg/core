@@ -19,9 +19,9 @@ export function assertAllowed(p) {
   return p;
 }
 const STATUS_BI = {
-  observed: ['OBSERVED — read directly from a public registry', 'OBSERVÉ — lu directement dans un registre public'], 'potential-risk': ['POTENTIAL RISK — pattern detected by a rule, not confirmed', 'RISQUE POTENTIEL — motif détecté par une règle, non confirmé'],
-  hypothesis: ['HYPOTHESIS — open question without evidence', 'HYPOTHÈSE — question ouverte sans preuve'], simulated: ['SIMULATED — output of an uncalibrated model', 'SIMULÉ — sortie d’un modèle non calibré'],
-  'dataset-record': ['RECORD — row of a public dataset', 'ENREGISTREMENT — ligne d’un jeu de données public'], count: ['COUNT — computed on the registry', 'COMPTE — calculé sur le registre'], 'agent-record': ['PROFILE — agent registry', 'PROFIL — registre des agents'],
+  observed: ['OBSERVED: read directly from a public registry', 'OBSERVÉ : lu directement dans un registre public'], 'potential-risk': ['POTENTIAL RISK: pattern detected by a rule, not confirmed', 'RISQUE POTENTIEL : motif détecté par une règle, non confirmé'],
+  hypothesis: ['HYPOTHESIS: open question without evidence', 'HYPOTHÈSE : question ouverte sans preuve'], simulated: ['SIMULATED: output of an uncalibrated model', 'SIMULÉ : sortie d’un modèle non calibré'],
+  'dataset-record': ['RECORD: row of a public dataset', 'ENREGISTREMENT : ligne d’un jeu de données public'], count: ['COUNT: computed on the registry', 'COMPTE : calculé sur le registre'], 'agent-record': ['PROFILE: agent registry', 'PROFIL : registre des agents'],
 };
 // Read in the current language at access time; keys stay the scientific statuses.
 export const STATUS = new Proxy(STATUS_BI, { get: (o, k) => (o[k] ? T(...o[k]) : undefined) });
@@ -75,7 +75,7 @@ function match(ix, q) {
 }
 const uncertaintyOf = (ix, p) => [p.caveat && ptext(p.caveat), p.confidence && T(`Confidence: ${ptext(p.confidence)}.`, `Confiance : ${p.confidence}.`), T(`Snapshot of ${String(p.asOf).slice(0, 10)}.`, `Instantané du ${String(p.asOf).slice(0, 10)}.`)].filter(Boolean);
 function problemClaim(ix, p) {
-  return { text: `${ptext(p.title)} — ${p.place}. ${ptext(p.statement)}`, status: p.status, citations: [cite(ix, 'problems', p.id), ...p.evidence.slice(0, 3).map(e => cite(ix, e.ref.split(':')[0] === 'sidewalks' ? 'sidewalks' : 'permits', e.ref, e.url))] };
+  return { text: `${ptext(p.title)} · ${p.place}. ${ptext(p.statement)}`, status: p.status, citations: [cite(ix, 'problems', p.id), ...p.evidence.slice(0, 3).map(e => cite(ix, e.ref.split(':')[0] === 'sidewalks' ? 'sidewalks' : 'permits', e.ref, e.url))] };
 }
 
 export async function ask(question, ix, { history = [] } = {}) {
@@ -100,7 +100,7 @@ export async function ask(question, ix, { history = [] } = {}) {
         uncertainty: uncertaintyOf(ix, p) };
     } else if (AGENT.test(q)) {
       const p = found[0], ag = (p.assignedAgents || []).map(id => ix.agents.find(a => a.id === id)).filter(Boolean).slice(0, 5);
-      out = ag.length ? { kind: 'answer', question: s.text, method: METHOD, claims: [problemClaim(ix, p), ...ag.map(a => ({ text: T(`${a.code} — ${a.en?.role || a.role} (execution: ${a.executionMode}, permission: ${a.permission}).`, `${a.code} — ${a.role} (exécution : ${a.executionMode}, permission : ${a.permission}).`), status: 'agent-record', citations: [cite(ix, 'agents', a.id)] }))], uncertainty: [T('An assignment is work routing, not a verified competence (“declared competence”).', 'Une affectation est un routage de travail, pas une compétence vérifiée (« compétence déclarée »).')] }
+      out = ag.length ? { kind: 'answer', question: s.text, method: METHOD, claims: [problemClaim(ix, p), ...ag.map(a => ({ text: T(`${a.code} · ${a.en?.role || a.role} (execution: ${a.executionMode}, permission: ${a.permission}).`, `${a.code} · ${a.role} (exécution : ${a.executionMode}, permission : ${a.permission}).`), status: 'agent-record', citations: [cite(ix, 'agents', a.id)] }))], uncertainty: [T('An assignment is work routing, not a verified competence (“declared competence”).', 'Une affectation est un routage de travail, pas une compétence vérifiée (« compétence déclarée »).')] }
         : refusal(s.text, 'no-record', T('No agent is registered for this problem.', 'Aucun agent n’est enregistré pour ce problème.'));
     } else if (EVIDENCE.test(q)) {
       const p = found[0], recs = p.evidence.map(e => [e, ix.records.get(e.ref)]).filter(([, r]) => r);

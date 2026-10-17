@@ -28,10 +28,10 @@ export function earthIndicators({ energy, sidewalks }) {
   const sw = sidewalks.features.map(f => f.properties).filter(p => Number.isFinite(p.width_ft) && Number.isFinite(p.min_width_ft));
   return [
     indicator({ id: 'energy-eui', domain: B('Energy', 'Énergie'), label: B('Median energy use intensity of reporting buildings', 'Intensité énergétique médiane des bâtiments déclarants'), value: median(eui.map(p => p.site_eui)), unit: B('kBtu/ft²/year (site EUI)', 'kBtu/pi²/an (site EUI)'),
-      n: eui.length, source: 'SF Environment — Existing Buildings Energy Performance Ordinance (DataSF 96ck-qcfe)', url: 'https://data.sf.gov/d/96ck-qcfe', period: B(`reporting year ${years.join(', ')}`, `année de déclaration ${years.join(', ')}`),
+      n: eui.length, source: 'SF Environment: Existing Buildings Energy Performance Ordinance (DataSF 96ck-qcfe)', url: 'https://data.sf.gov/d/96ck-qcfe', period: B(`reporting year ${years.join(', ')}`, `année de déclaration ${years.join(', ')}`),
       method: B('median of reported values, Folsom–Howard corridor buildings only', 'médiane des valeurs déclarées, bâtiments du corridor Folsom–Howard seulement'), uncertainty: B('self-reported by owners; corridor sample, not representative of the city', 'auto-déclaration des propriétaires ; échantillon du corridor, non représentatif de la ville'), scope: B('CORE laboratory corridor', 'corridor laboratoire CORE') }),
     indicator({ id: 'sidewalk-bsp', domain: B('Accessibility', 'Accessibilité'), label: B('Segments whose sidewalk is below the Better Streets Plan minimum', 'Tronçons dont le trottoir est sous le minimum du Better Streets Plan'), value: sw.filter(p => p.width_ft < p.min_width_ft).length, unit: B(`of ${sw.length} surveyed segments`, `sur ${sw.length} tronçons relevés`),
-      n: sw.length, source: 'DataSF — Sidewalk widths (4g86-grxu)', url: 'https://data.sf.gov/d/4g86-grxu', period: B('2014 survey', 'étude de 2014'),
+      n: sw.length, source: 'DataSF: Sidewalk widths (4g86-grxu)', url: 'https://data.sf.gov/d/4g86-grxu', period: B('2014 survey', 'étude de 2014'),
       method: B('surveyed width compared with the BSP class minimum', 'comparaison largeur relevée / minimum de la classe BSP'), uncertainty: B('2014 measurements, possibly outdated; a design rule, not an accessibility standard', 'mesures de 2014, peut-être obsolètes ; règle de conception, pas norme d’accessibilité'), scope: B('CORE laboratory corridor', 'corridor laboratoire CORE') }),
   ];
 }

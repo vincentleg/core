@@ -1,4 +1,4 @@
-# CORE — Investor product brief
+# CORE: Investor product brief
 
 *V9, October 2026. Local prototype; not deployed; no users, customers, revenue, partnerships or measured impact. Every capability listed under "Working today" runs in the repository and is covered by tests or a recorded browser audit; everything else is labelled as a hypothesis or a plan.*
 

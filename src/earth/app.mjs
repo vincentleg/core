@@ -3,6 +3,7 @@
 // together (Hybrid View). Missions, evidence, recorded simulations, contributions and the guided demo are reached from
 // here. Nothing is transmitted: avatar, journey, contributions and investigations stay in this browser. English by
 // default; every visible string is English/French (src/i18n), and the page re-renders when the language changes.
+import { PUBLIC } from '../env.mjs';
 import * as maplibregl from '../../assets/vendor/maplibre-gl-6.11.2/maplibre-gl.mjs';
 import { livingEarthStyle } from './style.mjs';
 import { problemHTML, humanPlace, statusLabel, ptext, esc } from './problem-view.mjs';
@@ -178,7 +179,7 @@ async function enterHuman() {
     await fly(camFor(), 2600);
     S.buildings = S.scene.refreshBuildings(); S.humanReady = true;
     S.scene.state.onFrame = tick; J.mark('world', { problemId: FLAGSHIP });
-    toast(T('You are on Folsom Street, in SoMa. The holograms around you are CORE software agents at work — not people.', 'Vous êtes sur Folsom Street, dans SoMa. Les hologrammes autour de vous sont des agents logiciels CORE au travail — pas des personnes.'));
+    toast(T('You are on Folsom Street, in SoMa. The holograms around you are CORE software agents at work, not people.', 'Vous êtes sur Folsom Street, dans SoMa. Les hologrammes autour de vous sont des agents logiciels CORE au travail, pas des personnes.'));
   } catch (err) {
     console.error(err); toast(T(`The 3D view could not start (${err.message}). The map and panels remain available.`, `La vue 3D n’a pas pu démarrer (${err.message}). La carte et les panneaux restent disponibles.`));
   } finally { $('ea-human').disabled = false; $('ea-human').textContent = T('Walk at street level', 'Descendre à hauteur humaine'); }
@@ -224,7 +225,7 @@ function tick(dt) {
   S.crowd?.update(dt, reduced());
   const nb = S.layer?.mode !== 'real' ? S.crowd?.nearest(S.pos) : null, near = nb && (nb.d < 6 || (nb.id === S.nearAgent && nb.d < 12)) ? nb.id : null;
   if (near !== S.nearAgent) { S.nearAgent = near; $('ea-talk').disabled = !near; $('ea-talk').textContent = talkLabel(); const a = near && S.civ.byId.get(near);
-    if (a) toast(`${a.code} — ${AT(a, 'role')}: ${L(S.civ.activity(near).label)}. ${T('(E to open its card)', '(E pour ouvrir sa fiche)')}`); }
+    if (a) toast(`${a.code} · ${AT(a, 'role')}: ${L(S.civ.activity(near).label)}. ${T('(E to open its card)', '(E pour ouvrir sa fiche)')}`); }
   S.map.jumpTo(camFor());
 }
 
@@ -266,7 +267,7 @@ const LAYER_KEY = 'core.world.layer', INTRO_KEY = 'core.layerintro.v1';
 const LAYER_TEXT = {
   real: [['Real Earth', 'Terre réelle'], ['The physical planet: real geography, public data and the problems recorded from it. Markers are coloured by level of evidence: observed, potential risk, hypothesis.', 'La planète physique : géographie réelle, données publiques et problèmes enregistrés à partir d’elles. Les marqueurs sont colorés selon le niveau de preuve : observé, risque potentiel, hypothèse.']],
   agents: [['CORE World', 'Monde CORE'], ['The parallel research civilisation: holographic software agents (not people), their teams, mission centres and the work flowing between them. Bright = assigned to a task; dim = idle. It is a working environment, not a second physical city.', 'La civilisation de recherche parallèle : des agents logiciels holographiques (pas des personnes), leurs équipes, leurs centres de mission et le travail qui circule entre eux. Lumineux = affecté à une tâche ; sombre = inactif. C’est un environnement de travail, pas une seconde ville physique.']],
-  hybrid: [['Hybrid View', 'Vue hybride'], ['Both together: see where the agents work on physical-world problems — at the evidence, around Folsom Street, in virtual meeting points.', 'Les deux ensemble : voyez où les agents travaillent sur des problèmes du monde physique — près des preuves, autour de Folsom Street, à des points de réunion virtuels.']] };
+  hybrid: [['Hybrid View', 'Vue hybride'], ['Both together: see where the agents work on physical-world problems, at the evidence, around Folsom Street, in virtual meeting points.', 'Les deux ensemble : voyez où les agents travaillent sur des problèmes du monde physique : près des preuves, autour de Folsom Street, à des points de réunion virtuels.']] };
 function layerIntro(m, force = false) {
   let seen = []; try { seen = JSON.parse(localStorage.getItem(INTRO_KEY) || '[]'); } catch {}
   if (!force && seen.includes(m)) return;
@@ -312,7 +313,7 @@ function problemsHTML() {
   const counts = ORDER.map(c => [c, all.filter(m => (m.category || 'exploratory') === c).length]);
   return `<header class="pp-head"><p class="le-eyebrow">${T('Problem intelligence · San Francisco', 'Intelligence des problèmes · San Francisco')}</p><h2 id="pp-title">${T('Problems & missions', 'Problèmes et missions')}</h2>
     <p class="pp-lede">${T('Each mission is one real problem, investigated by a team of CORE agents on dated public data. Choose one to see the evidence, the agents’ work and how you can help.', 'Chaque mission est un problème réel, examiné par une équipe d’agents CORE sur des données publiques datées. Choisissez-en une pour voir les preuves, le travail des agents et comment vous pouvez aider.')}</p>
-    <p class="fine">${counts.map(([c, n]) => `${n} · ${E(CATEGORY[c])}`).join(' — ')}. ${T('San Francisco is the first city: the same method is designed for any place with open data.', 'San Francisco est la première ville : la même méthode est conçue pour tout lieu doté de données ouvertes.')}</p></header>
+    <p class="fine">${counts.map(([c, n]) => `${n} · ${E(CATEGORY[c])}`).join(': ')}. ${T('San Francisco is the first city: the same method is designed for any place with open data.', 'San Francisco est la première ville : la même méthode est conçue pour tout lieu doté de données ouvertes.')}</p></header>
     ${byDomain.map(([d, ms]) => `<div class="pp-sec cv-domain"><h3>${E(DOMAINS[d])}</h3><ul class="cv-mlist">${ms.sort((a, b) => ORDER.indexOf(a.category) - ORDER.indexOf(b.category)).map(m => { const st = R.S.missions[m.id];
       return `<li><button type="button" class="cv-mbtn" data-mission="${esc(m.id)}"><span class="le-badge cv-cat" data-cat="${esc(m.category || 'exploratory')}">${E(CATEGORY[m.category || 'exploratory'])}</span><b>${m.flagship ? '★ ' : ''}${E(m.title)}</b><span class="fine">${E(m.why || m.question)}</span><span class="fine">${m.findings.filter(f => f.status !== 'gap').length} ${T('findings', 'constats')} · ${m.findings.filter(f => f.status === 'gap').length} ${T('gaps', 'lacunes')} · ${m.simulation ? T('recorded simulation', 'simulation enregistrée') : T('no simulation', 'pas de simulation')} · ${esc(CP.stage(st.stage))}</span></button></li>`; }).join('')}</ul></div>`).join('')}
     <div class="pp-sec"><p><button type="button" class="small" data-activity="1">${T('See all agent activity', 'Voir toute l’activité des agents')}</button> <button type="button" class="small" data-hierarchy="1">${T('How the agents are organised', 'Organisation des agents')}</button></p></div>`;
@@ -349,7 +350,7 @@ function followAgent(id) { if (!S.civ?.byId.has(id)) return; revealMap(); if (S.
 // ---------- ask the research team (real multi-agent investigation) ----------
 const ROLE_NAME = { coordinator: ['Coordinator', 'Coordination'], evidence: ['Evidence researcher', 'Recherche de preuves'], analyst: ['Domain analyst', 'Analyse du domaine'], simulation: ['Simulation specialist', 'Spécialiste de la simulation'], critic: ['Scientific critic', 'Critique scientifique'], synthesis: ['Synthesis', 'Synthèse'] };
 const PROV = s => s.provenance === 'local-model' ? T(`local model${s.model ? ` (${s.model})` : ''}`, `modèle local${s.model ? ` (${s.model})` : ''}`) : s.tool === 'verifier' ? T('deterministic verifier', 'vérificateur déterministe') : T('deterministic tool', 'outil déterministe');
-const SSTAT = { validated: ['validated', 'validé'], rejected: ['rejected by validation', 'écarté par la validation'], unavailable: ['not run — local model unavailable', 'non exécuté — modèle local indisponible'], done: ['done', 'fait'], 'not-applicable': ['not applicable', 'sans objet'], passed: ['no issue found', 'aucun problème trouvé'], flagged: ['issues flagged', 'problèmes signalés'], skipped: ['skipped (no analysis)', 'ignoré (pas d’analyse)'] };
+const SSTAT = { validated: ['validated', 'validé'], rejected: ['rejected by validation', 'écarté par la validation'], unavailable: ['not run: local model unavailable', 'non exécuté : modèle local indisponible'], done: ['done', 'fait'], 'not-applicable': ['not applicable', 'sans objet'], passed: ['no issue found', 'aucun problème trouvé'], flagged: ['issues flagged', 'problèmes signalés'], skipped: ['skipped (no analysis)', 'ignoré (pas d’analyse)'] };
 function stepHTML(s) {
   const o = s.output || {}, a = s.agent && S.civ?.byId.get(s.agent);
   const body = s.status === 'unavailable' ? '' : s.role === 'coordinator' ? (o.subquestions || []).map(q => esc(q.question)).join('<br>')
@@ -357,10 +358,23 @@ function stepHTML(s) {
     : s.role === 'simulation' ? (o.scenarios ? o.scenarios.map(x => `${esc(x.id)}: ${T('car', 'voiture')} ${x.carDelay[0]}±${x.carDelay[1]} s, ${T('bus', 'bus')} ${x.busTravelTime[0]}±${x.busTravelTime[1]} s`).join(' · ') : esc(T('No simulation exists for this mission.', 'Aucune simulation n’existe pour cette mission.')))
     : s.role === 'analyst' ? (o.points || []).map(p => `${esc(p.text)} <span class="fine">[${p.cites.map(esc).join(', ')}]</span>`).join('<br>')
     : s.role === 'critic' && s.tool === 'verifier' ? ((o.issues || []).map(esc).join('<br>') || esc(T('No unsupported number, overclaim or within-noise effect found.', 'Aucun chiffre non étayé, affirmation excessive ni effet dans le bruit trouvé.')))
-    : s.role === 'critic' ? (o.objections || []).map(x => `<i>${esc(x.kind)}</i> — ${esc(x.text)}`).join('<br>')
+    : s.role === 'critic' ? (o.objections || []).map(x => `<i>${esc(x.kind)}</i> · ${esc(x.text)}`).join('<br>')
     : esc(o.summary || '');
   return `<li class="inv-step" data-status="${esc(s.status)}"><div class="inv-h"><b>${esc(T(...ROLE_NAME[s.role]))}${s.tool === 'verifier' ? ` · ${T('verifier', 'vérificateur')}` : ''}</b><span class="le-badge" data-s="${s.provenance === 'local-model' ? 'local-model' : 'info'}">${esc(PROV(s))}</span><span class="fine">${esc(T(...(SSTAT[s.status] || [s.status, s.status])))}${s.ms ? ` · ${(s.ms / 1000).toFixed(1)} s` : ''}</span></div>
     ${a ? `<span class="fine">${T('Agent', 'Agent')} <a href="#" data-agent="${esc(a.id)}">${esc(a.code)}</a> · ${esc(AT(a, 'role'))}</span>` : ''}${body ? `<div class="inv-b">${body}</div>` : ''}${s.issues?.length && s.status !== 'unavailable' ? `<p class="fine cmp-err">${s.issues.map(esc).join('; ')}</p>` : ''}</li>`;
+}
+// Public site: no live model. A real run recorded on a local computer (scripts/investigate.mjs --out) can be replayed.
+const RECORDED = { 'mission.sf.mobility': 'data/investigations/mobility-folsom.json' };
+const UNAVAIL = () => (PUBLIC ? T('Local AI reasoning is unavailable on this public site: live inference runs only on a computer with a local model. Recorded research and deterministic tools remain accessible.', 'Le raisonnement local par IA est indisponible sur ce site public : l’inférence en direct ne fonctionne que sur un ordinateur doté d’un modèle local. La recherche enregistrée et les outils déterministes restent accessibles.')
+  : T('Local AI reasoning is unavailable. Recorded research and deterministic tools remain accessible.', 'Le raisonnement local par IA est indisponible. La recherche enregistrée et les outils déterministes restent accessibles.'));
+const answerHTML = a => `<div class="pp-sec inv-answer"><h3>${T('Draft answer: unreviewed, written by the local model', 'Réponse provisoire : non revue, écrite par le modèle local')}</h3><p>${esc(a.summary)}</p><p class="fine">${T('Established (finding ids)', 'Établi (identifiants de constats)')}: ${a.established.map(esc).join(', ') || '—'}<br>${T('Uncertain', 'Incertain')}: ${a.uncertain.map(esc).join(' · ') || '—'}</p></div>`;
+async function showRecorded(mid) {
+  const url = RECORDED[mid]; if (!url) return;
+  try { const r = await fetch(url); if (!r.ok) throw Error(`HTTP ${r.status}`); const rec = await r.json();
+    $('inv-state').textContent = T(`Recorded run, replayed: produced on ${rec.startedAt.slice(0, 10)} by ${rec.model} on a local computer in ${Math.round(rec.ms / 1000)} s. This is a replay, not live inference.`, `Exécution enregistrée, rejouée : produite le ${rec.startedAt.slice(0, 10)} par ${rec.model} sur un ordinateur local en ${Math.round(rec.ms / 1000)} s. C’est une relecture, pas une inférence en direct.`);
+    $('inv-q').value = rec.question; $('inv-steps').innerHTML = rec.steps.map(stepHTML).join('');
+    $('inv-out').innerHTML = rec.answer ? answerHTML(rec.answer) : ''; S.recordedInvestigation = { mission: mid, steps: rec.steps.length, model: rec.model };
+  } catch (err) { $('inv-state').textContent = `${T('Recorded run unavailable', 'Exécution enregistrée indisponible')}: ${err.message}`; }
 }
 function showInvestigate(mid, preset = '') {
   const m = S.civ?.M.get(mid); if (!m) return;
@@ -370,20 +384,21 @@ function showInvestigate(mid, preset = '') {
     <p class="fine">${T('Six roles work on your question: a coordinator, an evidence researcher, a domain analyst, a simulation specialist, a scientific critic and a synthesis agent. Four use the local language model on this computer (if one runs, ~1 minute); the others are deterministic tools. Model text is in English and is never accepted without validation. Your question stays in this browser.', 'Six rôles travaillent sur votre question : coordination, recherche de preuves, analyse du domaine, spécialiste de la simulation, critique scientifique et synthèse. Quatre utilisent le modèle de langage local de cet ordinateur (s’il tourne, ~1 minute) ; les autres sont des outils déterministes. Le texte du modèle est en anglais et n’est jamais accepté sans validation. Votre question reste dans ce navigateur.')}</p></header>
     <form class="form" id="inv-form"><label>${T('Your question', 'Votre question')} <textarea id="inv-q" maxlength="300" required>${esc(preset || SUGG[0])}</textarea></label>
       <div class="le-row">${SUGG.map(q => `<button type="button" class="ghost small" data-inv-sugg>${esc(q)}</button>`).join('')}</div>
-      <button type="submit" class="primary">${T('Run the investigation', 'Lancer l’investigation')}</button></form>
+      <div class="le-row"><button type="submit" class="primary">${T('Run the investigation', 'Lancer l’investigation')}</button>${RECORDED[mid] ? `<button type="button" data-inv-rec>${T('View a recorded run', 'Voir une exécution enregistrée')}</button>` : ''}</div></form>
     <p class="fine" id="inv-state" role="status"></p><ol class="inv-steps" id="inv-steps"></ol><div id="inv-out"></div>
     <p><a href="#" data-mission="${esc(mid)}">← ${T('Back to the mission', 'Retour à la mission')}</a></p>`);
   $('ea-panel-body').querySelectorAll('[data-inv-sugg]').forEach(b => b.onclick = () => { $('inv-q').value = b.textContent; });
+  $('ea-panel-body').querySelector('[data-inv-rec]')?.addEventListener('click', () => showRecorded(mid));
   $('inv-form').onsubmit = async e => { e.preventDefault(); const q = $('inv-q').value.trim(); if (!q || S.investigating) return;
     S.investigating = true; const btn = e.target.querySelector('[type=submit]'); btn.disabled = true; $('inv-steps').innerHTML = ''; $('inv-out').innerHTML = '';
     const model = await CIV.localModel().catch(() => null);
-    $('inv-state').textContent = model ? T(`Local model ${model} found on this computer. Working… (this can take about a minute)`, `Modèle local ${model} trouvé sur cet ordinateur. Travail en cours… (environ une minute)`) : T('Local AI reasoning is unavailable. Recorded research and deterministic tools remain accessible.', 'Le raisonnement local par IA est indisponible. La recherche enregistrée et les outils déterministes restent accessibles.');
+    $('inv-state').textContent = model ? T(`Local model ${model} found on this computer. Working… (this can take about a minute)`, `Modèle local ${model} trouvé sur cet ordinateur. Travail en cours… (environ une minute)`) : UNAVAIL();
     try {
       const res = await CIV.runInvestigation(mid, q, s => { const li = document.createElement('div'); li.innerHTML = stepHTML(s); $('inv-steps')?.append(li.firstElementChild); });
       S.lastInvestigation = res;
-      $('inv-state').textContent = res.runtime === 'unavailable' ? T('Local AI reasoning is unavailable. Recorded research and deterministic tools remain accessible.', 'Le raisonnement local par IA est indisponible. La recherche enregistrée et les outils déterministes restent accessibles.') : T(`Done in ${Math.round(res.ms / 1000)} s with ${res.model}. Each step is recorded in the mission log.`, `Terminé en ${Math.round(res.ms / 1000)} s avec ${res.model}. Chaque étape est enregistrée dans le journal de la mission.`);
-      $('inv-out').innerHTML = res.answer ? `<div class="pp-sec inv-answer"><h3>${T('Draft answer — unreviewed, written by the local model', 'Réponse provisoire — non revue, écrite par le modèle local')}</h3><p>${esc(res.answer.summary)}</p><p class="fine">${T('Established (finding ids)', 'Établi (identifiants de constats)')}: ${res.answer.established.map(esc).join(', ') || '—'}<br>${T('Uncertain', 'Incertain')}: ${res.answer.uncertain.map(esc).join(' · ') || '—'}</p></div>`
-        : `<div class="pp-unc"><b>${T('No validated answer', 'Aucune réponse validée')}</b><p>${res.runtime === 'unavailable' ? esc(T('To enable local reasoning, install Ollama and run: ollama pull qwen3:8b (about 5 GB, free, runs on this computer). The evidence and simulation steps above ran without it.', 'Pour activer le raisonnement local, installez Ollama puis lancez : ollama pull qwen3:8b (environ 5 Go, gratuit, sur cet ordinateur). Les étapes de preuves et de simulation ci-dessus ont fonctionné sans lui.')) : esc(T('A model step was rejected by validation: CORE shows no answer rather than an unchecked one.', 'Une étape du modèle a été écartée par la validation : CORE n’affiche aucune réponse plutôt qu’une réponse non vérifiée.'))}</p></div>`;
+      $('inv-state').textContent = res.runtime === 'unavailable' ? UNAVAIL() : T(`Done in ${Math.round(res.ms / 1000)} s with ${res.model}. Each step is recorded in the mission log.`, `Terminé en ${Math.round(res.ms / 1000)} s avec ${res.model}. Chaque étape est enregistrée dans le journal de la mission.`);
+      $('inv-out').innerHTML = res.answer ? answerHTML(res.answer)
+        : `<div class="pp-unc"><b>${T('No validated answer', 'Aucune réponse validée')}</b><p>${res.runtime === 'unavailable' && PUBLIC ? esc(T('This public site never runs a language model and never contacts your computer. The evidence and simulation steps above ran in your browser; use “View a recorded run” to replay a real local-model investigation.', 'Ce site public n’exécute jamais de modèle de langage et ne contacte jamais votre ordinateur. Les étapes de preuves et de simulation ci-dessus ont fonctionné dans votre navigateur ; utilisez « Voir une exécution enregistrée » pour rejouer une vraie investigation par modèle local.')) : res.runtime === 'unavailable' ? esc(T('To enable local reasoning, install Ollama and run: ollama pull qwen3:8b (about 5 GB, free, runs on this computer). The evidence and simulation steps above ran without it.', 'Pour activer le raisonnement local, installez Ollama puis lancez : ollama pull qwen3:8b (environ 5 Go, gratuit, sur cet ordinateur). Les étapes de preuves et de simulation ci-dessus ont fonctionné sans lui.')) : esc(T('A model step was rejected by validation: CORE shows no answer rather than an unchecked one.', 'Une étape du modèle a été écartée par la validation : CORE n’affiche aucune réponse plutôt qu’une réponse non vérifiée.'))}</p></div>`;
     } catch (err) { $('inv-state').textContent = `${T('Investigation failed', 'Échec de l’investigation')}: ${err.message}`; }
     finally { S.investigating = false; btn.disabled = false; } };
 }
@@ -414,13 +429,13 @@ function showContribute(mid = null) {
 }
 function renderStructured(st, missions) {
   const R = S.civ, m = st.mission && R.M.get(st.mission);
-  $('nt-state').textContent = st.structuredBy === 'local-model' ? T(`Structured by the local model (${st.model}); your text is kept exactly as written. Check every field.`, `Structuré par le modèle local (${st.model}) ; votre texte est conservé tel quel. Vérifiez chaque champ.`) : T(`Structured by deterministic rules (keyword matching, not AI)${st.modelIssue ? ` — the model’s answer was not usable (${st.modelIssue})` : ''}. Check every field.`, `Structuré par des règles déterministes (mots-clés, pas d’IA)${st.modelIssue ? ` — la réponse du modèle était inutilisable (${st.modelIssue})` : ''}. Vérifiez chaque champ.`);
+  $('nt-state').textContent = st.structuredBy === 'local-model' ? T(`Structured by the local model (${st.model}); your text is kept exactly as written. Check every field.`, `Structuré par le modèle local (${st.model}) ; votre texte est conservé tel quel. Vérifiez chaque champ.`) : T(`Structured by deterministic rules (keyword matching, not AI)${st.modelIssue ? `, the model’s answer was not usable (${st.modelIssue})` : ''}. Check every field.`, `Structuré par des règles déterministes (mots-clés, pas d’IA)${st.modelIssue ? `, la réponse du modèle était inutilisable (${st.modelIssue})` : ''}. Vérifiez chaque champ.`);
   $('nt-out').innerHTML = `<div class="pp-sec"><h3>${T('Review and edit', 'Relire et modifier')}</h3><form class="form" id="nt-next">
     <label>${T('Type', 'Type')} <select id="nt-kind">${Object.entries(CONTRIB.KINDS).map(([k, l]) => `<option value="${k}"${k === st.kind ? ' selected' : ''}>${E(l)}</option>`).join('')}</select></label>
     <label>${T('Title', 'Titre')} <input id="nt-title" maxlength="120" value="${esc(st.title)}"></label>
     <label>${T('Text', 'Texte')} <textarea id="nt-body" maxlength="1000">${esc(st.text)}</textarea></label>
     <label>${T('Mission', 'Mission')} <select id="nt-mission">${missions.map(x => `<option value="${esc(x.id)}"${x.id === st.mission ? ' selected' : ''}>${E(x.title)}</option>`).join('')}</select></label>
-    ${st.related.length && m ? `<p class="fine">${T('Related findings', 'Constats liés')}: ${st.related.map(id => `<b>${esc(id)}</b> — ${esc(L(m.findings.find(f => f.id === id)?.claim || '').slice(0, 120))}`).join(' · ')}</p>` : `<p class="fine">${T('No existing finding is linked yet.', 'Aucun constat existant n’est lié pour l’instant.')}</p>`}
+    ${st.related.length && m ? `<p class="fine">${T('Related findings', 'Constats liés')}: ${st.related.map(id => `<b>${esc(id)}</b> · ${esc(L(m.findings.find(f => f.id === id)?.claim || '').slice(0, 120))}`).join(' · ')}</p>` : `<p class="fine">${T('No existing finding is linked yet.', 'Aucun constat existant n’est lié pour l’instant.')}</p>`}
     ${st.missing.length ? `<div class="pp-unc"><b>${T('What would help', 'Ce qui aiderait')}</b>${st.missing.map(x => `<p>${E(x)}</p>`).join('')}</div>` : ''}
     ${st.privacy ? `<p class="cmp-err">${E(st.privacy)}</p>` : ''}
     <div class="le-row"><button type="button" id="nt-private">${T('Keep private', 'Garder privé')}</button><button type="button" class="primary" id="nt-share-ask">${T('Share with the mission…', 'Partager avec la mission…')}</button></div>
@@ -467,7 +482,7 @@ function civTick() {
       const ag = R.byId.get(a.id), html = `<span class="le-agent-id">${esc(ag.code)}</span><span class="fine">${esc(CP.stateLabel(a.state))}</span>`;
       if (!mk) { const el = document.createElement('button'); el.type = 'button'; el.className = 'ea-agent-tag'; el.onclick = () => showAgent(a.id); mk = new maplibregl.Marker({ element: el, anchor: 'bottom', offset: [0, -96] }).setLngLat(posOf(a.id)).addTo(S.map); S.plates.set(a.id, mk); }
       const dd = Math.max(1, Math.hypot(a.x - S.pos[0], a.z - S.pos[1])); mk.setOffset([0, -Math.min(300, Math.max(40, 1900 / dd))]);
-      mk.getElement().innerHTML = html; mk.setLngLat(posOf(a.id)); mk.getElement().hidden = S.layer.mode === 'real'; mk.getElement().title = `${AT(ag, 'role')} — ${L(R.activity(a.id).label)}`; }
+      mk.getElement().innerHTML = html; mk.setLngLat(posOf(a.id)); mk.getElement().hidden = S.layer.mode === 'real'; mk.getElement().title = `${AT(ag, 'role')} · ${L(R.activity(a.id).label)}`; }
     for (const [id, mk] of S.plates) if (!want.has(id)) { mk.remove(); S.plates.delete(id); }
   }
   const now = performance.now(); if (now - (S.lastPanel || 0) > 2000) { S.lastPanel = now; refreshPanel(); }

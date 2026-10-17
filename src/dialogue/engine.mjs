@@ -45,7 +45,7 @@ export function toolAllowed(name, ctx = {}) {
 
 export function newSession({ id, problem = null, at = new Date().toISOString() }) {
   const s = { id, engine: ENGINE, problemId: problem?.id ?? null, startedAt: at, phase: 'situation', turns: [], consent: { persist: false, vault: false },
-    draft: { situation: '', problem: problem ? `${ptext(problem.title)} — ${problem.place}` : '', proposal: '', mechanism: '', assumptions: [], constraints: [], alternatives: [], risks: [], tests: [], pathway: '' }, evidence: [] };
+    draft: { situation: '', problem: problem ? `${ptext(problem.title)} · ${problem.place}` : '', proposal: '', mechanism: '', assumptions: [], constraints: [], alternatives: [], risks: [], tests: [], pathway: '' }, evidence: [] };
   const intro = problem ? T(`I am a CORE collaboration agent. We are working on a recorded problem: “${ptext(problem.title)}” (${problem.place}). I will help you clarify and test your idea; I validate nothing and I cite my sources.`, `Je suis un agent CORE de collaboration. Nous travaillons sur un problème enregistré : « ${problem.title} » (${problem.place}). Je vous aiderai à clarifier et à éprouver votre idée ; je ne valide rien et je cite mes sources.`)
     : T('I am a CORE collaboration agent. I will help you clarify and test your idea; I validate nothing and I cite my sources.', 'Je suis un agent CORE de collaboration. Je vous aiderai à clarifier et à éprouver votre idée ; je ne valide rien et je cite mes sources.');
   s.turns.push({ role: 'agent', kind: 'reasoning', text: `${intro}\n${problem ? PHASES[2][2] : PHASES[0][2]}`, at });
@@ -118,7 +118,7 @@ export async function turn(session, input, { ix, problem = null, at = new Date()
   const phase = s.phase === 'review' ? 'proposal' : s.phase, f = FIELD[phase];
   if (LIST_FIELDS.has(f)) s.draft[f] = [...s.draft[f], ...sc.text.split(/\s*(?:;|\n|•| - )\s*/).map(x => x.trim()).filter(x => x.length > 2)].slice(0, 12);
   else s.draft[f] = s.draft[f] && phase === 'situation' ? `${s.draft[f]} ${sc.text}` : sc.text;
-  if (phase === 'pathway') { const p = PATHS.find(([, re]) => re.test(t)); s.draft.pathway = p ? T(...p[2]) : sc.text; if (p) s.turns.push({ role: 'agent', kind: 'reasoning', text: `${T(...p[2])} — ${T(...p[3])}`, at }); }
+  if (phase === 'pathway') { const p = PATHS.find(([, re]) => re.test(t)); s.draft.pathway = p ? T(...p[2]) : sc.text; if (p) s.turns.push({ role: 'agent', kind: 'reasoning', text: `${T(...p[2])} · ${T(...p[3])}`, at }); }
   const ch = challenges(phase, sc.text, s, problem);
   const label = PHASES.find(p => p[0] === phase)[1];
   s.phase = nextPhase({ ...s, phase });
@@ -147,7 +147,7 @@ export function toIdea(session, { title } = {}) {
 
 export function exportMarkdown(session) {
   const kind = { evidence: T('Evidence (CORE Knowledge, cited)', 'Preuve (CORE Knowledge, citée)'), reasoning: T('Guided reasoning (agent)', 'Raisonnement guidé (agent)'), challenge: T('Objection (agent)', 'Objection (agent)'), system: T('System', 'Système'), message: T('You', 'Vous') };
-  return [`# ${T('CORE Dialogue session', 'Session CORE Dialogue')} ${session.id}`, '', T(`Engine: ${ENGINE.id} ${ENGINE.version} — ${ENGINE.kind}. This document is not a scientific validation.`, `Moteur : ${ENGINE.id} ${ENGINE.version} — ${ENGINE.kind}. Ce document n’est pas une validation scientifique.`), T(`Problem: ${session.problemId || '—'} · started: ${session.startedAt}`, `Problème : ${session.problemId || '—'} · début : ${session.startedAt}`), '',
-    ...session.turns.map(t => `**${kind[t.kind] || t.kind}** — ${t.text}${t.citations?.length ? `\n  Sources : ${[...new Set(t.citations.map(c => c.record))].join(', ')}` : ''}`), '', `## ${T('Draft', 'Brouillon')}`,
+  return [`# ${T('CORE Dialogue session', 'Session CORE Dialogue')} ${session.id}`, '', T(`Engine: ${ENGINE.id} ${ENGINE.version} · ${ENGINE.kind}. This document is not a scientific validation.`, `Moteur : ${ENGINE.id} ${ENGINE.version} · ${ENGINE.kind}. Ce document n’est pas une validation scientifique.`), T(`Problem: ${session.problemId || '—'} · started: ${session.startedAt}`, `Problème : ${session.problemId || '—'} · début : ${session.startedAt}`), '',
+    ...session.turns.map(t => `**${kind[t.kind] || t.kind}** · ${t.text}${t.citations?.length ? `\n  Sources : ${[...new Set(t.citations.map(c => c.record))].join(', ')}` : ''}`), '', `## ${T('Draft', 'Brouillon')}`,
     ...Object.entries(session.draft).map(([k, v]) => `- ${k} : ${Array.isArray(v) ? v.join(' ; ') : v || '—'}`)].join('\n');
 }

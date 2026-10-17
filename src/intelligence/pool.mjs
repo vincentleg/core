@@ -29,7 +29,7 @@ export function prompt(kind, { mission, findings, hypothesis = null }) {
   const rules = 'Answer in English, as JSON matching the schema. Cite only the finding identifiers provided. Invent no number, no date, no legal status (standard, law, mandatory) and assert no certainty, proven cause, danger or validation. A hypothesis remains a hypothesis.';
   const task = { gaps: 'Which research questions are missing to make progress? For each, say what would be needed (data, method, review, local knowledge).',
     hypothesis: 'Propose at most two testable hypotheses, different from those already listed, each supported by at least one cited finding, with a test and a falsification condition.',
-    critique: `Challenge this hypothesis as a sceptical reviewer: “${en(hypothesis?.title)} — ${en(hypothesis?.statement)}”. Objections about data, method, causality or equity.`,
+    critique: `Challenge this hypothesis as a sceptical reviewer: “${en(hypothesis?.title)} · ${en(hypothesis?.statement)}”. Objections about data, method, causality or equity.`,
     synthesis: 'Write a careful synthesis for a decision-maker: what is established (identifiers), what remains uncertain (identifiers).' }[kind];
   return [{ role: 'system', content: `You are a CORE research agent. ${rules}` }, { role: 'user', content: `Mission: ${en(mission.title)}\nQuestion: ${en(mission.question)}\nHypotheses already open: ${(mission.hypotheses || []).map(h => `${h.id} ${en(h.title)}`).join('; ') || 'none'}\nFindings:\n${ev}\n\nTask: ${task}` }];
 }
@@ -82,8 +82,10 @@ export function createPool({ generate, workers = 1, timeoutMs = 120000, maxPerHo
 }
 
 // Ollama structured-output generator (local only: 127.0.0.1). Returns { text, tokens, model }.
+import { PUBLIC } from '../env.mjs';
 export function ollamaJSON({ model, endpoint = 'http://127.0.0.1:11434', fetchImpl = (...a) => fetch(...a) } = {}) {
   return async (messages, { schema, signal, numPredict }) => {
+    if (PUBLIC) throw Error('local model disabled on the public site');
     const r = await fetchImpl(`${endpoint}/api/chat`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal, body: JSON.stringify({ model, messages, stream: false, think: false, format: schema, options: { temperature: 0.2, num_predict: numPredict } }) });
     if (!r.ok) throw Error(`modèle local : HTTP ${r.status}`);
     const j = await r.json(); return { text: j.message?.content || '', tokens: j.eval_count ?? null, model };

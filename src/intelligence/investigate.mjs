@@ -78,16 +78,16 @@ export async function investigate({ mission, question, mobility = null, generate
   // 5. Scientific critic (model) + verifier (deterministic)
   const points = analysis.status === 'validated' ? analysis.output.points : [];
   const evidence = mission.findings.filter(f => f.status !== 'gap').map(f => ({ text: en(f.claim), record: f.id }));
-  const vIssues = points.flatMap((p, i) => verify(p.text, evidence, { requireCitation: false }).issues.map(x => `point ${i + 1}: ${x.code} — ${x.detail}`));
+  const vIssues = points.flatMap((p, i) => verify(p.text, evidence, { requireCitation: false }).issues.map(x => `point ${i + 1}: ${x.code} · ${x.detail}`));
   // Simulation guard: a difference smaller than the seed-to-seed variation must not be presented as an effect.
   if (facts) points.forEach((p, i) => { for (const sc of facts) { if (!sc.vsBaseline || !p.cites.includes(`m.scenario-${sc.id}`)) continue;
     for (const [k, v] of Object.entries(sc.vsBaseline)) { if (!/within noise/.test(v)) continue; const pct = Math.abs(parseFloat(v)); if (Number.isFinite(pct) && new RegExp(`\\b${String(pct).replace('.', '\\.')}\\s*%`).test(p.text) && !/noise|bruit|not significant|within/i.test(p.text))
-      vIssues.push(`point ${i + 1}: noise — scenario ${sc.id} ${k} change (${v}) is within seed noise but is presented as an effect`); } } });
+      vIssues.push(`point ${i + 1}: noise: scenario ${sc.id} ${k} change (${v}) is within seed noise but is presented as an effect`); } } });
   record({ role: 'critic', agent: agents.critic || null, provenance: 'deterministic', tool: 'verifier', status: points.length ? (vIssues.length ? 'flagged' : 'passed') : 'skipped', inputs: points.map((_, i) => `point ${i + 1}`), output: { issues: vIssues }, issues: [], ms: 0 });
   const critique = points.length ? await model('critic', SCHEMA.critique, `Analysis to challenge:\n${points.map((p, i) => `${i + 1}. ${p.text} [${p.cites.join(', ')}]`).join('\n')}\nKnown gaps:\n${gapText}\nTask: as a sceptical reviewer, raise at most 3 objections about data, method, causality or equity.`) : null;
   // 6. Synthesis
   const synthesis = points.length ? await model('synthesis', SCHEMA.synthesis, `Question: ${question}\nAnalysis:\n${points.map((p, i) => `${i + 1}. ${p.text} [${p.cites.join(', ')}]`).join('\n')}\nObjections:\n${(critique?.output?.objections || []).map(o => `- (${o.kind}) ${o.text}`).join('\n') || '- none'}\nVerifier issues:\n${vIssues.join('\n') || '- none'}\nFindings ids available: ${[...ids].join(', ')}\nTask: write a careful summary for a decision-maker; list in "established" only finding ids that are established, and in "uncertain" the finding ids or short phrases that remain uncertain.`) : null;
-  if (synthesis?.status === 'validated') { const bad = [...synthesis.output.established].filter(x => !ids.has(x)); const sv = verify(synthesis.output.summary, evidence, { requireCitation: false }).issues.map(x => `${x.code} — ${x.detail}`);
+  if (synthesis?.status === 'validated') { const bad = [...synthesis.output.established].filter(x => !ids.has(x)); const sv = verify(synthesis.output.summary, evidence, { requireCitation: false }).issues.map(x => `${x.code} · ${x.detail}`);
     if (bad.length || sv.length) { synthesis.status = 'rejected'; synthesis.issues = [...bad.map(b => `“established” cites unknown id ${b}`), ...sv]; } }
   const modelSteps = steps.filter(s => s.provenance === 'local-model');
   return { question, mission: mission.id, startedAt: new Date(t0).toISOString(), ms: now() - t0, steps,

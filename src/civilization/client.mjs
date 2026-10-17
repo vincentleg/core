@@ -3,6 +3,7 @@
 // runs it (4 Hz, paused when the tab is hidden), at ×1 by default; the person can pause or accelerate. State is saved to
 // localStorage (core.civ.v72: registry-level identities are public; the log holds no private content unless a person
 // explicitly consents to share a contribution with a mission).
+import { PUBLIC } from '../env.mjs';
 import * as A from './analyses.mjs';
 import { buildMissions } from './missions.mjs';
 import { createRuntime, VERSION } from './runtime.mjs';
@@ -32,7 +33,7 @@ export function start() {
     const saved = store.get(); if (saved) R.restore(saved);
     // A local background worker (scripts/civ-worker.mjs) may have advanced the same civilisation: resume from it when
     // its checkpoint is further along (local development server only; the file never exists on a public site).
-    try { const w = await fetch('.core-local/civ/state.json', { cache: 'no-store' }); if (w.ok) { const txt = await w.text(), clk = JSON.parse(txt).clock; if (clk > R.S.clock && R.restore(txt)) R.S.fromWorker = true; } } catch {}
+    if (!PUBLIC) try { const w = await fetch('.core-local/civ/state.json', { cache: 'no-store' }); if (w.ok) { const txt = await w.text(), clk = JSON.parse(txt).clock; if (clk > R.S.clock && R.restore(txt)) R.S.fromWorker = true; } } catch {}
     const run = () => {
       writer = true; let last = performance.now();
       timer = setInterval(() => { const now = performance.now(), dt = Math.min(1, (now - last) / 1000); last = now;

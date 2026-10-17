@@ -80,7 +80,7 @@ try {
   await wait(2500); const frame2 = await ev(`CORE_EARTH.state.scn?.state.frame || 0`);
   const t3d = await ev(`(() => { const t = CORE_EARTH.state.traffic3d || CORE_EARTH.state.scn?.traffic3d; return t ? (t.count?.() ?? t.state?.count ?? -1) : -1; })()`).catch(() => -1);
   check('F. recorded SUMO scenario A plays: vehicles present and moving', simA.on && simA.sc === 'A' && simA.veh > 20 && frame2 > simA.frame, `${simA.veh} vehicles, frame ${simA.frame.toFixed?.(1)} → ${frame2.toFixed?.(1)}, 3D ${t3d}`);
-  check('F. labelled recorded, synthetic demand, uncalibrated; never a validated recommendation', /Recorded SUMO simulation — synthetic demand, uncalibrated model/i.test(simA.text) && !/validated recommendation(?!\s*[.)]?\s*$)/i.test(simA.text.replace(/not a validated recommendation/gi, '')), simA.text.slice(0, 80).replace(/\n/g, ' '));
+  check('F. labelled recorded, synthetic demand, uncalibrated; never a validated recommendation', /Recorded SUMO simulation: synthetic demand, uncalibrated model/i.test(simA.text) && !/validated recommendation(?!\s*[.)]?\s*$)/i.test(simA.text.replace(/not a validated recommendation/gi, '')), simA.text.slice(0, 80).replace(/\n/g, ' '));
   await scan('world · simulation A'); await shot('F-sim-A');
   await ev(`document.querySelector('[data-scn=B]')?.click(), 1`); await wait(1800);
   const simB = await ev(`({ sc: CORE_EARTH.state.scn?.state.scenario, text: document.getElementById('ea-panel').innerText })`);
@@ -95,6 +95,12 @@ try {
   const inv = await ev(`({ state: document.getElementById('inv-state')?.textContent || '', steps: [...document.querySelectorAll('#inv-steps .inv-step')].map(li => ({ role: li.querySelector('b')?.textContent, prov: li.querySelector('.le-badge')?.textContent, status: li.dataset.status, body: (li.querySelector('.inv-b')?.innerText || '').slice(0, 80) })), answer: document.getElementById('inv-out')?.innerText.slice(0, 400) || '', last: CORE_EARTH.state.lastInvestigation ? { runtime: CORE_EARTH.state.lastInvestigation.runtime, model: CORE_EARTH.state.lastInvestigation.model, n: CORE_EARTH.state.lastInvestigation.steps?.length } : null })`);
   metrics.investigationMs = Date.now() - tInv; metrics.investigation = inv.last;
   const unavailable = /Local AI reasoning is unavailable/.test(inv.state);
+  if (unavailable && await ev(`!!document.querySelector('[data-inv-rec]')`)) { // public site: replay the recorded real run
+    await ev(`document.querySelector('[data-inv-rec]').click(), 1`); await until(`/Recorded run, replayed/.test(document.getElementById('inv-state')?.textContent || '')`, 15000);
+    const rec = await ev(`({ state: document.getElementById('inv-state').textContent, steps: [...document.querySelectorAll('#inv-steps .inv-step')].map(li => ({ role: li.querySelector('b')?.textContent, prov: li.querySelector('.le-badge')?.textContent, status: li.dataset.status, body: (li.querySelector('.inv-b')?.innerText || '').slice(0, 80) })), answer: document.getElementById('inv-out')?.innerText.slice(0, 300) || '' })`);
+    check('E. public site: recorded real run replayed, labelled “replay, not live inference”, with local-model and deterministic steps', /not live inference/.test(rec.state) && rec.steps.length >= 6 && rec.steps.some(x => /local model/.test(x.prov)) && rec.steps.some(x => /deterministic/.test(x.prov)) && /unreviewed/i.test(rec.answer), rec.state.slice(0, 120));
+    inv.steps = rec.steps; inv.answer = rec.answer;
+  }
   check('E. investigation ran to completion with a stated runtime', finished && !!inv.last, `${inv.last?.runtime} ${inv.last?.model || ''} in ${Math.round(metrics.investigationMs / 1000)} s`);
   check('E. every step shows its role, provenance (local model / deterministic) and status', inv.steps.length >= 6 && inv.steps.every(s => s.role && s.prov && s.status), inv.steps.map(s => `${s.role}:${s.prov}:${s.status}`).join(' | '));
   check('E. evidence step cites finding ids; simulation step reads recorded results', inv.steps.some(s => /\b[a-z]\.[a-z-]+/.test(s.body)) && inv.steps.some(s => /±/.test(s.body)), inv.steps.map(s => s.body.slice(0, 30)).join(' | '));
@@ -168,9 +174,9 @@ try {
   const mFr = await ev(`document.getElementById('ea-panel').innerText.slice(0, 200)`);
   check('B. open mission panel re-renders in French', mFr !== mEn && /[éèàç]|\b(les|des|une)\b/.test(mFr), mFr.slice(0, 60).replace(/\n/g, ' '));
   await ev(`CORE_EARTH.showSimulation('B').then(() => 1)`); await wait(2500);
-  check('B. simulation description in French', /Simulation SUMO enregistrée — demande synthétique, modèle non calibré/i.test(await ev(`document.getElementById('ea-panel').innerText`)));
+  check('B. simulation description in French', /Simulation SUMO enregistrée : demande synthétique, modèle non calibré/i.test(await ev(`document.getElementById('ea-panel').innerText`)));
   await setLang('en'); await wait(500);
-  check('B. simulation description back in English', /Recorded SUMO simulation — synthetic demand, uncalibrated model/i.test(await ev(`document.getElementById('ea-panel').innerText`)));
+  check('B. simulation description back in English', /Recorded SUMO simulation: synthetic demand, uncalibrated model/i.test(await ev(`document.getElementById('ea-panel').innerText`)));
   await ev(`document.querySelector('[data-scn-off]')?.click(), 1`).catch(() => 0);
 
   // ---------- B. other supported pages, English then a French spot check ----------

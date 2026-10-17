@@ -7,7 +7,7 @@ test('scenarios: every scenario renders with its status, uncertainty, verdict an
   const SC = await imp('src/earth/scenarios.mjs'), D = mobility();
   for (const s of D.results.scenarios) {
     const h = SC.panelHTML(D, s.id, false);
-    assert.match(h, /uncalibrated model/); assert.match(h, /What this model does not know/); assert.match(h, /a replay, not a live simulation/); assert.match(h, /Recorded SUMO simulation — synthetic demand, uncalibrated model/);
+    assert.match(h, /uncalibrated model/); assert.match(h, /What this model does not know/); assert.match(h, /a replay, not a live simulation/); assert.match(h, /Recorded SUMO simulation: synthetic demand, uncalibrated model/);
     assert.ok(h.includes('Verdict') && h.includes('Remove from the map') && h.includes('What this does NOT prove'));
     assert.doesNotMatch(h.replace(/not a validated recommendation|no scenario can be recommended|before any recommendation/gi, ''), /proven|recommended:|(?<!not )validated|verified in reality/i);
   }

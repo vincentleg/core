@@ -72,7 +72,7 @@ export function createRuntime({ registry, missions, maxTasks = 140, perMission =
     const target = where(m, t, 0);
     chosen.forEach((id, i) => { S.busy[id] = `${m.id}#${tid}`; const from = posOf(id), ang = (i / chosen.length) * Math.PI * 2, to = offset(target, Math.cos(ang) * (2.2 + chosen.length * 0.4), Math.sin(ang) * (2.2 + chosen.length * 0.4));
       S.move[id] = { from, to, t0: S.clock, t1: S.clock + Math.min(t.dur * 0.35, Math.max(2, meters(from, to) / TRAVEL_MPS)) }; });
-    emit({ kind: 'task.start', mission: m.id, task: tid, stage: t.stage, agents: chosen, at: target, text: B(`${STAGE_EN[t.stage]} — ${chosen.length} agent(s)`, `${t.stage === 'MONITOR' ? 'Surveillance' : STAGE_FR[t.stage]} — ${chosen.length} agent(s)`) });
+    emit({ kind: 'task.start', mission: m.id, task: tid, stage: t.stage, agents: chosen, at: target, text: B(`${STAGE_EN[t.stage]} · ${chosen.length} agent(s)`, `${t.stage === 'MONITOR' ? 'Surveillance' : STAGE_FR[t.stage]} · ${chosen.length} agent(s)`) });
     return true;
   }
   function finish(m, tid, t) {
@@ -104,7 +104,7 @@ export function createRuntime({ registry, missions, maxTasks = 140, perMission =
       if (stage !== ms.stage) { ms.stage = stage; emit({ kind: 'stage', mission: m.id, stage, text: B(`Stage: ${STAGE_EN[stage]}`, `Étape : ${STAGE_FR[stage]}`) }); }
       const planDone = m.plan.every(t => ['done', 'failed', 'cancelled'].includes(ms.tasks[t.id].state));
       if (planDone && ms.status === 'open') { ms.status = m.plan.some(t => t.stage === 'HUMAN_REVIEW') ? 'awaiting-human' : m.findings.every(f => f.status === 'gap') ? 'gap' : 'monitoring'; ms.nextMonitor = S.clock + 5;
-        emit({ kind: 'mission.state', mission: m.id, text: { 'awaiting-human': B('Dossier ready — awaiting human review (no verified human reviewer exists)', 'Dossier prêt — en attente d’une revue humaine (aucun relecteur humain vérifié)'), gap: B('Declared gap — team waiting for data', 'Lacune déclarée — équipe en attente de données'), monitoring: B('Finding added to the dossier — monitoring', 'Constat versé au dossier — surveillance') }[ms.status] }); }
+        emit({ kind: 'mission.state', mission: m.id, text: { 'awaiting-human': B('Dossier ready: awaiting human review (no verified human reviewer exists)', 'Dossier prêt, en attente d’une revue humaine (aucun relecteur humain vérifié)'), gap: B('Declared gap: team waiting for data', 'Lacune déclarée : équipe en attente de données'), monitoring: B('Finding added to the dossier, monitoring', 'Constat versé au dossier : surveillance') }[ms.status] }); }
       if (planDone && m.monitor && ms.status !== 'gap' && ms.status !== 'cancelled' && !ms.monitorTask?.state?.match(/running/) && S.clock >= (ms.nextMonitor ?? Infinity) && running < maxTasks) { if (startMonitor(m)) running++; }
       // V8 — bounded reasoning cycles with the shared local-model pool (only when the person switched it on).
       // Budget: flagship missions only, at most 2 outstanding jobs city-wide (one local worker answers in ~15–45 s).
@@ -143,7 +143,7 @@ export function createRuntime({ registry, missions, maxTasks = 140, perMission =
     const items = Array.from({ length: Math.min(a.batch, a.items.length) }, (_, i) => a.items[(st.cursor + i) % a.items.length]); st.cursor += items.length;
     const r = { id: `audit:${a.id}:${++st.seq}`, agent: id, items, end: S.clock + 14 + 5 * items.length }; st.running.push(r);
     S.busy[id] = `${m.id}#${r.id}`; const from = posOf(id), to = offset(items[0].at, 1.5, 0); S.move[id] = { from, to, t0: S.clock, t1: S.clock + Math.min(12, Math.max(2, meters(from, to) / TRAVEL_MPS)) };
-    emit({ kind: 'task.start', mission: m.id, task: r.id, stage: 'ANALYZE', agents: [id], at: items[0].at, text: B(`${tx(a.label, 'en')} — ${items.length} record(s)`, `${tx(a.label, 'fr')} — ${items.length} fiche(s)`) });
+    emit({ kind: 'task.start', mission: m.id, task: r.id, stage: 'ANALYZE', agents: [id], at: items[0].at, text: B(`${tx(a.label, 'en')} · ${items.length} record(s)`, `${tx(a.label, 'fr')} · ${items.length} fiche(s)`) });
     return true;
   }
   function finishAudit(m, a, st, r) {
@@ -152,7 +152,7 @@ export function createRuntime({ registry, missions, maxTasks = 140, perMission =
     emit({ kind: 'message', mission: m.id, task: r.id, stage: 'ANALYZE', type: 'analysis', from: r.agent, to: m.coordinator, agents: [r.agent], text: B(`${tx(a.label, 'en')}: ${r.items.map(i => tx(i.note, 'en')).join('; ')}.`, `${tx(a.label, 'fr')} : ${r.items.map(i => tx(i.note, 'fr')).join(' ; ')}.`), evidence: [] });
     const here = posOf(r.agent), home = byId.get(r.agent).post; S.move[r.agent] = { from: here, to: home, t0: S.clock, t1: S.clock + Math.max(2, Math.min(30, meters(here, home) / TRAVEL_MPS)) };
     if (st.cursor >= a.items.length * (st.pass + 1)) { st.pass++;
-      emit({ kind: 'message', mission: m.id, task: r.id, stage: 'DOSSIER', type: 'dossier-update', from: m.coordinator, to: m.council, agents: [], text: B(`${tx(a.label, 'en')} — pass ${st.pass} complete (${a.items.length} records): ${Object.entries(st.tallies).sort((x, y) => y[1] - x[1]).map(([f, n]) => `${n} “${f}”`).join(', ')}.`, `${tx(a.label, 'fr')} — passe ${st.pass} terminée (${a.items.length} fiches) : ${Object.entries(st.tallies).sort((x, y) => y[1] - x[1]).map(([f, n]) => `${n} « ${tx(st.flagText?.[f], 'fr') || f} »`).join(', ')}.`), evidence: [] });
+      emit({ kind: 'message', mission: m.id, task: r.id, stage: 'DOSSIER', type: 'dossier-update', from: m.coordinator, to: m.council, agents: [], text: B(`${tx(a.label, 'en')} · pass ${st.pass} complete (${a.items.length} records): ${Object.entries(st.tallies).sort((x, y) => y[1] - x[1]).map(([f, n]) => `${n} “${f}”`).join(', ')}.`, `${tx(a.label, 'fr')} · passe ${st.pass} terminée (${a.items.length} fiches) : ${Object.entries(st.tallies).sort((x, y) => y[1] - x[1]).map(([f, n]) => `${n} « ${tx(st.flagText?.[f], 'fr') || f} »`).join(', ')}.`), evidence: [] });
       st.lastTallies = st.tallies; st.tallies = {}; }
   }
   const byRole = (team, role) => agents.filter(a => a.team === `team.${team}` && a.teamRole === role && !S.busy[a.id]);
@@ -163,7 +163,7 @@ export function createRuntime({ registry, missions, maxTasks = 140, perMission =
     const lastHyp = [...ms.modelWork].reverse().find(w => w.kind === 'hypothesis' && w.status === 'validé')?.output?.hypotheses?.[0];
     const id = `job-${++S.jobSeq}`; S.jobs[id] = { id, kind, mission: m.id, agent: agent.id, state: 'pending', createdAt: S.clock, target: kind === 'critique' ? (lastHyp ? { title: lastHyp.title, statement: lastHyp.statement, source: 'modèle' } : { title: m.hypotheses[0]?.title, statement: m.hypotheses[0]?.statement, source: m.hypotheses[0]?.id }) : null };
     ms.reasonN++; S.busy[agent.id] = `${m.id}#reason:${id}`;
-    emit({ kind: 'task.start', mission: m.id, task: id, stage: 'REASON', agents: [agent.id], at: agent.post, text: B(`Reasoning (local model, shared queue) — ${REASON_EN[kind]}`, `Raisonnement (modèle local, file partagée) — ${REASON_FR[kind]}`) });
+    emit({ kind: 'task.start', mission: m.id, task: id, stage: 'REASON', agents: [agent.id], at: agent.post, text: B(`Reasoning (local model, shared queue) · ${REASON_EN[kind]}`, `Raisonnement (modèle local, file partagée) · ${REASON_FR[kind]}`) });
     return true;
   }
   function pendingJobs() { return Object.values(S.jobs).filter(j => j.state === 'pending'); }
@@ -174,7 +174,7 @@ export function createRuntime({ registry, missions, maxTasks = 140, perMission =
     const w = { id, kind: j.kind, agent: j.agent, status: res.ok ? 'validé' : 'rejeté', output: res.output || null, issues: res.issues || [], ms: res.entry?.ms ?? null, tokens: res.entry?.tokens ?? null, model: res.entry?.model ?? null, target: j.target, at: S.clock };
     ms.modelWork.push(w); if (ms.modelWork.length > 30) ms.modelWork.shift();
     // Model output is kept in the language the model wrote it in (English prompts); only the frame is translated.
-    const o = res.output || {}, issues = (res.issues || []).slice(0, 2).join('; '), body = j.kind === 'gaps' ? (o.questions || []).map(q => q.question).join(' / ') : j.kind === 'hypothesis' ? (o.hypotheses || []).map(h => `${h.title} — ${h.statement}`).join(' / ') : (o.objections || []).map(x => x.text).join(' / ');
+    const o = res.output || {}, issues = (res.issues || []).slice(0, 2).join('; '), body = j.kind === 'gaps' ? (o.questions || []).map(q => q.question).join(' / ') : j.kind === 'hypothesis' ? (o.hypotheses || []).map(h => `${h.title} · ${h.statement}`).join(' / ') : (o.objections || []).map(x => x.text).join(' / ');
     const text = !res.ok ? B(`Local-model proposal rejected by validation (${issues}).`, `Proposition du modèle local écartée par la validation (${issues}).`)
       : j.kind === 'gaps' ? B(`Missing evidence proposed: ${body}`, `Preuves manquantes proposées (texte du modèle, non traduit) : ${body}`)
       : j.kind === 'hypothesis' ? B(`Hypothesis(es) proposed, not reviewed: ${body}`, `Hypothèse(s) proposée(s), non revue(s) (texte du modèle, non traduit) : ${body}`)
@@ -188,7 +188,7 @@ export function createRuntime({ registry, missions, maxTasks = 140, perMission =
     const n = (ms.sessionN = (ms.sessionN || 0) + 1), chosen = members.slice(0, 6), at = m.sessions.at;
     ms.session = { id: `session-${n}`, state: 'running', agents: chosen, end: S.clock + m.sessions.dur };
     chosen.forEach((id, i) => { S.busy[id] = `${m.id}#${ms.session.id}`; const from = posOf(id), ang = (i / chosen.length) * Math.PI * 2, to = offset(at, Math.cos(ang) * 3.4, Math.sin(ang) * 3.4); S.move[id] = { from, to, t0: S.clock, t1: S.clock + Math.min(14, Math.max(2, meters(from, to) / TRAVEL_MPS)) }; });
-    emit({ kind: 'task.start', mission: m.id, task: ms.session.id, stage: 'CRITIQUE', agents: chosen, at, text: B(`Mission council session ${n} — ${chosen.length} members`, `Séance ${n} du conseil de mission — ${chosen.length} membres`) }); return true;
+    emit({ kind: 'task.start', mission: m.id, task: ms.session.id, stage: 'CRITIQUE', agents: chosen, at, text: B(`Mission council session ${n} · ${chosen.length} members`, `Séance ${n} du conseil de mission · ${chosen.length} membres`) }); return true;
   }
   function finishSession(m) {
     const ms = S.missions[m.id], r = ms.session; r.state = 'done';
@@ -207,7 +207,7 @@ export function createRuntime({ registry, missions, maxTasks = 140, perMission =
     const target = where(m, t, ms.monitorN);
     ms.monitorTask = { id: t.id, state: 'running', agents: chosen, start: S.clock, end: S.clock + t.dur };
     chosen.forEach((id, i) => { S.busy[id] = `${m.id}#${t.id}`; const from = posOf(id), to = offset(target, i ? 2.5 : -2.5, 1); S.move[id] = { from, to, t0: S.clock, t1: S.clock + Math.min(8, Math.max(2, meters(from, to) / TRAVEL_MPS)) }; });
-    emit({ kind: 'task.start', mission: m.id, task: t.id, stage: 'MONITOR', agents: chosen, at: target, text: B('Monitoring — 2 agent(s)', 'Surveillance — 2 agent(s)') }); return true;
+    emit({ kind: 'task.start', mission: m.id, task: t.id, stage: 'MONITOR', agents: chosen, at: target, text: B('Monitoring: 2 agent(s)', 'Surveillance: 2 agent(s)') }); return true;
   }
   function finishMonitor(m) {
     const ms = S.missions[m.id], r = ms.monitorTask; r.state = 'done';
@@ -223,14 +223,14 @@ export function createRuntime({ registry, missions, maxTasks = 140, perMission =
   }
   function activity(id) {
     const key = S.busy[id], a = byId.get(id);
-    if (!key) { const mv = S.move[id]; return { state: mv && S.clock < mv.t1 ? 'returning' : 'idle', label: mv && S.clock < mv.t1 ? B('returning to its virtual post', 'regagne son poste virtuel') : B('idle — no task in progress', 'inactif — aucune tâche en cours'), mission: null }; }
+    if (!key) { const mv = S.move[id]; return { state: mv && S.clock < mv.t1 ? 'returning' : 'idle', label: mv && S.clock < mv.t1 ? B('returning to its virtual post', 'regagne son poste virtuel') : B('idle, no task in progress', 'inactif : aucune tâche en cours'), mission: null }; }
     const [mid, tid] = key.split('#'), m = M.get(mid), mv = S.move[id];
-    if (tid.startsWith('reason:')) { const j = S.jobs[tid.slice(7)]; return { state: 'reasoning', label: B(`reasoning with the local model — ${REASON_EN[j?.kind] || ''} (${j?.state === 'running' ? 'running' : 'queued'})`, `raisonne avec le modèle local — ${REASON_FR[j?.kind] || ''} (${j?.state === 'running' ? 'en cours' : 'en file'})`), mission: mid, task: tid, stage: 'REASON', role: byId.get(id)?.role }; }
-    if (tid.startsWith('audit:')) { const a = (m.audits || []).find(x => x.id === tid.split(':')[1]); return { state: mv && S.clock < mv.t1 ? 'travelling' : 'inspecting', label: mv && S.clock < mv.t1 ? B(`going to the record’s location — ${tx(a?.label, 'en')}`, `se rend sur le lieu de la fiche — ${tx(a?.label, 'fr')}`) : B(`checking records — ${tx(a?.label, 'en')}`, `vérifie des fiches — ${tx(a?.label, 'fr')}`), mission: mid, task: tid, stage: 'ANALYZE', role: a ? byId.get(id)?.role : null }; }
+    if (tid.startsWith('reason:')) { const j = S.jobs[tid.slice(7)]; return { state: 'reasoning', label: B(`reasoning with the local model · ${REASON_EN[j?.kind] || ''} (${j?.state === 'running' ? 'running' : 'queued'})`, `raisonne avec le modèle local · ${REASON_FR[j?.kind] || ''} (${j?.state === 'running' ? 'en cours' : 'en file'})`), mission: mid, task: tid, stage: 'REASON', role: byId.get(id)?.role }; }
+    if (tid.startsWith('audit:')) { const a = (m.audits || []).find(x => x.id === tid.split(':')[1]); return { state: mv && S.clock < mv.t1 ? 'travelling' : 'inspecting', label: mv && S.clock < mv.t1 ? B(`going to the record’s location · ${tx(a?.label, 'en')}`, `se rend sur le lieu de la fiche · ${tx(a?.label, 'fr')}`) : B(`checking records · ${tx(a?.label, 'en')}`, `vérifie des fiches · ${tx(a?.label, 'fr')}`), mission: mid, task: tid, stage: 'ANALYZE', role: a ? byId.get(id)?.role : null }; }
     const t = m.plan.find(x => x.id === tid) || (tid.startsWith('session-') ? { stage: 'CRITIQUE', council: true } : { stage: 'MONITOR' });
     const moving = mv && S.clock < mv.t1, meeting = !!t.council || ['FORMULATE', 'COLLABORATE', 'CRITIQUE', 'DOSSIER'].includes(t.stage);
     return { state: moving ? 'travelling' : meeting ? 'meeting' : t.at === 'pipe' || t.at === 'flood' || t.at === 'sites' || t.stage === 'MONITOR' ? 'inspecting' : 'working',
-      label: moving ? B(`going to the work location (${STAGE_EN[t.stage]})`, `se rend au lieu de travail (${STAGE_FR[t.stage]})`) : B(`${ACT_EN[t.stage]} — ${tx(m.title, 'en')}`, `${ACT[t.stage]} — ${tx(m.title, 'fr')}`), mission: mid, task: tid, stage: t.stage, role: a?.role };
+      label: moving ? B(`going to the work location (${STAGE_EN[t.stage]})`, `se rend au lieu de travail (${STAGE_FR[t.stage]})`) : B(`${ACT_EN[t.stage]} · ${tx(m.title, 'en')}`, `${ACT[t.stage]} · ${tx(m.title, 'fr')}`), mission: mid, task: tid, stage: t.stage, role: a?.role };
   }
   function cancel(missionId, reason = 'cancelled') {
     const m = M.get(missionId), ms = S.missions[missionId]; if (!ms || ms.status === 'cancelled') return false;
@@ -263,7 +263,7 @@ export function createRuntime({ registry, missions, maxTasks = 140, perMission =
         : st.role === 'critic' && st.tool === 'verifier' ? B(o.issues?.length ? `Verifier flagged: ${o.issues.join('; ')}` : 'Verifier: no unsupported number or overclaim found.', o.issues?.length ? `Le vérificateur signale : ${o.issues.join(' ; ')}` : 'Vérificateur : aucun chiffre non étayé ni affirmation excessive.')
         : st.role === 'critic' ? B(`Objections: ${(o.objections || []).map(x => x.text).join(' / ')}`, `Objections (texte du modèle, en anglais) : ${(o.objections || []).map(x => x.text).join(' / ')}`)
         : B(`Draft synthesis (unreviewed): ${o.summary || ''}`, `Synthèse provisoire, non revue (texte du modèle, en anglais) : ${o.summary || ''}`);
-      const status = st.status === 'rejected' ? B(` — rejected by validation (${(st.issues || []).join('; ')})`, ` — écartée par la validation (${(st.issues || []).join(' ; ')})`) : B('', '');
+      const status = st.status === 'rejected' ? B(`: rejected by validation (${(st.issues || []).join('; ')})`, ` : écartée par la validation (${(st.issues || []).join(' ; ')})`) : B('', '');
       emit({ kind: 'message', mission: missionId, task: id, stage: st.role === 'critic' ? 'CRITIQUE' : st.role === 'synthesis' ? 'DOSSIER' : st.role === 'simulation' ? 'SIMULATE' : st.role === 'evidence' ? 'RETRIEVE' : 'ANALYZE', type: TYPE[st.role], from, to: st.role === 'synthesis' ? m.council : m.coordinator, agents: [from],
         text: B(`${body.en}${status.en}`, `${body.fr}${status.fr}`), evidence: st.role === 'evidence' ? (o.findings || []).map(f => f.id) : st.role === 'analyst' ? [...new Set((o.points || []).flatMap(p => p.cites || []))] : [], model: st.provenance === 'local-model' && st.status !== 'unavailable', validated: st.status === 'validated', investigation: id });
       n++;

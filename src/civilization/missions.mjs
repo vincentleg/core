@@ -24,10 +24,10 @@ export function buildMissions(D, reg, { today = new Date().toISOString() } = {})
   const hz = A.housing(D), f = id => hz.findings.find(x => x.id === id), L = d => `core.san-francisco.${d}.lead`;
   const pipeSites = D.pipeline.features.filter(x => /South of Market|Mission|Tenderloin/.test(x.properties.neighborhood || '')).slice(0, 24).map(x => x.geometry.coordinates);
   const flood = f('h.flood-exposure').sites.map(s => s.at);
-  const ev = (...ids) => ids, hy = (h, sep = ' — ') => B(`${h.id}${sep}${h.title.en}: ${h.statement.en}`, `${h.id}${sep}${h.title.fr} : ${h.statement.fr}`);
+  const ev = (...ids) => ids, hy = (h, sep = ': ') => B(`${h.id}${sep}${h.title.en}: ${h.statement.en}`, `${h.id}${sep}${h.title.fr} : ${h.statement.fr}`);
   const housing = {
     id: 'mission.sf.housing-resilience', flagship: true, city: 'san-francisco', council: 'core.council.mission.housing-resilience', coordinator: L('housing'), domain: 'housing', category: 'active', center: [-122.4135, 37.7765],
-    title: B('Affordable housing and urban resilience — San Francisco', 'Logement abordable et résilience urbaine — San Francisco'),
+    title: B('Affordable housing and urban resilience; San Francisco', 'Logement abordable et résilience urbaine ; San Francisco'),
     question: B('How can San Francisco produce more affordable homes without increasing the climate vulnerability of low-income households?', 'Comment San Francisco peut-elle produire davantage de logements abordables sans accroître la vulnérabilité climatique des ménages modestes ?'),
     scope: B('City of San Francisco; flood-exposure analysis limited to the SoMa / Mission / Tenderloin study area.', 'Ville de San Francisco ; analyse de l’exposition au risque d’inondation limitée à la zone d’étude SoMa / Mission / Tenderloin.'),
     why: B('Housing costs push families out of the city, and new affordable homes built in flood-prone places could expose the people they are meant to help.', 'Le coût du logement pousse des familles hors de la ville, et des logements abordables construits en zone inondable pourraient exposer ceux qu’ils doivent aider.'),
@@ -104,7 +104,7 @@ export function buildMissions(D, reg, { today = new Date().toISOString() } = {})
       const flag = !p.species || /Tree\(s\) ::/.test(p.species) ? B('species missing', 'espèce non renseignée') : !p.dbh_range ? B('diameter missing', 'diamètre non renseigné') : B('complete record', 'fiche complète');
       return it(p.treeid, x.geometry.coordinates, flag, B(`tree ${p.treeid}: ${flag.en}`, `arbre ${p.treeid} : ${flag.fr}`)); }) }],
     'mission.sf.sidewalk-regression': [{ id: 'problem-records', team: 'public-space', lanes: 4, batch: 3, label: B('Recorded problems, evidence by evidence', 'Problèmes enregistrés, preuve par preuve'), items: D.problems.problems.filter(p => p.segment).map(p => { const st = STATUS_BI[p.status] || B(p.status, p.status), n = (p.evidence || []).length;
-      return { key: p.id, at: null, segment: p.segment, flag: n ? B(`${st.en} — evidence present`, `${st.fr} — preuve présente`) : B('no evidence', 'sans preuve'), note: B(`${p.id}: ${n} piece(s) of evidence, status ${st.en}`, `${p.id} : ${n} preuve(s), statut ${st.fr}`) }; }) }],
+      return { key: p.id, at: null, segment: p.segment, flag: n ? B(`${st.en} · evidence present`, `${st.fr} · preuve présente`) : B('no evidence', 'sans preuve'), note: B(`${p.id}: ${n} piece(s) of evidence, status ${st.en}`, `${p.id} : ${n} preuve(s), statut ${st.fr}`) }; }) }],
   };
   const corridorMid = Object.fromEntries((D.corridor?.features || []).map(f => { const [a, b] = f.geometry.coordinates; return [f.properties.cnn, [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]]; }));
   for (const list of Object.values(audits)) for (const a of list) a.items = a.items.map(i => ({ ...i, at: i.at || corridorMid[i.segment] || null })).filter(i => i.at);
@@ -112,10 +112,10 @@ export function buildMissions(D, reg, { today = new Date().toISOString() } = {})
   // agents here read and review the recorded, reproducible runs: they never claim to have run them live.
   const mob = A.mobilitySim(D), mf = id => mob.findings.find(x => x.id === id), folsomSites = (D.corridor?.features || []).filter(x => /FOLSOM/.test(x.properties.streetname || '')).map(x => { const [a, b] = x.geometry.coordinates; return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]; });
   const mobility = { id: 'mission.sf.mobility', flagship: true, city: 'san-francisco', council: 'core.council.geo.san-francisco', coordinator: L('mobility'), domain: 'mobility', category: 'active', center: [-122.4038, 37.7793],
-    title: B('Mobility and congestion — SoMa, San Francisco', 'Mobilité et congestion — SoMa, San Francisco'),
-    question: B('Which interventions could reduce delays on the Folsom / Howard corridor without harming buses, safety or equity — and what can we actually know?', 'Quelles interventions pourraient réduire les retards sur le corridor Folsom / Howard sans dégrader les bus, la sécurité ni l’équité — et que peut-on réellement en savoir ?'),
+    title: B('Mobility and congestion: SoMa, San Francisco', 'Mobilité et congestion : SoMa, San Francisco'),
+    question: B('Which interventions could reduce delays on the Folsom / Howard corridor without harming buses, safety or equity, and what can we actually know?', 'Quelles interventions pourraient réduire les retards sur le corridor Folsom / Howard sans dégrader les bus, la sécurité ni l’équité, et que peut-on réellement en savoir ?'),
     scope: B('SoMa grid (3rd–9th, Folsom / Howard); real OpenStreetMap network; synthetic demand, signals and buses; UNCALIBRATED model.', 'Grille de SoMa (3rd–9th, Folsom / Howard) ; réseau réel OpenStreetMap ; demande, feux et bus synthétiques ; modèle NON CALIBRÉ.'),
-    why: B('Congestion costs people time, slows buses that many low-income residents rely on, and adds emissions — but a wrong intervention can make things worse.', 'La congestion coûte du temps, ralentit les bus dont dépendent beaucoup de ménages modestes et ajoute des émissions — mais une mauvaise intervention peut aggraver la situation.'),
+    why: B('Congestion costs people time, slows buses that many low-income residents rely on, and adds emissions, but a wrong intervention can make things worse.', 'La congestion coûte du temps, ralentit les bus dont dépendent beaucoup de ménages modestes et ajoute des émissions, mais une mauvaise intervention peut aggraver la situation.'),
     solutions: [B('Bus-only lane (scenario A)', 'Voie réservée bus (scénario A)'), B('Adaptive traffic signals (scenario B)', 'Feux adaptatifs (scénario B)'), B('Protected bike lane / road diet (scenario C)', 'Voie cyclable protégée (scénario C)'), B('Demand management (scenario D)', 'Gestion de la demande (scénario D)')],
     simulation: B('SUMO 1.27.1, 5 scenarios × 5 seeds, 20-second recorded replay; uncalibrated model.', 'SUMO 1.27.1, 5 scénarios × 5 graines, relecture enregistrée de 20 s ; modèle non calibré.'),
     findings: mob.findings, hypotheses: mob.hypotheses, dissent: mob.dissent, verdict: mob.verdict,
