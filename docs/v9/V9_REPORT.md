@@ -100,3 +100,32 @@ CORE_BASE=http://127.0.0.1:8000/ node scripts/v9-journey-audit.mjs 9251 /tmp/cor
 - `world.html#contribute`;
 - `report.html#mission=mission.sf.mobility`;
 - `manifesto.html`.
+
+## F. V9.2 — autonomous demo and hero fixes
+- **Autoplay root cause.** The autonomous tour advanced only when nothing interfered. Three faults made a real user stall:
+  - the autonomous panel still showed a **Next** button, with no sign of automatic progress;
+  - any pointer-down on the map **paused the tour indefinitely** until « Resume » was clicked;
+  - each stage's scene actions (`await st.run(E)`) were **not time-boxed**, so a camera flight that never resolved (for example, map animation suspended in a background tab) meant the auto-advance timer was never armed.
+
+  In addition, `demo.mjs` was imported without a version, so a browser could keep a stale cached copy: Python's server sends no cache headers.
+
+  Fixes, all in the existing controller (`src/earth/demo.mjs`, `app.mjs`):
+  - autonomous mode has no Previous/Next; it shows a live « Next stage in N s » countdown, Pause/Resume, Restart and Exit;
+  - map interaction pauses the tour briefly, and it resumes on its own after 8 s;
+  - stage actions are raced against the stage timeout;
+  - the module is imported as `demo.mjs?v=9.2`;
+  - the final stage offers « Replay » and « Explore CORE ».
+- **Real-path test.** `scripts/v9-autoplay-test.mjs`:
+  - fresh session;
+  - **trusted mouse clicks** on the visible « Launch Demo » button and the autonomous option;
+  - then no click, key or programmatic stage change.
+
+  Result: stages 1→15 advanced by themselves in 258 s and reached the conclusion with Replay and Explore. The manual mode stayed on stage 1 for 25 s and advanced one stage on Next. No page errors.
+
+  A separate probe confirmed that a map drag pauses the tour and that it resumes and advances without any click.
+- **Hero.**
+  - Headline « CORE — Creation Of Reborn Earth », followed by the statement, the mission subtitle (Kardashev Type I, then one day Type II) and the supporting sentence.
+  - Actions: « Launch Demo », « Explore CORE », « Read Our Manifesto ». The French versions are as specified.
+  - The prototype note now states that the Kardashev goal is a long-term aspiration, neither guaranteed nor imminent.
+  - Checked in the browser in English and French.
+- **If a browser still shows the old behaviour:** reload once with Cmd+Shift+R. The page itself may be cached.

@@ -53,8 +53,8 @@ try {
   // ---------- A. First impression ----------
   const hero = await ev(`(() => { const h = document.getElementById('ea-hero'); return { lang: document.documentElement.lang, sel: document.querySelector('[data-lang]')?.value, text: h?.innerText || '', cta: (b => b && { t: b.textContent.trim(), w: b.getBoundingClientRect().width, primary: b.classList.contains('primary') })(document.getElementById('ea-demo-cta')) }; })()`);
   check('A. fresh session: English selected', hero.lang === 'en' && hero.sel === 'en', `${hero.lang}/${hero.sel}`);
-  check('A. hero states the purpose: a parallel world built to solve problems in the real one', /A parallel world built to solve problems in the real one/.test(hero.text));
-  check('A. Launch CORE Demo is the prominent primary action', hero.cta?.t === 'Launch CORE Demo' && hero.cta.primary && hero.cta.w > 120, JSON.stringify(hero.cta));
+  check('A. hero states the purpose and mission (CORE — Creation Of Reborn Earth; Kardashev aspiration labelled)', /CORE — Creation Of Reborn Earth/.test(hero.text) && /A Parallel Earth\. A Collective Intelligence\. A Civilization Reimagined\./.test(hero.text) && /long-term aspiration/.test(hero.text));
+  check('A. Launch CORE Demo is the prominent primary action', hero.cta?.t === 'Launch Demo' && hero.cta.primary && hero.cta.w > 120, JSON.stringify(hero.cta));
   check('A. hero explains real Earth → CORE World → human + AI → tested proposals → review', /Real Earth/.test(hero.text) && /CORE World/.test(hero.text), hero.text.slice(0, 120).replace(/\n/g, ' '));
   await scan('world · hero'); await layout('hero', ['#ea-demo-cta', '#ea-start']); await shot('A-hero');
   await ev(`document.getElementById('ea-start').click(), 1`); await wait(2500);
