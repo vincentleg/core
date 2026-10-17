@@ -1,90 +1,540 @@
-// THE CORE MANIFESTO — long form, English (reference text). Original writing for CORE; no quotation of third parties.
-// Facts about the prototype (chapter XIII) must stay true to the repository; update them when the product changes.
-export const LONG = {
-  title: 'The CORE Manifesto',
-  subtitle: 'A Parallel Civilization in Service of the Real One',
-  status: 'Founding text · V9 · October 2026 · English reference version',
-  chapters: [
-    { n: 'I', id: 'why', title: 'Why CORE Must Exist', body: [
-      'Humanity has never known so much. We can sequence a genome in an afternoon, observe the planet from orbit every day, model the climate decades ahead and send instructions across the world in the time it takes to blink. And yet the problems that shape ordinary lives (housing that people can afford, streets that are safe to cross, air that is clean to breathe, water that arrives when it is needed) are solved slowly, unevenly, and often not at all.',
-      'The gap is rarely a lack of intelligence. It is a failure of coordination. Knowledge is scattered across journals, agencies, spreadsheets and the memories of people who live with a problem every day. Institutions are organised by department, while real problems cross every boundary. A finding published in one place takes years to reach the people who could act on it elsewhere. A resident who notices that the same bus is stuck at the same corner every morning holds evidence that no dataset contains, and usually has nowhere to put it.',
-      'Artificial intelligence changes what is possible, but not automatically for the better. It can retrieve, compare and summarise at a scale no team can match. It can also produce confident nonsense, concentrate power in whoever owns the models, and replace public reasoning with private answers. Whether AI strengthens collective intelligence or weakens it depends on how it is built and governed.',
-      'CORE exists to explore one answer: an open, evidence-first infrastructure where people and AI agents work on real problems together, in the open, and where every claim can be traced to its source. It is not a promise that technology will fix the world. It is an attempt to build a better place for the work of understanding it.',
-    ] },
-    { n: 'II', id: 'humanity', title: 'One Humanity, One Shared Planet', body: [
-      'The challenges that matter most are shared. Climate change does not stop at borders. A heat wave in one city and a flood in another are expressions of the same physical system. Housing shortages, congested streets, failing infrastructure and fragile food supply chains repeat from continent to continent with local variations. What one place learns, another place could use.',
-      'But access to knowledge and expertise is profoundly unequal. A large city can hire engineers, modellers and analysts; a small town often cannot. A well-funded research group can test an idea in simulation before anyone builds anything; a neighbourhood association rarely can. The people most exposed to a problem are often the least able to bring evidence about it into the rooms where decisions are made.',
-      'CORE starts from a simple commitment: the tools for understanding shared problems should be shared too. Methods, data with verified licences, models and results should be inspectable and reusable, so that what is learned about a sidewalk in San Francisco can inform a sidewalk elsewhere: adapted to local data, local rules and local people, never copied blindly.',
-    ] },
-    { n: 'III', id: 'parallel-earth', title: 'The Parallel Earth', body: [
-      'Why build a virtual Earth instead of another application? Because problems happen in places. A bus delay belongs to a particular street at a particular hour. A flood risk belongs to a particular block. Housing projects, trees, schools and water mains have coordinates. When research is organised around documents and dashboards, this spatial reality is flattened; when it is organised around a shared map of the world, connections become visible.',
-      'CORE keeps two worlds side by side and never lets them blur. The Real Earth shows what has been observed: public records, dated measurements, official datasets with their licences. The CORE World is the parallel layer where agents work, hypotheses are explored and interventions are tested in models. The Hybrid View places one over the other so that you can see a proposal against the street it would change. Every element carries its status (observed, derived, simulated, hypothetical or unknown) because a beautiful model that hides its assumptions is more dangerous than no model at all.',
-      'A parallel Earth is also a rehearsal space. It allows an idea to be stretched, challenged and broken cheaply, before anyone asks real people to bet their time, money or safety on it. Its purpose is not to replace the real world but to arrive there better prepared.',
-    ] },
-    { n: 'IV', id: 'agents', title: 'A Civilization of AI Agents', body: [
-      'Inside the CORE World live specialised agents organised like a research institution: missions with coordinators, teams for housing, mobility, climate, energy and safety, groups that check evidence and groups whose job is to criticise. Each agent has a declared role, a declared specialisation and declared limits. Each one knows when it must escalate to a human.',
-      'Their work follows the shape of good research. A coordinator frames the question. An evidence researcher retrieves dated, sourced records. A domain analyst interprets them. A simulation specialist reads what a model can and cannot say. A scientific critic looks for weaknesses, missing data and claims that go beyond the evidence. A synthesis states what is established, what is not, and what should be tested next. Disagreement is recorded rather than smoothed away.',
-      'Agents do not know the world directly. They know what their sources contain, and those sources are incomplete, dated and sometimes wrong. That is why their work must be inspectable: every finding should point to its record, every number should be recomputable by code, and every step should show whether it was produced by a language model, by deterministic computation, or by replaying a recorded simulation. An agent that cannot show its work should not be trusted, however fluent it sounds.',
-      'Above all, agents propose. They prepare files, compare options and flag risks. They do not approve, authorise or decide. Those acts belong to accountable people.',
-    ] },
-    { n: 'V', id: 'humans', title: 'Humanity Is Not a Spectator', body: [
-      'A civilisation of agents watched by passive humans would be a failure. The most valuable knowledge about a street often belongs to the people who use it: the parent who pushes a stroller along a narrow sidewalk, the driver who knows which light never seems to change, the shopkeeper who sees the same flooding every winter. CORE is designed so that this knowledge can enter the work.',
-      'People are present in CORE through avatars that represent them without giving them status or rank. They can report something they noticed, propose an idea, challenge a conclusion, attach evidence, or join a mission as a researcher or an expert. A contribution is first structured (observation, hypothesis, evidence, question, challenge) and its author decides, explicitly, whether it stays private or is shared with a mission. When it is shared, agents evaluate its form and route it; they never pretend to validate it.',
-      'Participation should not depend on age, profession or credentials. A student can learn how evidence works by examining a real file. A retired engineer can review a model. A researcher can bring a method. The point is not to make everyone an expert, but to make every kind of knowledge count for what it is.',
-    ] },
-    { n: 'VI', id: 'illusion', title: 'Intelligence Without Illusion', body: [
-      'The greatest risk of an AI-powered research environment is not that it fails visibly. It is that it succeeds convincingly while being wrong. Fluent text is not evidence. A chart is not a measurement. A simulation is a question asked to a model, not a fact about the street.',
-      'CORE therefore treats scientific discipline as a product feature, not a footnote. Every claim carries its status. Every number in an answer must appear in a cited record or be derivable from one, and a verifier rejects text that adds numbers, dates, legal status or certainty that the evidence does not contain. Uncertainty is shown, including intervals and the variation between simulation runs; a difference smaller than that variation is labelled as noise. Results must be reproducible from published data and code.',
-      'There is a decisive difference between a plausible proposal and a verified result. A scenario that reduces delay in an uncalibrated model is, at most, a hypothesis worth testing. It becomes knowledge about the world only when it has been measured in the world, before and after, under a protocol that someone independent could check. Until then CORE says so plainly. Today, the number of independently verified real-world improvements attributable to CORE is zero, and CORE shows that number.',
-      'Independent criticism is built in. A critic role exists to find what the others missed. Competing hypotheses remain open until data separates them. A system that cannot be contradicted is not intelligent; it is merely loud.',
-    ] },
-    { n: 'VII', id: 'real-change', title: 'From Virtual Experiments to Real-World Change', body: [
-      'Nothing that happens in a model changes a street. The path from a virtual experiment to real improvement passes through steps that CORE cannot and should not skip.',
-      'First, a research file: the question, the evidence, the gaps, the competing hypotheses, the scenarios tested and their limits, written so that a competent reader can check every step. Second, review by qualified, independent people, including those who will be affected. Third, authorisation by the institutions and people who are accountable for the place: a city department, a community, an owner, a regulator. Fourth, implementation, usually small and reversible at first. Fifth, measurement: what actually changed, for whom, and at what cost, compared with what would have happened otherwise.',
-      'CORE’s role is to make the first step stronger and the later steps better informed. It can prepare a dossier that is ready for review; it can never declare it approved. “Ready for signature” is not “signed”. A pilot is not a policy. A measured improvement in one place is not a guarantee in another.',
-    ] },
-    { n: 'VIII', id: 'kardashev', title: 'The Kardashev Perspective', body: [
-      'In 1964 the astrophysicist Nikolai Kardashev proposed classifying hypothetical civilisations by the amount of energy they can harness: a Type I civilisation using the energy available on its planet, Type II that of its star, Type III that of its galaxy. Carl Sagan later suggested a continuous version, K = (log10 P − 6) / 10 with P in watts, which places Type I at 10^16 watts.',
-      'Using public estimates of world primary energy consumption from the U.S. Energy Information Administration, about 20 terawatts in 2024, this formula gives humanity a value of roughly K ≈ 0.73. The figure depends on accounting conventions for nuclear and renewable energy and on estimates for recent years; with an assumed ±10 % uncertainty on energy, the value lies between about 0.726 and 0.735. CORE’s Progress page shows the formula, the data source and the uncertainty rather than a single unquestionable number.',
-      'The scale is useful as a perspective, not as a verdict. It measures energy use, not wisdom, justice or well-being. A civilisation could climb the scale while destroying its own climate, and a civilisation could become far better without using more energy at all. CORE does not treat a higher K as progress.',
-      'What the Kardashev perspective does illuminate is the scale of coordination ahead. Providing clean, reliable energy to every person, adapting infrastructure to a changing climate and managing shared resources over decades are civilisation-scale problems. They require long-term thinking, shared evidence and institutions able to act across borders and generations. That is the kind of coordination CORE hopes, modestly, to help rehearse.',
-    ] },
-    { n: 'IX', id: 'foundations', title: 'Inspirations and Intellectual Foundations', body: [
-      'CORE builds on ideas that are much older and larger than it. None of the traditions below endorses CORE, and CORE claims no direct lineage from any of them; they are simply the ground it tries to stand on.',
-      'The scientific method, with its insistence on testable claims, controlled comparison and the possibility of being wrong. Peer review and the practice, since the earliest scientific journals of the seventeenth century, of exposing results to the scrutiny of others before trusting them. Open knowledge and collaborative science: the open-source movement, open data, preprints and shared encyclopaedias have shown that large communities can build reliable knowledge when contributions are visible and correctable.',
-      'Systems thinking, from Jay Forrester’s system dynamics to Donella Meadows’ writing on leverage points, which teaches that problems arise from feedback and structure rather than isolated causes. Digital twins (virtual counterparts of physical systems used in engineering and, increasingly, in cities) which show the value and the danger of models that look like reality. Collective intelligence, explored by thinkers such as Pierre Lévy, which asks how groups can become wiser than their members rather than more conformist.',
-      'Distributed and volunteer computing, from projects such as SETI@home and Folding@home, which proved that ordinary people will contribute resources to shared scientific goals. Participatory governance, from participatory budgeting first practised in Porto Alegre in 1989 to citizens’ assemblies, which shows that people affected by decisions can deliberate seriously when given information and time. Elinor Ostrom’s research on the governance of the commons, which demonstrated that shared resources can be managed by communities with clear rules, monitoring and fair conflict resolution.',
-      'And long-term stewardship: the idea, carried by institutions such as libraries, archives and projects like the Long Now Foundation, that some work must be designed to outlive its founders. Science fiction, too, has imagined parallel worlds and civilisations of minds; CORE treats such stories as inspiration, never as evidence.',
-    ] },
-    { n: 'X', id: 'never', title: 'What CORE Must Never Become', body: [
-      'An opaque authority. CORE must never issue conclusions that cannot be traced, questioned and reproduced, or present the output of a model as the voice of truth.',
-      'A factory of false certainty. It must never fabricate results, hide uncertainty, inflate the meaning of a simulation or claim an impact that has not been measured.',
-      'An instrument of surveillance. It must never track people, profile them, sell their data or read what they have chosen to keep private. Private ideas stay private, encrypted on the person’s own device.',
-      'A system of coercive governance. It must never decide for people, nudge them covertly, or replace democratic and institutional accountability with automated recommendations.',
-      'A marketplace of influence. No payment, sponsorship or subscription may ever buy a scientific conclusion, a ranking, a vote or a louder voice. What is for sale, if anything ever is, will never include the outcome of research.',
-      'An unaccountable machine. Every automated step must have a responsible human above it, and every decision that affects real people must be taken by people who can be held to account.',
-    ] },
-    { n: 'XI', id: 'rights', title: 'The Rights of Contributors', body: [
-      'Everyone who contributes to CORE has rights that the system must protect by design, not by promise.',
-      'The right to privacy: to work on an idea without anyone else seeing it, and to keep it encrypted on one’s own device. The right to informed consent: nothing is shared, published or used beyond its stated purpose without an explicit, understandable choice. The right to attribution: contributions are credited as their authors wish (by pseudonym, by name or anonymously) and never appropriated. The right to challenge: any finding, classification or decision can be contested, and the challenge is recorded and answered. The right to transparency: to know which steps were performed by a model, which by code and which by a person, and on what evidence. The right to leave: to export or erase one’s data at any time.',
-      'And the right to meaningful participation: a contribution should be read, routed and answered, not collected and forgotten. When CORE cannot yet do that (for example, because no verified human reviewer exists) it must say so honestly.',
-    ] },
-    { n: 'XII', id: 'generations', title: 'A Project Beyond One Generation', body: [
-      'The problems CORE addresses unfold over decades: climate adaptation, housing, energy transitions, the renewal of infrastructure. Their solutions will be built by people who are not yet adults. A project that hopes to help must be designed to last longer than its first team, its first technologies and its first enthusiasm.',
-      'That means durable records: dated data snapshots with fingerprints, decisions written down with their reasons, methods documented so that someone in twenty years can understand why a conclusion was reached and whether it still holds. It means governance that can evolve, with principles strong enough to resist capture and humble enough to be revised. It means teaching: helping new generations learn how evidence, uncertainty and disagreement work, so that they inherit not only tools but judgement.',
-      'CORE may fail. Most ambitious projects do. If it fails honestly, leaving open data, open methods and clear lessons, it will still have been worth attempting.',
-    ] },
-    { n: 'XIII', id: 'first-step', title: 'The First Step', body: [
-      'CORE today is a local prototype, not a public service. It is honest to say exactly what it does.',
-      'It shows a 3D Earth and a detailed San Francisco, with the Real Earth, the CORE World and a Hybrid View clearly separated. It holds eleven San Francisco missions built from dated public datasets (housing and resilience, mobility, energy, road safety, urban forest, sidewalks, food access, schools, water and more) with findings computed by code, declared gaps and competing hypotheses. Ninety-eight problems are recorded along the Folsom and Howard corridor, each with its evidence and status.',
-      'About five hundred registered agent identities are organised into missions and teams. Most of their activity is produced by a deterministic engine and labelled as such. A six-role investigation (coordinator, evidence researcher, domain analyst, simulation specialist, scientific critic and synthesis) can run with a local open-weight language model through Ollama on the user’s own computer; its model steps are validated against the evidence, and the critic flags claims that go beyond it. When no local model is available, CORE says so and keeps its recorded research and deterministic tools accessible.',
-      'The mobility mission includes recorded SUMO traffic simulations of four interventions on Folsom Street, replayed with 3D cars and buses. They use synthetic demand and are not calibrated: they can suggest which ideas deserve testing, never which ones work. People can create an avatar, keep ideas private in an encrypted vault, structure an observation and share it with a mission after explicit confirmation. A demo explains all of this in fifteen stages, automatically or step by step.',
-      'What remains experimental is most of what matters: calibrated models, verified human reviewers, institutional partners, more cities, more languages, and any measured real-world impact. The next credible milestones are modest and concrete: a calibration study with real traffic counts, independent review of one mission file, a second city, a complete accessibility review and the opening of contributions to a small group of invited researchers.',
-    ] },
-    { n: 'XIV', id: 'invitation', title: 'An Invitation to Build', body: [
-      'CORE cannot be built by one person, one company or one discipline. It needs scientists who can tell a good model from a seductive one; engineers who care about privacy and reliability; designers who can make evidence legible; public servants who know how decisions are really made; community organisations that know what a neighbourhood needs; teachers, students and citizens who notice what everyone else overlooks.',
-      'If you work with data, help us find sources whose licences allow honest reuse, and tell us where our findings are wrong. If you build models, help us calibrate them and state their limits. If you work in a city or an institution, help us understand what a useful review file looks like. If you live with a problem, tell us what you see. If you disagree with this text, write your objection: it will be recorded.',
-      'The ambition is large, a parallel civilisation in service of the real one, and the first step is small. Both are true. We invite you to take the next one with us, carefully, in the open, and with the evidence in view.',
-    ] },
-  ],
-};
+// THE CORE MANIFESTO, English translation of the authoritative French text (V9), same structure; rendered by parse.mjs.
+export const SOURCE = `# THE CORE MANIFESTO
+## Creation Of Reborn Earth
+### Build the world as it should be.
+
+**A parallel Earth. A collective intelligence. A new ambition for humanity.**
+
+## I. Our mission: solving the world's problems
+
+Humanity has achieved the extraordinary.
+
+We have explored space, developed modern medicine, connected billions of people and created artificial intelligences capable of accelerating scientific research.
+
+Today we have knowledge, technologies and computing power that no previous generation could have imagined.
+
+And yet millions of people still lack clean drinking water, reliable energy, affordable housing or appropriate care. Our cities struggle with transport problems, our infrastructure is ageing, our resources are poorly used and many discoveries remain unexploited.
+
+These problems are not inevitable.
+
+They are challenges that humanity can meet through science, engineering, cooperation and artificial intelligence.
+
+**CORE was born from a conviction: we can organize the world's knowledge and intelligence to solve these problems far more effectively.**
+
+Our mission is simple:
+
+**Identify problems. Understand their causes. Imagine solutions. Test them. Improve them. And help people apply them in the real world.**
+
+CORE wants to make this process accessible to everyone, everywhere on Earth.
+
+Our ambition does not stop at solving isolated problems. We want to help build a civilization able to learn faster, use its resources more intelligently and prepare a better future for the generations to come.
+
+We want to build the world as it should be.
+
+## II. Why create CORE?
+
+Every day, researchers discover new solutions. Engineers develop new technologies. Entrepreneurs create tools. Citizens identify problems. Institutions seek to improve their territories.
+
+But these efforts often remain separate.
+
+A solution developed in one city could work elsewhere. A scientific discovery could help another discipline. A local observation could reveal a wider problem.
+
+The potential of this knowledge is immense. It still has to be connected.
+
+CORE wants to create a shared environment where problems, knowledge, ideas, simulations and results can meet.
+
+Imagine a platform able to study the challenges of a city, compare thousands of possible solutions, mobilize teams of specialized AI agents and let residents contribute directly.
+
+Imagine that the same method could then be applied to a region, to a country, and then to the entire planet.
+
+**CORE wants to turn scattered efforts into an organized collective intelligence.**
+
+This is not an intelligence that replaces people. It is an intelligence that increases our ability to understand and to act.
+
+## III. A second Earth to improve the first
+
+To solve the world's problems, we must be able to observe them, understand them and experiment without needlessly exposing people to the consequences of our mistakes.
+
+That is why CORE is building a parallel Earth.
+
+A virtual world inspired by our planet, its cities, its infrastructure, its environments and its great systems.
+
+This Earth is not meant to replace reality.
+
+**It is meant to help us improve it.**
+
+CORE rests on three complementary dimensions.
+
+**The real Earth**
+
+It brings together the available information about our planet: territories, infrastructure, public data, measurements and documented problems. The sources and limits of the information must remain visible.
+
+**The CORE world**
+
+This is the virtual environment in which people and artificial intelligence agents explore problems, conduct research, propose solutions and run simulations.
+
+**The hybrid view**
+
+It connects the two. It makes it possible to visualize a proposal in its real context and to compare different scenarios.
+
+Take an example.
+
+A city suffers from traffic congestion that slows down its public transport. In CORE, agents can study the available data, identify possible causes, propose several street designs and test their effects in a simulation.
+
+Residents can contribute their observations. Experts can examine the hypotheses. The officials concerned can use the results to prepare a real-world trial.
+
+A simulation never guarantees that a solution will work. But it can help rule out some ideas, improve others and better prepare decisions.
+
+Over time, we want to apply this method to thousands of problems.
+
+**One planet. Millions of challenges. A shared environment to search for solutions.**
+
+## IV. A civilization of artificial intelligence agents
+
+The CORE world is designed to host a virtual civilization of specialized AI agents.
+
+These agents are not simply characters in a 3D environment.
+
+They are meant to work.
+
+Some search for information. Others analyze data, develop hypotheses, run models, compare solutions or check the conclusions of other agents.
+
+They can be organized into teams, missions and fields of expertise.
+
+An energy mission could mobilize agents specialized in power grids, storage, generation, materials and economics.
+
+A health mission could bring together agents working on medical knowledge, logistics, infrastructure and access to care.
+
+A water mission could mobilize specialists in hydrology, climate, agriculture and distribution networks.
+
+Their common goal is to produce work that is useful, verifiable and understandable.
+
+**We want agents to be able to collaborate on problems that no single discipline can solve alone.**
+
+This virtual civilization will be able to evolve with progress in artificial intelligence, integrating new models, new methods and new capabilities.
+
+CORE does not seek to compete with the companies, laboratories or researchers who develop these technologies.
+
+On the contrary, we want to build an environment able to take advantage of their advances and put them to work on concrete missions.
+
+Agents must not be presented as infallible. Their reasoning, their sources, their calculations and their limits must be open to examination.
+
+They can propose and experiment. Decisions that commit the real world remain subject to the responsible people and institutions.
+
+## V. Every human being can take part
+
+CORE is not reserved for scientists, engineers or artificial intelligence specialists.
+
+**CORE is meant for all of humanity.**
+
+Every person has experience, knowledge, observations or ideas that can be useful.
+
+A resident can report a problem in their neighborhood.
+
+A student can propose a solution.
+
+A scientist can contribute a discovery or challenge a hypothesis.
+
+An engineer can improve a model.
+
+A nonprofit can document a local need.
+
+A company can contribute a technology.
+
+A city can explore urban planning scenarios.
+
+A university can launch a research mission.
+
+A teacher can use CORE to help students understand the great scientific challenges.
+
+Everyone must be able to take part at their own level.
+
+In CORE, a user can create a virtual identity and explore the parallel Earth. They can discover ongoing missions, observe the agents at work, ask questions, propose ideas and contribute to research.
+
+Their contributions can be studied, discussed, improved and connected to other work.
+
+Over time, every person will be able to trace the history of their contributions: what they proposed, who examined their ideas, how those ideas were used and what results were actually measured.
+
+**A small idea can become an important contribution.**
+
+We want to give everyone the opportunity to add their stone to the building of our common future.
+
+Participation must remain voluntary. People must keep control of their data, their identity and what they choose to share.
+
+## VI. How CORE solves a problem
+
+CORE must be simple to understand and rigorous in how it works.
+
+The process rests on seven steps.
+
+**1. Identify**
+
+A problem is reported by a person, detected in data or formulated by a research mission.
+
+**2. Understand**
+
+Agents gather the available information, identify possible causes and separate facts from hypotheses.
+
+**3. Collaborate**
+
+Specialized agents and human contributors compare their knowledge and explore several approaches.
+
+**4. Propose**
+
+CORE organizes the possible solutions, their advantages, their limits, their costs and the conditions for carrying them out.
+
+**5. Experiment**
+
+Where suitable models exist, proposals are tested in simulations or other experimental environments.
+
+**6. Verify**
+
+The results are examined. Uncertainties, errors and objections are documented. Proposals intended for the real world require the appropriate reviews and authorizations.
+
+**7. Learn and improve**
+
+The results of real-world trials, when they are available and verified, make it possible to improve knowledge and future proposals.
+
+This process can start again as many times as necessary.
+
+A solution that fails also provides useful information.
+
+**CORE must become a system that learns from problems, research, experiments and results, generation after generation.**
+
+## VII. From local problems to the challenges of humanity
+
+CORE starts with concrete problems, but its architecture is designed to scale.
+
+At the scale of a street, it can help study pedestrian safety, transport, networks or accessibility.
+
+At the scale of a city, it can explore housing, energy, air quality, infrastructure, water management and climate resilience.
+
+At the scale of a country, it can help compare strategies and understand the interactions between several systems.
+
+At the global scale, its ambition is to contribute to the great challenges of our civilization.
+
+Access to clean and abundant energy.
+
+Universal access to water and sanitation.
+
+Better health and prevention.
+
+Food production and secure supply.
+
+The construction of sustainable housing and infrastructure.
+
+The protection of ecosystems.
+
+Better education and access to knowledge.
+
+Scientific research and space exploration.
+
+Smarter management of our resources.
+
+The world's problems are linked to one another. An energy solution can transform access to water. Better infrastructure can improve health, education and economic activity.
+
+**CORE must make it possible to study these connections, rather than treating each problem as if it existed alone.**
+
+We want to start where we can produce serious results, then gradually broaden the missions, the territories and the disciplines.
+
+## VIII. Our horizon: Type I and Type II civilizations
+
+In 1964, the astrophysicist Nikolai Kardashev proposed a scale describing civilizations according to their ability to use energy.
+
+A Type I civilization can harness energy at the scale of its planet.
+
+A Type II civilization can harness energy comparable to that of its star.
+
+A Type III civilization reaches a galactic scale.
+
+Today, humanity is still below Type I according to the usual conventions of this scale.
+
+**Our ambition is to help prepare the conditions for a Type I civilization, and then, on a much more distant horizon, a Type II civilization.**
+
+This does not simply mean consuming more energy.
+
+We want a civilization able to produce abundant, clean and reliable energy, master its infrastructure, protect the conditions for life and put scientific advances at the service of human progress.
+
+A more advanced civilization must also be better able to cooperate, to solve its problems and to pass on its knowledge.
+
+The Kardashev scale gives us a perspective on humanity's energy potential. It measures neither justice, nor happiness, nor the quality of our institutions.
+
+It represents a scientific and technological horizon, not a promise of results.
+
+CORE does not claim to be able to lead humanity to these levels of development on its own.
+
+But we believe that an organized collective intelligence, able to understand complex systems and test solutions at large scale, could become one of the useful tools for this progression.
+
+**Humanity's future must not be limited to managing its crises. It must also be devoted to realizing its potential.**
+
+## IX. The great works that inspire us
+
+CORE draws inspiration from science, history, philosophy and the great works of imagination.
+
+These references are neither partnerships nor endorsements. They help us think bigger.
+
+### Foundation: preserving and developing civilization
+
+In *Foundation*, Isaac Asimov imagines a galactic civilization facing decline. Preserving knowledge becomes essential to preparing the future.
+
+CORE takes from it a fundamental question: how can we pass on, organize and develop knowledge so that future generations can go further than those before them?
+
+We do not seek to predict the future of humanity as an exact science. We want to give it more tools to build that future.
+
+### The fall of Rome: learning from history
+
+The fall of the Western Roman Empire reminds us that political, economic and material systems can weaken and be profoundly transformed.
+
+No civilization is automatically protected from decline.
+
+CORE wants to help better understand the dependencies between systems, preserve knowledge and strengthen our collective ability to anticipate difficulties.
+
+The goal is not to live in fear of collapse, but to build a more resilient civilization.
+
+### TRON: giving shape to the digital universe
+
+*TRON* imagines a digital world in which programs have a presence and interact in a visible environment.
+
+CORE takes up this power of representation.
+
+We want to make the work of artificial intelligence observable and understandable in a virtual world that people can explore.
+
+### The Matrix: understanding the link between reality and simulation
+
+*The Matrix* questions the relationship between the physical world and the simulated world.
+
+CORE uses this distinction for a different purpose: a simulation must help us better understand reality, never draw us away from it.
+
+The virtual world must remain connected to facts, to evidence and to real consequences.
+
+### Humanity's great collective endeavors
+
+CORE is also inspired by achievements that required the cooperation of thousands or millions of people.
+
+The great libraries and encyclopedias.
+
+The space exploration programs.
+
+The development of the Internet.
+
+Free software and open science projects.
+
+International research collaborations.
+
+These achievements show what humanity can accomplish when it shares goals, knowledge and methods.
+
+**CORE wants to bring together the ambition of the great works of science fiction and the discipline of the great scientific achievements.**
+
+We do not only want to imagine an extraordinary future.
+
+We want to build tools to help make it possible.
+
+## X. An intelligence grounded in science
+
+Technological optimism does not require blind belief in every innovation.
+
+It requires belief in our ability to learn, to experiment and to progress.
+
+CORE must clearly distinguish what is known, what is assumed, what is simulated and what has been verified.
+
+Every significant piece of research must be able to show its sources, its methods, its hypotheses and its limits.
+
+Agents must be able to contradict one another. People must be able to challenge their results. Errors must be correctable.
+
+A promising proposal is not a proven solution.
+
+A successful simulation is not a real improvement.
+
+And an important decision must not be made solely because an artificial intelligence recommended it.
+
+This rigor does not hold back our ambition.
+
+**It is what turns an ambition into lasting progress.**
+
+We want to move fast in research, be demanding in verification and be responsible in application.
+
+## XI. A platform for everyone
+
+CORE must be able to serve several audiences without losing its common mission.
+
+**For citizens**, it is a way to understand their environment, report problems and contribute to solutions.
+
+**For researchers**, it is an environment for collaboration, analysis and the sharing of methods.
+
+**For engineers**, it is a space to develop and test technical proposals.
+
+**For cities and institutions**, it is a potential tool to support study and the preparation of decisions.
+
+**For nonprofits**, it is a way to document the needs of communities and contribute local knowledge.
+
+**For companies**, it is a potential environment for research, simulation and innovation, respecting the rights and responsibilities of everyone.
+
+**For teachers and students**, it is a space for learning from concrete problems.
+
+**For AI agents**, it is a structure of missions, knowledge, collaboration and verification.
+
+We envision two complementary dimensions.
+
+**CORE World**, dedicated to discovery, participation and contributions from individuals and communities.
+
+**CORE Business**, dedicated to professional uses in research, analysis and simulation.
+
+These two dimensions will be able to enrich each other, without confusing private data, commercial interests and work in the public interest.
+
+Scientific conclusions must not be for sale. Contributions must be respected. Public decisions must remain under human responsibility.
+
+## XII. The rights of those who build CORE
+
+CORE can only succeed if its contributors trust it.
+
+Everyone must be able to understand what they share and what they keep private.
+
+Every author must be able to receive credit for their contributions, at the level of identification they choose.
+
+People must be able to consult the history of their ideas, request corrections, challenge conclusions and understand how their contributions have been used.
+
+No one should be required to publish their personal information in order to take part.
+
+Participation in CORE must not become a contest of popularity, wealth or status.
+
+A good idea must be examined for its merit, its evidence and its potential, whatever its origin.
+
+**CORE must be a space where contribution counts for more than social position.**
+
+These principles will have to be translated into governance rules, technical protections and verifiable procedures as the project grows.
+
+## XIII. A project for several generations
+
+Humanity's greatest challenges will not all be solved in a few years.
+
+Some will take decades. Others will take several generations.
+
+That is why CORE must be designed for the long term.
+
+The knowledge acquired today must be able to help the researchers of tomorrow.
+
+Experiments must be documented.
+
+Errors must be kept as lessons.
+
+Methods must be able to evolve.
+
+New generations must be able to take up previous work, question it and improve it.
+
+Over time, we envision CORE as a collective memory of the search for solutions, organized around our planet and accessible to those who wish to contribute.
+
+A project able to grow with scientific progress, new artificial intelligence models and the needs of humanity.
+
+**CORE must not depend forever on its founder, on a single company or on a single technology.**
+
+Its ambition is to become a collective work that can outlive its founder.
+
+## XIV. What we are building today
+
+CORE is still a prototype.
+
+Its first public version lets you explore a virtual 3D Earth, discover missions, observe agents and study research related in particular to San Francisco.
+
+It presents documented data, mobility simulations, hypotheses, research files and contribution journeys.
+
+A first research workflow can draw on a local artificial intelligence model and several specialized roles. On the public site, a recorded investigation shows how it works, without presenting it as reasoning executed live.
+
+Not all registered agents are active autonomous intelligences. The available simulations are not yet calibrated against enough traffic measurements to demonstrate real effects.
+
+CORE has not yet produced an independently verified improvement in the real world.
+
+We say so clearly, because we want future results to be credible.
+
+But this prototype is a first demonstration of our direction.
+
+We now want to improve the agents' capabilities, deepen the simulations, add new missions, develop the contribution tools and gradually extend CORE to other territories.
+
+Our goal is not to multiply features to create an illusion of progress.
+
+**Our goal is to build a system that becomes genuinely useful for solving problems.**
+
+Every new capability will have to bring us closer to this mission.
+
+## XV. Our invitation to humanity
+
+CORE cannot be built by a single person.
+
+It will take researchers, engineers, entrepreneurs, institutions, nonprofits, teachers, students and citizens.
+
+It will take people able to develop technologies, verify results, imagine new methods and report problems that no one had noticed yet.
+
+It will also take people who ask difficult questions, challenge certain hypotheses and help us improve the project.
+
+You can contribute an observation, an idea, expertise, reusable data, a model, a critique or a mission proposal.
+
+You can explore CORE to learn, to understand your environment or simply to discover what a collective intelligence at the scale of our planet could become.
+
+Not every contribution will produce a solution.
+
+But every serious contribution can help us better understand a problem and move research forward.
+
+We do not claim to know all the answers.
+
+We want to build an environment in which humanity can find more of them.
+
+## XVI. Build the world as it should be
+
+Human history is a succession of challenges that once seemed impossible.
+
+We learned to master new forms of energy, to fight diseases, to cross oceans, to fly, to explore space and to create machines able to reason about complex problems.
+
+Each generation inherited the discoveries of the one before.
+
+Each generation pushed back certain limits.
+
+Today, we are entering a new period of our history.
+
+Artificial intelligence gives us unprecedented means to accelerate research, explore hypotheses and work together.
+
+We have the opportunity to put these capabilities at the service of a common ambition.
+
+A planet where knowledge flows better.
+
+A planet where problems are identified earlier.
+
+A planet where solutions are studied faster.
+
+A planet where more people can take part in progress.
+
+A civilization able to develop abundant and sustainable energy, protect its resources, advance science and open new horizons beyond Earth.
+
+**We want to move from a humanity that too often endures its problems to a humanity better equipped to solve them.**
+
+CORE is our contribution to this ambition.
+
+A parallel Earth to explore what is possible.
+
+A collective intelligence to search for solutions.
+
+A human community to understand them, improve them and make them real.
+
+Our horizon is immense. Our starting point is modest. Our direction is clear.
+
+**Build the world as it should be.**
+
+**CORE. Creation Of Reborn Earth.**
+
+*The future is not only predicted. It is built, together.*
+
+---
+
+## The ten founding principles of CORE
+
+1. **Solve real problems.** Every mission must pursue a useful and clearly defined goal.
+2. **Bring intelligences together.** People and AI agents must be able to collaborate according to their capabilities.
+3. **Build a parallel Earth.** The virtual world serves to understand, explore and test solutions for the real world.
+4. **Trust the evidence.** Sources, hypotheses, calculations and limits must remain visible.
+5. **Experiment before asserting.** A simulation does not become a real success without verification.
+6. **Give everyone a place.** Every person must be able to learn, propose, contribute and challenge.
+7. **Respect contributors.** Protect privacy, consent, attribution and rights over contributions.
+8. **Preserve human responsibility.** Decisions that affect the real world require appropriate authorization.
+9. **Think at the scale of civilization.** Start from local problems, connect knowledge and prepare long-term progress.
+10. **Stay ambitious and optimistic.** Advance science, technology and cooperation to build a better future.
+
+**One Earth. One humanity. One collective intelligence. A future to build.**
+`;

@@ -106,7 +106,7 @@ try {
   await go('report.html#mission=mission.sf.mobility', '!!globalThis.CORE_REPORT');
   check('10. report: 20 sections, a proposal for consideration, uncertainty and limits', await ev(`CORE_REPORT.sections === 20 && document.querySelectorAll('.rp-sec').length === 20 && /Proposition soumise à examen/.test(document.getElementById('s1').textContent) && /Impact réel vérifié : aucun/.test(document.getElementById('s20').textContent)`));
   await go('manifesto.html', '!!globalThis.CORE_MANIFESTO');
-  check('11. manifesto: ten principles, ends on the CORE line', await ev(`CORE_MANIFESTO.principles === 10 && /A parallel world to help humanity improve the real one\\./.test(document.querySelector('.mf-sign').textContent)`));
+  check('11. manifesto: ten principles, ends on the CORE line', await ev(`CORE_MANIFESTO.principles === 10 && /One Earth\\. One humanity\\./.test(document.querySelector('.mf-sign').textContent)`));
   // 12. Demo
   await go('demo.html', '!!globalThis.CORE_EARTH && !!document.querySelector(".demo")');
   await ev(`document.querySelector('.demo [data-d=start]').click(), 1`); await wait(2500);

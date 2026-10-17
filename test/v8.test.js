@@ -149,18 +149,23 @@ test('report: 20 sections for every mission, a proposal for consideration, never
   assert.match(read('src/report/report.css'), /@media print/);
 });
 
-test('manifesto: original text in English (reference) and French, same principles, ends on the CORE line', async () => {
-  const src = read('src/manifesto/manifesto.mjs'); const { TEXT } = await import('data:text/javascript,' + encodeURIComponent(src.slice(src.indexOf('export const TEXT'), src.indexOf('function render'))));
-  assert.equal(TEXT.en.principles.length, 10); assert.equal(TEXT.fr.principles.length, 10);
-  assert.equal(TEXT.en.sign, 'A parallel world to help humanity improve the real one.');
-  assert.match(TEXT.en.principles.map(p => p[1]).join(' '), /that number is zero/);
-  // V9: long form, 14 chapters in English (reference) and French, 2,500–4,000 English words, no invented impact.
-  const [{ LONG: en }, { LONG: fr }] = await Promise.all([imp('src/manifesto/long-en.mjs'), imp('src/manifesto/long-fr.mjs')]);
-  const w = l => l.chapters.reduce((n, c) => n + c.body.join(' ').split(/\s+/).length, 0);
-  assert.equal(en.chapters.length, 14); assert.deepEqual(fr.chapters.map(c => c.id), en.chapters.map(c => c.id));
-  assert.ok(w(en) >= 2500 && w(en) <= 4000, `${w(en)} words`); assert.equal(en.title, 'The CORE Manifesto');
-  assert.match(en.chapters.find(c => c.id === 'kardashev').body.join(' '), /K = \(log10 P − 6\) \/ 10/);
-  assert.match(en.chapters.find(c => c.id === 'illusion').body.join(' '), /is zero/);
+test('manifesto: authoritative French text (16 chapters, ten founding principles) and its full English translation', async () => {
+  const P = await imp('src/manifesto/parse.mjs');
+  const [{ SOURCE: en }, { SOURCE: fr }] = await Promise.all([imp('src/manifesto/long-en.mjs'), imp('src/manifesto/long-fr.mjs')]);
+  const E = P.parse(en), F = P.parse(fr), roman = 'I II III IV V VI VII VIII IX X XI XII XIII XIV XV XVI'.split(' ');
+  for (const [src, d] of [[en, E], [fr, F]]) {
+    assert.deepEqual(d.chapters.map(c => c.n), roman); assert.equal(d.principles.items.length, 10);
+    // lossless: every block of the source is rendered, in order (headings, paragraphs, principles, coda)
+    const out = [`# ${d.title}\n## ${d.subtitle}\n### ${d.tagline}`, d.lede, ...d.chapters.flatMap(c => [`## ${c.n}. ${c.title}`, ...c.body.map(b => (b.h3 ? `### ${b.h3}` : b))]), '---', `## ${d.principles.title}`, d.principles.items.map((p, i) => `${i + 1}. **${p.head}** ${p.text}`).join('\n'), ...d.coda];
+    assert.deepEqual(out, src.split(/\n\s*\n/).map(b => b.trim()).filter(Boolean));
+    assert.doesNotMatch(src, /[\u2013\u2014]/);
+  }
+  assert.deepEqual(E.chapters.map(c => c.body.length), F.chapters.map(c => c.body.length)); // same structure
+  assert.equal(F.title, 'LE MANIFESTE CORE'); assert.equal(E.title, 'THE CORE MANIFESTO');
+  assert.match(F.chapters[13].body.join(' '), /CORE n'a pas encore produit d'amélioration du monde réel vérifiée indépendamment\./);
+  assert.match(E.chapters[13].body.join(' '), /has not yet produced an independently verified improvement/);
+  assert.equal(E.coda.at(-1), '**One Earth. One humanity. One collective intelligence. A future to build.**');
+  assert.ok(P.words(E) >= 3000, `${P.words(E)} words`);
 });
 
 test('vehicle prototype: capped speed, stopped by buildings and agents, never enters a footprint', async () => {

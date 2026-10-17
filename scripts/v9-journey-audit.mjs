@@ -193,9 +193,9 @@ try {
     await scan(url);
   }
   await go('manifesto.html', '!!globalThis.CORE_MANIFESTO'); const mf = await ev(`globalThis.CORE_MANIFESTO`);
-  check('J. manifesto: 14 chapters in English (2,500–4,000 words) with contents', mf.chapters === 14 && mf.words >= 2500 && mf.words <= 4000 && await ev(`document.querySelectorAll('.mf-toc li').length`) === 15, `${mf.words} words`);
+  check('J. manifesto: 16 chapters and ten founding principles in English with contents', mf.chapters === 16 && mf.principles === 10 && mf.words >= 3000 && await ev(`document.querySelectorAll('.mf-toc li').length`) === 17 && /THE CORE MANIFESTO/.test(await ev(`document.querySelector('.mf-doc h1').textContent`)), `${mf.words} words`);
   await setLang('fr'); const mff = await ev(`globalThis.CORE_MANIFESTO`);
-  check('B. manifesto fully in French when French is selected', mff.lang === 'fr' && /Le Manifeste CORE/.test(await ev(`document.querySelector('.mf-doc h1').textContent`)));
+  check('B. manifesto fully in French when French is selected', mff.lang === 'fr' && mff.chapters === 16 && mff.principles === 10 && /LE MANIFESTE CORE/.test(await ev(`document.querySelector('.mf-doc h1').textContent`)));
   await go('report.html#mission=mission.sf.mobility', '!!globalThis.CORE_REPORT'); await wait(1500);
   check('B. report in French when French is selected; no raw objects', /Proposition soumise à examen/.test(await ev('document.body.innerText')) && !(await ev(`/\\[object Object\\]/.test(document.body.innerText)`)));
   await go('commons.html#knowledge?view=ask', '!!globalThis.CORE_COMMONS'); await wait(2000); await ev(`document.querySelector('[data-kq]')?.click(), 1`); await wait(1500);
