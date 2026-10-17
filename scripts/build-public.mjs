@@ -10,7 +10,7 @@ const EXTRA = [...walk('assets'), ...walk('data/mobility').filter(f => /trace-[A
 const files = [...new Set([...FILES, ...EXTRA])].filter(f => !/(^|\/)\.|\.DS_Store$/.test(f)).sort();
 const FORBIDDEN = /^(docs|scripts|test|\.core-local|\.github|node_modules)\/|PROJECT_STATE|CORE_RESUME|AGENTS\.md|CLAUDE\.md|\.sqlite|\.env|(^|\/)(index|corridor|control|research|world-classic|demo)\.html$/;
 const bad = files.filter(f => FORBIDDEN.test(f)); if (bad.length) throw Error(`refusing to publish: ${bad.join(', ')}`);
-fs.rmSync(OUT, { recursive: true, force: true });
+for (const e of fs.existsSync(OUT) ? fs.readdirSync(OUT) : []) if (e !== '.vercel') fs.rmSync(path.join(OUT, e), { recursive: true, force: true }); // keep the Vercel project link
 let bytes = 0;
 for (const f of files) {
   const to = path.join(OUT, f); fs.mkdirSync(path.dirname(to), { recursive: true });
@@ -22,8 +22,10 @@ const H = [{ key: 'X-Content-Type-Options', value: 'nosniff' }, { key: 'Referrer
 fs.writeFileSync(path.join(OUT, 'vercel.json'), JSON.stringify({
   $schema: 'https://openapi.vercel.sh/vercel.json', cleanUrls: false, trailingSlash: false,
   rewrites: [{ source: '/', destination: '/world.html' }, { source: '/favicon.ico', destination: '/assets/brand/core-mark.svg' }],
-  redirects: [{ source: '/index.html', destination: '/', permanent: true }],
+  redirects: [{ source: '/:path*', has: [{ type: 'host', value: 'www.creationofrebornearth.com' }], destination: 'https://creationofrebornearth.com/:path*', permanent: true }, { source: '/index.html', destination: '/', permanent: true }],
   headers: [{ source: '/(.*)', headers: H }, { source: '/(src|assets)/(.*)', headers: [{ key: 'Cache-Control', value: 'public, max-age=300, must-revalidate' }] }],
 }, null, 1));
 fs.writeFileSync(path.join(OUT, 'robots.txt'), 'User-agent: *\nAllow: /\n');
+fs.writeFileSync(path.join(OUT, '.vercelignore'), '.env*\n.vercel\n*.local\n');
+for (const e of fs.readdirSync(OUT)) if (/^\.env/.test(e)) fs.rmSync(path.join(OUT, e)); // never upload local secrets
 console.log(`public/: ${files.length} files, ${(bytes / 1e6).toFixed(1)} MB`);

@@ -129,3 +129,13 @@ CORE_BASE=http://127.0.0.1:8000/ node scripts/v9-journey-audit.mjs 9251 /tmp/cor
   - The prototype note now states that the Kardashev goal is a long-term aspiration, neither guaranteed nor imminent.
   - Checked in the browser in English and French.
 - **If a browser still shows the old behaviour:** reload once with Cmd+Shift+R. The page itself may be cached.
+
+## G. Public deployment (Vercel, Hobby plan, founder-confirmed non-commercial use)
+- **Project:** `core` (vincentleg). **Production URL:** https://core-psi-seven.vercel.app.
+- **Domains** `creationofrebornearth.com` and `www.creationofrebornearth.com` are attached to the project. The DNS is hosted at Hostinger and must point to Vercel. www redirects permanently to the apex domain (rule in the generated `vercel.json`).
+- **Build:** `node scripts/build-public.mjs`, then `cd public && vercel deploy --prod --yes`. Only the files the supported pages load are published: `scripts/public-manifest.mjs` crawls the pages, and the build adds the mobility traces, `assets/` and the recorded investigation. The build refuses to include docs, scripts, tests, `.core-local`, internal reports, legacy pages or `.env*` files.
+- **Public mode** (`src/env.mjs`, any host other than localhost):
+  - no request to a local model and no local supervisor state; the CSP no longer allows `127.0.0.1:11434`;
+  - the investigation panel states that live inference is unavailable on the public site, and offers a replay of a real qwen3:8b run (`data/investigations/mobility-folsom.json`, recorded 2026-10-16, labelled "replay, not live inference");
+  - contributions and the vault stay in each visitor's browser, and nothing is sent to a server (there is none).
+- **Local development is unchanged:** `python3 -m http.server 8000 --bind 127.0.0.1`, then open http://localhost:8000/world.html, with local reasoning available when Ollama runs.
