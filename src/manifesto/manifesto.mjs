@@ -1,7 +1,12 @@
-// CORE V8 — Manifesto (original text). English is the reference; French version provided; other languages fall back
-// to English with a notice.
+// CORE — Manifesto. V9: the long-form founding text (14 chapters, src/manifesto/long-*.mjs) followed by the ten V8
+// principles. English is the reference; a full French translation exists; any other language falls back to English
+// with a visible notice (never a silent mix).
 import * as NAV from '../shell/nav.mjs';
 import { lang, t } from '../i18n/i18n.mjs';
+import { LONG as LONG_EN } from './long-en.mjs';
+import { LONG as LONG_FR } from './long-fr.mjs';
+export const LONG = { en: LONG_EN, fr: LONG_FR };
+export const words = l => l.chapters.reduce((n, c) => n + c.body.join(' ').split(/\s+/).filter(Boolean).length, 0);
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
@@ -45,13 +50,18 @@ export const TEXT = {
 };
 
 function render() {
-  const code = lang(), T = TEXT[code] || TEXT.en;
-  $('mf-doc').innerHTML = `<p class="le-eyebrow">${esc(T.eyebrow)}</p><h1>${esc(T.title)}</h1><p class="mf-lede">${esc(T.lede)}</p>
-    ${TEXT[code] ? '' : '<p class="fine">This text exists in English (reference) and French; it is shown in English.</p>'}
-    <ol class="mf-list">${T.principles.map(([h, p]) => `<li><h2>${esc(h)}</h2><p>${esc(p)}</p></li>`).join('')}</ol>
+  const code = lang(), T = TEXT[code] || TEXT.en, M = LONG[code] || LONG.en, fr = code === 'fr';
+  const P = fr ? { toc: 'Sommaire', principles: 'Dix principes de travail', minutes: 'min de lecture', top: 'Haut de page' } : { toc: 'Contents', principles: 'Ten working principles', minutes: 'min read', top: 'Back to top' };
+  $('mf-doc').innerHTML = `<header class="mf-head"><p class="le-eyebrow">${esc(T.eyebrow)}</p><h1>${esc(M.title)}</h1><p class="mf-sub">${esc(M.subtitle)}</p>
+      <p class="fine">${esc(M.status)} · ${Math.round(words(M) / 230)} ${P.minutes}</p>
+      ${TEXT[code] ? '' : '<p class="fine">This text exists in English (reference) and French; it is shown in English.</p>'}</header>
+    <nav class="mf-toc" aria-label="${P.toc}"><h2>${P.toc}</h2><ol>${M.chapters.map(c => `<li><a href="#mf-${c.id}"><span>${c.n}</span> ${esc(c.title)}</a></li>`).join('')}<li><a href="#mf-principles"><span>✦</span> ${P.principles}</a></li></ol></nav>
+    ${M.chapters.map(c => `<section class="mf-ch" id="mf-${c.id}" aria-labelledby="mf-${c.id}-h"><h2 id="mf-${c.id}-h"><span class="mf-n">${c.n}</span>${esc(c.title)}</h2>${c.body.map(p => `<p>${esc(p)}</p>`).join('')}</section>`).join('')}
+    <section class="mf-ch" id="mf-principles" aria-labelledby="mf-principles-h"><h2 id="mf-principles-h"><span class="mf-n">✦</span>${P.principles}</h2><p class="mf-lede">${esc(T.lede)}</p>
+    <ol class="mf-list">${T.principles.map(([h, p]) => `<li><h3>${esc(h)}</h3><p>${esc(p)}</p></li>`).join('')}</ol></section>
     <p class="mf-close">${esc(T.close)}</p><p class="mf-sign">${esc(T.sign)}</p>
-    <nav class="le-row"><a class="btn primary" href="demo.html">${esc(t('nav.demo'))}</a><a class="btn" href="progress.html">${esc(t('nav.progress'))}</a><a class="btn" href="commons.html#trust">TRUST</a></nav>`;
-  globalThis.CORE_MANIFESTO = { lang: TEXT[code] ? code : 'en', principles: T.principles.length };
+    <nav class="le-row"><a class="btn primary" href="world.html#demo">${esc(t('nav.demo'))}</a><a class="btn" href="progress.html">${esc(t('nav.progress'))}</a><a class="btn" href="commons.html#trust">TRUST</a><a class="btn ghost" href="#mf-doc">${P.top}</a></nav>`;
+  globalThis.CORE_MANIFESTO = { lang: TEXT[code] ? code : 'en', principles: T.principles.length, chapters: M.chapters.length, words: words(M) };
 }
 NAV.render($('core-nav'), { active: 'manifesto' });
 render(); document.addEventListener('core:lang', render);

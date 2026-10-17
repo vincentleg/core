@@ -154,6 +154,13 @@ test('manifesto: original text in English (reference) and French, same principle
   assert.equal(TEXT.en.principles.length, 10); assert.equal(TEXT.fr.principles.length, 10);
   assert.equal(TEXT.en.sign, 'A parallel world to help humanity improve the real one.');
   assert.match(TEXT.en.principles.map(p => p[1]).join(' '), /that number is zero/);
+  // V9: long form, 14 chapters in English (reference) and French, 2,500–4,000 English words, no invented impact.
+  const [{ LONG: en }, { LONG: fr }] = await Promise.all([imp('src/manifesto/long-en.mjs'), imp('src/manifesto/long-fr.mjs')]);
+  const w = l => l.chapters.reduce((n, c) => n + c.body.join(' ').split(/\s+/).length, 0);
+  assert.equal(en.chapters.length, 14); assert.deepEqual(fr.chapters.map(c => c.id), en.chapters.map(c => c.id));
+  assert.ok(w(en) >= 2500 && w(en) <= 4000, `${w(en)} words`); assert.equal(en.title, 'The CORE Manifesto');
+  assert.match(en.chapters.find(c => c.id === 'kardashev').body.join(' '), /K = \(log10 P − 6\) \/ 10/);
+  assert.match(en.chapters.find(c => c.id === 'illusion').body.join(' '), /is zero/);
 });
 
 test('vehicle prototype: capped speed, stopped by buildings and agents, never enters a footprint', async () => {

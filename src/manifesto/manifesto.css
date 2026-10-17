@@ -7,3 +7,19 @@
 .mf-list li::before { content: counter(p, decimal-leading-zero); position: absolute; inset-inline-start: 0; top: 2px; font: 600 14px var(--le-mono); color: var(--le-cyan); }
 .mf-list h2 { font-size: 19px; margin: 0 0 6px; } .mf-list p { margin: 0; color: var(--le-text-2); line-height: 1.6; }
 .mf-close { font-size: 17px; color: var(--le-text-2); } .mf-sign { font-size: 22px; font-weight: 600; margin: 18px 0 28px; }
+/* V9 — long-form manifesto: readable measure, table of contents, numbered chapters */
+.mf-sub { font-size: clamp(18px, 2.4vw, 23px); color: var(--le-cyan); margin: -6px 0 12px; line-height: 1.35; }
+.mf-head { border-bottom: 1px solid var(--le-line, rgba(140,200,255,.18)); padding-bottom: 22px; margin-bottom: 26px; }
+.mf-toc { margin: 0 0 36px; padding: 18px 20px; border: 1px solid var(--le-line, rgba(140,200,255,.18)); border-radius: 14px; background: rgba(8, 20, 36, .5); }
+.mf-toc h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .12em; color: var(--le-text-2); margin: 0 0 10px; }
+.mf-toc ol { list-style: none; margin: 0; padding: 0; columns: 2 260px; column-gap: 28px; }
+.mf-toc li { break-inside: avoid; margin: 0 0 6px; } .mf-toc a { color: var(--le-text); text-decoration: none; line-height: 1.4; }
+.mf-toc a:hover, .mf-toc a:focus-visible { color: var(--le-cyan); text-decoration: underline; }
+.mf-toc span { display: inline-block; min-width: 38px; font: 600 12px var(--le-mono); color: var(--le-cyan); }
+.mf-ch { margin: 0 0 40px; scroll-margin-top: 84px; }
+.mf-ch h2 { font-size: clamp(22px, 3vw, 28px); line-height: 1.2; margin: 0 0 14px; display: flex; gap: 14px; align-items: baseline; }
+.mf-n { font: 600 14px var(--le-mono); color: var(--le-cyan); min-width: 40px; }
+.mf-ch > p { font-size: 17px; line-height: 1.75; color: var(--le-text); margin: 0 0 16px; max-width: 68ch; hyphens: auto; }
+.mf-list h3 { font-size: 18px; margin: 0 0 6px; }
+@media (max-width: 640px) { .mf-ch > p { font-size: 16px; } .mf-ch h2 { flex-direction: column; gap: 4px; } }
+@media print { .mf-toc { break-after: page; } .mf-ch { break-inside: auto; } }
