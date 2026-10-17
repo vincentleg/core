@@ -2,6 +2,7 @@
 // passphrase encryption (PBKDF2 → AES-GCM, WebCrypto), and explicit permissions. Local prototype: nothing leaves the device.
 // A fingerprint proves that a given text existed in this vault at a recorded local time. It is NOT a patent, NOT a
 // trusted timestamp, and does NOT establish novelty or ownership; the UI says so.
+import { T } from '../i18n/i18n.mjs';
 const enc = new TextEncoder(), dec = new TextDecoder();
 const hex = b => [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join('');
 const b64 = b => btoa(String.fromCharCode(...new Uint8Array(b))), unb64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
@@ -40,7 +41,7 @@ export function publish(idea, { actor, version, licence, pseudonym, at = new Dat
   if (actor !== idea.owner) return { ok: false, error: 'seul l’auteur publie' };
   if (!confirmDisclosure) return { ok: false, error: 'confirmation requise : une divulgation publique peut compromettre une future demande de brevet' };
   const v = idea.versions.find(x => x.n === version); if (!v) return { ok: false, error: 'version inconnue' };
-  if (!['all-rights-reserved', 'CC-BY-4.0', 'CC-BY-SA-4.0', 'CC0-1.0'].includes(licence)) return { ok: false, error: 'licence non proposée' };
+  if (!['all-rights-reserved', 'CC-BY-4.0', 'CC-BY-SA-4.0', 'CC0-1.0'].includes(licence)) return { ok: false, error: T('licence not offered', 'licence non proposée') };
   return { ok: true, value: { ...idea, permissions: { ...idea.permissions, publication: { version, hash: v.hash, licence, attribution: `${pseudonym} (${idea.owner})`, at } } } };
 }
 
@@ -54,7 +55,7 @@ export async function seal(obj, passphrase, iterations = 210000) {
 export async function open(box, passphrase) {
   const key = await subtle().deriveKey({ name: 'PBKDF2', salt: unb64(box.salt), iterations: box.iterations, hash: 'SHA-256' }, await subtle().importKey('raw', enc.encode(passphrase), 'PBKDF2', false, ['deriveKey']), { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
   try { return JSON.parse(dec.decode(await subtle().decrypt({ name: 'AES-GCM', iv: unb64(box.iv) }, key, unb64(box.ct)))); }
-  catch { throw Error('phrase secrète incorrecte ou coffre altéré'); }
+  catch { throw Error(T('wrong passphrase or altered vault', 'phrase secrète incorrecte ou coffre altéré')); }
 }
 
 // Word-level comparison of two versions (LCS, bounded): [{ op: 'same' | 'add' | 'del', text }].
@@ -68,13 +69,15 @@ export function diffWords(a, b, max = 1500) {
   return out;
 }
 export function removeIdea(vault, id, actor) {
-  const idea = vault.ideas.find(i => i.id === id); if (!idea) return { ok: false, error: 'idée inconnue' };
-  if (idea.owner !== actor) return { ok: false, error: 'seul l’auteur supprime une idée' };
+  const idea = vault.ideas.find(i => i.id === id); if (!idea) return { ok: false, error: T('unknown idea', 'idée inconnue') };
+  if (idea.owner !== actor) return { ok: false, error: T('only the author deletes an idea', 'seul l’auteur supprime une idée') };
   return { ok: true, value: { ...vault, ideas: vault.ideas.filter(i => i.id !== id) } };
 }
-export const CATEGORIES = ['infrastructure', 'accessibilité', 'énergie', 'environnement', 'éducation', 'santé publique', 'autre'];
+export const CATEGORIES = ['infrastructure', 'accessibilité', 'énergie', 'environnement', 'éducation', 'santé publique', 'autre']; // stored ids (French, kept for saved vaults)
+const CAT_EN = { infrastructure: 'infrastructure', 'accessibilité': 'accessibility', 'énergie': 'energy', environnement: 'environment', 'éducation': 'education', 'santé publique': 'public health', autre: 'other' };
+export const categoryLabel = c => T(CAT_EN[c] || c, c);
 export function setMeta(idea, { category, notes }, actor) {
-  if (actor !== idea.owner) return { ok: false, error: 'seul l’auteur modifie l’idée' };
-  if (category && !CATEGORIES.includes(category)) return { ok: false, error: 'catégorie inconnue' };
+  if (actor !== idea.owner) return { ok: false, error: T('only the author edits the idea', 'seul l’auteur modifie l’idée') };
+  if (category && !CATEGORIES.includes(category)) return { ok: false, error: T('unknown category', 'catégorie inconnue') };
   return { ok: true, value: { ...idea, ...(category ? { category } : {}), ...(notes != null ? { notes: String(notes).slice(0, 4000) } : {}) } };
 }

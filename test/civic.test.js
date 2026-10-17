@@ -16,7 +16,7 @@ test('identity: pseudonymous, private by default, declared ≠ verified, no publ
   assert.equal(I.publicView(p).ageBand, undefined);
   assert.equal(I.attestCredential(p, 0, { id: 'self' }).ok, false, 'nobody can self-verify');
   const m = I.createProfile({ pseudonym: 'Eleve-test', ageBand: 'minor' });
-  assert.throws(() => I.setLeaderboards(m, true), /aucun classement/); assert.throws(() => I.setVisibility(m, 'bio', 'public'), /reste privé/);
+  assert.throws(() => I.setLeaderboards(m, true), /aucun classement/); assert.throws(() => I.setVisibility(m, 'bio', 'public'), /stays private/);
 });
 
 test('vault: chained fingerprints detect tampering, encryption round-trips, permissions and explicit publication', async () => {
@@ -37,7 +37,7 @@ test('vault: chained fingerprints detect tampering, encryption round-trips, perm
   const box = await V.seal(idea, 'correct horse battery staple', 1000);
   assert.ok(!JSON.stringify(box).includes('Arbres'));
   assert.deepEqual(await V.open(box, 'correct horse battery staple', 1000), idea);
-  await assert.rejects(V.open(box, 'wrong'), /incorrecte/);
+  await assert.rejects(V.open(box, 'wrong'), /wrong passphrase/);
 });
 
 test('labs: explainable checklist, no score, permission required, throttled, contest goes to a human', async () => {
@@ -146,27 +146,27 @@ test('vault: word diff between versions, owner-only deletion and metadata', asyn
 
 test('expert network: fictional only, topic matching with reasons, explicit sharing, labelled fictional advice, author decides', async () => {
   const N = await load('network.mjs'), V = await load('vault.mjs');
-  assert.ok(N.EXPERTS.every(x => /fictif/i.test(x.name) && /fictif/i.test(x.affiliation) && x.verification === 'synthetic'));
+  assert.ok(N.EXPERTS.every(x => /fictional/i.test(x.name.en) && /fictif/i.test(x.name.fr) && /fictional/i.test(x.affiliation.en) && /fictif/i.test(x.affiliation.fr) && x.verification === 'synthetic'));
   assert.ok(!N.EXPERTS.some(x => /MIT|Stanford|Harvard|Berkeley|universit/i.test(JSON.stringify(x))), 'no real institution');
   const m = N.match('élargir le trottoir et compter les piétons', { domain: 'accessibility' });
-  assert.equal(m[0].expert.id, 'xp-a'); assert.match(m[0].why, /sujets en commun/);
+  assert.equal(m[0].expert.id, 'xp-a'); assert.match(m[0].why, /topics in common/);
   let idea = await V.addVersion(V.newIdea({ id: 'i', owner: 'core:me' }), { title: 'T', problem: 'P secret', solution: 'S secret' });
-  assert.match(N.request(idea, { expertId: 'xp-a', share: 'summary' }).error, /confirmez/);
+  assert.match(N.request(idea, { expertId: 'xp-a', share: 'summary' }).error, /confirm what you share/);
   idea = N.request(idea, { expertId: 'xp-b', share: 'summary', confirmed: true, at: '2026-10-15T00:00:00Z' }).value;
   const rq = idea.reviewRequests[0];
   assert.deepEqual(Object.keys(rq.snapshot), ['title', 'problem'], 'summary shares no solution'); assert.ok(rq.coi, 'expert conflict surfaced');
   idea = N.fictionalResponse(idea, rq.id, { missing: [{ label: 'Mesure actuelle de la largeur' }] }).value;
   const r = idea.reviewRequests[0];
-  assert.equal(r.state, 'answered-fictional'); assert.match(r.response.label, /AVIS FICTIF.*ni validation/); assert.match(r.response.text, /mesure actuelle de la largeur/);
+  assert.equal(r.state, 'answered-fictional'); assert.match(r.response.label, /FICTIONAL OPINION.*not a validation/); assert.match(r.response.text, /Could you provide: mesure actuelle de la largeur/);
   assert.equal(N.fictionalResponse(idea, rq.id).ok, false, 'one response per request');
   assert.equal(N.decide(idea, rq.id, { decision: 'accept', actor: 'core:other' }).ok, false);
-  assert.match(N.decide(idea, rq.id, { decision: 'disagree', reason: 'non', actor: 'core:me' }).error, /motive/);
-  assert.match(N.decide(idea, rq.id, { decision: 'accept', actor: 'core:me' }).value.reviewRequests[0].authorDecision.scope, /n’engage personne/);
+  assert.match(N.decide(idea, rq.id, { decision: 'disagree', reason: 'non', actor: 'core:me' }).error, /needs a reason/);
+  assert.match(N.decide(idea, rq.id, { decision: 'accept', actor: 'core:me' }).value.reviewRequests[0].authorDecision.scope, /binds nobody else/);
 });
 
 test('communities: fictional members, adults only, local drafts never published, report → simulated moderation with rule → appeal to a human', async () => {
   const N = await load('network.mjs');
-  assert.ok(N.COMMUNITIES.every(c => c.adultsOnly && c.members.every(([, n]) => /fictif/.test(n))));
+  assert.ok(N.COMMUNITIES.every(c => c.adultsOnly && c.members.every(([, n]) => /Fictional/.test(n.en) && /fictif/.test(n.fr))));
   assert.ok(N.COMMUNITIES.find(c => c.id === 'cm-folsom').threads[0].posts[0].evidence.includes('sidewalks:8562'));
   assert.equal(N.draftPost('cm-folsom', { text: 'connard' }).ok, false);
   const d = N.draftPost('cm-folsom', { thread: 't1', text: 'Je peux mesurer samedi ; écrivez-moi à ' + ['x', 'y.org'].join('@') }).value;
@@ -174,20 +174,20 @@ test('communities: fictional members, adults only, local drafts never published,
   const post = N.COMMUNITIES[0].threads[0].posts[1];
   assert.equal(N.report(post, { reason: '' }).ok, false);
   const rep = N.report(post, { reason: 'hors sujet' }).value;
-  assert.match(N.moderate(rep, { outcome: 'removed' }).error, /cite la règle/);
+  assert.match(N.moderate(rep, { outcome: 'removed' }).error, /cites the rule/);
   const mod = N.moderate(rep, { outcome: 'kept', rule: 'Le désaccord argumenté est bienvenu' }).value;
-  assert.match(mod.mod.by, /SIMULÉE/);
+  assert.match(mod.mod.by, /SIMULATED/);
   const ap = N.appeal(mod, { reason: 'Je pense que la règle a été mal appliquée.' }).value;
-  assert.equal(ap.mod.state, 'appealed'); assert.match(N.MOD.appealed, /humain/);
+  assert.equal(ap.mod.state, 'appealed'); assert.match(N.MOD.appealed.en, /human/); assert.match(N.MOD.appealed.fr, /humain/);
 });
 
 test('debate: fictional debate on a real record, arguments cite existing records, unresolved objections computed, no winner', async () => {
   const Db = await load('debate.mjs');
   const records = new Map([['sidewalks:8562', {}]]);
-  let d = Db.DEBATE; assert.ok(d.fictional && /FICTIF/.test(d.label));
-  assert.match(Db.addArgument(d, { target: 'pa', kind: 'argument', text: 'Un argument assez long pour passer.', evidence: ['invented:1'], records }).error, /preuve inconnue/);
-  assert.match(Db.addArgument(d, { target: 'pa', kind: 'counter', text: 'Un contre-argument assez long.', records }).error, /vise un argument/);
-  assert.match(Db.addArgument(d, { target: 'a1', kind: 'argument', text: 'Un argument mal placé ici.', records }).error, /soutient une proposition/);
+  let d = Db.DEBATE; assert.ok(d.fictional && /FICTIONAL/.test(d.label.en) && /FICTIF/.test(d.label.fr));
+  assert.match(Db.addArgument(d, { target: 'pa', kind: 'argument', text: 'Un argument assez long pour passer.', evidence: ['invented:1'], records }).error, /unknown evidence/);
+  assert.match(Db.addArgument(d, { target: 'pa', kind: 'counter', text: 'Un contre-argument assez long.', records }).error, /targets an argument/);
+  assert.match(Db.addArgument(d, { target: 'a1', kind: 'argument', text: 'Un argument mal placé ici.', records }).error, /supports a proposal/);
   let a = Db.analyse(d); assert.deepEqual(a.unresolved.map(x => x.id), ['a2', 'a4']); assert.deepEqual(a.unsourced.map(x => x.id), ['a3']);
   d = Db.addArgument(d, { target: 'a2', kind: 'rebuttal', text: 'D’accord : il faut d’abord une mesure actuelle.', evidence: ['sidewalks:8562'], records, at: '2026-10-15T00:00:00Z' }).value;
   assert.deepEqual(Db.analyse(d).unresolved.map(x => x.id), ['a4']);
@@ -195,7 +195,7 @@ test('debate: fictional debate on a real record, arguments cite existing records
   assert.equal(Db.addProposal(d, { title: 'Encore', summary: 'Une deuxième proposition.' }).ok, false);
   const o = Db.outcome(d);
   assert.equal(o.winner, null); assert.equal(o.authorizes, false); assert.equal(o.scientificValidation, false);
-  assert.match(o.explanation.join(' '), /1 objection\(s\).*sans réponse.*Aucune proposition n’est déclarée gagnante/s);
+  assert.match(o.explanation.join(' '), /1 objection\(s\).*without a reply.*No proposal is declared the winner/s);
 });
 
 test('academy: three lessons, each tied to the real record, teacher-demo only, unknown lesson refused', async () => {
