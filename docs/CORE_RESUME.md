@@ -9,9 +9,11 @@ python3 -m http.server 8000 --bind 127.0.0.1
 # open http://localhost:8000/world.html
 #   (demo: world.html#demo · simulation: world.html#sim=B&play=1 · missions: world.html#problems)
 # optional local AI: install Ollama, then `ollama pull qwen3:8b` (about 5 GB, free)
-node --test test/*.test.js          # 261/261 at this checkpoint
+node --test test/*.test.js          # 261/261
 node scripts/investigate.mjs --mission mission.sf.mobility --question "What could reduce bus delays on Folsom Street?"
 ```
+
+**V9 delivered:** see `docs/v9/V9_REPORT.md` for the implemented features, test results (Node 261/261, verify OK, V9 browser audit A–J desktop 80/81 + tour 5/5, phone 78/78), limitations and the demo-readiness verdict. The sections below are the pre-delivery checkpoint, kept for history.
 
 ## Implemented and working (checked in a browser or by tests)
 - **Languages:**

@@ -73,7 +73,7 @@ function match(ix, q) {
     return (!street.length || street.some(s => hay.includes(s))) && (!dom.length || dom.includes(p.domain)) && (!nums.length || nums.every(n => new RegExp(`\\b${n}\\b`).test(hay)));
   });
 }
-const uncertaintyOf = (ix, p) => [p.caveat && ptext(p.caveat), p.confidence && T(`Confidence: ${p.confidence}.`, `Confiance : ${p.confidence}.`), T(`Snapshot of ${String(p.asOf).slice(0, 10)}.`, `Instantané du ${String(p.asOf).slice(0, 10)}.`)].filter(Boolean);
+const uncertaintyOf = (ix, p) => [p.caveat && ptext(p.caveat), p.confidence && T(`Confidence: ${ptext(p.confidence)}.`, `Confiance : ${p.confidence}.`), T(`Snapshot of ${String(p.asOf).slice(0, 10)}.`, `Instantané du ${String(p.asOf).slice(0, 10)}.`)].filter(Boolean);
 function problemClaim(ix, p) {
   return { text: `${ptext(p.title)} — ${p.place}. ${ptext(p.statement)}`, status: p.status, citations: [cite(ix, 'problems', p.id), ...p.evidence.slice(0, 3).map(e => cite(ix, e.ref.split(':')[0] === 'sidewalks' ? 'sidewalks' : 'permits', e.ref, e.url))] };
 }

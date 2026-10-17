@@ -12,6 +12,7 @@
 import * as CIV from '../civilization/client.mjs';
 import { STAGE_FR, MSG_FR, STAGE_EN, MSG_EN } from '../civilization/runtime.mjs';
 import { T as TX, L, AT, lang, onLang } from '../i18n/i18n.mjs';
+import { hstate } from '../earth/civ-panels.mjs';
 import { verify } from '../intelligence/verifier.mjs';
 import { ollamaGenerate } from '../intelligence/orchestrator.mjs';
 import * as NAV from '../shell/nav.mjs';
@@ -158,7 +159,7 @@ function proposeForm() {
       <label class="inline"><input type="checkbox" id="tm-consent">${TX('I agree to share this title and text with the mission council (stored in this browser, visible in CORE World; no publication).', ' Je consens à partager ce titre et ce texte avec le conseil de mission (stockés dans ce navigateur, visibles dans CORE World ; aucune publication).')}</label>
       <button type="submit" class="primary">${TX('Submit to the mission council', 'Soumettre au conseil de mission')}</button></form>
     ${!prof || !VS.unlocked() ? `<p class="fine">${TX('To keep a private copy, you need a local identity and an open vault:', 'Pour garder une copie privée, il faut une identité locale et le coffre ouvert :')} ${!prof ? `<input id="tm-ps" maxlength="24" placeholder="${TX('pseudonym', 'pseudonyme')}"> <button type="button" class="small" id="tm-prof">${TX('Create', 'Créer')}</button>` : `<input id="tm-pass" type="password" minlength="12" placeholder="${TX('passphrase (12+)', 'phrase secrète (12+)')}"> <button type="button" class="small" id="tm-unlock">${TX('Open the vault', 'Ouvrir le coffre')}</button>`}</p>` : ''}
-    ${mine.length ? `<p class="fine">${TX('Your contributions to this mission', 'Vos contributions à cette mission')} : ${mine.map(h => `“${esc(L(h.title))}” (${esc(h.state)})`).join(', ')}</p>` : ''}</section>`;
+    ${mine.length ? `<p class="fine">${TX('Your contributions to this mission', 'Vos contributions à cette mission')} : ${mine.map(h => `“${esc(L(h.title))}” (${esc(hstate(h.state))})`).join(', ')}</p>` : ''}</section>`;
 }
 function wirePropose() {
   const val = () => ({ kind: $('tm-kind').value, title: $('tm-title').value.trim(), text: $('tm-text').value.trim() });

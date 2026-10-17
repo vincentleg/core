@@ -6,6 +6,10 @@ import { T, L } from '../i18n/i18n.mjs';
 const B = (en, fr) => ({ en, fr });
 
 export const FICTION = B('FICTIONAL — person and organisation invented for the demonstration; no verification, no real contact', 'FICTIF — personne et organisation inventées pour la démonstration ; aucune vérification, aucun contact réel');
+// Tags hold both languages for matching; display shows only the current language's tags.
+const TAG_EN = new Set(['accessibility', 'sidewalk', 'public space', 'pedestrian', 'infrastructure', 'roadway', 'works', 'utilities', 'measurement', 'count', 'statistics', 'method', 'tree', 'nature', 'planting', 'environment']);
+const TAG_BOTH = new Set(['infrastructure', 'nature']);
+export const tagsFor = (x, code = 'en') => x.tags.filter(t => TAG_BOTH.has(t) || (code === 'fr' ? !TAG_EN.has(t) : TAG_EN.has(t)));
 export const EXPERTS = [
   { id: 'xp-a', name: B('Fictional expert A', 'Expert·e fictif·ve A'), field: B('Urban planning and public space', 'Urbanisme et espace public'), tags: ['accessibilité', 'trottoir', 'espace public', 'piéton', 'accessibility', 'sidewalk', 'public space', 'pedestrian'], affiliation: B('Fictional planning studio', 'Atelier d’urbanisme fictif'), languages: ['fr', 'en'], verification: 'synthetic', coi: [] },
   { id: 'xp-b', name: B('Fictional expert B', 'Expert·e fictif·ve B'), field: B('Civil engineering and roads', 'Génie civil et voirie'), tags: ['infrastructure', 'chaussée', 'travaux', 'réseaux', 'trottoir', 'roadway', 'works', 'utilities', 'sidewalk'], affiliation: B('Fictional engineering office', 'Bureau d’études fictif'), languages: ['en'], verification: 'synthetic', coi: [B('road-works company (fictional)', 'entreprise de travaux de voirie (fictive)')] },
