@@ -3,18 +3,22 @@
 // cosmetics (future, optional). Appearance never carries status, competence, rank or review authority, and every
 // option below is free: the full creator is part of FREE_CORE ('avatar-basic'); no payment can change what a person
 // may do in CORE (see src/world/entitlements.mjs NEVER_FOR_SALE).
+import { T } from '../i18n/i18n.mjs';
+// [id, label] pairs whose label is read in the current language.
+const P2 = (id, en, fr) => { const a = [id]; Object.defineProperty(a, 1, { get: () => T(en, fr), enumerable: true }); return a; };
+const SK = (id, base, tint, en, fr) => ({ id, base, tint, get label() { return T(en, fr); } });
 export const KEY = 'core.avatar.v2';
-export const BODIES = [['f', 'Silhouette A'], ['m', 'Silhouette B']]; // neutral labels: a body shape is not an identity
+export const BODIES = [P2('f', 'Silhouette A', 'Silhouette A'), P2('m', 'Silhouette B', 'Silhouette B')]; // neutral labels: a body shape is not an identity
 export const SKINS = [ // base texture (light/dark scan) × tint; a wide, evenly spaced range
-  { id: 's1', base: 'light', tint: '#ffffff', label: 'Très clair' }, { id: 's2', base: 'light', tint: '#f3dcc8', label: 'Clair' },
-  { id: 's3', base: 'light', tint: '#e2bb98', label: 'Clair doré' }, { id: 's4', base: 'light', tint: '#c99a74', label: 'Moyen' },
-  { id: 's5', base: 'dark', tint: '#ffffff', label: 'Hâlé' }, { id: 's6', base: 'dark', tint: '#d9b49a', label: 'Brun' },
-  { id: 's7', base: 'dark', tint: '#a8826a', label: 'Brun foncé' }, { id: 's8', base: 'dark', tint: '#7a5a48', label: 'Très foncé' },
+  SK('s1', 'light', '#ffffff', 'Very light', 'Très clair'), SK('s2', 'light', '#f3dcc8', 'Light', 'Clair'),
+  SK('s3', 'light', '#e2bb98', 'Light golden', 'Clair doré'), SK('s4', 'light', '#c99a74', 'Medium', 'Moyen'),
+  SK('s5', 'dark', '#ffffff', 'Tan', 'Hâlé'), SK('s6', 'dark', '#d9b49a', 'Brown', 'Brun'),
+  SK('s7', 'dark', '#a8826a', 'Dark brown', 'Brun foncé'), SK('s8', 'dark', '#7a5a48', 'Very dark', 'Très foncé'),
 ];
-export const HAIRS = [['Hair_Long', 'Longs'], ['Hair_Buns', 'Chignons'], ['Hair_SimpleParted', 'Raie de côté'], ['Hair_BuzzedFemale', 'Courts'], ['Hair_Buzzed', 'Ras'], ['none', 'Aucun']];
+export const HAIRS = [P2('Hair_Long', 'Long', 'Longs'), P2('Hair_Buns', 'Buns', 'Chignons'), P2('Hair_SimpleParted', 'Side part', 'Raie de côté'), P2('Hair_BuzzedFemale', 'Short', 'Courts'), P2('Hair_Buzzed', 'Buzzed', 'Ras'), P2('none', 'None', 'Aucun')];
 export const HAIR_COLORS = ['#2a1d17', '#4a2f22', '#7a4b2c', '#a0612f', '#c9a06a', '#d8c6a5', '#8c8c8c', '#3b3f58'];
-export const TOPS = [['tee', 'T-shirt'], ['knit', 'Pull fin'], ['jacket', 'Veste']];
-export const BOTTOMS = [['jeans', 'Jean'], ['chino', 'Pantalon'], ['shorts', 'Short']];
+export const TOPS = [P2('tee', 'T-shirt', 'T-shirt'), P2('knit', 'Fine knit', 'Pull fin'), P2('jacket', 'Jacket', 'Veste')];
+export const BOTTOMS = [P2('jeans', 'Jeans', 'Jean'), P2('chino', 'Trousers', 'Pantalon'), P2('shorts', 'Shorts', 'Short')];
 export const TOP_COLORS = ['#f2efe8', '#1f2a3a', '#2f6f8f', '#3d6b4f', '#8f3f3f', '#c58b3c', '#6b5c8f', '#d9cbb2'];
 export const BOTTOM_COLORS = ['#2f3e58', '#1d1f24', '#6f6656', '#b8ad97', '#3e4a3c', '#53413a'];
 export const SHOE_COLORS = ['#f4f4f2', '#1b1b1e', '#5a3a26', '#2f6f8f'];
@@ -45,7 +49,7 @@ const cleanName = s => String(s || '').replace(/[\u0000-\u001f<>]/g, '').trim().
 
 export function load(st = globalThis.localStorage) {
   let raw = null; try { raw = JSON.parse(st?.getItem(KEY) || 'null'); } catch { raw = null; }
-  return { appearance: normalize(raw?.appearance), identity: { pseudonym: cleanName(raw?.identity?.pseudonym) }, visibility: { avatarPublic: false, note: 'Aucun profil public : rien ne quitte ce navigateur.' }, cosmetics: { owned: [], note: 'Aucun achat possible ; toutes les options sont gratuites.' }, saved: !!raw };
+  return { appearance: normalize(raw?.appearance), identity: { pseudonym: cleanName(raw?.identity?.pseudonym) }, visibility: { avatarPublic: false, note: T('No public profile: nothing leaves this browser.', 'Aucun profil public : rien ne quitte ce navigateur.') }, cosmetics: { owned: [], note: T('No purchase possible; every option is free.', 'Aucun achat possible ; toutes les options sont gratuites.') }, saved: !!raw };
 }
 export function save(state, st = globalThis.localStorage) {
   const v = { v: 2, appearance: normalize(state.appearance), identity: { pseudonym: cleanName(state.identity?.pseudonym) }, savedAt: new Date().toISOString() };

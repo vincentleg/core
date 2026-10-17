@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CORE — confidentialité</title>
+<title>CORE — privacy</title>
 <link rel="icon" href="assets/brand/core-mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <style>
@@ -18,8 +18,45 @@
 </head>
 <body>
 <main>
-  <p><a href="./">← Retour à CORE</a></p>
-  <h1>Confidentialité — prototype CORE</h1>
+  <p><a href="./">← Back to CORE</a> · <a href="#fr" lang="fr">Version française</a></p>
+  <h1>Privacy — CORE prototype</h1>
+  <p class="muted">Last updated: 14 October 2026 (Phase 9), English version added 16 October 2026. This page describes the actual behaviour of the public prototype. It is not legal advice and claims no compliance (GDPR, CCPA/CPRA or other): no review by a legal professional has taken place yet.</p>
+
+  <h2>What CORE does not do</h2>
+  <ul>
+    <li>No account, no form, no collection of personal data.</li>
+    <li>No cookie, no audience measurement, no advertising tracker.</li>
+    <li>No application server: the site is static (GitHub Pages). No AI model runs for visitors of the public site.</li>
+  </ul>
+
+  <h2>Storage in your browser</h2>
+  <table><tbody>
+    <tr><th>localStorage</th><td>Watch items fetched by your browser and refresh settings. They do not leave your device; you can erase them from your browser settings.</td></tr>
+    <tr><th>sessionStorage</th><td><code>core.entered</code>: the welcome screen has already been seen during this session.</td></tr>
+  <tr><th>CORE local storage</th><td>Your avatar, your ideas (vault encrypted with your passphrase), your contributions, your progress and the local state of the agents (<code>core.*</code> keys). Everything stays in this browser; the TRUST page lists them and lets you erase them.</td></tr>
+  </tbody></table>
+
+  <h2>Requests to third parties</h2>
+  <p>To display the map and public data, your browser contacts the services below directly. Each receives, as with any web page, your IP address and your browser identification, under its own terms. Fonts and the MapLibre GL map library are hosted by CORE (no request to Google Fonts or to a code CDN).</p>
+  <table><thead><tr><th>Service</th><th>Why</th><th>When</th></tr></thead><tbody>
+    <tr><td>GitHub Pages (GitHub, Inc.)</td><td>Site hosting</td><td>Always</td></tr>
+    <tr><td>OpenFreeMap</td><td>Map tiles and labels (data © OpenStreetMap contributors)</td><td>Always</td></tr>
+    <tr><td>NASA GIBS</td><td>Earth image on the welcome screen</td><td>Welcome screen</td></tr>
+    <tr><td>AWS (Terrain Tiles)</td><td>Terrain</td><td>If terrain is switched on</td></tr>
+    <tr><td>data.sf.gov, earthquake.usgs.gov, api.weather.gov</td><td>Watch on official public sources</td><td>When the watch refreshes in your browser</td></tr>
+    <tr><td>api.github.com</td><td>Public history of automatic collections</td><td>“Data health” view</td></tr>
+  </tbody></table>
+  <p class="muted">A content security policy (CSP) forbids the site from contacting any other service. On the founder’s machine only, the site can contact a local model (Ollama) and read the local supervisor’s state; these addresses are never reached from the public site.</p>
+
+  <h2>Data processed by the agents</h2>
+  <p>Only public data listed in CORE’s data policy (DataSF under ODC-PDDL, USGS, NWS, OpenStreetMap under ODbL, etc.). Individual data (for example 311 requests, names of permit holders or owners) is excluded by design.</p>
+
+  <h2>Contact</h2>
+  <p>Public repository: <a href="https://github.com/vincentleg/core">github.com/vincentleg/core</a>.</p>
+
+  <details lang="fr" id="fr"><summary>Version française</summary>
+
+    <h1>Confidentialité — prototype CORE</h1>
   <p class="muted">Dernière mise à jour : 14 octobre 2026 (Phase 9). Cette page décrit le comportement réel du prototype public. Elle n’est pas un avis juridique et ne revendique aucune conformité (RGPD, CCPA/CPRA ou autre) : aucune revue par un professionnel du droit n’a encore eu lieu.</p>
 
   <h2>Ce que CORE ne fait pas</h2>
@@ -33,6 +70,7 @@
   <table><tbody>
     <tr><th>localStorage</th><td>Éléments de veille récupérés par votre navigateur et réglages d’actualisation. Ils ne quittent pas votre appareil ; vous pouvez les effacer depuis les réglages du navigateur.</td></tr>
     <tr><th>sessionStorage</th><td><code>core.entered</code> : l’écran d’accueil a déjà été vu pendant cette session.</td></tr>
+  <tr><th>Stockage local CORE</th><td>Votre avatar, vos idées (coffre chiffré par votre phrase secrète), vos contributions, votre progression et l’état local des agents (clés <code>core.*</code>). Tout reste dans ce navigateur ; la page TRUST les liste et permet de les effacer.</td></tr>
   </tbody></table>
 
   <h2>Requêtes vers des tiers</h2>
@@ -52,6 +90,7 @@
 
   <h2>Contact</h2>
   <p>Dépôt public : <a href="https://github.com/vincentleg/core">github.com/vincentleg/core</a>.</p>
+  </details>
 </main>
 </body>
 </html>

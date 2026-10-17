@@ -140,11 +140,11 @@ test('report: 20 sections for every mission, a proposal for consideration, never
   for (const m of missions) {
     const S = RP.sections(m, { mobility, manifest, civ: null, generated: '2026-10-16' }); assert.equal(S.length, 20, m.id);
     const all = S.map(s => s.html).join('\n');
-    assert.match(S[0].html, /Proposition soumise à examen/); assert.match(S[19].html, /Impact réel vérifié : aucun/);
-    assert.doesNotMatch(all.replace(/ni une recommandation|pas une recommandation|ni la preuve|ne constitue ni/g, ''), /\b(nous recommandons|il est recommandé|approuvé|prouvé)\b/i);
+    assert.match(S[0].html, /Proposal for consideration/); assert.match(S[19].html, /Verified real-world impact: none/); assert.doesNotMatch(all, /\[object Object\]/);
+    assert.doesNotMatch(all.replace(/ni une recommandation|pas une recommandation|ni la preuve|ne constitue ni|not a recommendation|nor a recommendation/g, ''), /\b(nous recommandons|il est recommandé|approuvé|prouvé|we recommend|is recommended|approved|proven)\b/i);
     assert.doesNotMatch(all, /<script|javascript:/i);
   }
-  const mob = RP.sections(missions.find(m => m.id === 'mission.sf.mobility'), { mobility, manifest }); assert.match(mob[9].html, /± /); assert.match(mob[7].html, /NON CALIBRÉ|non calibré/i);
+  const mob = RP.sections(missions.find(m => m.id === 'mission.sf.mobility'), { mobility, manifest }); assert.match(mob[9].html, /± /); assert.match(mob[7].html, /UNCALIBRATED|uncalibrated/i);
   const pdf = read('scripts/report-pdf.mjs'); assert.match(pdf, /port === '9222'/); assert.match(pdf, /127\\\.0\\\.0\\\.1/); assert.match(pdf, /printToPDF/);
   assert.match(read('src/report/report.css'), /@media print/);
 });

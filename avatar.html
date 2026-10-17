@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -7,46 +7,46 @@
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex">
 <meta name="core-ready" content="CORE_STUDIO">
-<title>CORE — Votre avatar</title>
-<meta name="description" content="Créez votre avatar CORE : silhouette, teint, coiffure, tenue et pseudonyme. Gratuit, local, sans compte.">
+<title data-fr="CORE — Votre avatar">CORE — Your avatar</title>
+<meta name="description" content="Create your CORE avatar: silhouette, skin tone, hairstyle, outfit and pseudonym. Free, local, no account." data-fr-content="Créez votre avatar CORE : silhouette, teint, coiffure, tenue et pseudonyme. Gratuit, local, sans compte.">
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="src/world/world.css">
 <link rel="stylesheet" href="src/ui/living-earth.css">
 <link rel="stylesheet" href="src/earth/studio.css">
 </head>
 <body class="studio">
-<a class="skip" href="#st-panel">Aller aux options de l’avatar</a>
+<a class="skip" href="#st-panel" data-fr="Aller aux options de l’avatar">Skip to the avatar options</a>
 <header class="bar" id="core-nav"></header>
 <main id="st-main">
-  <section class="st-stage" aria-label="Aperçu 3D de votre avatar">
-    <canvas id="st-canvas" aria-label="Aperçu 3D de votre avatar. Faites glisser pour tourner." role="img"></canvas>
+  <section class="st-stage" aria-label="3D preview of your avatar" data-fr-label="Aperçu 3D de votre avatar">
+    <canvas id="st-canvas" aria-label="3D preview of your avatar. Drag to rotate." data-fr-label="Aperçu 3D de votre avatar. Faites glisser pour tourner." role="img"></canvas>
     <div class="st-overlay">
-      <p class="le-eyebrow">Mon CORE · Avatar</p>
-      <h1 class="st-title">Votre présence<br>dans CORE</h1>
-      <p class="fine st-note">Votre avatar ne donne ni statut ni autorité : il vous représente, c’est tout. Toutes les options sont gratuites et restent dans ce navigateur.</p>
+      <p class="le-eyebrow" data-fr="Mon CORE · Avatar">My CORE · Avatar</p>
+      <h1 class="st-title" data-fr="Votre présence&lt;br&gt;dans CORE">Your presence<br>in CORE</h1>
+      <p class="fine st-note" data-fr="Votre avatar ne donne ni statut ni autorité : il vous représente, c’est tout. Toutes les options sont gratuites et restent dans ce navigateur.">Your avatar gives no status and no authority: it represents you, that is all. Every option is free and stays in this browser.</p>
     </div>
-    <div class="st-stage-tools le-glass" role="toolbar" aria-label="Aperçu">
-      <button type="button" class="small ghost" id="st-rot-l" aria-label="Tourner à gauche">⟲</button>
-      <button type="button" class="small ghost" id="st-pose" aria-pressed="false">Marcher</button>
-      <button type="button" class="small ghost" id="st-talk" aria-pressed="false">Parler</button>
-      <button type="button" class="small ghost" id="st-rot-r" aria-label="Tourner à droite">⟳</button>
+    <div class="st-stage-tools le-glass" role="toolbar" aria-label="Preview" data-fr-label="Aperçu">
+      <button type="button" class="small ghost" id="st-rot-l" aria-label="Rotate left" data-fr-label="Tourner à gauche">⟲</button>
+      <button type="button" class="small ghost" id="st-pose" aria-pressed="false" data-fr="Marcher">Walk</button>
+      <button type="button" class="small ghost" id="st-talk" aria-pressed="false" data-fr="Parler">Talk</button>
+      <button type="button" class="small ghost" id="st-rot-r" aria-label="Rotate right" data-fr-label="Tourner à droite">⟳</button>
     </div>
-    <p class="st-loading" id="st-loading" role="status">Chargement des modèles 3D…</p>
+    <p class="st-loading" id="st-loading" role="status" data-fr="Chargement des modèles 3D…">Loading 3D models…</p>
   </section>
   <aside class="st-panel le-glass" id="st-panel" tabindex="-1" aria-labelledby="st-h">
-    <h2 id="st-h" class="sr-only">Options de l’avatar</h2>
-    <div class="st-group"><h3>Point de départ</h3><div class="st-presets" id="st-presets" role="radiogroup" aria-label="Avatars prêts à l’emploi"></div></div>
+    <h2 id="st-h" class="sr-only" data-fr="Options de l’avatar">Avatar options</h2>
+    <div class="st-group"><h3 data-fr="Point de départ">Starting point</h3><div class="st-presets" id="st-presets" role="radiogroup" aria-label="Ready-made avatars" data-fr-label="Avatars prêts à l’emploi"></div></div>
     <div class="st-group"><h3>Silhouette</h3><div class="st-seg" id="st-body" role="radiogroup" aria-label="Silhouette"></div></div>
-    <div class="st-group"><h3>Teint</h3><div class="st-sw" id="st-skin" role="radiogroup" aria-label="Teint"></div></div>
-    <div class="st-group"><h3>Coiffure</h3><div class="st-seg wrap" id="st-hair" role="radiogroup" aria-label="Coiffure"></div><div class="st-sw" id="st-hairc" role="radiogroup" aria-label="Couleur des cheveux"></div>
-      <label class="st-check" id="st-beard-l"><input type="checkbox" id="st-beard"> Barbe</label></div>
-    <div class="st-group"><h3>Haut</h3><div class="st-seg" id="st-top" role="radiogroup" aria-label="Haut"></div><div class="st-sw" id="st-topc" role="radiogroup" aria-label="Couleur du haut"></div></div>
-    <div class="st-group"><h3>Bas</h3><div class="st-seg" id="st-bottom" role="radiogroup" aria-label="Bas"></div><div class="st-sw" id="st-bottomc" role="radiogroup" aria-label="Couleur du bas"></div></div>
-    <div class="st-group"><h3>Chaussures</h3><div class="st-sw" id="st-shoes" role="radiogroup" aria-label="Couleur des chaussures"></div></div>
-    <div class="st-group"><h3>Pseudonyme</h3><input id="st-name" maxlength="24" autocomplete="off" placeholder="facultatif — jamais votre vrai nom">
-      <p class="fine">Pas de compte, pas de profil public. Stocké localement (<code>core.avatar.v2</code>) ; effaçable depuis TRUST.</p></div>
+    <div class="st-group"><h3 data-fr="Teint">Skin tone</h3><div class="st-sw" id="st-skin" role="radiogroup" aria-label="Skin tone" data-fr-label="Teint"></div></div>
+    <div class="st-group"><h3 data-fr="Coiffure">Hairstyle</h3><div class="st-seg wrap" id="st-hair" role="radiogroup" aria-label="Hairstyle" data-fr-label="Coiffure"></div><div class="st-sw" id="st-hairc" role="radiogroup" aria-label="Hair colour" data-fr-label="Couleur des cheveux"></div>
+      <label class="st-check" id="st-beard-l"><input type="checkbox" id="st-beard"> <span data-fr="Barbe">Beard</span></label></div>
+    <div class="st-group"><h3 data-fr="Haut">Top</h3><div class="st-seg" id="st-top" role="radiogroup" aria-label="Top" data-fr-label="Haut"></div><div class="st-sw" id="st-topc" role="radiogroup" aria-label="Top colour" data-fr-label="Couleur du haut"></div></div>
+    <div class="st-group"><h3 data-fr="Bas">Bottom</h3><div class="st-seg" id="st-bottom" role="radiogroup" aria-label="Bottom" data-fr-label="Bas"></div><div class="st-sw" id="st-bottomc" role="radiogroup" aria-label="Bottom colour" data-fr-label="Couleur du bas"></div></div>
+    <div class="st-group"><h3 data-fr="Chaussures">Shoes</h3><div class="st-sw" id="st-shoes" role="radiogroup" aria-label="Shoe colour" data-fr-label="Couleur des chaussures"></div></div>
+    <div class="st-group"><h3 data-fr="Pseudonyme">Pseudonym</h3><input id="st-name" maxlength="24" autocomplete="off" placeholder="optional — never your real name" data-fr-ph="facultatif — jamais votre vrai nom">
+      <p class="fine" data-fr="Pas de compte, pas de profil public. Stocké localement (&lt;code&gt;core.avatar.v2&lt;/code&gt;) ; effaçable depuis TRUST.">No account, no public profile. Stored locally (<code>core.avatar.v2</code>); erasable from TRUST.</p></div>
     <div class="st-id" id="st-id" aria-live="polite"></div>
-    <div class="le-row st-actions"><button type="button" id="st-save">Enregistrer</button><button type="button" class="primary" id="st-enter">Entrer dans CORE World →</button></div>
+    <div class="le-row st-actions"><button type="button" id="st-save" data-fr="Enregistrer">Save</button><button type="button" class="primary" id="st-enter" data-fr="Entrer dans CORE World →">Enter CORE World →</button></div>
   </aside>
   <p id="toast" class="toast" role="status" aria-live="polite"></p>
 </main>
