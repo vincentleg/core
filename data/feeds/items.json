@@ -2,6 +2,1173 @@
  "version": "core-city-feed-items-v1",
  "items": [
   {
+   "id": "rss-recpark:https://sfrecpark.org/CivicAlerts.aspx?aid=3125/639278398930000000",
+   "source": "rss-recpark",
+   "source_name": "SF Recreation & Parks · Actualités (RSS)",
+   "publisher": "SF Recreation and Park Department",
+   "license": "Official agency feed (titles/links)",
+   "url": "https://sfrecpark.org/CivicAlerts.aspx?aid=3125",
+   "title": "Mayor Lurie Celebrates Upgrades to Basketball Courts in Partnership With WNBA, Valkyries, & Warriors",
+   "summary": "New WNBA 3-Point Lines at Margaret S. Hayward and Joe DiMaggio Playgrounds Follow Reopening of Renovated Nate Thurmond Panhandle Basketball Courts.",
+   "published": "2026-10-17T18:18:13.000Z",
+   "kind": "announcement",
+   "domains": [
+    "environment"
+   ],
+   "geo": null,
+   "geo_basis": "none (not geolocated)",
+   "data": {},
+   "confidence": {
+    "level": "medium",
+    "limitations": "Communication de l’agence sur ses propres projets et évènements."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "300f477f",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "caiso-fuelmix:caiso@2026-10-17",
+   "source": "caiso-fuelmix",
+   "source_name": "CAISO · Mix de production électrique du jour (Californie)",
+   "publisher": "California Independent System Operator",
+   "license": "Public operational data (attribution CAISO)",
+   "url": "https://www.caiso.com/todays-outlook",
+   "title": "Réseau CAISO 2026-10-17 10:25 (Pacifique) : 52 % renouvelables (hors grande hydraulique)",
+   "summary": "Production instantanée 30530 MW, dont solaire 13552 MW, éolien 1005 MW, gaz 8943 MW, importations 4109 MW.",
+   "published": "2026-10-17T17:31:53.887Z",
+   "kind": "observation",
+   "domains": [
+    "energy"
+   ],
+   "geo": null,
+   "geo_basis": "none (not geolocated)",
+   "data": {
+    "time": "2026-10-17 10:25",
+    "total_mw": 30530,
+    "renewables_mw": 15733,
+    "renewables_pct": 52,
+    "area": "CAISO balancing area"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Zone CAISO (Californie), pas spécifique à San Francisco ; données opérationnelles révisables."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "c911c250",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-311-soma:Blocked Street and Sidewalk@2026-10-17",
+   "source": "datasf-311-soma",
+   "source_name": "DataSF · Demandes 311, South of Market (7 j, agrégées)",
+   "publisher": "SF 311",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/d/vw6y-z8j6",
+   "title": "311 · Blocked Street and Sidewalk : 51 demande(s) en 7 j (South of Market)",
+   "summary": "Compte agrégé des demandes 311 du 2026-10-10 au 2026-10-17 ; demandes signalées, non vérifiées.",
+   "published": "2026-10-17T00:00:00.000Z",
+   "kind": "statistic",
+   "domains": [
+    "infrastructure",
+    "public_space",
+    "society"
+   ],
+   "geo": null,
+   "geo_basis": "none (not geolocated)",
+   "data": {
+    "service": "Blocked Street and Sidewalk",
+    "count": 51,
+    "period": [
+     "2026-10-10",
+     "2026-10-17"
+    ],
+    "area": "South of Market (analysis neighborhood)"
+   },
+   "confidence": {
+    "level": "medium",
+    "limitations": "Demandes signalées par le public, non des incidents vérifiés ; comptes agrégés par catégorie."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "b76d25f0",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-311-soma:Damage Property@2026-10-17",
+   "source": "datasf-311-soma",
+   "source_name": "DataSF · Demandes 311, South of Market (7 j, agrégées)",
+   "publisher": "SF 311",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/d/vw6y-z8j6",
+   "title": "311 · Damage Property : 14 demande(s) en 7 j (South of Market)",
+   "summary": "Compte agrégé des demandes 311 du 2026-10-10 au 2026-10-17 ; demandes signalées, non vérifiées.",
+   "published": "2026-10-17T00:00:00.000Z",
+   "kind": "statistic",
+   "domains": [
+    "public_space",
+    "society"
+   ],
+   "geo": null,
+   "geo_basis": "none (not geolocated)",
+   "data": {
+    "service": "Damage Property",
+    "count": 14,
+    "period": [
+     "2026-10-10",
+     "2026-10-17"
+    ],
+    "area": "South of Market (analysis neighborhood)"
+   },
+   "confidence": {
+    "level": "medium",
+    "limitations": "Demandes signalées par le public, non des incidents vérifiés ; comptes agrégés par catégorie."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "f6a10df4",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-311-soma:Encampment@2026-10-17",
+   "source": "datasf-311-soma",
+   "source_name": "DataSF · Demandes 311, South of Market (7 j, agrégées)",
+   "publisher": "SF 311",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/d/vw6y-z8j6",
+   "title": "311 · Encampment : 133 demande(s) en 7 j (South of Market)",
+   "summary": "Compte agrégé des demandes 311 du 2026-10-10 au 2026-10-17 ; demandes signalées, non vérifiées.",
+   "published": "2026-10-17T00:00:00.000Z",
+   "kind": "statistic",
+   "domains": [
+    "public_space",
+    "society"
+   ],
+   "geo": null,
+   "geo_basis": "none (not geolocated)",
+   "data": {
+    "service": "Encampment",
+    "count": 133,
+    "period": [
+     "2026-10-10",
+     "2026-10-17"
+    ],
+    "area": "South of Market (analysis neighborhood)"
+   },
+   "confidence": {
+    "level": "medium",
+    "limitations": "Demandes signalées par le public, non des incidents vérifiés ; comptes agrégés par catégorie."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "5fc77fda",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-311-soma:General Request@2026-10-17",
+   "source": "datasf-311-soma",
+   "source_name": "DataSF · Demandes 311, South of Market (7 j, agrégées)",
+   "publisher": "SF 311",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/d/vw6y-z8j6",
+   "title": "311 · General Request : 137 demande(s) en 7 j (South of Market)",
+   "summary": "Compte agrégé des demandes 311 du 2026-10-10 au 2026-10-17 ; demandes signalées, non vérifiées.",
+   "published": "2026-10-17T00:00:00.000Z",
+   "kind": "statistic",
+   "domains": [
+    "public_space",
+    "society"
+   ],
+   "geo": null,
+   "geo_basis": "none (not geolocated)",
+   "data": {
+    "service": "General Request",
+    "count": 137,
+    "period": [
+     "2026-10-10",
+     "2026-10-17"
+    ],
+    "area": "South of Market (analysis neighborhood)"
+   },
+   "confidence": {
+    "level": "medium",
+    "limitations": "Demandes signalées par le public, non des incidents vérifiés ; comptes agrégés par catégorie."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "0331d1ee",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-311-soma:Graffiti Private@2026-10-17",
+   "source": "datasf-311-soma",
+   "source_name": "DataSF · Demandes 311, South of Market (7 j, agrégées)",
+   "publisher": "SF 311",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/d/vw6y-z8j6",
+   "title": "311 · Graffiti Private : 25 demande(s) en 7 j (South of Market)",
+   "summary": "Compte agrégé des demandes 311 du 2026-10-10 au 2026-10-17 ; demandes signalées, non vérifiées.",
+   "published": "2026-10-17T00:00:00.000Z",
+   "kind": "statistic",
+   "domains": [
+    "public_space",
+    "society"
+   ],
+   "geo": null,
+   "geo_basis": "none (not geolocated)",
+   "data": {
+    "service": "Graffiti Private",
+    "count": 25,
+    "period": [
+     "2026-10-10",
+     "2026-10-17"
+    ],
+    "area": "South of Market (analysis neighborhood)"
+   },
+   "confidence": {
+    "level": "medium",
+    "limitations": "Demandes signalées par le public, non des incidents vérifiés ; comptes agrégés par catégorie."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "4a45ef98",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-311-soma:Graffiti Public@2026-10-17",
+   "source": "datasf-311-soma",
+   "source_name": "DataSF · Demandes 311, South of Market (7 j, agrégées)",
+   "publisher": "SF 311",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/d/vw6y-z8j6",
+   "title": "311 · Graffiti Public : 26 demande(s) en 7 j (South of Market)",
+   "summary": "Compte agrégé des demandes 311 du 2026-10-10 au 2026-10-17 ; demandes signalées, non vérifiées.",
+   "published": "2026-10-17T00:00:00.000Z",
+   "kind": "statistic",
+   "domains": [
+    "public_space",
+    "society"
+   ],
+   "geo": null,
+   "geo_basis": "none (not geolocated)",
+   "data": {
+    "service": "Graffiti Public",
+    "count": 26,
+    "period": [
+     "2026-10-10",
+     "2026-10-17"
+    ],
+    "area": "South of Market (analysis neighborhood)"
+   },
+   "confidence": {
+    "level": "medium",
+    "limitations": "Demandes signalées par le public, non des incidents vérifiés ; comptes agrégés par catégorie."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "5c3f761a",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-311-soma:Litter Receptacle Maintenance@2026-10-17",
+   "source": "datasf-311-soma",
+   "source_name": "DataSF · Demandes 311, South of Market (7 j, agrégées)",
+   "publisher": "SF 311",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/d/vw6y-z8j6",
+   "title": "311 · Litter Receptacle Maintenance : 21 demande(s) en 7 j (South of Market)",
+   "summary": "Compte agrégé des demandes 311 du 2026-10-10 au 2026-10-17 ; demandes signalées, non vérifiées.",
+   "published": "2026-10-17T00:00:00.000Z",
+   "kind": "statistic",
+   "domains": [
+    "public_space",
+    "society"
+   ],
+   "geo": null,
+   "geo_basis": "none (not geolocated)",
+   "data": {
+    "service": "Litter Receptacle Maintenance",
+    "count": 21,
+    "period": [
+     "2026-10-10",
+     "2026-10-17"
+    ],
+    "area": "South of Market (analysis neighborhood)"
+   },
+   "confidence": {
+    "level": "medium",
+    "limitations": "Demandes signalées par le public, non des incidents vérifiés ; comptes agrégés par catégorie."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "16895b5e",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-311-soma:Noise@2026-10-17",
+   "source": "datasf-311-soma",
+   "source_name": "DataSF · Demandes 311, South of Market (7 j, agrégées)",
+   "publisher": "SF 311",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/d/vw6y-z8j6",
+   "title": "311 · Noise : 27 demande(s) en 7 j (South of Market)",
+   "summary": "Compte agrégé des demandes 311 du 2026-10-10 au 2026-10-17 ; demandes signalées, non vérifiées.",
+   "published": "2026-10-17T00:00:00.000Z",
+   "kind": "statistic",
+   "domains": [
+    "public_space",
+    "society"
+   ],
+   "geo": null,
+   "geo_basis": "none (not geolocated)",
+   "data": {
+    "service": "Noise",
+    "count": 27,
+    "period": [
+     "2026-10-10",
+     "2026-10-17"
+    ],
+    "area": "South of Market (analysis neighborhood)"
+   },
+   "confidence": {
+    "level": "medium",
+    "limitations": "Demandes signalées par le public, non des incidents vérifiés ; comptes agrégés par catégorie."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "7523af08",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-311-soma:Parking Enforcement@2026-10-17",
+   "source": "datasf-311-soma",
+   "source_name": "DataSF · Demandes 311, South of Market (7 j, agrégées)",
+   "publisher": "SF 311",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/d/vw6y-z8j6",
+   "title": "311 · Parking Enforcement : 98 demande(s) en 7 j (South of Market)",
+   "summary": "Compte agrégé des demandes 311 du 2026-10-10 au 2026-10-17 ; demandes signalées, non vérifiées.",
+   "published": "2026-10-17T00:00:00.000Z",
+   "kind": "statistic",
+   "domains": [
+    "mobility",
+    "public_space",
+    "society"
+   ],
+   "geo": null,
+   "geo_basis": "none (not geolocated)",
+   "data": {
+    "service": "Parking Enforcement",
+    "count": 98,
+    "period": [
+     "2026-10-10",
+     "2026-10-17"
+    ],
+    "area": "South of Market (analysis neighborhood)"
+   },
+   "confidence": {
+    "level": "medium",
+    "limitations": "Demandes signalées par le public, non des incidents vérifiés ; comptes agrégés par catégorie."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "f1743b6c",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-311-soma:Street and Sidewalk Cleaning@2026-10-17",
+   "source": "datasf-311-soma",
+   "source_name": "DataSF · Demandes 311, South of Market (7 j, agrégées)",
+   "publisher": "SF 311",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/d/vw6y-z8j6",
+   "title": "311 · Street and Sidewalk Cleaning : 517 demande(s) en 7 j (South of Market)",
+   "summary": "Compte agrégé des demandes 311 du 2026-10-10 au 2026-10-17 ; demandes signalées, non vérifiées.",
+   "published": "2026-10-17T00:00:00.000Z",
+   "kind": "statistic",
+   "domains": [
+    "infrastructure",
+    "public_space",
+    "society"
+   ],
+   "geo": null,
+   "geo_basis": "none (not geolocated)",
+   "data": {
+    "service": "Street and Sidewalk Cleaning",
+    "count": 517,
+    "period": [
+     "2026-10-10",
+     "2026-10-17"
+    ],
+    "area": "South of Market (analysis neighborhood)"
+   },
+   "confidence": {
+    "level": "medium",
+    "limitations": "Demandes signalées par le public, non des incidents vérifiés ; comptes agrégés par catégorie."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "a443d9cc",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-business-soma:soma@2026-10-17",
+   "source": "datasf-business-soma",
+   "source_name": "DataSF · Enregistrements d’entreprises, South of Market (30 j, compte)",
+   "publisher": "SF Treasurer & Tax Collector",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/d/g8m3-pdis",
+   "title": "18 nouvel(le)s enregistrement(s) d’entreprise en 30 j (South of Market)",
+   "summary": "Compte agrégé du 2026-09-17 au 2026-10-17 (date de début d’activité déclarée) ; aucun nom collecté.",
+   "published": "2026-10-17T00:00:00.000Z",
+   "kind": "statistic",
+   "domains": [
+    "economy"
+   ],
+   "geo": null,
+   "geo_basis": "none (not geolocated)",
+   "data": {
+    "count": 18,
+    "period": [
+     "2026-09-17",
+     "2026-10-17"
+    ],
+    "area": "South of Market"
+   },
+   "confidence": {
+    "level": "medium",
+    "limitations": "Un enregistrement n’est pas une ouverture ; compte agrégé, aucun nom collecté."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "82c9121b",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-building:202610169557",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610169557",
+   "title": "Permis de construire 202610169557 — 405 Howard St",
+   "summary": "otc alterations permit · statut issued · to obtain final inspection for work approved under pa# 202505146466. all work is complete.",
+   "published": "2026-10-16T20:12:25.000Z",
+   "kind": "approved-decision",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.395375622,
+     37.78860888
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610169557",
+    "status": "issued"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "c3510c19",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "rss-recpark:https://sfrecpark.org/CivicAlerts.aspx?aid=3123/639277580040000000",
+   "source": "rss-recpark",
+   "source_name": "SF Recreation & Parks · Actualités (RSS)",
+   "publisher": "SF Recreation and Park Department",
+   "license": "Official agency feed (titles/links)",
+   "url": "https://sfrecpark.org/CivicAlerts.aspx?aid=3123",
+   "title": "Kezar Pavilion Renovation Project | Project update, October 2026",
+   "summary": "Clark Construction is officially part of the team as we kicked off our pre-construction phase this month. The team will be working hard to ensure that our design is within budget and performing cost estimating over the next couple months before",
+   "published": "2026-10-16T19:33:24.000Z",
+   "kind": "announcement",
+   "domains": [
+    "administration",
+    "buildings",
+    "culture",
+    "environment"
+   ],
+   "geo": null,
+   "geo_basis": "none (not geolocated)",
+   "data": {},
+   "confidence": {
+    "level": "medium",
+    "limitations": "Communication de l’agence sur ses propres projets et évènements."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "621522a2",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "rss-recpark:https://sfrecpark.org/CivicAlerts.aspx?aid=3122/639277579400000000",
+   "source": "rss-recpark",
+   "source_name": "SF Recreation & Parks · Actualités (RSS)",
+   "publisher": "SF Recreation and Park Department",
+   "license": "Official agency feed (titles/links)",
+   "url": "https://sfrecpark.org/CivicAlerts.aspx?aid=3122",
+   "title": "Kezar Pavilion Renovation Project | Project update, October 2026",
+   "summary": "Clark Construction is officially part of the team as we kicked off our pre-construction phase this month. The team will be working hard to ensure that our design is within budget and performing cost estimating over the next couple months before",
+   "published": "2026-10-16T19:32:20.000Z",
+   "kind": "announcement",
+   "domains": [
+    "administration",
+    "buildings",
+    "culture",
+    "environment"
+   ],
+   "geo": null,
+   "geo_basis": "none (not geolocated)",
+   "data": {},
+   "confidence": {
+    "level": "medium",
+    "limitations": "Communication de l’agence sur ses propres projets et évènements."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "b26d38a9",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "rss-recpark:https://sfrecpark.org/CivicAlerts.aspx?aid=3121/639277578580000000",
+   "source": "rss-recpark",
+   "source_name": "SF Recreation & Parks · Actualités (RSS)",
+   "publisher": "SF Recreation and Park Department",
+   "license": "Official agency feed (titles/links)",
+   "url": "https://sfrecpark.org/CivicAlerts.aspx?aid=3121",
+   "title": "Kezar Pavilion Renovation Project | Project update, October 2026",
+   "summary": "Clark Construction is officially part of the team as we kicked off our pre-construction phase this month. The team will be working hard to ensure that our design is within budget and performing cost estimating over the next couple months before",
+   "published": "2026-10-16T19:30:58.000Z",
+   "kind": "announcement",
+   "domains": [
+    "administration",
+    "buildings",
+    "culture",
+    "environment"
+   ],
+   "geo": null,
+   "geo_basis": "none (not geolocated)",
+   "data": {},
+   "confidence": {
+    "level": "medium",
+    "limitations": "Communication de l’agence sur ses propres projets et évènements."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "2aba72c6",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "rss-recpark:https://sfrecpark.org/CivicAlerts.aspx?aid=3120/639277566970000000",
+   "source": "rss-recpark",
+   "source_name": "SF Recreation & Parks · Actualités (RSS)",
+   "publisher": "SF Recreation and Park Department",
+   "license": "Official agency feed (titles/links)",
+   "url": "https://sfrecpark.org/CivicAlerts.aspx?aid=3120",
+   "title": "Mission Bay Future Parks Project | Community meeting on October 27, 6 PM",
+   "summary": "Join the developer and design team for the future Mission Bay Commons park for a community meeting to preview preliminary concept designs for the new park and offer your feedback. The developer, Mission Bay Development Group (MBDG), is working with the",
+   "published": "2026-10-16T19:11:37.000Z",
+   "kind": "announcement",
+   "domains": [
+    "environment",
+    "nature",
+    "society"
+   ],
+   "geo": null,
+   "geo_basis": "none (not geolocated)",
+   "data": {},
+   "confidence": {
+    "level": "medium",
+    "limitations": "Communication de l’agence sur ses propres projets et évènements."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "b7eb8673",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "rss-recpark:https://sfrecpark.org/CivicAlerts.aspx?aid=3119/639277565400000000",
+   "source": "rss-recpark",
+   "source_name": "SF Recreation & Parks · Actualités (RSS)",
+   "publisher": "SF Recreation and Park Department",
+   "license": "Official agency feed (titles/links)",
+   "url": "https://sfrecpark.org/CivicAlerts.aspx?aid=3119",
+   "title": "Mission Bay Future Parks Project | Community meeting on October 27, 6 PM",
+   "summary": "Join the developer and design team for the future Mission Bay Commons park for a community meeting to preview preliminary concept designs for the new park and offer your feedback. The developer, Mission Bay Development Group (MBDG), is working with the",
+   "published": "2026-10-16T19:09:00.000Z",
+   "kind": "announcement",
+   "domains": [
+    "environment",
+    "nature",
+    "society"
+   ],
+   "geo": null,
+   "geo_basis": "none (not geolocated)",
+   "data": {},
+   "confidence": {
+    "level": "medium",
+    "limitations": "Communication de l’agence sur ses propres projets et évènements."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "3898396c",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "rss-publicworks:35795 at https://sfpublicworks.org",
+   "source": "rss-publicworks",
+   "source_name": "SF Public Works · Actualités (RSS)",
+   "publisher": "SF Public Works",
+   "license": "Official agency feed (titles/links)",
+   "url": "https://sfpublicworks.org/node/35795",
+   "title": "Compact Mobile Food Operations",
+   "summary": "Compact Mobile Food Operations julian Fri, 10/16/2026 - 18:55 To learn more information on how to get a permit to sell food from carts, please visit: Get permits to sell food from carts | SF.gov",
+   "published": "2026-10-16T18:55:00.000Z",
+   "kind": "announcement",
+   "domains": [
+    "buildings",
+    "infrastructure"
+   ],
+   "geo": null,
+   "geo_basis": "none (not geolocated)",
+   "data": {},
+   "confidence": {
+    "level": "medium",
+    "limitations": "Communication de l’agence sur ses propres actions."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "1888cd05",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-building:202610169531",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610169531",
+   "title": "Permis de construire 202610169531 — 50 08th St",
+   "summary": "otc alterations permit · statut filed · modification of an (e) verizon wireless unmanned telecommunictions facility consisting of: removing & replacing (10) (e) antennas w/ (1) (n) antennas. removing…",
+   "published": "2026-10-16T15:48:28.000Z",
+   "kind": "proposal",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.41391835,
+     37.777861872
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610169531",
+    "status": "filed"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "ce5c3fc5",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
    "id": "caiso-fuelmix:caiso@2026-10-16",
    "source": "caiso-fuelmix",
    "source_name": "CAISO · Mix de production électrique du jour (Californie)",
@@ -54,6 +1221,654 @@
    "retrieved_at": "2026-10-16T11:21:33.897Z",
    "first_seen": "2026-10-16T11:21:33.897Z",
    "last_seen": "2026-10-16T11:21:33.897Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-closures:27513812",
+   "source": "datasf-closures",
+   "source_name": "DataSF · Fermetures temporaires SFMTA (à venir, corridor)",
+   "publisher": "SFMTA",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/8x25-yybr.json?objectid=27513812",
+   "title": "Fermeture Special Event — HOWARD ST (HAWTHORNE ST → 03RD ST)",
+   "summary": "Microsoft Ignite 2026 · 2026-11-12 → 2026-11-12 · Application In Review",
+   "published": "2026-10-16T07:03:37.000Z",
+   "kind": "proposal",
+   "domains": [
+    "events",
+    "mobility"
+   ],
+   "geo": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -122.399369534,
+      37.785899248
+     ],
+     [
+      -122.400468484,
+      37.785030285
+     ]
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "cnn": "7037000",
+    "status": "Application In Review",
+    "start": "2026-11-12",
+    "end": "2026-11-12"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Permis SFMTA uniquement."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "4aed58d6",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-closures:27521703",
+   "source": "datasf-closures",
+   "source_name": "DataSF · Fermetures temporaires SFMTA (à venir, corridor)",
+   "publisher": "SFMTA",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/8x25-yybr.json?objectid=27521703",
+   "title": "Fermeture Special Event — HOWARD ST (03RD ST → 04TH ST)",
+   "summary": "Microsoft Ignite 2026 · 2026-11-12 → 2026-11-22 · Application In Review",
+   "published": "2026-10-16T07:03:37.000Z",
+   "kind": "proposal",
+   "domains": [
+    "events",
+    "mobility"
+   ],
+   "geo": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -122.400468484,
+      37.785030285
+     ],
+     [
+      -122.402708154,
+      37.783259236
+     ]
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "cnn": "7038000",
+    "status": "Application In Review",
+    "start": "2026-11-12",
+    "end": "2026-11-22"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Permis SFMTA uniquement."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "78049335",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-closures:27521704",
+   "source": "datasf-closures",
+   "source_name": "DataSF · Fermetures temporaires SFMTA (à venir, corridor)",
+   "publisher": "SFMTA",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/8x25-yybr.json?objectid=27521704",
+   "title": "Fermeture Special Event — HOWARD ST (03RD ST → 04TH ST)",
+   "summary": "RSA Conference(TM) 2027 · 2027-03-30 → 2027-04-10 · Application In Review",
+   "published": "2026-10-16T07:03:37.000Z",
+   "kind": "proposal",
+   "domains": [
+    "events",
+    "mobility"
+   ],
+   "geo": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -122.400468484,
+      37.785030285
+     ],
+     [
+      -122.402708154,
+      37.783259236
+     ]
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "cnn": "7038000",
+    "status": "Application In Review",
+    "start": "2027-03-30",
+    "end": "2027-04-10"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Permis SFMTA uniquement."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "59c022b8",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-planning:2026-009151PRJ",
+   "source": "datasf-planning",
+   "source_name": "DataSF · Dossiers de projets du Planning Department (30 j)",
+   "publisher": "SF Planning Department",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/qvu5-m3a2.json?record_id=2026-009151PRJ",
+   "title": "Projet 2026-009151PRJ — 1519 BAKER ST",
+   "summary": "Statut Open · · THIRD FLOOR: RAISE THE EXISTING ATTIC ROOF TO CREATE THREE NEW BEDROOMS AND TWO NEW BATHROOMS. CONSTRUCT A SMALL REAR ADDITION ALONG THE NORTH PROPERTY LINE, EXTENDING TOWARD THE REAR YARD. · SECOND FLOOR: REMODEL THE…",
+   "published": "2026-10-16T07:00:00.000Z",
+   "kind": "proposal",
+   "domains": [
+    "buildings",
+    "urbanism"
+   ],
+   "geo": null,
+   "geo_basis": "adresse seulement (non géocodée)",
+   "data": {
+    "record_id": "2026-009151PRJ",
+    "status": "Open",
+    "address": "1519 BAKER ST 94115",
+    "units_net": 0,
+    "corridor_street": null
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Une demande déposée n’est pas une autorisation ; noms des demandeurs et instructeurs exclus."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "777073bd",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-planning:2026-009159PRJ",
+   "source": "datasf-planning",
+   "source_name": "DataSF · Dossiers de projets du Planning Department (30 j)",
+   "publisher": "SF Planning Department",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/qvu5-m3a2.json?record_id=2026-009159PRJ",
+   "title": "Projet 2026-009159PRJ — 502 VALENCIA ST",
+   "summary": "Statut Submitted · Conditional Use Authorization for Formula Retail Fringe Financial Service use formerly dba \"Money Mart\" rebranded to \"Ace\".",
+   "published": "2026-10-16T07:00:00.000Z",
+   "kind": "proposal",
+   "domains": [
+    "buildings",
+    "urbanism"
+   ],
+   "geo": null,
+   "geo_basis": "adresse seulement (non géocodée)",
+   "data": {
+    "record_id": "2026-009159PRJ",
+    "status": "Submitted",
+    "address": "502 VALENCIA ST 94110",
+    "units_net": 0,
+    "corridor_street": null
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Une demande déposée n’est pas une autorisation ; noms des demandeurs et instructeurs exclus."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "f9efb5c0",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-planning:2026-009160PRJ",
+   "source": "datasf-planning",
+   "source_name": "DataSF · Dossiers de projets du Planning Department (30 j)",
+   "publisher": "SF Planning Department",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/qvu5-m3a2.json?record_id=2026-009160PRJ",
+   "title": "Projet 2026-009160PRJ — 2248 FRANCISCO ST",
+   "summary": "Statut Submitted · Construct forth floor, three story rear addition, rear deck. Convert storage area & partial garage to ADU.",
+   "published": "2026-10-16T07:00:00.000Z",
+   "kind": "proposal",
+   "domains": [
+    "buildings",
+    "urbanism"
+   ],
+   "geo": null,
+   "geo_basis": "adresse seulement (non géocodée)",
+   "data": {
+    "record_id": "2026-009160PRJ",
+    "status": "Submitted",
+    "address": "2248 FRANCISCO ST 94123",
+    "units_net": 1,
+    "corridor_street": null
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Une demande déposée n’est pas une autorisation ; noms des demandeurs et instructeurs exclus."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "06fed6b9",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-planning:2026-009163PRJ",
+   "source": "datasf-planning",
+   "source_name": "DataSF · Dossiers de projets du Planning Department (30 j)",
+   "publisher": "SF Planning Department",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/qvu5-m3a2.json?record_id=2026-009163PRJ",
+   "title": "Projet 2026-009163PRJ — 2333 Buchanan Street",
+   "summary": "Statut Submitted · Renovation and reactivation of an existing high-rise building for medical office and outpatient healthcare uses. The project includes interior demolition and tenant improvements on multiple floors; high-rise life-safety…",
+   "published": "2026-10-16T07:00:00.000Z",
+   "kind": "proposal",
+   "domains": [
+    "buildings",
+    "health",
+    "infrastructure",
+    "urbanism"
+   ],
+   "geo": null,
+   "geo_basis": "adresse seulement (non géocodée)",
+   "data": {
+    "record_id": "2026-009163PRJ",
+    "status": "Submitted",
+    "address": "2333 BUCHANAN ST 94115",
+    "units_net": 0,
+    "corridor_street": null
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Une demande déposée n’est pas une autorisation ; noms des demandeurs et instructeurs exclus."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "2d21acdd",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-planning:2026-009166PRJ",
+   "source": "datasf-planning",
+   "source_name": "DataSF · Dossiers de projets du Planning Department (30 j)",
+   "publisher": "SF Planning Department",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/qvu5-m3a2.json?record_id=2026-009166PRJ",
+   "title": "Projet 2026-009166PRJ — SFPUC: Alameda Watershed Cattle Fencing Replacements 2026",
+   "summary": "Statut Open · The proposed project includes the following work activities: 1. Fence replacement along Western Grazing Unit Boundary (3,200 feet of 6-strand barbwire fencing) 2. Fence replacement along Apperson Boundary (3,400 feet of…",
+   "published": "2026-10-16T07:00:00.000Z",
+   "kind": "proposal",
+   "domains": [
+    "buildings",
+    "environment",
+    "urbanism"
+   ],
+   "geo": null,
+   "geo_basis": "none (not geolocated)",
+   "data": {
+    "record_id": "2026-009166PRJ",
+    "status": "Open",
+    "address": null,
+    "units_net": 0,
+    "corridor_street": null
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Une demande déposée n’est pas une autorisation ; noms des demandeurs et instructeurs exclus."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "7c7be3d9",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-planning:2026-009169PRJ",
+   "source": "datasf-planning",
+   "source_name": "DataSF · Dossiers de projets du Planning Department (30 j)",
+   "publisher": "SF Planning Department",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/qvu5-m3a2.json?record_id=2026-009169PRJ",
+   "title": "Projet 2026-009169PRJ — SFPUC: SEP Nutrient Reduction Project - Pilot Study and Investigation",
+   "summary": "Statut Open · This project will construct a new nutrient reduction facility at the Southeast Water Pollution Control Plant.",
+   "published": "2026-10-16T07:00:00.000Z",
+   "kind": "proposal",
+   "domains": [
+    "buildings",
+    "environment",
+    "urbanism"
+   ],
+   "geo": null,
+   "geo_basis": "none (not geolocated)",
+   "data": {
+    "record_id": "2026-009169PRJ",
+    "status": "Open",
+    "address": null,
+    "units_net": 0,
+    "corridor_street": null
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Une demande déposée n’est pas une autorisation ; noms des demandeurs et instructeurs exclus."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "5427b3b6",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-planning:2026-009176PRJ",
+   "source": "datasf-planning",
+   "source_name": "DataSF · Dossiers de projets du Planning Department (30 j)",
+   "publisher": "SF Planning Department",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/qvu5-m3a2.json?record_id=2026-009176PRJ",
+   "title": "Projet 2026-009176PRJ — 27 CERES ST",
+   "summary": "Statut Open · COMPLY WITH COMPLAINT #2025-47103, #2025-47105, #2025-45833 1. REMOVE UNPERMITTED ATTACHED SINGLE STORY HORIZONTAL ADDITION 2. REMOVE UNPERMITTED ACCESSORY STRUCTURE AT THE REAR PROPERTY LINE 3. LEGALIZE UNPERMITTED STE…",
+   "published": "2026-10-16T07:00:00.000Z",
+   "kind": "proposal",
+   "domains": [
+    "buildings",
+    "urbanism"
+   ],
+   "geo": null,
+   "geo_basis": "adresse seulement (non géocodée)",
+   "data": {
+    "record_id": "2026-009176PRJ",
+    "status": "Open",
+    "address": "27 CERES ST 94124",
+    "units_net": 1,
+    "corridor_street": null
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Une demande déposée n’est pas une autorisation ; noms des demandeurs et instructeurs exclus."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "a10fae00",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "rss-sfmta:https://www.sfmta.com/blog/speed-camera-report-18-month-study-shows-sustained-positive-impact",
+   "source": "rss-sfmta",
+   "source_name": "SFMTA · Blog (RSS)",
+   "publisher": "SFMTA",
+   "license": "Official agency feed (titles/links)",
+   "url": "https://www.sfmta.com/blog/speed-camera-report-18-month-study-shows-sustained-positive-impact",
+   "title": "Speed Camera Report: 18-Month Study Shows Sustained, Positive Impact",
+   "summary": "The SFMTA released San Francisco’s Speed Study 18-Month Report on Oct. 15, 2026. It’s been 18 months since the SFMTA launched the Speed Safety Camera Program. And our data shows that speeding is down substantially at locations where cameras have been installed. • Excessive speed…",
+   "published": "2026-10-16T07:00:00.000Z",
+   "kind": "announcement",
+   "domains": [
+    "culture",
+    "health",
+    "mobility"
+   ],
+   "geo": null,
+   "geo_basis": "none (not geolocated)",
+   "data": {},
+   "confidence": {
+    "level": "medium",
+    "limitations": "Communication de l’agence sur ses propres actions."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "1062e34d",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -159,7 +1974,7 @@
    "hash": "15909797",
    "retrieved_at": "2026-10-16T04:30:36.271Z",
    "first_seen": "2026-10-16T04:30:36.271Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -209,7 +2024,7 @@
    "hash": "fcf0e748",
    "retrieved_at": "2026-10-16T04:30:36.271Z",
    "first_seen": "2026-10-16T04:30:36.271Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -853,6 +2668,238 @@
    "revision": 1
   },
   {
+   "id": "datasf-building:202610159526",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610159526",
+   "title": "Permis de construire 202610159526 — 1455 Market St",
+   "summary": "otc alterations permit · statut filed · 9/fl- ti 6500sf interior demo and (n) constructoin of interior partitions, doors, finishes, ceilings, lights fixtures, and millwork. no exterior alterations. n…",
+   "published": "2026-10-15T23:57:38.000Z",
+   "kind": "proposal",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.418041467,
+     37.775855858
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610159526",
+    "status": "filed"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "548f2b3a",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-building:202610159514",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610159514",
+   "title": "Permis de construire 202610159514 — 515 Minna St",
+   "summary": "otc alterations permit · statut issued · replace 2 damaged posts at garage in kind like for like",
+   "published": "2026-10-15T23:29:53.000Z",
+   "kind": "approved-decision",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.408465733,
+     37.7800725
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610159514",
+    "status": "issued"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "ecea931b",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-building:202610159506",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610159506",
+   "title": "Permis de construire 202610159506 — 570 Townsend St",
+   "summary": "otc alterations permit · statut issued · non-structural interior walls demolition, install 1 new drinking fountain hi/lo, no change of use, no exterior work. space is vacant and ti permit is required …",
+   "published": "2026-10-15T23:10:09.000Z",
+   "kind": "approved-decision",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.401151603,
+     37.772453871
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610159506",
+    "status": "issued"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "1b6df4f3",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-building:202610159518",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610159518",
+   "title": "Permis de construire 202610159518 — 55 Cyril Magnin St",
+   "summary": "otc alterations permit · statut filed · 13-14/f: remodel of 3 (e) guestrooms (1320, 3215, 3209) including (n) finishes, plumbing fixtures, doors, and barrier removal.",
+   "published": "2026-10-15T22:41:44.000Z",
+   "kind": "proposal",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.408964785,
+     37.784878242
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610159518",
+    "status": "filed"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "23141eac",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
    "id": "rss-publicworks:35794 at https://sfpublicworks.org",
    "source": "rss-publicworks",
    "source_name": "SF Public Works · Actualités (RSS)",
@@ -900,7 +2947,125 @@
    "hash": "6058fbd5",
    "retrieved_at": "2026-10-15T23:17:27.806Z",
    "first_seen": "2026-10-15T23:17:27.806Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-building:202609308850",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202609308850",
+   "title": "Permis de construire 202609308850 — 236 08th St",
+   "summary": "otc alterations permit · statut issued · 1st flr. enlarge existing stair vesitibule and add new door into stair, relocate existing mailbox. all interior work.",
+   "published": "2026-10-15T21:13:46.000Z",
+   "kind": "approved-decision",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.411187067,
+     37.775482694
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202609308850",
+    "status": "issued"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "2ebdd5e8",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-13T22:48:34.222Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 4,
+   "changed_at": "2026-10-17T17:31:53.887Z"
+  },
+  {
+   "id": "datasf-building:202610159500",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610159500",
+   "title": "Permis de construire 202610159500 — 149 New Montgomery St",
+   "summary": "otc alterations permit · statut filed · revision to pa 202512111568 & 202605111058 revision to remove hoistway rating above mechanical room roof as not requred and associated fire smoke dampers",
+   "published": "2026-10-15T19:46:36.000Z",
+   "kind": "proposal",
+   "domains": [
+    "buildings",
+    "public_safety"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.399559861,
+     37.786964049
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610159500",
+    "status": "filed"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "31930c88",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -951,7 +3116,7 @@
    "hash": "530d8794",
    "retrieved_at": "2026-10-15T20:31:37.255Z",
    "first_seen": "2026-10-15T20:31:37.255Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -1002,7 +3167,7 @@
    "hash": "eb3a1c45",
    "retrieved_at": "2026-10-15T20:31:37.255Z",
    "first_seen": "2026-10-15T20:31:37.255Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -1054,7 +3219,7 @@
    "hash": "0a4d5bc3",
    "retrieved_at": "2026-10-15T20:31:37.255Z",
    "first_seen": "2026-10-15T20:31:37.255Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -1106,8 +3271,125 @@
    "hash": "7ed6ed30",
    "retrieved_at": "2026-10-15T20:31:37.255Z",
    "first_seen": "2026-10-15T20:31:37.255Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
+  },
+  {
+   "id": "datasf-building:202610159495",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610159495",
+   "title": "Permis de construire 202610159495 — 235 02nd St",
+   "summary": "otc alterations permit · statut filed · 6th fl - minor tenant improvement includes adding 5 new non-rated doors and side lites, with card readers and panic hardware, around the passenger elevator and…",
+   "published": "2026-10-15T18:28:35.000Z",
+   "kind": "proposal",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.397279094,
+     37.786240783
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610159495",
+    "status": "filed"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "4d3229a2",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-building:202609248606",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202609248606",
+   "title": "Permis de construire 202609248606 — 605 Market St",
+   "summary": "otc alterations permit · statut issued · revision to 202605070858: replacement of damaged terra cotta units on north elevation lintels & upper northwest corner units. work on terra cotta units are 0.4…",
+   "published": "2026-10-15T18:18:17.000Z",
+   "kind": "approved-decision",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.401288263,
+     37.788946964
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202609248606",
+    "status": "issued"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "83555753",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-13T22:48:34.222Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 4,
+   "changed_at": "2026-10-17T17:31:53.887Z"
   },
   {
    "id": "rss-recpark:https://sfrecpark.org/CivicAlerts.aspx?aid=3078/639276646800000000",
@@ -1161,6 +3443,64 @@
    "revision": 1
   },
   {
+   "id": "datasf-building:202610159481",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610159481",
+   "title": "Permis de construire 202610159481 — 645 Harrison St",
+   "summary": "otc alterations permit · statut filed · interior ti: construct a new electrical transformer room fully within the interior of the building. work includes converting an e loading bay to house the new …",
+   "published": "2026-10-15T17:35:03.000Z",
+   "kind": "proposal",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.395901116,
+     37.783505524
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610159481",
+    "status": "filed"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "0515e7fb",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
    "id": "rss-recpark:https://sfrecpark.org/CivicAlerts.aspx?aid=3077/639276633600000000",
    "source": "rss-recpark",
    "source_name": "SF Recreation & Parks · Actualités (RSS)",
@@ -1209,6 +3549,369 @@
    "retrieved_at": "2026-10-15T16:59:52.146Z",
    "first_seen": "2026-10-15T16:59:52.146Z",
    "last_seen": "2026-10-15T16:59:52.146Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-street-use:25EXC-05123@7035000",
+   "source": "datasf-street-use",
+   "source_name": "DataSF · Street-Use Permits (récents, corridor)",
+   "publisher": "SF Public Works",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/b6tj-gt35.json?permit_number=25EXC-05123",
+   "title": "Excavation 25EXC-05123 — HOWARD ST (02ND ST / NEW MONTGOMERY ST)",
+   "summary": "Esquivel Grading & Paving, Inc. · fenêtre 2026-01-12 → 2029-01-16 · statut APPROVED",
+   "published": "2026-10-15T16:29:58.000Z",
+   "kind": "approved-decision",
+   "domains": [
+    "infrastructure"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.39861706686867,
+     37.78649420785002
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "cnn": "7035000",
+    "permit_number": "25EXC-05123",
+    "status": "APPROVED",
+    "start": "2026-01-12",
+    "end": "2029-01-16"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Un permis n’est pas la preuve que les travaux ont lieu."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "3869913c",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-street-use:25EXC-05123@7036000",
+   "source": "datasf-street-use",
+   "source_name": "DataSF · Street-Use Permits (récents, corridor)",
+   "publisher": "SF Public Works",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/b6tj-gt35.json?permit_number=25EXC-05123",
+   "title": "Excavation 25EXC-05123 — HOWARD ST (NEW MONTGOMERY ST / HAWTHORNE ST)",
+   "summary": "Esquivel Grading & Paving, Inc. · fenêtre 2026-01-12 → 2029-01-16 · statut APPROVED",
+   "published": "2026-10-15T16:29:58.000Z",
+   "kind": "approved-decision",
+   "domains": [
+    "infrastructure"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.39917335147106,
+     37.786054356433404
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "cnn": "7036000",
+    "permit_number": "25EXC-05123",
+    "status": "APPROVED",
+    "start": "2026-01-12",
+    "end": "2029-01-16"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Un permis n’est pas la preuve que les travaux ont lieu."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "a9e4d02d",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-street-use:25EXC-05123@7037000",
+   "source": "datasf-street-use",
+   "source_name": "DataSF · Street-Use Permits (récents, corridor)",
+   "publisher": "SF Public Works",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/b6tj-gt35.json?permit_number=25EXC-05123",
+   "title": "Excavation 25EXC-05123 — HOWARD ST (HAWTHORNE ST / 03RD ST)",
+   "summary": "Esquivel Grading & Paving, Inc. · fenêtre 2026-01-12 → 2029-01-16 · statut APPROVED",
+   "published": "2026-10-15T16:29:58.000Z",
+   "kind": "approved-decision",
+   "domains": [
+    "infrastructure"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.39991901226239,
+     37.785464753905366
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "cnn": "7037000",
+    "permit_number": "25EXC-05123",
+    "status": "APPROVED",
+    "start": "2026-01-12",
+    "end": "2029-01-16"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Un permis n’est pas la preuve que les travaux ont lieu."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "af7a353a",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-street-use:25EXC-05123@7038000",
+   "source": "datasf-street-use",
+   "source_name": "DataSF · Street-Use Permits (récents, corridor)",
+   "publisher": "SF Public Works",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/b6tj-gt35.json?permit_number=25EXC-05123",
+   "title": "Excavation 25EXC-05123 — HOWARD ST (03RD ST / 04TH ST)",
+   "summary": "Esquivel Grading & Paving, Inc. · fenêtre 2026-01-12 → 2029-01-16 · statut APPROVED",
+   "published": "2026-10-15T16:29:58.000Z",
+   "kind": "approved-decision",
+   "domains": [
+    "infrastructure"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.40158833217842,
+     37.78414475238988
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "cnn": "7038000",
+    "permit_number": "25EXC-05123",
+    "status": "APPROVED",
+    "start": "2026-01-12",
+    "end": "2029-01-16"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Un permis n’est pas la preuve que les travaux ont lieu."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "2d3efd05",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-street-use:25EXC-05123@7039001",
+   "source": "datasf-street-use",
+   "source_name": "DataSF · Street-Use Permits (récents, corridor)",
+   "publisher": "SF Public Works",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/b6tj-gt35.json?permit_number=25EXC-05123",
+   "title": "Excavation 25EXC-05123 — HOWARD ST (04TH ST / 05TH ST)",
+   "summary": "Esquivel Grading & Paving, Inc. · fenêtre 2026-01-12 → 2029-01-16 · statut APPROVED",
+   "published": "2026-10-15T16:29:58.000Z",
+   "kind": "approved-decision",
+   "domains": [
+    "infrastructure"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.40382076335774,
+     37.782379364020976
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "cnn": "7039001",
+    "permit_number": "25EXC-05123",
+    "status": "APPROVED",
+    "start": "2026-01-12",
+    "end": "2029-01-16"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Un permis n’est pas la preuve que les travaux ont lieu."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "dd0a0623",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-building:202610159470",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610159470",
+   "title": "Permis de construire 202610159470 — 100 Stockton St",
+   "summary": "otc alterations permit · statut filed · tenant improvement on the 7th fl to include conference rooms, concentrated assembly forum, prefunction and ancillary support spaces. industry non load bearing …",
+   "published": "2026-10-15T15:30:19.000Z",
+   "kind": "proposal",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.406297223,
+     37.78685826
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610159470",
+    "status": "filed"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "40426367",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
+   "first_seen": "2026-10-17T17:31:53.887Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -1420,7 +4123,7 @@
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/resource/qvu5-m3a2.json?record_id=2026-009113PRJ",
    "title": "Projet 2026-009113PRJ — 46-48 PIERCE STREET",
-   "summary": "Statut Accepted · Repairs to the existing second floor, rear deck and replacement of the rear stairs with a spiral stair.",
+   "summary": "Statut Accepted · The project proposes repairs to the existing second floor rear deck and replacement of the rear stairs with a spiral stair.",
    "published": "2026-10-15T07:00:00.000Z",
    "kind": "proposal",
    "domains": [
@@ -1463,11 +4166,12 @@
      }
     ]
    },
-   "hash": "b3684fd7",
-   "retrieved_at": "2026-10-16T11:21:33.897Z",
+   "hash": "d2f4c9b0",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-16T11:21:33.897Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
-   "revision": 1
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 2,
+   "changed_at": "2026-10-17T17:31:53.887Z"
   },
   {
    "id": "datasf-planning:2026-009126PRJ",
@@ -1522,7 +4226,7 @@
    "hash": "abc7e3b9",
    "retrieved_at": "2026-10-16T11:21:33.897Z",
    "first_seen": "2026-10-16T11:21:33.897Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -1578,7 +4282,7 @@
    "hash": "acceccde",
    "retrieved_at": "2026-10-16T11:21:33.897Z",
    "first_seen": "2026-10-16T11:21:33.897Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -1634,7 +4338,7 @@
    "hash": "8be52f72",
    "retrieved_at": "2026-10-16T11:21:33.897Z",
    "first_seen": "2026-10-16T11:21:33.897Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -1645,7 +4349,7 @@
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/resource/qvu5-m3a2.json?record_id=2026-009136PRJ",
    "title": "Projet 2026-009136PRJ — 400 DIVISADERO ST",
-   "summary": "Statut Application Intake - Pending · Proposal is to modify the project approved under Case No. 2024-00546PRJ to utilize the Housing Element Sites Streamlined Approval program pursuant to Planning Code Section 207.9 and CA Gov. Code Sec. 65583.2. Project co…",
+   "summary": "Statut Submitted · The project proposes modifying the approved Case No. 2024-00546PRJ to utilize the Housing Element Sites Streamlined Approval program pursuant to Planning Code Section 207.9 and CA Gov. Code Sec. 65583.2. Project consist…",
    "published": "2026-10-15T07:00:00.000Z",
    "kind": "proposal",
    "domains": [
@@ -1656,8 +4360,8 @@
    "geo_basis": "adresse seulement (non géocodée)",
    "data": {
     "record_id": "2026-009136PRJ",
-    "status": "Application Intake - Pending",
-    "address": "400 DIVISADERO ST 94117",
+    "status": "Submitted",
+    "address": "1064 OAK ST 94117",
     "units_net": 203,
     "corridor_street": null
    },
@@ -1687,11 +4391,12 @@
      }
     ]
    },
-   "hash": "51f032b3",
-   "retrieved_at": "2026-10-16T11:21:33.897Z",
+   "hash": "859cd4e1",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-16T11:21:33.897Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
-   "revision": 1
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 2,
+   "changed_at": "2026-10-17T17:31:53.887Z"
   },
   {
    "id": "caiso-fuelmix:caiso@2026-10-14",
@@ -2494,7 +5199,7 @@
    "hash": "f62b5a41",
    "retrieved_at": "2026-10-15T06:03:45.421Z",
    "first_seen": "2026-10-15T06:03:45.421Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -2552,7 +5257,7 @@
    "hash": "f0575b41",
    "retrieved_at": "2026-10-15T16:59:52.146Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 4,
    "changed_at": "2026-10-15T16:59:52.146Z"
   },
@@ -2613,7 +5318,7 @@
    "hash": "b34c03b4",
    "retrieved_at": "2026-10-15T16:59:52.146Z",
    "first_seen": "2026-10-15T16:59:52.146Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -2672,7 +5377,7 @@
    "hash": "c6040b6a",
    "retrieved_at": "2026-10-15T16:59:52.146Z",
    "first_seen": "2026-10-15T16:59:52.146Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -2730,7 +5435,7 @@
    "hash": "85ab51b8",
    "retrieved_at": "2026-10-15T16:59:52.146Z",
    "first_seen": "2026-10-14T14:56:35.337Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 2,
    "changed_at": "2026-10-15T16:59:52.146Z"
   },
@@ -2781,7 +5486,7 @@
    "hash": "f813cdf2",
    "retrieved_at": "2026-10-15T06:03:45.421Z",
    "first_seen": "2026-10-15T06:03:45.421Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -2891,7 +5596,7 @@
    "hash": "c60e9fbd",
    "retrieved_at": "2026-10-15T16:59:52.146Z",
    "first_seen": "2026-10-15T16:59:52.146Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -3067,7 +5772,7 @@
    "hash": "b368efbd",
    "retrieved_at": "2026-10-15T16:59:52.146Z",
    "first_seen": "2026-10-15T16:59:52.146Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -3125,7 +5830,7 @@
    "hash": "6969e696",
    "retrieved_at": "2026-10-15T16:59:52.146Z",
    "first_seen": "2026-10-14T14:56:35.337Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 2,
    "changed_at": "2026-10-15T16:59:52.146Z"
   },
@@ -3136,7 +5841,7 @@
    "publisher": "Department of Building Inspection",
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610149406",
-   "title": "Permis de construire 202610149406 — 63 Bluxome St",
+   "title": "Permis de construire 202610149406 — 69 Bluxome St",
    "summary": "otc alterations permit · statut filed · rev to pa# 2024-1212-6716: per inspection comment on 10/9/2026 for concrete cap due to the poor condition at the top of the existing urm along grid line a.",
    "published": "2026-10-14T17:39:08.000Z",
    "kind": "proposal",
@@ -3181,12 +5886,12 @@
      }
     ]
    },
-   "hash": "a49526c3",
-   "retrieved_at": "2026-10-16T11:21:33.897Z",
+   "hash": "7b164849",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-15T16:59:52.146Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
-   "revision": 2,
-   "changed_at": "2026-10-16T11:21:33.897Z"
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 3,
+   "changed_at": "2026-10-17T17:31:53.887Z"
   },
   {
    "id": "datasf-closures:27443274",
@@ -3444,7 +6149,7 @@
    "hash": "bb491848",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-15T11:26:48.126Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -3500,7 +6205,7 @@
    "hash": "4c2320fc",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-15T11:26:48.126Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -3556,7 +6261,7 @@
    "hash": "e1ea0319",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-15T11:26:48.126Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -3612,7 +6317,7 @@
    "hash": "a62233e8",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-15T11:26:48.126Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -3668,7 +6373,7 @@
    "hash": "32c47d6d",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-15T11:26:48.126Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -3724,7 +6429,7 @@
    "hash": "729ac362",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-15T11:26:48.126Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -4483,7 +7188,7 @@
    "hash": "6a91c0ed",
    "retrieved_at": "2026-10-14T01:24:30.092Z",
    "first_seen": "2026-10-14T01:24:30.092Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -4536,7 +7241,7 @@
    "hash": "78ced00e",
    "retrieved_at": "2026-10-14T01:24:30.092Z",
    "first_seen": "2026-10-14T01:24:30.092Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -4587,7 +7292,7 @@
    "hash": "e2242495",
    "retrieved_at": "2026-10-14T01:24:30.092Z",
    "first_seen": "2026-10-14T01:24:30.092Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -4637,7 +7342,7 @@
    "hash": "60120faf",
    "retrieved_at": "2026-10-14T01:24:30.092Z",
    "first_seen": "2026-10-14T01:24:30.092Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -4695,7 +7400,7 @@
    "hash": "749c6553",
    "retrieved_at": "2026-10-14T14:56:35.337Z",
    "first_seen": "2026-10-14T14:56:35.337Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -4744,7 +7449,7 @@
    "hash": "c6b03d4d",
    "retrieved_at": "2026-10-14T01:24:30.092Z",
    "first_seen": "2026-10-14T01:24:30.092Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -4789,7 +7494,7 @@
    "hash": "6b192444",
    "retrieved_at": "2026-10-13T22:48:34.222Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1,
    "confidence": {
     "level": "medium",
@@ -4851,7 +7556,7 @@
    "hash": "e53469bf",
    "retrieved_at": "2026-10-14T14:56:35.337Z",
    "first_seen": "2026-10-14T14:56:35.337Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -4909,7 +7614,7 @@
    "hash": "19ff2de2",
    "retrieved_at": "2026-10-14T14:56:35.337Z",
    "first_seen": "2026-10-14T14:56:35.337Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -4967,7 +7672,7 @@
    "hash": "b231be07",
    "retrieved_at": "2026-10-14T14:56:35.337Z",
    "first_seen": "2026-10-14T14:56:35.337Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -5025,7 +7730,7 @@
    "hash": "297e94a9",
    "retrieved_at": "2026-10-14T14:56:35.337Z",
    "first_seen": "2026-10-14T14:56:35.337Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -5077,7 +7782,7 @@
    "hash": "cf277156",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -5129,7 +7834,7 @@
    "hash": "0df6a75c",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -5187,7 +7892,7 @@
    "hash": "8853c731",
    "retrieved_at": "2026-10-14T14:56:35.337Z",
    "first_seen": "2026-10-14T14:56:35.337Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -5447,7 +8152,7 @@
    "hash": "49ec4e45",
    "retrieved_at": "2026-10-14T08:41:16.587Z",
    "first_seen": "2026-10-14T08:41:16.587Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -5503,7 +8208,7 @@
    "hash": "b3affa4f",
    "retrieved_at": "2026-10-14T08:41:16.587Z",
    "first_seen": "2026-10-14T08:41:16.587Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -5561,7 +8266,7 @@
    "hash": "e946577b",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-14T08:41:16.587Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 2,
    "changed_at": "2026-10-15T11:26:48.126Z"
   },
@@ -5618,7 +8323,7 @@
    "hash": "f66ec32a",
    "retrieved_at": "2026-10-14T08:41:16.587Z",
    "first_seen": "2026-10-14T08:41:16.587Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -5675,7 +8380,7 @@
    "hash": "eb8324d3",
    "retrieved_at": "2026-10-14T08:41:16.587Z",
    "first_seen": "2026-10-14T08:41:16.587Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -5731,7 +8436,7 @@
    "hash": "de5968f7",
    "retrieved_at": "2026-10-16T11:21:33.897Z",
    "first_seen": "2026-10-14T08:41:16.587Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-16T11:21:33.897Z"
   },
@@ -5788,7 +8493,7 @@
    "hash": "17c72c8e",
    "retrieved_at": "2026-10-14T08:41:16.587Z",
    "first_seen": "2026-10-14T08:41:16.587Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -5845,7 +8550,7 @@
    "hash": "69c33998",
    "retrieved_at": "2026-10-14T08:41:16.587Z",
    "first_seen": "2026-10-14T08:41:16.587Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -6542,7 +9247,7 @@
    "hash": "f6a25913",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -6600,7 +9305,7 @@
    "hash": "5932eb3d",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -6657,7 +9362,7 @@
    "hash": "537dd8c4",
    "retrieved_at": "2026-10-14T08:41:16.587Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 4,
    "changed_at": "2026-10-14T08:41:16.587Z"
   },
@@ -6716,7 +9421,7 @@
    "hash": "354118f8",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -6728,7 +9433,7 @@
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610028956",
    "title": "Permis de construire 202610028956 — 850 Brannan St",
-   "summary": "otc alterations permit · statut issued · barrier removal only. remove existing glass door and fixed glass panel at 2nd floor.",
+   "summary": "otc alterations permit · statut complete · barrier removal only. remove existing glass door and fixed glass panel at 2nd floor.",
    "published": "2026-10-09T18:31:16.000Z",
    "kind": "approved-decision",
    "domains": [
@@ -6744,7 +9449,7 @@
    "geo_basis": "source coordinates",
    "data": {
     "permit_number": "202610028956",
-    "status": "issued"
+    "status": "complete"
    },
    "confidence": {
     "level": "high",
@@ -6772,12 +9477,12 @@
      }
     ]
    },
-   "hash": "6b978713",
-   "retrieved_at": "2026-10-14T01:27:15.713Z",
+   "hash": "cad4f217",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
-   "revision": 3,
-   "changed_at": "2026-10-14T01:27:15.713Z"
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 4,
+   "changed_at": "2026-10-17T17:31:53.887Z"
   },
   {
    "id": "rss-recpark:https://sfrecpark.org/CivicAlerts.aspx?aid=3113/639271483410000000",
@@ -6827,7 +9532,7 @@
    "hash": "38cc52ac",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -6878,7 +9583,7 @@
    "hash": "e5b46f9b",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -6936,7 +9641,7 @@
    "hash": "b5243771",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -6995,7 +9700,7 @@
    "hash": "71eb466f",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -7053,7 +9758,7 @@
    "hash": "580fbacf",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -7111,7 +9816,7 @@
    "hash": "9539e1f3",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -7168,7 +9873,7 @@
    "hash": "94000f33",
    "retrieved_at": "2026-10-14T08:41:16.587Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 4,
    "changed_at": "2026-10-14T08:41:16.587Z"
   },
@@ -7226,7 +9931,7 @@
    "hash": "127ca3fe",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -7284,7 +9989,7 @@
    "hash": "34879f43",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -7341,7 +10046,7 @@
    "hash": "63bd1a74",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -7393,7 +10098,7 @@
    "hash": "6c32cc5c",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -7452,7 +10157,7 @@
    "hash": "dc377f49",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -7511,7 +10216,7 @@
    "hash": "8f3f2c01",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -7623,7 +10328,7 @@
    "hash": "f8cc620a",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -7682,7 +10387,7 @@
    "hash": "7a63959f",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -7741,7 +10446,7 @@
    "hash": "f06a8735",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -7798,7 +10503,7 @@
    "hash": "a18bc174",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -7855,7 +10560,7 @@
    "hash": "7ab244fe",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -7913,7 +10618,7 @@
    "hash": "621b747a",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -7971,7 +10676,7 @@
    "hash": "a9973c59",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -8023,7 +10728,7 @@
    "hash": "58373ded",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -8074,7 +10779,7 @@
    "hash": "61b09041",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -8125,7 +10830,7 @@
    "hash": "129928ae",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -8183,7 +10888,7 @@
    "hash": "c419adad",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -8242,7 +10947,7 @@
    "hash": "d631de1b",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -8304,7 +11009,7 @@
    "hash": "014af363",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -8364,7 +11069,7 @@
    "hash": "be02052e",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -8427,7 +11132,7 @@
    "hash": "92ef66e9",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -8485,7 +11190,7 @@
    "hash": "cd9cc53b",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -8543,7 +11248,7 @@
    "hash": "ebbad4c7",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -8601,7 +11306,7 @@
    "hash": "0a860c1a",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -8659,7 +11364,7 @@
    "hash": "993d5ba6",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -8718,7 +11423,7 @@
    "hash": "ab2aaca4",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -8776,7 +11481,7 @@
    "hash": "9e416676",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -8833,7 +11538,7 @@
    "hash": "6e041bac",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -8891,7 +11596,7 @@
    "hash": "c442bf9d",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -8942,7 +11647,7 @@
    "hash": "6346668e",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -8993,7 +11698,7 @@
    "hash": "b7d24e64",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -9043,7 +11748,7 @@
    "hash": "ad4e4465",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -9201,7 +11906,7 @@
    "hash": "89562721",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -9260,7 +11965,7 @@
    "hash": "fef865a3",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -9319,7 +12024,7 @@
    "hash": "2e9dfd37",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -9378,7 +12083,7 @@
    "hash": "6acc2ea7",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -9438,7 +12143,7 @@
    "hash": "e7ee621a",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -9497,7 +12202,7 @@
    "hash": "c5093252",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -9559,7 +12264,7 @@
    "hash": "c541c27c",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -9618,7 +12323,7 @@
    "hash": "ff00d86f",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -9677,7 +12382,7 @@
    "hash": "aa8f1505",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -9736,7 +12441,7 @@
    "hash": "380b5ce1",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -9795,7 +12500,7 @@
    "hash": "6c78304e",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -9852,7 +12557,7 @@
    "hash": "87a0abb1",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -9909,7 +12614,7 @@
    "hash": "29e5350f",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -9966,7 +12671,7 @@
    "hash": "2909998c",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -10016,7 +12721,7 @@
    "hash": "5086c12b",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -10065,7 +12770,7 @@
    "hash": "e186dec9",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -10123,7 +12828,7 @@
    "hash": "508e73a6",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -10182,7 +12887,7 @@
    "hash": "4cd184b9",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -10241,7 +12946,7 @@
    "hash": "b0bcf886",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -10300,7 +13005,7 @@
    "hash": "04ed30f7",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -10359,7 +13064,7 @@
    "hash": "1153b5d8",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -10418,7 +13123,7 @@
    "hash": "1eb70f16",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -10476,7 +13181,7 @@
    "hash": "646da2a9",
    "retrieved_at": "2026-10-16T11:21:33.897Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 4,
    "changed_at": "2026-10-16T11:21:33.897Z"
   },
@@ -10534,7 +13239,7 @@
    "hash": "e09ce019",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -10591,7 +13296,7 @@
    "hash": "aea57b69",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -10649,7 +13354,7 @@
    "hash": "fa79a0d9",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -10706,7 +13411,7 @@
    "hash": "f90135a4",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -10759,7 +13464,7 @@
    "hash": "798dc130",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -10811,7 +13516,7 @@
    "hash": "b37fc144",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -10869,7 +13574,7 @@
    "hash": "f2165c87",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -10931,7 +13636,7 @@
    "hash": "7d095cc3",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -10990,7 +13695,7 @@
    "hash": "7f53a3cb",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -11049,7 +13754,7 @@
    "hash": "64ac4cc3",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -11112,7 +13817,7 @@
    "hash": "23cf0533",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -11170,7 +13875,7 @@
    "hash": "00ee6f75",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -11227,7 +13932,7 @@
    "hash": "81ec0f21",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -11284,7 +13989,7 @@
    "hash": "f992b91a",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -11342,7 +14047,7 @@
    "hash": "88cb63bb",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -11399,7 +14104,7 @@
    "hash": "25c61724",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -11456,7 +14161,7 @@
    "hash": "9a3834bc",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -11516,7 +14221,7 @@
    "hash": "869db665",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -11569,7 +14274,7 @@
    "hash": "05f7e7e5",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -11621,7 +14326,7 @@
    "hash": "075ffeef",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -11673,7 +14378,7 @@
    "hash": "6f0bab57",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -11731,7 +14436,7 @@
    "hash": "e01b96aa",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -11784,7 +14489,7 @@
    "hash": "9d8ea92d",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -11836,7 +14541,7 @@
    "hash": "0b4ca4b5",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -11888,7 +14593,7 @@
    "hash": "c0eb8241",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -11940,7 +14645,7 @@
    "hash": "c0eb8241",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -11992,7 +14697,7 @@
    "hash": "048200e7",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -12044,7 +14749,7 @@
    "hash": "22eafaa9",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -12103,7 +14808,7 @@
    "hash": "9009f6b1",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -12162,7 +14867,7 @@
    "hash": "d640b4f5",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -12225,7 +14930,7 @@
    "hash": "fe45ea3f",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -12284,7 +14989,7 @@
    "hash": "e2a26e64",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -12342,7 +15047,7 @@
    "hash": "b2d7963d",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -12399,7 +15104,7 @@
    "hash": "4b328f24",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 4,
    "changed_at": "2026-10-15T11:26:48.126Z"
   },
@@ -12457,7 +15162,7 @@
    "hash": "21c86a93",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -12507,7 +15212,7 @@
    "hash": "4ab897ea",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -12561,7 +15266,7 @@
    "hash": "f6b924db",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -12614,7 +15319,7 @@
    "hash": "f6b924db",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -12667,7 +15372,7 @@
    "hash": "970249f0",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -12726,7 +15431,7 @@
    "hash": "7f0dc932",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -12777,7 +15482,7 @@
    "hash": "73da1f15",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -12827,7 +15532,7 @@
    "hash": "6c3e6f4a",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -12885,7 +15590,7 @@
    "hash": "4aabd335",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -12946,66 +15651,7 @@
    "hash": "041ecfcd",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
-   "revision": 3,
-   "changed_at": "2026-10-14T01:27:15.713Z"
-  },
-  {
-   "id": "datasf-building:202609308850",
-   "source": "datasf-building",
-   "source_name": "DataSF · Building Permits (récents, corridor)",
-   "publisher": "Department of Building Inspection",
-   "license": "ODC-PDDL",
-   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202609308850",
-   "title": "Permis de construire 202609308850 — 236 08th St",
-   "summary": "otc alterations permit · statut filed · 1st flr. enlarge existing stair vesitibule and add new door into stair, relocate existing mailbox. all interior work.",
-   "published": "2026-09-30T21:38:45.000Z",
-   "kind": "proposal",
-   "domains": [
-    "buildings"
-   ],
-   "geo": {
-    "type": "Point",
-    "coordinates": [
-     -122.411187067,
-     37.775482694
-    ]
-   },
-   "geo_basis": "source coordinates",
-   "data": {
-    "permit_number": "202609308850",
-    "status": "filed"
-   },
-   "confidence": {
-    "level": "high",
-    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
-   },
-   "verification": {
-    "status": "official-source",
-    "checks": [
-     {
-      "id": "https",
-      "pass": true
-     },
-     {
-      "id": "official-host",
-      "pass": true,
-      "detail": null
-     },
-     {
-      "id": "published-date",
-      "pass": true
-     },
-     {
-      "id": "source-registered",
-      "pass": true
-     }
-    ]
-   },
-   "hash": "80f6f0d1",
-   "retrieved_at": "2026-10-14T01:27:15.713Z",
-   "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13064,7 +15710,7 @@
    "hash": "8181cd62",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13123,7 +15769,7 @@
    "hash": "b7517272",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13240,7 +15886,7 @@
    "hash": "b79c2090",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13300,7 +15946,7 @@
    "hash": "e879daa7",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13312,7 +15958,7 @@
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/resource/qvu5-m3a2.json?record_id=2026-008655PRJ",
    "title": "Projet 2026-008655PRJ — 4044 22ND ST",
-   "summary": "Statut Submitted · Project proposes to square off the existing non‑complying second‑floor rear façade by adding approximately 20 square feet within the required rear yard. Work includes alterations to two rear bedroom windows and modifica…",
+   "summary": "Statut Accepted · Project proposes to square off the existing non‑complying second‑floor rear façade by adding approximately 20 square feet within the required rear yard. Work includes alterations to two rear bedroom windows and modifica…",
    "published": "2026-09-30T07:00:00.000Z",
    "kind": "proposal",
    "domains": [
@@ -13323,7 +15969,7 @@
    "geo_basis": "adresse seulement (non géocodée)",
    "data": {
     "record_id": "2026-008655PRJ",
-    "status": "Submitted",
+    "status": "Accepted",
     "address": "4044 22ND ST 94114",
     "units_net": 0,
     "corridor_street": null
@@ -13354,12 +16000,12 @@
      }
     ]
    },
-   "hash": "674d639c",
-   "retrieved_at": "2026-10-14T01:27:15.713Z",
+   "hash": "3c70314c",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
-   "revision": 3,
-   "changed_at": "2026-10-14T01:27:15.713Z"
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 4,
+   "changed_at": "2026-10-17T17:31:53.887Z"
   },
   {
    "id": "datasf-planning:2026-008658PRJ",
@@ -13414,7 +16060,7 @@
    "hash": "ba42629c",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13471,7 +16117,7 @@
    "hash": "12f9ecf2",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13528,7 +16174,7 @@
    "hash": "af5ff600",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13587,7 +16233,7 @@
    "hash": "fe11f4b8",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13646,7 +16292,7 @@
    "hash": "f45164d6",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13764,7 +16410,7 @@
    "hash": "468d6185",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13823,7 +16469,7 @@
    "hash": "72918b97",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13882,7 +16528,7 @@
    "hash": "69748b0e",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13938,7 +16584,7 @@
    "hash": "0cb3f74d",
    "retrieved_at": "2026-10-13T22:48:34.222Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1,
    "confidence": {
     "level": "high",
@@ -13998,7 +16644,7 @@
    "hash": "4fa1bd6c",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -14055,7 +16701,7 @@
    "hash": "6ce42a41",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -14112,7 +16758,7 @@
    "hash": "33267bd6",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -14169,7 +16815,7 @@
    "hash": "2da8728b",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -14227,7 +16873,7 @@
    "hash": "2945b713",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -14239,7 +16885,7 @@
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/resource/qvu5-m3a2.json?record_id=2026-008630PRJ",
    "title": "Projet 2026-008630PRJ — 2627 20TH AVE",
-   "summary": "Statut Application Intake - Pending · To comply with 2023-002056ENF, proposal to remove the existing unpermitted unit at the ground floor and conversion back to a single-unit dwelling. A kitchenette is also proposed on the ground floor.",
+   "summary": "Statut Submitted · To comply with 2023-002056ENF, proposal to remove the existing unpermitted unit at the ground floor and conversion back to a single-unit dwelling. A kitchenette is also proposed on the ground floor.",
    "published": "2026-09-29T07:00:00.000Z",
    "kind": "proposal",
    "domains": [
@@ -14250,7 +16896,7 @@
    "geo_basis": "adresse seulement (non géocodée)",
    "data": {
     "record_id": "2026-008630PRJ",
-    "status": "Application Intake - Pending",
+    "status": "Submitted",
     "address": "2627 20TH AVE 94116",
     "units_net": 0,
     "corridor_street": null
@@ -14281,12 +16927,12 @@
      }
     ]
    },
-   "hash": "c5094aec",
-   "retrieved_at": "2026-10-14T01:27:15.713Z",
+   "hash": "2f1f8f68",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
-   "revision": 3,
-   "changed_at": "2026-10-14T01:27:15.713Z"
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 4,
+   "changed_at": "2026-10-17T17:31:53.887Z"
   },
   {
    "id": "datasf-planning:2026-008631PRJ",
@@ -14341,7 +16987,7 @@
    "hash": "b0625a79",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -14393,7 +17039,7 @@
    "hash": "424019f8",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -14444,7 +17090,7 @@
    "hash": "0e1ace48",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -14830,7 +17476,7 @@
    "hash": "28c598d0",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -14883,7 +17529,7 @@
    "hash": "4e7d5b6d",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -14936,7 +17582,7 @@
    "hash": "9f5c30c9",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -14995,7 +17641,7 @@
    "hash": "7591b8ec",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15054,7 +17700,7 @@
    "hash": "e491014e",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15114,7 +17760,7 @@
    "hash": "4a58896e",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15217,7 +17863,7 @@
    "hash": "82dced10",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15269,7 +17915,7 @@
    "hash": "cde59c4a",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -15320,7 +17966,7 @@
    "hash": "55396c31",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -15435,7 +18081,7 @@
    "hash": "f29598eb",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15492,7 +18138,7 @@
    "hash": "98fd12a9",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15549,7 +18195,7 @@
    "hash": "86a5f337",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15606,7 +18252,7 @@
    "hash": "ee4f50bf",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15664,7 +18310,7 @@
    "hash": "72d4a50a",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15721,7 +18367,7 @@
    "hash": "e0191013",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15778,7 +18424,7 @@
    "hash": "95298b32",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 4,
    "changed_at": "2026-10-15T11:26:48.126Z"
   },
@@ -15829,7 +18475,7 @@
    "hash": "ec9e7a75",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15885,7 +18531,7 @@
    "hash": "ea47f1da",
    "retrieved_at": "2026-10-13T22:48:34.222Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1,
    "confidence": {
     "level": "high",
@@ -15944,7 +18590,7 @@
    "hash": "46a1bad6",
    "retrieved_at": "2026-10-13T22:48:34.222Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1,
    "confidence": {
     "level": "high",
@@ -16006,7 +18652,7 @@
    "hash": "f5e525e8",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16065,7 +18711,7 @@
    "hash": "93bb77ec",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16117,7 +18763,7 @@
    "hash": "3c0735d8",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -16174,7 +18820,7 @@
    "hash": "1028e072",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16231,7 +18877,7 @@
    "hash": "8ee1e223",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16295,65 +18941,6 @@
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
   {
-   "id": "datasf-building:202609248606",
-   "source": "datasf-building",
-   "source_name": "DataSF · Building Permits (récents, corridor)",
-   "publisher": "Department of Building Inspection",
-   "license": "ODC-PDDL",
-   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202609248606",
-   "title": "Permis de construire 202609248606 — 605 Market St",
-   "summary": "otc alterations permit · statut filed · revision to 202605070858: replacement of damaged terra cotta units on north elevation lintels & upper northwesr corner units",
-   "published": "2026-09-24T22:20:57.000Z",
-   "kind": "proposal",
-   "domains": [
-    "buildings"
-   ],
-   "geo": {
-    "type": "Point",
-    "coordinates": [
-     -122.401288263,
-     37.788946964
-    ]
-   },
-   "geo_basis": "source coordinates",
-   "data": {
-    "permit_number": "202609248606",
-    "status": "filed"
-   },
-   "confidence": {
-    "level": "high",
-    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
-   },
-   "verification": {
-    "status": "official-source",
-    "checks": [
-     {
-      "id": "https",
-      "pass": true
-     },
-     {
-      "id": "official-host",
-      "pass": true,
-      "detail": null
-     },
-     {
-      "id": "published-date",
-      "pass": true
-     },
-     {
-      "id": "source-registered",
-      "pass": true
-     }
-    ]
-   },
-   "hash": "f1d51f17",
-   "retrieved_at": "2026-10-14T01:27:15.713Z",
-   "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
-   "revision": 3,
-   "changed_at": "2026-10-14T01:27:15.713Z"
-  },
-  {
    "id": "datasf-building:202609087771",
    "source": "datasf-building",
    "source_name": "DataSF · Building Permits (récents, corridor)",
@@ -16409,7 +18996,7 @@
    "hash": "9678cd25",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16468,7 +19055,7 @@
    "hash": "efa1383f",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16527,7 +19114,7 @@
    "hash": "e1a09aff",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16586,7 +19173,7 @@
    "hash": "a4c2a210",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16643,7 +19230,7 @@
    "hash": "f7648e3c",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16694,7 +19281,7 @@
    "hash": "95e1266f",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16745,7 +19332,7 @@
    "hash": "00e448d6",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -16904,7 +19491,7 @@
    "hash": "28799509",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16962,7 +19549,7 @@
    "hash": "be8972d9",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17020,7 +19607,7 @@
    "hash": "7f1116d1",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17079,7 +19666,7 @@
    "hash": "b42585fb",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17137,7 +19724,7 @@
    "hash": "adc985fe",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17190,7 +19777,7 @@
    "hash": "bbcc6a4b",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -17242,7 +19829,7 @@
    "hash": "f9b59d82",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -17294,7 +19881,7 @@
    "hash": "3eb8ee2d",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -17345,7 +19932,7 @@
    "hash": "c4d59688",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -17404,7 +19991,7 @@
    "hash": "b0a62bb8",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17464,7 +20051,7 @@
    "hash": "8df155da",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17523,7 +20110,7 @@
    "hash": "b725c2f5",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17582,7 +20169,7 @@
    "hash": "94e9338d",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17641,7 +20228,7 @@
    "hash": "6b7bc7f9",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17700,7 +20287,7 @@
    "hash": "d18ac4d3",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17759,7 +20346,7 @@
    "hash": "a7c0324a",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17818,7 +20405,7 @@
    "hash": "f0dacf42",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17875,7 +20462,7 @@
    "hash": "3d5b5435",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17933,7 +20520,7 @@
    "hash": "832d7395",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17991,7 +20578,7 @@
    "hash": "f91da98c",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18051,7 +20638,7 @@
    "hash": "dc93e8e4",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18286,7 +20873,7 @@
    "hash": "e5968b37",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18345,7 +20932,7 @@
    "hash": "b9a33850",
    "retrieved_at": "2026-10-16T11:21:33.897Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 4,
    "changed_at": "2026-10-16T11:21:33.897Z"
   },
@@ -18402,7 +20989,7 @@
    "hash": "576112f6",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18458,7 +21045,7 @@
    "hash": "8b9ef0ac",
    "retrieved_at": "2026-10-13T22:48:34.222Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1,
    "confidence": {
     "level": "high",
@@ -18514,7 +21101,7 @@
    "hash": "36271025",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -18566,7 +21153,7 @@
    "hash": "3c0bcab9",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -18617,7 +21204,7 @@
    "hash": "007a0f63",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -18668,7 +21255,7 @@
    "hash": "340e6858",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -18679,7 +21266,7 @@
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202609188328",
    "title": "Permis de construire 202609188328 — 71 Stevenson St",
-   "summary": "otc alterations permit · statut issued · to obtain final inspection for work approved under pa# 2015608285538. all work is complete.",
+   "summary": "otc alterations permit · statut complete · to obtain final inspection for work approved under pa# 2015608285538. all work is complete.",
    "published": "2026-09-18T17:02:52.000Z",
    "kind": "approved-decision",
    "domains": [
@@ -18695,7 +21282,7 @@
    "geo_basis": "source coordinates",
    "data": {
     "permit_number": "202609188328",
-    "status": "issued"
+    "status": "complete"
    },
    "confidence": {
     "level": "high",
@@ -18723,12 +21310,12 @@
      }
     ]
    },
-   "hash": "5eb67947",
-   "retrieved_at": "2026-10-14T01:27:15.713Z",
+   "hash": "437b5e6b",
+   "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
-   "revision": 3,
-   "changed_at": "2026-10-14T01:27:15.713Z"
+   "last_seen": "2026-10-17T17:31:53.887Z",
+   "revision": 4,
+   "changed_at": "2026-10-17T17:31:53.887Z"
   },
   {
    "id": "datasf-planning:2026-008304PRJ",
@@ -18783,7 +21370,7 @@
    "hash": "81766f74",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 4,
    "changed_at": "2026-10-15T11:26:48.126Z"
   },
@@ -19353,7 +21940,7 @@
    "hash": "f943088e",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -19405,7 +21992,7 @@
    "hash": "00cfaf28",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -19522,7 +22109,7 @@
    "hash": "ebb604fe",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -19640,7 +22227,7 @@
    "hash": "4175ed61",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -19755,7 +22342,7 @@
    "hash": "ca149447",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -19811,7 +22398,7 @@
    "hash": "3e53bdf5",
    "retrieved_at": "2026-10-13T22:48:34.222Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1,
    "confidence": {
     "level": "high",
@@ -21275,7 +23862,7 @@
    "hash": "04e49b2d",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21326,7 +23913,7 @@
    "hash": "02befc76",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21428,7 +24015,7 @@
    "hash": "f4b1b257",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -21478,7 +24065,7 @@
    "hash": "6cdf31f7",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -21528,7 +24115,7 @@
    "hash": "167c449f",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -21578,7 +24165,7 @@
    "hash": "b8f96fa5",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -21627,7 +24214,7 @@
    "hash": "c91480f0",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21677,7 +24264,7 @@
    "hash": "4a4b6a57",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21735,7 +24322,7 @@
    "hash": "2d295c9a",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21793,7 +24380,7 @@
    "hash": "c9294e08",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21851,7 +24438,7 @@
    "hash": "3195d098",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21901,7 +24488,7 @@
    "hash": "89844cb9",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -21950,7 +24537,7 @@
    "hash": "b0437549",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -21999,7 +24586,7 @@
    "hash": "4c67505b",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -22048,7 +24635,7 @@
    "hash": "08354dbc",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -22099,7 +24686,7 @@
    "hash": "a67714e5",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1
   },
   {
@@ -22147,7 +24734,7 @@
    "hash": "1441e8c1",
    "retrieved_at": "2026-10-13T22:49:35.562Z",
    "first_seen": "2026-10-13T22:49:35.562Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1,
    "confidence": {
     "level": "low",
@@ -22198,7 +24785,7 @@
    "hash": "c6345a10",
    "retrieved_at": "2026-10-13T22:49:35.562Z",
    "first_seen": "2026-10-13T22:49:35.562Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1,
    "confidence": {
     "level": "low",
@@ -22247,7 +24834,7 @@
    "hash": "a9be6ab9",
    "retrieved_at": "2026-10-13T22:49:35.562Z",
    "first_seen": "2026-10-13T22:49:35.562Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1,
    "confidence": {
     "level": "low",
@@ -22296,7 +24883,7 @@
    "hash": "22f841b6",
    "retrieved_at": "2026-10-13T22:49:35.562Z",
    "first_seen": "2026-10-13T22:49:35.562Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1,
    "confidence": {
     "level": "low",
@@ -22345,7 +24932,7 @@
    "hash": "5b87a6db",
    "retrieved_at": "2026-10-13T22:49:35.562Z",
    "first_seen": "2026-10-13T22:49:35.562Z",
-   "last_seen": "2026-10-16T11:21:33.897Z",
+   "last_seen": "2026-10-17T17:31:53.887Z",
    "revision": 1,
    "confidence": {
     "level": "low",
