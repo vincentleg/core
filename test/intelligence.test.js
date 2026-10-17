@@ -45,7 +45,7 @@ test('orchestrator: a model wording that fails verification is discarded; the ci
   const good = await answer('Que sait-on du trottoir FOLSOM ST 05TH ST → FALMOUTH ST ?', { ix, provider: 'ollama', model: 'test', generate: async () => 'La largeur mesurée est de 10 ft, sous le minimum de 12 ft (étude 2014) [1]. La largeur actuelle reste inconnue.' });
   assert.equal(good.provider, 'ollama'); assert.equal(good.verified, true);
   const down = await answer('Que sait-on du trottoir FOLSOM ST 05TH ST → FALMOUTH ST ?', { ix, provider: 'ollama', model: 'test', generate: async () => { throw Error('ECONNREFUSED'); } });
-  assert.equal(down.provider, 'deterministic'); assert.match(down.fallback, /indisponible/);
+  assert.equal(down.provider, 'deterministic'); assert.match(down.fallback, /unavailable/);
   const pii = await answer(`Que sait-on du trottoir FOLSOM ST 05TH ST → FALMOUTH ST ? ${['moi', 'exemple.org'].join('@')}`, { ix, provider: 'ollama', model: 'test', generate: async () => { throw Error('must not be called'); } });
   assert.equal(pii.provider, 'deterministic'); assert.match(pii.fallback, /personnelles/);
 });

@@ -18,10 +18,10 @@ test('dialogue: guided phases fill the draft in order, and the session reaches r
   for (const [phase, text] of steps) { assert.equal(s.phase, phase); s = await D.turn(s, text, { ix, problem, at: AT }); }
   assert.equal(s.phase, 'review');
   assert.deepEqual(s.draft.assumptions, ['le trottoir mesure encore 10 ft', 'la chaussée peut céder']);
-  assert.equal(s.draft.pathway, 'Initiative citoyenne');
+  assert.equal(s.draft.pathway, 'Citizen initiative');
   assert.deepEqual(D.missing(s).map(m => m.id), ['situation']);
   const idea = D.toIdea(s);
-  assert.equal(idea.problemId, problem.id); assert.match(idea.solution, /Mécanisme supposé : afin de/); assert.match(idea.solution, /Tests :\n- mesurer/);
+  assert.equal(idea.problemId, problem.id); assert.match(idea.solution, /Assumed mechanism : afin de/); assert.match(idea.solution, /Tests :\n- mesurer/);
   assert.equal(D.goTo(s, 'risks').phase, 'risks'); assert.throws(() => D.goTo(s, 'nope'));
 });
 
@@ -44,9 +44,9 @@ test('dialogue: weak assumptions are challenged, never praised', async () => {
   let s = D.newSession({ id: 'd', problem, at: AT });
   s = await D.turn(s, 'Élargir le trottoir, c’est évident que ça marche', { ix, problem, at: AT });
   const last = s.turns.at(-1);
-  assert.equal(last.kind, 'challenge'); assert.match(last.text, /certitude/); assert.match(last.text, /10 ft mesurés en 2014/);
+  assert.equal(last.kind, 'challenge'); assert.match(last.text, /certainty/); assert.match(last.text, /10 ft measured in 2014/);
   s = await D.turn(s, 'les gens marcheront mieux', { ix, problem, at: AT });
-  assert.match(s.turns.at(-1).text, /lien de cause à effet/);
+  assert.match(s.turns.at(-1).text, /cause-and-effect link/);
   const all = s.turns.filter(t => t.role === 'agent').map(t => t.text).join(' ');
   assert.doesNotMatch(all, /excellente idée|bravo|parfait|génial|great idea/i);
 });
@@ -77,6 +77,6 @@ test('dialogue: consent defaults off; export labels evidence vs reasoning and st
   assert.deepEqual(s.consent, { persist: false, vault: false });
   s = await D.turn(s, 'Que sait-on de ce trottoir ?', { ix, problem, at: AT });
   const md = D.exportMarkdown(s);
-  assert.match(md, /Preuve \(CORE Knowledge, citée\)/); assert.match(md, /Raisonnement guidé \(agent\)/); assert.match(md, /n’est pas une validation scientifique/); assert.match(md, /Sources : .*sidewalks:8562/);
-  assert.match(D.ENGINE.kind, /aucun modèle de langage/);
+  assert.match(md, /Evidence \(CORE Knowledge, cited\)/); assert.match(md, /Guided reasoning \(agent\)/); assert.match(md, /is not a scientific validation/); assert.match(md, /Sources : .*sidewalks:8562/);
+  assert.match(D.ENGINE.kind, /no language model/);
 });

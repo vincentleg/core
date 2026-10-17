@@ -6,17 +6,25 @@
 // discarded and the deterministic, cited answer is shown instead, with the reasons.
 import { ask } from '../kb/knowledge.mjs';
 import { verify, privacyCheck } from './verifier.mjs';
+import { T, lang } from '../i18n/i18n.mjs';
+import { ptext } from '../earth/problem-view.mjs';
 
+const PV = (en, fr) => ({ get label() { return T(en[0], fr[0]); }, get kind() { return T(en[1], fr[1]); } });
 export const PROVIDERS = {
-  deterministic: { id: 'deterministic', label: 'Déterministe (CORE Knowledge)', kind: 'Recherche dans les registres + règles. Pas un modèle de langage.', local: true, generative: false, default: true },
-  ollama: { id: 'ollama', label: 'Modèle local (Ollama, expérimental)', kind: 'Modèle de langage exécuté sur cet ordinateur, contraint aux preuves puis vérifié.', local: true, generative: true, endpoint: 'http://127.0.0.1:11434' },
-  remote: { id: 'remote', label: 'Modèle distant', kind: 'Aucun fournisseur distant approuvé : désactivé (décision du fondateur requise, clé jamais dans le navigateur).', local: false, generative: true, disabled: true },
+  deterministic: { id: 'deterministic', ...PV(['Deterministic (CORE Knowledge)', 'Registry retrieval + rules. Not a language model.'], ['Déterministe (CORE Knowledge)', 'Recherche dans les registres + règles. Pas un modèle de langage.']), local: true, generative: false, default: true },
+  ollama: { id: 'ollama', ...PV(['Local model (Ollama, experimental)', 'Language model running on this computer, constrained to the evidence and then verified.'], ['Modèle local (Ollama, expérimental)', 'Modèle de langage exécuté sur cet ordinateur, contraint aux preuves puis vérifié.']), local: true, generative: true, endpoint: 'http://127.0.0.1:11434' },
+  remote: { id: 'remote', ...PV(['Remote model', 'No approved remote provider: disabled (founder decision required, key never in the browser).'], ['Modèle distant', 'Aucun fournisseur distant approuvé : désactivé (décision du fondateur requise, clé jamais dans le navigateur).']), local: false, generative: true, disabled: true },
 };
 
 // Prompt: evidence only, numbered; the model must cite [n], keep statuses and say what is unknown.
 export function buildPrompt(question, evidence, problem, limits = []) {
-  const ev = evidence.map((e, i) => `[${i + 1}] (${e.status || 'statut inconnu'}; source ${e.record}) ${e.text}`).join('\n');
-  const lim = limits.length ? `\nLimites connues (à respecter, ne pas citer comme des faits) :\n${limits.map(l => `- ${l}`).join('\n')}` : '';
+  const fr = lang() === 'fr';
+  const ev = evidence.map((e, i) => `[${i + 1}] (${e.status || (fr ? 'statut inconnu' : 'unknown status')}; source ${e.record}) ${e.text}`).join('\n');
+  const lim = limits.length ? `\n${fr ? 'Limites connues (à respecter, ne pas citer comme des faits)' : 'Known limits (respect them, do not cite them as facts)'} :\n${limits.map(l => `- ${l}`).join('\n')}` : '';
+  if (!fr) return [
+    { role: 'system', content: 'You are a CORE agent. Answer in English, in 2 to 4 sentences, ONLY from the numbered evidence. Cite every fact with [n]. Add no number, no date and no legal status (standard, law, compliant…) that is not in the evidence. Never say that something is proven, validated, dangerous or current unless the evidence says so. A design-plan “minimum” is neither a standard nor an obligation: do not say “required” or “mandatory”. End with what remains unknown.' },
+    { role: 'user', content: `Problem: ${problem ? `${ptext(problem.title, 'en')} (${problem.place})` : '—'}\nEvidence:\n${ev}${lim}\n\nQuestion: ${question}` },
+  ];
   return [
     { role: 'system', content: 'Tu es un agent de CORE. Réponds en français, en 2 à 4 phrases, UNIQUEMENT à partir des preuves numérotées. Cite chaque fait avec [n]. N’ajoute aucun chiffre, aucune date, aucun statut juridique (norme, loi, conforme…) qui ne figure pas dans les preuves. Ne dis jamais que quelque chose est prouvé, validé, dangereux ou actuel si les preuves ne le disent pas. Un « minimum » de plan de conception n’est ni une norme, ni une obligation : ne dis pas « requis » ou « exigé ». Termine par ce qui reste inconnu.' },
     { role: 'user', content: `Problème : ${problem ? `${problem.title} (${problem.place})` : '—'}\nPreuves :\n${ev}${lim}\n\nQuestion : ${question}` },
@@ -31,7 +39,7 @@ export async function ollamaAvailable({ fetchImpl = fetch, endpoint = PROVIDERS.
 }
 export async function ollamaGenerate(messages, { model, onToken = () => {}, fetchImpl = fetch, endpoint = PROVIDERS.ollama.endpoint, signal } = {}) {
   const r = await fetchImpl(`${endpoint}/api/chat`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal, body: JSON.stringify({ model, messages, stream: true, think: false, options: { temperature: 0.1, num_predict: 260 } }) });
-  if (!r.ok || !r.body) throw Error(`modèle local indisponible (HTTP ${r.status})`);
+  if (!r.ok || !r.body) throw Error(T(`local model unavailable (HTTP ${r.status})`, `modèle local indisponible (HTTP ${r.status})`));
   const rd = r.body.getReader(), dec = new TextDecoder(); let buf = '', out = '';
   for (;;) {
     const { value, done } = await rd.read(); if (done) break;
@@ -54,7 +62,7 @@ export async function answer(question, { ix, problem = null, provider = 'determi
   if (!pc.ok) return { ...base, text: k.claims.map(c => c.text).join('\n'), provider: 'deterministic', fallback: pc.reason, trace, ms: Date.now() - t0 };
   let draft = '';
   try { draft = await generate(buildPrompt(question, evidence, problem, k.uncertainty || []), { model, onToken }); }
-  catch (e) { return { ...base, text: k.claims.map(c => c.text).join('\n'), provider: 'deterministic', fallback: `modèle local indisponible : ${e.message}`, trace, ms: Date.now() - t0 }; }
+  catch (e) { return { ...base, text: k.claims.map(c => c.text).join('\n'), provider: 'deterministic', fallback: T(`local model unavailable: ${e.message}`, `modèle local indisponible : ${e.message}`), trace, ms: Date.now() - t0 }; }
   const v = verify(draft, evidence); trace.push(['verify', v.ok]);
   if (!v.ok) return { ...base, text: k.claims.map(c => c.text).join('\n'), provider: 'deterministic', rejected: { draft, issues: v.issues, model }, trace, ms: Date.now() - t0 };
   return { ...base, text: draft, provider: 'ollama', model, verified: true, evidenceText: evidence, trace, ms: Date.now() - t0 };
