@@ -517,7 +517,7 @@ function wireCiv() {
 function openDemoChoice() { S.demoReturn = document.activeElement; $('ea-demo-choice').hidden = false; $('ea-demo-choice').querySelector('[data-demo-mode]').focus(); }
 async function launchDemo(mode) {
   revealMap(); S.demo?.exit?.();
-  const m = await import('./demo.mjs?v=9.2'); S.demo = m.createDemo(globalThis.CORE_EARTH, { mode }); S.demo.start();
+  const m = await import('./demo.mjs?v=9.3'); S.demo = m.createDemo(globalThis.CORE_EARTH, { mode }); S.demo.start();
 }
 
 // ---------- language changes: re-render everything visible ----------

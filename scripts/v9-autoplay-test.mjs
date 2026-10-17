@@ -22,20 +22,36 @@ const fresh = async () => { await call('Page.navigate', { url: CORE_BASE + 'worl
 try {
   for (const m of ['Page.enable', 'Runtime.enable']) await call(m);
   await call('Emulation.setDeviceMetricsOverride', { width: +W, height: +H, deviceScaleFactor: 1, mobile: +W < 700 });
+  // ---------- hero layout (EN, FR): no overlap with nav / layer selector, actions and note inside the viewport ----------
+  await fresh();
+  for (const code of ['en', 'fr']) {
+    if (code === 'fr') { await ev(`(s => { s.value = 'fr'; s.dispatchEvent(new Event('change')); return 1; })(document.querySelector('[data-lang]'))`); await wait(800); }
+    const L = await ev(`(() => { const r = s => { const e = document.querySelector(s); if (!e) return null; const b = e.getBoundingClientRect(); return b.width ? b : null; }, o = (a, b) => a && b && a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom;
+      const hero = r('#ea-hero'), title = r('#ea-hero-title'), layers = r('#ea-layers'), nav = r('#core-nav'), note = r('.ea-hero-note'), cta = r('#ea-demo-cta'), ex = r('#ea-start'), vh = innerHeight, vw = innerWidth;
+      return { title: document.getElementById('ea-hero-title').textContent, overlapLayers: o(hero, layers), overlapNav: o(hero, nav), ctaIn: !!cta && cta.bottom <= vh && cta.right <= vw, exIn: !!ex && ex.bottom <= vh, noteIn: !!note && note.bottom <= vh - 4 && note.top >= 0, cards: !!document.querySelector('.ea-flow'), hscroll: document.documentElement.scrollWidth - vw }; })()`);
+    check(`hero ${code} ${W}×${H}: compact headline, no overlap with nav/layers, actions + note visible, no cards`, !L.overlapLayers && !L.overlapNav && L.ctaIn && L.exIn && L.noteIn && !L.cards && L.hscroll <= 1, JSON.stringify(L));
+    const sh = await call('Page.captureScreenshot', { format: 'png' }); (await import('node:fs')).writeFileSync(`/tmp/core-hero-${code}-${W}.png`, Buffer.from(sh.data, 'base64'));
+  }
+  if (process.argv.includes('--hero-only')) { console.log(fails.length ? `FAILED: ${fails.length}` : 'ALL PASSED'); process.exit(fails.length ? 1 : 0); }
   // ---------- autonomous ----------
   await fresh(); await click('#ea-demo-cta'); await until(`!document.getElementById('ea-demo-choice').hidden`, 5000);
   await click('[data-demo-mode=auto]');
   check('demo panel appears after the two clicks', await until(`!!document.querySelector('.demo h2')`, 20000));
   check('autonomous mode: no Next button shown', !(await ev(`!!document.querySelector('.demo [data-d=next]')`)));
-  const t0 = Date.now(), seen = [], STALL = 45000; let last = -1, since = Date.now(), done = false;
+  const t0 = Date.now(), seen = [], narr = [], STALL = 30000; let last = -1, since = Date.now(), done = false;
   while (Date.now() - t0 < 600000) {
     const s = await ev(`(d => d ? { i: d.state.i, done: d.state.done, paused: d.state.paused, h: document.querySelector('.demo h2')?.textContent } : null)(CORE_EARTH.state.demo)`).catch(() => null);
-    if (s && s.i !== last) { last = s.i; since = Date.now(); seen.push(s.i); console.log(`  stage ${s.i + 1}/15 at ${Math.round((Date.now() - t0) / 1000)} s — ${s.h}`); }
+    if (s && s.i !== last) { last = s.i; since = Date.now(); seen.push(s.i); await wait(2600);
+      const nar = await ev(`(d => ({ h: d.querySelector('h2')?.textContent, say: d.querySelector('.demo-say')?.textContent || '', more: d.querySelector('.demo-more')?.textContent || '', live: /Playing automatically|Lecture automatique/.test(d.querySelector('.demo-top')?.textContent || ''), next: !!d.querySelector('[data-d=next]'), bar: !!d.querySelector('[data-stagebar]') || s_last }))(document.querySelector('.demo'))`.replace('s_last', String(s.i === 14)));
+      if (!(nar.say && nar.more && nar.live && !nar.next && nar.bar)) narr.push(`${s.i + 1}:${JSON.stringify(nar).slice(0, 120)}`);
+      console.log(`  stage ${s.i + 1}/15 at ${Math.round((Date.now() - t0) / 1000)} s — ${s.h} · ${(nar.say + ' ' + nar.more).split(/\s+/).length} words`); }
     if (s?.done) { done = true; break; }
     if (Date.now() - since > STALL) { console.log('  STALLED on stage', last + 1, JSON.stringify(s)); break; }
     await wait(500);
   }
   check('autonomous tour advanced through all 15 stages by itself', new Set(seen).size === 15 && seen.every((x, i) => x === i), seen.map(x => x + 1).join(','));
+  check('narration (title, explanation, follow-up, “Playing automatically”, stage progress, no Next) shown at every stage', narr.length === 0, narr.join(' | '));
+  const total = Math.round((Date.now() - t0) / 1000); check('total duration within 100–140 s', total >= 100 && total <= 140, `${total} s`);
   check('conclusion reached, with replay and explore options', done && await ev(`/A parallel world to help humanity improve the real one/.test(document.querySelector('.demo')?.innerText || '') && !!document.querySelector('.demo [data-d=restart]') && !!document.querySelector('.demo [data-d=exit]')`), `${Math.round((Date.now() - t0) / 1000)} s`);
   // ---------- manual ----------
   await fresh(); await click('#ea-demo-cta'); await until(`!document.getElementById('ea-demo-choice').hidden`, 5000); await click('[data-demo-mode=manual]');
