@@ -1,27 +1,28 @@
+import { T, BL } from '../i18n/i18n.mjs';
 // CORE Knowledge graph (V6): a small, real graph built ONLY from recorded fields. Every edge type has a stated meaning;
 // no edge is causal. Contributions (local, candidate) can be attached for the author's own view; private ideas never are.
-export const EDGES = {
-  'located-at': 'le problème est enregistré sur ce tronçon de rue (identifiant CNN)',
-  cites: 'le problème cite cet enregistrement comme preuve',
-  'from-dataset': 'l’enregistrement provient de ce jeu de données public (empreinte vérifiée)',
-  'assigned-to': 'le problème est routé vers cet agent (routage, pas compétence vérifiée)',
-  'listed-related': 'le registre des problèmes liste ces problèmes comme liés (même tronçon), sans lien de cause',
-  'same-segment': 'les deux problèmes portent sur le même tronçon (co-localisation, pas causalité)',
-  'about': 'une contribution candidate (non vérifiée, locale) porte sur ce problème',
-};
+export const EDGES = BL({
+  'located-at': ['the problem is recorded on this street segment (CNN identifier)', 'le problème est enregistré sur ce tronçon de rue (identifiant CNN)'],
+  cites: ['the problem cites this record as evidence', 'le problème cite cet enregistrement comme preuve'],
+  'from-dataset': ['the record comes from this public dataset (verified fingerprint)', 'l’enregistrement provient de ce jeu de données public (empreinte vérifiée)'],
+  'assigned-to': ['the problem is routed to this agent (routing, not verified competence)', 'le problème est routé vers cet agent (routage, pas compétence vérifiée)'],
+  'listed-related': ['the problem registry lists these problems as related (same segment), with no causal link', 'le registre des problèmes liste ces problèmes comme liés (même tronçon), sans lien de cause'],
+  'same-segment': ['both problems concern the same segment (co-location, not causality)', 'les deux problèmes portent sur le même tronçon (co-localisation, pas causalité)'],
+  'about': ['a candidate contribution (unverified, local) concerns this problem', 'une contribution candidate (non vérifiée, locale) porte sur ce problème'],
+});
 const node = (id, type, label, extra = {}) => ({ id, type, label, ...extra });
 
 export function build(ix, { contributions = [] } = {}) {
   const nodes = new Map(), edges = [];
   const add = n => { if (!nodes.has(n.id)) nodes.set(n.id, n); return n.id; };
-  const link = (from, to, type) => { if (!EDGES[type]) throw Error(`type d’arête inconnu : ${type}`); edges.push({ from, to, type }); };
+  const link = (from, to, type) => { if (!EDGES[type]) throw Error(T(`unknown edge type: ${type}`, `type d’arête inconnu : ${type}`)); edges.push({ from, to, type }); };
   for (const [k, f] of Object.entries(ix.files)) if (f.meta) add(node(`dataset:${k}`, 'dataset', f.meta.title, { url: f.meta.page, integrity: f.integrity, provider: f.meta.provider }));
   for (const p of ix.problems) {
     add(node(`problem:${p.id}`, 'problem', p.title, { status: p.status, place: p.place || '', domain: p.domain }));
-    if (p.segment) link(`problem:${p.id}`, add(node(`segment:${p.segment}`, 'location', `${String(p.place || '').split(' → ')[0] || 'Tronçon'} (CNN ${p.segment})`, { segment: p.segment })), 'located-at');
+    if (p.segment) link(`problem:${p.id}`, add(node(`segment:${p.segment}`, 'location', `${String(p.place || '').split(' → ')[0] || T('Segment', 'Tronçon')} (CNN ${p.segment})`, { segment: p.segment })), 'located-at');
     for (const e of p.evidence) {
       const r = ix.records.get(e.ref); if (!r) continue;
-      const rid = add(node(`record:${e.ref}`, 'evidence', r.kind === 'sidewalk' ? `Relevé trottoir ${r.record_id}` : `Permis ${r.permit_number || r.record_id}`, { url: e.url, kind: r.kind }));
+      const rid = add(node(`record:${e.ref}`, 'evidence', r.kind === 'sidewalk' ? T(`Sidewalk survey ${r.record_id}`, `Relevé trottoir ${r.record_id}`) : T(`Permit ${r.permit_number || r.record_id}`, `Permis ${r.permit_number || r.record_id}`), { url: e.url, kind: r.kind }));
       link(`problem:${p.id}`, rid, 'cites'); link(rid, `dataset:${e.ref.split(':')[0]}`, 'from-dataset');
     }
     for (const a of p.assignedAgents || []) { const g = ix.agents.find(x => x.id === a); if (g) link(`problem:${p.id}`, add(node(`agent:${g.id}`, 'agent', `${g.code} — ${g.role}`)), 'assigned-to'); }
@@ -42,7 +43,7 @@ export function search(g, q, limit = 20) {
   for (const n of g.nodes.values()) {
     if (n.local) continue;
     const hay = norm(`${n.label} ${n.place || ''} ${n.id} ${n.domain || ''}`), score = t.filter(w => hay.includes(w)).length;
-    if (score === t.length) hits.push({ node: n, score, why: `tous les mots trouvés dans ${n.type === 'problem' ? 'le titre ou le lieu du problème' : 'le libellé'}` });
+    if (score === t.length) hits.push({ node: n, score, why: n.type === 'problem' ? T('all words found in the problem title or place', 'tous les mots trouvés dans le titre ou le lieu du problème') : T('all words found in the label', 'tous les mots trouvés dans le libellé') });
   }
   return hits.sort((a, b) => b.score - a.score || (a.node.type === 'problem' ? -1 : 1)).slice(0, limit);
 }

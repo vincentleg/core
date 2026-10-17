@@ -32,6 +32,8 @@ export const T = (en, fr, code = lang()) => (code === 'fr' && fr != null ? fr : 
 // Bilingual data value: { en, fr } → current language; plain strings pass through (legacy data).
 export const L = (x, code = lang()) => (x && typeof x === 'object' && !Array.isArray(x) ? (x[code] ?? x.en ?? '') : (x ?? ''));
 export const B = (en, fr) => ({ en, fr });
+// A dictionary of [en, fr] pairs read in the current language (keys, Object.entries and JSON keep working).
+export const BL = o => new Proxy(o, { get: (t, k) => (Array.isArray(t[k]) ? T(t[k][0], t[k][1]) : t[k]) });
 export const isBi = x => !!x && typeof x === 'object' && typeof x.en === 'string';
 // Locale-aware formatting and plurals.
 export const num = (n, opts = {}, code = lang()) => (Number.isFinite(+n) ? new Intl.NumberFormat(locale(code), opts).format(+n) : String(n ?? '—'));
