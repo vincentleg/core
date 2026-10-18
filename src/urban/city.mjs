@@ -2,10 +2,10 @@ import { createWalkers } from './movement.mjs';
 export async function createCity(map,catalog,{onAgent,status=()=> 'idle'}={}) {
   const entered=performance.now();let firstUsefulMs=null,populationReadyMs=null;
   if(!globalThis.CORE_POPULATION)await import('../agent-population.js');
-  const response=await fetch('data/osm/walk-network.json');if(!response.ok)throw Error('Pedestrian network unavailable');
+  const response=await fetch(catalog.agents.some(a=>Number.isInteger(a.startNode))?'data/intelligence/walk-network.json':'data/osm/walk-network.json');if(!response.ok)throw Error('Pedestrian network unavailable');
   const net=globalThis.CORE_POPULATION.network(await response.json());
   const low=matchMedia('(pointer: coarse)').matches||navigator.hardwareConcurrency<=2;
-  const agents=catalog.agents.slice(0,low?120:500),walkers=createWalkers(net,agents);
+  const agents=(low?catalog.agents.filter((a,i)=>i%4===0).slice(0,120):catalog.agents.slice(0,500)),walkers=createWalkers(net,agents);
   for(let frame=0;frame<2;frame++) {
     const c=document.createElement('canvas');c.width=48;c.height=80;const x=c.getContext('2d');
     x.shadowColor='#62d8f2';x.shadowBlur=5;x.fillStyle='#b8f5ff';x.strokeStyle='#62d8f2';x.lineWidth=3;
@@ -17,12 +17,12 @@ export async function createCity(map,catalog,{onAgent,status=()=> 'idle'}={}) {
     map.addImage(`urban-human-${frame}`,x.getImageData(0,0,48,80),{pixelRatio:2});
   }
   map.addSource('urban-agents',{type:'geojson',data:{type:'FeatureCollection',features:[]}});
-  map.addLayer({id:'urban-agents',type:'symbol',source:'urban-agents',minzoom:12.5,layout:{'icon-image':['get','sprite'],'icon-size':['interpolate',['linear'],['zoom'],12.5,.7,15.5,1.2,18,1.7],'icon-allow-overlap':true,'icon-ignore-placement':true,'icon-anchor':'bottom'},paint:{'icon-opacity':['case',['==',['get','state'],'working'],1,.72]}});
+  map.addLayer({id:'urban-agents',type:'symbol',source:'urban-agents',minzoom:9,layout:{'icon-image':['get','sprite'],'icon-size':['interpolate',['linear'],['zoom'],9,.4,12.5,.7,15.5,1.2,18,1.7],'icon-allow-overlap':true,'icon-ignore-placement':true,'icon-anchor':'bottom'},paint:{'icon-opacity':['case',['==',['get','state'],'working'],1,.72]}});
   map.on('click','urban-agents',e=>{const f=e.features?.[0];if(f)onAgent?.(f.properties.id);});
   map.on('mouseenter','urban-agents',()=>{map.getCanvas().style.cursor='pointer';});map.on('mouseleave','urban-agents',()=>{map.getCanvas().style.cursor='';});
   let last=performance.now(),loaded=0,positions=[],visible=0,raf=0,previous=0,populationStart=null;
   function update(now) {
-    const c=map.getCenter();if(map.getZoom()<12.5||c.lng< -122.55||c.lng> -122.34||c.lat<37.68||c.lat>37.84){last=now;raf=requestAnimationFrame(update);return;}
+    const c=map.getCenter();if(map.getZoom()<9||c.lng< -122.6||c.lng> -121.7||c.lat<37.2||c.lat>38.05){last=now;raf=requestAnimationFrame(update);return;}
     if(populationStart===null)populationStart=now;
     const dt=Math.max(0,Math.min(.25,(now-last)/1000));
     if(now-previous>125&&!document.hidden){previous=now;last=now;loaded=Math.min(agents.length,Math.max(50,Math.floor((now-populationStart)/100)*50));const still=matchMedia('(prefers-reduced-motion: reduce)').matches;

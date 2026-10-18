@@ -1,0 +1,10 @@
+{
+  "name": "core-local-intelligence",
+  "private": true,
+  "type": "module",
+  "description": "Bounded local LangGraph worker; never included in the public browser bundle",
+  "dependencies": {
+    "@langchain/langgraph": "1.5.1",
+    "@langchain/langgraph-checkpoint-sqlite": "1.1.0"
+  }
+}

@@ -1,7 +1,7 @@
 // Presentation only: adjacent mapped pedestrian edges, walking speed, never straight-line fallback.
 export function createWalkers(net, agents) {
   if (!net?.nodes?.length || !net.adj?.length) throw Error('Pedestrian graph unavailable');
-  const walkers=agents.map((a,i)=>{const near=net.nearest(a.assignment);const start=near.i>=0 && near.d<200?net.nearest(net.spread(a.assignment,i%13)).i:Math.floor(i*net.nodes.length/agents.length);return{id:a.id,node:start,previous:-1,next:null,distance:0,pause:i%4};});
+  const walkers=agents.map((a,i)=>{const near=net.nearest(a.assignment);const start=Number.isInteger(a.startNode)&&net.adj[a.startNode]?.length?a.startNode:near.i>=0 && near.d<200?net.nearest(net.spread(a.assignment,i%13)).i:Math.floor(i*net.nodes.length/agents.length);return{id:a.id,node:start,previous:-1,next:null,distance:0,pause:i%4};});
   function step(dt,still=false) {
     if(!Number.isFinite(dt)||dt<0||dt>1)throw Error('Invalid animation step');
     return walkers.map((w,i)=>{
