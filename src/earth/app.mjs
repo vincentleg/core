@@ -18,6 +18,7 @@ import { createAgentLayer } from './agents-layer.mjs';
 import * as CP from './civ-panels.mjs';
 import * as SCN from './scenarios.mjs';
 import { createGround } from './ground.mjs';
+import { createUrban } from '../urban/app.mjs';
 import { createVehicle } from './vehicle.mjs';
 import { PLACES as VPLACES, suggestMission } from '../voice/actions.mjs';
 import * as CONTRIB from '../contrib/contributions.mjs';
@@ -127,9 +128,7 @@ async function start() {
   S.spinning = false; $('ea-hero').classList.add('out'); $('ea-vignette').classList.add('out'); setTimeout(() => { $('ea-hero').hidden = true; }, 600);
   S.map.setPadding({ left: 0, right: 0, top: 0, bottom: 0 });
   $('ea-scales').hidden = false; $('ea-tools').hidden = false; $('ea-legend').hidden = false;
-  await fly({ center: [-122.42, 37.77], zoom: 10.3, pitch: 45, bearing: -15 }, 4200);
-  S.scale = 'region'; renderScales();
-  await fly({ center: PLACES.somaField, zoom: 15.4, pitch: 58, bearing: -40 }, 3600);
+  await fly({ center: PLACES.somaField, zoom: 14.8, pitch: 45, bearing: -30 }, 1100);
   S.scale = 'city'; renderScales();
   if (S.layer) { setLayer('hybrid'); showProblems(); }
   toast(T('San Francisco: choose a problem to see what CORE’s agents are investigating.', 'San Francisco : choisissez un problème pour voir ce qu’examinent les agents de CORE.'));
@@ -289,6 +288,7 @@ function setLayer(m, { intro = true } = {}) {
   if (S.crowd) S.crowd.visible = m !== 'real';
   const g = S.scene?.world?.getObjectByName('core-agents'); if (g) g.visible = m !== 'real';
   for (const mk of S.plates?.values() || []) mk.getElement().hidden = m === 'real';
+  if (S.urban) for (const id of ['civ-agents', 'civ-agents-glow', 'civ-agents-label', 'civ-links']) if (S.map.getLayer(id)) S.map.setLayoutProperty(id, 'visibility', 'none');
   document.body.dataset.layer = m;
   if (intro && prev !== m && !S.demo?.state.running) layerIntro(m);
 }
@@ -298,8 +298,8 @@ function panel(kind, id, html) {
   const same = S.panelKind?.kind === kind && S.panelKind?.id === id; S.panelKind = { kind, id }; $('ea-panel-body').innerHTML = html; if (!same) $('ea-panel').scrollTop = 0; $('ea-panel').hidden = false; $('ea-human').hidden = kind !== 'problem' || id !== FLAGSHIP || S.mode === 'human';
   $('ea-panel').classList.remove('le-enter'); void $('ea-panel').offsetWidth; $('ea-panel').classList.add('le-enter');
 }
-const showAgent = id => panel('agent', id, CP.agentHTML(S.civ, id));
-const showMission = id => panel('mission', id, CP.missionHTML(S.civ, id));
+const showAgent = id => S.urban?.catalog.agents.some(a => a.id === id) ? S.urban.agent(id) : panel('agent', id, CP.agentHTML(S.civ, id));
+const showMission = id => panel('mission', id, (id === FLAGSHIP_MISSION ? `<button type="button" class="primary" data-urban="workbench">${T('Run an editable transport model', 'Exécuter un modèle de transport modifiable')}</button>` : '') + CP.missionHTML(S.civ, id));
 const showActivity = () => panel('activity', null, CP.activityHTML(S.civ, CIV.state()));
 const showEvent = seq => panel('event', seq, CP.eventHTML(S.civ, seq));
 const showHierarchy = () => panel('hierarchy', null, CP.hierarchyHTML(S.civ));
@@ -476,7 +476,7 @@ function refreshPanel(force = false) {
 }
 const posOf = id => S.ground ? S.ground.pos(id) : S.civ.posOf(id); // drawn on the validated pedestrian network
 function civTick() {
-  const R = S.civ; if (!R) return; S.layer?.update();
+  const R = S.civ; if (!R) return; if (!S.urban) S.layer?.update();
   if (S.follow && S.mode !== 'human') S.map.easeTo({ center: posOf(S.follow), duration: 240 });
   if (S.mode === 'human' && S.crowd && S.toLocal) {
     const list = S.layer.agents.map(a => { const [x, z] = S.toLocal(posOf(a.id)), act = R.activity(a.id); return { id: a.id, x, z, state: act.state, dept: a.department, body: a.id.length % 2 ? 'f' : 'm' }; });
@@ -495,7 +495,7 @@ function civTick() {
 async function startCivilisation() {
   try {
     const R = await CIV.start(); S.civ = R; renderList();
-    createGround(R).then(g => { S.ground = g; }).catch(e => console.warn('pedestrian network unavailable', e));
+    if (STREET_LEVEL) createGround(R).then(g => { S.ground = g; }).catch(e => console.warn('pedestrian network unavailable', e));
     S.layer = createAgentLayer(S.map, { runtime: R, pos: posOf, onAgent: showAgent, onHub: showAgent, onNetwork: id => { if (id === 'san-francisco') showHierarchy(); else panel('network', id, `<header class="pp-head"><h2 id="pp-title">New York</h2></header><p>${T('Cross-city missions were <b>recorded</b> in Phase 10 (replay). New York’s agent registry is not loaded in this version: no activity there is shown as real.', 'Des missions inter-villes ont été <b>enregistrées</b> en Phase 10 (relecture). Le registre d’agents de New York n’est pas chargé dans cette version : aucune activité n’y est montrée comme réelle.')}</p>`); } });
     S.layer.relabel(lang());
     const h = new URLSearchParams(location.hash.slice(1)); let m = h.get('layer'); try { m ||= localStorage.getItem(LAYER_KEY); } catch {}
@@ -534,11 +534,8 @@ function wireCiv() {
 }
 
 // ---------- guided demo ----------
-function openDemoChoice() { S.demoReturn = document.activeElement; $('ea-demo-choice').hidden = false; $('ea-demo-choice').querySelector('[data-demo-mode]').focus(); }
-async function launchDemo(mode) {
-  revealMap(); S.demo?.exit?.();
-  const m = await import('./demo.mjs?v=9.3'); S.demo = m.createDemo(globalThis.CORE_EARTH, { mode }); S.demo.start();
-}
+async function openDemoChoice() { if (!S.urbanReady) return toast(T('Loading city data…', 'Chargement des données…')); try { (await S.urbanReady).demo(); } catch (e) { toast(e.message); } }
+async function launchDemo(mode) { return openDemoChoice(); }
 
 // ---------- language changes: re-render everything visible ----------
 onLang(() => {
@@ -546,7 +543,7 @@ onLang(() => {
   if (S.mode === 'human') { $('ea-hint').textContent = hint(); $('ea-cam').textContent = camLabel(); $('ea-talk').textContent = talkLabel(); }
   if (!$('ea-human').disabled) $('ea-human').textContent = T('Walk at street level', 'Descendre à hauteur humaine');
   if (S.scn?.state.on) { const id = S.scn.state.scenario; S.scn.show(id); }
-  S.layer?.relabel(lang()); refreshPanel(true); S.demo?.relabel?.();
+  S.layer?.relabel(lang()); refreshPanel(true); S.demo?.relabel?.(); S.urban?.relabel();
 });
 
 // ---------- boot ----------
@@ -556,7 +553,10 @@ onLang(() => {
   $('ea-human').textContent = T('Walk at street level', 'Descendre à hauteur humaine');
   if (!STREET_LEVEL) document.querySelector('.ea-human').style.display = 'none'; // street walk + avatar link: dormant
   S.map.on('load', () => {
-    S.ready = true; const h = new URLSearchParams(location.hash.slice(1)); startCivilisation();
+    S.ready = true;
+    S.urbanReady = createUrban(globalThis.CORE_EARTH, { display: (html, kind) => panel(kind, null, html), reveal: revealMap }).then(u => { S.urban = u; return u; });
+    S.urbanReady.catch(e => { console.error('Living City unavailable:', e); toast(T('Living City unavailable; existing research remains accessible.', 'Ville vivante indisponible ; les recherches existantes restent accessibles.')); });
+    const h = new URLSearchParams(location.hash.slice(1)); startCivilisation();
     if (h.get('problem') && S.data.byId.has(h.get('problem'))) {
       revealMap(); const p = S.data.byId.get(h.get('problem')); S.map.jumpTo({ center: S.data.bySeg.get(p.segment)?.coord || SF, zoom: 16.4, pitch: 62, bearing: (S.data.bySeg.get(p.segment)?.along || 0) - 30 }); S.scale = 'city'; renderScales();
       focusSegment(p.segment, { open: false, instant: true }); openPanel(p.id);

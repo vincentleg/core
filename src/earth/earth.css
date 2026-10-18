@@ -271,3 +271,21 @@ body.earth:has(#ea-hero:not([hidden]):not(.out)) :is(#ea-layers, #ea-layer-intro
 .ea-horizon summary { cursor: pointer; color: var(--le-cyan); padding: 6px 0; }
 .ea-horizon p { margin: 10px 0; max-width: 60ch; line-height: 1.5; }
 .ea-horizon a { color: var(--le-cyan); }
+
+/* Living City: one bounded-work entry over the existing Earth and contextual drawer. */
+#urban-status { position: fixed; z-index: 12; top: calc(var(--navh) + 68px); left: 16px; padding: 10px 16px; border-radius: 20px; color: var(--le-cyan); font-size: 13px; }
+.urban-inputs { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+#urban-form { display: grid; gap: 14px; }
+#urban-form fieldset { border: 1px solid var(--le-hairline-2); border-radius: 12px; padding: 12px; }
+#urban-form label { display: grid; gap: 5px; font-size: 12px; color: var(--le-text-2); }
+#urban-form input, #urban-form select { width: 100%; min-width: 0; }
+#urban-form .product-notice { border-left: 2px solid var(--le-warn); padding-left: 12px; font-size: 13px; }
+.urban-table { max-width: 100%; overflow: auto; border: 1px solid var(--le-hairline-2); border-radius: 12px; }
+.urban-table table { border-collapse: collapse; min-width: 600px; font-size: 12px; }
+.urban-table th,.urban-table td { padding: 10px; border-bottom: 1px solid var(--le-hairline); text-align: left; }
+.urban-tasks { padding-left: 20px; display: grid; gap: 14px; }
+.urban-tasks pre, .ea-panel pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 11px; max-height: 180px; overflow: auto; }
+.urban-tour { position: sticky; bottom: -16px; padding: 12px 0; background: var(--le-ink-900); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; border-top: 1px solid var(--le-hairline); }
+.urban-tour span { flex: 1; font-size: 12px; }
+@media (max-width: 860px) { #urban-status { top: calc(var(--navh) + 58px); left: 8px; max-width: calc(100vw - 16px); font-size: 11px; padding: 8px 12px; } }
+#urban-form > button.primary { position: sticky; top: 0; z-index: 2; }
