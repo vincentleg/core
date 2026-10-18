@@ -2,7 +2,7 @@
 // imports, CSS url(), fetched data and assets). Only these files are published (scripts/build-public.mjs).
 //   node scripts/public-manifest.mjs [--print]
 import fs from 'node:fs'; import path from 'node:path';
-export const PAGES = ['world.html', 'me.html', 'commons.html', 'dialogue.html', 'avatar.html', 'progress.html', 'report.html', 'manifesto.html', 'privacy.html'];
+export const PAGES = ['solutions.html', 'plans.html', 'world.html', 'me.html', 'commons.html', 'dialogue.html', 'avatar.html', 'progress.html', 'report.html', 'manifesto.html', 'privacy.html'];
 const ROOT = process.cwd(), seen = new Set(), dyn = [];
 const REF = /(?:from\s*|import\s*\(\s*|import\s+)['"`]([^'"`]+)['"`]|(?:src|href)\s*=\s*"([^"#?]+)|url\(\s*['"]?([^'")?#]+)|['"`]((?:\.\.?\/|\/)?(?:data|assets|src)\/[^'"`\s)]+)['"`]/g;
 const norm = p => path.normalize(p).replace(/\\/g, '/');

@@ -79,6 +79,7 @@ function render() {
   hero();
   const j = J.read(), done = J.summary(j), followed = j.problemId ? problems.find(p => p.id === j.problemId) : null, drafts = (net.drafts || []).length, reports = (net.reports || []).length, kbN = (kb.items || kb.contributions || []).length;
   $('me-body').innerHTML = `
+  <section class="me-card wide"><h2>${T('Current plan', 'Offre actuelle')}</h2><p><b>CORE Free</b> · ${T('local preview, no subscription', 'aperçu local, sans abonnement')}</p><p class="fine">${T('No sign-in, cloud sync or billing. Your profile and contributions stay in this browser; clearing browser data can erase them.', 'Aucune connexion, synchronisation serveur ou facturation. Votre profil et vos contributions restent dans ce navigateur ; effacer ses données peut les supprimer.')}</p><a href="plans.html">${T('View proposed plans', 'Voir les offres proposées')}</a></section>
   <section class="me-card wide" id="contributions"><h2>${icon('target', 18)} ${T('My contributions', 'Mes contributions')}</h2>${contribCard()}</section>
   <section class="me-card wide"><h2>${icon('route', 18)} ${T('My journey', 'Mon parcours')}</h2>
     <div class="me-steps">${done.map(s => `<div class="${s.at ? 'done' : ''}"><b>${esc(s.label)}</b>${s.at ? esc(day(s.at)) : T('not yet', 'pas encore')}</div>`).join('')}</div>

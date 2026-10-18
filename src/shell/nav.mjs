@@ -1,7 +1,4 @@
-// CORE shell navigation (V7) — four primary destinations; every earlier section stays reachable through contextual
-// navigation. EXPLORE: the world and what is known about it. CREATE: think and develop ideas privately.
-// COLLABORATE: experts, communities, debate and learning (fictional participants for now). MY CORE: identity, avatar,
-// history and privacy. TRUST is always one click away. Deep links keep using the hash: commons.html#<section>?k=v.
+// Shared navigation: product destinations first; research and experimental tools remain in More.
 import { PUBLIC } from '../env.mjs';
 import { STREET_LEVEL } from '../features.mjs';
 import { read } from './journey.mjs';
@@ -11,6 +8,8 @@ export const GROUPS = [
   { id: 'explore', label: 'Explore', key: 'nav.explore', icon: 'explore', href: 'world.html', primary: true,
     links: [['world', ['World', 'Monde'], 'world.html'], ['progress-page', ['Progress', 'Progrès'], 'progress.html'], ...(PUBLIC ? [] : [['intelligence', ['Intelligence (earlier prototype, French only)', 'Intelligence (prototype antérieur)'], 'index.html#app']])],
     sections: [['knowledge', ['Knowledge', 'Connaissances']], ['progress', ['Progress log', 'Journal des progrès']], ['continuity', ['Continuity', 'Continuité']], ['institutions', ['Institutions (demo)', 'Institutions (démo)']]] },
+  { id: 'solutions', label: 'Solutions', key: 'nav.solutions', icon: 'target', href: 'solutions.html' },
+  { id: 'plans', label: 'Plans', key: 'nav.plans', icon: 'chart', href: 'plans.html' },
   { id: 'create', label: 'Create', key: 'nav.create', icon: 'create', href: 'dialogue.html',
     links: [['dialogue', ['Dialogue & Studio', 'Dialogue et Studio'], 'dialogue.html']],
     sections: [['vault', ['Idea Vault', 'Coffre à idées']], ['labs', ['Labs', 'Labs']]] },
@@ -20,9 +19,8 @@ export const GROUPS = [
     links: [['me', ['My CORE', 'Mon CORE'], 'me.html'], ['avatar', ['Avatar', 'Avatar'], 'avatar.html']],
     sections: [['profile', ['Identity', 'Identité']], ['journey', ['My journey', 'Mon parcours']], ['trust', ['My data & TRUST', 'Mes données et TRUST']]] },
 ];
-// Earth-first (V9.2): destinations kept in GROUPS (every section stays reachable) but moved out of the main bar into the
-// More menu, because everything in them is fictional or experimental.
-const EXPERIMENTAL = new Set(['collaborate']);
+// Keep creation tools and fictional collaboration reachable through More.
+const EXPERIMENTAL = new Set(['create', 'collaborate']);
 // Page → destination, for pages that are not commons sections.
 const PAGES = { world: 'explore', intelligence: 'explore', dialogue: 'create', me: 'me', avatar: 'me' };
 export const groupOf = section => GROUPS.find(g => g.sections?.some(([id]) => id === section)) || GROUPS.find(g => g.id === PAGES[section]) || null;
@@ -39,7 +37,7 @@ export function render(el, { active }) {
       <a class="le-demo-btn" href="world.html#demo" data-demo>${icon('play', 14)}<span>${esc(t('nav.demoShort'))}</span></a>
       <label class="le-lang" title="${esc(t('nav.language'))}"><span class="sr-only">${esc(t('nav.language'))}</span><select data-lang aria-label="${esc(t('nav.language'))}">${LANGS.map(([c, n]) => `<option value="${esc(c)}"${c === cur ? ' selected' : ''}>${esc(n)}</option>`).join('')}</select></label>
       <details class="le-more-menu"><summary aria-label="${esc(t('nav.more'))}">${esc(t('nav.more'))}</summary><div class="le-glass">
-        <a href="commons.html#experts">${icon('collaborate', 15)} ${esc(T('Together (experimental, fictional people)', 'Ensemble (expérimental, personnes fictives)'))}</a><a href="progress.html">${icon('chart', 15)} ${esc(t('nav.progress'))}</a><a href="manifesto.html">${icon('book', 15)} ${esc(t('nav.manifesto'))}</a><a href="commons.html#journey">${icon('route', 15)} ${esc(t('nav.journey'))} ${done}/8</a></div></details>
+        <a href="dialogue.html">${icon('create', 15)} ${esc(T('Dialogue & Idea Vault', 'Dialogue et coffre à idées'))}</a><a href="commons.html#experts">${icon('collaborate', 15)} ${esc(T('Together (experimental, fictional people)', 'Ensemble (expérimental, personnes fictives)'))}</a><a href="progress.html">${icon('chart', 15)} ${esc(t('nav.progress'))}</a><a href="manifesto.html">${icon('book', 15)} ${esc(t('nav.manifesto'))}</a><a href="commons.html#journey">${icon('route', 15)} ${esc(t('nav.journey'))} ${done}/8</a></div></details>
       <a class="trust" href="commons.html#trust" title="TRUST">${icon('trust', 16)}<span>TRUST</span></a></div>`;
   const openCmp = () => import('../voice/companion.mjs').then(m => m.open());
   el.querySelector('[data-companion]').onclick = openCmp;

@@ -256,3 +256,12 @@ body.earth:has(#ea-hero:not([hidden]):not(.out)) :is(#ea-layers, #ea-layer-intro
 .ea-status header { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .ea-status h2 { margin: 0; font-size: 18px; } .ea-status h3 { margin: 14px 0 6px; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--le-cyan); }
 .ea-status ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 14px; line-height: 1.45; color: var(--le-text-2); }
+
+/* Product clarity: the professional path stays secondary to Earth exploration. */
+.ea-hero .ea-secondary a { color: var(--le-cyan); padding: 10px 8px; text-underline-offset: 4px; }
+.ea-hero { max-width: 660px; }
+.ea-hero .le-display { max-width: 19ch; }
+@media (max-width: 860px) {
+  .ea-hero .ea-statement { display: none; }
+  .ea-hero .le-lede { font-size: 14px; line-height: 1.5; }
+}
