@@ -21,6 +21,7 @@ function visit(file) {
     visit(target);
   }
 }
-for (const p of PAGES) visit(p);
+// The module worker is created with new URL(), not a static import.
+for (const p of [...PAGES, 'src/urban/worker.mjs', 'data/urban/catalog.json', 'data/urban/latest.json']) visit(p);
 export const FILES = [...seen].filter(f => fs.existsSync(f)).sort();
 if (process.argv.includes('--print')) { console.log(FILES.join('\n')); console.error(`${FILES.length} files; dynamic references to review:\n${[...new Set(dyn)].join('\n')}`); }
