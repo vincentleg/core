@@ -51,10 +51,10 @@ try {
 
   if (!flags.has('--tour-only')) {
   // ---------- A. First impression ----------
-  const hero = await ev(`(() => { const h = document.getElementById('ea-hero'); return { lang: document.documentElement.lang, sel: document.querySelector('[data-lang]')?.value, text: h?.innerText || '', cta: (b => b && { t: b.textContent.trim(), w: b.getBoundingClientRect().width, primary: b.classList.contains('primary') })(document.getElementById('ea-demo-cta')) }; })()`);
+  const hero = await ev(`(() => { const h = document.getElementById('ea-hero'); return { lang: document.documentElement.lang, sel: document.querySelector('[data-lang]')?.value, text: h?.innerText || '', cta: (b => b && { t: b.textContent.trim(), w: b.getBoundingClientRect().width, primary: b.classList.contains('primary'), n: document.querySelectorAll('#ea-hero .primary').length })(document.getElementById('ea-start')) }; })()`);
   check('A. fresh session: English selected', hero.lang === 'en' && hero.sel === 'en', `${hero.lang}/${hero.sel}`);
   check('A. hero states the purpose and mission (CORE — Creation Of Reborn Earth; Kardashev aspiration labelled)', /Build the World as It Should Be\./.test(hero.text) && /A Parallel Earth\. A Collective Intelligence\./.test(hero.text) && /Long-term aspiration/.test(hero.text));
-  check('A. Launch CORE Demo is the prominent primary action', hero.cta?.t === 'Launch Demo' && hero.cta.primary && hero.cta.w > 120, JSON.stringify(hero.cta));
+  check('A. Explore the Earth is the single prominent primary action (V9.2 Earth-first)', hero.cta?.t === 'Explore the Earth' && hero.cta.primary && hero.cta.w > 120 && hero.cta.n === 1, JSON.stringify(hero.cta));
     await scan('world · hero'); await layout('hero', ['#ea-demo-cta', '#ea-start']); await shot('A-hero');
   await ev(`document.getElementById('ea-start').click(), 1`); await wait(2500);
   await ev(`document.getElementById('ea-layer-help')?.click(), 1`); await wait(500);

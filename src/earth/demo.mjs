@@ -7,6 +7,7 @@
 // always shown; there is no spoken narration (no speech synthesis). If a stage's scene
 // cannot load, its fallback runs and the tour continues. Nothing is shared or stored by the tour.
 import { T } from '../i18n/i18n.mjs';
+import { STREET_LEVEL } from '../features.mjs';
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const wait = ms => new Promise(r => setTimeout(r, ms));
 const MOB = 'mission.sf.mobility';
@@ -120,6 +121,15 @@ const NARR = {
     ['A dossier is only a proposal; real change needs human review, authorisation and measurement. Verified impact today: zero. Progress toward a Type I civilisation is the long-term aspiration, not a claim.', 'Un dossier n’est qu’une proposition ; un changement réel exige revue, autorisation et mesure humaines. Impact vérifié aujourd’hui : zéro. Progresser vers une civilisation de type I est l’aspiration de long terme, pas une affirmation.']],
 };
 for (const st of STAGES) { const n = NARR[st.id]; if (n) { st.ms = n[0]; st.say = P(...n[1]); st.more = P(...n[2]); } }
+// Earth-first product (src/features.mjs): street-level walking and avatars are dormant, so this stage looks at the same
+// street from the map instead of walking into it. Same position in the tour, same timing, no avatar or movement keys.
+if (!STREET_LEVEL) {
+  const s = STAGES.find(x => x.id === 'walk-inside');
+  Object.assign(s, { title: P('Look Closer at the Street', 'Regarder la rue de plus près'),
+    say: P('Up close, the holographic agents work on mapped walkways around the street, never inside buildings. Select one to see its role and ask it a question.', 'De près, les agents holographiques travaillent sur des trottoirs cartographiés autour de la rue, jamais dans les bâtiments. Sélectionnez-en un pour voir son rôle et lui poser une question.'),
+    info: { ...s.info, what: P('Folsom Street, seen closely from the map.', 'Folsom Street, vue de près depuis la carte.'), interact: P('Drag to move, scroll or pinch to zoom, select an agent.', 'Glisser pour se déplacer, molette ou pincement pour zoomer, sélectionner un agent.') },
+    run: async E => { closePanel(); E.setLayer('hybrid', { intro: false }); await E.flyTo([-122.4045, 37.7795], 17.5); }, ready: () => true });
+}
 
 export function createDemo(E, { mode = 'auto', root = document.body } = {}) {
   const S = { mode, i: -1, paused: false, running: true, done: false, left: 0, t0: 0, timer: 0, token: 0, statuses: [] };

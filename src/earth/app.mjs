@@ -4,6 +4,7 @@
 // here. Nothing is transmitted: avatar, journey, contributions and investigations stay in this browser. English by
 // default; every visible string is English/French (src/i18n), and the page re-renders when the language changes.
 import { PUBLIC } from '../env.mjs';
+import { STREET_LEVEL } from '../features.mjs';
 import * as maplibregl from '../../assets/vendor/maplibre-gl-6.11.2/maplibre-gl.mjs';
 import { livingEarthStyle } from './style.mjs';
 import { problemHTML, humanPlace, statusLabel, ptext, esc } from './problem-view.mjs';
@@ -67,7 +68,7 @@ function spin() {
   requestAnimationFrame(step);
 }
 // ---------- scales ----------
-const SCALES = [['planet', ['Planet', 'Planète'], 'globe'], ['region', ['Region', 'Région'], 'mountain'], ['city', ['City', 'Ville'], 'building'], ['human', ['Street', 'Rue'], 'walk']];
+const SCALES = [['planet', ['Planet', 'Planète'], 'globe'], ['region', ['Region', 'Région'], 'mountain'], ['city', ['City', 'Ville'], 'building'], ['human', ['Street', 'Rue'], 'walk']].filter(([id]) => STREET_LEVEL || id !== 'human');
 function renderScales() {
   $('ea-scales').innerHTML = SCALES.map(([id, l, ic]) => `<button type="button" data-scale="${id}" aria-pressed="${S.scale === id}">${icon(ic, 16)}<span>${esc(T(...l))}</span></button>`).join('');
   $('ea-scales').querySelectorAll('button').forEach(b => b.onclick = () => goScale(b.dataset.scale));
@@ -96,7 +97,7 @@ const problemPanel = id => { const p = S.data.byId.get(id), j = J.read(), e = S.
     + (e && e.items.length > 1 ? `<div class="pp-sec"><h3>${T('On this same segment', 'Sur ce même tronçon')}</h3><ul class="pp-others">${e.items.filter(x => x.id !== id).map(x => `<li><button type="button" class="ghost small" data-open="${esc(x.id)}"><span class="le-badge" data-s="${esc(x.status)}">${esc(statusLabel(x.status))}</span> ${esc(ptext(x.title))}</button></li>`).join('')}</ul></div>` : ''); };
 function openPanel(id) {
   const p = S.data.byId.get(id); if (!p) return; S.sel = id;
-  panel('problem', id, problemPanel(id)); $('ea-human').hidden = p.id !== FLAGSHIP || S.mode === 'human';
+  panel('problem', id, problemPanel(id)); $('ea-human').hidden = !STREET_LEVEL || p.id !== FLAGSHIP || S.mode === 'human';
   $('ea-panel').focus({ preventScroll: true });
   J.mark('world', { problemId: id }); history.replaceState(null, '', `#problem=${encodeURIComponent(id)}`);
 }
@@ -159,7 +160,7 @@ const hint = () => (matchMedia('(pointer: coarse)').matches ? T('Joystick to wal
 const camLabel = () => (S.cam === 'third' ? T('View: 3rd person', 'Vue : 3e personne') : T('View: 1st person', 'Vue : 1re personne'));
 const talkLabel = () => { const a = S.nearAgent && S.civ?.byId.get(S.nearAgent); return a ? T(`Talk to ${a.code} (E)`, `Parler à ${a.code} (E)`) : T('Talk to an agent (E)', 'Parler à un agent (E)'); };
 async function enterHuman() {
-  if (S.mode === 'human') return;
+  if (S.mode === 'human' || !STREET_LEVEL) return; // street level is dormant in the Earth-first product (src/features.mjs)
   if (S.quality === 'low') { toast(T('“Light” quality: the street-level 3D view is off. Everything stays available through the panels.', 'Qualité « Économe » : la vue 3D à hauteur humaine est désactivée. Tout reste accessible via les panneaux.')); return; }
   $('ea-human').disabled = true; $('ea-human').textContent = T('Loading the scene…', 'Chargement de la scène…');
   try {
@@ -245,6 +246,8 @@ function wire() {
   $('ea-noticed-btn').onclick = () => { revealMap(); showContribute(); };
   $('ea-problems-btn').onclick = () => { if (!$('ea-hero').hidden) revealMap(); showProblems(); };
   $('ea-layer-help').onclick = () => { const v = $('ea-layer-intro'); if (v.hidden) layerIntro(S.layer?.mode || 'real', true); else { v.hidden = true; $('ea-layer-help').setAttribute('aria-expanded', 'false'); } };
+  // What works today: working / experimental / long-term vision, for anyone seeing CORE for the first time (also #status).
+  $('ea-status-btn').onclick = () => { const a = $('ea-status'); a.hidden = !a.hidden; $('ea-status-btn').setAttribute('aria-expanded', String(!a.hidden)); if (!a.hidden) a.focus(); };
   $('ea-about-btn').onclick = () => { const a = $('ea-about'); a.hidden = !a.hidden; $('ea-about-btn').setAttribute('aria-expanded', String(!a.hidden)); };
   document.querySelectorAll('[data-close]').forEach(b => b.onclick = () => { $(b.dataset.close).hidden = true; });
   $('ea-demo-choice').addEventListener('click', e => { const b = e.target.closest('[data-demo-mode]'); if (!b) return; $('ea-demo-choice').hidden = true; if (b.dataset.demoMode !== 'exit') launchDemo(b.dataset.demoMode); else S.demoReturn?.focus?.(); });
@@ -252,7 +255,7 @@ function wire() {
   addEventListener('keydown', e => {
     if (e.target.closest?.('input, textarea, select')) return;
     const k = e.key.toLowerCase();
-    if (k === 'escape') { for (const id of ['ea-demo-choice', 'ea-layer-intro', 'ea-about', 'ea-list', 'ea-panel']) if (!$(id).hidden) { $(id).hidden = true; return; } }
+    if (k === 'escape') { for (const id of ['ea-demo-choice', 'ea-status', 'ea-layer-intro', 'ea-about', 'ea-list', 'ea-panel']) if (!$(id).hidden) { $(id).hidden = true; return; } }
     if (S.mode !== 'human') return;
     if (k === 'c') $('ea-cam').click(); else if (k === 'v') toggleCar(); else if (k === 'e' && S.nearAgent && !S.car?.state.on) $('ea-talk').click(); else if (k === ' ') { e.preventDefault(); if (S.jump == null && !reduced()) S.jump = 0; } else { S.keys.add(k === 'shift' ? 'shift' : k); if (k.startsWith('arrow')) e.preventDefault(); }
   });
@@ -551,14 +554,16 @@ onLang(() => {
   try { S.data = await loadData(); } catch (e) { $('fatal').hidden = false; $('fatal').textContent = `${T('CORE records unavailable', 'Registres CORE indisponibles')}: ${e.message}`; return; }
   S.map = makeMap(S.data); wire(); wireCiv(); renderScales(); renderList();
   $('ea-human').textContent = T('Walk at street level', 'Descendre à hauteur humaine');
+  if (!STREET_LEVEL) document.querySelector('.ea-human').style.display = 'none'; // street walk + avatar link: dormant
   S.map.on('load', () => {
     S.ready = true; const h = new URLSearchParams(location.hash.slice(1)); startCivilisation();
     if (h.get('problem') && S.data.byId.has(h.get('problem'))) {
       revealMap(); const p = S.data.byId.get(h.get('problem')); S.map.jumpTo({ center: S.data.bySeg.get(p.segment)?.coord || SF, zoom: 16.4, pitch: 62, bearing: (S.data.bySeg.get(p.segment)?.along || 0) - 30 }); S.scale = 'city'; renderScales();
       focusSegment(p.segment, { open: false, instant: true }); openPanel(p.id);
+    } else if (location.hash === '#status') { $('ea-status').hidden = false; $('ea-status-btn').setAttribute('aria-expanded', 'true'); spin();
     } else if (location.hash === '#enter') {
       revealMap(); const e = S.data.bySeg.get(S.data.byId.get(FLAGSHIP).segment); S.map.jumpTo({ center: e.coord, zoom: 16.2, pitch: 60, bearing: e.along - 30 });
-      focusSegment(e.items[0].segment, { open: false, instant: true }); S.map.once('idle', () => goScale('human'));
+      focusSegment(e.items[0].segment, { open: false, instant: true }); if (STREET_LEVEL) S.map.once('idle', () => goScale('human'));
     } else if (VPLACES[h.get('place')]) { const P = VPLACES[h.get('place')]; if (P.scale) { revealMap(); goScale(P.scale); } else flyTo(P.at, P.zoom);
     } else if (h.has('demo')) { const mode = h.get('demo'); if (mode === 'auto' || mode === 'manual') { const wait = () => (S.civReady ? launchDemo(mode) : setTimeout(wait, 200)); wait(); } else openDemoChoice();
     } else if (!['sim', 'mission', 'problems', 'agent', 'team', 'investigate', 'contribute'].some(k => h.has(k))) { if (innerWidth > 860) S.map.setPadding({ left: Math.min(760, innerWidth * 0.48), right: 0, top: 0, bottom: 0 }); spin(); }

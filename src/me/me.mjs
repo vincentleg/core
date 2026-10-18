@@ -1,6 +1,7 @@
 // My CORE — the person's own space: avatar, private ideas, contributions (private and shared), journey, followed
 // problems, collaboration, learning, review history and privacy. Everything is read from this browser; nothing is
 // ranked, scored or published. Real-world impact is shown only when independently established — today, never.
+import { STREET_LEVEL } from '../features.mjs';
 import * as NAV from '../shell/nav.mjs';
 import * as J from '../shell/journey.mjs';
 import * as VS from '../civic/vault-session.mjs';
@@ -98,7 +99,9 @@ function render() {
   $('me-body').querySelectorAll('[data-del]').forEach(b => b.onclick = () => { if (!confirm(T('Delete this private contribution from this browser?', 'Supprimer cette contribution privée de ce navigateur ?'))) return; STORE.remove(b.dataset.del); render(); });
   if (location.hash === '#contributions') $('contributions')?.scrollIntoView({ block: 'start' });
 }
-render(); portrait();
+// Earth-first (src/features.mjs): identity is the pseudonym, not a 3D avatar; the portrait and the studio link are dormant.
+if (!STREET_LEVEL) { document.querySelector('.me-portrait')?.remove(); document.querySelector('.me-hero a[href="avatar.html"]')?.remove(); }
+render(); if (STREET_LEVEL) portrait();
 fetch('data/problems/registry.json').then(r => r.json()).then(r => { problems = r.problems; render(); }).catch(() => {});
 VS.onChange(() => render()); onLang(() => render());
 globalThis.CORE_ME = { render, portrait: false };
