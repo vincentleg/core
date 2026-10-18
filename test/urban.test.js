@@ -7,6 +7,7 @@ test('fluid queue conserves vehicles, reacts to interventions and rejects invali
  const inputs={scenarios:[{name:'Baseline',parameters:p},{name:'Worse',parameters:{...p,green:.1}},{name:'Better',parameters:{...p,green:.7}}]};
  const a=M.compare(inputs,s);assert.deepEqual(a,M.compare(inputs,s));assert.ok(a.rows[1].metrics.accruedDelayPerArrivalS>a.rows[0].metrics.accruedDelayPerArrivalS);assert.ok(a.rows[2].metrics.accruedDelayPerArrivalS<a.rows[0].metrics.accruedDelayPerArrivalS);
  assert.throws(()=>M.solve({...p,lanes:0},s));assert.throws(()=>M.solve({...p,demand:NaN},s));assert.throws(()=>M.solve({...p,speed:'30'},s));assert.throws(()=>M.compare({scenarios:[]},s));assert.throws(()=>M.solve(p,{...s,lengthM:0}));
+ const capped=M.compare({scenarios:[{name:'a',parameters:{...p,demand:8000}},{name:'b',parameters:{...p,demand:8000}}]},s);assert.deepEqual(capped.rows[0].sensitivityDemandVph,[6400,8000]);
  assert.equal(M.compare({scenarios:[{name:'a',parameters:p},{name:'b',parameters:p}]},s).best,null);
  assert.equal(M.compare({scenarios:[{name:'a',parameters:p},{name:'b',parameters:{...p,demand:0}}]},s).best,null,'lower demand is not automatically a winning intervention');
 });
@@ -19,6 +20,8 @@ test('real task events, execution timestamps and reports are verified by recompu
  const bad=structuredClone(r);bad.result.rows[0].metrics.maxQueue++;await assert.rejects(verifyReport(bad,catalog),/verification/);
  const missing=structuredClone(r);missing.tasks[0].status='working';await assert.rejects(verifyReport(missing,catalog),/Incomplete/);
  await assert.rejects(execute(catalog,{...request,segment:'unsupported'}),/unavailable/);
+ const narrative=structuredClone(r);narrative.tasks[9].output.impact='invented impact';await assert.rejects(verifyReport(narrative,catalog),/narrative/);
+ const broken=structuredClone(catalog);delete broken.sources[0].units;await assert.rejects(execute(broken,request),/provenance/);
  const replay=await execute(catalog,request);assert.equal(replay.fingerprint,r.fingerprint);assert.deepEqual(replay.result,r.result);
 });
 test('500 identities retain existing IDs and all visual movement stays on known graph edges',async()=>{

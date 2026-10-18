@@ -1,8 +1,8 @@
 {
- "id": "64658ded-4814-4ffc-9dc5-d936fd88db57",
- "created": "2026-10-18T21:30:58.014Z",
- "completed": "2026-10-18T21:30:58.027Z",
- "durationMs": 11.304750000000002,
+ "id": "9ba4be49-c840-4ac3-832b-5d275f2a2437",
+ "created": "2026-10-18T21:41:28.435Z",
+ "completed": "2026-10-18T21:41:28.448Z",
+ "durationMs": 11.727999999999998,
  "model": "core-fluid-queue-1",
  "segment": {
   "id": "5665000",
@@ -147,6 +147,10 @@
      "exceedsApproxStorage": false,
      "censored": true
     },
+    "sensitivityDemandVph": [
+     720,
+     1080
+    ],
     "sensitivityDelayS": [
      16.8272222222222,
      19.45500000000002
@@ -184,6 +188,10 @@
      "exceedsApproxStorage": false,
      "censored": true
     },
+    "sensitivityDemandVph": [
+     720,
+     1080
+    ],
     "sensitivityDelayS": [
      11.21555555555556,
      12.96666666666668
@@ -221,6 +229,10 @@
      "exceedsApproxStorage": true,
      "censored": true
     },
+    "sensitivityDemandVph": [
+     720,
+     1080
+    ],
     "sensitivityDelayS": [
      23.161666666666644,
      152.33333333333275
@@ -237,12 +249,12 @@
  },
  "tasks": [
   {
-   "id": "64658ded-4814-4ffc-9dc5-d936fd88db57:0",
+   "id": "9ba4be49-c840-4ac3-832b-5d275f2a2437:0",
    "role": "Data discovery",
    "agent": "core.san-francisco.research.evidence-verifier",
    "status": "completed",
-   "started": "2026-10-18T21:30:58.017Z",
-   "completed": "2026-10-18T21:30:58.018Z",
+   "started": "2026-10-18T21:41:28.438Z",
+   "completed": "2026-10-18T21:41:28.438Z",
    "output": {
     "sources": [
      "sf-streets",
@@ -251,44 +263,44 @@
     ],
     "freshness": "dated snapshots; not live feeds"
    },
-   "durationMs": 0.13133300000000148
+   "durationMs": 0.15487500000000054
   },
   {
-   "id": "64658ded-4814-4ffc-9dc5-d936fd88db57:1",
+   "id": "9ba4be49-c840-4ac3-832b-5d275f2a2437:1",
    "role": "Data validation",
    "agent": "core.san-francisco.data-science.graph-linker",
    "status": "completed",
-   "started": "2026-10-18T21:30:58.018Z",
-   "completed": "2026-10-18T21:30:58.018Z",
+   "started": "2026-10-18T21:41:28.438Z",
+   "completed": "2026-10-18T21:41:28.438Z",
    "output": {
     "validated": 3,
     "missingTrafficCounts": true,
     "missingSignalPlans": true
    },
-   "durationMs": 0.12362499999999699
+   "durationMs": 0.14133400000000051
   },
   {
-   "id": "64658ded-4814-4ffc-9dc5-d936fd88db57:2",
+   "id": "9ba4be49-c840-4ac3-832b-5d275f2a2437:2",
    "role": "Geographic analysis",
    "agent": "core.san-francisco.geotech.geotechnical",
    "status": "completed",
-   "started": "2026-10-18T21:30:58.018Z",
-   "completed": "2026-10-18T21:30:58.018Z",
+   "started": "2026-10-18T21:41:28.439Z",
+   "completed": "2026-10-18T21:41:28.439Z",
    "output": {
     "segment": "5665000",
     "lengthM": 129.71990766240353,
     "source": "sf-streets",
     "coverage": "mapped approach only"
    },
-   "durationMs": 0.15679200000000293
+   "durationMs": 0.1058749999999975
   },
   {
-   "id": "64658ded-4814-4ffc-9dc5-d936fd88db57:3",
+   "id": "9ba4be49-c840-4ac3-832b-5d275f2a2437:3",
    "role": "Baseline analysis",
    "agent": "core.san-francisco.mobility.traffic",
    "status": "completed",
-   "started": "2026-10-18T21:30:58.018Z",
-   "completed": "2026-10-18T21:30:58.021Z",
+   "started": "2026-10-18T21:41:28.439Z",
+   "completed": "2026-10-18T21:41:28.442Z",
    "output": {
     "arrivals": 225,
     "served": 212.74999999999952,
@@ -304,15 +316,15 @@
     "exceedsApproxStorage": false,
     "censored": true
    },
-   "durationMs": 2.6227079999999994
+   "durationMs": 2.804167000000003
   },
   {
-   "id": "64658ded-4814-4ffc-9dc5-d936fd88db57:4",
+   "id": "9ba4be49-c840-4ac3-832b-5d275f2a2437:4",
    "role": "Scenario parameters",
    "agent": "core.san-francisco.simulation.scenario-evaluator",
    "status": "completed",
-   "started": "2026-10-18T21:30:58.021Z",
-   "completed": "2026-10-18T21:30:58.021Z",
+   "started": "2026-10-18T21:41:28.442Z",
+   "completed": "2026-10-18T21:41:28.442Z",
    "output": {
     "parameters": [
      {
@@ -354,15 +366,15 @@
     ],
     "origin": "user-supplied assumptions, not observations"
    },
-   "durationMs": 0.08979100000000528
+   "durationMs": 0.08066699999999827
   },
   {
-   "id": "64658ded-4814-4ffc-9dc5-d936fd88db57:5",
+   "id": "9ba4be49-c840-4ac3-832b-5d275f2a2437:5",
    "role": "Simulation",
    "agent": "core.san-francisco.simulation.scenario-analyst",
    "status": "completed",
-   "started": "2026-10-18T21:30:58.021Z",
-   "completed": "2026-10-18T21:30:58.023Z",
+   "started": "2026-10-18T21:41:28.442Z",
+   "completed": "2026-10-18T21:41:28.444Z",
    "output": {
     "model": "core-fluid-queue-1",
     "rows": [
@@ -393,6 +405,10 @@
        "exceedsApproxStorage": false,
        "censored": true
       },
+      "sensitivityDemandVph": [
+       720,
+       1080
+      ],
       "sensitivityDelayS": [
        16.8272222222222,
        19.45500000000002
@@ -430,6 +446,10 @@
        "exceedsApproxStorage": false,
        "censored": true
       },
+      "sensitivityDemandVph": [
+       720,
+       1080
+      ],
       "sensitivityDelayS": [
        11.21555555555556,
        12.96666666666668
@@ -467,6 +487,10 @@
        "exceedsApproxStorage": true,
        "censored": true
       },
+      "sensitivityDemandVph": [
+       720,
+       1080
+      ],
       "sensitivityDelayS": [
        23.161666666666644,
        152.33333333333275
@@ -481,30 +505,30 @@
     "best": 1,
     "verdict": "lowest accrued delay under this model and storage constraint; not a real-world recommendation"
    },
-   "durationMs": 1.7985839999999982
+   "durationMs": 1.8382080000000016
   },
   {
-   "id": "64658ded-4814-4ffc-9dc5-d936fd88db57:6",
+   "id": "9ba4be49-c840-4ac3-832b-5d275f2a2437:6",
    "role": "Comparison",
    "agent": "core.san-francisco.data-science.statistics.001",
    "status": "completed",
-   "started": "2026-10-18T21:30:58.023Z",
-   "completed": "2026-10-18T21:30:58.023Z",
+   "started": "2026-10-18T21:41:28.444Z",
+   "completed": "2026-10-18T21:41:28.444Z",
    "output": {
     "best": 1,
     "verdict": "lowest accrued delay under this model and storage constraint; not a real-world recommendation"
    },
-   "durationMs": 0.12108299999999872
+   "durationMs": 0.0768330000000006
   },
   {
-   "id": "64658ded-4814-4ffc-9dc5-d936fd88db57:7",
+   "id": "9ba4be49-c840-4ac3-832b-5d275f2a2437:7",
    "role": "Risk review",
    "agent": "core.san-francisco.safety.adversarial-reviewer",
    "status": "completed",
-   "started": "2026-10-18T21:30:58.024Z",
-   "completed": "2026-10-18T21:30:58.024Z",
+   "started": "2026-10-18T21:41:28.444Z",
+   "completed": "2026-10-18T21:41:28.444Z",
    "output": {
-    "sensitivity": "demand ×0.8 and ×1.2; not a confidence interval",
+    "sensitivity": "demand ×0.8 and ×1.2, capped at 8,000 veh/h; not a confidence interval",
     "limits": [
      "Uncalibrated uniform-arrival fluid queue",
      "No turns, spillback, pedestrian or transit effects",
@@ -513,15 +537,15 @@
      "Storage uses an assumed 7.5 m per vehicle"
     ]
    },
-   "durationMs": 0.1316670000000002
+   "durationMs": 0.08970800000000168
   },
   {
-   "id": "64658ded-4814-4ffc-9dc5-d936fd88db57:8",
+   "id": "9ba4be49-c840-4ac3-832b-5d275f2a2437:8",
    "role": "Evidence review",
    "agent": "core.san-francisco.research.evidence-reviewer",
    "status": "completed",
-   "started": "2026-10-18T21:30:58.024Z",
-   "completed": "2026-10-18T21:30:58.027Z",
+   "started": "2026-10-18T21:41:28.445Z",
+   "completed": "2026-10-18T21:41:28.448Z",
    "output": {
     "fingerprint": "3622c823e95b2dd9a66fd32ee169c91045e3d883e70504936417bdf2114195e6",
     "observed": [
@@ -530,20 +554,20 @@
     "assumed": "all traffic demand, saturation, lanes, timings, speed and horizon",
     "reference": "https://www.fhwa.dot.gov/publications/research/operations/tft/chap9.pdf"
    },
-   "durationMs": 3.1864160000000012
+   "durationMs": 3.212750000000007
   },
   {
-   "id": "64658ded-4814-4ffc-9dc5-d936fd88db57:9",
+   "id": "9ba4be49-c840-4ac3-832b-5d275f2a2437:9",
    "role": "Report",
    "agent": "core.san-francisco.regulatory.knowledge-research",
    "status": "completed",
-   "started": "2026-10-18T21:30:58.027Z",
-   "completed": "2026-10-18T21:30:58.027Z",
+   "started": "2026-10-18T21:41:28.448Z",
+   "completed": "2026-10-18T21:41:28.448Z",
    "output": {
     "next": "Collect authorized traffic counts and signal timings, calibrate and independently review before any intervention. Human authorization required.",
     "impact": "No real-world impact measured"
    },
-   "durationMs": 0.09049999999999869
+   "durationMs": 0.1274580000000043
   }
  ],
  "calibrated": false,

@@ -33,8 +33,9 @@ export function compare(request, segment) {
   const rows = request.scenarios.map((s, i) => {
     if (typeof s.name !== 'string' || !s.name.trim() || s.name.length > 60) throw Error('Scenario name required (60 characters maximum)');
     const parameters = validate(s.parameters), metrics = solve(parameters, segment);
-    const sensitivity = [0.8, 1.2].map(f => solve({ ...parameters, demand: Math.min(8000, parameters.demand * f) }, segment).accruedDelayPerArrivalS);
-    return { name: s.name, index: i, parameters, metrics, sensitivityDelayS: sensitivity };
+    const sensitivityDemandVph = [0.8, 1.2].map(f => Math.min(8000, parameters.demand * f));
+    const sensitivity = sensitivityDemandVph.map(demand => solve({ ...parameters, demand }, segment).accruedDelayPerArrivalS);
+    return { name: s.name, index: i, parameters, metrics, sensitivityDemandVph, sensitivityDelayS: sensitivity };
   });
   const baseline = rows[0].metrics;
   for (const r of rows) r.delta = { accruedDelayS: r.metrics.accruedDelayPerArrivalS - baseline.accruedDelayPerArrivalS, throughputVph: r.metrics.throughputVph - baseline.throughputVph, maxQueue: r.metrics.maxQueue - baseline.maxQueue };
