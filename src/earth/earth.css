@@ -265,3 +265,9 @@ body.earth:has(#ea-hero:not([hidden]):not(.out)) :is(#ea-layers, #ea-layer-intro
   .ea-hero .ea-statement { display: none; }
   .ea-hero .le-lede { font-size: 14px; line-height: 1.5; }
 }
+
+/* Founding horizon stays optional so exploration remains the primary action. */
+.ea-horizon { font-size: 13px; color: var(--le-text-2); }
+.ea-horizon summary { cursor: pointer; color: var(--le-cyan); padding: 6px 0; }
+.ea-horizon p { margin: 10px 0; max-width: 60ch; line-height: 1.5; }
+.ea-horizon a { color: var(--le-cyan); }
