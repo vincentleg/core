@@ -232,6 +232,8 @@ function tick(dt) {
 // ---------- wiring ----------
 function wire() {
   $('ea-start').onclick = start;
+  // The skip link targets a button hidden behind the hero: open the problem list directly (keyboard, no 3D needed).
+  document.querySelector('a.skip')?.addEventListener('click', e => { e.preventDefault(); showProblems(); if (!$('ea-panel').hidden) $('ea-panel').focus(); });
   $('ea-demo-cta').onclick = () => openDemoChoice();
   $('ea-human').onclick = () => goScale('human');
   $('ea-up').onclick = async () => { leaveHuman(); await goScale('city'); openMission(FLAGSHIP_MISSION); };

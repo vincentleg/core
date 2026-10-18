@@ -225,3 +225,26 @@ button.ea-agent-tag .le-agent-id::before { width: 12px; height: 12px; }
 .demo-stagebar i { display: block; height: 100%; width: 0; background: rgba(98, 216, 242, .75); transition: width .25s linear; }
 .demo-auto { color: var(--le-cyan); }
 @media (prefers-reduced-motion: reduce) { .demo .demo-r0, .demo .demo-r1, .demo .demo-r2, .demo-live { animation: none; } }
+
+/* ---------- V9.1 landing: one primary action, progressive disclosure, readable fine print ---------- */
+.ea-hero .ea-secondary { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.ea-hero button.ea-quiet { background: none; border: 0; box-shadow: none; color: var(--le-text); font-size: 14.5px; min-height: 44px; padding: 8px 8px; text-decoration: underline; text-decoration-color: var(--le-hairline-2); text-underline-offset: 4px; }
+.ea-hero button.ea-quiet:hover { background: none; text-decoration-color: currentColor; }
+.ea-hero .ea-vision { display: inline-flex; align-items: center; min-height: 44px; }
+.ea-hero .ea-hero-note { color: var(--le-text-2); opacity: 1; }
+/* While the hero is on screen, the layer switcher, the map buttons and the duplicate Demo entry of the navigation stay
+   hidden; they appear as soon as the visitor explores or starts the tour (browsers without :has() keep showing them). */
+body.earth:has(#ea-hero:not([hidden]):not(.out)) :is(#ea-layers, #ea-layer-intro, .maplibregl-ctrl-bottom-right, .le-demo-btn) { display: none; }
+.maplibregl-ctrl-attrib, .maplibregl-ctrl-attrib .maplibregl-ctrl-attrib-inner { background: rgba(4, 9, 18, .82) !important; color: var(--le-text-2) !important; }
+.maplibregl-ctrl-attrib a { color: var(--le-text) !important; text-decoration: underline; }
+.maplibregl-ctrl-attrib .maplibregl-ctrl-attrib-button { filter: invert(1); }
+@media (max-width: 860px) {
+  body.earth:has(#ea-hero:not([hidden]):not(.out)) .ea-hero { top: calc(var(--navh) + 20px); max-height: calc(100dvh - var(--navh) - 110px); }
+  .ea-hero .ea-ctas > .ea-secondary { flex: 1 1 100%; justify-content: center; }
+}
+@media (max-width: 860px) {
+  /* Phone landing: content-sized rows (top and bottom are both set above) and a backdrop so globe labels never cross the text. */
+  .ea-hero { align-content: start; }
+  body.earth:has(#ea-hero:not([hidden]):not(.out)) .ea-hero { bottom: auto; padding: 14px; margin: -14px; border-radius: 18px; background: rgba(2, 5, 11, .78); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  .maplibregl-ctrl-bottom-left { bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
+}

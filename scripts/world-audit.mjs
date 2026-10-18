@@ -35,7 +35,7 @@ try {
   await call('Network.setCacheDisabled', { cacheDisabled: true });
   await open(1440, 900);
   check('map style accepted by MapLibre (no silent rejection)', await until(`CORE_WORLD.state.map.isStyleLoaded() && document.getElementById('fatal').hidden`, 20000));
-  check('page: one main, one h1, CSP without unsafe-inline scripts, prototype labelled', await ev(`document.querySelectorAll('main').length === 1 && document.querySelectorAll('h1').length === 1 && /script-src 'self';/.test(document.querySelector('meta[http-equiv="Content-Security-Policy"]').content) && /PROTOTYPE LOCAL|LOCAL PROTOTYPE/.test(document.body.textContent)`));
+  check('page: one main, one h1, CSP without unsafe-inline scripts, prototype labelled', await ev(`document.querySelectorAll('main').length === 1 && document.querySelectorAll('h1').length === 1 && /script-src 'self';/.test(document.querySelector('meta[http-equiv="Content-Security-Policy"]').content) && /\bPREVIEW\b|APERÇU/.test(document.body.textContent)`));
   await ev(`document.getElementById('enter').click(), 1`); await wait(300);
   check('ENTER CORE opens avatar selection with 5 presets', await ev(`!document.getElementById('choose').hidden && document.querySelectorAll('#presets [role=radio]').length === 5`));
   await ev(`document.querySelector('[data-preset=noor]').click(), document.querySelector('[data-top="#4f7a4a"]').click(), document.getElementById('hair').value = 'short', document.getElementById('hair').dispatchEvent(new Event('change')), document.getElementById('display-name').value = 'Testeur<b>', 1`);

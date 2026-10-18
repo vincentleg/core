@@ -22,7 +22,9 @@ const H = [{ key: 'X-Content-Type-Options', value: 'nosniff' }, { key: 'Referrer
 fs.writeFileSync(path.join(OUT, 'vercel.json'), JSON.stringify({
   $schema: 'https://openapi.vercel.sh/vercel.json', cleanUrls: false, trailingSlash: false,
   rewrites: [{ source: '/', destination: '/world.html' }, { source: '/favicon.ico', destination: '/assets/brand/core-mark.svg' }],
-  redirects: [{ source: '/:path*', has: [{ type: 'host', value: 'www.creationofrebornearth.com' }], destination: 'https://creationofrebornearth.com/:path*', permanent: true }, { source: '/index.html', destination: '/', permanent: true }],
+  // The bare root is listed explicitly: in production (deployment of 66bc639) www.creationofrebornearth.com/ answered 200
+  // while www…/manifesto.html redirected (308), so the catch-all alone did not cover "/".
+  redirects: [{ source: '/', has: [{ type: 'host', value: 'www.creationofrebornearth.com' }], destination: 'https://creationofrebornearth.com/', permanent: true }, { source: '/:path*', has: [{ type: 'host', value: 'www.creationofrebornearth.com' }], destination: 'https://creationofrebornearth.com/:path*', permanent: true }, { source: '/index.html', destination: '/', permanent: true }],
   headers: [{ source: '/(.*)', headers: H }, { source: '/(src|assets)/(.*)', headers: [{ key: 'Cache-Control', value: 'public, max-age=300, must-revalidate' }] }],
 }, null, 1));
 fs.writeFileSync(path.join(OUT, 'robots.txt'), 'User-agent: *\nAllow: /\n');

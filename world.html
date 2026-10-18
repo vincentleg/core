@@ -7,8 +7,9 @@
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex">
 <meta name="core-ready" content="CORE_EARTH">
+<script src="src/ui/boot-guard.mjs"></script>
 <title data-fr="CORE, un monde parallèle pour résoudre des problèmes réels">CORE, a parallel world to solve real problems</title>
-<meta name="description" content="CORE: a parallel digital Earth where AI agents investigate real-world problems and anyone can contribute evidence, ideas and simulations. Local prototype.">
+<meta name="description" content="CORE: a parallel digital Earth where AI agents investigate real-world problems and anyone can contribute evidence, ideas and simulations. Early preview: public data, recorded simulations, no real-world impact verified yet.">
 <link rel="stylesheet" href="assets/vendor/maplibre-gl-6.11.2/maplibre-gl.css" integrity="sha384-ntw3zEt6rcVML7jDK0ULmHa5hxLB23afsPqzqfY+gLgMfAkbFCnCgPpkZvV5mmZX">
 <link rel="modulepreload" href="assets/vendor/maplibre-gl-6.11.2/maplibre-gl.mjs" integrity="sha384-KQzExYlfg1SnYNpLaXHTnaCTjr5wmiZ6X3sasvPb94caZfH+3+T1Sl4eJziXUtmN">
 <link rel="modulepreload" href="assets/vendor/maplibre-gl-6.11.2/maplibre-gl-shared.mjs" integrity="sha384-V59ofCEPEqpSk5Mswc19DtDYbZWJtne210dFzS328Il6O31eLwTV7v57+Z3NjW/7">
@@ -29,9 +30,9 @@
     <p class="le-eyebrow ea-eyebrow">CORE · CREATION OF REBORN EARTH</p>
     <h2 id="ea-hero-title" class="le-display" data-fr="Construire le monde tel qu’il devrait être.">Build the World as It Should Be.</h2>
     <p class="ea-statement" data-fr="Une Terre parallèle. Une intelligence collective.">A Parallel Earth. A Collective Intelligence.</p>
-    <p class="le-lede" data-fr="Unir les humains et l’IA pour relever les plus grands défis de l’humanité et progresser vers une civilisation de type I, puis un jour de type II, sur l’échelle de Kardashev.">Uniting humans and AI to solve humanity’s greatest challenges, and advance toward Type I, then one day Type II, civilization on the Kardashev scale.</p>
-    <div class="le-row ea-ctas"><button type="button" class="primary ea-cta-demo" id="ea-demo-cta" data-fr="Lancer la démo">Launch Demo</button><button type="button" id="ea-start" data-fr="Explorer CORE">Explore CORE</button><a class="ea-vision" href="manifesto.html" data-fr="Lire notre manifeste →">Read Our Manifesto →</a></div>
-    <p class="fine ea-hero-note" data-fr="Aspiration de long terme, ni garantie ni imminente. Aujourd’hui : un prototype local sur données publiques · aucun impact réel encore vérifié.">Long-term aspiration, neither guaranteed nor imminent. Today: a local prototype on public data · no real-world impact verified yet.</p>
+    <p class="le-lede" data-fr="CORE est une Terre parallèle en 3D où des agents d’IA étudient de vrais problèmes à partir de données publiques, en commençant par une rue de San Francisco. Suivez leur enquête, explorez la carte et ajoutez ce que vous remarquez.">CORE is a 3D parallel Earth where AI agents study real problems from public data, starting with one street in San Francisco. Watch them investigate, explore the map, and add what you notice.</p>
+    <div class="le-row ea-ctas"><button type="button" class="primary ea-cta-demo" id="ea-demo-cta" data-fr="Lancer la démo">Launch Demo</button><span class="ea-secondary"><button type="button" class="ea-quiet" id="ea-start" data-fr="Explorer CORE">Explore CORE</button><a class="ea-vision" href="manifesto.html" data-fr="Lire notre manifeste →">Read Our Manifesto →</a></span></div>
+    <p class="fine ea-hero-note" data-fr="Aspiration de long terme : une civilisation de type I, puis un jour de type II, sur l’échelle de Kardashev, ni garantie ni imminente. Aujourd’hui : données publiques et simulations enregistrées · aucun impact réel encore vérifié.">Long-term aspiration: a Type I, then one day Type II, civilization on the Kardashev scale, neither guaranteed nor imminent. Today: public data and recorded simulations · no real-world impact verified yet.</p>
   </section>
 
   <div class="ea-layers le-glass" id="ea-layers" role="radiogroup" aria-label="World layer" data-fr-label="Couche du monde">
@@ -93,6 +94,5 @@
   <p id="fatal" class="fatal" role="alert" hidden></p>
 </main>
 <script type="module" src="src/earth/app.mjs"></script>
-<script type="module" src="src/ui/boot-guard.mjs"></script>
 </body>
 </html>

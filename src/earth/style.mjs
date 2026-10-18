@@ -34,8 +34,8 @@ export function livingEarthStyle({ markers = EMPTY, corridor = EMPTY, focus = EM
     ...(terrain ? { terrain: { source: 'dem', exaggeration: 1 } } : {}),
     sources: {
       omt: { type: 'vector', url: 'https://tiles.openfreemap.org/planet' },
-      bluemarble: { type: 'raster', tiles: ['https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpeg'], tileSize: 256, maxzoom: 8, attribution: 'Imagerie : NASA GIBS (Blue Marble)' },
-      dem: { type: 'raster-dem', tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'], encoding: 'terrarium', tileSize: 256, maxzoom: 12, attribution: 'Relief : USGS 3DEP/SRTM via AWS Terrain Tiles' },
+      bluemarble: { type: 'raster', tiles: ['https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpeg'], tileSize: 256, maxzoom: 8, attribution: 'NASA GIBS (Blue Marble imagery)' },
+      dem: { type: 'raster-dem', tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'], encoding: 'terrarium', tileSize: 256, maxzoom: 12, attribution: 'USGS 3DEP/SRTM (relief) via AWS Terrain Tiles' },
       markers: { type: 'geojson', data: markers }, corridor: { type: 'geojson', data: corridor }, focus: { type: 'geojson', data: focus },
     },
     layers: [

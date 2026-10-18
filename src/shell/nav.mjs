@@ -29,7 +29,7 @@ export function render(el, { active }) {
   apply(cur);
   // Four destinations; then one Command entry (search, ask, navigate — also Cmd/Ctrl-K), one clear Demo action,
   // the language, a small "More" menu (Progress, Manifesto, Journey) and TRUST, always visible.
-  el.innerHTML = `<a class="mark" href="world.html" aria-label="CORE · ${esc(t('nav.home'))}"><i class="orb" aria-hidden="true"></i>CORE</a><span class="proto">${esc(t('nav.proto'))}</span>
+  el.innerHTML = `<a class="mark" href="world.html" aria-label="CORE · ${esc(t('nav.home'))}"><i class="orb" aria-hidden="true"></i>CORE</a><span class="proto" title="${esc(t('nav.protoNote'))}">${esc(t('nav.proto'))}</span>
     <nav class="le-nav" aria-label="${esc(t('nav.main'))}">${GROUPS.map(x => `<a href="${esc(x.href)}"${g && x.id === g.id ? ' aria-current="page"' : ''}>${icon(x.icon, 16)}<span>${esc(t(x.key))}</span></a>`).join('')}</nav>
     <div class="le-shell-right"><button type="button" class="le-cmp-btn" data-companion title="${esc(t('nav.voice'))}" aria-label="${esc(t('nav.voice'))}">${icon('search', 15)}<span class="le-cmp-txt">${esc(t('nav.command'))}</span><kbd aria-hidden="true">⌘K</kbd></button>
       <a class="le-demo-btn" href="world.html#demo" data-demo>${icon('play', 14)}<span>${esc(t('nav.demoShort'))}</span></a>

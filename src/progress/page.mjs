@@ -6,7 +6,9 @@ import { FILES } from '../civilization/analyses.mjs';
 import { buildMissions } from '../civilization/missions.mjs';
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const get = async u => { const r = await fetch(u); if (!r.ok) throw Error(`${u} : HTTP ${r.status}`); return r.json(); };
+// One download per file even when two consumers ask for it (each gets its own copy, so neither can alter the other).
+const cache = new Map();
+const get = async u => { if (!cache.has(u)) cache.set(u, fetch(u).then(r => { if (!r.ok) throw Error(`${u} : HTTP ${r.status}`); return r.json(); })); return structuredClone(await cache.get(u)); };
 NAV.render($('core-nav'), { active: 'progress' });
 
 function chart(series) {
