@@ -247,7 +247,7 @@
    "tool": "trees.near-works",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 14,
+   "ms": 13,
    "records": 5,
    "error": null,
    "findings": [
@@ -301,7 +301,7 @@
    "tool": "buildings.frontage",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 21,
+   "ms": 20,
    "records": 102,
    "error": null,
    "findings": [
@@ -433,7 +433,7 @@
    "tool": "energy.benchmarks",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 29,
+   "ms": 28,
    "records": 11,
    "error": null,
    "findings": [
@@ -598,7 +598,7 @@
       }
      ],
      "value": 0,
-     "asOf": "2026-10-19T04:38:37.424Z",
+     "asOf": "2026-10-19T11:14:34.479Z",
      "agent": "core.san-francisco.climate.weather-alerts",
      "tool": "resilience.weather-alerts"
     }
@@ -614,7 +614,7 @@
    "tool": "graph.link",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 11,
+   "ms": 10,
    "records": 1,
    "error": null,
    "findings": [
@@ -659,7 +659,7 @@
    "tool": "scenario.investigate",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 145,
+   "ms": 141,
    "records": 69,
    "error": null,
    "findings": [
@@ -1441,7 +1441,7 @@
    "tool": "knowledge.retrieve",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 146,
+   "ms": 142,
    "records": 4,
    "error": null,
    "findings": [
@@ -1875,7 +1875,7 @@
     }
    ],
    "value": 0,
-   "asOf": "2026-10-19T04:38:37.424Z",
+   "asOf": "2026-10-19T11:14:34.479Z",
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts"
   },
@@ -2571,17 +2571,17 @@
   },
   {
    "seq": 22,
-   "t": 14,
+   "t": 13,
    "kind": "task",
    "task": "task-3",
    "agent": "core.san-francisco.forestry.street-trees",
    "tool": "trees.near-works",
    "state": "succeeded",
-   "text": "1 constat(s), 5 enregistrement(s), 14 ms"
+   "text": "1 constat(s), 5 enregistrement(s), 13 ms"
   },
   {
    "seq": 23,
-   "t": 14,
+   "t": 13,
    "kind": "task",
    "task": "task-6",
    "agent": "core.san-francisco.public-space.sidewalks",
@@ -2591,17 +2591,17 @@
   },
   {
    "seq": 24,
-   "t": 22,
+   "t": 21,
    "kind": "task",
    "task": "task-4",
    "agent": "core.san-francisco.housing.building-permits",
    "tool": "buildings.frontage",
    "state": "succeeded",
-   "text": "3 constat(s), 102 enregistrement(s), 21 ms"
+   "text": "3 constat(s), 102 enregistrement(s), 20 ms"
   },
   {
    "seq": 25,
-   "t": 22,
+   "t": 21,
    "kind": "task",
    "task": "task-7",
    "agent": "core.san-francisco.climate.weather-alerts",
@@ -2611,17 +2611,17 @@
   },
   {
    "seq": 26,
-   "t": 30,
+   "t": 29,
    "kind": "task",
    "task": "task-5",
    "agent": "core.san-francisco.energy.energy-benchmarks",
    "tool": "energy.benchmarks",
    "state": "succeeded",
-   "text": "1 constat(s), 11 enregistrement(s), 29 ms"
+   "text": "1 constat(s), 11 enregistrement(s), 28 ms"
   },
   {
    "seq": 27,
-   "t": 30,
+   "t": 29,
    "kind": "task",
    "task": "task-8",
    "agent": "core.san-francisco.data-science.graph-linker",
@@ -2631,7 +2631,7 @@
   },
   {
    "seq": 28,
-   "t": 39,
+   "t": 38,
    "kind": "task",
    "task": "task-6",
    "agent": "core.san-francisco.public-space.sidewalks",
@@ -2641,7 +2641,7 @@
   },
   {
    "seq": 29,
-   "t": 39,
+   "t": 38,
    "kind": "task",
    "task": "task-9",
    "agent": "core.san-francisco.simulation.scenario-evaluator",
@@ -2651,7 +2651,7 @@
   },
   {
    "seq": 30,
-   "t": 39,
+   "t": 38,
    "kind": "task",
    "task": "task-7",
    "agent": "core.san-francisco.climate.weather-alerts",
@@ -2661,7 +2661,7 @@
   },
   {
    "seq": 31,
-   "t": 39,
+   "t": 38,
    "kind": "task",
    "task": "task-10",
    "agent": "core.san-francisco.regulatory.knowledge-research",
@@ -2671,58 +2671,58 @@
   },
   {
    "seq": 32,
-   "t": 41,
+   "t": 39,
    "kind": "task",
    "task": "task-8",
    "agent": "core.san-francisco.data-science.graph-linker",
    "tool": "graph.link",
    "state": "succeeded",
-   "text": "1 constat(s), 1 enregistrement(s), 11 ms"
+   "text": "1 constat(s), 1 enregistrement(s), 10 ms"
   },
   {
    "seq": 33,
-   "t": 184,
+   "t": 179,
    "kind": "task",
    "task": "task-9",
    "agent": "core.san-francisco.simulation.scenario-evaluator",
    "tool": "scenario.investigate",
    "state": "succeeded",
-   "text": "2 constat(s), 69 enregistrement(s), 145 ms"
+   "text": "2 constat(s), 69 enregistrement(s), 141 ms"
   },
   {
    "seq": 34,
-   "t": 185,
+   "t": 180,
    "kind": "task",
    "task": "task-10",
    "agent": "core.san-francisco.regulatory.knowledge-research",
    "tool": "knowledge.retrieve",
    "state": "succeeded",
-   "text": "4 constat(s), 4 enregistrement(s), 146 ms"
+   "text": "4 constat(s), 4 enregistrement(s), 142 ms"
   },
   {
    "seq": 35,
-   "t": 185,
+   "t": 180,
    "kind": "mission",
    "state": "reviewing",
    "text": "Mission → reviewing"
   },
   {
    "seq": 36,
-   "t": 185,
+   "t": 181,
    "kind": "review",
    "agent": "core.san-francisco.research.evidence-verifier",
    "text": "Vérification indépendante : 17/17 constats entièrement sourcés."
   },
   {
    "seq": 37,
-   "t": 185,
+   "t": 181,
    "kind": "review",
    "agent": "core.san-francisco.safety.adversarial-reviewer",
    "text": "Revue adversariale : 1 désaccord(s), 2 sensibilité(s), 0 limite(s), 0 tâche(s) non abouties."
   },
   {
    "seq": 38,
-   "t": 185,
+   "t": 181,
    "kind": "synthesis",
    "agent": "core.san-francisco.manager",
    "text": "Synthèse : 11 énoncé(s) sourcé(s) ; action suivante : Proposer à la revue humaine une vérification de terrain coordonnée (R2) sur HOWARD ST 02ND ST → NEW MONTGOMERY ST avant l’ouverture des excavations non commencées ; ne pas engager d’intervention coordonnée (R1) tant que tracés, état des arbres et calendrier des façades ne sont pas connus."
@@ -2745,9 +2745,9 @@
  "fingerprint": "2bffdac3aca4e012",
  "recorded": {
   "by": "scripts/agents.mjs (Node)",
-  "at": "2026-10-19T04:38:58.656Z",
+  "at": "2026-10-19T11:14:54.405Z",
   "wallMs": 358,
   "snapshot": "2026-10-13T18:25:19.678Z",
-  "feedUpdate": "2026-10-19T04:38:37.424Z"
+  "feedUpdate": "2026-10-19T11:14:34.479Z"
  }
 }
