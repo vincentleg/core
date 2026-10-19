@@ -180,3 +180,7 @@ html[dir="rtl"] .le-nav, html[dir="rtl"] .le-shell-right { direction: rtl; }
 @media (max-width: 1280px) { .le-cmp-txt { display: none; } }
 @media (max-width: 860px) { .le-cmp-btn kbd, .le-demo-btn span { display: none; } .le-more-menu summary { padding: 6px 8px; } }
 .cmp-ans { padding-left: 18px; display: grid; gap: 6px; font-size: 13.5px; line-height: 1.45; } .cmp-live.err { color: #f0b45c; }
+
+/* Five stable destinations, with the same research menu on every fresh page. */
+@media (min-width: 861px) and (max-width: 1280px) { .le-cmp-btn span, .le-cmp-btn kbd, .le-demo-btn span { display: none; } .le-nav a { padding-inline: 10px; } }
+@media (max-width: 860px) { .le-nav a { min-width: 0; font-size: 10.5px; } .le-shell-right a.trust { display: none; } .le-more-menu > div { max-width: calc(100vw - 24px); } .le-more-menu > div a { white-space: normal; } }

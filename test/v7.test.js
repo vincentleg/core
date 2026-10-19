@@ -44,7 +44,7 @@ test('problem view: plain language by default, identifiers only in the technical
 
 test('navigation: product destinations added; every V6 section remains reachable', async () => {
   const NAV = await imp('src/shell/nav.mjs');
-  assert.deepEqual(NAV.GROUPS.map(g => g.label), ['Explore', 'Solutions', 'Plans', 'Create', 'Together', 'My CORE']); // V8: English default, translated at render
+  assert.deepEqual(NAV.GROUPS.map(g => g.label), ['Explore', 'Solutions', 'Plans', 'Manifesto', 'Create', 'Together', 'My CORE']); // V8: English default, translated at render
   const all = NAV.GROUPS.flatMap(g => [...(g.sections || []).map(s => s[0]), ...(g.links || []).map(l => l[0])]);
   for (const id of ['knowledge', 'progress', 'continuity', 'institutions', 'vault', 'labs', 'experts', 'communities', 'arena', 'academy', 'profile', 'journey', 'trust', 'world', 'dialogue', 'me', 'avatar', 'intelligence']) assert.ok(all.includes(id), id);
   assert.equal(NAV.groupOf('labs').id, 'create'); assert.equal(NAV.groupOf('trust').id, 'me');

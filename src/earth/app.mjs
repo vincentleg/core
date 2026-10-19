@@ -534,7 +534,23 @@ function wireCiv() {
 }
 
 // ---------- guided demo ----------
-async function openDemoChoice() { if (!S.urbanReady) return toast(T('Loading city data…', 'Chargement des données…')); try { (await S.urbanReady).demo(); } catch (e) { toast(e.message); } }
+let pendingDestination = null;
+async function openPublicDestination(kind) {
+  if (!S.urbanReady) { pendingDestination = kind; toast(T('Loading city data… your view will open automatically.', 'Chargement… la vue s’ouvrira automatiquement.')); return; }
+  try {
+    const urban = await S.urbanReady;
+    if (kind === 'demo') urban.demo();
+    else if (kind === 'investigations') urban.investigations();
+    else if (kind === 'city') { await S.civLoading; if (!S.civReady) throw Error('City research unavailable'); revealMap(); S.map.jumpTo({ center: PLACES.somaField, zoom: 15.8, pitch: 50 }); showMission('mission.sf.mobility'); }
+  } catch (e) { toast(e.message); }
+}
+async function openDemoChoice() { return openPublicDestination('demo'); }
+addEventListener('hashchange', () => {
+  const h = new URLSearchParams(location.hash.slice(1));
+  if (h.has('demo')) openDemoChoice();
+  else if (h.has('investigations')) openPublicDestination('investigations');
+  else if (h.get('mission') === 'mission.sf.mobility') openPublicDestination('city');
+});
 async function launchDemo(mode) { return openDemoChoice(); }
 
 // ---------- language changes: re-render everything visible ----------
@@ -556,8 +572,9 @@ onLang(() => {
     S.ready = true;
     S.urbanReady = createUrban(globalThis.CORE_EARTH, { display: (html, kind) => panel(kind, null, html), reveal: revealMap }).then(u => { S.urban = u; return u; });
     S.urbanReady.catch(e => { console.error('Living City unavailable:', e); toast(T('Living City unavailable; existing research remains accessible.', 'Ville vivante indisponible ; les recherches existantes restent accessibles.')); });
-    const h = new URLSearchParams(location.hash.slice(1)); startCivilisation();
-    if (h.get('problem') && S.data.byId.has(h.get('problem'))) {
+    const h = new URLSearchParams(location.hash.slice(1)); S.civLoading = startCivilisation();
+    if (pendingDestination || h.has('demo') || h.has('investigations')) { const target = pendingDestination || (h.has('demo') ? 'demo' : 'investigations'); pendingDestination = null; openPublicDestination(target);
+    } else if (h.get('problem') && S.data.byId.has(h.get('problem'))) {
       revealMap(); const p = S.data.byId.get(h.get('problem')); S.map.jumpTo({ center: S.data.bySeg.get(p.segment)?.coord || SF, zoom: 16.4, pitch: 62, bearing: (S.data.bySeg.get(p.segment)?.along || 0) - 30 }); S.scale = 'city'; renderScales();
       focusSegment(p.segment, { open: false, instant: true }); openPanel(p.id);
     } else if (location.hash === '#status') { $('ea-status').hidden = false; $('ea-status-btn').setAttribute('aria-expanded', 'true'); spin();
@@ -565,7 +582,6 @@ onLang(() => {
       revealMap(); const e = S.data.bySeg.get(S.data.byId.get(FLAGSHIP).segment); S.map.jumpTo({ center: e.coord, zoom: 16.2, pitch: 60, bearing: e.along - 30 });
       focusSegment(e.items[0].segment, { open: false, instant: true }); if (STREET_LEVEL) S.map.once('idle', () => goScale('human'));
     } else if (VPLACES[h.get('place')]) { const P = VPLACES[h.get('place')]; if (P.scale) { revealMap(); goScale(P.scale); } else flyTo(P.at, P.zoom);
-    } else if (h.has('demo')) { const mode = h.get('demo'); if (mode === 'auto' || mode === 'manual') { const wait = () => (S.civReady ? launchDemo(mode) : setTimeout(wait, 200)); wait(); } else openDemoChoice();
     } else if (!['sim', 'mission', 'problems', 'agent', 'team', 'investigate', 'contribute'].some(k => h.has(k))) { if (innerWidth > 860) S.map.setPadding({ left: Math.min(760, innerWidth * 0.48), right: 0, top: 0, bottom: 0 }); spin(); }
   });
 })();
