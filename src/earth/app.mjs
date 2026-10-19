@@ -234,7 +234,6 @@ function wire() {
   $('ea-start').onclick = start;
   // The skip link targets a button hidden behind the hero: open the problem list directly (keyboard, no 3D needed).
   document.querySelector('a.skip')?.addEventListener('click', e => { e.preventDefault(); showProblems(); if (!$('ea-panel').hidden) $('ea-panel').focus(); });
-  $('ea-demo-cta').onclick = () => openDemoChoice();
   $('ea-human').onclick = () => goScale('human');
   $('ea-up').onclick = async () => { leaveHuman(); await goScale('city'); openMission(FLAGSHIP_MISSION); };
   $('ea-cam').onclick = () => { S.cam = S.cam === 'third' ? 'first' : 'third'; $('ea-cam').textContent = camLabel(); $('ea-cam').setAttribute('aria-pressed', String(S.cam === 'first')); };
@@ -536,15 +535,15 @@ function wireCiv() {
 // ---------- guided demo ----------
 let pendingDestination = null;
 async function openPublicDestination(kind) {
+  if (kind === 'demo') return openDemoChoice();
   if (!S.urbanReady) { pendingDestination = kind; toast(T('Loading city data… your view will open automatically.', 'Chargement… la vue s’ouvrira automatiquement.')); return; }
   try {
     const urban = await S.urbanReady;
-    if (kind === 'demo') urban.demo();
-    else if (kind === 'investigations') urban.investigations();
+    if (kind === 'investigations') urban.investigations();
     else if (kind === 'city') { await S.civLoading; if (!S.civReady) throw Error('City research unavailable'); revealMap(); S.map.jumpTo({ center: PLACES.somaField, zoom: 15.8, pitch: 50 }); showMission('mission.sf.mobility'); }
   } catch (e) { toast(e.message); }
 }
-async function openDemoChoice() { return openPublicDestination('demo'); }
+async function openDemoChoice() { return globalThis.CORE_DEMO.request(); }
 addEventListener('hashchange', () => {
   const h = new URLSearchParams(location.hash.slice(1));
   if (h.has('demo')) openDemoChoice();
@@ -564,14 +563,15 @@ onLang(() => {
 
 // ---------- boot ----------
 (async () => {
-  try { S.data = await loadData(); } catch (e) { $('fatal').hidden = false; $('fatal').textContent = `${T('CORE records unavailable', 'Registres CORE indisponibles')}: ${e.message}`; return; }
+  try { S.data = await loadData(); } catch (e) { globalThis.CORE_DEMO.fail(e); $('fatal').hidden = false; $('fatal').textContent = `${T('CORE records unavailable', 'Registres CORE indisponibles')}: ${e.message}`; return; }
   S.map = makeMap(S.data); wire(); wireCiv(); renderScales(); renderList();
   $('ea-human').textContent = T('Walk at street level', 'Descendre à hauteur humaine');
   if (!STREET_LEVEL) document.querySelector('.ea-human').style.display = 'none'; // street walk + avatar link: dormant
   S.map.on('load', () => {
     S.ready = true;
     S.urbanReady = createUrban(globalThis.CORE_EARTH, { display: (html, kind) => panel(kind, null, html), reveal: revealMap }).then(u => { S.urban = u; return u; });
-    S.urbanReady.catch(e => { console.error('Living City unavailable:', e); toast(T('Living City unavailable; existing research remains accessible.', 'Ville vivante indisponible ; les recherches existantes restent accessibles.')); });
+    globalThis.CORE_DEMO.ready(async () => (await S.urbanReady).demo());
+    S.urbanReady.catch(e => { console.error('Living City unavailable:', e); globalThis.CORE_DEMO.fail(e); toast(T('Living City unavailable; existing research remains accessible.', 'Ville vivante indisponible ; les recherches existantes restent accessibles.')); });
     const h = new URLSearchParams(location.hash.slice(1)); S.civLoading = startCivilisation();
     if (pendingDestination || h.has('demo') || h.has('investigations')) { const target = pendingDestination || (h.has('demo') ? 'demo' : 'investigations'); pendingDestination = null; openPublicDestination(target);
     } else if (h.get('problem') && S.data.byId.has(h.get('problem'))) {
