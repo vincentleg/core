@@ -2,7 +2,7 @@
 import fs from 'node:fs';
 import { localProvider } from './provider.mjs';
 import { registry } from './registry.mjs';
-import { readCatalog } from './tools.mjs';
+import { readCatalog, sources, scopeFlags } from './tools.mjs';
 import { openRuntime } from './runtime.mjs';
 const args=process.argv.slice(2),at=k=>args.indexOf(k),value=k=>at(k)>=0?args[at(k)+1]:undefined;
 const directory='.core-local/intelligence';fs.mkdirSync(directory,{recursive:true});
@@ -17,7 +17,10 @@ try{
  const events=runtime.events(report.id);
  // Publishing is explicit: never dump a database, private memory, question or raw chain-of-thought automatically.
  if(args.includes('--publish')){
-  const recorded={version:'core-intelligence-1',recorded:new Date().toISOString(),availability:'Recorded local worker execution; hosted worker offline',provider:{id:provider.id,model:provider.model},workers:1,registry:runtime.agents.map(({id,code,startNode,name,role,domain,geography,assignment,mission,goals,tools,team,supervisor})=>({id,code,startNode,name,role,domain,geography,assignment,mission,goals,tools,team,supervisor,status:'idle'})),run:{...report,tasks:report.tasks.map(({messages,...t})=>({...t,status:t.status==='working'?'unavailable':t.status}))},events,humanReview:'Pending; model review is not human approval',verification:'Tool provenance, checksums and numerical claims checked; narrative remains model-generated and unvalidated.'};
+  const resourceUsage={started:events.filter(e=>e.kind==='model_started').length,returned:events.filter(e=>e.kind==='model_completed').length,failed:events.filter(e=>e.kind==='model_failed').length,recordedTokens:report.tokens,coverage:'Returned token usage only; interrupted or failed request consumption is unknown. No paid API used; local power cost unmeasured.'};
+  const provenanceNotes=report.findings.filter(f=>f.tool==='retrieve_source'&&f.output.source==='sf-streets-refresh'&&f.output.coverage!==sources(catalog).find(s=>s.id===f.output.source).coverage).map(f=>({finding:f.id,note:'Historical catalog coverage label retained in this record. The actual linked API query retrieves Folsom-only centerlines (limit 100), not Howard Street or traffic observations.'}));
+  const narrativeFlags=scopeFlags([...(report.report?.claims||[]),...report.tasks.flatMap(t=>t.output?.claims||[])]);
+  const recorded={narrativeFlags,resourceUsage,provenanceNotes,version:'core-intelligence-1',recorded:new Date().toISOString(),availability:'Recorded local worker execution; hosted worker offline',provider:{id:provider.id,model:provider.model},workers:1,registry:runtime.agents.map(({id,code,startNode,name,role,domain,geography,assignment,mission,goals,tools,team,supervisor})=>({id,code,startNode,name,role,domain,geography,assignment,mission,goals,tools,team,supervisor,status:'idle'})),run:{...report,tasks:report.tasks.map(({messages,...t})=>({...t,status:t.status==='working'?'unavailable':t.status}))},events,humanReview:'Pending; model review is not human approval',verification:'Tool provenance, checksums and numerical claims checked; narrative remains model-generated and unvalidated.'};
   fs.mkdirSync('data/intelligence',{recursive:true});fs.writeFileSync('data/intelligence/work.json.tmp',JSON.stringify(recorded,null,1)+'\n');fs.renameSync('data/intelligence/work.json.tmp','data/intelligence/work.json');
  }
  console.log(JSON.stringify({id:report.id,status:report.status,calls:report.calls,tokens:report.tokens,tasks:report.tasks.length,completed:report.tasks.filter(t=>t.status==='completed').length,error:report.lastError||null}));

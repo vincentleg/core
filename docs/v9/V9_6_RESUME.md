@@ -93,3 +93,7 @@ node --test test/intelligence.test.mjs test/urban.test.js
 ```
 
 Local SQLite state and cached source responses are not in GitHub. A fresh checkout cannot resume that run without securely transferring `.core-local/intelligence/` from this machine. Otherwise start a new real question with `--question`; do not fabricate the lost execution history.
+
+## Resumed session update — 2026-10-19 UTC
+
+The founder explicitly resumed development after the historical STOP above. See `V9_6_CHECKPOINT.md` for the completed seven-role local-model investigation, actual resource metrics, implemented recovery fixes and remaining coverage/validation limits. The earlier interrupted runs remain preserved. The new completed run is `4ecc97a8-ca7f-4d49-b135-d82e0c256483`; resuming that ID returns its saved result without new inference. There is still no continuously running or hosted worker. API credentials remain unnecessary.
