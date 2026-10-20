@@ -1,0 +1,180 @@
+{
+  "version": "core-places-1",
+  "license": "OpenStreetMap contributors, ODbL 1.0",
+  "terms": "https://www.openstreetmap.org/copyright",
+  "policy": "https://github.com/komoot/photon#demo-server",
+  "places": [
+    {
+      "id": "landmark:golden-gate-bridge",
+      "name": "Golden Gate Bridge",
+      "city": "San Francisco",
+      "coordinates": [
+        -122.47855705,
+        37.82001725
+      ],
+      "zoom": 13,
+      "type": "landmark",
+      "aliases": [
+        "Golden Gate Bridge",
+        "pont du Golden Gate",
+        "Golden Gate"
+      ],
+      "source": {
+        "id": "osm:1560010118",
+        "href": "https://www.openstreetmap.org/way/1560010118",
+        "text": "OpenStreetMap contributors · ODbL 1.0 · official Photon/komoot demo",
+        "query": "https://photon.komoot.io/api/?q=Golden+Gate+Bridge&limit=3&bbox=-122.7%2C37.6%2C-122.15%2C38.0",
+        "retrieved": "2026-10-20T23:22:27.965Z",
+        "responseSha256": "cc4dc20eeb470def2a5086e0b9b268fb19601514faacba65c54da1fab0b4f8ef"
+      },
+      "approximation": "Midpoint of the returned named OSM way extents; bridge corridor reference, not surveyed point",
+      "rawFeatures": [
+        {
+          "type": "Feature",
+          "properties": {
+            "osm_type": "W",
+            "osm_id": 1560010118,
+            "osm_key": "highway",
+            "osm_value": "motorway",
+            "type": "street",
+            "name": "Golden Gate Bridge",
+            "city": "San Francisco",
+            "state": "California",
+            "country": "United States",
+            "postcode": "24129",
+            "countrycode": "US",
+            "extent": [
+              -122.4765727,
+              37.8080536,
+              -122.4762623,
+              37.8077264
+            ]
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -122.4764175,
+              37.80789
+            ]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "osm_type": "W",
+            "osm_id": 1321812310,
+            "osm_key": "highway",
+            "osm_value": "motorway",
+            "type": "street",
+            "name": "Golden Gate Bridge",
+            "county": "Marin",
+            "state": "California",
+            "country": "United States",
+            "postcode": "94965",
+            "countrycode": "US",
+            "extent": [
+              -122.4808518,
+              37.8323081,
+              -122.4806519,
+              37.8321173
+            ]
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -122.4807505,
+              37.832214
+            ]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "osm_type": "W",
+            "osm_id": 1560010147,
+            "osm_key": "highway",
+            "osm_value": "motorway",
+            "type": "street",
+            "name": "Golden Gate Bridge",
+            "county": "Marin",
+            "state": "California",
+            "country": "United States",
+            "postcode": "94129",
+            "countrycode": "US",
+            "extent": [
+              -122.479649,
+              37.8285472,
+              -122.4792839,
+              37.8254838
+            ]
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -122.4794664,
+              37.8270155
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "landmark:bay-bridge",
+      "name": "San Francisco–Oakland Bay Bridge West Span",
+      "city": "San Francisco",
+      "coordinates": [
+        -122.37854115,
+        37.79755015
+      ],
+      "zoom": 13,
+      "type": "landmark",
+      "aliases": [
+        "Bay Bridge",
+        "San Francisco Oakland Bay Bridge",
+        "pont de la baie"
+      ],
+      "source": {
+        "id": "osm:1011568818",
+        "href": "https://www.openstreetmap.org/way/1011568818",
+        "text": "OpenStreetMap contributors · ODbL 1.0 · official Photon/komoot demo",
+        "query": "https://photon.komoot.io/api/?q=San+Francisco+Oakland+Bay+Bridge&limit=3&bbox=-122.7%2C37.6%2C-122.15%2C38.0",
+        "retrieved": "2026-10-20T23:22:29.468Z",
+        "responseSha256": "01f07732813c8327a8bd62304d1ba94bd0d5ed89263c09905ce25948820627ac"
+      },
+      "approximation": "Midpoint of the returned named OSM way extents; bridge corridor reference, not surveyed point",
+      "rawFeatures": [
+        {
+          "type": "Feature",
+          "properties": {
+            "osm_type": "W",
+            "osm_id": 1011568818,
+            "osm_key": "man_made",
+            "osm_value": "bridge",
+            "type": "house",
+            "name": "San Francisco–Oakland Bay Bridge West Span",
+            "street": "Main Street",
+            "locality": "Rincon Hill",
+            "city": "San Francisco",
+            "state": "California",
+            "country": "United States",
+            "postcode": "94017",
+            "countrycode": "US",
+            "extent": [
+              -122.3908389,
+              37.8089948,
+              -122.3662434,
+              37.7861055
+            ]
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -122.3765763,
+              37.7993876
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

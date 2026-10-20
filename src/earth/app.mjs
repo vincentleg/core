@@ -249,7 +249,7 @@ function wire() {
   $('ea-about-btn').onclick = () => { const a = $('ea-about'); a.hidden = !a.hidden; $('ea-about-btn').setAttribute('aria-expanded', String(!a.hidden)); };
   document.querySelectorAll('[data-close]').forEach(b => b.onclick = () => { $(b.dataset.close).hidden = true; });
   $('ea-demo-choice').addEventListener('click', e => { const b = e.target.closest('[data-demo-mode]'); if (!b) return; $('ea-demo-choice').hidden = true; if (b.dataset.demoMode !== 'exit') launchDemo(b.dataset.demoMode); else S.demoReturn?.focus?.(); });
-  $('ea-q').addEventListener('change', e => search(e.target.value)); $('ea-q').addEventListener('keydown', e => { if (e.key === 'Enter') search(e.target.value); });
+  $('ea-q').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); if (globalThis.CORE_INTELLIGENCE) globalThis.CORE_INTELLIGENCE.submit(e.target.value); else search(e.target.value); } });
   addEventListener('keydown', e => {
     if (e.target.closest?.('input, textarea, select')) return;
     const k = e.key.toLowerCase();

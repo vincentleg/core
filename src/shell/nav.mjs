@@ -40,7 +40,7 @@ export function render(el, { active }) {
         <a href="world.html#investigations">${icon('search', 15)} ${esc(T('Agent investigations · recorded', 'Enquêtes des agents · enregistrées'))}</a><a href="world.html#mission=mission.sf.mobility">${icon('route', 15)} ${esc(T('CORE City · SF research dossier', 'CORE City · dossier de recherche SF'))}</a><a href="commons.html#knowledge">${icon('book', 15)} ${esc(T('Public research & knowledge', 'Recherche publique et connaissances'))}</a>
         <a href="dialogue.html">${icon('create', 15)} ${esc(T('Dialogue & Idea Vault', 'Dialogue et coffre à idées'))}</a><a href="commons.html#experts">${icon('collaborate', 15)} ${esc(T('Together (experimental, fictional people)', 'Ensemble (expérimental, personnes fictives)'))}</a><a href="commons.html#trust">${icon('trust', 15)} TRUST</a><a href="progress.html">${icon('chart', 15)} ${esc(t('nav.progress'))}</a><a href="commons.html#journey">${icon('route', 15)} ${esc(t('nav.journey'))} ${done}/8</a></div></details>
       <a class="trust" href="commons.html#trust" title="TRUST">${icon('trust', 16)}<span>TRUST</span></a></div>`;
-  const openCmp = () => import('../voice/companion.mjs').then(m => m.open());
+  const openCmp = () => globalThis.CORE_INTELLIGENCE ? globalThis.CORE_INTELLIGENCE.focus() : import('../voice/companion.mjs').then(m => m.open());
   el.querySelector('[data-companion]').onclick = openCmp;
   el.querySelector('[data-demo]').onclick = e => { if (globalThis.CORE_EARTH?.openDemoChoice) { e.preventDefault(); globalThis.CORE_EARTH.openDemoChoice(); } };
   el.querySelector('[data-lang]').onchange = e => setLang(e.target.value);

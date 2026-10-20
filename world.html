@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self' blob: data: https://tiles.openfreemap.org https://gibs.earthdata.nasa.gov https://s3.amazonaws.com http://127.0.0.1:11434; worker-src 'self' blob:; child-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self' blob: data: https://tiles.openfreemap.org https://gibs.earthdata.nasa.gov https://s3.amazonaws.com https://photon.komoot.io http://127.0.0.1:11434; worker-src 'self' blob:; child-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex">
 <meta name="core-ready" content="CORE_EARTH">
@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="src/world/world.css">
 <link rel="stylesheet" href="src/ui/living-earth.css">
 <link rel="stylesheet" href="src/earth/earth.css">
+<link rel="stylesheet" href="src/intelligence/core/core.css">
 </head>
 <body class="earth">
 <a class="skip" href="#ea-problems-btn" data-fr="Aller aux problèmes et missions (navigation sans 3D)">Skip to problems and missions (no 3D needed)</a>
@@ -36,6 +37,15 @@
     <p class="fine ea-hero-note" data-fr="Prototype fonctionnel · données publiques datées · IA enregistrée sur le site public · contributions locales, sans compte · aucun impact réel vérifié.">Working preview · dated public data · recorded AI on the public site · local contributions, no account · no verified real-world impact.</p>
     <details class="ea-horizon"><summary data-fr="Notre horizon de civilisation">Our civilizational horizon</summary><p data-fr="CORE existe pour accélérer la civilisation humaine en transformant les problèmes du monde en preuves, les preuves en solutions et les solutions en progrès mesurables.">CORE exists to accelerate human civilization by turning the world's problems into evidence, evidence into solutions, and solutions into measurable progress.</p><p data-fr="Ambition de long terme : un modèle évolutif de l’énergie, de l’eau, des infrastructures et des connaissances de la Terre. Les types I, II et III de Kardashev donnent un horizon, pas une capacité ni un résultat promis.">Long-term ambition: an evolving model of Earth’s energy, water, infrastructure and knowledge. Kardashev Types I, II and III frame the horizon, not a capability or promised outcome.</p><a data-fr="Vision, applications et horizons →" href="solutions.html#vision">Vision, applications & roadmap →</a></details>
     <a class="ea-manifesto" href="manifesto.html" data-fr="Lire le Manifeste CORE →">Read the CORE Manifesto →</a>
+  </section>
+
+  <section id="core-intelligence" class="ci" aria-label="CORE Intelligence">
+    <div class="ci-heading"><b>CORE INTELLIGENCE</b><span data-ci-mode>AI OFFLINE · indexed search</span><button type="button" class="ghost" data-ci-collapse aria-label="Show or hide responses">⌄</button></div>
+    <form class="ci-form" data-ci-form><label class="sr-only" for="ci-query">Ask CORE</label><input id="ci-query" data-ci-query type="text" maxlength="1200" autocomplete="off" placeholder="Ask CORE anything. Explore Earth, find agents, investigate problems…"><button type="button" class="ci-mic" data-ci-mic aria-label="Start or stop voice conversation" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3M8 22h8"/></svg></button><button type="submit" class="primary" data-ci-submit aria-label="Send">↑</button><button type="button" data-ci-cancel hidden>Stop</button></form>
+    <p class="ci-state" data-ci-state role="status" aria-live="polite">Ready · type a request or choose a voice option.</p>
+    <details class="ci-options"><summary>Voice, privacy &amp; session</summary><label><input type="checkbox" data-ci-conversation>Voice conversation · visible listening between turns</label><label><input type="checkbox" data-ci-speak checked>Spoken replies using an available local device voice</label><label><input type="checkbox" data-ci-browser>I consent to browser speech recognition, which may send audio to its provider. Otherwise use local Whisper when available.</label><label><input type="checkbox" data-ci-geocode>Search additional places with Photon/komoot (sends submitted location query; OpenStreetMap, ODbL; limited demo service, no availability guarantee)</label><p>Microphone starts only on your action. CORE retains no raw audio. Session text stays in memory; local AI sends it only to local Ollama. Public conversational AI is offline.</p><button type="button" data-ci-reset>Reset conversation</button></details>
+    <div class="ci-examples"><button type="button" class="ghost" data-ci-example>Take me to San Francisco.</button><button type="button" class="ghost" data-ci-example>Find an urban planning agent near Oakland.</button><button type="button" class="ghost" data-ci-example>What can CORE actually do today?</button></div>
+    <div class="ci-output" data-ci-output aria-live="polite" aria-label="CORE responses" hidden></div>
   </section>
 
   <p id="ea-demo-loading" class="fine le-glass ea-demo-pending" role="status" aria-live="polite" hidden></p>
@@ -120,5 +130,6 @@
   <p id="fatal" class="fatal" role="alert" hidden></p>
 </main>
 <script type="module" src="src/earth/app.mjs"></script>
+<script type="module" src="src/intelligence/core/ui.mjs"></script>
 </body>
 </html>
