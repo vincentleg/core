@@ -8,9 +8,9 @@
    "publisher": "California Independent System Operator",
    "license": "Public operational data (attribution CAISO)",
    "url": "https://www.caiso.com/todays-outlook",
-   "title": "Réseau CAISO 2026-10-20 05:05 (Pacifique) : 10 % renouvelables (hors grande hydraulique)",
-   "summary": "Production instantanée 21821 MW, dont solaire 0 MW, éolien 1039 MW, gaz 12917 MW, importations 3961 MW.",
-   "published": "2026-10-20T12:09:13.620Z",
+   "title": "Réseau CAISO 2026-10-20 10:25 (Pacifique) : 62 % renouvelables (hors grande hydraulique)",
+   "summary": "Production instantanée 31629 MW, dont solaire 17744 MW, éolien 864 MW, gaz 9246 MW, importations 922 MW.",
+   "published": "2026-10-20T17:31:25.853Z",
    "kind": "observation",
    "domains": [
     "energy"
@@ -18,10 +18,10 @@
    "geo": null,
    "geo_basis": "none (not geolocated)",
    "data": {
-    "time": "2026-10-20 05:05",
-    "total_mw": 21821,
-    "renewables_mw": 2166,
-    "renewables_pct": 10,
+    "time": "2026-10-20 10:25",
+    "total_mw": 31629,
+    "renewables_mw": 19725,
+    "renewables_pct": 62,
     "area": "CAISO balancing area"
    },
    "confidence": {
@@ -50,11 +50,12 @@
      }
     ]
    },
-   "hash": "e5e0a1f1",
-   "retrieved_at": "2026-10-20T12:09:13.620Z",
+   "hash": "625a2668",
+   "retrieved_at": "2026-10-20T17:31:25.853Z",
    "first_seen": "2026-10-20T12:09:13.620Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
-   "revision": 1
+   "last_seen": "2026-10-20T17:31:25.853Z",
+   "revision": 2,
+   "changed_at": "2026-10-20T17:31:25.853Z"
   },
   {
    "id": "caiso-fuelmix:caiso@2026-10-19",
@@ -119,7 +120,7 @@
    "publisher": "SF 311",
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/d/vw6y-z8j6",
-   "title": "311 · Blocked Street and Sidewalk : 44 demande(s) en 7 j (South of Market)",
+   "title": "311 · Blocked Street and Sidewalk : 49 demande(s) en 7 j (South of Market)",
    "summary": "Compte agrégé des demandes 311 du 2026-10-13 au 2026-10-20 ; demandes signalées, non vérifiées.",
    "published": "2026-10-20T00:00:00.000Z",
    "kind": "statistic",
@@ -132,7 +133,7 @@
    "geo_basis": "none (not geolocated)",
    "data": {
     "service": "Blocked Street and Sidewalk",
-    "count": 44,
+    "count": 49,
     "period": [
      "2026-10-13",
      "2026-10-20"
@@ -165,11 +166,12 @@
      }
     ]
    },
-   "hash": "b0e04ebc",
-   "retrieved_at": "2026-10-20T00:19:03.582Z",
+   "hash": "25b99944",
+   "retrieved_at": "2026-10-20T17:31:25.853Z",
    "first_seen": "2026-10-20T00:19:03.582Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
-   "revision": 1
+   "last_seen": "2026-10-20T17:31:25.853Z",
+   "revision": 2,
+   "changed_at": "2026-10-20T17:31:25.853Z"
   },
   {
    "id": "datasf-311-soma:Damage Property@2026-10-20",
@@ -178,7 +180,7 @@
    "publisher": "SF 311",
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/d/vw6y-z8j6",
-   "title": "311 · Damage Property : 12 demande(s) en 7 j (South of Market)",
+   "title": "311 · Damage Property : 13 demande(s) en 7 j (South of Market)",
    "summary": "Compte agrégé des demandes 311 du 2026-10-13 au 2026-10-20 ; demandes signalées, non vérifiées.",
    "published": "2026-10-20T00:00:00.000Z",
    "kind": "statistic",
@@ -190,7 +192,7 @@
    "geo_basis": "none (not geolocated)",
    "data": {
     "service": "Damage Property",
-    "count": 12,
+    "count": 13,
     "period": [
      "2026-10-13",
      "2026-10-20"
@@ -223,11 +225,12 @@
      }
     ]
    },
-   "hash": "086e7140",
-   "retrieved_at": "2026-10-20T00:19:03.582Z",
+   "hash": "c456f8f8",
+   "retrieved_at": "2026-10-20T17:31:25.853Z",
    "first_seen": "2026-10-20T00:19:03.582Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
-   "revision": 1
+   "last_seen": "2026-10-20T17:31:25.853Z",
+   "revision": 2,
+   "changed_at": "2026-10-20T17:31:25.853Z"
   },
   {
    "id": "datasf-311-soma:Encampment@2026-10-20",
@@ -236,7 +239,7 @@
    "publisher": "SF 311",
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/d/vw6y-z8j6",
-   "title": "311 · Encampment : 100 demande(s) en 7 j (South of Market)",
+   "title": "311 · Encampment : 122 demande(s) en 7 j (South of Market)",
    "summary": "Compte agrégé des demandes 311 du 2026-10-13 au 2026-10-20 ; demandes signalées, non vérifiées.",
    "published": "2026-10-20T00:00:00.000Z",
    "kind": "statistic",
@@ -248,7 +251,7 @@
    "geo_basis": "none (not geolocated)",
    "data": {
     "service": "Encampment",
-    "count": 100,
+    "count": 122,
     "period": [
      "2026-10-13",
      "2026-10-20"
@@ -281,11 +284,12 @@
      }
     ]
    },
-   "hash": "cbb33ab2",
-   "retrieved_at": "2026-10-20T00:19:03.582Z",
+   "hash": "003b9a62",
+   "retrieved_at": "2026-10-20T17:31:25.853Z",
    "first_seen": "2026-10-20T00:19:03.582Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
-   "revision": 1
+   "last_seen": "2026-10-20T17:31:25.853Z",
+   "revision": 2,
+   "changed_at": "2026-10-20T17:31:25.853Z"
   },
   {
    "id": "datasf-311-soma:General Request@2026-10-20",
@@ -294,7 +298,7 @@
    "publisher": "SF 311",
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/d/vw6y-z8j6",
-   "title": "311 · General Request : 137 demande(s) en 7 j (South of Market)",
+   "title": "311 · General Request : 150 demande(s) en 7 j (South of Market)",
    "summary": "Compte agrégé des demandes 311 du 2026-10-13 au 2026-10-20 ; demandes signalées, non vérifiées.",
    "published": "2026-10-20T00:00:00.000Z",
    "kind": "statistic",
@@ -306,7 +310,7 @@
    "geo_basis": "none (not geolocated)",
    "data": {
     "service": "General Request",
-    "count": 137,
+    "count": 150,
     "period": [
      "2026-10-13",
      "2026-10-20"
@@ -339,11 +343,12 @@
      }
     ]
    },
-   "hash": "34b5949c",
-   "retrieved_at": "2026-10-20T00:19:03.582Z",
+   "hash": "b4868672",
+   "retrieved_at": "2026-10-20T17:31:25.853Z",
    "first_seen": "2026-10-20T00:19:03.582Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
-   "revision": 1
+   "last_seen": "2026-10-20T17:31:25.853Z",
+   "revision": 2,
+   "changed_at": "2026-10-20T17:31:25.853Z"
   },
   {
    "id": "datasf-311-soma:Graffiti Private@2026-10-20",
@@ -352,7 +357,7 @@
    "publisher": "SF 311",
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/d/vw6y-z8j6",
-   "title": "311 · Graffiti Private : 20 demande(s) en 7 j (South of Market)",
+   "title": "311 · Graffiti Private : 21 demande(s) en 7 j (South of Market)",
    "summary": "Compte agrégé des demandes 311 du 2026-10-13 au 2026-10-20 ; demandes signalées, non vérifiées.",
    "published": "2026-10-20T00:00:00.000Z",
    "kind": "statistic",
@@ -364,7 +369,7 @@
    "geo_basis": "none (not geolocated)",
    "data": {
     "service": "Graffiti Private",
-    "count": 20,
+    "count": 21,
     "period": [
      "2026-10-13",
      "2026-10-20"
@@ -397,11 +402,12 @@
      }
     ]
    },
-   "hash": "7f01ef70",
-   "retrieved_at": "2026-10-20T00:19:03.582Z",
+   "hash": "b2669a92",
+   "retrieved_at": "2026-10-20T17:31:25.853Z",
    "first_seen": "2026-10-20T00:19:03.582Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
-   "revision": 1
+   "last_seen": "2026-10-20T17:31:25.853Z",
+   "revision": 2,
+   "changed_at": "2026-10-20T17:31:25.853Z"
   },
   {
    "id": "datasf-311-soma:Graffiti Public@2026-10-20",
@@ -410,7 +416,7 @@
    "publisher": "SF 311",
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/d/vw6y-z8j6",
-   "title": "311 · Graffiti Public : 24 demande(s) en 7 j (South of Market)",
+   "title": "311 · Graffiti Public : 27 demande(s) en 7 j (South of Market)",
    "summary": "Compte agrégé des demandes 311 du 2026-10-13 au 2026-10-20 ; demandes signalées, non vérifiées.",
    "published": "2026-10-20T00:00:00.000Z",
    "kind": "statistic",
@@ -422,7 +428,7 @@
    "geo_basis": "none (not geolocated)",
    "data": {
     "service": "Graffiti Public",
-    "count": 24,
+    "count": 27,
     "period": [
      "2026-10-13",
      "2026-10-20"
@@ -455,11 +461,12 @@
      }
     ]
    },
-   "hash": "fa249286",
-   "retrieved_at": "2026-10-20T00:19:03.582Z",
+   "hash": "3b5f009e",
+   "retrieved_at": "2026-10-20T17:31:25.853Z",
    "first_seen": "2026-10-20T00:19:03.582Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
-   "revision": 1
+   "last_seen": "2026-10-20T17:31:25.853Z",
+   "revision": 2,
+   "changed_at": "2026-10-20T17:31:25.853Z"
   },
   {
    "id": "datasf-311-soma:Litter Receptacle Maintenance@2026-10-20",
@@ -516,7 +523,7 @@
    "hash": "ecd811fe",
    "retrieved_at": "2026-10-20T00:19:03.582Z",
    "first_seen": "2026-10-20T00:19:03.582Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -526,7 +533,7 @@
    "publisher": "SF 311",
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/d/vw6y-z8j6",
-   "title": "311 · Noise : 24 demande(s) en 7 j (South of Market)",
+   "title": "311 · Noise : 25 demande(s) en 7 j (South of Market)",
    "summary": "Compte agrégé des demandes 311 du 2026-10-13 au 2026-10-20 ; demandes signalées, non vérifiées.",
    "published": "2026-10-20T00:00:00.000Z",
    "kind": "statistic",
@@ -538,7 +545,7 @@
    "geo_basis": "none (not geolocated)",
    "data": {
     "service": "Noise",
-    "count": 24,
+    "count": 25,
     "period": [
      "2026-10-13",
      "2026-10-20"
@@ -571,11 +578,12 @@
      }
     ]
    },
-   "hash": "235d55b0",
-   "retrieved_at": "2026-10-20T00:19:03.582Z",
+   "hash": "3eecfea8",
+   "retrieved_at": "2026-10-20T17:31:25.853Z",
    "first_seen": "2026-10-20T00:19:03.582Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
-   "revision": 1
+   "last_seen": "2026-10-20T17:31:25.853Z",
+   "revision": 2,
+   "changed_at": "2026-10-20T17:31:25.853Z"
   },
   {
    "id": "datasf-311-soma:Parking Enforcement@2026-10-20",
@@ -584,7 +592,7 @@
    "publisher": "SF 311",
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/d/vw6y-z8j6",
-   "title": "311 · Parking Enforcement : 93 demande(s) en 7 j (South of Market)",
+   "title": "311 · Parking Enforcement : 102 demande(s) en 7 j (South of Market)",
    "summary": "Compte agrégé des demandes 311 du 2026-10-13 au 2026-10-20 ; demandes signalées, non vérifiées.",
    "published": "2026-10-20T00:00:00.000Z",
    "kind": "statistic",
@@ -597,7 +605,7 @@
    "geo_basis": "none (not geolocated)",
    "data": {
     "service": "Parking Enforcement",
-    "count": 93,
+    "count": 102,
     "period": [
      "2026-10-13",
      "2026-10-20"
@@ -630,11 +638,12 @@
      }
     ]
    },
-   "hash": "453d0548",
-   "retrieved_at": "2026-10-20T00:19:03.582Z",
+   "hash": "9dcc0d70",
+   "retrieved_at": "2026-10-20T17:31:25.853Z",
    "first_seen": "2026-10-20T00:19:03.582Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
-   "revision": 1
+   "last_seen": "2026-10-20T17:31:25.853Z",
+   "revision": 2,
+   "changed_at": "2026-10-20T17:31:25.853Z"
   },
   {
    "id": "datasf-311-soma:Street and Sidewalk Cleaning@2026-10-20",
@@ -643,7 +652,7 @@
    "publisher": "SF 311",
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/d/vw6y-z8j6",
-   "title": "311 · Street and Sidewalk Cleaning : 423 demande(s) en 7 j (South of Market)",
+   "title": "311 · Street and Sidewalk Cleaning : 504 demande(s) en 7 j (South of Market)",
    "summary": "Compte agrégé des demandes 311 du 2026-10-13 au 2026-10-20 ; demandes signalées, non vérifiées.",
    "published": "2026-10-20T00:00:00.000Z",
    "kind": "statistic",
@@ -656,7 +665,7 @@
    "geo_basis": "none (not geolocated)",
    "data": {
     "service": "Street and Sidewalk Cleaning",
-    "count": 423,
+    "count": 504,
     "period": [
      "2026-10-13",
      "2026-10-20"
@@ -689,11 +698,12 @@
      }
     ]
    },
-   "hash": "0f47b55c",
-   "retrieved_at": "2026-10-20T00:19:03.582Z",
+   "hash": "86bdf3a8",
+   "retrieved_at": "2026-10-20T17:31:25.853Z",
    "first_seen": "2026-10-20T00:19:03.582Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
-   "revision": 1
+   "last_seen": "2026-10-20T17:31:25.853Z",
+   "revision": 2,
+   "changed_at": "2026-10-20T17:31:25.853Z"
   },
   {
    "id": "datasf-business-soma:soma@2026-10-20",
@@ -749,6 +759,296 @@
    "retrieved_at": "2026-10-20T06:34:45.565Z",
    "first_seen": "2026-10-20T06:34:45.565Z",
    "last_seen": "2026-10-20T06:34:45.565Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-building:202610199644",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610199644",
+   "title": "Permis de construire 202610199644 — 370 Townsend St",
+   "summary": "otc alterations permit · statut filed · t.i. work at 1st floor and basement. add opening at 1st floor, with connecting stair/tiered platform to basement, fill in concrete floor opening at 1st floor. …",
+   "published": "2026-10-19T22:49:16.000Z",
+   "kind": "proposal",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.396787569,
+     37.776049226
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610199644",
+    "status": "filed"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "4beb92fc",
+   "retrieved_at": "2026-10-20T17:31:25.853Z",
+   "first_seen": "2026-10-20T17:31:25.853Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-building:202610199643",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610199643",
+   "title": "Permis de construire 202610199643 — 500 Folsom St",
+   "summary": "otc alterations permit · statut filed · address correction, for 202606131170. the correct address is 500 folsom unit 500a",
+   "published": "2026-10-19T22:29:02.000Z",
+   "kind": "proposal",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.394721225,
+     37.787292294
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610199643",
+    "status": "filed"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "a0989c1b",
+   "retrieved_at": "2026-10-20T17:31:25.853Z",
+   "first_seen": "2026-10-20T17:31:25.853Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-building:202610199640",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610199640",
+   "title": "Permis de construire 202610199640 — 500 Folsom St",
+   "summary": "otc alterations permit · statut filed · address correction, for 202603187796. the correct address is 500 folsom unit 500 b",
+   "published": "2026-10-19T22:19:06.000Z",
+   "kind": "proposal",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.394721225,
+     37.787292294
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610199640",
+    "status": "filed"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "a6eea251",
+   "retrieved_at": "2026-10-20T17:31:25.853Z",
+   "first_seen": "2026-10-20T17:31:25.853Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-building:202610199613",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610199613",
+   "title": "Permis de construire 202610199613 — 589 Post St",
+   "summary": "otc alterations permit · statut issued · unit 504: clean walls,windows,framings,install 4 sheets of drywall on ceiling,put compound,primer & paing whole unit. floor: remove old floring, pre, install n…",
+   "published": "2026-10-19T22:04:56.000Z",
+   "kind": "approved-decision",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.411411917,
+     37.787800435
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610199613",
+    "status": "issued"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "199100d7",
+   "retrieved_at": "2026-10-20T17:31:25.853Z",
+   "first_seen": "2026-10-20T17:31:25.853Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-building:202610199636",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610199636",
+   "title": "Permis de construire 202610199636 — 555 Mission St",
+   "summary": "otc alterations permit · statut filed · suite 1850 interior tenant improvement, selective demo and construction of non structural partitions, light fixtures, ceilings, millwork and plumbing fixtures.…",
+   "published": "2026-10-19T21:53:35.000Z",
+   "kind": "proposal",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.39867393,
+     37.788601026
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610199636",
+    "status": "filed"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "3005c266",
+   "retrieved_at": "2026-10-20T17:31:25.853Z",
+   "first_seen": "2026-10-20T17:31:25.853Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -815,7 +1115,7 @@
    "hash": "b5e83c10",
    "retrieved_at": "2026-10-19T20:35:05.785Z",
    "first_seen": "2026-10-19T20:35:05.785Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -882,7 +1182,7 @@
    "hash": "3c7de393",
    "retrieved_at": "2026-10-19T20:35:05.785Z",
    "first_seen": "2026-10-19T20:35:05.785Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -949,7 +1249,7 @@
    "hash": "0fcd415e",
    "retrieved_at": "2026-10-19T20:35:05.785Z",
    "first_seen": "2026-10-19T20:35:05.785Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -1005,7 +1305,7 @@
    "hash": "8f824f19",
    "retrieved_at": "2026-10-20T06:34:45.565Z",
    "first_seen": "2026-10-20T06:34:45.565Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -1062,7 +1362,7 @@
    "hash": "9cdbb95c",
    "retrieved_at": "2026-10-20T06:34:45.565Z",
    "first_seen": "2026-10-20T06:34:45.565Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -1111,7 +1411,7 @@
    "hash": "4de7cff6",
    "retrieved_at": "2026-10-19T17:45:49.189Z",
    "first_seen": "2026-10-19T17:45:49.189Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -2062,7 +2362,7 @@
    "hash": "300f477f",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -2173,7 +2473,7 @@
    "hash": "828b8ba5",
    "retrieved_at": "2026-10-20T06:34:45.565Z",
    "first_seen": "2026-10-19T04:38:37.424Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 2,
    "changed_at": "2026-10-20T06:34:45.565Z"
   },
@@ -2230,7 +2530,7 @@
    "hash": "b07abe2e",
    "retrieved_at": "2026-10-20T06:34:45.565Z",
    "first_seen": "2026-10-19T04:38:37.424Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 2,
    "changed_at": "2026-10-20T06:34:45.565Z"
   },
@@ -2928,7 +3228,7 @@
    "hash": "c3510c19",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -2980,7 +3280,7 @@
    "hash": "621522a2",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -3032,7 +3332,7 @@
    "hash": "b26d38a9",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -3084,7 +3384,7 @@
    "hash": "2aba72c6",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -3135,7 +3435,7 @@
    "hash": "b7eb8673",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -3186,7 +3486,7 @@
    "hash": "3898396c",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -3236,7 +3536,7 @@
    "hash": "1888cd05",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -3294,7 +3594,7 @@
    "hash": "ce5c3fc5",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -3606,7 +3906,7 @@
    "hash": "1bd351bf",
    "retrieved_at": "2026-10-20T06:34:45.565Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 2,
    "changed_at": "2026-10-20T06:34:45.565Z"
   },
@@ -3663,7 +3963,7 @@
    "hash": "f9efb5c0",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -3719,7 +4019,7 @@
    "hash": "06fed6b9",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -3777,7 +4077,7 @@
    "hash": "2d21acdd",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -3834,7 +4134,7 @@
    "hash": "7c7be3d9",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -3891,7 +4191,7 @@
    "hash": "5427b3b6",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -3947,7 +4247,7 @@
    "hash": "12417069",
    "retrieved_at": "2026-10-20T06:34:45.565Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 2,
    "changed_at": "2026-10-20T06:34:45.565Z"
   },
@@ -3999,7 +4299,7 @@
    "hash": "1062e34d",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -4105,7 +4405,7 @@
    "hash": "15909797",
    "retrieved_at": "2026-10-16T04:30:36.271Z",
    "first_seen": "2026-10-16T04:30:36.271Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -4155,7 +4455,7 @@
    "hash": "fcf0e748",
    "retrieved_at": "2026-10-16T04:30:36.271Z",
    "first_seen": "2026-10-16T04:30:36.271Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -4853,7 +5153,7 @@
    "hash": "548f2b3a",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -4911,7 +5211,7 @@
    "hash": "ecea931b",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -4969,7 +5269,7 @@
    "hash": "1b6df4f3",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -5027,7 +5327,7 @@
    "hash": "23141eac",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -5078,7 +5378,7 @@
    "hash": "6058fbd5",
    "retrieved_at": "2026-10-15T23:17:27.806Z",
    "first_seen": "2026-10-15T23:17:27.806Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -5136,7 +5436,7 @@
    "hash": "2ebdd5e8",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 4,
    "changed_at": "2026-10-17T17:31:53.887Z"
   },
@@ -5196,7 +5496,7 @@
    "hash": "31930c88",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -5247,7 +5547,7 @@
    "hash": "530d8794",
    "retrieved_at": "2026-10-15T20:31:37.255Z",
    "first_seen": "2026-10-15T20:31:37.255Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -5298,7 +5598,7 @@
    "hash": "eb3a1c45",
    "retrieved_at": "2026-10-15T20:31:37.255Z",
    "first_seen": "2026-10-15T20:31:37.255Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -5350,7 +5650,7 @@
    "hash": "0a4d5bc3",
    "retrieved_at": "2026-10-15T20:31:37.255Z",
    "first_seen": "2026-10-15T20:31:37.255Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -5402,7 +5702,7 @@
    "hash": "7ed6ed30",
    "retrieved_at": "2026-10-15T20:31:37.255Z",
    "first_seen": "2026-10-15T20:31:37.255Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -5460,7 +5760,7 @@
    "hash": "4d3229a2",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -5518,7 +5818,7 @@
    "hash": "83555753",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 4,
    "changed_at": "2026-10-17T17:31:53.887Z"
   },
@@ -5628,7 +5928,7 @@
    "hash": "0515e7fb",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -5740,7 +6040,7 @@
    "hash": "3869913c",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -5801,7 +6101,7 @@
    "hash": "a9e4d02d",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -5862,7 +6162,7 @@
    "hash": "af7a353a",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -5923,7 +6223,7 @@
    "hash": "2d3efd05",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -5984,7 +6284,7 @@
    "hash": "dd0a0623",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -6042,7 +6342,7 @@
    "hash": "40426367",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -6300,7 +6600,7 @@
    "hash": "63ee5806",
    "retrieved_at": "2026-10-20T06:34:45.565Z",
    "first_seen": "2026-10-16T11:21:33.897Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-20T06:34:45.565Z"
   },
@@ -6357,7 +6657,7 @@
    "hash": "abc7e3b9",
    "retrieved_at": "2026-10-16T11:21:33.897Z",
    "first_seen": "2026-10-16T11:21:33.897Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -6413,7 +6713,7 @@
    "hash": "acceccde",
    "retrieved_at": "2026-10-16T11:21:33.897Z",
    "first_seen": "2026-10-16T11:21:33.897Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -6469,7 +6769,7 @@
    "hash": "8be52f72",
    "retrieved_at": "2026-10-16T11:21:33.897Z",
    "first_seen": "2026-10-16T11:21:33.897Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -6525,7 +6825,7 @@
    "hash": "d1948351",
    "retrieved_at": "2026-10-20T06:34:45.565Z",
    "first_seen": "2026-10-16T11:21:33.897Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-20T06:34:45.565Z"
   },
@@ -7330,7 +7630,7 @@
    "hash": "f62b5a41",
    "retrieved_at": "2026-10-15T06:03:45.421Z",
    "first_seen": "2026-10-15T06:03:45.421Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -7388,7 +7688,7 @@
    "hash": "f0575b41",
    "retrieved_at": "2026-10-15T16:59:52.146Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 4,
    "changed_at": "2026-10-15T16:59:52.146Z"
   },
@@ -7449,7 +7749,7 @@
    "hash": "b34c03b4",
    "retrieved_at": "2026-10-15T16:59:52.146Z",
    "first_seen": "2026-10-15T16:59:52.146Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -7508,7 +7808,7 @@
    "hash": "c6040b6a",
    "retrieved_at": "2026-10-15T16:59:52.146Z",
    "first_seen": "2026-10-15T16:59:52.146Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -7566,7 +7866,7 @@
    "hash": "85ab51b8",
    "retrieved_at": "2026-10-15T16:59:52.146Z",
    "first_seen": "2026-10-14T14:56:35.337Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 2,
    "changed_at": "2026-10-15T16:59:52.146Z"
   },
@@ -7617,7 +7917,7 @@
    "hash": "f813cdf2",
    "retrieved_at": "2026-10-15T06:03:45.421Z",
    "first_seen": "2026-10-15T06:03:45.421Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -7727,7 +8027,7 @@
    "hash": "c60e9fbd",
    "retrieved_at": "2026-10-15T16:59:52.146Z",
    "first_seen": "2026-10-15T16:59:52.146Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -7903,7 +8203,7 @@
    "hash": "b368efbd",
    "retrieved_at": "2026-10-15T16:59:52.146Z",
    "first_seen": "2026-10-15T16:59:52.146Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -7961,7 +8261,7 @@
    "hash": "6969e696",
    "retrieved_at": "2026-10-15T16:59:52.146Z",
    "first_seen": "2026-10-14T14:56:35.337Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 2,
    "changed_at": "2026-10-15T16:59:52.146Z"
   },
@@ -7972,7 +8272,7 @@
    "publisher": "Department of Building Inspection",
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610149406",
-   "title": "Permis de construire 202610149406 — 63 Bluxome St",
+   "title": "Permis de construire 202610149406 — 69 Bluxome St",
    "summary": "otc alterations permit · statut filed · rev to pa# 2024-1212-6716: per inspection comment on 10/9/2026 for concrete cap due to the poor condition at the top of the existing urm along grid line a.",
    "published": "2026-10-14T17:39:08.000Z",
    "kind": "proposal",
@@ -8017,12 +8317,12 @@
      }
     ]
    },
-   "hash": "a49526c3",
-   "retrieved_at": "2026-10-20T12:09:13.620Z",
+   "hash": "7b164849",
+   "retrieved_at": "2026-10-20T17:31:25.853Z",
    "first_seen": "2026-10-15T16:59:52.146Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
-   "revision": 8,
-   "changed_at": "2026-10-20T12:09:13.620Z"
+   "last_seen": "2026-10-20T17:31:25.853Z",
+   "revision": 9,
+   "changed_at": "2026-10-20T17:31:25.853Z"
   },
   {
    "id": "datasf-closures:27443274",
@@ -8280,7 +8580,7 @@
    "hash": "bb491848",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-15T11:26:48.126Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -8336,7 +8636,7 @@
    "hash": "4c2320fc",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-15T11:26:48.126Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -8392,7 +8692,7 @@
    "hash": "e1ea0319",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-15T11:26:48.126Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -8448,7 +8748,7 @@
    "hash": "a62233e8",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-15T11:26:48.126Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -8504,7 +8804,7 @@
    "hash": "32c47d6d",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-15T11:26:48.126Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -8560,7 +8860,7 @@
    "hash": "729ac362",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-15T11:26:48.126Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -9319,7 +9619,7 @@
    "hash": "6a91c0ed",
    "retrieved_at": "2026-10-14T01:24:30.092Z",
    "first_seen": "2026-10-14T01:24:30.092Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -9372,7 +9672,7 @@
    "hash": "78ced00e",
    "retrieved_at": "2026-10-14T01:24:30.092Z",
    "first_seen": "2026-10-14T01:24:30.092Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -9423,7 +9723,7 @@
    "hash": "e2242495",
    "retrieved_at": "2026-10-14T01:24:30.092Z",
    "first_seen": "2026-10-14T01:24:30.092Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -9473,7 +9773,7 @@
    "hash": "60120faf",
    "retrieved_at": "2026-10-14T01:24:30.092Z",
    "first_seen": "2026-10-14T01:24:30.092Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -9531,7 +9831,7 @@
    "hash": "749c6553",
    "retrieved_at": "2026-10-14T14:56:35.337Z",
    "first_seen": "2026-10-14T14:56:35.337Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -9580,7 +9880,7 @@
    "hash": "c6b03d4d",
    "retrieved_at": "2026-10-14T01:24:30.092Z",
    "first_seen": "2026-10-14T01:24:30.092Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -9625,7 +9925,7 @@
    "hash": "6b192444",
    "retrieved_at": "2026-10-13T22:48:34.222Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1,
    "confidence": {
     "level": "medium",
@@ -9687,7 +9987,7 @@
    "hash": "e53469bf",
    "retrieved_at": "2026-10-14T14:56:35.337Z",
    "first_seen": "2026-10-14T14:56:35.337Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -9745,7 +10045,7 @@
    "hash": "19ff2de2",
    "retrieved_at": "2026-10-14T14:56:35.337Z",
    "first_seen": "2026-10-14T14:56:35.337Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -9803,7 +10103,7 @@
    "hash": "b231be07",
    "retrieved_at": "2026-10-14T14:56:35.337Z",
    "first_seen": "2026-10-14T14:56:35.337Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -9861,7 +10161,7 @@
    "hash": "297e94a9",
    "retrieved_at": "2026-10-14T14:56:35.337Z",
    "first_seen": "2026-10-14T14:56:35.337Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -9913,7 +10213,7 @@
    "hash": "cf277156",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -9965,7 +10265,7 @@
    "hash": "0df6a75c",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -10023,7 +10323,7 @@
    "hash": "8853c731",
    "retrieved_at": "2026-10-14T14:56:35.337Z",
    "first_seen": "2026-10-14T14:56:35.337Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -10283,7 +10583,7 @@
    "hash": "49ec4e45",
    "retrieved_at": "2026-10-14T08:41:16.587Z",
    "first_seen": "2026-10-14T08:41:16.587Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -10339,7 +10639,7 @@
    "hash": "b3affa4f",
    "retrieved_at": "2026-10-14T08:41:16.587Z",
    "first_seen": "2026-10-14T08:41:16.587Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -10397,7 +10697,7 @@
    "hash": "61250daf",
    "retrieved_at": "2026-10-20T06:34:45.565Z",
    "first_seen": "2026-10-14T08:41:16.587Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-20T06:34:45.565Z"
   },
@@ -10454,7 +10754,7 @@
    "hash": "f66ec32a",
    "retrieved_at": "2026-10-14T08:41:16.587Z",
    "first_seen": "2026-10-14T08:41:16.587Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -10511,7 +10811,7 @@
    "hash": "eb8324d3",
    "retrieved_at": "2026-10-14T08:41:16.587Z",
    "first_seen": "2026-10-14T08:41:16.587Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -10567,7 +10867,7 @@
    "hash": "de5968f7",
    "retrieved_at": "2026-10-16T11:21:33.897Z",
    "first_seen": "2026-10-14T08:41:16.587Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-16T11:21:33.897Z"
   },
@@ -10624,7 +10924,7 @@
    "hash": "17c72c8e",
    "retrieved_at": "2026-10-14T08:41:16.587Z",
    "first_seen": "2026-10-14T08:41:16.587Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -10681,7 +10981,7 @@
    "hash": "69c33998",
    "retrieved_at": "2026-10-14T08:41:16.587Z",
    "first_seen": "2026-10-14T08:41:16.587Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -11378,7 +11678,7 @@
    "hash": "f6a25913",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -11436,7 +11736,7 @@
    "hash": "5932eb3d",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -11493,7 +11793,7 @@
    "hash": "537dd8c4",
    "retrieved_at": "2026-10-14T08:41:16.587Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 4,
    "changed_at": "2026-10-14T08:41:16.587Z"
   },
@@ -11611,7 +11911,7 @@
    "hash": "cad4f217",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 4,
    "changed_at": "2026-10-17T17:31:53.887Z"
   },
@@ -11663,7 +11963,7 @@
    "hash": "38cc52ac",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -11714,7 +12014,7 @@
    "hash": "e5b46f9b",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -11772,7 +12072,7 @@
    "hash": "b5243771",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -11831,7 +12131,7 @@
    "hash": "71eb466f",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -11889,7 +12189,7 @@
    "hash": "580fbacf",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -11947,7 +12247,7 @@
    "hash": "9539e1f3",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -12004,7 +12304,7 @@
    "hash": "94000f33",
    "retrieved_at": "2026-10-14T08:41:16.587Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 4,
    "changed_at": "2026-10-14T08:41:16.587Z"
   },
@@ -12062,7 +12362,7 @@
    "hash": "127ca3fe",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -12120,7 +12420,7 @@
    "hash": "34879f43",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -12177,7 +12477,7 @@
    "hash": "63bd1a74",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -12229,7 +12529,7 @@
    "hash": "6c32cc5c",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -12288,7 +12588,7 @@
    "hash": "dc377f49",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -12347,7 +12647,7 @@
    "hash": "8f3f2c01",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -12459,7 +12759,7 @@
    "hash": "f8cc620a",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -12518,7 +12818,7 @@
    "hash": "7a63959f",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -12577,7 +12877,7 @@
    "hash": "f06a8735",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -12634,7 +12934,7 @@
    "hash": "a18bc174",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -12691,7 +12991,7 @@
    "hash": "7ab244fe",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -12749,7 +13049,7 @@
    "hash": "621b747a",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -12807,7 +13107,7 @@
    "hash": "a9973c59",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -12859,7 +13159,7 @@
    "hash": "58373ded",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -12910,7 +13210,7 @@
    "hash": "61b09041",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -12961,7 +13261,7 @@
    "hash": "129928ae",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -13019,7 +13319,7 @@
    "hash": "c419adad",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13078,7 +13378,7 @@
    "hash": "d631de1b",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13140,7 +13440,7 @@
    "hash": "014af363",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13200,7 +13500,7 @@
    "hash": "be02052e",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13263,7 +13563,7 @@
    "hash": "92ef66e9",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13321,7 +13621,7 @@
    "hash": "cd9cc53b",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13379,7 +13679,7 @@
    "hash": "ebbad4c7",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13437,7 +13737,7 @@
    "hash": "0a860c1a",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13495,7 +13795,7 @@
    "hash": "993d5ba6",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13554,7 +13854,7 @@
    "hash": "ab2aaca4",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13612,7 +13912,7 @@
    "hash": "9e416676",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13669,7 +13969,7 @@
    "hash": "6e041bac",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13727,7 +14027,7 @@
    "hash": "c442bf9d",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13778,7 +14078,7 @@
    "hash": "6346668e",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -13829,7 +14129,7 @@
    "hash": "b7d24e64",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -13879,7 +14179,7 @@
    "hash": "ad4e4465",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -14037,7 +14337,7 @@
    "hash": "89562721",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -14096,7 +14396,7 @@
    "hash": "fef865a3",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -14155,7 +14455,7 @@
    "hash": "2e9dfd37",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -14214,7 +14514,7 @@
    "hash": "6acc2ea7",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -14274,7 +14574,7 @@
    "hash": "e7ee621a",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -14333,7 +14633,7 @@
    "hash": "c5093252",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -14395,7 +14695,7 @@
    "hash": "c541c27c",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -14454,7 +14754,7 @@
    "hash": "ff00d86f",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -14513,7 +14813,7 @@
    "hash": "aa8f1505",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -14572,7 +14872,7 @@
    "hash": "380b5ce1",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -14631,7 +14931,7 @@
    "hash": "6c78304e",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -14688,7 +14988,7 @@
    "hash": "87a0abb1",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -14745,7 +15045,7 @@
    "hash": "29e5350f",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -14802,7 +15102,7 @@
    "hash": "2909998c",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -14852,7 +15152,7 @@
    "hash": "5086c12b",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -14901,7 +15201,7 @@
    "hash": "e186dec9",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -14959,7 +15259,7 @@
    "hash": "508e73a6",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15018,7 +15318,7 @@
    "hash": "4cd184b9",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15077,7 +15377,7 @@
    "hash": "b0bcf886",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15136,7 +15436,7 @@
    "hash": "04ed30f7",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15195,7 +15495,7 @@
    "hash": "1153b5d8",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15254,7 +15554,7 @@
    "hash": "1eb70f16",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15312,7 +15612,7 @@
    "hash": "646da2a9",
    "retrieved_at": "2026-10-16T11:21:33.897Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 4,
    "changed_at": "2026-10-16T11:21:33.897Z"
   },
@@ -15370,7 +15670,7 @@
    "hash": "e09ce019",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15427,7 +15727,7 @@
    "hash": "eb1c0e94",
    "retrieved_at": "2026-10-20T06:34:45.565Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 4,
    "changed_at": "2026-10-20T06:34:45.565Z"
   },
@@ -15485,7 +15785,7 @@
    "hash": "fa79a0d9",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15542,7 +15842,7 @@
    "hash": "f90135a4",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15595,7 +15895,7 @@
    "hash": "798dc130",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -15647,7 +15947,7 @@
    "hash": "b37fc144",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -15705,7 +16005,7 @@
    "hash": "f2165c87",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15767,7 +16067,7 @@
    "hash": "7d095cc3",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15826,7 +16126,7 @@
    "hash": "7f53a3cb",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15885,7 +16185,7 @@
    "hash": "64ac4cc3",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15948,7 +16248,7 @@
    "hash": "23cf0533",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16006,7 +16306,7 @@
    "hash": "00ee6f75",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16063,7 +16363,7 @@
    "hash": "81ec0f21",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16120,7 +16420,7 @@
    "hash": "f992b91a",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16178,7 +16478,7 @@
    "hash": "88cb63bb",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16235,7 +16535,7 @@
    "hash": "25c61724",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16292,7 +16592,7 @@
    "hash": "9a3834bc",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16352,7 +16652,7 @@
    "hash": "869db665",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16405,7 +16705,7 @@
    "hash": "05f7e7e5",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -16457,7 +16757,7 @@
    "hash": "075ffeef",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -16509,7 +16809,7 @@
    "hash": "6f0bab57",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -16567,7 +16867,7 @@
    "hash": "e01b96aa",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16620,7 +16920,7 @@
    "hash": "9d8ea92d",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -16672,7 +16972,7 @@
    "hash": "0b4ca4b5",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -16724,7 +17024,7 @@
    "hash": "c0eb8241",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -16776,7 +17076,7 @@
    "hash": "c0eb8241",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -16828,7 +17128,7 @@
    "hash": "048200e7",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -16880,7 +17180,7 @@
    "hash": "22eafaa9",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -16939,7 +17239,7 @@
    "hash": "9009f6b1",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16998,7 +17298,7 @@
    "hash": "d640b4f5",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17061,7 +17361,7 @@
    "hash": "fe45ea3f",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17120,7 +17420,7 @@
    "hash": "e2a26e64",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17178,7 +17478,7 @@
    "hash": "b2d7963d",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17235,7 +17535,7 @@
    "hash": "4b328f24",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 4,
    "changed_at": "2026-10-15T11:26:48.126Z"
   },
@@ -17293,7 +17593,7 @@
    "hash": "21c86a93",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17343,7 +17643,7 @@
    "hash": "4ab897ea",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17397,7 +17697,7 @@
    "hash": "f6b924db",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -17450,7 +17750,7 @@
    "hash": "f6b924db",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -17503,7 +17803,7 @@
    "hash": "970249f0",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -17562,7 +17862,7 @@
    "hash": "7f0dc932",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17613,7 +17913,7 @@
    "hash": "73da1f15",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -17663,7 +17963,7 @@
    "hash": "6c3e6f4a",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -17721,7 +18021,7 @@
    "hash": "4aabd335",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17782,7 +18082,7 @@
    "hash": "041ecfcd",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17841,7 +18141,7 @@
    "hash": "8181cd62",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17900,7 +18200,7 @@
    "hash": "b7517272",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18017,7 +18317,7 @@
    "hash": "b79c2090",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18077,7 +18377,7 @@
    "hash": "e879daa7",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18134,7 +18434,7 @@
    "hash": "9e5be93c",
    "retrieved_at": "2026-10-20T06:34:45.565Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 5,
    "changed_at": "2026-10-20T06:34:45.565Z"
   },
@@ -18191,7 +18491,7 @@
    "hash": "ba42629c",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18248,7 +18548,7 @@
    "hash": "12f9ecf2",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18305,7 +18605,7 @@
    "hash": "af5ff600",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18364,7 +18664,7 @@
    "hash": "fe11f4b8",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18423,7 +18723,7 @@
    "hash": "f45164d6",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18541,7 +18841,7 @@
    "hash": "468d6185",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18600,7 +18900,7 @@
    "hash": "72918b97",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18659,7 +18959,7 @@
    "hash": "69748b0e",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18715,7 +19015,7 @@
    "hash": "0cb3f74d",
    "retrieved_at": "2026-10-13T22:48:34.222Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1,
    "confidence": {
     "level": "high",
@@ -18775,7 +19075,7 @@
    "hash": "4fa1bd6c",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18832,7 +19132,7 @@
    "hash": "6ce42a41",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18889,7 +19189,7 @@
    "hash": "33267bd6",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18946,7 +19246,7 @@
    "hash": "2da8728b",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -19004,7 +19304,7 @@
    "hash": "2945b713",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -19061,7 +19361,7 @@
    "hash": "2f1f8f68",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 4,
    "changed_at": "2026-10-17T17:31:53.887Z"
   },
@@ -19118,7 +19418,7 @@
    "hash": "b0625a79",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -19170,7 +19470,7 @@
    "hash": "424019f8",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -19221,7 +19521,7 @@
    "hash": "0e1ace48",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -19607,7 +19907,7 @@
    "hash": "28c598d0",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -19660,7 +19960,7 @@
    "hash": "4e7d5b6d",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -19713,7 +20013,7 @@
    "hash": "9f5c30c9",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -19772,7 +20072,7 @@
    "hash": "7591b8ec",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -19831,7 +20131,7 @@
    "hash": "e491014e",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -19891,7 +20191,7 @@
    "hash": "4a58896e",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -19994,7 +20294,7 @@
    "hash": "82dced10",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -20046,7 +20346,7 @@
    "hash": "cde59c4a",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -20097,7 +20397,7 @@
    "hash": "55396c31",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -20212,7 +20512,7 @@
    "hash": "f29598eb",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -20269,7 +20569,7 @@
    "hash": "98fd12a9",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -20326,7 +20626,7 @@
    "hash": "86a5f337",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -20383,7 +20683,7 @@
    "hash": "ee4f50bf",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -20441,7 +20741,7 @@
    "hash": "72d4a50a",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -20498,7 +20798,7 @@
    "hash": "e0191013",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -20555,7 +20855,7 @@
    "hash": "95298b32",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 4,
    "changed_at": "2026-10-15T11:26:48.126Z"
   },
@@ -20606,7 +20906,7 @@
    "hash": "ec9e7a75",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -20662,7 +20962,7 @@
    "hash": "ea47f1da",
    "retrieved_at": "2026-10-13T22:48:34.222Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1,
    "confidence": {
     "level": "high",
@@ -20721,7 +21021,7 @@
    "hash": "46a1bad6",
    "retrieved_at": "2026-10-13T22:48:34.222Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1,
    "confidence": {
     "level": "high",
@@ -20783,7 +21083,7 @@
    "hash": "f5e525e8",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -20842,7 +21142,7 @@
    "hash": "93bb77ec",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -20894,7 +21194,7 @@
    "hash": "3c0735d8",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -20951,7 +21251,7 @@
    "hash": "1028e072",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21008,7 +21308,7 @@
    "hash": "8ee1e223",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21127,7 +21427,7 @@
    "hash": "9678cd25",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21186,7 +21486,7 @@
    "hash": "efa1383f",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21245,7 +21545,7 @@
    "hash": "e1a09aff",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21304,7 +21604,7 @@
    "hash": "a4c2a210",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21361,7 +21661,7 @@
    "hash": "f7648e3c",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21412,7 +21712,7 @@
    "hash": "95e1266f",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21463,7 +21763,7 @@
    "hash": "00e448d6",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -21622,7 +21922,7 @@
    "hash": "28799509",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21680,7 +21980,7 @@
    "hash": "be8972d9",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21738,7 +22038,7 @@
    "hash": "7f1116d1",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21797,7 +22097,7 @@
    "hash": "b42585fb",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21855,7 +22155,7 @@
    "hash": "adc985fe",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21908,7 +22208,7 @@
    "hash": "bbcc6a4b",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -21960,7 +22260,7 @@
    "hash": "f9b59d82",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -22012,7 +22312,7 @@
    "hash": "3eb8ee2d",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T06:34:45.565Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -22063,7 +22363,7 @@
    "hash": "c4d59688",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -22122,7 +22422,7 @@
    "hash": "b0a62bb8",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -22182,7 +22482,7 @@
    "hash": "8df155da",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -22241,7 +22541,7 @@
    "hash": "b725c2f5",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -22300,7 +22600,7 @@
    "hash": "94e9338d",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -22359,7 +22659,7 @@
    "hash": "6b7bc7f9",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -22418,7 +22718,7 @@
    "hash": "d18ac4d3",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -22536,7 +22836,7 @@
    "hash": "f0dacf42",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -22593,7 +22893,7 @@
    "hash": "3d5b5435",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -22651,7 +22951,7 @@
    "hash": "832d7395",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -22709,7 +23009,7 @@
    "hash": "f91da98c",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -22769,7 +23069,7 @@
    "hash": "dc93e8e4",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -24473,7 +24773,7 @@
    "hash": "ca149447",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -25993,7 +26293,7 @@
    "hash": "04e49b2d",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -26044,7 +26344,7 @@
    "hash": "02befc76",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -26146,7 +26446,7 @@
    "hash": "f4b1b257",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -26196,7 +26496,7 @@
    "hash": "6cdf31f7",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -26207,7 +26507,7 @@
    "license": "Official agency feed (titles/links)",
    "url": "https://sf-fire.org/fire-code-technical-advisory-council/meetings",
    "title": "Fire Code Technical Advisory Council (TAC) Meetings",
-   "summary": "Fire Code Technical Advisory Council (TAC) Meetings The Fire Code Technical Advisory Council (TAC) meets at City Hall, 1 Dr. Carlton B. Goodlett Place, San Francisco, CA 94102 at 10:00 a.m. in Room 408. Recordings of past TAC meetings will be posted once available. Start date En…",
+   "summary": "Fire Code Technical Advisory Council (TAC) Meetings The Fire Code Technical Advisory Council (TAC) meets at City Hall, 1 Dr. Carlton B. Goodlett Place, San Francisco, CA 94102 at 10:00 a.m. Recordings of past TAC meetings will be posted once available. Start date End date Apply …",
    "published": "2026-09-09T19:59:21.000Z",
    "kind": "announcement",
    "domains": [
@@ -26243,11 +26543,12 @@
      }
     ]
    },
-   "hash": "167c449f",
-   "retrieved_at": "2026-10-13T23:10:22.704Z",
+   "hash": "7420671b",
+   "retrieved_at": "2026-10-20T17:31:25.853Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
-   "revision": 1
+   "last_seen": "2026-10-20T17:31:25.853Z",
+   "revision": 2,
+   "changed_at": "2026-10-20T17:31:25.853Z"
   },
   {
    "id": "rss-sffire:1930 at http://sf-fire.org",
@@ -26296,7 +26597,7 @@
    "hash": "b8f96fa5",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -26345,7 +26646,7 @@
    "hash": "c91480f0",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -26453,7 +26754,7 @@
    "hash": "2d295c9a",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -26511,7 +26812,7 @@
    "hash": "c9294e08",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -26569,7 +26870,7 @@
    "hash": "3195d098",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -26619,7 +26920,7 @@
    "hash": "89844cb9",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -26668,7 +26969,7 @@
    "hash": "b0437549",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -26717,7 +27018,7 @@
    "hash": "4c67505b",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -26766,7 +27067,7 @@
    "hash": "08354dbc",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
@@ -26817,7 +27118,7 @@
    "hash": "a67714e5",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-20T12:09:13.620Z",
+   "last_seen": "2026-10-20T17:31:25.853Z",
    "revision": 1
   },
   {
