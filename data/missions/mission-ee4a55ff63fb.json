@@ -150,7 +150,7 @@
    "tool": "resilience.weather-alerts",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 1,
+   "ms": 2,
    "records": 0,
    "error": null,
    "findings": [
@@ -166,7 +166,7 @@
       }
      ],
      "value": 0,
-     "asOf": "2026-10-20T17:31:25.853Z",
+     "asOf": "2026-10-20T20:52:08.759Z",
      "agent": "core.san-francisco.climate.weather-alerts",
      "tool": "resilience.weather-alerts"
     }
@@ -182,7 +182,7 @@
    "tool": "graph.link",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 1,
+   "ms": 2,
    "records": 1,
    "error": null,
    "findings": [
@@ -341,7 +341,7 @@
     }
    ],
    "value": 0,
-   "asOf": "2026-10-20T17:31:25.853Z",
+   "asOf": "2026-10-20T20:52:08.759Z",
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts"
   },
@@ -686,23 +686,23 @@
   },
   {
    "seq": 14,
-   "t": 1,
+   "t": 2,
    "kind": "task",
    "task": "task-2",
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts",
    "state": "succeeded",
-   "text": "1 constat(s), 0 enregistrement(s), 1 ms"
+   "text": "1 constat(s), 0 enregistrement(s), 2 ms"
   },
   {
    "seq": 15,
-   "t": 1,
+   "t": 2,
    "kind": "task",
    "task": "task-3",
    "agent": "core.san-francisco.data-science.graph-linker",
    "tool": "graph.link",
    "state": "succeeded",
-   "text": "1 constat(s), 1 enregistrement(s), 1 ms"
+   "text": "1 constat(s), 1 enregistrement(s), 2 ms"
   },
   {
    "seq": 16,
@@ -723,21 +723,21 @@
   },
   {
    "seq": 18,
-   "t": 2,
+   "t": 3,
    "kind": "review",
    "agent": "core.san-francisco.research.evidence-verifier",
    "text": "Vérification indépendante : 7/7 constats entièrement sourcés."
   },
   {
    "seq": 19,
-   "t": 2,
+   "t": 3,
    "kind": "review",
    "agent": "core.san-francisco.safety.adversarial-reviewer",
    "text": "Revue adversariale : 0 désaccord(s), 0 sensibilité(s), 1 limite(s), 0 tâche(s) non abouties."
   },
   {
    "seq": 20,
-   "t": 2,
+   "t": 3,
    "kind": "synthesis",
    "agent": "core.san-francisco.manager",
    "text": "Synthèse : 4 énoncé(s) sourcé(s) ; action suivante : Aucune action proposée : surveiller les révisions USGS ; une évaluation d’impact exigerait des données structurelles et géotechniques non disponibles."
@@ -760,9 +760,9 @@
  "fingerprint": "16bcf0ae69b48d15",
  "recorded": {
   "by": "scripts/agents.mjs (Node)",
-  "at": "2026-10-20T17:31:48.017Z",
+  "at": "2026-10-20T20:52:27.630Z",
   "wallMs": 4,
   "snapshot": "2026-10-13T18:25:19.678Z",
-  "feedUpdate": "2026-10-20T17:31:25.853Z"
+  "feedUpdate": "2026-10-20T20:52:08.759Z"
  }
 }
