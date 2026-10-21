@@ -14,8 +14,10 @@ export function createIntelligenceServer({port=8788,fetchImpl=fetch,whisperBin=p
   try{
    const host=req.headers.host||'',actualPort=server.address()?.port||port;
    if(![`127.0.0.1:${actualPort}`,`localhost:${actualPort}`].includes(host))return send(res,421,{error:'Host refused'});
-   if(req.headers.origin&&req.headers.origin!==`http://${host}`||['cross-site','same-site'].includes(req.headers['sec-fetch-site']))return send(res,403,{error:'Origin refused'});
    const url=new URL(req.url,`http://${host}`);
+   // A top-level homepage navigation may come from another site; it grants no API access.
+   const homeNavigation=req.method==='GET'&&['/','/world.html'].includes(url.pathname)&&req.headers['sec-fetch-mode']==='navigate'&&req.headers['sec-fetch-dest']==='document';
+   if((req.headers.origin&&req.headers.origin!==`http://${host}`)||(['cross-site','same-site'].includes(req.headers['sec-fetch-site'])&&!homeNavigation))return send(res,403,{error:'Origin refused'});
    if(req.method==='GET'&&url.pathname==='/api/intelligence/status'){
     const status=await L.probe(provider,{fetchImpl,timeoutMs:1200});return send(res,200,{mode:status.available?'local-model':'indexed-offline',model:provider.model,token,transcription:fs.existsSync(whisperBin)&&fs.existsSync(whisperModel)?'whisper.cpp-local':'unavailable',audioRetention:false});
    }
