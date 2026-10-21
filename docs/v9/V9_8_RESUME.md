@@ -1,39 +1,21 @@
 # V9.8 resume
 
-## V9.8.1 work-in-progress checkpoint (2026-10-20) — paused by founder; NOT pushed, NOT deployed
+## V9.8.1 — released (2026-10-20)
 
-Branch `v9.8/core-intelligence`. `aca60e9` = local Origin fix (25 tests passed). The WIP commit that follows it holds everything below. Production, Preview, CORE HQ and Beta Lab are unchanged. Nothing was pushed to GitHub or deployed to Vercel.
+Live at https://creationofrebornearth.com (`dpl_Bvw6QKRGg18SLwwrnQ5LAHiuBWzZ`, runtime `a89f60d`, branch `v9.8/core-intelligence` pushed). Release record, measured latency, acceptance and limits: [V9_8_1_RELEASE.md](V9_8_1_RELEASE.md).
 
-**Done (code written):**
-- Explore no longer flies to San Francisco: `start()` in `src/earth/app.mjs` enters the Explorer (`body.ea-explore`) at the global Earth. It does not open problems, the hybrid layer, an agent or the microphone. `revealMap()` also enters the Explorer.
-- `world.html`: new compact command bar markup (input, mic, send, stop, ⋯ settings, status line, settings/consent sheets, response card). CSP adds `'wasm-unsafe-eval'` and connect-src `https://huggingface.co https://*.hf.co https://raw.githubusercontent.com`.
-- `core.css` rewritten: bar hidden on the homepage; in the Explorer it is a band under the nav; `#map` starts below it; overlays shift through `--navh`.
-- Engine (`engine.mjs`): `routeRequest` fast router executes clear navigation/agent/evidence requests without model planning, followed by an optional synthesis-only model round. Adds timings (`routeMs`, `firstMoveMs`, `modelMs`, `totalMs`), `setModel()`, `compactInstructions()`, `synthesisInstructions()` and `brief()`. "Find an agent" selects the nearest real match to the current place.
-- Tools/catalog: when an agent has no recorded work, the tool now names real agents that do. Taxonomy is broader. Product facts mention optional on-device AI.
-- New modules, not yet wired into the UI: `browser-model.mjs` + `llm-worker.mjs` (WebLLM 0.2.85, Qwen3-1.7B/0.6B q4f16, pinned HF revisions + SRI, schema-constrained plans) and `browser-speech.mjs` + `speech-worker.mjs` (Transformers.js 4.3.0, Whisper base on WebGPU / tiny on WASM, pinned revisions).
-- Vendored, with licences and `BUILD.md`: `assets/vendor/web-llm-0.2.85/`, `assets/vendor/transformers-4.3.0/` (includes the 27 MB ORT wasm).
-- `test/core-intelligence.test.js`: 24/24 passed after the engine changes. Two model-planning tests were moved to ambiguous text, and the evidence wording was updated.
+Resume or extend:
+```sh
+cd ~/core/.core-local/worktrees/v9.8
+node --test test/core-intelligence.test.js test/intelligence-server.test.js
+node scripts/build-public.mjs            # runs scripts/vendor-ai.mjs first (pinned, checksum-verified bundles)
+(cd public && python3 -m http.server 8790 --bind 127.0.0.1)   # then CORE_TEST_URL=http://127.0.0.1:8790/world.html
+NODE_PATH=~/core/.core-local/v8/pw/node_modules CORE_TEST_PART=layout|text|ai|model|voice|deny node scripts/intelligence-public-browser.mjs
+node scripts/verify.mjs                  # release gate, then: cd public && vercel deploy --prod --yes (founder authorization)
+```
+`ai` and `model` need `CORE_TEST_PROFILE` (persistent profile keeps the ≈1 GB model cached); `voice` needs `CORE_VOICE_FIXTURE` (`say` + `afconvert` WAV, synthetic, never a physical-microphone claim). After a deploy, clear the profile's `Default/Cache` (production sends `max-age=300` for `/src`).
 
-**Measured baseline** (local, `.core-local/evidence/v981/local-latency-baseline.json`): whisper.cpp ≈0.75 s; Qwen3:8B plan 19.6 s cold and 9.7 s warm; synthesis round 13 s. The 20–30 s comes from two Qwen rounds, which the fast router removes for clear commands. WebGPU with shader-f16 is available in headless Chrome on this M1 Max.
-
-**Unfinished / not run:**
-1. `src/intelligence/core/ui.mjs` still targets the OLD markup (`data-ci-example`, `data-ci-browser`, old options) and will break with the new `world.html`. Rewrite it first: compact render (answer + action chips + choices + collapsible details), states Listening/Thinking/Navigating/Speaking/Ready, ⋯ settings, consent for on-device AI (≈1 GB) and voice (Whisper ≈165 MB, or a browser speech service with disclosure), `engine.setModel(model,'browser-model')`, localhost bridge kept as is. Make `CORE_INTELLIGENCE.focus()` enter the Explorer (`CORE_EARTH.start()`) when called from the homepage.
-2. `voice.mjs`: silence threshold 1300 ms → ~900 ms; wire `loadBrowserSpeech().transcribe` on the public site.
-3. `scripts/intelligence-server.mjs`: add `.wasm: application/wasm` MIME and support `input.synthesis` (calls maxItems 0, `synthesisInstructions`). `scripts/public-manifest.mjs`: seed `llm-worker.mjs`, `speech-worker.mjs`, `browser-model.mjs`, `browser-speech.mjs` and the vendor files.
-4. Tests to update intentionally: `test/v7.test.js` (world.html now has `'wasm-unsafe-eval'`) and `test/trust.test.js` (world connect-src list). Add router/latency unit tests.
-5. Not tested at all: no browser run of the new layout, WebLLM or Whisper, desktop/mobile layout, six-scene tour or EN/FR voice fixtures (generate them with `say` + `afconvert`). Also not run: `node scripts/verify.mjs`, `docs/DATA_SOURCES.md`/`V9_8_OPEN_SOURCE.json` licence entries, the PROJECT_STATE update, push and deploy.
-
-**Vendor files left UNTRACKED on disk** (`assets/vendor/web-llm-0.2.85/`, `assets/vendor/transformers-4.3.0/`). The pre-commit integrity hook refused them: the ORT wasm is 26.9 MB, over the 8 MB limit, and minified bundles matched the local-path pattern. The hook was not bypassed. The founder must decide: approve a documented exception, or fetch these pinned files at build time. Their rebuild steps and SHA-256 are in each folder's `BUILD.md`.
-
-**Blockers:** free hosted inference (HF / Cloudflare / Groq) needs accounts and keys that are not available. It was not adopted, and the public AI is on-device instead. `mlc-ai/binary-mlc-llm-libs` declares no licence, so its model wasm is fetched from the pinned official commit with SRI and not self-hosted. Without WebGPU (some browsers and phones), only the fast router and indexed search are available.
-
-**Resume:** `cd ~/core/.core-local/worktrees/v9.8 && git log --oneline -3 && node --test test/core-intelligence.test.js test/intelligence-server.test.js`. Then do steps 1–5 in order, use local browser tests (`NODE_PATH=~/core/.core-local/v8/pw/node_modules`), and only then push and deploy as authorized.
-
-Worktree: `~/core/.core-local/worktrees/v9.8`; feature branch `v9.8/core-intelligence`, based directly on approved production hotfix `a74768ccf09aa3eccc0c2d890c963d390206b080`. Do not merge unrelated concurrent main-branch changes blindly. Production and CORE HQ remain unchanged.
-
-Beta Lab remains paused in the original `~/core` checkout on `beta-lab/v9.7-baseline`, checkpoint `6a4a309`. Its tracked changes were committed with hooks enabled; the full 1,309-file local archive and manifest are in the original checkout's `.core-local/checkpoints/v98-before/`. Existing untracked V9.6/V9.7 deployment/production notes were preserved there and left in place. Do not rerun the panel or change its holds.
-
-Final runtime: `d282304f9b63c40d5c6b92fc0e5445296601f351`; protected Preview: https://core-1gu25qj0q-vincentleg.vercel.app. Deployed desktop/mobile Chrome checks passed in public safe mode. Exact-runtime release gate: 297 tests. See [deployment proof and limits](V9_8_DEPLOYMENT.md).
+Next candidates (not started): physical Safari/iOS/Android and microphone validation; better small-model relational planning (or Qwen3-4B on capable desktops); hosted inference only if the founder creates a free account and key server-side.
 
 ## Launch the current local installation
 
