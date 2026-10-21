@@ -62,7 +62,7 @@
    "tool": "resilience.quake-context",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 2,
+   "ms": 1,
    "records": 1,
    "error": null,
    "findings": [
@@ -166,7 +166,7 @@
       }
      ],
      "value": 0,
-     "asOf": "2026-10-21T19:35:49.756Z",
+     "asOf": "2026-10-21T22:43:24.252Z",
      "agent": "core.san-francisco.climate.weather-alerts",
      "tool": "resilience.weather-alerts"
     }
@@ -341,7 +341,7 @@
     }
    ],
    "value": 0,
-   "asOf": "2026-10-21T19:35:49.756Z",
+   "asOf": "2026-10-21T22:43:24.252Z",
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts"
   },
@@ -666,17 +666,17 @@
   },
   {
    "seq": 12,
-   "t": 2,
+   "t": 1,
    "kind": "task",
    "task": "task-1",
    "agent": "core.san-francisco.climate.seismic-context",
    "tool": "resilience.quake-context",
    "state": "succeeded",
-   "text": "3 constat(s), 1 enregistrement(s), 2 ms"
+   "text": "3 constat(s), 1 enregistrement(s), 1 ms"
   },
   {
    "seq": 13,
-   "t": 2,
+   "t": 1,
    "kind": "task",
    "task": "task-4",
    "agent": "core.san-francisco.regulatory.knowledge-research",
@@ -706,7 +706,7 @@
   },
   {
    "seq": 16,
-   "t": 3,
+   "t": 2,
    "kind": "task",
    "task": "task-4",
    "agent": "core.san-francisco.regulatory.knowledge-research",
@@ -716,14 +716,14 @@
   },
   {
    "seq": 17,
-   "t": 3,
+   "t": 2,
    "kind": "mission",
    "state": "reviewing",
    "text": "Mission → reviewing"
   },
   {
    "seq": 18,
-   "t": 3,
+   "t": 2,
    "kind": "review",
    "agent": "core.san-francisco.research.evidence-verifier",
    "text": "Vérification indépendante : 7/7 constats entièrement sourcés."
@@ -744,14 +744,14 @@
   },
   {
    "seq": 21,
-   "t": 6,
+   "t": 5,
    "kind": "gateway",
    "agent": "core.san-francisco.governance.gateway",
    "text": "PREUVES SUPPLÉMENTAIRES REQUISES — Aucune action proposée : surveiller les révisions USGS ; une évaluation d’impact exigerait des données structurelles et géotechniques non disponibles. Limites : Aucune donnée structurelle, géotechnique ou d’inspection : aucun impact ne peut être évalué."
   },
   {
    "seq": 22,
-   "t": 6,
+   "t": 5,
    "kind": "mission",
    "state": "needs-evidence",
    "text": "Mission → needs-evidence"
@@ -760,9 +760,9 @@
  "fingerprint": "16bcf0ae69b48d15",
  "recorded": {
   "by": "scripts/agents.mjs (Node)",
-  "at": "2026-10-21T19:36:07.990Z",
-  "wallMs": 6,
+  "at": "2026-10-21T22:43:41.177Z",
+  "wallMs": 5,
   "snapshot": "2026-10-13T18:25:19.678Z",
-  "feedUpdate": "2026-10-21T19:35:49.756Z"
+  "feedUpdate": "2026-10-21T22:43:24.252Z"
  }
 }
