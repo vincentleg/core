@@ -53,6 +53,13 @@ try{
   if(part==='ai'){for(const q of ['Which of these agents has completed an investigation, and what did CORE record?','Why would I pay $12 for CORE Plus?','Could you show me the city across the bay from San Francisco?']){const r=await ask(p,q);results.timings.push({q,...r});console.log(JSON.stringify({q,mode:r.mode,kind:r.responseKind,firstMoveMs:r.timings?.firstMoveMs,modelMs:r.timings?.modelMs,totalMs:r.timings?.totalMs,text:r.text.slice(0,220),tools:r.tools}));assert.equal(r.error,false,q+' → '+r.text);}check('ai: complex questions answered through model planning/synthesis with validated tools');}
   assert.deepEqual(c.local,[]);results.errors=c.errors;await close(c);
  }
+ if(part==='model'){
+  // Fresh page per request: model-planned interpretation and evidence synthesis, judged by actual tool outcomes.
+  for(const [q,ok] of [['Find someone working on bike lanes in Berkeley.',r=>r.agent?.city==='Berkeley'||r.events?.some(e=>e.tool==='search_agents'&&e.status==='succeeded')],['Could you show me the city across the bay from San Francisco?',r=>r.navigated&&r.location==='Oakland'],['Find a mobility agent with completed research in San Francisco and explain what it discovered.',r=>/model-synthesis/.test(r.responseKind)&&r.agent?.city==='San Francisco']]){
+   const c=await open(),{p}=c;await p.waitForFunction(()=>['ready','failed','available','unsupported'].includes(CORE_INTELLIGENCE.ai.status),null,{timeout:120000});await p.evaluate(()=>CORE_INTELLIGENCE.enableAI());await p.waitForFunction(()=>['ready','failed'].includes(CORE_INTELLIGENCE.ai.status),null,{timeout:600000});
+   await p.locator('#ea-start').click();await p.waitForTimeout(1200);const r=await ask(p,q);results.timings.push({q,...r});const pass=!!ok(r);console.log(JSON.stringify({q,pass,kind:r.responseKind,firstMoveMs:r.timings?.firstMoveMs,modelMs:r.timings?.modelMs,totalMs:r.timings?.totalMs,text:r.text.slice(0,260),tools:r.tools}));results.checks.push({name:q,pass});await close(c);
+  }
+ }
  if(part==='deny'){
   const c=await open(),{p}=c;await p.evaluate(()=>{CORE_INTELLIGENCE.setVoiceMethod('browser');});await p.locator('#ea-start').click();await p.waitForTimeout(800);
   await p.evaluate(()=>{navigator.mediaDevices.getUserMedia=async()=>{throw new DOMException('denied','NotAllowedError');};globalThis.webkitSpeechRecognition=undefined;globalThis.SpeechRecognition=undefined;CORE_INTELLIGENCE.setVoiceMethod('whisper');});
