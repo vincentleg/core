@@ -1,6 +1,6 @@
 {
  "version": "core-missions-index-v1",
- "recorded_at": "2026-10-21T10:34:46.106Z",
+ "recorded_at": "2026-10-21T15:36:15.323Z",
  "missions": [
   {
    "id": "mission:b800f920af82",
@@ -25,7 +25,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 404
+   "ms": 486
   },
   {
    "id": "mission:5d7886b55a54",
@@ -50,7 +50,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 100
+   "ms": 120
   },
   {
    "id": "mission:5d2cb2e2f3a3",
@@ -75,7 +75,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 388
+   "ms": 454
   },
   {
    "id": "mission:28fc07fa8a08",
@@ -100,7 +100,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 110
+   "ms": 131
   },
   {
    "id": "mission:4095b1ece637",
@@ -125,7 +125,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 104
+   "ms": 132
   },
   {
    "id": "mission:ee4a55ff63fb",
@@ -169,7 +169,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 132
+   "ms": 113
   },
   {
    "id": "mission:c594c2dba81f",
@@ -194,7 +194,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 109
+   "ms": 114
   },
   {
    "id": "mission:756645a548a9",
@@ -219,7 +219,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 383
+   "ms": 454
   },
   {
    "id": "mission:b5514be8aea7",
@@ -244,7 +244,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 393
+   "ms": 452
   },
   {
    "id": "mission:2eb75be759c4",
@@ -269,7 +269,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 403
+   "ms": 458
   },
   {
    "id": "mission:667e5eac695e",
@@ -294,7 +294,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 409
+   "ms": 440
   },
   {
    "id": "mission:e2bb152763f4",
@@ -319,7 +319,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 408
+   "ms": 486
   },
   {
    "id": "mission:11580bb276c1",
@@ -344,7 +344,32 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 115
+   "ms": 147
+  },
+  {
+   "id": "mission:f9dccc3fd537",
+   "origin": "corridor:5672000",
+   "state": "needs-evidence",
+   "decision": "PREUVES SUPPLÉMENTAIRES REQUISES",
+   "fingerprint": "1488e88b242e5cae",
+   "agents": 10,
+   "agentIds": [
+    "core.san-francisco.manager",
+    "core.san-francisco.civil.works-coordination",
+    "core.san-francisco.telecom.telecom-works",
+    "core.san-francisco.forestry.street-trees",
+    "core.san-francisco.housing.building-permits",
+    "core.san-francisco.energy.energy-benchmarks",
+    "core.san-francisco.public-space.sidewalks",
+    "core.san-francisco.climate.weather-alerts",
+    "core.san-francisco.data-science.graph-linker",
+    "core.san-francisco.simulation.scenario-evaluator",
+    "core.san-francisco.regulatory.knowledge-research",
+    "core.san-francisco.research.evidence-verifier",
+    "core.san-francisco.safety.adversarial-reviewer",
+    "core.san-francisco.governance.gateway"
+   ],
+   "ms": 132
   },
   {
    "id": "mission:830559f131bd",
@@ -368,7 +393,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 429
+   "ms": 527
   }
  ]
 }
