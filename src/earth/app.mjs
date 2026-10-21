@@ -124,14 +124,16 @@ function search(q) {
 }
 
 // ---------- journey start ----------
+// Explorer: the whole Earth under the CORE Intelligence bar, waiting for the person. No destination, agent,
+// investigation or microphone is chosen on their behalf; the guided tour and deep links remain separate entry points.
+function enterExplorer() { document.body.classList.add('ea-explore'); document.dispatchEvent(new CustomEvent('core:explore')); }
 async function start() {
   S.spinning = false; $('ea-hero').classList.add('out'); $('ea-vignette').classList.add('out'); setTimeout(() => { $('ea-hero').hidden = true; }, 600);
   S.map.setPadding({ left: 0, right: 0, top: 0, bottom: 0 });
   $('ea-scales').hidden = false; $('ea-tools').hidden = false; $('ea-legend').hidden = false;
-  await fly({ center: PLACES.somaField, zoom: 14.8, pitch: 45, bearing: -30 }, 1100);
-  S.scale = 'city'; renderScales();
-  if (S.layer) { setLayer('hybrid'); showProblems(); }
-  toast(T('San Francisco: choose a problem to see what CORE’s agents are investigating.', 'San Francisco : choisissez un problème pour voir ce qu’examinent les agents de CORE.'));
+  enterExplorer();
+  await fly({ center: [S.map.getCenter().lng, 22], zoom: innerWidth < 700 ? 1.05 : 1.65, pitch: 0, bearing: 0 }, 1100);
+  S.scale = 'planet'; renderScales();
 }
 
 // Relief is switched off while the 3D layer is in use (street level, traffic replay): SoMa is flat and the 3D layer
@@ -347,7 +349,7 @@ async function showSimulation(id = 'S0', { camera = true } = {}) {
 const renderSimulation = () => panel('simulation', S.scn.state.scenario, SCN.panelHTML(S.mob, S.scn.state.scenario, S.scn.state.playing));
 async function playSimulation(id = 'S0') { await showSimulation(id); S.scn?.render(0); S.scn?.play(); renderSimulation(); }
 function hideSimulation({ quiet = false } = {}) { S.scn?.hide(); S.traffic?.update([]); terrain('traffic', false); $('ea-panel').hidden = true; history.replaceState(null, '', location.pathname + location.search); if (!quiet) toast(T('Scenario removed: the map shows the real street again.', 'Scénario retiré : la carte montre de nouveau la rue réelle.')); }
-function revealMap() { S.spinning = false; $('ea-hero').hidden = true; $('ea-vignette').hidden = true; $('ea-scales').hidden = false; $('ea-tools').hidden = false; $('ea-legend').hidden = false; S.map.setPadding({ left: 0, right: 0, top: 0, bottom: 0 }); }
+function revealMap() { S.spinning = false; $('ea-hero').hidden = true; $('ea-vignette').hidden = true; $('ea-scales').hidden = false; $('ea-tools').hidden = false; $('ea-legend').hidden = false; S.map.setPadding({ left: 0, right: 0, top: 0, bottom: 0 }); enterExplorer(); }
 async function flyTo(center, zoom) { if (S.mode === 'human') leaveHuman(); revealMap(); await fly({ center, zoom, pitch: zoom > 14 ? 58 : 40, bearing: -30 }, 2600); syncScale(); }
 function followAgent(id) { if (!S.civ?.byId.has(id)) return; revealMap(); if (S.layer?.mode === 'real') setLayer('hybrid'); S.follow = id; S.map.jumpTo({ center: posOf(id), zoom: Math.max(S.map.getZoom(), 17), pitch: 60 }); showAgent(id); }
 
@@ -585,4 +587,4 @@ onLang(() => {
     } else if (!['sim', 'mission', 'problems', 'agent', 'team', 'investigate', 'contribute'].some(k => h.has(k))) { if (innerWidth > 860) S.map.setPadding({ left: Math.min(760, innerWidth * 0.48), right: 0, top: 0, bottom: 0 }); spin(); }
   });
 })();
-globalThis.CORE_EARTH = { state: S, goScale, openPanel, focusSegment, enterHuman, leaveHuman, start, setLayer, showAgent, showMission, openMission, showActivity, showEvent, showHierarchy, showTeam, showProblems, showInvestigate, showContribute, showNoticed: showContribute, showSimulation, hideSimulation, playSimulation, revealMap, toggleCar, flyTo, followAgent, openDemoChoice, launchDemo, ensureScene, civ: () => S.civ, get fps() { const f = S.frames; return f.length ? f.length / f.reduce((a, b) => a + b, 0) : 0; } };
+globalThis.CORE_EARTH = { state: S, goScale, openPanel, focusSegment, enterHuman, leaveHuman, start, get exploring() { return document.body.classList.contains('ea-explore'); }, setLayer, showAgent, showMission, openMission, showActivity, showEvent, showHierarchy, showTeam, showProblems, showInvestigate, showContribute, showNoticed: showContribute, showSimulation, hideSimulation, playSimulation, revealMap, toggleCar, flyTo, followAgent, openDemoChoice, launchDemo, ensureScene, civ: () => S.civ, get fps() { const f = S.frames; return f.length ? f.length / f.reduce((a, b) => a + b, 0) : 0; } };
