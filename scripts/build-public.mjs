@@ -3,6 +3,7 @@
 // The published pages' CSP drops the local-model endpoint (the public site never contacts a visitor's 127.0.0.1).
 //   node scripts/build-public.mjs        → public/  (then: vercel deploy public --prod)
 import fs from 'node:fs'; import path from 'node:path';
+import './vendor-ai.mjs'; // rebuilds and checksum-verifies the ignored on-device AI bundles first
 import { FILES } from './public-manifest.mjs';
 const OUT = 'public';
 const walk = d => fs.readdirSync(d, { withFileTypes: true }).flatMap(e => (e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]));

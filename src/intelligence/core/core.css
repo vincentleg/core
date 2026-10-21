@@ -7,7 +7,7 @@ body.earth.ea-explore #map { top: calc(var(--ci-shell) + var(--ci-h)); }
 body.earth.ea-explore #ea-main { --navh: calc(var(--ci-shell) + var(--ci-h)); }
 body.earth.ea-explore .bar { background: rgba(4, 9, 18, .97); }
 body.earth.ea-explore .ea-search { display: none; }
-body.earth.ea-explore .ea-tools { width: auto; }
+body.earth.ea-explore .ea-tools { width: auto; } body.earth.ea-explore .ea-tools .ea-ic { white-space: nowrap; }
 .ci-form { display: flex; align-items: center; gap: 4px; width: min(940px, 100%); height: 48px; padding: 0 6px 0 16px; border: 1px solid rgba(103, 232, 249, .32); border-radius: 999px; background: rgba(10, 22, 34, .92); box-shadow: 0 0 0 1px rgba(255, 255, 255, .02), 0 6px 30px rgba(0, 0, 0, .35); transition: border-color .2s, box-shadow .2s; }
 .ci-form:focus-within { border-color: rgba(103, 232, 249, .7); box-shadow: 0 0 0 3px rgba(103, 232, 249, .12), 0 6px 30px rgba(0, 0, 0, .35); }
 .ci-form input { flex: 1; min-width: 0; height: 100%; border: 0; background: transparent; color: #effbff; padding: 0 8px; font-size: 15px; outline: none; box-shadow: none; }
@@ -62,6 +62,7 @@ body.earth.ea-explore .ea-tools { width: auto; }
   .ci-icon { width: 36px; height: 36px; min-height: 36px; }
   .ci-state { font-size: 10.5px; margin-top: 2px; }
   .ci-sheet { left: 8px; right: 8px; width: auto; }
+  body.earth.ea-explore .ea-tools .ea-ic { min-height: 36px; padding: 6px 12px; font-size: 13px; }
   .ci-output { top: auto; left: 8px; right: 8px; bottom: calc(8px + env(safe-area-inset-bottom, 0px)); width: auto; max-height: 36dvh; }
   body.earth.ea-explore:has(.ci-output:not([hidden])) .ea-scales { display: none; }
   /* The agent panel is a bottom sheet on phones: the answer becomes a short strip under the bar instead. */

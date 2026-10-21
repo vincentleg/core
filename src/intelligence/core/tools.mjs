@@ -47,9 +47,11 @@ export function validate(value,schema,path='arguments'){
  return value;
 }
 const summary=a=>({id:a.id,code:a.code,name:a.name,role:a.role,domain:a.domain,city:a.geography,coordinates:a.assignment,identity:'registered',taskStatus:a.recorded?'recorded work':'idle identity',worker:'offline',recorded:a.recorded,match:a.match,distanceM:a.distance==null?null:Math.round(a.distance)});
+// Relational phrasing names a reference place, not the destination ("the city across the bay from San Francisco").
+export const RELATIONAL=/\b(across|opposite|next to|beside|between|near|close to|north of|south of|east of|west of|biggest|largest|which|where|en face|a cote|entre|pres de|au nord|au sud|plus grande?)\b/;
 export function createTools({catalog,map,geocode=null,state}){
  const known=new Map(catalog.places.map(p=>[p.id,p]));
- const assertCity=city=>{const mentioned=catalog.cities.filter(p=>(' '+normal(state.query)+' ').includes(' '+normal(p.city)+' '));if(mentioned.length&&!mentioned.some(p=>normal(p.city)===normal(city)))throw Error('Destination conflicts with the explicitly requested municipality');};
+ const assertCity=city=>{if(RELATIONAL.test(normal(state.query)))return;const mentioned=catalog.cities.filter(p=>(' '+normal(state.query)+' ').includes(' '+normal(p.city)+' '));if(mentioned.length&&!mentioned.some(p=>normal(p.city)===normal(city)))throw Error('Destination conflicts with the explicitly requested municipality');};
  const getPlace=id=>{
   let p=known.get(id==='$location'?state.location?.id:id);
   if(!p){const exact=[...known.values()].filter(p=>[p.name,p.name+' '+p.city,...(p.aliases||[])].some(alias=>normal(alias)===normal(id)));if(exact.length===1)p=exact[0];}
@@ -68,7 +70,8 @@ export function createTools({catalog,map,geocode=null,state}){
  return async function execute(name,args,{signal}={}){
   if(!Object.hasOwn(TOOLS,name))throw Error('Unknown tool');validate(args,TOOLS[name].schema);signal?.throwIfAborted();
   if(name==='search_places'){
-   let r=searchPlaces(catalog,args.query,args.city);
+   // A query that is itself a municipality ("Oakland") is the destination; a stray city filter must not erase it.
+   const named=catalog.cities.find(c=>normal(c.city)===normal(args.query));let r=searchPlaces(catalog,args.query,named?'':args.city);
    if(!r.places.length&&geocode)r=await geocode(args.query,{city:args.city,signal});
    for(const p of r.places){if(!coordinates(p.coordinates))throw Error('Invalid geocoder coordinates');known.set(p.id,p);}
    if(r.ambiguous){state.clarification=true;return {...r,text:state.fr?'Quel lieu voulez-vous ? Les références sont ambiguës ; la caméra n’a pas bougé.':'Which place do you mean? These references are ambiguous; the camera has not moved.'};}

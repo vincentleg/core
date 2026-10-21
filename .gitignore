@@ -31,3 +31,7 @@ data/results.local.json
 # Public static build (scripts/build-public.mjs); regenerated, never committed
 public/
 .vercel
+
+# On-device AI third-party bundles: rebuilt and checksum-verified by scripts/vendor-ai.mjs (too large for the repository policy)
+assets/vendor/web-llm-0.2.85/
+assets/vendor/transformers-4.3.0/

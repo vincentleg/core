@@ -34,7 +34,7 @@ export function createVoice({transcribe,onTranscript,onState,language=()=> 'en',
    if(context.audioWorklet&&host.AudioWorkletNode){await context.audioWorklet.addModule(new URL('./capture-worklet.mjs',import.meta.url));node=new host.AudioWorkletNode(context,'core-microphone');node.port.onmessage=e=>receive(e.data);}
    else{node=context.createScriptProcessor(2048,1,1);node.onaudioprocess=e=>receive(e.inputBuffer.getChannelData(0));}
    source.connect(node);node.connect(context.destination);await context.resume();onState('listening');
-   const silence=()=>{if(!stream)return;if(heard&&Date.now()-lastSound>1300&&Date.now()-started>700)stop({submit:true});else if(!heard&&Date.now()-started>10000)stop();else timer=setTimeout(silence,200);};timer=setTimeout(silence,200);
+   const silence=()=>{if(!stream)return;if(heard&&Date.now()-lastSound>850&&Date.now()-started>600)stop({submit:true});else if(!heard&&Date.now()-started>10000)stop();else timer=setTimeout(silence,200);};timer=setTimeout(silence,200);
   }catch(e){await cleanup();onState('error',e.name==='NotAllowedError'?'Microphone permission denied':e.message);throw e;}
  }
  function speak(text,{onEnd=()=>{}}={}){

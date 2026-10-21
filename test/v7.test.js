@@ -21,7 +21,7 @@ test('map style: every remote source host is exactly what the World CSP allows (
   const { livingEarthStyle, HOSTS } = await imp('src/earth/style.mjs');
   const csp = read('world.html').match(/connect-src ([^;]+);/)[1].split(/\s+/);
   for (const h of HOSTS) assert.ok(csp.includes(h), `${h} is in the CSP`);
-  assert.ok(csp.filter(h => /^https?:/.test(h)).every(h => HOSTS.includes(h) || h === 'http://127.0.0.1:11434' || h === 'https://photon.komoot.io'), 'no other remote host');
+  assert.ok(csp.filter(h => /^https?:/.test(h)).every(h => HOSTS.includes(h) || h === 'http://127.0.0.1:11434' || h === 'https://photon.komoot.io' || ['https://huggingface.co', 'https://*.hf.co', 'https://raw.githubusercontent.com'].includes(h)), 'no other remote host'); // V9.8.1 consented on-device model files
   const urls = JSON.stringify(livingEarthStyle({})).match(/https:\/\/[^"]+/g);
   for (const u of urls) { assert.ok(HOSTS.some(h => u.startsWith(h)), u); assert.doesNotMatch(u, /key=|token=|access_token/i, u); }
   const noRelief = JSON.stringify(livingEarthStyle({ terrain: false }));
@@ -61,7 +61,9 @@ test('assets: CC0 avatar files with their licences, three.js bundle without WebA
 test('V7 pages: strict CSP, boot guard, readiness global named, no inline script', () => {
   for (const [f, g] of [['world.html', 'CORE_EARTH'], ['avatar.html', 'CORE_STUDIO'], ['dialogue.html', 'CORE_DIALOGUE'], ['me.html', 'CORE_ME'], ['commons.html', 'CORE_COMMONS']]) {
     const s = read(f);
-    assert.match(s, /script-src 'self';/, f); assert.doesNotMatch(s, /unsafe-eval|wasm-unsafe-eval/, f);
+    // V9.8.1: world.html alone may compile WebAssembly for consented on-device AI (docs/vendor/ON_DEVICE_AI_VENDOR.md); never 'unsafe-eval'.
+    assert.match(s, f === 'world.html' ? /script-src 'self' 'wasm-unsafe-eval';/ : /script-src 'self';/, f); assert.doesNotMatch(s, /'unsafe-eval'/, f);
+    if (f !== 'world.html') assert.doesNotMatch(s, /wasm-unsafe-eval/, f);
     assert.match(s, new RegExp(`<meta name="core-ready" content="${g}">`), f); assert.match(s, /src="src\/ui\/boot-guard\.mjs"/, f);
     assert.doesNotMatch(s, /<script(?![^>]*src=)/, `${f}: no inline script`);
   }

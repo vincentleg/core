@@ -21,7 +21,7 @@ function visit(file) {
     visit(target);
   }
 }
-// The module worker is created with new URL(), not a static import.
-for (const p of [...PAGES, 'assets/vendor/maplibre-gl-6.11.2/maplibre-gl-worker.mjs', 'src/urban/worker.mjs', 'src/intelligence/core/capture-worklet.mjs', 'data/urban/catalog.json', 'data/urban/latest.json']) visit(p);
+// Module workers are created with new URL(), not a static import; the on-device AI modules are imported on demand.
+for (const p of [...PAGES, 'assets/vendor/maplibre-gl-6.11.2/maplibre-gl-worker.mjs', 'src/urban/worker.mjs', 'src/intelligence/core/capture-worklet.mjs', 'src/intelligence/core/llm-worker.mjs', 'src/intelligence/core/speech-worker.mjs', 'src/intelligence/core/browser-model.mjs', 'src/intelligence/core/browser-speech.mjs', 'assets/vendor/transformers-4.3.0/ort-wasm-simd-threaded.asyncify.wasm', 'assets/vendor/transformers-4.3.0/ort-wasm-simd-threaded.asyncify.mjs', 'data/urban/catalog.json', 'data/urban/latest.json']) visit(p);
 export const FILES = [...seen].filter(f => fs.existsSync(f)).sort();
 if (process.argv.includes('--print')) { console.log(FILES.join('\n')); console.error(`${FILES.length} files; dynamic references to review:\n${[...new Set(dyn)].join('\n')}`); }

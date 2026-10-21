@@ -7,7 +7,8 @@ const V6 = ['src/dialogue/engine.mjs', 'src/dialogue/room.mjs', 'src/shell/nav.m
 test('pages: strict CSP — no inline or external scripts; Dialogue and Commons can only talk to this site', () => {
   for (const f of ['dialogue.html', 'commons.html', 'world.html', 'world-classic.html', 'avatar.html']) {
     const csp = read(f).match(/http-equiv="Content-Security-Policy" content="([^"]+)"/)[1];
-    assert.match(csp, /script-src 'self';/, f); assert.doesNotMatch(csp, /unsafe-eval|script-src[^;]*unsafe-inline/, f);
+    // V9.8.1: only world.html may compile WebAssembly (consented on-device AI); no JavaScript eval anywhere.
+    assert.match(csp, f === 'world.html' ? /script-src 'self' 'wasm-unsafe-eval';/ : /script-src 'self';/, f); assert.doesNotMatch(csp, /'unsafe-eval'|script-src[^;]*unsafe-inline/, f);
     assert.match(csp, /object-src 'none'/, f); assert.match(csp, /form-action 'none'/, f);
     assert.doesNotMatch(read(f), /<script(?![^>]*src="src\/)/, `${f}: only same-origin module scripts`);
   }
@@ -19,7 +20,8 @@ test('pages: strict CSP — no inline or external scripts; Dialogue and Commons 
   // NASA GIBS imagery, AWS Terrain Tiles relief). blob:/data: are the map's own decoded resources, never remote.
   const w = read('world.html').match(/connect-src ([^;]+);/)[1].split(/\s+/).sort();
   // V9.8: plus the opt-in, bounded official Photon geocoder (DATA_SOURCES.md); V8 loopback endpoint, used only after the person switches local reasoning on.
-  assert.deepEqual(w, ["'self'", 'blob:', 'data:', 'http://127.0.0.1:11434', 'https://gibs.earthdata.nasa.gov', 'https://photon.komoot.io', 'https://s3.amazonaws.com', 'https://tiles.openfreemap.org'].sort());
+  // V9.8.1: pinned on-device model files after explicit consent: Hugging Face (weights, tokenizer; *.hf.co is its download CDN) and the official MLC WebGPU library commit, both SRI/revision pinned.
+  assert.deepEqual(w, ["'self'", 'blob:', 'data:', 'http://127.0.0.1:11434', 'https://*.hf.co', 'https://gibs.earthdata.nasa.gov', 'https://huggingface.co', 'https://photon.komoot.io', 'https://raw.githubusercontent.com', 'https://s3.amazonaws.com', 'https://tiles.openfreemap.org'].sort());
   assert.match(read('avatar.html'), /connect-src 'self' blob: data:;/);
 });
 

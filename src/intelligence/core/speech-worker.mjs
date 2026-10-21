@@ -2,7 +2,7 @@
 // here and is never stored or sent anywhere; only the pinned model files are downloaded, once, from Hugging Face.
 import {pipeline,env} from '../../../assets/vendor/transformers-4.3.0/transformers.mjs';
 env.allowLocalModels=false;env.useBrowserCache=true;env.backends.onnx.wasm.wasmPaths=new URL('../../../assets/vendor/transformers-4.3.0/',import.meta.url).href;
-const MODELS={webgpu:{id:'onnx-community/whisper-base',revision:'1846881b6b3a3024392c1eea3ad983695bc23925',dtype:{encoder_model:'fp16',decoder_model_merged:'q4'}},wasm:{id:'onnx-community/whisper-tiny',revision:'ff4177021cc41f7db950912b73ea4fdf7d01d8e7',dtype:{encoder_model:'q8',decoder_model_merged:'q8'}}};
+const MODELS={webgpu:{id:'onnx-community/whisper-base',revision:'1846881b6b3a3024392c1eea3ad983695bc23925',dtype:{encoder_model:'fp16',decoder_model_merged:'fp16'}},wasm:{id:'onnx-community/whisper-tiny',revision:'ff4177021cc41f7db950912b73ea4fdf7d01d8e7',dtype:{encoder_model:'q8',decoder_model_merged:'q8'}}};
 let asr=null,info=null;
 async function load(){
  if(asr)return info;const started=performance.now();
