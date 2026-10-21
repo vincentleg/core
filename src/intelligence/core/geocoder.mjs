@@ -2,7 +2,7 @@ import {coordinates,normal} from './catalog.mjs';
 // Photon explicitly permits reasonable project usage; one submitted lookup, never typeahead/crawling.
 export function photon({fetchImpl=fetch,enabled=()=>false,now=Date.now}={}){
  const cache=new Map();let active=false,last=0,requests=[];
- return async(query,{city='',signal}={})=>{
+ const search=async(query,{city='',signal}={})=>{
   if(!enabled())return {places:[],ambiguous:false};
   const key=normal(query+' '+city);if(cache.has(key))return cache.get(key);
   requests=requests.filter(t=>now()-t<60000);if(active||now()-last<1200||requests.length>=5)throw Error('Geocoding limit reached; wait before another submitted search');
@@ -16,4 +16,5 @@ export function photon({fetchImpl=fetch,enabled=()=>false,now=Date.now}={}){
    const result={places,ambiguous:places.length>1};cache.set(key,result);if(cache.size>64)cache.delete(cache.keys().next().value);return result;
   }finally{active=false;}
  };
+ search.clear=()=>cache.clear();return search;
 }

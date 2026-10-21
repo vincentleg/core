@@ -14,13 +14,25 @@ export const TOOLS={
  filter_agents_by_location:{description:'Filter real agents by a municipality.',schema:object({city:text})},
  select_agent:{description:'Navigate, highlight and open a real returned agent; $best_agent means the best ranked returned match.',schema:object(agent)},
  follow_agent:{description:'Follow the returned agent visual position, not an inference worker.',schema:object(agent)},
- retrieve_evidence:{description:'Retrieve actual completed task records, claims and limitations for the selected agent, or the recorded investigation. Omit agent_id for all recorded work.',schema:object({agent_id:text},[])},
+ retrieve_evidence:{description:'Retrieve actual completed task records, claims and limitations for the selected agent, or the recorded investigation. Use all:true for the whole recorded investigation only when agent_id is omitted; an explicit agent_id always narrows scope.',schema:object({agent_id:text,all:{type:'boolean'}},[])},
+ inspect_selected_problem:{description:'Read the actual problem selected on the Earth map, with status and source record.',schema:object({})},
  show_sources:{description:'Show actual source links for the current investigation.',schema:object({})},
  lookup_core_knowledge:{description:'Retrieve public facts about CORE, plans, pricing, methodology, available/planned/long-term capabilities.',schema:object({query:text})},
  restore_previous_view:{description:'Restore the previous camera view.',schema:object({})}
 };
 export const PLAN_SCHEMA=object({calls:{type:'array',maxItems:4,items:object({name:{type:'string',enum:Object.keys(TOOLS)},arguments:{type:'object'}})},message:{type:'string',maxLength:1600},citations:{type:'array',maxItems:12,items:{type:'string',maxLength:200}}});
+// The decoding grammar restricts each tool's reference types before deterministic execution checks them again.
+export function planningSchema(context={}){
+ const schema=structuredClone(PLAN_SCHEMA),placeIds=['$location',context.location?.id].filter(Boolean),agentIds=['$best_agent','$selected_agent',context.agent?.id,...(context.results||[]).map(a=>a.id)].filter(Boolean);
+ schema.properties.calls.items={anyOf:Object.entries(TOOLS).map(([name,tool])=>{
+  const args=structuredClone(tool.schema);
+  if(args.properties.place_id)args.properties.place_id.enum=[...new Set(placeIds)];
+  if(args.properties.agent_id)args.properties.agent_id.enum=[...new Set(agentIds)];
+  return object({name:{type:'string',enum:[name]},arguments:args});
+ })};return schema;
+}
 export function validate(value,schema,path='arguments'){
+ if(schema.anyOf){for(const option of schema.anyOf)try{return validate(value,option,path);}catch{}throw Error(path+': no permitted tool signature');}
  if(schema.type==='object'){
   if(!value||typeof value!=='object'||Array.isArray(value))throw Error(path+': object required');
   if(schema.additionalProperties===false&&Object.keys(value).some(k=>!Object.hasOwn(schema.properties,k)))throw Error(path+': unknown field');
@@ -37,7 +49,12 @@ export function validate(value,schema,path='arguments'){
 const summary=a=>({id:a.id,code:a.code,name:a.name,role:a.role,domain:a.domain,city:a.geography,coordinates:a.assignment,identity:'registered',taskStatus:a.recorded?'recorded work':'idle identity',worker:'offline',recorded:a.recorded,match:a.match,distanceM:a.distance==null?null:Math.round(a.distance)});
 export function createTools({catalog,map,geocode=null,state}){
  const known=new Map(catalog.places.map(p=>[p.id,p]));
- const getPlace=id=>{const p=known.get(id==='$location'?state.location?.id:id);if(!p||!coordinates(p.coordinates))throw Error('Resolve a verified location before navigation');return p;};
+ const assertCity=city=>{const mentioned=catalog.cities.filter(p=>(' '+normal(state.query)+' ').includes(' '+normal(p.city)+' '));if(mentioned.length&&!mentioned.some(p=>normal(p.city)===normal(city)))throw Error('Destination conflicts with the explicitly requested municipality');};
+ const getPlace=id=>{
+  let p=known.get(id==='$location'?state.location?.id:id);
+  if(!p){const exact=[...known.values()].filter(p=>[p.name,p.name+' '+p.city,...(p.aliases||[])].some(alias=>normal(alias)===normal(id)));if(exact.length===1)p=exact[0];}
+  if(!p||!coordinates(p.coordinates))throw Error('Resolve a verified location before navigation');assertCity(p.city);return p;
+ };
  const getAgent=id=>{const wanted=id==='$best_agent'?state.results[0]?.id:id==='$selected_agent'?state.agent?.id:id;const a=catalog.agents.find(a=>a.id===wanted);if(!a||!state.results.some(r=>r.id===a.id)&&state.agent?.id!==a.id)throw Error('Search for a matching real agent first');return a;};
  const findAgents=async(args,nearby=false)=>{
   if(args.status==='currently-executing')return {agents:[],text:state.fr?'Aucun travailleur actif vérifié. Les affectations et travaux enregistrés restent consultables.':'No verified currently executing worker. Registered identities and recorded work remain available.'};
@@ -69,15 +86,20 @@ export function createTools({catalog,map,geocode=null,state}){
   if(name==='search_agents'||name==='show_nearby_agents')return findAgents(args,name==='show_nearby_agents');
   if(name==='filter_agents_by_location')return findAgents(args);
   if(name==='select_agent'||name==='follow_agent'){
-   if(state.clarification)throw Error('Clarification required');const a=getAgent(args.agent_id);await map.selectAgent(a,{signal,follow:name==='follow_agent'});state.agent=a;state.location={id:'assignment:'+a.id,city:a.geography,coordinates:a.assignment,name:a.geography};
+   if(state.clarification)throw Error('Clarification required');const a=getAgent(args.agent_id);assertCity(a.geography);await map.selectAgent(a,{signal,follow:name==='follow_agent'});state.agent=a;state.location={id:'assignment:'+a.id,city:a.geography,coordinates:a.assignment,name:a.geography};known.set(state.location.id,state.location);
    return {agent:summary(a),navigated:true,text:state.fr?`Caméra sur ${a.code}, ${a.domain}, ${a.geography}. ${a.recorded?'Travail enregistré disponible.':'Aucune enquête terminée enregistrée pour cette identité.'}`:`Camera on ${a.code}, ${a.domain}, ${a.geography}. ${a.recorded?'Recorded work is available.':'No completed investigation is recorded for this identity.'}`};
   }
   if(name==='retrieve_evidence'){
-   const id=args.agent_id==='$selected_agent'?state.agent?.id:args.agent_id;
+   const id=args.agent_id==='$selected_agent'?state.agent?.id:args.agent_id||(args.all?null:state.agent?.id);
    if(id&&!catalog.agents.some(a=>a.id===id))throw Error('Unknown agent');
-   const claims=evidenceFor(catalog,id||state.agent?.id),accepted=claims.filter(c=>!c.flagged);state.evidence=accepted.slice(0,12);
-   const tasks=catalog.work.run.tasks.filter(t=>(!id&&!state.agent||t.agent===(id||state.agent?.id))&&t.status==='completed').map(t=>({id:t.id,agent:t.agent,role:t.role,status:t.status,completed:t.completed,tools:catalog.work.events.filter(e=>e.task===t.id&&e.kind==='tool_completed').map(e=>e.tool)}));
-   return {evidence:state.evidence,tasks,excludedScopeClaims:claims.filter(c=>c.flagged).length,limitations:state.fr?'Enquête enregistrée, calculs exploratoires non calibrés, aucun effet réel mesuré ni transfert intercommunal validé.':'Recorded investigation; exploratory uncalibrated calculations, no measured real-world effect or validated transfer between cities.',text:accepted.length?(state.fr?'Constats du modèle enregistrés ; consultez les sources et les limites.':'Recorded model claims; inspect sources and limitations.'):(state.fr?'Aucun résultat terminé enregistré pour cette sélection.':'No completed findings are recorded for this selection.')};
+   const claims=evidenceFor(catalog,id),accepted=claims.filter(c=>!c.flagged);state.evidence=accepted.slice(0,12);
+   const tasks=catalog.work.run.tasks.filter(t=>(!id||t.agent===id)&&t.status==='completed').map(t=>({id:t.id,agent:t.agent,role:t.role,status:t.status,completed:t.completed,tools:catalog.work.events.filter(e=>e.task===t.id&&e.kind==='tool_completed').map(e=>e.tool)}));
+   const references=new Set(accepted.flatMap(c=>c.cites||[]));const sources=catalog.work.run.findings.filter(f=>references.has(f.id)).map(f=>({id:f.id,href:f.output?.url||'data/intelligence/work.json',text:f.id+' · '+f.tool+' · recorded tool output'}));
+   return {evidence:state.evidence,tasks,sources,excludedScopeClaims:claims.filter(c=>c.flagged).length,limitations:state.fr?'Enquête enregistrée, calculs exploratoires non calibrés, aucun effet réel mesuré ni transfert intercommunal validé.':'Recorded investigation; exploratory uncalibrated calculations, no measured real-world effect or validated transfer between cities.',text:accepted.length?(state.fr?'Constats du modèle enregistrés ; consultez les sources et les limites.':'Recorded model claims; inspect sources and limitations.'):(state.fr?'Aucun résultat terminé enregistré pour cette sélection.':'No completed findings are recorded for this selection.')};
+  }
+  if(name==='inspect_selected_problem'){
+   const p=map.problem?.();if(!p)return {text:state.fr?'Aucun problème sélectionné sur la carte.':'No problem is selected on the map.',evidence:[]};
+   const evidence=[{id:p.id,text:JSON.stringify(p),href:'data/problems/registry.json'}];state.evidence=evidence;return {problem:p,evidence,text:state.fr?'Problème sélectionné et statut du registre, sans diagnostic supplémentaire.':'Selected problem and registry status, without an additional diagnosis.'};
   }
   if(name==='show_sources'){
    const sources=[...catalog.urban.sources.map(s=>({id:s.id,href:s.url,text:s.publisher+' · '+s.limitations})),...catalog.work.run.findings.filter(f=>f.output?.url).map(f=>({id:f.id,href:f.output.url,text:f.output.publisher||f.tool}))].filter(s=>/^https:\/\//.test(s.href));state.sources=sources;return {sources,text:state.fr?'Sources réelles du dossier ; leur présence ne valide pas les calculs.':'Actual dossier sources; their presence does not validate the calculations.'};

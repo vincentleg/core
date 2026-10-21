@@ -27,9 +27,10 @@ export async function loadCatalog(fetchImpl=fetch){
 function editDistance(a,b){if(Math.abs(a.length-b.length)>2)return 3;let row=Array.from({length:b.length+1},(_,i)=>i);for(let i=1;i<=a.length;i++){const next=[i];for(let j=1;j<=b.length;j++)next[j]=Math.min(next[j-1]+1,row[j]+1,row[j-1]+(a[i-1]!==b[j-1]));row=next;}return row[b.length];}
 export function searchPlaces(catalog,query,city=''){
  const q=normal(query),mentioned=catalog.cities.filter(p=>q.includes(normal(p.city))),c=normal(city|| (mentioned.length===1?mentioned[0].city:''));
- const named=catalog.places.filter(p=>p.type!=='city'&&p.aliases.some(a=>q.includes(normal(a))));
+ const named=catalog.places.filter(p=>p.type!=='city'&&p.aliases.some(a=>(' '+q+' ').includes(' '+normal(a)+' ')));
  if(c&&named.some(p=>normal(p.city)!==c))return {places:[...named,...catalog.cities.filter(p=>normal(p.city)===c)],ambiguous:true,fuzzy:false};
- const hits=catalog.places.filter(p=>(!c||normal(p.city)===c)&&p.aliases.some(a=>q.includes(normal(a))));
+ const hits=catalog.places.filter(p=>(!c||normal(p.city)===c)&&p.aliases.some(a=>(' '+q+' ').includes(' '+normal(a)+' ')));
+ if(!named.length&&/\b(street|rue|avenue|intersection|address|adresse|downtown|quartier|neighborhood)\b|\d+/.test(q))return {places:[],ambiguous:false,fuzzy:false};
  const exact=hits.filter(p=>p.type!=='city');const selected=exact.length?exact:hits;
  if(selected.length)return {places:selected,ambiguous:selected.length>1&&selected.some(p=>distance(p.coordinates,selected[0].coordinates)>1000)||selected.some(p=>p.id==='landmark:golden-gate-bridge'&&!q.includes('golden gate bridge')&&!q.includes('pont du golden gate')),fuzzy:false};
  const candidates=catalog.places.filter(p=>(!c||normal(p.city)===c)&&p.aliases.some(a=>q.split(' ').some((_,i,words)=>{const part=words.slice(i,i+normal(a).split(' ').length).join(' ');return part.length>=4&&editDistance(part,normal(a))<=2;})));

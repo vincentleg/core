@@ -6,12 +6,12 @@ export function wav(samples,sampleRate){
 }
 export function createVoice({transcribe,onTranscript,onState,language=()=> 'en',host=globalThis}){
  let stream=null,context=null,node=null,source=null,rec=null,timer=null,parts=[],count=0,rate=0,started=0,lastSound=0,heard=false,processing=false,epoch=0,ctl=null;
- const stopSpeech=()=>host.speechSynthesis?.cancel();
+ let speechEpoch=0;const stopSpeech=()=>{speechEpoch++;host.speechSynthesis?.cancel();};
  async function cleanup(){clearTimeout(timer);stream?.getTracks().forEach(t=>t.stop());stream=null;node?.disconnect();source?.disconnect();node=null;source=null;await context?.close().catch(()=>{});context=null;}
  async function stop({submit=false}={}){
   if(!submit)epoch++;if(rec){const r=rec;rec=null;r.abort();}if(processing&&!submit){ctl?.abort();epoch++;processing=false;}
   const snapshot=parts,total=count,frequency=rate;parts=[];count=0;await cleanup();
-  if(submit&&heard&&total&&transcribe){processing=true;const generation=++epoch;ctl=new AbortController();onState('transcribing');try{const pcm=new Float32Array(total);let pos=0;for(const part of snapshot){pcm.set(part,pos);pos+=part.length;}const result=await transcribe(wav(pcm,frequency),language(),ctl.signal);if(generation===epoch&&result.text?.trim())await onTranscript(result.text.trim(),true);else if(generation===epoch)onState('idle');}catch(e){if(generation===epoch)onState('error',e.message);}finally{if(generation===epoch)processing=false;}}
+  if(submit&&heard&&total&&transcribe){processing=true;const generation=++epoch;ctl=new AbortController();onState('transcribing');try{const pcm=new Float32Array(total);let pos=0;for(const part of snapshot){pcm.set(part,pos);pos+=part.length;}const result=await transcribe(wav(pcm,frequency),language(),ctl.signal);pcm.fill(0);snapshot.length=0;if(generation===epoch&&result.text?.trim())await onTranscript(result.text.trim(),true);else if(generation===epoch)onState('idle');}catch(e){if(generation===epoch)onState('error',e.message);}finally{if(generation===epoch)processing=false;}}
   else onState('idle');
  }
  async function start({browser=false,consent=false}={}){
@@ -40,7 +40,7 @@ export function createVoice({transcribe,onTranscript,onState,language=()=> 'en',
  function speak(text,{onEnd=()=>{}}={}){
   stopSpeech();const synth=host.speechSynthesis,U=host.SpeechSynthesisUtterance;if(!synth||!U){onEnd();return false;}
   const voice=synth.getVoices().find(v=>v.localService&&v.lang.toLowerCase().startsWith(language()));if(!voice){onEnd();return false;}
-  const u=new U(text.slice(0,1600));u.voice=voice;u.lang=voice.lang;u.onstart=()=>onState('speaking');u.onend=()=>{onState('idle');onEnd();};u.onerror=()=>onState('error','Speech output unavailable');synth.speak(u);return true;
+  const current=speechEpoch,u=new U(text.slice(0,1600));u.voice=voice;u.lang=voice.lang;u.onstart=()=>{if(current===speechEpoch)onState('speaking');};u.onend=()=>{if(current===speechEpoch){onState('idle');onEnd();}};u.onerror=e=>{if(current===speechEpoch)onState(['canceled','interrupted'].includes(e.error)?'idle':'error','Speech output unavailable');};synth.speak(u);return true;
  }
  return {start,stop,speak,stopSpeech,mute:async()=>{epoch++;ctl?.abort();stopSpeech();await stop();onState('muted');},get listening(){return !!stream||!!rec;}};
 }

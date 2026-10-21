@@ -18,8 +18,8 @@ test('pages: strict CSP — no inline or external scripts; Dialogue and Commons 
   // V7 World: exactly the three public, keyless sources reviewed in docs/v7/TOOLING_AND_COSTS.md (OpenFreeMap tiles,
   // NASA GIBS imagery, AWS Terrain Tiles relief). blob:/data: are the map's own decoded resources, never remote.
   const w = read('world.html').match(/connect-src ([^;]+);/)[1].split(/\s+/).sort();
-  // V8: plus the loopback local-model endpoint, used only after the person switches local reasoning on.
-  assert.deepEqual(w, ["'self'", 'blob:', 'data:', 'http://127.0.0.1:11434', 'https://gibs.earthdata.nasa.gov', 'https://s3.amazonaws.com', 'https://tiles.openfreemap.org'].sort());
+  // V9.8: plus the opt-in, bounded official Photon geocoder (DATA_SOURCES.md); V8 loopback endpoint, used only after the person switches local reasoning on.
+  assert.deepEqual(w, ["'self'", 'blob:', 'data:', 'http://127.0.0.1:11434', 'https://gibs.earthdata.nasa.gov', 'https://photon.komoot.io', 'https://s3.amazonaws.com', 'https://tiles.openfreemap.org'].sort());
   assert.match(read('avatar.html'), /connect-src 'self' blob: data:;/);
 });
 
