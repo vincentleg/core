@@ -5,6 +5,7 @@
 body:has(.ci) .ea-tools{top:calc(var(--navh) + 192px)}body:has(.ci) .ea-hero{top:calc(var(--navh) + 215px);transform:none;max-height:calc(100dvh - var(--navh) - 235px);overflow-y:auto;gap:12px}
 @media(min-width:1100px){.ci-active{left:16px;transform:none;width:440px}.ci-active .ci-heading span{max-width:210px;text-align:right}.ci-active~.ea-tools{left:50%}}
 @media(max-width:860px){.ci{left:8px;right:8px;transform:none;width:auto;top:calc(var(--navh) + 6px);padding:8px 10px}.ci-heading{font-size:9px}.ci-form input{font-size:16px;padding:8px 2px}.ci-options{font-size:10px}.ci-examples button{font-size:10px}.ci-output{max-height:32dvh}.ci-heading span{max-width:48%;text-align:right}body:has(.ci) .ea-hero{top:calc(var(--navh) + 210px);max-height:calc(100dvh - var(--navh) - 275px)}body:has(.ci) .ea-tools{top:calc(var(--navh) + 175px)}}
-@media(prefers-reduced-motion:reduce){.ci *{scroll-behavior:auto!important}}
+@media(prefers-reduced-motion:reduce){.ci,.ci *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 
 @media(max-width:860px){body:has(.ci) .ea-layers{top:calc(var(--navh) + 170px)}body:has(.ci) .ea-layer-intro{top:calc(var(--navh) + 212px)}}
+@media(max-width:860px){.ci-active .ci-output{max-height:20dvh}body:has(.ci-active .ci-output:not([hidden])) .ea-panel{max-height:32dvh}}
