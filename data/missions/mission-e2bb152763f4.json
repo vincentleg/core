@@ -307,7 +307,7 @@
    "tool": "buildings.frontage",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 25,
+   "ms": 28,
    "records": 24,
    "error": null,
    "findings": [
@@ -372,7 +372,7 @@
    "tool": "energy.benchmarks",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 34,
+   "ms": 40,
    "records": 8,
    "error": null,
    "findings": [
@@ -455,7 +455,7 @@
    "tool": "public-space.sidewalks",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 32,
+   "ms": 35,
    "records": 1,
    "error": null,
    "findings": [
@@ -519,7 +519,7 @@
       }
      ],
      "value": 0,
-     "asOf": "2026-10-20T23:52:05.954Z",
+     "asOf": "2026-10-21T04:44:02.772Z",
      "agent": "core.san-francisco.climate.weather-alerts",
      "tool": "resilience.weather-alerts"
     }
@@ -535,7 +535,7 @@
    "tool": "graph.link",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 12,
+   "ms": 8,
    "records": 1,
    "error": null,
    "findings": [
@@ -580,7 +580,7 @@
    "tool": "scenario.investigate",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 185,
+   "ms": 150,
    "records": 69,
    "error": null,
    "findings": [
@@ -1257,7 +1257,7 @@
    "tool": "knowledge.retrieve",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 186,
+   "ms": 151,
    "records": 4,
    "error": null,
    "findings": [
@@ -1278,7 +1278,7 @@
     },
     {
      "topic": "knowledge",
-     "claim": "Building Permits (i98e-djp9) — DataSF open data portal (v1, à jour) ; limites : Free-text descriptions; statuses may stay open..",
+     "claim": "Building Permits (i98e-djp9) — DataSF open data portal (v1, à actualiser) ; limites : Free-text descriptions; statuses may stay open..",
      "epistemic": "reported",
      "evidence": [
       {
@@ -1612,7 +1612,7 @@
     }
    ],
    "value": 0,
-   "asOf": "2026-10-20T23:52:05.954Z",
+   "asOf": "2026-10-21T04:44:02.772Z",
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts"
   },
@@ -1704,7 +1704,7 @@
   },
   {
    "topic": "knowledge",
-   "claim": "Building Permits (i98e-djp9) — DataSF open data portal (v1, à jour) ; limites : Free-text descriptions; statuses may stay open..",
+   "claim": "Building Permits (i98e-djp9) — DataSF open data portal (v1, à actualiser) ; limites : Free-text descriptions; statuses may stay open..",
    "epistemic": "reported",
    "evidence": [
     {
@@ -1854,7 +1854,7 @@
    "resolved": 1
   },
   {
-   "claim": "Building Permits (i98e-djp9) — DataSF open data portal (v1, à jour) ; limites : Free-text descriptions; statuses may stay open..",
+   "claim": "Building Permits (i98e-djp9) — DataSF open data portal (v1, à actualiser) ; limites : Free-text descriptions; statuses may stay open..",
    "agent": "core.san-francisco.regulatory.knowledge-research",
    "epistemic": "reported",
    "typeOk": true,
@@ -2004,7 +2004,7 @@
    },
    {
     "topic": "knowledge",
-    "text": "Street-Use Permits (b6tj-gt35) — DataSF open data portal (v1, à jour) ; limites : Administrative record; contact columns removed by CORE.. Building Permits (i98e-djp9) — DataSF open data portal (v1, à jour) ; limites : Free-text descriptions; statuses may stay open.. Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only.. Street Tree Inventory (tkzw-k3nq) — DataSF open data portal (v1, à jour) ; limites : Planting dates often missing; presence not verified..",
+    "text": "Street-Use Permits (b6tj-gt35) — DataSF open data portal (v1, à jour) ; limites : Administrative record; contact columns removed by CORE.. Building Permits (i98e-djp9) — DataSF open data portal (v1, à actualiser) ; limites : Free-text descriptions; statuses may stay open.. Observation: DBI 'issued' status is not a reliable activity signal — CORE methodology documents (v1, à jour) ; limites : Corridor sample only.. Street Tree Inventory (tkzw-k3nq) — DataSF open data portal (v1, à jour) ; limites : Planting dates often missing; presence not verified..",
     "cites": [
      12,
      13,
@@ -2298,17 +2298,17 @@
   },
   {
    "seq": 24,
-   "t": 27,
+   "t": 30,
    "kind": "task",
    "task": "task-4",
    "agent": "core.san-francisco.housing.building-permits",
    "tool": "buildings.frontage",
    "state": "succeeded",
-   "text": "2 constat(s), 24 enregistrement(s), 25 ms"
+   "text": "2 constat(s), 24 enregistrement(s), 28 ms"
   },
   {
    "seq": 25,
-   "t": 27,
+   "t": 30,
    "kind": "task",
    "task": "task-7",
    "agent": "core.san-francisco.climate.weather-alerts",
@@ -2318,17 +2318,17 @@
   },
   {
    "seq": 26,
-   "t": 36,
+   "t": 42,
    "kind": "task",
    "task": "task-5",
    "agent": "core.san-francisco.energy.energy-benchmarks",
    "tool": "energy.benchmarks",
    "state": "succeeded",
-   "text": "1 constat(s), 8 enregistrement(s), 34 ms"
+   "text": "1 constat(s), 8 enregistrement(s), 40 ms"
   },
   {
    "seq": 27,
-   "t": 36,
+   "t": 42,
    "kind": "task",
    "task": "task-8",
    "agent": "core.san-francisco.data-science.graph-linker",
@@ -2338,17 +2338,17 @@
   },
   {
    "seq": 28,
-   "t": 47,
+   "t": 50,
    "kind": "task",
    "task": "task-6",
    "agent": "core.san-francisco.public-space.sidewalks",
    "tool": "public-space.sidewalks",
    "state": "succeeded",
-   "text": "1 constat(s), 1 enregistrement(s), 32 ms"
+   "text": "1 constat(s), 1 enregistrement(s), 35 ms"
   },
   {
    "seq": 29,
-   "t": 47,
+   "t": 50,
    "kind": "task",
    "task": "task-9",
    "agent": "core.san-francisco.simulation.scenario-evaluator",
@@ -2358,7 +2358,7 @@
   },
   {
    "seq": 30,
-   "t": 47,
+   "t": 50,
    "kind": "task",
    "task": "task-7",
    "agent": "core.san-francisco.climate.weather-alerts",
@@ -2368,7 +2368,7 @@
   },
   {
    "seq": 31,
-   "t": 47,
+   "t": 50,
    "kind": "task",
    "task": "task-10",
    "agent": "core.san-francisco.regulatory.knowledge-research",
@@ -2378,83 +2378,83 @@
   },
   {
    "seq": 32,
-   "t": 48,
+   "t": 50,
    "kind": "task",
    "task": "task-8",
    "agent": "core.san-francisco.data-science.graph-linker",
    "tool": "graph.link",
    "state": "succeeded",
-   "text": "1 constat(s), 1 enregistrement(s), 12 ms"
+   "text": "1 constat(s), 1 enregistrement(s), 8 ms"
   },
   {
    "seq": 33,
-   "t": 232,
+   "t": 200,
    "kind": "task",
    "task": "task-9",
    "agent": "core.san-francisco.simulation.scenario-evaluator",
    "tool": "scenario.investigate",
    "state": "succeeded",
-   "text": "2 constat(s), 69 enregistrement(s), 185 ms"
+   "text": "2 constat(s), 69 enregistrement(s), 150 ms"
   },
   {
    "seq": 34,
-   "t": 233,
+   "t": 201,
    "kind": "task",
    "task": "task-10",
    "agent": "core.san-francisco.regulatory.knowledge-research",
    "tool": "knowledge.retrieve",
    "state": "succeeded",
-   "text": "4 constat(s), 4 enregistrement(s), 186 ms"
+   "text": "4 constat(s), 4 enregistrement(s), 151 ms"
   },
   {
    "seq": 35,
-   "t": 233,
+   "t": 201,
    "kind": "mission",
    "state": "reviewing",
    "text": "Mission → reviewing"
   },
   {
    "seq": 36,
-   "t": 233,
+   "t": 201,
    "kind": "review",
    "agent": "core.san-francisco.research.evidence-verifier",
    "text": "Vérification indépendante : 16/16 constats entièrement sourcés."
   },
   {
    "seq": 37,
-   "t": 233,
+   "t": 201,
    "kind": "review",
    "agent": "core.san-francisco.safety.adversarial-reviewer",
    "text": "Revue adversariale : 0 désaccord(s), 3 sensibilité(s), 0 limite(s), 0 tâche(s) non abouties."
   },
   {
    "seq": 38,
-   "t": 233,
+   "t": 201,
    "kind": "synthesis",
    "agent": "core.san-francisco.manager",
    "text": "Synthèse : 11 énoncé(s) sourcé(s) ; action suivante : Proposer à la revue humaine une vérification de terrain coordonnée (R2) sur HOWARD ST NEW MONTGOMERY ST → HAWTHORNE ST avant l’ouverture des excavations non commencées ; ne pas engager d’intervention coordonnée (R1) tant que tracés, état des arbres et calendrier des façades ne sont pas connus."
   },
   {
    "seq": 39,
-   "t": 457,
+   "t": 391,
    "kind": "gateway",
    "agent": "core.san-francisco.governance.gateway",
    "text": "ÉLIGIBLE À LA REVUE HUMAINE — Passerelle inter-domaines : ÉLIGIBLE À LA REVUE HUMAINE. Proposer à la revue humaine une vérification de terrain coordonnée (R2) sur HOWARD ST NEW MONTGOMERY ST → HAWTHORNE ST avant l’ouverture des excavations non commencées ; ne pas engager d’intervention coordonnée (R1) tant que tracés, état des arbres et calendrier des façades ne sont pas connus."
   },
   {
    "seq": 40,
-   "t": 457,
+   "t": 391,
    "kind": "mission",
    "state": "needs-human-review",
    "text": "Mission → needs-human-review"
   }
  ],
- "fingerprint": "c8bac269a45f4426",
+ "fingerprint": "df3c6d8e0ec227f2",
  "recorded": {
   "by": "scripts/agents.mjs (Node)",
-  "at": "2026-10-20T23:52:24.138Z",
-  "wallMs": 457,
+  "at": "2026-10-21T04:44:24.472Z",
+  "wallMs": 391,
   "snapshot": "2026-10-13T18:25:19.678Z",
-  "feedUpdate": "2026-10-20T23:52:05.954Z"
+  "feedUpdate": "2026-10-21T04:44:02.772Z"
  }
 }
