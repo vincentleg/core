@@ -49,11 +49,13 @@ const EXAMPLES=[[ask('Find someone working on bike lanes in Berkeley'),{calls:[{
  [ask('Show me the city across the bay from San Francisco'),{calls:[{name:'search_places',arguments:{query:'Oakland'}},{name:'fly_to_place',arguments:{place_id:'$location'}}],message:'',citations:[]}],
  [ask('How much does CORE cost?'),{calls:[{name:'lookup_core_knowledge',arguments:{query:'pricing plans'}}],message:'',citations:[]}],
  [ask('What is photosynthesis?'),{calls:[],message:'Photosynthesis is how plants use light, water and carbon dioxide to make sugars and release oxygen.',citations:[]}]].flatMap(([u,a])=>[{role:'user',content:u},{role:'assistant',content:JSON.stringify(a)}]);
-const signatures=()=>Object.entries(TOOLS).map(([k,v])=>k+'('+Object.keys(v.schema.properties).map(a=>a+((v.schema.required||[]).includes(a)?'':'?')).join(',')+')').join(' ');
+const signatures=()=>Object.entries(TOOLS).filter(([k])=>!OMIT.has(k)).map(([k,v])=>k+'('+Object.keys(v.schema.properties).map(a=>a+((v.schema.required||[]).includes(a)?'':'?')).join(',')+')').join(' ');
 // Grammars are kept identical across requests: compiling one costs seconds, a cached one nothing. Request-specific IDs and
 // citations are therefore checked after decoding (validate here, then the engine's citation and execution checks).
 const SYNTHESIS={type:'object',additionalProperties:false,properties:{calls:{type:'array',maxItems:0,items:{type:'object'}},message:{type:'string',minLength:1,maxLength:600},citations:{type:'array',maxItems:4,items:{type:'string',maxLength:200}}},required:['calls','message','citations']};
-const PLAN=planningSchema({});for(const o of PLAN.properties.calls.items.anyOf)for(const k of ['place_id','agent_id'])if(o.properties.arguments.properties[k])o.properties.arguments.properties[k]={type:'string',minLength:1,maxLength:240};
+// The small model never gets coordinate or redundant camera tools: it navigates only through verified place IDs.
+const OMIT=new Set(['fly_to_coordinates','zoom_to_area','highlight_geographic_feature','follow_agent']),ALLOWED=Object.keys(TOOLS).filter(k=>!OMIT.has(k));
+const PLAN=planningSchema({});PLAN.properties.calls.items.anyOf=PLAN.properties.calls.items.anyOf.filter(o=>!OMIT.has(o.properties.name.enum[0]));for(const o of PLAN.properties.calls.items.anyOf)for(const k of ['place_id','agent_id'])if(o.properties.arguments.properties[k])o.properties.arguments.properties[k]={type:'string',minLength:1,maxLength:240};
 const GRAMMAR={plan:grammar(PLAN),synthesis:grammar(SYNTHESIS)};
 const planText=input=>JSON.stringify(input)+'\n'+(input.synthesis?'Answer now from the observations. Output {"calls":[],"message":"…","citations":[…]}.':(input.observations?.length?'Observations are outcomes of tools ALREADY executed. Do not repeat them. Answer with calls:[] unless something essential is missing. ':'Select the tools needed. ')+'Output {"calls":[{"name":"tool","arguments":{…}}],"message":"","citations":[]}. Tool signatures: '+signatures());
 // Returns the same model(input,{signal}) contract as the local bridge, plus the measured load time.
@@ -68,10 +70,10 @@ export async function loadBrowserModel(modelId,{onProgress=()=>{},WorkerImpl=glo
  const loadMs=Math.round(performance.now()-started);
  async function infer(input,{signal}={}){
   signal?.throwIfAborted();
-  const schema=input.synthesis?SYNTHESIS:planningSchema(input.context);
+  const schema=input.synthesis?SYNTHESIS:PLAN;
   const stop=()=>engine.interruptGenerate();signal?.addEventListener('abort',stop,{once:true});
   try{
-   const reply=await engine.chat.completions.create({messages:[{role:'system',content:input.synthesis?synthesisInstructions():compactInstructions()},...(input.synthesis?[]:EXAMPLES),{role:'user',content:planText(input)}],response_format:{type:'grammar',grammar:input.synthesis?GRAMMAR.synthesis:GRAMMAR.plan},temperature:0,max_tokens:input.synthesis?200:260,extra_body:{enable_thinking:false}});
+   const reply=await engine.chat.completions.create({messages:[{role:'system',content:input.synthesis?synthesisInstructions():compactInstructions(ALLOWED)},...(input.synthesis?[]:EXAMPLES),{role:'user',content:planText(input)}],response_format:{type:'grammar',grammar:input.synthesis?GRAMMAR.synthesis:GRAMMAR.plan},temperature:0,max_tokens:input.synthesis?200:260,extra_body:{enable_thinking:false}});
    signal?.throwIfAborted();const choice=reply.choices[0];if(choice.finish_reason==='length')throw Error('On-device model output was truncated');
    // Qwen3 emits an empty think block before the constrained output when thinking is disabled.
    const plan=JSON.parse(choice.message.content.replace(/^\s*<think>[\s\S]*?<\/think>\s*/,''));last={usage:reply.usage};
