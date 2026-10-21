@@ -24,4 +24,12 @@ Only the existing CORE project and static Preview are authorized. No hosted infe
 
 Physical microphones and real iOS Safari are untested. Desktop Chrome, mobile Chrome emulation, desktop WebKit and mobile WebKit emulation passed; WebKit emulation is not a physical Safari-device test. Native speech output depends on installed compatible local voices; unit lifecycle tests do not prove audible sound from a physical speaker. Local Whisper emits final-turn text rather than streaming partial transcripts; compatible optional browser recognition supplies live interim text. General model reasoning is not guaranteed correct, and successful actions do not validate recorded claims. Geographic caches cover only documented references; precise extra addresses require opt-in geocoding and candidate choice.
 
-Final protected Preview URL, runtime commit, public-site checks and verification totals: pending release gate and deployment in this checkpoint. Do not infer deployment from this document's existence.
+## Final protected deployment
+
+Preview: https://core-1gu25qj0q-vincentleg.vercel.app (existing Vercel Authentication required). Runtime commit: `d282304f9b63c40d5c6b92fc0e5445296601f351`, pushed to `v9.8/core-intelligence`. The static build contains 176 files, 13.8 MB; it includes no inference server or model weights.
+
+Authenticated desktop Chrome and mobile Chrome emulation passed against this deployed Preview: actual sourced camera movement, actual Oakland agent selection/panel, map-center visibility, contextual search, French navigation, geographic ambiguity, sources and honest offline disclosures. The desktop six-scene tour, Plans and Manifesto also passed. Both runs had zero page exceptions, horizontal overflow or attempts to contact localhost/private intelligence APIs. Anonymous Preview access returned authentication redirect 302. Temporary owner-auth browser cookies were kept outside Git and removed after validation.
+
+Read-only hashes of production `world.html`, `src/earth/app.mjs` and `src/earth/demo-launch.js` matched their predeployment approved-baseline checks. No production promotion occurred. Final preservation audit: all 1,309 original Beta Lab/checkpoint files still matched the saved SHA-256 manifest. The 1,000 personas and existing browser results were not regenerated.
+
+Local evidence: `.core-local/evidence/v98/verify-layout-final.log` (297 passing tests); `layout-final/results.json` (final desktop/mobile layout); `protected-final/results.json` and PNGs (deployed desktop/mobile); `webkit/results.json`; `voice-base/results.json`; `production-after.json`. Earlier failed attempts remain preserved beside successful checks. These ignored files remain in this worktree, not the static deployment or Git history.

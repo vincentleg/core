@@ -4,6 +4,8 @@ Worktree: `~/core/.core-local/worktrees/v9.8`; feature branch `v9.8/core-intelli
 
 Beta Lab remains paused in the original `~/core` checkout on `beta-lab/v9.7-baseline`, checkpoint `6a4a309`. Its tracked changes were committed with hooks enabled; the full 1,309-file local archive and manifest are in the original checkout's `.core-local/checkpoints/v98-before/`. Existing untracked V9.6/V9.7 deployment/production notes were preserved there and left in place. Do not rerun the panel or change its holds.
 
+Final runtime: `d282304f9b63c40d5c6b92fc0e5445296601f351`; protected Preview: https://core-1gu25qj0q-vincentleg.vercel.app. Deployed desktop/mobile Chrome checks passed in public safe mode. Exact-runtime release gate: 297 tests. See [deployment proof and limits](V9_8_DEPLOYMENT.md).
+
 ## Launch the current local installation
 
 ```sh
