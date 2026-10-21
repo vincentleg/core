@@ -24,12 +24,16 @@ export async function loadCatalog(fetchImpl=fetch){
  const agents=work.registry.map(a=>{if(!coordinates(a.assignment))throw Error('Invalid agent assignment');const tasks=work.run.tasks.filter(t=>t.agent===a.id);return {...a,tasks,recorded:tasks.some(t=>t.status==='completed'),worker:'offline',searchText:normal([a.id,a.code,a.name,a.role,a.domain,a.geography,a.mission,...a.tools,...tasks.map(t=>t.goal+' '+JSON.stringify(t.output||{})),...work.run.findings.filter(f=>f.agent===a.id).map(f=>f.tool+' '+(f.output.publisher||f.output.source||''))].join(' '))};});
  return {work,urban,places,cities,agents,knowledge:KNOWLEDGE};
 }
+const skeleton=w=>normal(w).replace(/\b(street|st|rue|avenue|ave|bridge|pont|the|le|la)\b/g,'').replace(/[aeiouy\s]/g,'').replace(/(.)\1+/g,'$1');
 function editDistance(a,b){if(Math.abs(a.length-b.length)>2)return 3;let row=Array.from({length:b.length+1},(_,i)=>i);for(let i=1;i<=a.length;i++){const next=[i];for(let j=1;j<=b.length;j++)next[j]=Math.min(next[j-1]+1,row[j]+1,row[j-1]+(a[i-1]!==b[j-1]));row=next;}return row[b.length];}
 export function searchPlaces(catalog,query,city=''){
  const q=normal(query),mentioned=catalog.cities.filter(p=>q.includes(normal(p.city))),c=normal(city|| (mentioned.length===1?mentioned[0].city:''));
  const named=catalog.places.filter(p=>p.type!=='city'&&p.aliases.some(a=>(' '+q+' ').includes(' '+normal(a)+' ')));
  if(c&&named.some(p=>normal(p.city)!==c))return {places:[...named,...catalog.cities.filter(p=>normal(p.city)===c)],ambiguous:true,fuzzy:false};
  const hits=catalog.places.filter(p=>(!c||normal(p.city)===c)&&p.aliases.some(a=>(' '+q+' ').includes(' '+normal(a)+' ')));
+ // Speech recognition mishears names ("fall some street" for Folsom Street): a matching consonant skeleton only ever
+ // offers the place as a choice (ambiguous), never navigates by itself.
+ if(!named.length){const sounds=catalog.places.filter(p=>p.type!=='city'&&(!c||normal(p.city)===c)&&p.aliases.some(a=>{const k=skeleton(a);return k.length>=4&&q.split(' ').some((_,i,w)=>[1,2,3].some(n=>skeleton(w.slice(i,i+n).join(' '))===k));}));if(sounds.length)return {places:sounds,ambiguous:true,fuzzy:true};}
  if(!named.length&&/\b(street|rue|avenue|intersection|address|adresse|downtown|quartier|neighborhood)\b|\d+/.test(q))return {places:[],ambiguous:false,fuzzy:false};
  const exact=hits.filter(p=>p.type!=='city');const selected=exact.length?exact:hits;
  if(selected.length)return {places:selected,ambiguous:selected.length>1&&selected.some(p=>distance(p.coordinates,selected[0].coordinates)>1000)||selected.some(p=>p.id==='landmark:golden-gate-bridge'&&!q.includes('golden gate bridge')&&!q.includes('pont du golden gate')),fuzzy:false};

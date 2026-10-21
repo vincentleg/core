@@ -57,7 +57,7 @@ try{
   // Fresh page per request: model-planned interpretation and evidence synthesis, judged by actual tool outcomes.
   for(const [q,ok] of [['Find someone working on bike lanes in Berkeley.',r=>r.agent?.city==='Berkeley'||r.events?.some(e=>e.tool==='search_agents'&&e.status==='succeeded')],['Could you show me the city across the bay from San Francisco?',r=>r.navigated&&r.location==='Oakland'],['Find a mobility agent with completed research in San Francisco and explain what it discovered.',r=>/model-synthesis/.test(r.responseKind)&&r.agent?.city==='San Francisco']]){
    const c=await open(),{p}=c;await p.waitForFunction(()=>['ready','failed','available','unsupported'].includes(CORE_INTELLIGENCE.ai.status),null,{timeout:120000});await p.evaluate(()=>CORE_INTELLIGENCE.enableAI());await p.waitForFunction(()=>['ready','failed'].includes(CORE_INTELLIGENCE.ai.status),null,{timeout:600000});
-   await p.locator('#ea-start').click();await p.waitForTimeout(1200);const r=await ask(p,q);results.timings.push({q,...r});const pass=!!ok(r);console.log(JSON.stringify({q,pass,kind:r.responseKind,firstMoveMs:r.timings?.firstMoveMs,modelMs:r.timings?.modelMs,totalMs:r.timings?.totalMs,text:r.text.slice(0,260),tools:r.tools}));results.checks.push({name:q,pass});await close(c);
+   await p.locator('#ea-start').click();await p.waitForTimeout(1200);const r=await ask(p,q);results.timings.push({q,...r});const pass=!!ok(r);console.log(JSON.stringify({q,pass,kind:r.responseKind,firstMoveMs:r.timings?.firstMoveMs,modelMs:r.timings?.modelMs,totalMs:r.timings?.totalMs,text:r.text.length>420?r.text.slice(0,200)+" … "+r.text.slice(-200):r.text,tools:r.tools}));results.checks.push({name:q,pass});await close(c);
   }
  }
  if(part==='deny'){
