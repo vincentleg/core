@@ -1,6 +1,6 @@
 {
  "version": "core-agent-evals-v1",
- "generated_at": "2026-10-21T22:43:41.177Z",
+ "generated_at": "2026-10-22T01:50:51.538Z",
  "results": [
   {
    "agent": "core.san-francisco.civil.works-coordination",
@@ -8,7 +8,7 @@
    "case": "fenêtres = recalcul du moteur de coordination",
    "pass": true,
    "error": null,
-   "date": "2026-10-21",
+   "date": "2026-10-22",
    "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
@@ -17,7 +17,7 @@
    "case": "seuls des titulaires classés télécoms",
    "pass": true,
    "error": null,
-   "date": "2026-10-21",
+   "date": "2026-10-22",
    "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
@@ -26,7 +26,7 @@
    "case": "preuves vérifiables, distances ≤ rayon",
    "pass": true,
    "error": null,
-   "date": "2026-10-21",
+   "date": "2026-10-22",
    "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
@@ -35,7 +35,7 @@
    "case": "rappelle la limite du statut « issued »",
    "pass": true,
    "error": null,
-   "date": "2026-10-21",
+   "date": "2026-10-22",
    "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
@@ -44,7 +44,7 @@
    "case": "données déclarées marquées « reported »",
    "pass": true,
    "error": null,
-   "date": "2026-10-21",
+   "date": "2026-10-22",
    "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
@@ -53,7 +53,7 @@
    "case": "largeur issue de l’étude 2014",
    "pass": true,
    "error": null,
-   "date": "2026-10-21",
+   "date": "2026-10-22",
    "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
@@ -62,7 +62,7 @@
    "case": "distance exacte et limite structurelle",
    "pass": true,
    "error": null,
-   "date": "2026-10-21",
+   "date": "2026-10-22",
    "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
@@ -71,7 +71,7 @@
    "case": "alertes = prévisions (« reported »)",
    "pass": true,
    "error": null,
-   "date": "2026-10-21",
+   "date": "2026-10-22",
    "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
@@ -80,7 +80,7 @@
    "case": "aucun classement ni jugement politique",
    "pass": true,
    "error": null,
-   "date": "2026-10-21",
+   "date": "2026-10-22",
    "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
@@ -89,7 +89,7 @@
    "case": "un point au milieu du tronçon y est rattaché",
    "pass": true,
    "error": null,
-   "date": "2026-10-21",
+   "date": "2026-10-22",
    "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
@@ -98,7 +98,7 @@
    "case": "même décision que la passerelle inter-domaines",
    "pass": true,
    "error": null,
-   "date": "2026-10-21",
+   "date": "2026-10-22",
    "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
@@ -107,7 +107,7 @@
    "case": "retrouve la note sur les avis d’abattage",
    "pass": true,
    "error": null,
-   "date": "2026-10-21",
+   "date": "2026-10-22",
    "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
@@ -116,7 +116,7 @@
    "case": "rejette une preuve fabriquée",
    "pass": true,
    "error": null,
-   "date": "2026-10-21",
+   "date": "2026-10-22",
    "knowledgeVersion": "core-knowledge-library-v1@423"
   },
   {
@@ -125,7 +125,7 @@
    "case": "détecte une contradiction entre spécialistes",
    "pass": true,
    "error": null,
-   "date": "2026-10-21",
+   "date": "2026-10-22",
    "knowledgeVersion": "core-knowledge-library-v1@423"
   }
  ]
