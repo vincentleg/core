@@ -8,9 +8,9 @@
    "publisher": "California Independent System Operator",
    "license": "Public operational data (attribution CAISO)",
    "url": "https://www.caiso.com/todays-outlook",
-   "title": "Réseau CAISO 2026-10-22 04:45 (Pacifique) : 15 % renouvelables (hors grande hydraulique)",
-   "summary": "Production instantanée 21356 MW, dont solaire 0 MW, éolien 2086 MW, gaz 12885 MW, importations 3074 MW.",
-   "published": "2026-10-22T11:49:54.016Z",
+   "title": "Réseau CAISO 2026-10-22 10:05 (Pacifique) : 55 % renouvelables (hors grande hydraulique)",
+   "summary": "Production instantanée 27097 MW, dont solaire 11802 MW, éolien 2045 MW, gaz 9705 MW, importations 461 MW.",
+   "published": "2026-10-22T17:09:14.236Z",
    "kind": "observation",
    "domains": [
     "energy"
@@ -18,10 +18,10 @@
    "geo": null,
    "geo_basis": "none (not geolocated)",
    "data": {
-    "time": "2026-10-22 04:45",
-    "total_mw": 21356,
-    "renewables_mw": 3188,
-    "renewables_pct": 15,
+    "time": "2026-10-22 10:05",
+    "total_mw": 27097,
+    "renewables_mw": 14954,
+    "renewables_pct": 55,
     "area": "CAISO balancing area"
    },
    "confidence": {
@@ -50,12 +50,12 @@
      }
     ]
    },
-   "hash": "ad3ba71d",
-   "retrieved_at": "2026-10-22T11:49:54.016Z",
+   "hash": "4712328b",
+   "retrieved_at": "2026-10-22T17:09:14.236Z",
    "first_seen": "2026-10-22T07:56:31.301Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
-   "revision": 2,
-   "changed_at": "2026-10-22T11:49:54.016Z"
+   "last_seen": "2026-10-22T17:09:14.236Z",
+   "revision": 3,
+   "changed_at": "2026-10-22T17:09:14.236Z"
   },
   {
    "id": "caiso-fuelmix:caiso@2026-10-21",
@@ -120,7 +120,7 @@
    "publisher": "SF 311",
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/d/vw6y-z8j6",
-   "title": "311 · Blocked Street and Sidewalk : 42 demande(s) en 7 j (South of Market)",
+   "title": "311 · Blocked Street and Sidewalk : 48 demande(s) en 7 j (South of Market)",
    "summary": "Compte agrégé des demandes 311 du 2026-10-15 au 2026-10-22 ; demandes signalées, non vérifiées.",
    "published": "2026-10-22T00:00:00.000Z",
    "kind": "statistic",
@@ -133,7 +133,7 @@
    "geo_basis": "none (not geolocated)",
    "data": {
     "service": "Blocked Street and Sidewalk",
-    "count": 42,
+    "count": 48,
     "period": [
      "2026-10-15",
      "2026-10-22"
@@ -166,11 +166,12 @@
      }
     ]
    },
-   "hash": "3d2c1a5e",
-   "retrieved_at": "2026-10-22T01:50:32.985Z",
+   "hash": "34db50fa",
+   "retrieved_at": "2026-10-22T17:09:14.236Z",
    "first_seen": "2026-10-22T01:50:32.985Z",
-   "last_seen": "2026-10-22T07:56:31.301Z",
-   "revision": 1
+   "last_seen": "2026-10-22T17:09:14.236Z",
+   "revision": 2,
+   "changed_at": "2026-10-22T17:09:14.236Z"
   },
   {
    "id": "datasf-311-soma:Damage Property@2026-10-22",
@@ -227,7 +228,7 @@
    "hash": "ebafb416",
    "retrieved_at": "2026-10-22T01:50:32.985Z",
    "first_seen": "2026-10-22T01:50:32.985Z",
-   "last_seen": "2026-10-22T07:56:31.301Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -237,7 +238,7 @@
    "publisher": "SF 311",
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/d/vw6y-z8j6",
-   "title": "311 · Encampment : 100 demande(s) en 7 j (South of Market)",
+   "title": "311 · Encampment : 123 demande(s) en 7 j (South of Market)",
    "summary": "Compte agrégé des demandes 311 du 2026-10-15 au 2026-10-22 ; demandes signalées, non vérifiées.",
    "published": "2026-10-22T00:00:00.000Z",
    "kind": "statistic",
@@ -249,64 +250,6 @@
    "geo_basis": "none (not geolocated)",
    "data": {
     "service": "Encampment",
-    "count": 100,
-    "period": [
-     "2026-10-15",
-     "2026-10-22"
-    ],
-    "area": "South of Market (analysis neighborhood)"
-   },
-   "confidence": {
-    "level": "medium",
-    "limitations": "Demandes signalées par le public, non des incidents vérifiés ; comptes agrégés par catégorie."
-   },
-   "verification": {
-    "status": "official-source",
-    "checks": [
-     {
-      "id": "https",
-      "pass": true
-     },
-     {
-      "id": "official-host",
-      "pass": true,
-      "detail": null
-     },
-     {
-      "id": "published-date",
-      "pass": true
-     },
-     {
-      "id": "source-registered",
-      "pass": true
-     }
-    ]
-   },
-   "hash": "e3d8f25c",
-   "retrieved_at": "2026-10-22T01:50:32.985Z",
-   "first_seen": "2026-10-22T01:50:32.985Z",
-   "last_seen": "2026-10-22T07:56:31.301Z",
-   "revision": 1
-  },
-  {
-   "id": "datasf-311-soma:General Request@2026-10-22",
-   "source": "datasf-311-soma",
-   "source_name": "DataSF · Demandes 311, South of Market (7 j, agrégées)",
-   "publisher": "SF 311",
-   "license": "ODC-PDDL",
-   "url": "https://data.sf.gov/d/vw6y-z8j6",
-   "title": "311 · General Request : 123 demande(s) en 7 j (South of Market)",
-   "summary": "Compte agrégé des demandes 311 du 2026-10-15 au 2026-10-22 ; demandes signalées, non vérifiées.",
-   "published": "2026-10-22T00:00:00.000Z",
-   "kind": "statistic",
-   "domains": [
-    "public_space",
-    "society"
-   ],
-   "geo": null,
-   "geo_basis": "none (not geolocated)",
-   "data": {
-    "service": "General Request",
     "count": 123,
     "period": [
      "2026-10-15",
@@ -340,11 +283,71 @@
      }
     ]
    },
-   "hash": "811b2498",
-   "retrieved_at": "2026-10-22T01:50:32.985Z",
+   "hash": "eea6c874",
+   "retrieved_at": "2026-10-22T17:09:14.236Z",
    "first_seen": "2026-10-22T01:50:32.985Z",
-   "last_seen": "2026-10-22T07:56:31.301Z",
-   "revision": 1
+   "last_seen": "2026-10-22T17:09:14.236Z",
+   "revision": 2,
+   "changed_at": "2026-10-22T17:09:14.236Z"
+  },
+  {
+   "id": "datasf-311-soma:General Request@2026-10-22",
+   "source": "datasf-311-soma",
+   "source_name": "DataSF · Demandes 311, South of Market (7 j, agrégées)",
+   "publisher": "SF 311",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/d/vw6y-z8j6",
+   "title": "311 · General Request : 137 demande(s) en 7 j (South of Market)",
+   "summary": "Compte agrégé des demandes 311 du 2026-10-15 au 2026-10-22 ; demandes signalées, non vérifiées.",
+   "published": "2026-10-22T00:00:00.000Z",
+   "kind": "statistic",
+   "domains": [
+    "public_space",
+    "society"
+   ],
+   "geo": null,
+   "geo_basis": "none (not geolocated)",
+   "data": {
+    "service": "General Request",
+    "count": 137,
+    "period": [
+     "2026-10-15",
+     "2026-10-22"
+    ],
+    "area": "South of Market (analysis neighborhood)"
+   },
+   "confidence": {
+    "level": "medium",
+    "limitations": "Demandes signalées par le public, non des incidents vérifiés ; comptes agrégés par catégorie."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "5fde6dba",
+   "retrieved_at": "2026-10-22T17:09:14.236Z",
+   "first_seen": "2026-10-22T01:50:32.985Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
+   "revision": 2,
+   "changed_at": "2026-10-22T17:09:14.236Z"
   },
   {
    "id": "datasf-311-soma:Graffiti Private@2026-10-22",
@@ -353,7 +356,7 @@
    "publisher": "SF 311",
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/d/vw6y-z8j6",
-   "title": "311 · Graffiti Private : 15 demande(s) en 7 j (South of Market)",
+   "title": "311 · Graffiti Private : 16 demande(s) en 7 j (South of Market)",
    "summary": "Compte agrégé des demandes 311 du 2026-10-15 au 2026-10-22 ; demandes signalées, non vérifiées.",
    "published": "2026-10-22T00:00:00.000Z",
    "kind": "statistic",
@@ -365,7 +368,7 @@
    "geo_basis": "none (not geolocated)",
    "data": {
     "service": "Graffiti Private",
-    "count": 15,
+    "count": 16,
     "period": [
      "2026-10-15",
      "2026-10-22"
@@ -398,11 +401,12 @@
      }
     ]
    },
-   "hash": "b5a351b6",
-   "retrieved_at": "2026-10-22T01:50:32.985Z",
+   "hash": "14eeae0c",
+   "retrieved_at": "2026-10-22T17:09:14.236Z",
    "first_seen": "2026-10-22T01:50:32.985Z",
-   "last_seen": "2026-10-22T07:56:31.301Z",
-   "revision": 1
+   "last_seen": "2026-10-22T17:09:14.236Z",
+   "revision": 2,
+   "changed_at": "2026-10-22T17:09:14.236Z"
   },
   {
    "id": "datasf-311-soma:Graffiti Public@2026-10-22",
@@ -411,7 +415,7 @@
    "publisher": "SF 311",
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/d/vw6y-z8j6",
-   "title": "311 · Graffiti Public : 13 demande(s) en 7 j (South of Market)",
+   "title": "311 · Graffiti Public : 17 demande(s) en 7 j (South of Market)",
    "summary": "Compte agrégé des demandes 311 du 2026-10-15 au 2026-10-22 ; demandes signalées, non vérifiées.",
    "published": "2026-10-22T00:00:00.000Z",
    "kind": "statistic",
@@ -423,7 +427,7 @@
    "geo_basis": "none (not geolocated)",
    "data": {
     "service": "Graffiti Public",
-    "count": 13,
+    "count": 17,
     "period": [
      "2026-10-15",
      "2026-10-22"
@@ -456,11 +460,12 @@
      }
     ]
    },
-   "hash": "323dd7e8",
-   "retrieved_at": "2026-10-22T01:50:32.985Z",
+   "hash": "0a9e3618",
+   "retrieved_at": "2026-10-22T17:09:14.236Z",
    "first_seen": "2026-10-22T01:50:32.985Z",
-   "last_seen": "2026-10-22T07:56:31.301Z",
-   "revision": 1
+   "last_seen": "2026-10-22T17:09:14.236Z",
+   "revision": 2,
+   "changed_at": "2026-10-22T17:09:14.236Z"
   },
   {
    "id": "datasf-311-soma:Litter Receptacle Maintenance@2026-10-22",
@@ -469,7 +474,7 @@
    "publisher": "SF 311",
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/d/vw6y-z8j6",
-   "title": "311 · Litter Receptacle Maintenance : 12 demande(s) en 7 j (South of Market)",
+   "title": "311 · Litter Receptacle Maintenance : 14 demande(s) en 7 j (South of Market)",
    "summary": "Compte agrégé des demandes 311 du 2026-10-15 au 2026-10-22 ; demandes signalées, non vérifiées.",
    "published": "2026-10-22T00:00:00.000Z",
    "kind": "statistic",
@@ -481,7 +486,7 @@
    "geo_basis": "none (not geolocated)",
    "data": {
     "service": "Litter Receptacle Maintenance",
-    "count": 12,
+    "count": 14,
     "period": [
      "2026-10-15",
      "2026-10-22"
@@ -514,11 +519,12 @@
      }
     ]
    },
-   "hash": "d2c0e054",
-   "retrieved_at": "2026-10-22T01:50:32.985Z",
+   "hash": "c529ca18",
+   "retrieved_at": "2026-10-22T17:09:14.236Z",
    "first_seen": "2026-10-22T01:50:32.985Z",
-   "last_seen": "2026-10-22T07:56:31.301Z",
-   "revision": 1
+   "last_seen": "2026-10-22T17:09:14.236Z",
+   "revision": 2,
+   "changed_at": "2026-10-22T17:09:14.236Z"
   },
   {
    "id": "datasf-311-soma:Noise@2026-10-22",
@@ -527,7 +533,7 @@
    "publisher": "SF 311",
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/d/vw6y-z8j6",
-   "title": "311 · Noise : 18 demande(s) en 7 j (South of Market)",
+   "title": "311 · Noise : 19 demande(s) en 7 j (South of Market)",
    "summary": "Compte agrégé des demandes 311 du 2026-10-15 au 2026-10-22 ; demandes signalées, non vérifiées.",
    "published": "2026-10-22T00:00:00.000Z",
    "kind": "statistic",
@@ -539,7 +545,7 @@
    "geo_basis": "none (not geolocated)",
    "data": {
     "service": "Noise",
-    "count": 18,
+    "count": 19,
     "period": [
      "2026-10-15",
      "2026-10-22"
@@ -572,11 +578,12 @@
      }
     ]
    },
-   "hash": "e1d351f6",
-   "retrieved_at": "2026-10-22T01:50:32.985Z",
+   "hash": "c0c9f2c2",
+   "retrieved_at": "2026-10-22T17:09:14.236Z",
    "first_seen": "2026-10-22T01:50:32.985Z",
-   "last_seen": "2026-10-22T07:56:31.301Z",
-   "revision": 1
+   "last_seen": "2026-10-22T17:09:14.236Z",
+   "revision": 2,
+   "changed_at": "2026-10-22T17:09:14.236Z"
   },
   {
    "id": "datasf-311-soma:Parking Enforcement@2026-10-22",
@@ -585,7 +592,7 @@
    "publisher": "SF 311",
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/d/vw6y-z8j6",
-   "title": "311 · Parking Enforcement : 86 demande(s) en 7 j (South of Market)",
+   "title": "311 · Parking Enforcement : 104 demande(s) en 7 j (South of Market)",
    "summary": "Compte agrégé des demandes 311 du 2026-10-15 au 2026-10-22 ; demandes signalées, non vérifiées.",
    "published": "2026-10-22T00:00:00.000Z",
    "kind": "statistic",
@@ -598,7 +605,7 @@
    "geo_basis": "none (not geolocated)",
    "data": {
     "service": "Parking Enforcement",
-    "count": 86,
+    "count": 104,
     "period": [
      "2026-10-15",
      "2026-10-22"
@@ -631,11 +638,12 @@
      }
     ]
    },
-   "hash": "c4f5fefa",
-   "retrieved_at": "2026-10-22T01:50:32.985Z",
+   "hash": "8be1d81e",
+   "retrieved_at": "2026-10-22T17:09:14.236Z",
    "first_seen": "2026-10-22T01:50:32.985Z",
-   "last_seen": "2026-10-22T07:56:31.301Z",
-   "revision": 1
+   "last_seen": "2026-10-22T17:09:14.236Z",
+   "revision": 2,
+   "changed_at": "2026-10-22T17:09:14.236Z"
   },
   {
    "id": "datasf-311-soma:Street and Sidewalk Cleaning@2026-10-22",
@@ -644,7 +652,7 @@
    "publisher": "SF 311",
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/d/vw6y-z8j6",
-   "title": "311 · Street and Sidewalk Cleaning : 400 demande(s) en 7 j (South of Market)",
+   "title": "311 · Street and Sidewalk Cleaning : 468 demande(s) en 7 j (South of Market)",
    "summary": "Compte agrégé des demandes 311 du 2026-10-15 au 2026-10-22 ; demandes signalées, non vérifiées.",
    "published": "2026-10-22T00:00:00.000Z",
    "kind": "statistic",
@@ -657,7 +665,7 @@
    "geo_basis": "none (not geolocated)",
    "data": {
     "service": "Street and Sidewalk Cleaning",
-    "count": 400,
+    "count": 468,
     "period": [
      "2026-10-15",
      "2026-10-22"
@@ -690,11 +698,12 @@
      }
     ]
    },
-   "hash": "b4973616",
-   "retrieved_at": "2026-10-22T01:50:32.985Z",
+   "hash": "4bfbc462",
+   "retrieved_at": "2026-10-22T17:09:14.236Z",
    "first_seen": "2026-10-22T01:50:32.985Z",
-   "last_seen": "2026-10-22T07:56:31.301Z",
-   "revision": 1
+   "last_seen": "2026-10-22T17:09:14.236Z",
+   "revision": 2,
+   "changed_at": "2026-10-22T17:09:14.236Z"
   },
   {
    "id": "datasf-business-soma:soma@2026-10-22",
@@ -753,6 +762,355 @@
    "revision": 1
   },
   {
+   "id": "datasf-building:202610219746",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610219746",
+   "title": "Permis de construire 202610219746 — 870 Harrison St",
+   "summary": "otc alterations permit · statut issued · unit #202 2/f: install 5/8 fire-rated drywall on two layers of drywall at the hallway wall tape and texture affected area. all work in kind.",
+   "published": "2026-10-21T23:22:53.000Z",
+   "kind": "approved-decision",
+   "domains": [
+    "buildings",
+    "public_safety"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.401357318,
+     37.779742599
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610219746",
+    "status": "issued"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "18b3a0d8",
+   "retrieved_at": "2026-10-22T17:09:14.236Z",
+   "first_seen": "2026-10-22T17:09:14.236Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-building:202608056129",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202608056129",
+   "title": "Permis de construire 202608056129 — 422 Larkin St",
+   "summary": "otc alterations permit · statut issued · recommencement and completion of work approved under pa#2022-0802-9729.",
+   "published": "2026-10-21T23:11:12.000Z",
+   "kind": "approved-decision",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.41706874,
+     37.781739647
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202608056129",
+    "status": "issued"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "f8ea05e4",
+   "retrieved_at": "2026-10-22T17:09:14.236Z",
+   "first_seen": "2026-10-22T17:09:14.236Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-building:202610219742",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610219742",
+   "title": "Permis de construire 202610219742 — 555 Mission St",
+   "summary": "otc alterations permit · statut filed · ste 2250 22/f: interior tenant improvement; selective demolition + construction of non-structural partitions, light fixtures, ceilings, millwork, and plumbing …",
+   "published": "2026-10-21T22:24:11.000Z",
+   "kind": "proposal",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.39867393,
+     37.788601026
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610219742",
+    "status": "filed"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "fb1d3875",
+   "retrieved_at": "2026-10-22T17:09:14.236Z",
+   "first_seen": "2026-10-22T17:09:14.236Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-building:202610219707",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610219707",
+   "title": "Permis de construire 202610219707 — 2 Mint Pz",
+   "summary": "otc alterations permit · statut issued · new wood blocking around new fafp anchor and new bolts. revision to 202304075302",
+   "published": "2026-10-21T22:00:45.000Z",
+   "kind": "approved-decision",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.407564033,
+     37.783115594
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610219707",
+    "status": "issued"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "67448190",
+   "retrieved_at": "2026-10-22T17:09:14.236Z",
+   "first_seen": "2026-10-22T17:09:14.236Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-building:202610099303",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610099303",
+   "title": "Permis de construire 202610099303 — 140 South Van Ness Av",
+   "summary": "otc alterations permit · statut issued · unit #1029: tub to shower conversion.",
+   "published": "2026-10-21T21:08:19.000Z",
+   "kind": "approved-decision",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.418512956,
+     37.771713142
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610099303",
+    "status": "issued"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "940a9ebe",
+   "retrieved_at": "2026-10-22T17:09:14.236Z",
+   "first_seen": "2026-10-22T17:09:14.236Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-building:202610219732",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610219732",
+   "title": "Permis de construire 202610219732 — 351 Geary St",
+   "summary": "otc alterations permit · statut filed · addressing permit: create the address 351a geary st and 355 geary st",
+   "published": "2026-10-21T20:23:49.000Z",
+   "kind": "proposal",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.409029426,
+     37.786972557
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610219732",
+    "status": "filed"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "f3fc97f5",
+   "retrieved_at": "2026-10-22T17:09:14.236Z",
+   "first_seen": "2026-10-22T17:09:14.236Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
+   "revision": 1
+  },
+  {
    "id": "rss-recpark:https://sfrecpark.org/CivicAlerts.aspx?aid=3132/639281926010000000",
    "source": "rss-recpark",
    "source_name": "SF Recreation & Parks · Actualités (RSS)",
@@ -800,7 +1158,7 @@
    "hash": "9686c0d9",
    "retrieved_at": "2026-10-21T19:35:49.756Z",
    "first_seen": "2026-10-21T19:35:49.756Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -851,7 +1209,7 @@
    "hash": "b62372f3",
    "retrieved_at": "2026-10-21T19:35:49.756Z",
    "first_seen": "2026-10-21T19:35:49.756Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -902,7 +1260,123 @@
    "hash": "a4464068",
    "retrieved_at": "2026-10-21T19:35:49.756Z",
    "first_seen": "2026-10-21T19:35:49.756Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-building:202610219727",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610219727",
+   "title": "Permis de construire 202610219727 — 346 09th St",
+   "summary": "otc alterations permit · statut filed · remove walls in the 1st floor.",
+   "published": "2026-10-21T19:52:59.000Z",
+   "kind": "proposal",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.41125773,
+     37.773120029
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610219727",
+    "status": "filed"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "e5fc1f8e",
+   "retrieved_at": "2026-10-22T17:09:14.236Z",
+   "first_seen": "2026-10-22T17:09:14.236Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
+   "revision": 1
+  },
+  {
+   "id": "datasf-building:202610219725",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610219725",
+   "title": "Permis de construire 202610219725 — 325 Berry St",
+   "summary": "otc alterations permit · statut filed · unit #:107; add new wall and door between living area and hall way. change living room to bedroom.",
+   "published": "2026-10-21T19:22:14.000Z",
+   "kind": "proposal",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.395917053,
+     37.773489059
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610219725",
+    "status": "filed"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "71af4313",
+   "retrieved_at": "2026-10-22T17:09:14.236Z",
+   "first_seen": "2026-10-22T17:09:14.236Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -952,7 +1426,7 @@
    "hash": "51f9979c",
    "retrieved_at": "2026-10-21T19:35:49.756Z",
    "first_seen": "2026-10-21T19:35:49.756Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -1002,7 +1476,7 @@
    "hash": "3133f42d",
    "retrieved_at": "2026-10-21T19:35:49.756Z",
    "first_seen": "2026-10-21T19:35:49.756Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -1052,7 +1526,7 @@
    "hash": "4a1e393c",
    "retrieved_at": "2026-10-21T19:35:49.756Z",
    "first_seen": "2026-10-21T19:35:49.756Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -1102,8 +1576,185 @@
    "hash": "3156ea85",
    "retrieved_at": "2026-10-21T19:35:49.756Z",
    "first_seen": "2026-10-21T19:35:49.756Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
+  },
+  {
+   "id": "datasf-building:202610139320",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610139320",
+   "title": "Permis de construire 202610139320 — 910 Howard St",
+   "summary": "otc alterations permit · statut issued · addressing permit: create the address 910 howard st. retire the following addresses: 140 5th st, 918 howard st and 912 howard st.",
+   "published": "2026-10-21T18:11:04.000Z",
+   "kind": "approved-decision",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.405728216,
+     37.781055698
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610139320",
+    "status": "issued"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "087ac727",
+   "retrieved_at": "2026-10-22T17:09:14.236Z",
+   "first_seen": "2026-10-14T14:56:35.337Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
+   "revision": 2,
+   "changed_at": "2026-10-22T17:09:14.236Z"
+  },
+  {
+   "id": "datasf-building:202610069062",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610069062",
+   "title": "Permis de construire 202610069062 — 400 Howard St",
+   "summary": "otc alterations permit · statut issued · 5th fl - revision to pa 202606183492 scope includes finish changes to room 5q625 only",
+   "published": "2026-10-21T16:00:27.000Z",
+   "kind": "approved-decision",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.395800051,
+     37.789136925
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610069062",
+    "status": "issued"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "b3401d67",
+   "retrieved_at": "2026-10-22T17:09:14.236Z",
+   "first_seen": "2026-10-13T22:48:34.222Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
+   "revision": 4,
+   "changed_at": "2026-10-22T17:09:14.236Z"
+  },
+  {
+   "id": "datasf-building:202610069063",
+   "source": "datasf-building",
+   "source_name": "DataSF · Building Permits (récents, corridor)",
+   "publisher": "Department of Building Inspection",
+   "license": "ODC-PDDL",
+   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610069063",
+   "title": "Permis de construire 202610069063 — 400 Howard St",
+   "summary": "otc alterations permit · statut issued · 6th fl - revision to pa 202605121069 scope includes finish changes only",
+   "published": "2026-10-21T15:46:23.000Z",
+   "kind": "approved-decision",
+   "domains": [
+    "buildings"
+   ],
+   "geo": {
+    "type": "Point",
+    "coordinates": [
+     -122.395800051,
+     37.789136925
+    ]
+   },
+   "geo_basis": "source coordinates",
+   "data": {
+    "permit_number": "202610069063",
+    "status": "issued"
+   },
+   "confidence": {
+    "level": "high",
+    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
+   },
+   "verification": {
+    "status": "official-source",
+    "checks": [
+     {
+      "id": "https",
+      "pass": true
+     },
+     {
+      "id": "official-host",
+      "pass": true,
+      "detail": null
+     },
+     {
+      "id": "published-date",
+      "pass": true
+     },
+     {
+      "id": "source-registered",
+      "pass": true
+     }
+    ]
+   },
+   "hash": "4291f9eb",
+   "retrieved_at": "2026-10-22T17:09:14.236Z",
+   "first_seen": "2026-10-13T22:48:34.222Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
+   "revision": 4,
+   "changed_at": "2026-10-22T17:09:14.236Z"
   },
   {
    "id": "datasf-closures:27690157",
@@ -1169,7 +1820,7 @@
    "hash": "ceea9b56",
    "retrieved_at": "2026-10-21T22:43:24.252Z",
    "first_seen": "2026-10-21T22:43:24.252Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -1236,7 +1887,7 @@
    "hash": "23e325f5",
    "retrieved_at": "2026-10-21T22:43:24.252Z",
    "first_seen": "2026-10-21T22:43:24.252Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -1303,7 +1954,7 @@
    "hash": "01aef300",
    "retrieved_at": "2026-10-21T22:43:24.252Z",
    "first_seen": "2026-10-21T22:43:24.252Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -1359,7 +2010,7 @@
    "hash": "e23f0cf8",
    "retrieved_at": "2026-10-22T07:56:31.301Z",
    "first_seen": "2026-10-22T07:56:31.301Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -1415,7 +2066,7 @@
    "hash": "83e4f720",
    "retrieved_at": "2026-10-22T07:56:31.301Z",
    "first_seen": "2026-10-22T07:56:31.301Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -1472,7 +2123,7 @@
    "hash": "b4c161c3",
    "retrieved_at": "2026-10-22T07:56:31.301Z",
    "first_seen": "2026-10-22T07:56:31.301Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -1528,7 +2179,7 @@
    "hash": "7b788d65",
    "retrieved_at": "2026-10-22T07:56:31.301Z",
    "first_seen": "2026-10-22T07:56:31.301Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -1585,7 +2236,7 @@
    "hash": "32c7a1b9",
    "retrieved_at": "2026-10-22T07:56:31.301Z",
    "first_seen": "2026-10-22T07:56:31.301Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -1634,7 +2285,7 @@
    "hash": "068e50cd",
    "retrieved_at": "2026-10-21T19:35:49.756Z",
    "first_seen": "2026-10-21T19:35:49.756Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -2389,7 +3040,7 @@
    "hash": "4cf3f96c",
    "retrieved_at": "2026-10-20T23:52:05.954Z",
    "first_seen": "2026-10-20T23:52:05.954Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -2439,7 +3090,7 @@
    "hash": "40571d8a",
    "retrieved_at": "2026-10-20T23:52:05.954Z",
    "first_seen": "2026-10-20T23:52:05.954Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -2489,7 +3140,7 @@
    "hash": "a3eccece",
    "retrieved_at": "2026-10-20T23:52:05.954Z",
    "first_seen": "2026-10-20T23:52:05.954Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -2547,7 +3198,7 @@
    "hash": "b650235e",
    "retrieved_at": "2026-10-21T15:35:58.870Z",
    "first_seen": "2026-10-21T15:35:58.870Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -2605,7 +3256,7 @@
    "hash": "88a350c9",
    "retrieved_at": "2026-10-21T15:35:58.870Z",
    "first_seen": "2026-10-21T15:35:58.870Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -2664,7 +3315,7 @@
    "hash": "c2c8cc56",
    "retrieved_at": "2026-10-21T15:35:58.870Z",
    "first_seen": "2026-10-21T15:35:58.870Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -2722,7 +3373,7 @@
    "hash": "d3b9d380",
    "retrieved_at": "2026-10-21T15:35:58.870Z",
    "first_seen": "2026-10-20T17:31:25.853Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 2,
    "changed_at": "2026-10-21T15:35:58.870Z"
   },
@@ -2781,7 +3432,7 @@
    "hash": "1191994a",
    "retrieved_at": "2026-10-21T15:35:58.870Z",
    "first_seen": "2026-10-20T17:31:25.853Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 2,
    "changed_at": "2026-10-21T15:35:58.870Z"
   },
@@ -2840,7 +3491,7 @@
    "hash": "dec0b7d5",
    "retrieved_at": "2026-10-21T15:35:58.870Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 4,
    "changed_at": "2026-10-21T15:35:58.870Z"
   },
@@ -2903,7 +3554,7 @@
    "hash": "2c48a390",
    "retrieved_at": "2026-10-21T15:35:58.870Z",
    "first_seen": "2026-10-21T15:35:58.870Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -2961,7 +3612,7 @@
    "hash": "15db2070",
    "retrieved_at": "2026-10-21T15:35:58.870Z",
    "first_seen": "2026-10-21T15:35:58.870Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -3219,7 +3870,7 @@
    "hash": "437c2313",
    "retrieved_at": "2026-10-21T10:34:24.244Z",
    "first_seen": "2026-10-21T10:34:24.244Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -3277,7 +3928,7 @@
    "hash": "5728bfe7",
    "retrieved_at": "2026-10-21T10:34:24.244Z",
    "first_seen": "2026-10-21T10:34:24.244Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -3335,7 +3986,7 @@
    "hash": "9ba6e922",
    "retrieved_at": "2026-10-21T10:34:24.244Z",
    "first_seen": "2026-10-21T10:34:24.244Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -3392,7 +4043,7 @@
    "hash": "2d2647cd",
    "retrieved_at": "2026-10-21T10:34:24.244Z",
    "first_seen": "2026-10-21T10:34:24.244Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -3442,7 +4093,7 @@
    "hash": "e65fb532",
    "retrieved_at": "2026-10-20T23:52:05.954Z",
    "first_seen": "2026-10-20T23:52:05.954Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -4204,7 +4855,7 @@
    "hash": "4beb92fc",
    "retrieved_at": "2026-10-20T17:31:25.853Z",
    "first_seen": "2026-10-20T17:31:25.853Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -4262,7 +4913,7 @@
    "hash": "199100d7",
    "retrieved_at": "2026-10-20T17:31:25.853Z",
    "first_seen": "2026-10-20T17:31:25.853Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -4320,7 +4971,7 @@
    "hash": "3005c266",
    "retrieved_at": "2026-10-20T17:31:25.853Z",
    "first_seen": "2026-10-20T17:31:25.853Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -4577,7 +5228,7 @@
    "hash": "8f824f19",
    "retrieved_at": "2026-10-20T06:34:45.565Z",
    "first_seen": "2026-10-20T06:34:45.565Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -4634,7 +5285,7 @@
    "hash": "9cdbb95c",
    "retrieved_at": "2026-10-20T06:34:45.565Z",
    "first_seen": "2026-10-20T06:34:45.565Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -4683,7 +5334,7 @@
    "hash": "4de7cff6",
    "retrieved_at": "2026-10-19T17:45:49.189Z",
    "first_seen": "2026-10-19T17:45:49.189Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -5634,7 +6285,7 @@
    "hash": "300f477f",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -5745,7 +6396,7 @@
    "hash": "828b8ba5",
    "retrieved_at": "2026-10-20T06:34:45.565Z",
    "first_seen": "2026-10-19T04:38:37.424Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 2,
    "changed_at": "2026-10-20T06:34:45.565Z"
   },
@@ -5802,7 +6453,7 @@
    "hash": "31841a8f",
    "retrieved_at": "2026-10-21T10:34:24.244Z",
    "first_seen": "2026-10-19T04:38:37.424Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-21T10:34:24.244Z"
   },
@@ -6500,7 +7151,7 @@
    "hash": "c3510c19",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -6552,7 +7203,7 @@
    "hash": "621522a2",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -6604,7 +7255,7 @@
    "hash": "b26d38a9",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -6656,7 +7307,7 @@
    "hash": "2aba72c6",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -6707,7 +7358,7 @@
    "hash": "b7eb8673",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -6758,7 +7409,7 @@
    "hash": "3898396c",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -6808,7 +7459,7 @@
    "hash": "1888cd05",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -6866,7 +7517,7 @@
    "hash": "ce5c3fc5",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -7178,7 +7829,7 @@
    "hash": "1bd351bf",
    "retrieved_at": "2026-10-20T06:34:45.565Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 2,
    "changed_at": "2026-10-20T06:34:45.565Z"
   },
@@ -7235,7 +7886,7 @@
    "hash": "f9efb5c0",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -7291,7 +7942,7 @@
    "hash": "06fed6b9",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -7349,7 +8000,7 @@
    "hash": "2d21acdd",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -7406,7 +8057,7 @@
    "hash": "7c7be3d9",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -7463,7 +8114,7 @@
    "hash": "5427b3b6",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -7519,7 +8170,7 @@
    "hash": "12417069",
    "retrieved_at": "2026-10-20T06:34:45.565Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 2,
    "changed_at": "2026-10-20T06:34:45.565Z"
   },
@@ -7571,7 +8222,7 @@
    "hash": "1062e34d",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -7677,7 +8328,7 @@
    "hash": "15909797",
    "retrieved_at": "2026-10-16T04:30:36.271Z",
    "first_seen": "2026-10-16T04:30:36.271Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -7727,7 +8378,7 @@
    "hash": "fcf0e748",
    "retrieved_at": "2026-10-16T04:30:36.271Z",
    "first_seen": "2026-10-16T04:30:36.271Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -8425,7 +9076,7 @@
    "hash": "548f2b3a",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -8483,7 +9134,7 @@
    "hash": "ecea931b",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -8541,7 +9192,7 @@
    "hash": "1b6df4f3",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -8599,7 +9250,7 @@
    "hash": "23141eac",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -8650,7 +9301,7 @@
    "hash": "6058fbd5",
    "retrieved_at": "2026-10-15T23:17:27.806Z",
    "first_seen": "2026-10-15T23:17:27.806Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -8708,7 +9359,7 @@
    "hash": "2ebdd5e8",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 4,
    "changed_at": "2026-10-17T17:31:53.887Z"
   },
@@ -8768,7 +9419,7 @@
    "hash": "31930c88",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -8819,7 +9470,7 @@
    "hash": "530d8794",
    "retrieved_at": "2026-10-15T20:31:37.255Z",
    "first_seen": "2026-10-15T20:31:37.255Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -8870,7 +9521,7 @@
    "hash": "eb3a1c45",
    "retrieved_at": "2026-10-15T20:31:37.255Z",
    "first_seen": "2026-10-15T20:31:37.255Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -8922,7 +9573,7 @@
    "hash": "0a4d5bc3",
    "retrieved_at": "2026-10-15T20:31:37.255Z",
    "first_seen": "2026-10-15T20:31:37.255Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -8974,7 +9625,7 @@
    "hash": "7ed6ed30",
    "retrieved_at": "2026-10-15T20:31:37.255Z",
    "first_seen": "2026-10-15T20:31:37.255Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -9032,7 +9683,7 @@
    "hash": "4d3229a2",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -9090,7 +9741,7 @@
    "hash": "83555753",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 4,
    "changed_at": "2026-10-17T17:31:53.887Z"
   },
@@ -9200,7 +9851,7 @@
    "hash": "0515e7fb",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -9312,7 +9963,7 @@
    "hash": "3869913c",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -9373,7 +10024,7 @@
    "hash": "a9e4d02d",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -9434,7 +10085,7 @@
    "hash": "af7a353a",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -9495,7 +10146,7 @@
    "hash": "2d3efd05",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -9556,7 +10207,7 @@
    "hash": "dd0a0623",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -9614,7 +10265,7 @@
    "hash": "40426367",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-17T17:31:53.887Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -9872,7 +10523,7 @@
    "hash": "63ee5806",
    "retrieved_at": "2026-10-20T06:34:45.565Z",
    "first_seen": "2026-10-16T11:21:33.897Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-20T06:34:45.565Z"
   },
@@ -9929,7 +10580,7 @@
    "hash": "abc7e3b9",
    "retrieved_at": "2026-10-16T11:21:33.897Z",
    "first_seen": "2026-10-16T11:21:33.897Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -9985,7 +10636,7 @@
    "hash": "f8ca249a",
    "retrieved_at": "2026-10-22T07:56:31.301Z",
    "first_seen": "2026-10-16T11:21:33.897Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 2,
    "changed_at": "2026-10-22T07:56:31.301Z"
   },
@@ -10042,7 +10693,7 @@
    "hash": "8be52f72",
    "retrieved_at": "2026-10-16T11:21:33.897Z",
    "first_seen": "2026-10-16T11:21:33.897Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -10098,7 +10749,7 @@
    "hash": "d1948351",
    "retrieved_at": "2026-10-20T06:34:45.565Z",
    "first_seen": "2026-10-16T11:21:33.897Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-20T06:34:45.565Z"
   },
@@ -10903,7 +11554,7 @@
    "hash": "f62b5a41",
    "retrieved_at": "2026-10-15T06:03:45.421Z",
    "first_seen": "2026-10-15T06:03:45.421Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -10961,7 +11612,7 @@
    "hash": "f0575b41",
    "retrieved_at": "2026-10-15T16:59:52.146Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 4,
    "changed_at": "2026-10-15T16:59:52.146Z"
   },
@@ -11022,7 +11673,7 @@
    "hash": "b34c03b4",
    "retrieved_at": "2026-10-15T16:59:52.146Z",
    "first_seen": "2026-10-15T16:59:52.146Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -11081,7 +11732,7 @@
    "hash": "c6040b6a",
    "retrieved_at": "2026-10-15T16:59:52.146Z",
    "first_seen": "2026-10-15T16:59:52.146Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -11139,7 +11790,7 @@
    "hash": "85ab51b8",
    "retrieved_at": "2026-10-15T16:59:52.146Z",
    "first_seen": "2026-10-14T14:56:35.337Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 2,
    "changed_at": "2026-10-15T16:59:52.146Z"
   },
@@ -11190,7 +11841,7 @@
    "hash": "f813cdf2",
    "retrieved_at": "2026-10-15T06:03:45.421Z",
    "first_seen": "2026-10-15T06:03:45.421Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -11300,7 +11951,7 @@
    "hash": "c60e9fbd",
    "retrieved_at": "2026-10-15T16:59:52.146Z",
    "first_seen": "2026-10-15T16:59:52.146Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -11476,7 +12127,7 @@
    "hash": "b368efbd",
    "retrieved_at": "2026-10-15T16:59:52.146Z",
    "first_seen": "2026-10-15T16:59:52.146Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -11534,7 +12185,7 @@
    "hash": "6969e696",
    "retrieved_at": "2026-10-15T16:59:52.146Z",
    "first_seen": "2026-10-14T14:56:35.337Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 2,
    "changed_at": "2026-10-15T16:59:52.146Z"
   },
@@ -11593,7 +12244,7 @@
    "hash": "7b164849",
    "retrieved_at": "2026-10-20T17:31:25.853Z",
    "first_seen": "2026-10-15T16:59:52.146Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 9,
    "changed_at": "2026-10-20T17:31:25.853Z"
   },
@@ -11853,7 +12504,7 @@
    "hash": "bb491848",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-15T11:26:48.126Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -11909,7 +12560,7 @@
    "hash": "4c2320fc",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-15T11:26:48.126Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -11965,7 +12616,7 @@
    "hash": "e1ea0319",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-15T11:26:48.126Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -12021,7 +12672,7 @@
    "hash": "a62233e8",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-15T11:26:48.126Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -12077,7 +12728,7 @@
    "hash": "32c47d6d",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-15T11:26:48.126Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -12133,7 +12784,7 @@
    "hash": "729ac362",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-15T11:26:48.126Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -12892,7 +13543,7 @@
    "hash": "6a91c0ed",
    "retrieved_at": "2026-10-14T01:24:30.092Z",
    "first_seen": "2026-10-14T01:24:30.092Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -12945,7 +13596,7 @@
    "hash": "78ced00e",
    "retrieved_at": "2026-10-14T01:24:30.092Z",
    "first_seen": "2026-10-14T01:24:30.092Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -12996,7 +13647,7 @@
    "hash": "e2242495",
    "retrieved_at": "2026-10-14T01:24:30.092Z",
    "first_seen": "2026-10-14T01:24:30.092Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -13104,7 +13755,7 @@
    "hash": "749c6553",
    "retrieved_at": "2026-10-14T14:56:35.337Z",
    "first_seen": "2026-10-14T14:56:35.337Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -13260,7 +13911,7 @@
    "hash": "e53469bf",
    "retrieved_at": "2026-10-14T14:56:35.337Z",
    "first_seen": "2026-10-14T14:56:35.337Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -13318,7 +13969,7 @@
    "hash": "19ff2de2",
    "retrieved_at": "2026-10-14T14:56:35.337Z",
    "first_seen": "2026-10-14T14:56:35.337Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -13376,7 +14027,7 @@
    "hash": "b231be07",
    "retrieved_at": "2026-10-14T14:56:35.337Z",
    "first_seen": "2026-10-14T14:56:35.337Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -13434,7 +14085,7 @@
    "hash": "297e94a9",
    "retrieved_at": "2026-10-14T14:56:35.337Z",
    "first_seen": "2026-10-14T14:56:35.337Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -13486,7 +14137,7 @@
    "hash": "cf277156",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -13538,65 +14189,7 @@
    "hash": "0df6a75c",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
-   "revision": 1
-  },
-  {
-   "id": "datasf-building:202610139320",
-   "source": "datasf-building",
-   "source_name": "DataSF · Building Permits (récents, corridor)",
-   "publisher": "Department of Building Inspection",
-   "license": "ODC-PDDL",
-   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610139320",
-   "title": "Permis de construire 202610139320 — 910 Howard St",
-   "summary": "otc alterations permit · statut filed · addressing permit: create the address 910 howard st. retire the following addresses: 140 5th st, 918 howard st and 912 howard st.",
-   "published": "2026-10-13T16:37:30.000Z",
-   "kind": "proposal",
-   "domains": [
-    "buildings"
-   ],
-   "geo": {
-    "type": "Point",
-    "coordinates": [
-     -122.405728216,
-     37.781055698
-    ]
-   },
-   "geo_basis": "source coordinates",
-   "data": {
-    "permit_number": "202610139320",
-    "status": "filed"
-   },
-   "confidence": {
-    "level": "high",
-    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
-   },
-   "verification": {
-    "status": "official-source",
-    "checks": [
-     {
-      "id": "https",
-      "pass": true
-     },
-     {
-      "id": "official-host",
-      "pass": true,
-      "detail": null
-     },
-     {
-      "id": "published-date",
-      "pass": true
-     },
-     {
-      "id": "source-registered",
-      "pass": true
-     }
-    ]
-   },
-   "hash": "8853c731",
-   "retrieved_at": "2026-10-14T14:56:35.337Z",
-   "first_seen": "2026-10-14T14:56:35.337Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -13856,7 +14449,7 @@
    "hash": "49ec4e45",
    "retrieved_at": "2026-10-14T08:41:16.587Z",
    "first_seen": "2026-10-14T08:41:16.587Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -13912,7 +14505,7 @@
    "hash": "b3affa4f",
    "retrieved_at": "2026-10-14T08:41:16.587Z",
    "first_seen": "2026-10-14T08:41:16.587Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -13970,7 +14563,7 @@
    "hash": "61250daf",
    "retrieved_at": "2026-10-20T06:34:45.565Z",
    "first_seen": "2026-10-14T08:41:16.587Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-20T06:34:45.565Z"
   },
@@ -14027,7 +14620,7 @@
    "hash": "f66ec32a",
    "retrieved_at": "2026-10-14T08:41:16.587Z",
    "first_seen": "2026-10-14T08:41:16.587Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -14084,7 +14677,7 @@
    "hash": "eb8324d3",
    "retrieved_at": "2026-10-14T08:41:16.587Z",
    "first_seen": "2026-10-14T08:41:16.587Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -14140,7 +14733,7 @@
    "hash": "de5968f7",
    "retrieved_at": "2026-10-16T11:21:33.897Z",
    "first_seen": "2026-10-14T08:41:16.587Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-16T11:21:33.897Z"
   },
@@ -14197,7 +14790,7 @@
    "hash": "17c72c8e",
    "retrieved_at": "2026-10-14T08:41:16.587Z",
    "first_seen": "2026-10-14T08:41:16.587Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -14254,7 +14847,7 @@
    "hash": "69c33998",
    "retrieved_at": "2026-10-14T08:41:16.587Z",
    "first_seen": "2026-10-14T08:41:16.587Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -14951,7 +15544,7 @@
    "hash": "f6a25913",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15009,7 +15602,7 @@
    "hash": "5932eb3d",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15066,7 +15659,7 @@
    "hash": "537dd8c4",
    "retrieved_at": "2026-10-14T08:41:16.587Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 4,
    "changed_at": "2026-10-14T08:41:16.587Z"
   },
@@ -15184,7 +15777,7 @@
    "hash": "cad4f217",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 4,
    "changed_at": "2026-10-17T17:31:53.887Z"
   },
@@ -15236,7 +15829,7 @@
    "hash": "38cc52ac",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -15287,7 +15880,7 @@
    "hash": "e5b46f9b",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -15345,7 +15938,7 @@
    "hash": "b5243771",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15404,7 +15997,7 @@
    "hash": "71eb466f",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15462,7 +16055,7 @@
    "hash": "580fbacf",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15520,7 +16113,7 @@
    "hash": "9539e1f3",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15577,7 +16170,7 @@
    "hash": "94000f33",
    "retrieved_at": "2026-10-14T08:41:16.587Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 4,
    "changed_at": "2026-10-14T08:41:16.587Z"
   },
@@ -15635,7 +16228,7 @@
    "hash": "127ca3fe",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15693,7 +16286,7 @@
    "hash": "34879f43",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15750,7 +16343,7 @@
    "hash": "63bd1a74",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15802,7 +16395,7 @@
    "hash": "6c32cc5c",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15861,7 +16454,7 @@
    "hash": "dc377f49",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -15920,7 +16513,7 @@
    "hash": "8f3f2c01",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16032,7 +16625,7 @@
    "hash": "7a63959f",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16091,7 +16684,7 @@
    "hash": "f06a8735",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16148,7 +16741,7 @@
    "hash": "a18bc174",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16205,7 +16798,7 @@
    "hash": "7ab244fe",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16263,7 +16856,7 @@
    "hash": "621b747a",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16321,7 +16914,7 @@
    "hash": "a9973c59",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16373,7 +16966,7 @@
    "hash": "58373ded",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -16424,7 +17017,7 @@
    "hash": "61b09041",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -16475,7 +17068,7 @@
    "hash": "129928ae",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -16533,7 +17126,7 @@
    "hash": "c419adad",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16592,7 +17185,7 @@
    "hash": "d631de1b",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16654,7 +17247,7 @@
    "hash": "014af363",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16714,7 +17307,7 @@
    "hash": "be02052e",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16777,7 +17370,7 @@
    "hash": "92ef66e9",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16835,7 +17428,7 @@
    "hash": "cd9cc53b",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16893,7 +17486,7 @@
    "hash": "ebbad4c7",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -16951,7 +17544,7 @@
    "hash": "0a860c1a",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17009,7 +17602,7 @@
    "hash": "993d5ba6",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17068,7 +17661,7 @@
    "hash": "ab2aaca4",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17126,7 +17719,7 @@
    "hash": "9e416676",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17183,7 +17776,7 @@
    "hash": "6e041bac",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17241,7 +17834,7 @@
    "hash": "c442bf9d",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17292,7 +17885,7 @@
    "hash": "6346668e",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17343,7 +17936,7 @@
    "hash": "b7d24e64",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -17393,7 +17986,7 @@
    "hash": "ad4e4465",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -17551,7 +18144,7 @@
    "hash": "89562721",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17610,7 +18203,7 @@
    "hash": "fef865a3",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17669,7 +18262,7 @@
    "hash": "2e9dfd37",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17728,7 +18321,7 @@
    "hash": "6acc2ea7",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17788,7 +18381,7 @@
    "hash": "e7ee621a",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17847,7 +18440,7 @@
    "hash": "c5093252",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17909,7 +18502,7 @@
    "hash": "c541c27c",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -17968,7 +18561,7 @@
    "hash": "ff00d86f",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18027,125 +18620,7 @@
    "hash": "aa8f1505",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
-   "revision": 3,
-   "changed_at": "2026-10-14T01:27:15.713Z"
-  },
-  {
-   "id": "datasf-building:202610069063",
-   "source": "datasf-building",
-   "source_name": "DataSF · Building Permits (récents, corridor)",
-   "publisher": "Department of Building Inspection",
-   "license": "ODC-PDDL",
-   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610069063",
-   "title": "Permis de construire 202610069063 — 400 Howard St",
-   "summary": "otc alterations permit · statut filed · 6th fl - revision to pa 202605121069 scope includes finish changes only",
-   "published": "2026-10-06T15:15:57.000Z",
-   "kind": "proposal",
-   "domains": [
-    "buildings"
-   ],
-   "geo": {
-    "type": "Point",
-    "coordinates": [
-     -122.395800051,
-     37.789136925
-    ]
-   },
-   "geo_basis": "source coordinates",
-   "data": {
-    "permit_number": "202610069063",
-    "status": "filed"
-   },
-   "confidence": {
-    "level": "high",
-    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
-   },
-   "verification": {
-    "status": "official-source",
-    "checks": [
-     {
-      "id": "https",
-      "pass": true
-     },
-     {
-      "id": "official-host",
-      "pass": true,
-      "detail": null
-     },
-     {
-      "id": "published-date",
-      "pass": true
-     },
-     {
-      "id": "source-registered",
-      "pass": true
-     }
-    ]
-   },
-   "hash": "380b5ce1",
-   "retrieved_at": "2026-10-14T01:27:15.713Z",
-   "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
-   "revision": 3,
-   "changed_at": "2026-10-14T01:27:15.713Z"
-  },
-  {
-   "id": "datasf-building:202610069062",
-   "source": "datasf-building",
-   "source_name": "DataSF · Building Permits (récents, corridor)",
-   "publisher": "Department of Building Inspection",
-   "license": "ODC-PDDL",
-   "url": "https://data.sf.gov/resource/i98e-djp9.json?permit_number=202610069062",
-   "title": "Permis de construire 202610069062 — 400 Howard St",
-   "summary": "otc alterations permit · statut filed · 5th fl - revision to pa 202606183492 scope includes finish changes to room 5q625 only",
-   "published": "2026-10-06T15:09:27.000Z",
-   "kind": "proposal",
-   "domains": [
-    "buildings"
-   ],
-   "geo": {
-    "type": "Point",
-    "coordinates": [
-     -122.395800051,
-     37.789136925
-    ]
-   },
-   "geo_basis": "source coordinates",
-   "data": {
-    "permit_number": "202610069062",
-    "status": "filed"
-   },
-   "confidence": {
-    "level": "high",
-    "limitations": "Le statut « issued » ne prouve pas un chantier en cours."
-   },
-   "verification": {
-    "status": "official-source",
-    "checks": [
-     {
-      "id": "https",
-      "pass": true
-     },
-     {
-      "id": "official-host",
-      "pass": true,
-      "detail": null
-     },
-     {
-      "id": "published-date",
-      "pass": true
-     },
-     {
-      "id": "source-registered",
-      "pass": true
-     }
-    ]
-   },
-   "hash": "6c78304e",
-   "retrieved_at": "2026-10-14T01:27:15.713Z",
-   "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18202,7 +18677,7 @@
    "hash": "87a0abb1",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18259,7 +18734,7 @@
    "hash": "6012e26f",
    "retrieved_at": "2026-10-21T10:34:24.244Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 4,
    "changed_at": "2026-10-21T10:34:24.244Z"
   },
@@ -18316,7 +18791,7 @@
    "hash": "2909998c",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18366,7 +18841,7 @@
    "hash": "5086c12b",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -18415,7 +18890,7 @@
    "hash": "e186dec9",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -18473,7 +18948,7 @@
    "hash": "508e73a6",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18532,7 +19007,7 @@
    "hash": "4cd184b9",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18591,7 +19066,7 @@
    "hash": "b0bcf886",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18650,7 +19125,7 @@
    "hash": "04ed30f7",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18709,7 +19184,7 @@
    "hash": "1153b5d8",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18768,7 +19243,7 @@
    "hash": "1eb70f16",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18826,7 +19301,7 @@
    "hash": "646da2a9",
    "retrieved_at": "2026-10-16T11:21:33.897Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 4,
    "changed_at": "2026-10-16T11:21:33.897Z"
   },
@@ -18884,7 +19359,7 @@
    "hash": "e09ce019",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -18941,7 +19416,7 @@
    "hash": "eb1c0e94",
    "retrieved_at": "2026-10-20T06:34:45.565Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 4,
    "changed_at": "2026-10-20T06:34:45.565Z"
   },
@@ -18999,7 +19474,7 @@
    "hash": "0c0036f7",
    "retrieved_at": "2026-10-21T10:34:24.244Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 4,
    "changed_at": "2026-10-21T10:34:24.244Z"
   },
@@ -19056,7 +19531,7 @@
    "hash": "f90135a4",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -19109,7 +19584,7 @@
    "hash": "798dc130",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -19161,7 +19636,7 @@
    "hash": "b37fc144",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -19219,7 +19694,7 @@
    "hash": "f2165c87",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -19281,7 +19756,7 @@
    "hash": "7d095cc3",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -19340,7 +19815,7 @@
    "hash": "7f53a3cb",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -19399,7 +19874,7 @@
    "hash": "64ac4cc3",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -19411,9 +19886,9 @@
    "license": "ODC-PDDL",
    "url": "https://data.sf.gov/resource/b6tj-gt35.json?permit_number=26EXC-04337",
    "title": "Excavation 26EXC-04337 — HOWARD ST (08TH ST / 09TH ST)",
-   "summary": "R & S Construction Management Inc · fenêtre 2026-10-12 → 2026-10-23 · statut ACTIVE",
+   "summary": "R & S Construction Management Inc · fenêtre 2026-10-12 → 2026-10-23 · statut RENEWED",
    "published": "2026-10-02T16:01:32.000Z",
-   "kind": "ongoing-project",
+   "kind": "approved-decision",
    "domains": [
     "buildings",
     "infrastructure"
@@ -19429,7 +19904,7 @@
    "data": {
     "cnn": "7051000",
     "permit_number": "26EXC-04337",
-    "status": "ACTIVE",
+    "status": "RENEWED",
     "start": "2026-10-12",
     "end": "2026-10-23"
    },
@@ -19459,12 +19934,12 @@
      }
     ]
    },
-   "hash": "23cf0533",
-   "retrieved_at": "2026-10-14T01:27:15.713Z",
+   "hash": "14e1840e",
+   "retrieved_at": "2026-10-22T17:09:14.236Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
-   "revision": 3,
-   "changed_at": "2026-10-14T01:27:15.713Z"
+   "last_seen": "2026-10-22T17:09:14.236Z",
+   "revision": 4,
+   "changed_at": "2026-10-22T17:09:14.236Z"
   },
   {
    "id": "datasf-planning:2026-008726PRJ",
@@ -19520,7 +19995,7 @@
    "hash": "00ee6f75",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -19577,7 +20052,7 @@
    "hash": "81ec0f21",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -19634,7 +20109,7 @@
    "hash": "ece96a4e",
    "retrieved_at": "2026-10-22T07:56:31.301Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 4,
    "changed_at": "2026-10-22T07:56:31.301Z"
   },
@@ -19692,7 +20167,7 @@
    "hash": "88cb63bb",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -19749,7 +20224,7 @@
    "hash": "25c61724",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -19806,7 +20281,7 @@
    "hash": "9a3834bc",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -19866,7 +20341,7 @@
    "hash": "869db665",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -19919,7 +20394,7 @@
    "hash": "05f7e7e5",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -19971,7 +20446,7 @@
    "hash": "075ffeef",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -20023,7 +20498,7 @@
    "hash": "6f0bab57",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -20081,7 +20556,7 @@
    "hash": "e01b96aa",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -20134,7 +20609,7 @@
    "hash": "9d8ea92d",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -20186,7 +20661,7 @@
    "hash": "0b4ca4b5",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -20238,7 +20713,7 @@
    "hash": "c0eb8241",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -20290,7 +20765,7 @@
    "hash": "c0eb8241",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -20342,7 +20817,7 @@
    "hash": "048200e7",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -20394,7 +20869,7 @@
    "hash": "22eafaa9",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -20453,7 +20928,7 @@
    "hash": "9009f6b1",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -20512,7 +20987,7 @@
    "hash": "d640b4f5",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -20575,7 +21050,7 @@
    "hash": "fe45ea3f",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -20634,7 +21109,7 @@
    "hash": "e2a26e64",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -20692,7 +21167,7 @@
    "hash": "b2d7963d",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -20749,7 +21224,7 @@
    "hash": "4b328f24",
    "retrieved_at": "2026-10-15T11:26:48.126Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 4,
    "changed_at": "2026-10-15T11:26:48.126Z"
   },
@@ -20807,7 +21282,7 @@
    "hash": "21c86a93",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -20857,7 +21332,7 @@
    "hash": "4ab897ea",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -20911,7 +21386,7 @@
    "hash": "f6b924db",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -20964,7 +21439,7 @@
    "hash": "f6b924db",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -21017,7 +21492,7 @@
    "hash": "970249f0",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -21076,7 +21551,7 @@
    "hash": "7f0dc932",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21127,7 +21602,7 @@
    "hash": "73da1f15",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -21177,7 +21652,7 @@
    "hash": "6c3e6f4a",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -21235,7 +21710,7 @@
    "hash": "4aabd335",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21296,7 +21771,7 @@
    "hash": "041ecfcd",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21355,7 +21830,7 @@
    "hash": "8181cd62",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21414,7 +21889,7 @@
    "hash": "b7517272",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21531,7 +22006,7 @@
    "hash": "b79c2090",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21591,7 +22066,7 @@
    "hash": "e879daa7",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21648,7 +22123,7 @@
    "hash": "e931489a",
    "retrieved_at": "2026-10-21T10:34:24.244Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 6,
    "changed_at": "2026-10-21T10:34:24.244Z"
   },
@@ -21705,7 +22180,7 @@
    "hash": "ba42629c",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21762,7 +22237,7 @@
    "hash": "12f9ecf2",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21819,7 +22294,7 @@
    "hash": "af5ff600",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -21878,7 +22353,7 @@
    "hash": "090024e9",
    "retrieved_at": "2026-10-21T15:35:58.870Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 4,
    "changed_at": "2026-10-21T15:35:58.870Z"
   },
@@ -21937,7 +22412,7 @@
    "hash": "f45164d6",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -22055,7 +22530,7 @@
    "hash": "468d6185",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -22114,7 +22589,7 @@
    "hash": "72918b97",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -22173,7 +22648,7 @@
    "hash": "69748b0e",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -22229,7 +22704,7 @@
    "hash": "0cb3f74d",
    "retrieved_at": "2026-10-13T22:48:34.222Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1,
    "confidence": {
     "level": "high",
@@ -22289,7 +22764,7 @@
    "hash": "4fa1bd6c",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -22346,7 +22821,7 @@
    "hash": "6ce42a41",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -22403,7 +22878,7 @@
    "hash": "33267bd6",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -22460,7 +22935,7 @@
    "hash": "2da8728b",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -22518,7 +22993,7 @@
    "hash": "f1677f9a",
    "retrieved_at": "2026-10-22T07:56:31.301Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 5,
    "changed_at": "2026-10-22T07:56:31.301Z"
   },
@@ -22575,7 +23050,7 @@
    "hash": "2f1f8f68",
    "retrieved_at": "2026-10-17T17:31:53.887Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 4,
    "changed_at": "2026-10-17T17:31:53.887Z"
   },
@@ -22632,7 +23107,7 @@
    "hash": "b0625a79",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -22684,7 +23159,7 @@
    "hash": "424019f8",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -22735,7 +23210,7 @@
    "hash": "0e1ace48",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -23121,7 +23596,7 @@
    "hash": "28c598d0",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -23174,7 +23649,7 @@
    "hash": "4e7d5b6d",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -23227,7 +23702,7 @@
    "hash": "9f5c30c9",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -23286,7 +23761,7 @@
    "hash": "7591b8ec",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -23345,7 +23820,7 @@
    "hash": "e491014e",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -23405,7 +23880,7 @@
    "hash": "4a58896e",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -23508,7 +23983,7 @@
    "hash": "82dced10",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -23560,7 +24035,7 @@
    "hash": "cde59c4a",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -23611,7 +24086,7 @@
    "hash": "55396c31",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -23726,7 +24201,7 @@
    "hash": "f29598eb",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -23783,7 +24258,7 @@
    "hash": "98fd12a9",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -23840,7 +24315,7 @@
    "hash": "86a5f337",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -23897,7 +24372,7 @@
    "hash": "ee4f50bf",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -23955,7 +24430,7 @@
    "hash": "72d4a50a",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -24012,7 +24487,7 @@
    "hash": "e0191013",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -24069,7 +24544,7 @@
    "hash": "dbbdeb9a",
    "retrieved_at": "2026-10-22T07:56:31.301Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 5,
    "changed_at": "2026-10-22T07:56:31.301Z"
   },
@@ -24120,7 +24595,7 @@
    "hash": "ec9e7a75",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -24176,7 +24651,7 @@
    "hash": "ea47f1da",
    "retrieved_at": "2026-10-13T22:48:34.222Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1,
    "confidence": {
     "level": "high",
@@ -24235,7 +24710,7 @@
    "hash": "46a1bad6",
    "retrieved_at": "2026-10-13T22:48:34.222Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1,
    "confidence": {
     "level": "high",
@@ -24297,7 +24772,7 @@
    "hash": "f5e525e8",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -24356,7 +24831,7 @@
    "hash": "93bb77ec",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -24408,7 +24883,7 @@
    "hash": "3c0735d8",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -24465,7 +24940,7 @@
    "hash": "1028e072",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -24522,7 +24997,7 @@
    "hash": "8ee1e223",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -24641,7 +25116,7 @@
    "hash": "9678cd25",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -24700,7 +25175,7 @@
    "hash": "efa1383f",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -24759,7 +25234,7 @@
    "hash": "e1a09aff",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -24818,7 +25293,7 @@
    "hash": "a4c2a210",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -24926,7 +25401,7 @@
    "hash": "95e1266f",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -24977,7 +25452,7 @@
    "hash": "00e448d6",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -25422,7 +25897,7 @@
    "hash": "bbcc6a4b",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -25474,7 +25949,7 @@
    "hash": "f9b59d82",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -25526,7 +26001,7 @@
    "hash": "3eb8ee2d",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -25577,7 +26052,7 @@
    "hash": "c4d59688",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -25636,7 +26111,7 @@
    "hash": "b0a62bb8",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -25696,7 +26171,7 @@
    "hash": "8df155da",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -25755,7 +26230,7 @@
    "hash": "b725c2f5",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -25814,7 +26289,7 @@
    "hash": "94e9338d",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -25873,7 +26348,7 @@
    "hash": "6b7bc7f9",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -25932,7 +26407,7 @@
    "hash": "d18ac4d3",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -27987,7 +28462,7 @@
    "hash": "ca149447",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -29507,7 +29982,7 @@
    "hash": "04e49b2d",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -29660,7 +30135,7 @@
    "hash": "f4b1b257",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -29710,7 +30185,7 @@
    "hash": "6cdf31f7",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -29760,7 +30235,7 @@
    "hash": "7420671b",
    "retrieved_at": "2026-10-20T17:31:25.853Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 2,
    "changed_at": "2026-10-20T17:31:25.853Z"
   },
@@ -29811,7 +30286,7 @@
    "hash": "b8f96fa5",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -29968,7 +30443,7 @@
    "hash": "2d295c9a",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -30026,7 +30501,7 @@
    "hash": "c9294e08",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -30084,7 +30559,7 @@
    "hash": "3195d098",
    "retrieved_at": "2026-10-14T01:27:15.713Z",
    "first_seen": "2026-10-13T22:48:34.222Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 3,
    "changed_at": "2026-10-14T01:27:15.713Z"
   },
@@ -30134,7 +30609,7 @@
    "hash": "89844cb9",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -30183,7 +30658,7 @@
    "hash": "b0437549",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -30232,7 +30707,7 @@
    "hash": "4c67505b",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -30281,7 +30756,7 @@
    "hash": "08354dbc",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {
@@ -30332,7 +30807,7 @@
    "hash": "a67714e5",
    "retrieved_at": "2026-10-13T23:10:22.704Z",
    "first_seen": "2026-10-13T23:10:22.704Z",
-   "last_seen": "2026-10-22T11:49:54.016Z",
+   "last_seen": "2026-10-22T17:09:14.236Z",
    "revision": 1
   },
   {

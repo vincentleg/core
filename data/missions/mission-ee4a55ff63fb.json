@@ -62,7 +62,7 @@
    "tool": "resilience.quake-context",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 2,
+   "ms": 3,
    "records": 1,
    "error": null,
    "findings": [
@@ -150,7 +150,7 @@
    "tool": "resilience.weather-alerts",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 2,
+   "ms": 3,
    "records": 0,
    "error": null,
    "findings": [
@@ -166,7 +166,7 @@
       }
      ],
      "value": 0,
-     "asOf": "2026-10-22T11:49:54.016Z",
+     "asOf": "2026-10-22T17:09:14.236Z",
      "agent": "core.san-francisco.climate.weather-alerts",
      "tool": "resilience.weather-alerts"
     }
@@ -182,7 +182,7 @@
    "tool": "graph.link",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 2,
+   "ms": 3,
    "records": 1,
    "error": null,
    "findings": [
@@ -215,7 +215,7 @@
    "tool": "knowledge.retrieve",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 1,
+   "ms": 2,
    "records": 2,
    "error": null,
    "findings": [
@@ -341,7 +341,7 @@
     }
    ],
    "value": 0,
-   "asOf": "2026-10-22T11:49:54.016Z",
+   "asOf": "2026-10-22T17:09:14.236Z",
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts"
   },
@@ -666,17 +666,17 @@
   },
   {
    "seq": 12,
-   "t": 2,
+   "t": 3,
    "kind": "task",
    "task": "task-1",
    "agent": "core.san-francisco.climate.seismic-context",
    "tool": "resilience.quake-context",
    "state": "succeeded",
-   "text": "3 constat(s), 1 enregistrement(s), 2 ms"
+   "text": "3 constat(s), 1 enregistrement(s), 3 ms"
   },
   {
    "seq": 13,
-   "t": 2,
+   "t": 3,
    "kind": "task",
    "task": "task-4",
    "agent": "core.san-francisco.regulatory.knowledge-research",
@@ -686,72 +686,72 @@
   },
   {
    "seq": 14,
-   "t": 2,
+   "t": 3,
    "kind": "task",
    "task": "task-2",
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts",
    "state": "succeeded",
-   "text": "1 constat(s), 0 enregistrement(s), 2 ms"
+   "text": "1 constat(s), 0 enregistrement(s), 3 ms"
   },
   {
    "seq": 15,
-   "t": 2,
+   "t": 3,
    "kind": "task",
    "task": "task-3",
    "agent": "core.san-francisco.data-science.graph-linker",
    "tool": "graph.link",
    "state": "succeeded",
-   "text": "1 constat(s), 1 enregistrement(s), 2 ms"
+   "text": "1 constat(s), 1 enregistrement(s), 3 ms"
   },
   {
    "seq": 16,
-   "t": 3,
+   "t": 5,
    "kind": "task",
    "task": "task-4",
    "agent": "core.san-francisco.regulatory.knowledge-research",
    "tool": "knowledge.retrieve",
    "state": "succeeded",
-   "text": "2 constat(s), 2 enregistrement(s), 1 ms"
+   "text": "2 constat(s), 2 enregistrement(s), 2 ms"
   },
   {
    "seq": 17,
-   "t": 3,
+   "t": 5,
    "kind": "mission",
    "state": "reviewing",
    "text": "Mission → reviewing"
   },
   {
    "seq": 18,
-   "t": 3,
+   "t": 5,
    "kind": "review",
    "agent": "core.san-francisco.research.evidence-verifier",
    "text": "Vérification indépendante : 7/7 constats entièrement sourcés."
   },
   {
    "seq": 19,
-   "t": 3,
+   "t": 5,
    "kind": "review",
    "agent": "core.san-francisco.safety.adversarial-reviewer",
    "text": "Revue adversariale : 0 désaccord(s), 0 sensibilité(s), 1 limite(s), 0 tâche(s) non abouties."
   },
   {
    "seq": 20,
-   "t": 3,
+   "t": 5,
    "kind": "synthesis",
    "agent": "core.san-francisco.manager",
    "text": "Synthèse : 4 énoncé(s) sourcé(s) ; action suivante : Aucune action proposée : surveiller les révisions USGS ; une évaluation d’impact exigerait des données structurelles et géotechniques non disponibles."
   },
   {
    "seq": 21,
-   "t": 6,
+   "t": 8,
    "kind": "gateway",
    "agent": "core.san-francisco.governance.gateway",
    "text": "PREUVES SUPPLÉMENTAIRES REQUISES — Aucune action proposée : surveiller les révisions USGS ; une évaluation d’impact exigerait des données structurelles et géotechniques non disponibles. Limites : Aucune donnée structurelle, géotechnique ou d’inspection : aucun impact ne peut être évalué."
   },
   {
    "seq": 22,
-   "t": 6,
+   "t": 8,
    "kind": "mission",
    "state": "needs-evidence",
    "text": "Mission → needs-evidence"
@@ -760,9 +760,9 @@
  "fingerprint": "16bcf0ae69b48d15",
  "recorded": {
   "by": "scripts/agents.mjs (Node)",
-  "at": "2026-10-22T11:50:13.882Z",
-  "wallMs": 6,
+  "at": "2026-10-22T17:09:33.411Z",
+  "wallMs": 8,
   "snapshot": "2026-10-13T18:25:19.678Z",
-  "feedUpdate": "2026-10-22T11:49:54.016Z"
+  "feedUpdate": "2026-10-22T17:09:14.236Z"
  }
 }
