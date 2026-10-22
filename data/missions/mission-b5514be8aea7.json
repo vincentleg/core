@@ -247,7 +247,7 @@
    "tool": "trees.near-works",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 17,
+   "ms": 15,
    "records": 9,
    "error": null,
    "findings": [
@@ -433,7 +433,7 @@
    "tool": "energy.benchmarks",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 37,
+   "ms": 35,
    "records": 2,
    "error": null,
    "findings": [
@@ -480,7 +480,7 @@
    "tool": "public-space.sidewalks",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 32,
+   "ms": 33,
    "records": 1,
    "error": null,
    "findings": [
@@ -528,7 +528,7 @@
    "tool": "resilience.weather-alerts",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 22,
+   "ms": 21,
    "records": 0,
    "error": null,
    "findings": [
@@ -544,7 +544,7 @@
       }
      ],
      "value": 0,
-     "asOf": "2026-10-22T01:50:32.985Z",
+     "asOf": "2026-10-22T04:42:07.240Z",
      "agent": "core.san-francisco.climate.weather-alerts",
      "tool": "resilience.weather-alerts"
     }
@@ -560,7 +560,7 @@
    "tool": "graph.link",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 12,
+   "ms": 13,
    "records": 1,
    "error": null,
    "findings": [
@@ -605,7 +605,7 @@
    "tool": "scenario.investigate",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 191,
+   "ms": 193,
    "records": 69,
    "error": null,
    "findings": [
@@ -1317,7 +1317,7 @@
    "tool": "knowledge.retrieve",
    "state": "succeeded",
    "attempts": 1,
-   "ms": 192,
+   "ms": 194,
    "records": 4,
    "error": null,
    "findings": [
@@ -1697,7 +1697,7 @@
     }
    ],
    "value": 0,
-   "asOf": "2026-10-22T01:50:32.985Z",
+   "asOf": "2026-10-22T04:42:07.240Z",
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts"
   },
@@ -2400,17 +2400,17 @@
   },
   {
    "seq": 22,
-   "t": 17,
+   "t": 15,
    "kind": "task",
    "task": "task-3",
    "agent": "core.san-francisco.forestry.street-trees",
    "tool": "trees.near-works",
    "state": "succeeded",
-   "text": "1 constat(s), 9 enregistrement(s), 17 ms"
+   "text": "1 constat(s), 9 enregistrement(s), 15 ms"
   },
   {
    "seq": 23,
-   "t": 17,
+   "t": 15,
    "kind": "task",
    "task": "task-6",
    "agent": "core.san-francisco.public-space.sidewalks",
@@ -2440,17 +2440,17 @@
   },
   {
    "seq": 26,
-   "t": 38,
+   "t": 36,
    "kind": "task",
    "task": "task-5",
    "agent": "core.san-francisco.energy.energy-benchmarks",
    "tool": "energy.benchmarks",
    "state": "succeeded",
-   "text": "1 constat(s), 2 enregistrement(s), 37 ms"
+   "text": "1 constat(s), 2 enregistrement(s), 35 ms"
   },
   {
    "seq": 27,
-   "t": 38,
+   "t": 36,
    "kind": "task",
    "task": "task-8",
    "agent": "core.san-francisco.data-science.graph-linker",
@@ -2460,17 +2460,17 @@
   },
   {
    "seq": 28,
-   "t": 49,
+   "t": 48,
    "kind": "task",
    "task": "task-6",
    "agent": "core.san-francisco.public-space.sidewalks",
    "tool": "public-space.sidewalks",
    "state": "succeeded",
-   "text": "1 constat(s), 1 enregistrement(s), 32 ms"
+   "text": "1 constat(s), 1 enregistrement(s), 33 ms"
   },
   {
    "seq": 29,
-   "t": 49,
+   "t": 48,
    "kind": "task",
    "task": "task-9",
    "agent": "core.san-francisco.simulation.scenario-evaluator",
@@ -2480,17 +2480,17 @@
   },
   {
    "seq": 30,
-   "t": 49,
+   "t": 48,
    "kind": "task",
    "task": "task-7",
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts",
    "state": "succeeded",
-   "text": "1 constat(s), 0 enregistrement(s), 22 ms"
+   "text": "1 constat(s), 0 enregistrement(s), 21 ms"
   },
   {
    "seq": 31,
-   "t": 49,
+   "t": 48,
    "kind": "task",
    "task": "task-10",
    "agent": "core.san-francisco.regulatory.knowledge-research",
@@ -2500,72 +2500,72 @@
   },
   {
    "seq": 32,
-   "t": 50,
+   "t": 49,
    "kind": "task",
    "task": "task-8",
    "agent": "core.san-francisco.data-science.graph-linker",
    "tool": "graph.link",
    "state": "succeeded",
-   "text": "1 constat(s), 1 enregistrement(s), 12 ms"
+   "text": "1 constat(s), 1 enregistrement(s), 13 ms"
   },
   {
    "seq": 33,
-   "t": 240,
+   "t": 241,
    "kind": "task",
    "task": "task-9",
    "agent": "core.san-francisco.simulation.scenario-evaluator",
    "tool": "scenario.investigate",
    "state": "succeeded",
-   "text": "2 constat(s), 69 enregistrement(s), 191 ms"
+   "text": "2 constat(s), 69 enregistrement(s), 193 ms"
   },
   {
    "seq": 34,
-   "t": 241,
+   "t": 242,
    "kind": "task",
    "task": "task-10",
    "agent": "core.san-francisco.regulatory.knowledge-research",
    "tool": "knowledge.retrieve",
    "state": "succeeded",
-   "text": "4 constat(s), 4 enregistrement(s), 192 ms"
+   "text": "4 constat(s), 4 enregistrement(s), 194 ms"
   },
   {
    "seq": 35,
-   "t": 241,
+   "t": 242,
    "kind": "mission",
    "state": "reviewing",
    "text": "Mission → reviewing"
   },
   {
    "seq": 36,
-   "t": 242,
+   "t": 243,
    "kind": "review",
    "agent": "core.san-francisco.research.evidence-verifier",
    "text": "Vérification indépendante : 17/17 constats entièrement sourcés."
   },
   {
    "seq": 37,
-   "t": 242,
+   "t": 243,
    "kind": "review",
    "agent": "core.san-francisco.safety.adversarial-reviewer",
    "text": "Revue adversariale : 1 désaccord(s), 1 sensibilité(s), 0 limite(s), 0 tâche(s) non abouties."
   },
   {
    "seq": 38,
-   "t": 242,
+   "t": 243,
    "kind": "synthesis",
    "agent": "core.san-francisco.manager",
    "text": "Synthèse : 11 énoncé(s) sourcé(s) ; action suivante : Proposer à la revue humaine une vérification de terrain coordonnée (R2) sur HOWARD ST LANGTON ST → RAUSCH ST avant l’ouverture des excavations non commencées ; ne pas engager d’intervention coordonnée (R1) tant que tracés, état des arbres et calendrier des façades ne sont pas connus."
   },
   {
    "seq": 39,
-   "t": 469,
+   "t": 474,
    "kind": "gateway",
    "agent": "core.san-francisco.governance.gateway",
    "text": "ÉLIGIBLE À LA REVUE HUMAINE — Passerelle inter-domaines : ÉLIGIBLE À LA REVUE HUMAINE. Proposer à la revue humaine une vérification de terrain coordonnée (R2) sur HOWARD ST LANGTON ST → RAUSCH ST avant l’ouverture des excavations non commencées ; ne pas engager d’intervention coordonnée (R1) tant que tracés, état des arbres et calendrier des façades ne sont pas connus."
   },
   {
    "seq": 40,
-   "t": 469,
+   "t": 474,
    "kind": "mission",
    "state": "needs-human-review",
    "text": "Mission → needs-human-review"
@@ -2574,9 +2574,9 @@
  "fingerprint": "61ea4fc25cfe65bb",
  "recorded": {
   "by": "scripts/agents.mjs (Node)",
-  "at": "2026-10-22T01:50:51.538Z",
-  "wallMs": 469,
+  "at": "2026-10-22T04:42:24.213Z",
+  "wallMs": 474,
   "snapshot": "2026-10-13T18:25:19.678Z",
-  "feedUpdate": "2026-10-22T01:50:32.985Z"
+  "feedUpdate": "2026-10-22T04:42:07.240Z"
  }
 }
