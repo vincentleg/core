@@ -20,6 +20,8 @@ export const GROUPS = [
     links: [['me', ['My CORE', 'Mon CORE'], 'me.html'], ['avatar', ['Avatar', 'Avatar'], 'avatar.html']],
     sections: [['profile', ['Identity', 'Identité']], ['journey', ['My journey', 'Mon parcours']], ['trust', ['My data & TRUST', 'Mes données et TRUST']]] },
 ];
+// Every edition except the English reference is a model-written draft (i18n STATUS); say so in its own language.
+const DRAFT = { fr: 'brouillon', es: 'borrador', de: 'Entwurf', 'zh-CN': '草稿', pt: 'rascunho' };
 // Keep creation tools and fictional collaboration reachable through More.
 const EXPERIMENTAL = new Set(['create', 'collaborate']);
 // Page → destination, for pages that are not commons sections.
@@ -39,7 +41,7 @@ export function render(el, { active }) {
         <a href="dialogue.html">${icon('create', 15)} ${esc(T('Dialogue & Idea Vault', 'Dialogue et coffre à idées'))}</a><a href="commons.html#experts">${icon('collaborate', 15)} ${esc(T('Together (experimental, fictional people)', 'Ensemble (expérimental, personnes fictives)'))}</a><a href="commons.html#trust">${icon('trust', 15)} TRUST</a><a href="business.html">CORE Business</a><a href="privacy.html">${esc(T('Privacy', 'Confidentialité'))}</a><a href="progress.html">${icon('chart', 15)} ${esc(t('nav.progress'))}</a><a href="commons.html#journey">${icon('route', 15)} ${esc(t('nav.journey'))} ${done}/8</a></div></details></div>`;
   let language = document.querySelector('[data-floating-language]');
   if (!language) { language = document.createElement('label'); language.className = 'le-lang le-lang-floating'; language.dataset.floatingLanguage = ''; document.body.append(language); }
-  language.innerHTML = `<span class="sr-only">${esc(t('nav.language'))}</span><select data-lang aria-label="${esc(t('nav.language'))}">${LANGS.map(([c,n]) => `<option value="${esc(c)}"${c === cur ? ' selected' : ''}>${esc(n)}</option>`).join('')}</select>`;
+  language.innerHTML = `<span class="sr-only">${esc(t('nav.language'))}</span><select data-lang aria-label="${esc(t('nav.language'))}">${LANGS.map(([c,n]) => `<option value="${esc(c)}"${c === cur ? ' selected' : ''}>${esc(n + (DRAFT[c] ? ` (${DRAFT[c]})` : ''))}</option>`).join('')}</select>`;
   language.querySelector('select').onchange = e => setLang(e.target.value);
 
   const openCmp = () => globalThis.CORE_INTELLIGENCE ? globalThis.CORE_INTELLIGENCE.focus() : import('../voice/companion.mjs').then(m => m.open());

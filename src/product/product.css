@@ -32,8 +32,11 @@ body.product { min-height: 100dvh; height: auto; overflow: visible; background: 
 .segment dd { margin: 7px 0 0; font-size: 14px; }
 .city-workflow { padding: 44px clamp(24px, 4vw, 54px) 54px; background: #202b30; border-top: 3px solid var(--le-copper); color: var(--le-sand-50); }
 .city-workflow h2, .city-workflow h3 { color: var(--le-sand-50); }
-.city-workflow p, .city-workflow .fine { color: #cad1ce; }
-.city-workflow .le-eyebrow, .city-workflow a { color: #dab08d; }
+.city-workflow p, .city-workflow dd, .city-workflow .fine { color: #cad1ce; }
+.city-workflow .le-eyebrow, .city-workflow dt, .city-workflow a { color: #dab08d; }
+.city-workflow .segment { border-top-color: rgba(236, 233, 226, .22); }
+.city-workflow .btn { color: var(--le-sand-50); border-color: rgba(236, 233, 226, .42); }
+.city-workflow .btn:hover { background: rgba(236, 233, 226, .08); }
 .workflow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; list-style: none; counter-reset: step; margin: 34px 0; padding: 0; border-block: 1px solid var(--le-hairline-2); }
 .workflow li { counter-increment: step; min-width: 0; padding: 22px 18px 24px 0; border-right: 1px solid var(--le-hairline); }
 .workflow li:not(:first-child) { padding-left: 18px; }
