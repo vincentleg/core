@@ -18,7 +18,7 @@ function draw() {
   ]) card.append(e('p', line));
   root.append(card);
   const status = e('section'); status.className = 'business-card';
-  status.append(e('h2', T('Availability', 'Disponibilité')), e('p', T('No public business demonstration and no paid plan is active. Private workspaces open only after a server-side authorization check in Mon CORE.', 'Aucune démonstration commerciale publique ni offre payante n’est active. Les espaces privés ne s’ouvrent qu’après une vérification d’autorisation côté serveur dans Mon CORE.')), link(T('Open Mon CORE', 'Ouvrir Mon CORE'), 'me.html'), link(T('Explore CORE World', 'Explorer CORE World'), 'world.html'));
+  status.append(e('h2', T('Availability', 'Disponibilité')), e('p', T('No public business demonstration and no paid plan is active. Private workspaces open only after a server-side authorization check in My CORE.', 'Aucune démonstration commerciale publique ni offre payante n’est active. Les espaces privés ne s’ouvrent qu’après une vérification d’autorisation côté serveur dans Mon CORE.')), link(T('Open My CORE', 'Ouvrir Mon CORE'), 'me.html'), link(T('Explore CORE World', 'Explorer CORE World'), 'world.html'));
   root.append(status);
 }
 draw(); onLang(draw);

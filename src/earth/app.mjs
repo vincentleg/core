@@ -265,7 +265,7 @@ function wire() {
   addEventListener('keydown', e => {
     if (e.target.closest?.('input, textarea, select')) return;
     const k = e.key.toLowerCase();
-    if (k === 'escape') { for (const id of ['ea-demo-choice', 'ea-status', 'ea-layer-intro', 'ea-about', 'ea-list', 'ea-panel']) if (!$(id).hidden) { $(id).hidden = true; return; } }
+    if (k === 'escape') { const open = ['ea-demo-choice', 'ea-status', 'ea-layer-intro', 'ea-about', 'ea-list', 'ea-panel'].filter(id => !$(id).hidden); const id = open.find(x => $(x).contains(document.activeElement)) || open[0]; if (id) { $(id).hidden = true; return; } }
     if (S.mode !== 'human') return;
     if (k === 'c') $('ea-cam').click(); else if (k === 'v') toggleCar(); else if (k === 'e' && S.nearAgent && !S.car?.state.on) $('ea-talk').click(); else if (k === ' ') { e.preventDefault(); if (S.jump == null && !reduced()) S.jump = 0; } else { S.keys.add(k === 'shift' ? 'shift' : k); if (k.startsWith('arrow')) e.preventDefault(); }
   });
@@ -313,7 +313,7 @@ function showProposal(id) {
   panel('proposal', id, `<header class="pp-head"><div class="le-row"><span class="le-eyebrow">${T('Your proposal', 'Votre proposition')}</span><span class="le-badge" data-s="info">${T('Proposed · not evidence', 'Proposée · pas une preuve')}</span></div>
     <h2 id="pp-title">${esc(c.title)}</h2><p class="pp-place">${esc(Number(c.place[1]).toFixed(4))}, ${esc(Number(c.place[0]).toFixed(4))} · ${c.state === 'shared' ? T('shared with the mission queue in this browser', 'partagée avec la file de la mission dans ce navigateur') : T('private to this browser', 'privée dans ce navigateur')}</p></header>
     <div class="pp-sec"><p>${esc(c.text)}</p><p class="fine">${T('A claim by you, shown on the CORE World layer. It is not an observation, has not been analysed by any agent and has not been reviewed.', 'Une affirmation de votre part, affichée sur la couche Monde CORE. Ce n’est pas une observation ; aucun agent ne l’a analysée et elle n’a pas été relue.')}</p></div>
-    <nav class="pp-actions">${m ? `<a href="#" class="btn" data-mission="${esc(m.id)}">${T('Mission', 'Mission')}: ${esc(L(m.title))}</a>` : ''}<a class="btn primary" href="me.html">${T('Follow its review in Mon CORE', 'Suivre sa revue dans Mon CORE')}</a></nav>`);
+    <nav class="pp-actions">${m ? `<a href="#" class="btn" data-mission="${esc(m.id)}">${T('Mission', 'Mission')}: ${esc(L(m.title))}</a>` : ''}<a class="btn primary" href="me.html">${T('Follow its review in My CORE', 'Suivre sa revue dans Mon CORE')}</a></nav>`);
 }
 const LEGEND = {
   real: () => `<span><i class="lg-dot real"></i>${T('Real Earth: sourced map data and dated public records only', 'Terre réelle : données cartographiques sourcées et registres publics datés uniquement')}</span>`,
@@ -339,7 +339,10 @@ function setLayer(m, { intro = true } = {}) {
 
 // ---------- panels ----------
 function panel(kind, id, html) {
-  const same = S.panelKind?.kind === kind && S.panelKind?.id === id; S.panelKind = { kind, id }; $('ea-panel-body').innerHTML = html; if (!same) $('ea-panel').scrollTop = 0; $('ea-panel').hidden = false; $('ea-human').hidden = kind !== 'problem' || id !== FLAGSHIP || S.mode === 'human';
+  const same = S.panelKind?.kind === kind && S.panelKind?.id === id, hadFocus = $('ea-panel').contains(document.activeElement); S.panelKind = { kind, id }; $('ea-panel-body').innerHTML = html;
+  // Keep keyboard focus in the panel when its content is replaced (e.g. after following a link inside it).
+  if (hadFocus && !$('ea-panel').contains(document.activeElement)) $('ea-panel').focus({ preventScroll: true });
+  if (!same) $('ea-panel').scrollTop = 0; $('ea-panel').hidden = false; $('ea-human').hidden = kind !== 'problem' || id !== FLAGSHIP || S.mode === 'human';
   $('ea-panel').classList.remove('le-enter'); void $('ea-panel').offsetWidth; $('ea-panel').classList.add('le-enter');
 }
 const recordedIds = () => (S.records ? [...S.records.byId.keys()].filter(id => AR.executionClass(S.records, id) === 'recorded') : []);
@@ -500,7 +503,7 @@ function showContribute(mid = null) {
     <form class="form" id="nt-form"><label>${T('Mission', 'Mission')} <select id="nt-m0"><option value="">${T('Let CORE suggest one', 'Laisser CORE en suggérer une')}</option>${missions.map(x => `<option value="${esc(x.id)}"${x.id === mid ? ' selected' : ''}>${E(x.title)}</option>`).join('')}</select></label>
       <label>${T('What I noticed', 'Ce que j’ai remarqué')} <textarea id="nt-text" maxlength="1000" required placeholder="${esc(T('E.g. In the morning, buses get stuck on Folsom between 5th and 6th; maybe because of cars turning right.', 'Ex. : Le matin, les bus restent bloqués sur Folsom entre la 5th et la 6th ; peut-être à cause des voitures qui tournent à droite.'))}"></textarea></label>
       <p class="fine">${place ? T(`Place: the map centre (${place[1]}, ${place[0]}) will be attached.`, `Lieu : le centre de la carte (${place[1]}, ${place[0]}) sera joint.`) : T('Zoom into the place you mean to attach it.', 'Zoomez sur le lieu concerné pour le joindre.')}</p>
-      <div class="le-row"><button type="submit" class="primary" data-mode="det">${T('Structure it', 'Le structurer')}</button><button type="button" id="nt-model" data-mode="model">${T('Structure with the local model', 'Structurer avec le modèle local')}</button></div></form>
+      <div class="le-row"><button type="submit" class="primary" data-mode="det">${T('Structure it', 'Le structurer')}</button><button type="button" id="nt-model" data-mode="model"${PUBLIC ? ' disabled aria-describedby="nt-model-note"' : ''}>${PUBLIC ? T('Local model · unavailable on this site', 'Modèle local · indisponible sur ce site') : T('Structure with the local model', 'Structurer avec le modèle local')}</button></div>${PUBLIC ? `<p class="fine" id="nt-model-note">${T('Local-model structuring is available only on a computer running CORE with a local model; this public site uses deterministic rules.', 'La structuration par modèle local n’est disponible que sur un ordinateur exécutant CORE avec un modèle local ; ce site public utilise des règles déterministes.')}</p>` : ''}</form>
     <p class="fine" id="nt-state" role="status">${T('Nothing is stored or sent at this step.', 'Rien n’est enregistré ni envoyé à cette étape.')}</p><div id="nt-out"></div>`);
   const run = async useModel => {
     const text = $('nt-text').value.trim(); if (!text) return $('nt-text').focus();

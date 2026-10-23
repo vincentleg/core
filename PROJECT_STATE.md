@@ -1,10 +1,8 @@
-# CORE — R12 local release candidate, 2026-10-23
-Worktree: sanitized `release/r10-public`; parent `0c5f3d4` descends from the R10 public squash, not the deleted contaminated branch.
-R11 eight-step autonomous demo behavior was ported as reviewed source changes only; no contaminated commit was cherry-picked or merged.
-R12: shared graphite/mineral/ivory/copper visual tokens, editorial public pages, quieter professional workspace, map-led CORE World, retained holographic geography and agents.
-Public build is local only; no push, merge or deployment authorized.
-Recorded investigations and simulations remain labelled; fictional autofill stays local and requires explicit user submission to save.
-Verification: full suite 383/383, integrity 0 findings, desktop/mobile six-page demo checks and screenshots in ignored `.core-local/evidence/r12/`; mobile language control clear of navigation.
-Privacy: private project store untouched; three isolation checks passed, public build scanned clean.
-Existing release concerns: draft translations need professional review; Safari browser coverage remains unavailable; remote cached objects from the deleted branch need host support purge.
-Next: report the R12 local commit and screenshots; publication requires separate authorization.
+# CORE — R13 V1 functional completion, local release candidate, 2026-10-23
+Worktree `.core-local/worktrees/v9.8/.core-local/worktrees/r12-release`, sanitized `release/r10-public` on R12 `fde1fa2`; no contaminated history; private project store untouched; nothing pushed, merged or deployed.
+Audit: automated click-through of 13 public pages, desktop + mobile: no broken links or dead navigation/product controls.
+Fixed: Escape now closes the overlay that holds focus (it closed the layer intro over the Earth panel); keyboard focus stays in the panel when its content is replaced; public site shows the local-model button disabled as "Local model · unavailable on this site" with a note; English labels no longer say "Mon CORE"; untranslated urban-panel strings bilingual + draft es/de/zh-CN/pt; My CORE explains why guided-tour drafts get no review request.
+New `scripts/r13-browser.mjs`: full visitor journey run as a non-localhost secure host (PUBLIC mode): layers, missions, Escape, contribution → My CORE → review request download, nine pages, menu, language persistence.
+Verification: R13 journeys desktop/mobile passed; R12 six-page + R11 eight-step demo passed; `node scripts/verify.mjs` full suite and integrity, privacy isolation included; evidence in ignored `.core-local/evidence/r13/`.
+Release concerns: draft translations need professional review (plans detail sections English-only); Safari not covered; deleted-branch cached objects need host purge.
+Next: founder review of the R13 local commit; publication requires separate authorization.
