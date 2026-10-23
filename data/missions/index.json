@@ -1,6 +1,6 @@
 {
  "version": "core-missions-index-v1",
- "recorded_at": "2026-10-23T01:56:44.449Z",
+ "recorded_at": "2026-10-23T04:47:28.661Z",
  "missions": [
   {
    "id": "mission:b800f920af82",
@@ -25,7 +25,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 405
+   "ms": 423
   },
   {
    "id": "mission:5d7886b55a54",
@@ -50,7 +50,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 106
+   "ms": 112
   },
   {
    "id": "mission:5d2cb2e2f3a3",
@@ -75,7 +75,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 389
+   "ms": 418
   },
   {
    "id": "mission:28fc07fa8a08",
@@ -100,7 +100,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 103
+   "ms": 108
   },
   {
    "id": "mission:4095b1ece637",
@@ -125,7 +125,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 99
+   "ms": 106
   },
   {
    "id": "mission:ee4a55ff63fb",
@@ -144,7 +144,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 5
+   "ms": 6
   },
   {
    "id": "mission:ba5047a9073a",
@@ -169,7 +169,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 123
+   "ms": 134
   },
   {
    "id": "mission:c594c2dba81f",
@@ -194,7 +194,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 103
+   "ms": 110
   },
   {
    "id": "mission:756645a548a9",
@@ -219,7 +219,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 372
+   "ms": 399
   },
   {
    "id": "mission:b5514be8aea7",
@@ -244,7 +244,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 373
+   "ms": 394
   },
   {
    "id": "mission:2eb75be759c4",
@@ -269,7 +269,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 382
+   "ms": 397
   },
   {
    "id": "mission:667e5eac695e",
@@ -294,7 +294,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 384
+   "ms": 400
   },
   {
    "id": "mission:e2bb152763f4",
@@ -319,7 +319,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 375
+   "ms": 392
   },
   {
    "id": "mission:11580bb276c1",
@@ -344,7 +344,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 100
+   "ms": 108
   },
   {
    "id": "mission:f9dccc3fd537",
@@ -369,7 +369,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 99
+   "ms": 122
   },
   {
    "id": "mission:830559f131bd",
@@ -393,7 +393,7 @@
     "core.san-francisco.safety.adversarial-reviewer",
     "core.san-francisco.governance.gateway"
    ],
-   "ms": 383
+   "ms": 407
   }
  ]
 }
