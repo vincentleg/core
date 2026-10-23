@@ -166,7 +166,7 @@
       }
      ],
      "value": 0,
-     "asOf": "2026-10-23T07:55:44.442Z",
+     "asOf": "2026-10-23T11:36:33.104Z",
      "agent": "core.san-francisco.climate.weather-alerts",
      "tool": "resilience.weather-alerts"
     }
@@ -341,7 +341,7 @@
     }
    ],
    "value": 0,
-   "asOf": "2026-10-23T07:55:44.442Z",
+   "asOf": "2026-10-23T11:36:33.104Z",
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts"
   },
@@ -760,9 +760,9 @@
  "fingerprint": "16bcf0ae69b48d15",
  "recorded": {
   "by": "scripts/agents.mjs (Node)",
-  "at": "2026-10-23T07:56:00.883Z",
+  "at": "2026-10-23T11:36:50.502Z",
   "wallMs": 5,
   "snapshot": "2026-10-13T18:25:19.678Z",
-  "feedUpdate": "2026-10-23T07:55:44.442Z"
+  "feedUpdate": "2026-10-23T11:36:33.104Z"
  }
 }
