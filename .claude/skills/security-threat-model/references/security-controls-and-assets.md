@@ -1,0 +1,1 @@
+../../../../.agents/skills/security-threat-model/references/security-controls-and-assets.md

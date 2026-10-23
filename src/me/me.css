@@ -1,0 +1,56 @@
+/* Mon CORE (V7) — a personal space: portrait, then the person's own history and controls. */
+#me-main { max-width: 1120px; margin: 0 auto; padding: calc(var(--navh) + 18px) 24px 96px; display: grid; gap: 22px; }
+.me-hero { display: grid; grid-template-columns: 220px 1fr auto; gap: 28px; align-items: center; padding: 26px; border-radius: 28px; background: radial-gradient(600px 300px at 10% 0%, #1b3f63, transparent 70%), linear-gradient(180deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .015)); border: 1px solid var(--le-hairline); }
+.me-portrait { width: 220px; height: 260px; border-radius: 22px; overflow: hidden; background: radial-gradient(circle at 50% 30%, #23476e, #0b1628 75%); }
+#me-canvas { width: 100%; height: 100%; display: block; }
+.me-id h1 { margin: 6px 0 6px; font: 600 clamp(28px, 3.4vw, 42px)/1.05 var(--le-font); letter-spacing: -.03em; }
+.me-sub { margin: 0 0 16px; color: var(--le-text-2); }
+.me-facts { display: grid; gap: 10px; min-width: 200px; }
+.me-facts div { padding: 12px 16px; border-radius: 16px; background: rgba(255, 255, 255, .04); border: 1px solid var(--le-hairline); }
+.me-facts b { display: block; font: 600 26px/1 var(--le-font); letter-spacing: -.02em; } .me-facts span { font-size: 12.5px; color: var(--le-text-3); }
+.me-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+.me-card { grid-column: span 6; padding: 22px; border-radius: 22px; background: linear-gradient(180deg, rgba(255, 255, 255, .035), rgba(255, 255, 255, .012)); border: 1px solid var(--le-hairline); display: grid; gap: 12px; align-content: start; }
+.me-card.wide { grid-column: span 12; } .me-card.third { grid-column: span 4; }
+.me-card h2 { margin: 0; font: 600 17px var(--le-font); letter-spacing: -.01em; display: flex; gap: 8px; align-items: center; }
+.me-card p { margin: 0; }
+.me-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.me-list li { display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 10px 14px; border-radius: 14px; background: rgba(255, 255, 255, .03); border: 1px solid var(--le-hairline); }
+.me-list li b { font-weight: 550; }
+.me-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.me-steps div { padding: 12px; border-radius: 14px; border: 1px solid var(--le-hairline); background: rgba(255, 255, 255, .02); font-size: 13px; color: var(--le-text-3); }
+.me-steps div.done { border-color: #7fdcaa55; color: var(--le-text); background: #7fdcaa0f; } .me-steps div b { display: block; font-size: 13.5px; color: inherit; margin-bottom: 4px; }
+@media (max-width: 900px) {
+  .me-hero { grid-template-columns: 1fr; } .me-portrait { width: 100%; height: 240px; }
+  .me-card, .me-card.third { grid-column: span 12; } .me-steps { grid-template-columns: repeat(2, 1fr); }
+}
+/* V8 — contribution stages */
+.me-stages { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 8px 0; }
+.me-stages li { font-size: 12px; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--le-hairline); color: var(--le-text-3); }
+.me-stages li.done { color: var(--le-text-2); border-color: var(--le-hairline-2); } .me-stages li.now { color: var(--le-cyan); border-color: var(--le-cyan); }
+/* Earth-first (V9.2): without the avatar portrait, identity and facts share the row. */
+.me-hero:not(:has(.me-portrait)) { grid-template-columns: 1fr auto; }
+@media (max-width: 860px) { .me-hero:not(:has(.me-portrait)) { grid-template-columns: 1fr; } }
+#founder-account { grid-column:1 / -1; min-width:0; margin-bottom:22px; scroll-margin-top:90px; }
+#founder-account .form { display:grid; gap:12px; }
+#founder-account label { display:grid; gap:5px; min-width:0; }
+#founder-account input,#founder-account textarea,#founder-account select { box-sizing:border-box; width:100%; max-width:100%; padding:10px; background:#102638; color:#e7f5ff; border:1px solid #526d80; border-radius:8px; font:inherit; }
+#founder-account textarea { min-height:90px; resize:vertical; }
+/* R1 contribution lifecycle */
+.lc { display: grid; gap: 8px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--le-hairline); }
+.lc-head { margin: 0; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.lc-demo { color: var(--le-text-2); }
+.lc details summary { cursor: pointer; font-size: 13px; color: var(--le-text-2); }
+.lc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.lc-grid h4 { margin: 0 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--le-text-3); }
+.lc-grid ul { margin: 0; padding-left: 18px; font-size: 13px; display: grid; gap: 4px; }
+.lc-submit { display: grid; gap: 8px; }
+.lc-submit label { display: flex; gap: 8px; align-items: flex-start; }
+.me-list li:has(> span > .lc) { flex-direction: column; align-items: stretch; }
+.me-list .lc li { display: block; padding: 0; background: none; border: 0; border-radius: 0; }
+.me-list .lc .me-stages li { display: inline-block; padding: 3px 10px; border: 1px solid var(--le-hairline); border-radius: 999px; }
+.me-list .lc .me-stages li.done { border-color: var(--le-hairline-2); } .me-list .lc .me-stages li.now { border-color: var(--le-cyan); }
+.lc-events { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 10px; }
+.me-list .lc .lc-events li { padding-left: 12px; border-left: 2px solid var(--le-hairline-2); }
+/* R10 Gate C: contribution provenance and review request */
+.lc-prov { border-top: 1px solid #22425a; margin-top: 10px; padding-top: 8px; display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
+.lc-prov h4, .lc-prov p { flex-basis: 100%; margin: 0; }

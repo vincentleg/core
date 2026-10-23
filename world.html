@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self' blob: data: https://tiles.openfreemap.org https://gibs.earthdata.nasa.gov https://s3.amazonaws.com https://photon.komoot.io https://huggingface.co https://*.hf.co https://raw.githubusercontent.com http://127.0.0.1:11434; worker-src 'self' blob:; child-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<meta name="core-ready" content="CORE_EARTH">
+<script src="src/ui/boot-guard.mjs"></script>
+<script src="src/earth/demo-launch.js"></script>
+<title data-fr="CORE — Des problèmes réels à l’action étayée">CORE — From real-world problems to evidence-backed action</title>
+<meta name="description" content="CORE helps people and organizations discover problems, evaluate solutions, coordinate contributions and track progress. Explore the working geographic research preview.">
+<link rel="stylesheet" href="assets/vendor/maplibre-gl-6.11.2/maplibre-gl.css" integrity="sha384-ntw3zEt6rcVML7jDK0ULmHa5hxLB23afsPqzqfY+gLgMfAkbFCnCgPpkZvV5mmZX">
+<link rel="modulepreload" href="assets/vendor/maplibre-gl-6.11.2/maplibre-gl.mjs" integrity="sha384-KQzExYlfg1SnYNpLaXHTnaCTjr5wmiZ6X3sasvPb94caZfH+3+T1Sl4eJziXUtmN">
+<link rel="modulepreload" href="assets/vendor/maplibre-gl-6.11.2/maplibre-gl-shared.mjs" integrity="sha384-V59ofCEPEqpSk5Mswc19DtDYbZWJtne210dFzS328Il6O31eLwTV7v57+Z3NjW/7">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="src/world/world.css">
+<link rel="stylesheet" href="src/ui/living-earth.css">
+<link rel="stylesheet" href="src/earth/earth.css">
+<link rel="stylesheet" href="src/intelligence/core/core.css">
+<link rel="stylesheet" href="src/business/business.css">
+</head>
+<body class="earth">
+<a class="skip" href="#ea-problems-btn" data-fr="Aller aux problèmes et missions (navigation sans 3D)">Skip to problems and missions (no 3D needed)</a>
+<header class="bar" id="core-nav"></header>
+<main id="ea-main">
+  <h1 class="sr-only">CORE: <span data-fr="des problèmes réels à l’action étayée">from real-world problems to evidence-backed action</span></h1>
+  <div id="map" role="region" aria-label="3D Earth. Drag to rotate, scroll or pinch to zoom, arrow keys to move." data-fr-label="Terre en 3D. Glisser pour tourner, molette ou pincement pour zoomer, flèches du clavier pour se déplacer."></div>
+
+  <div class="ea-vignette" id="ea-vignette" aria-hidden="true"></div>
+  <section id="ea-hero" class="ea-hero" aria-labelledby="ea-hero-title">
+    <p class="le-eyebrow ea-eyebrow">CORE · CREATION OF REBORN EARTH</p>
+    <h2 id="ea-hero-title" class="le-display" data-fr="Une Terre numérique où humains et agents d’IA étudient les problèmes du monde réel.">A digital Earth where people and AI agents investigate real-world problems.</h2>
+    <p class="ea-statement" data-fr="Résoudre dans le monde virtuel. Améliorer le monde réel.">Solve in the virtual world. Improve the real one.</p>
+    <p class="le-lede" data-fr="Une Terre parallèle où humains et agents d’IA pourraient relier les connaissances, tester des futurs possibles et faire progresser la civilisation. Commencez par les affectations des agents dans la baie, une enquête réelle enregistrée et des scénarios de transport calculables.">A parallel Earth where people and AI agents could connect knowledge, test possible futures and advance civilization. Start with Bay Area agent assignments, a real recorded investigation and transport scenarios you can calculate.</p>
+    <div class="le-row ea-ctas"><button type="button" class="primary ea-cta-explore" id="ea-start" data-fr="Entrer dans CORE">Enter CORE</button><button type="button" class="ea-cta-demo" id="ea-demo-cta" data-fr="Explorer la démo">Explore the Demo</button><span class="ea-secondary"><a href="business.html" data-fr="Découvrir CORE pour les entreprises">Discover CORE for Business</a><button type="button" class="ea-quiet" id="ea-status-btn" aria-expanded="false" aria-controls="ea-status" data-fr="Ce qui fonctionne aujourd’hui">What works today</button></span></div>
+    <p class="fine ea-hero-note" data-fr="Prototype fonctionnel · données publiques datées · IA enregistrée sur le site public · contributions locales, sans compte · aucun impact réel vérifié.">Working preview · dated public data · recorded AI on the public site · local contributions, no account · no verified real-world impact.</p>
+    <nav class="ea-paths" aria-label="CORE pathways" data-fr-label="Parcours CORE">
+      <a href="world.html#problems"><b data-fr="Missions géographiques">Geographic missions</b><span data-fr="San Francisco · preuves datées">San Francisco · dated evidence</span></a>
+      <a href="city.html"><b>CORE Cities</b><span data-fr="Étude indépendante · décision bloquée">Independent case · decision blocked</span></a>
+      <a href="business.html"><b>CORE Business</b><span data-fr="Exploitant fictif · scénarios synthétiques">Fictional operator · synthetic scenarios</span></a>
+      <a href="me.html#contributions"><b data-fr="Mon parcours">My journey</b><span data-fr="Historique local · aucun classement">Browser-local history · no ranking</span></a>
+    </nav>
+    <details class="ea-horizon"><summary data-fr="Notre horizon de civilisation">Our civilizational horizon</summary><p data-fr="CORE existe pour accélérer la civilisation humaine en transformant les problèmes du monde en preuves, les preuves en solutions et les solutions en progrès mesurables.">CORE exists to accelerate human civilization by turning the world's problems into evidence, evidence into solutions, and solutions into measurable progress.</p><p data-fr="Ambition de long terme : un modèle évolutif de l’énergie, de l’eau, des infrastructures et des connaissances de la Terre. Les types I, II et III de Kardashev donnent un horizon, pas une capacité ni un résultat promis.">Long-term ambition: an evolving model of Earth’s energy, water, infrastructure and knowledge. Kardashev Types I, II and III frame the horizon, not a capability or promised outcome.</p><a data-fr="Vision, applications et horizons →" href="solutions.html#vision">Vision, applications & roadmap →</a></details>
+    <a class="ea-manifesto" href="manifesto.html" data-fr="Lire le Manifeste CORE →">Read the CORE Manifesto →</a>
+  </section>
+
+  <section id="core-intelligence" class="ci" aria-label="CORE Intelligence" data-fr-label="CORE Intelligence">
+    <form class="ci-form" data-ci-form>
+      <span class="ci-dot" data-ci-dot aria-hidden="true"></span>
+      <label class="sr-only" for="ci-query" data-fr="Demander à CORE">Ask CORE</label>
+      <input id="ci-query" data-ci-query type="text" maxlength="1200" autocomplete="off" enterkeyhint="go" placeholder="Ask CORE — “Take me to Folsom Street”, “Find an energy agent in Oakland”" data-fr-ph="Demandez à CORE — « Emmène-moi à Folsom Street », « Trouve un agent énergie à Oakland »">
+      <button type="button" class="ci-icon" data-ci-mic aria-label="Speak a request" data-fr-label="Dicter une demande" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="9" y="2.5" width="6" height="11.5" rx="3"/><path d="M5.5 10.5v1a6.5 6.5 0 0 0 13 0v-1M12 18v3.5"/></svg></button>
+      <button type="submit" class="ci-icon ci-send" data-ci-submit aria-label="Send" data-fr-label="Envoyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
+      <button type="button" class="ci-icon" data-ci-cancel aria-label="Stop" data-fr-label="Arrêter" hidden><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2"/></svg></button>
+      <button type="button" class="ci-icon ci-more" data-ci-more aria-expanded="false" aria-controls="ci-settings" aria-label="AI and privacy settings" data-fr-label="Réglages IA et confidentialité"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg></button>
+    </form>
+    <p class="ci-state" role="status" aria-live="polite"><span data-ci-state>Ready</span><button type="button" class="ci-mode" data-ci-mode aria-controls="ci-settings"></button><button type="button" class="ci-toggle" data-ci-collapse hidden></button></p>
+    <div class="ci-sheet" id="ci-settings" data-ci-settings hidden>
+      <p class="ci-fine" data-fr="Les commandes, la recherche et les réponses enregistrées fonctionnent sans téléchargement. Les réponses génératives nécessitent l’IA avancée facultative.">Commands, search and recorded answers work without downloads. Generative answers require optional Advanced AI.</p>
+      <details data-ci-advanced><summary data-fr="IA avancée (facultative)">Advanced AI (optional)</summary><section class="ci-ai" data-ci-ai></section></details>
+      <section><label><input type="checkbox" data-ci-geocode><span data-fr="Rechercher les lieux non indexés avec Photon/komoot (envoie le nom du lieu et le centre du contexte cartographique ; choix mémorisé dans ce navigateur ; OpenStreetMap, ODbL ; service sans garantie)">Search unindexed places with Photon/komoot (sends the place name and map context center; choice remembered in this browser; OpenStreetMap, ODbL; no availability guarantee)</span></label></section>
+      <p class="ci-fine" data-fr="La conversation reste en mémoire dans cet onglet ; rien n’est envoyé à CORE.">The conversation stays in memory in this tab; nothing is sent to CORE.</p>
+      <button type="button" class="ghost small" data-ci-reset data-fr="Effacer la conversation">Clear conversation</button>
+    </div>
+    <div class="ci-output" data-ci-output aria-live="polite" aria-label="CORE responses" hidden></div>
+  </section>
+
+  <p id="ea-demo-loading" class="fine le-glass ea-demo-pending" role="status" aria-live="polite" hidden></p>
+
+  <div class="ea-layers le-glass" id="ea-layers" role="radiogroup" aria-label="World layer" data-fr-label="Couche du monde">
+    <button type="button" role="radio" data-layer="real" aria-checked="true" title="Real Earth: physical geography, public data, people" data-fr-title="Terre réelle : géographie physique, données publiques, personnes"><span class="lg" data-fr="Terre réelle">Real Earth</span><span class="sm" data-fr="Réel">Real</span></button>
+    <button type="button" role="radio" data-layer="agents" aria-checked="false" title="CORE World: the parallel research civilisation of software agents" data-fr-title="Monde CORE : la civilisation de recherche parallèle des agents logiciels"><span class="lg" data-fr="Monde CORE">CORE World</span><span class="sm">CORE</span></button>
+    <button type="button" role="radio" data-layer="hybrid" aria-checked="false" title="Hybrid View: agents working on physical-world problems" data-fr-title="Vue hybride : les agents au travail sur des problèmes du monde physique"><span class="lg" data-fr="Vue hybride">Hybrid View</span><span class="sm" data-fr="Hybride">Hybrid</span></button>
+    <button type="button" class="ghost small ea-layer-help" id="ea-layer-help" aria-expanded="false" aria-controls="ea-layer-intro" aria-label="What do these views mean?" data-fr-label="Que signifient ces vues ?">?</button></div>
+  <aside id="ea-layer-intro" class="ea-layer-intro le-glass" hidden aria-live="polite"></aside>
+  <nav class="ea-scales le-glass" id="ea-scales" aria-label="Scale" data-fr-label="Échelle" hidden></nav>
+
+  <div class="ea-tools" id="ea-tools" hidden>
+    <div class="ea-search le-glass"><label class="sr-only" for="ea-q" data-fr="Rechercher un lieu, un problème ou une mission">Search a place, a problem or a mission</label>
+      <input id="ea-q" type="search" placeholder="Search places, problems, missions…" data-fr-ph="Rechercher lieux, problèmes, missions…" autocomplete="off" list="ea-ql"><datalist id="ea-ql"></datalist></div>
+    <button type="button" class="le-glass ea-ic" id="ea-problems-btn" aria-expanded="false" aria-controls="ea-panel" data-fr="Problèmes et missions">Problems &amp; missions</button>
+    <button type="button" class="le-glass ea-ic" id="ea-noticed-btn" aria-controls="ea-panel" data-fr="Contribuer">Contribute</button>
+  </div>
+
+  <aside id="ea-list" class="ea-list le-glass" hidden aria-labelledby="ea-list-h" tabindex="-1">
+    <header><h2 id="ea-list-h" data-fr="Problèmes enregistrés">Recorded problems</h2><button type="button" class="ghost small" data-close="ea-list" aria-label="Close the list" data-fr-label="Fermer la liste">✕</button></header>
+    <p class="fine" data-fr="Corridor Folsom / Howard, San Francisco · navigation sans 3D.">Folsom / Howard corridor, San Francisco · no 3D needed.</p><ul id="ea-list-ul"></ul></aside>
+
+  <aside id="ea-panel" class="ea-panel le-glass" hidden aria-labelledby="pp-title" tabindex="-1">
+    <button type="button" class="ghost small ea-close" data-close="ea-panel" aria-label="Close the panel" data-fr-label="Fermer le panneau">✕</button>
+    <div id="ea-panel-body"></div>
+    <div class="ea-human"><button type="button" id="ea-human" data-fr="Descendre à hauteur humaine">Walk at street level</button><a href="avatar.html" class="fine" data-fr="Personnaliser mon avatar">Customise my avatar</a></div>
+  </aside>
+
+  <div id="ea-hud" class="ea-hud" hidden>
+    <div class="ea-hud-l le-glass"><span class="le-avatar-chip" id="ea-me"></span><span class="fine" id="ea-hint"></span></div>
+    <div class="ea-hud-c le-glass" role="toolbar" aria-label="Street-level controls" data-fr-label="Contrôles à hauteur humaine">
+      <button type="button" class="small" id="ea-cam" aria-pressed="false"></button>
+      <button type="button" class="small accent" id="ea-talk" disabled></button>
+      <button type="button" class="small" id="ea-up" data-fr="Remonter">Back to the map</button>
+      <label class="fine"><span data-fr="Qualité">Quality</span> <select id="ea-quality"><option value="high" data-fr="Haute">High</option><option value="balanced" data-fr="Équilibrée">Balanced</option><option value="low" data-fr="Économe">Light</option></select></label>
+    </div>
+    <div id="ea-joy" class="ea-joy" aria-hidden="true"><i></i></div>
+  </div>
+  <div class="ea-legend le-glass" id="ea-legend" hidden>
+    <span><i style="--c:var(--le-observed)"></i><span data-fr="Observé">Observed</span></span><span><i style="--c:var(--le-risk)"></i><span data-fr="Risque potentiel">Potential risk</span></span><span><i style="--c:var(--le-hypothesis)"></i><span data-fr="Hypothèse">Hypothesis</span></span><span class="ea-leg-agents"><i style="--c:#62d8f2"></i><span data-fr="Représentation d’agent">Agent representation</span></span><span class="ea-leg-agents"><i style="--c:#4f6782"></i><span data-fr="Agent inactif">Idle agent</span></span>
+    <button type="button" class="ghost small" id="ea-about-btn" aria-expanded="false" aria-controls="ea-about" data-fr="Ce que vous voyez">What you see</button></div>
+  <aside id="ea-status" class="ea-about ea-status le-glass" hidden aria-labelledby="ea-status-h" tabindex="-1">
+    <header><h2 id="ea-status-h" data-fr="Ce qui fonctionne aujourd’hui">What works today</h2><button type="button" class="ghost small" data-close="ea-status" aria-label="Close" data-fr-label="Fermer">✕</button></header>
+    <h3 data-fr="Fonctionne (dans ce navigateur)">Working (in this browser)</h3>
+    <ul>
+      <li data-fr="Terre 3D interactive ; données publiques datées pour une zone : le corridor Folsom / Howard à San Francisco.">Interactive 3D Earth; dated public data for one area: the Folsom / Howard corridor in San Francisco.</li>
+      <li data-fr="Problèmes enregistrés avec leurs preuves, leurs sources et leurs lacunes déclarées.">Recorded problems with their evidence, sources and declared gaps.</li>
+      <li data-fr="Agents logiciels (identités générées, pas des personnes) et leurs missions ; questions répondues uniquement à partir des données enregistrées.">Software agents (generated identities, not people) and their missions; questions answered only from recorded data.</li>
+      <li data-fr="Contributions (observations, idées) : privées par défaut, conservées dans ce navigateur ; profil sous pseudonyme local, sans compte.">Contributions (observations, ideas): private by default, kept in this browser; local pseudonymous profile, no account.</li>
+      <li data-fr="Simulations de trafic enregistrées (SUMO ; demande synthétique, non calibrée) et dossier de mission.">Recorded traffic simulations (SUMO; synthetic demand, uncalibrated) and a mission report.</li>
+    </ul>
+    <h3 data-fr="Expérimental">Experimental</h3>
+    <ul>
+      <li data-fr="Enquête d’IA en direct : seulement avec un modèle local sur votre ordinateur ; le site public rejoue une enquête enregistrée.">Live AI investigation: only with a local model on your own computer; the public site replays a recorded run.</li>
+      <li data-fr="Réseau d’experts, communautés et arène de débat : personnes fictives.">Expert network, communities and debate arena: fictional people.</li>
+    </ul>
+    <h3 data-fr="Vision à long terme (pas encore construite)">Long-term vision (not built yet)</h3>
+    <ul>
+      <li data-fr="Comptes et contributions partagées entre personnes.">Accounts and contributions shared between people.</li>
+      <li data-fr="Couverture au-delà d’une rue ; impact réel vérifié (aucun à ce jour).">Coverage beyond one street; verified real-world impact (none so far).</li>
+    </ul>
+  </aside>
+  <aside id="ea-about" class="ea-about le-glass" hidden>
+    <h2 data-fr="Ce que vous voyez">What you see</h2>
+    <ul>
+      <li data-fr="<b>Géographie réelle</b> : rues et emprises de bâtiments OpenStreetMap ; relief USGS ; imagerie NASA à l’échelle planétaire."><b>Real geography</b>: OpenStreetMap streets and building footprints; USGS relief; NASA imagery at planet scale.</li>
+      <li data-fr="<b>Bâtiments proches</b> : formes et hauteurs réelles, <b>façades procédurales</b> (convention visuelle, pas des photos)."><b>Nearby buildings</b>: real shapes and heights, <b>procedural façades</b> (a visual convention, not photographs).</li>
+      <li data-fr="<b>Arbres</b> : positions réelles de l’inventaire DataSF ; taille approximative ; forme générique."><b>Trees</b>: real positions from the DataSF inventory; approximate size; generic shape.</li>
+      <li data-fr="<b>Marqueurs</b> : problèmes enregistrés par CORE, colorés selon le niveau de preuve."><b>Markers</b>: problems recorded by CORE, coloured by level of evidence.</li>
+      <li data-fr="<b>Agents (Monde CORE et Vue hybride)</b> : identités logicielles du registre CORE animées par un moteur local déterministe ; silhouettes holographiques, jamais des personnes ; dessinées sur des trottoirs cartographiés ; déplacements accélérés."><b>Agents (CORE World and Hybrid View)</b>: software identities from the CORE registry, animated by a deterministic local engine; holographic figures, never people; drawn on mapped walkways; movement is accelerated.</li>
+      <li data-fr="<b>Véhicules</b> : uniquement pendant la relecture d’une simulation SUMO enregistrée (demande synthétique, modèle non calibré)."><b>Vehicles</b>: only while replaying a recorded SUMO simulation (synthetic demand, uncalibrated model).</li></ul></aside>
+  <section id="ea-demo-choice" class="ea-demo-choice le-glass" hidden role="dialog" aria-modal="true" aria-labelledby="ea-dc-h">
+    <h2 id="ea-dc-h" data-fr="Découvrir CORE">Experience CORE</h2>
+    <p class="fine" data-fr="Les deux modes utilisent les mêmes scènes, données et preuves. Environ 5 minutes.">Both modes use the same scenes, data and evidence. About 5 minutes.</p>
+    <div class="ea-dc-opts">
+      <button type="button" class="ea-dc-opt" data-demo-mode="auto"><b data-fr="Regarder la visite automatique">Watch the Autonomous Tour</b><span data-fr="CORE vous guide automatiquement : d’un problème réel à la recherche des agents, aux simulations, à la contribution humaine et à l’examen scientifique. (Navigation automatisée, pas une IA autonome.)">CORE guides you through the entire experience automatically, from a real-world problem to agent research, simulations, human contribution and scientific review. (Automated navigation and playback, not autonomous AI.)</span></button>
+      <button type="button" class="ea-dc-opt" data-demo-mode="manual"><b data-fr="Explorer pas à pas">Explore Step by Step</b><span data-fr="Vous gardez la main. Avancez quand vous voulez, inspectez les preuves et interagissez avec les agents.">Control the experience yourself. Advance when you’re ready, inspect the evidence, and interact with the agents.</span></button></div>
+    <button type="button" class="ghost small" data-demo-mode="exit" data-fr="Quitter">Exit</button>
+  </section>
+<p id="toast" class="toast" role="status" aria-live="polite"></p>
+  <p id="fatal" class="fatal" role="alert" hidden></p>
+</main>
+<script type="module" src="src/earth/app.mjs"></script>
+<script type="module" src="src/intelligence/core/ui.mjs"></script>
+</body>
+</html>

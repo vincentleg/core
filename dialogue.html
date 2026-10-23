@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' http://127.0.0.1:11434; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<meta name="core-ready" content="CORE_DIALOGUE">
+<script src="src/ui/boot-guard.mjs"></script>
+<title data-fr="CORE: Dialogue &amp; Studio de recherche">CORE: Dialogue &amp; Research Studio</title>
+<meta name="description" content="Think with a CORE agent: answers cited from CORE Knowledge, a living research file, an idea saved in an encrypted vault." data-fr-content="Réfléchissez avec un agent CORE : réponses citées depuis CORE Knowledge, dossier de recherche vivant, idée enregistrée dans un coffre chiffré.">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="src/world/world.css">
+<link rel="stylesheet" href="src/civic/commons.css">
+<link rel="stylesheet" href="src/ui/living-earth.css">
+<link rel="stylesheet" href="src/dialogue/room.css">
+</head>
+<body class="commons dialogue">
+<a class="skip" href="#dl-input" data-fr="Aller à la saisie">Skip to the message box</a>
+<header class="bar" id="core-nav"></header>
+<main id="dl-main" data-mode="dialogue">
+  <h1 class="sr-only" data-fr="CORE Dialogue et Studio de recherche">CORE Dialogue and Research Studio</h1>
+  <section class="room" aria-label="Conversation">
+    <header class="dl-head">
+      <div class="dl-agent" id="dl-scene"></div>
+      <div class="dl-titles"><p class="le-eyebrow" data-fr="Dialogue · problème enregistré">Dialogue · recorded problem</p><h2 id="dl-title">Dialogue room</h2><p class="fine" id="dl-engine"></p></div>
+      <div class="dl-controls">
+        <div class="dl-mode" role="radiogroup" aria-label="Working mode" data-fr-label="Mode de travail"><button type="button" role="radio" data-mode="dialogue" aria-checked="true" tabindex="0">Conversation</button><button type="button" role="radio" data-mode="studio" aria-checked="false" tabindex="-1" data-fr="Studio de recherche">Research studio</button></div>
+        <button type="button" class="small" id="dl-provider-btn" aria-expanded="false" aria-controls="dl-provider"></button>
+      </div>
+    </header>
+    <div class="dl-provider le-glass" id="dl-provider" hidden></div>
+    <ol class="convo" id="dl-convo" tabindex="0" aria-live="polite" aria-label="Conversation"></ol>
+    <div class="chips" id="dl-chips" role="group" aria-label="Suggestions"></div>
+    <form class="composer" id="dl-form"><label class="sr-only" for="dl-input" data-fr="Votre message">Your message</label>
+      <textarea id="dl-input" maxlength="500" rows="2" placeholder="Write to the agent… A question ending with “?” queries CORE Knowledge." data-fr-ph="Écrivez à l’agent… Une question finissant par « ? » interroge CORE Knowledge."></textarea>
+      <button type="submit" class="primary" aria-label="Send" data-fr-label="Envoyer" data-fr="Envoyer">Send</button></form>
+  </section>
+  <aside class="side" aria-label="Research file" data-fr-label="Dossier de recherche">
+    <div class="dossier-head"><p class="le-eyebrow" data-fr="Dossier de recherche">Research file</p><p class="fine" id="dl-dossier-state"></p></div>
+    <div class="tabs" role="tablist" aria-label="File" data-fr-label="Dossier">
+      <button type="button" role="tab" id="dl-tab-1" aria-controls="dl-side" data-side="idea" aria-selected="true" tabindex="0" data-fr="Dossier">File</button>
+      <button type="button" role="tab" id="dl-tab-2" aria-controls="dl-side" data-side="evidence" aria-selected="false" tabindex="-1" data-fr="Preuves">Evidence</button>
+      <button type="button" role="tab" id="dl-tab-3" aria-controls="dl-side" data-side="session" aria-selected="false" tabindex="-1">Session</button>
+    </div>
+    <div id="dl-side" role="tabpanel" aria-labelledby="dl-tab-1" tabindex="0"></div>
+  </aside>
+  <p id="toast" class="toast" role="status" aria-live="polite"></p>
+</main>
+<script type="module" src="src/dialogue/room.mjs"></script>
+</body>
+</html>

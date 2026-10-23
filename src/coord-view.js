@@ -12,7 +12,7 @@
     repeated: { label: 'Travaux répétés', color: '#aa8cff' },
   };
   const ORG_COLORS = ['#ffb84d', '#78e8ff', '#ff5cd6', '#7ee0a0', '#aa8cff', '#ffd38a', '#9fb7c9'];
-  const STATE_CLASS = { 'PRÊT POUR REVUE HUMAINE': 'ok', SUSPENDU: 'warn', BLOQUÉ: 'fail' };
+  const STATE_CLASS = { 'PRÊT POUR REVUE HUMAINE': 'info', SUSPENDU: 'warn', BLOQUÉ: 'fail' };
 
   const W = {
     map: null, ctx: null, gen: null, events: [], result: null, mode: 'idle', // idle | running | done | replay

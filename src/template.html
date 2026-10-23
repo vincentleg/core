@@ -69,6 +69,8 @@ input[type=range] { accent-color: var(--cyan); flex: 1; min-width: 100px; }
 .pill { align-self: flex-start; font: 700 12px var(--display); letter-spacing: 0.12em; padding: 4px 10px; border-radius: 2px; }
 .pill.ok { color: var(--void); background: var(--green); }
 .pill.ok::before { content: '✓ '; }
+.pill.info { color: var(--void); background: var(--cyan); }
+.pill.info::before { content: '◇ '; }
 .pill.warn { color: var(--void); background: var(--amber); }
 .pill.warn::before { content: '⏸ '; }
 .pill.bad { color: var(--ink); background: var(--red); }
@@ -95,10 +97,12 @@ textarea { width: 100%; height: 140px; background: #030a14; color: var(--ink); b
   .hint { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { #prog-bar { transition: none; } }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 </style>
 </head>
 <body>
-<div class="app">
+<main class="app">
+  <h1 class="sr-only">CORE World — corridor pilote synthétique de San Francisco</h1>
   <div class="world">
     <canvas id="trame" aria-label="CORE World : globe terrestre, puis corridor pilote de San Francisco en 3D" role="img"></canvas>
     <div class="overlay"><button id="btn-dive" class="primary" type="button">Plonger sur San Francisco</button></div>
@@ -144,7 +148,7 @@ textarea { width: 100%; height: 140px; background: #030a14; color: var(--ink); b
 
     <p class="honest"><b>Observations validées : aucune.</b> Référence supposée : cycle de 90 s, sans coordination. Les gains sont des comparaisons simulées, jamais des améliorations mesurées. Démo v0 : corridor, bâtiments et demande de trafic synthétiques, contours de la Terre simplifiés. Le moteur de trafic tourne réellement dans ton navigateur ; chaque chiffre vient de ses simulations. Prochaine étape : rues réelles d’OpenStreetMap, SUMO et comptages réels. <a href="index.html" style="color:var(--cyan)">Retour à la carte</a></p>
   </aside>
-</div>
+</main>
 <script>
 /*ENGINE*/
 </script>

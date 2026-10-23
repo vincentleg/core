@@ -1,0 +1,542 @@
+{
+"0": [
+"Misión",
+"Mission",
+"任务",
+"Missão"
+],
+"1": [
+"Misión cancelada: {0}",
+"Mission abgebrochen: {0}",
+"任务已取消：{0}",
+"Missão cancelada: {0}"
+],
+"2": [
+"consejo de la misión",
+"Missionsrat",
+"任务委员会",
+"conselho da missão"
+],
+"3": [
+"Sesión {0} del consejo de la misión · {1} miembros",
+"Sitzung {0} des Missionsrats · {1} Mitglieder",
+"任务委员会第 {0} 次会议 · {1} 名成员",
+"Sessão {0} do conselho da missão · {1} membros"
+],
+"4": [
+"Misión seguida: aparece en Mi CORE.",
+"Mission verfolgt: Sie erscheint in Mein CORE.",
+"已关注任务：它会显示在“我的 CORE”中。",
+"Missão acompanhada: aparece em Meu CORE."
+],
+"5": [
+"Misión en curso.",
+"Mission läuft.",
+"任务进行中。",
+"Missão em andamento."
+],
+"6": [
+"Misión abierta: «Vivienda asequible y resiliencia urbana». La dirección de San Francisco delega la coordinación en el equipo de Vivienda.",
+"Mission eröffnet: „Bezahlbarer Wohnraum und urbane Resilienz“. Die Leitung San Francisco überträgt die Koordination an das Team Wohnen.",
+"任务已开启：“经济适用房与城市韧性”。旧金山负责方将协调工作委派给住房团队。",
+"Missão aberta: “Moradia acessível e resiliência urbana”. A direção de San Francisco delega a coordenação à equipe de Moradia."
+],
+"7": [
+"Misión abierta: {0}.",
+"Mission eröffnet: {0}.",
+"任务已开启：{0}。",
+"Missão aberta: {0}."
+],
+"8": [
+"Misión abierta: movilidad y congestión en SoMa.",
+"Mission eröffnet: Mobilität und Stau in SoMa.",
+"任务已开启：SoMa 的交通与拥堵。",
+"Missão aberta: mobilidade e congestionamento em SoMa."
+],
+"9": [
+"Misión V7.2",
+"Mission V7.2",
+"任务 V7.2",
+"Missão V7.2"
+],
+"10": [
+"Misión V7.2 · sin votación, sin ganador",
+"Mission V7.2 · keine Abstimmung, kein Gewinner",
+"任务 V7.2 · 不投票，无胜者",
+"Missão V7.2 · sem votação, sem vencedor"
+],
+"11": [
+"mission.sf.data-freshness",
+"mission.sf.data-freshness",
+"mission.sf.data-freshness",
+"mission.sf.data-freshness"
+],
+"12": [
+"mission.sf.energy-benchmarks",
+"mission.sf.energy-benchmarks",
+"mission.sf.energy-benchmarks",
+"mission.sf.energy-benchmarks"
+],
+"13": [
+"Misiones",
+"Missionen",
+"任务",
+"Missões"
+],
+"14": [
+"Combinación en {0} (cuatrillones de Btu)",
+"Mix in {0} (Billiarden Btu)",
+"{0} 年的能源结构（千万亿英热单位）",
+"Matriz em {0} (quatrilhões de Btu)"
+],
+"15": [
+"Movilidad",
+"Mobilität",
+"交通出行",
+"Mobilidade"
+],
+"16": [
+"Movilidad y congestión: SoMa, San Francisco",
+"Mobilität und Stau: SoMa, San Francisco",
+"交通与拥堵：旧金山 SoMa",
+"Mobilidade e congestionamento: SoMa, San Francisco"
+],
+"17": [
+"Modelo",
+"Modell",
+"模型",
+"Modelo"
+],
+"18": [
+"modelo ",
+"Modell ",
+"模型 ",
+"modelo "
+],
+"19": [
+"Modelar una medida concreta (tarificación, cambio modal) y sus efectos medidos en otros lugares.",
+"Eine konkrete Maßnahme modellieren (Bepreisung, Verkehrsverlagerung) und ihre anderswo gemessenen Effekte.",
+"为某项具体措施（收费、出行方式转移）及其在其他地方测得的效果建模。",
+"Modelar uma medida concreta (tarifação, mudança modal) e seus efeitos medidos em outros lugares."
+],
+"20": [
+"Síntesis del modelo rechazada: referencias o afirmaciones sin respaldo. Solo se muestran los resultados reales de las herramientas.",
+"Modellsynthese abgelehnt: nicht belegte Verweise oder Aussagen. Es werden nur die tatsächlichen Werkzeugergebnisse gezeigt.",
+"模型综合被拒绝：引用或主张缺乏依据。仅显示工具的实际结果。",
+"Síntese do modelo rejeitada: referências ou afirmações sem respaldo. Apenas os resultados reais das ferramentas são mostrados."
+],
+"21": [
+"Síntesis del modelo no disponible; se muestran los resultados reales de las herramientas.",
+"Modellsynthese nicht verfügbar; tatsächliche Werkzeugergebnisse angezeigt.",
+"模型综合不可用；显示工具的实际结果。",
+"Síntese do modelo indisponível; resultados reais das ferramentas exibidos."
+],
+"22": [
+"Modelo no disponible: {0}",
+"Modell nicht verfügbar: {0}",
+"模型不可用：{0}",
+"Modelo indisponível: {0}"
+],
+"23": [
+"asistido por modelo (registro de la Fase 5)",
+"modellgestützt (Register der Phase 5)",
+"模型辅助（第 5 阶段注册表）",
+"assistido por modelo (registro da Fase 5)"
+],
+"24": [
+"herramientas planificadas por el modelo",
+"vom Modell geplante Werkzeuge",
+"模型规划的工具",
+"ferramentas planejadas pelo modelo"
+],
+"25": [
+"Respuesta redactada por el modelo, contrastada con los registros devueltos; verifica la evidencia citada.",
+"Vom Modell verfasste Antwort, mit den zurückgegebenen Datensätzen abgeglichen; prüfen Sie die zitierten Nachweise.",
+"由模型撰写的回答，已与返回的记录核对；请核实所引用的证据。",
+"Resposta redigida pelo modelo, verificada com os registros retornados; confira as evidências citadas."
+],
+"26": [
+"Modelo remoto",
+"Entferntes Modell",
+"远程模型",
+"Modelo remoto"
+],
+"27": [
+"Modelo local (Ollama, experimental)",
+"Lokales Modell (Ollama, experimentell)",
+"本地模型（Ollama，实验性）",
+"Modelo local (Ollama, experimental)"
+],
+"28": [
+"Referencia modelada",
+"Modellierte Basislinie",
+"模型基准",
+"Referência modelada"
+],
+"29": [
+"Referencia modelada (red OSM real, demanda sintética): retraso medio de los coches 182 s (± 4 s), tiempo de recorrido del autobús 358 s en la línea sintética de Folsom.",
+"Modellierte Basislinie (reales OSM-Netz, synthetische Nachfrage): mittlere Autoverzögerung 182 s (± 4 s), Busfahrzeit 358 s auf der synthetischen Folsom-Linie.",
+"模型基准（真实 OSM 路网，合成需求）：小汽车平均延误 182 秒（± 4 秒），合成 Folsom 线路的公交行程时间 358 秒。",
+"Referência modelada (rede OSM real, demanda sintética): atraso médio dos carros 182 s (± 4 s), tempo de percurso do ônibus 358 s na linha sintética da Folsom."
+],
+"30": [
+"moderador",
+"Moderation",
+"版主",
+"moderador"
+],
+"31": [
+"Seguimiento",
+"Beobachtung",
+"监测",
+"Acompanhamento"
+],
+"32": [
+"seguimiento",
+"Beobachtung",
+"监测中",
+"acompanhamento"
+],
+"33": [
+"Seguimiento: 2 agente(s)",
+"Beobachtung: 2 Agent(en)",
+"监测：2 个智能体",
+"Acompanhamento: 2 agente(s)"
+],
+"34": [
+"Seguimiento: comprobando tramos del corredor Folsom; no se descargan datos nuevos.",
+"Beobachtung: Abschnitte des Folsom-Korridors werden geprüft; keine neuen Daten heruntergeladen.",
+"监测：正在核查 Folsom 走廊路段；未下载新数据。",
+"Acompanhamento: verificando trechos do corredor Folsom; nenhum dado novo baixado."
+],
+"35": [
+"Seguimiento: nueva comprobación de las fechas de las instantáneas y visita (virtual) a un sitio de la cartera. El navegador no descarga datos nuevos.",
+"Beobachtung: erneute Prüfung der Momentaufnahme-Daten und ein (virtueller) Besuch eines Pipeline-Standorts. Der Browser lädt keine neuen Daten herunter.",
+"监测：重新核查快照日期，并（虚拟）走访一个管线项目地点。浏览器不下载新数据。",
+"Acompanhamento: nova verificação das datas dos instantâneos e visita (virtual) a um local da carteira. O navegador não baixa dados novos."
+],
+"36": [
+"Seguimiento: nueva comprobación de la fecha de la instantánea.",
+"Beobachtung: erneute Prüfung des Datums der Momentaufnahme.",
+"监测：重新核查快照日期。",
+"Acompanhamento: nova verificação da data do instantâneo."
+],
+"37": [
+"Seguimiento.",
+"Beobachtung.",
+"监测中。",
+"Acompanhamento."
+],
+"38": [
+"Explicaciones morales, religiosas y militares, un enfoque del siglo XVIII, debatido hoy.",
+"Moralische, religiöse und militärische Erklärungen, eine Sichtweise des 18. Jahrhunderts, heute umstritten.",
+"道德、宗教和军事解释，是 18 世纪的框架，如今仍有争议。",
+"Explicações morais, religiosas e militares, uma abordagem do século XVIII, debatida hoje."
+],
+"39": [
+"Más",
+"Mehr",
+"更多",
+"Mais"
+],
+"40": [
+"más asequibles que el total de unidades",
+"mehr bezahlbare als Wohneinheiten insgesamt",
+"经济适用单位多于总单位数",
+"mais acessíveis que o total de unidades"
+],
+"41": [
+"SE REQUIERE MÁS EVIDENCIA",
+"WEITERE NACHWEISE ERFORDERLICH",
+"需要更多证据",
+"MAIS EVIDÊNCIAS NECESSÁRIAS"
+],
+"42": [
+"más…",
+"mehr …",
+"更多……",
+"mais…"
+],
+"43": [
+"Desplazar el mobiliario urbano y los obstáculos para liberar el ancho existente sin obras en la calzada.",
+"Stadtmobiliar und Hindernisse versetzen, um die vorhandene Breite ohne Straßenbauarbeiten freizumachen.",
+"移动街道设施和障碍物，在不施工路面的情况下腾出现有宽度。",
+"Deslocar o mobiliário urbano e os obstáculos para liberar a largura existente sem obras na via."
+],
+"44": [
+"Movido a ",
+"Bewegt zu ",
+"已移至 ",
+"Movido para "
+],
+"45": [
+"GTFS de Muni: acuerdo de licencia (indemnización, ley de California): se requiere una decisión del fundador.",
+"Muni-GTFS: Lizenzvereinbarung (Haftungsfreistellung, kalifornisches Recht): Gründerentscheidung erforderlich.",
+"Muni GTFS：许可协议（赔偿条款，加州法律）：需要创始人决定。",
+"GTFS da Muni: contrato de licença (indenização, lei da Califórnia): decisão do fundador necessária."
+],
+"46": [
+"Horarios de Muni (GTFS): el acceso requiere aceptar una licencia (indemnización, ley de California), una decisión del fundador; la línea de autobús es un supuesto.",
+"Muni-Fahrpläne (GTFS): Der Zugang erfordert die Annahme einer Lizenz (Haftungsfreistellung, kalifornisches Recht), eine Gründerentscheidung; die Buslinie ist eine Annahme.",
+"Muni 时刻表（GTFS）：访问需要接受许可（赔偿条款，加州法律），这需由创始人决定；公交线路是假设的。",
+"Horários da Muni (GTFS): o acesso exige aceitar uma licença (indenização, lei da Califórnia), uma decisão do fundador; a linha de ônibus é uma premissa."
+],
+"47": [
+"Los equipos municipales de planificación y movilidad podrían coordinar departamentos, priorizar inversiones, reducir la fragmentación de la evidencia y comunicar las decisiones con claridad a la ciudadanía.",
+"Kommunale Planungs- und Mobilitätsteams könnten Abteilungen koordinieren, Investitionen priorisieren, die Zersplitterung von Nachweisen verringern und Entscheidungen den Bewohnerinnen und Bewohnern klar vermitteln.",
+"市政规划与交通团队可以协调各部门、确定投资优先级、减少证据碎片化，并向居民清晰传达决策。",
+"Equipes municipais de planejamento e mobilidade poderiam coordenar departamentos, priorizar investimentos, reduzir a fragmentação das evidências e comunicar as decisões com clareza aos moradores."
+],
+"48": [
+"Sistemas municipales, intervenciones y consultas públicas",
+"Kommunale Systeme, Maßnahmen &amp; Bürgerbeteiligung",
+"市政系统、干预措施与公众咨询",
+"Sistemas municipais, intervenções e consultas públicas"
+],
+"49": [
+"Mis contribuciones",
+"Meine Beiträge",
+"我的贡献",
+"Minhas contribuições"
+],
+"50": [
+"Mi CORE",
+"Mein CORE",
+"我的 CORE",
+"Meu CORE"
+],
+"51": [
+"Mi CORE · Avatar",
+"Mein CORE · Avatar",
+"我的 CORE · 头像",
+"Meu CORE · Avatar"
+],
+"52": [
+"Mis datos y TRUST",
+"Meine Daten &amp; TRUST",
+"我的数据与 TRUST",
+"Meus dados e TRUST"
+],
+"53": [
+"Mi decisión",
+"Meine Entscheidung",
+"我的决定",
+"Minha decisão"
+],
+"54": [
+"Mis hallazgos para esta misión",
+"Meine Befunde für diese Mission",
+"我在此任务中的发现",
+"Minhas descobertas para esta missão"
+],
+"55": [
+"Mis ideas",
+"Meine Ideen",
+"我的想法",
+"Minhas ideias"
+],
+"56": [
+"Mi recorrido",
+"Mein Ablauf",
+"我的历程",
+"Meu percurso"
+],
+"57": [
+"Mis propios conflictos de interés (opcional)",
+"Meine eigenen Interessenkonflikte (optional)",
+"我自己的利益冲突（可选）",
+"Meus próprios conflitos de interesse (opcional)"
+],
+"58": [
+"Mis ideas privadas (bóveda cifrada)",
+"Meine privaten Ideen (verschlüsselter Tresor)",
+"我的私密想法（加密保险库）",
+"Minhas ideias privadas (cofre criptografado)"
+],
+"59": [
+"Dependencias nacionales, escenarios entre organismos y supervisión",
+"Nationale Abhängigkeiten, behördenübergreifende Szenarien &amp; Aufsicht",
+"国家依赖、跨机构情景与监督",
+"Dependências nacionais, cenários entre órgãos e supervisão"
+],
+"60": [
+"Infraestructura nacional, seguridad y transición energética, recursos críticos, resiliencia climática, redes de transporte/industriales e inversión territorial.",
+"Nationale Infrastruktur, Energiesicherheit und -wende, kritische Ressourcen, Klimaresilienz, Verkehrs- und Industrienetze sowie territoriale Investitionen.",
+"国家基础设施、能源安全与转型、关键资源、气候韧性、交通/产业网络与地域投资。",
+"Infraestrutura nacional, segurança e transição energética, recursos críticos, resiliência climática, redes de transporte/industriais e investimento territorial."
+],
+"61": [
+"Los equipos nacionales de planificación e interinstitucionales podrían evaluar juntos las dependencias, comparar estrategias de inversión y conservar un registro responsable a lo largo de los ciclos de planificación. CORE asiste a quienes deciden; no gobierna de forma autónoma.",
+"Nationale Planungs- und behördenübergreifende Teams könnten Abhängigkeiten gemeinsam bewerten, Investitionsstrategien vergleichen und über Planungszyklen hinweg eine verantwortliche Dokumentation führen. CORE unterstützt Entscheidungstragende; es regiert nicht autonom.",
+"国家规划和跨机构团队可以共同评估依赖关系、比较投资策略，并在各规划周期中保留可追责的记录。CORE 辅助决策者；它不会自主治理。",
+"Equipes nacionais de planejamento e entre órgãos poderiam avaliar juntas as dependências, comparar estratégias de investimento e manter um registro responsável ao longo dos ciclos de planejamento. O CORE auxilia quem decide; não governa de forma autônoma."
+],
+"62": [
+"Inteligencia de sistemas nacionales para quienes toman decisiones.",
+"Intelligenz nationaler Systeme für menschliche Entscheidungstragende.",
+"面向人类决策者的国家系统智能。",
+"Inteligência de sistemas nacionais para quem toma decisões."
+],
+"63": [
+"Navegando…",
+"Navigation …",
+"导航中……",
+"Navegando…"
+],
+"64": [
+"Necesario antes de cualquier recomendación",
+"Vor jeder Empfehlung erforderlich",
+"任何建议之前必需",
+"Necessário antes de qualquer recomendação"
+],
+"65": [
+"contextos de barrio; no es una clasificación de prioridades. Aquí no se valida en ningún sitio la previsión cuantitativa del tráfico.",
+"Kontexte der Stadtteile; keine Rangfolge von Prioritäten. Quantitative Verkehrsprognosen sind hier nirgends validiert.",
+"街区背景；并非优先级排名。此处任何定量交通预测均未经验证。",
+"contextos de bairro; não é uma classificação de prioridades. A previsão quantitativa de tráfego não é validada em lugar nenhum aqui."
+],
+"66": [
+"falta el barrio",
+"Stadtteil fehlt",
+"缺少街区",
+"bairro ausente"
+],
+"67": [
+"unidades de vivienda netas en agregado fechado",
+"Netto-Wohneinheiten im datierten Aggregat",
+"有日期汇总中的净住房单位",
+"unidades habitacionais líquidas em agregado datado"
+],
+"68": [
+"red",
+"Netzwerk",
+"网络",
+"rede"
+],
+"69": [
+"nunca sin revisión humana",
+"nie ohne menschliche Prüfung",
+"绝不跳过人工审核",
+"nunca sem revisão humana"
+],
+"70": [
+"Nueva idea",
+"Neue Idee",
+"新想法",
+"Nova ideia"
+],
+"71": [
+"Nuevo problema",
+"Neues Problem",
+"新问题",
+"Novo problema"
+],
+"72": [
+"Nueva versión de «{0}»",
+"Neue Version von „{0}“",
+"“{0}”的新版本",
+"Nova versão de “{0}”"
+],
+"73": [
+"Nueva York · misiones registradas (registro no cargado)",
+"New York · aufgezeichnete Missionen (Register nicht geladen)",
+"纽约 · 已记录的任务（注册表未加载）",
+"Nova York · missões registradas (registro não carregado)"
+],
+"74": [
+"Artículo de prensa",
+"Zeitungsartikel",
+"新闻报道",
+"Artigo de jornal"
+],
+"75": [
+"Siguiente",
+"Weiter",
+"下一步",
+"Próximo"
+],
+"76": [
+"SIGUIENTE · previsto",
+"NÄCHSTES · geplant",
+"下一步 · 计划中",
+"PRÓXIMO · planejado"
+],
+"77": [
+"Siguiente paso",
+"Nächster Schritt",
+"下一步",
+"Próxima etapa"
+],
+"78": [
+"Próximos pasos y datos necesarios",
+"Nächste Schritte und benötigte Daten",
+"后续步骤与所需数据",
+"Próximas etapas e dados necessários"
+],
+"79": [
+"Siguiente tarea o bloqueo",
+"Nächste Aufgabe oder Blocker",
+"下一项任务或阻碍",
+"Próxima tarefa ou impedimento"
+],
+"80": [
+"No",
+"Nein",
+"否",
+"Não"
+],
+"81": [
+"Sin cuenta, sin perfil público. Guardado localmente (<code>core.avatar.v2</code>); se puede borrar desde TRUST.",
+"Kein Konto, kein öffentliches Profil. Lokal gespeichert (<code>core.avatar.v2</code>); in TRUST löschbar.",
+"无账户，无公开资料。保存在本地（<code>core.avatar.v2</code>）；可在 TRUST 中清除。",
+"Sem conta, sem perfil público. Guardado localmente (<code>core.avatar.v2</code>); pode ser apagado no TRUST."
+],
+"82": [
+"ninguna dirección, número ni enlace en un seudónimo",
+"keine Adresse, Nummer oder Link in einem Pseudonym",
+"化名中不得包含地址、号码或链接",
+"nenhum endereço, número ou link em um pseudônimo"
+],
+"83": [
+"No hay ningún agente registrado para este problema.",
+"Für dieses Problem ist kein Agent registriert.",
+"此问题没有注册任何智能体。",
+"Nenhum agente está registrado para este problema."
+],
+"84": [
+"Ningún agente trabaja en esta misión en este momento.",
+"Derzeit arbeitet kein Agent an dieser Mission.",
+"目前没有智能体在执行此任务。",
+"Nenhum agente está trabalhando nesta missão neste momento."
+],
+"85": [
+"ningún análisis registrado",
+"keine Analyse aufgezeichnet",
+"无已记录的分析",
+"nenhuma análise registrada"
+],
+"86": [
+"No se da ninguna respuesta sin sus fuentes.",
+"Keine Antwort ohne ihre Quellen.",
+"没有来源就不给出回答。",
+"Nenhuma resposta é dada sem suas fontes."
+],
+"87": [
+"Ningún proveedor remoto aprobado: desactivado (se requiere decisión del fundador; la clave nunca está en el navegador).",
+"Kein genehmigter entfernter Anbieter: deaktiviert (Gründerentscheidung erforderlich, Schlüssel niemals im Browser).",
+"没有批准的远程提供方：已禁用（需创始人决定，密钥绝不放在浏览器中）。",
+"Nenhum provedor remoto aprovado: desativado (decisão do fundador necessária, chave nunca no navegador)."
+],
+"88": [
+"no existe ningún revisor humano autenticado: la contribución queda pendiente",
+"es gibt keine authentifizierte menschliche Prüfperson: Der Beitrag bleibt ausstehend",
+"不存在经过认证的人工审核者：贡献保持待定",
+"não existe revisor humano autenticado: a contribuição fica pendente"
+],
+"89": [
+"Ninguna autorización ({0}), ninguna validación científica ({1}).",
+"Keine Genehmigung ({0}), keine wissenschaftliche Validierung ({1}).",
+"无授权（{0}），无科学验证（{1}）。",
+"Nenhuma autorização ({0}), nenhuma validação científica ({1})."
+]
+}

@@ -185,6 +185,16 @@ test('security gate: integrity scanner fails on secrets and has no bypass flag',
   const allow = read('.integrity-allowlist.json').exceptions; assert.ok(allow.every(e => e.reason && e.path && /^[0-9a-f]{64}$/.test(e.sha256) && !('value' in e) && e.rule !== 'github-token'), 'exceptions store hashes, never values');
 });
 
+test('security gate: databases, local agent state and browser profiles are forbidden paths (INC-2026-10-15-01)', () => {
+  const src = fs.readFileSync(path.join(ROOT, 'scripts/integrity-check.mjs'), 'utf8');
+  const rules = [...src.matchAll(/\[\/(.+?)\/i?, '([^']+)'\]/g)].map(m => [new RegExp(m[1], /\/i, '/.test(m[0]) ? 'i' : ''), m[2]]);
+  const caught = p => rules.some(([re]) => re.test(p));
+  for (const p of ['.core-local/memory.sqlite', 'x/civd.sqlite-wal', 'a/b.db', 'test-results/phase4/chrome-profile/Default/Cookies', 'tmp/chrome-profile-2/Default/Preferences', 'Default/Login Data', 'nested/.core-local/live.json']) assert.ok(caught(p), p);
+  for (const p of ['data/feeds/state.json', 'src/history-view.js', 'docs/DATABASE.md', 'docs/history/x.md']) assert.ok(!caught(p), p);
+  const ignore = fs.readFileSync(path.join(ROOT, '.gitignore'), 'utf8');
+  for (const line of ['.core-local/', 'test-results/', '*.sqlite', '*.db', '*chrome-profile*/']) assert.ok(ignore.split('\n').includes(line), line);
+});
+
 test('validator details found with the real model: schema-checked tool arguments, no echo responses, unambiguous distances', () => {
   assert.deepEqual(COG.cleanArgs('works.windows', { location: 'SoMa', 3: 'x' }), { args: {}, dropped: ['3', 'location'] });
   assert.deepEqual(COG.cleanArgs('knowledge.search', { query: 'arbres', extra: 1 }), { args: { query: 'arbres' }, dropped: ['extra'] });

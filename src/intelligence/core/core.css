@@ -1,0 +1,77 @@
+/* CORE Intelligence command bar is available on arrival; in the Explorer it is a band under the navigation
+   and the map viewport starts below it, so the bar never covers the Earth. Overlays inside #ea-main shift by the band. */
+:root { --ci-shell: 60px; --ci-h: 84px; }
+body.earth .ci { display: flex; flex-direction: column; justify-content: center; align-items: center; position: fixed; z-index: 16; top: var(--ci-shell); left: 0; right: 0; height: var(--ci-h); padding: 6px 16px 4px; background: linear-gradient(180deg, rgba(4, 9, 18, .97), rgba(4, 11, 22, .93)); border-bottom: 1px solid rgba(103, 232, 249, .14); }
+body.earth.ea-explore #map { top: calc(var(--ci-shell) + var(--ci-h)); }
+body.earth.ea-explore #ea-main { --navh: calc(var(--ci-shell) + var(--ci-h)); }
+body.earth.ea-explore .bar { background: rgba(4, 9, 18, .97); }
+body.earth.ea-explore .ea-search { display: none; }
+body.earth.ea-explore .ea-tools { width: auto; } body.earth.ea-explore .ea-tools .ea-ic { white-space: nowrap; }
+.ci-form { display: flex; align-items: center; gap: 4px; width: min(940px, 100%); height: 48px; padding: 0 6px 0 16px; border: 1px solid rgba(103, 232, 249, .32); border-radius: 999px; background: rgba(10, 22, 34, .92); box-shadow: 0 0 0 1px rgba(255, 255, 255, .02), 0 6px 30px rgba(0, 0, 0, .35); transition: border-color .2s, box-shadow .2s; }
+.ci-form:focus-within { border-color: rgba(103, 232, 249, .7); box-shadow: 0 0 0 3px rgba(103, 232, 249, .12), 0 6px 30px rgba(0, 0, 0, .35); }
+.ci-form input { flex: 1; min-width: 0; height: 100%; border: 0; background: transparent; color: #effbff; padding: 0 8px; font-size: 15px; outline: none; box-shadow: none; }
+.ci-form input::placeholder { color: #7f98a3; }
+.ci-icon { flex: none; display: grid; place-items: center; width: 38px; height: 38px; min-height: 38px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: #b9dfe8; }
+.ci-icon:hover { background: rgba(103, 232, 249, .1); color: #fff; }
+.ci-icon svg { width: 20px; height: 20px; }
+.ci-send { background: #67e8f9; color: #04121c; } .ci-send:hover { background: #a5f3fc; color: #04121c; } .ci-send:disabled { opacity: .45; }
+.ci-icon[data-ci-mic][aria-pressed="true"] { background: #0b6577; color: #fff; animation: ci-pulse 1.4s ease-in-out infinite; }
+@keyframes ci-pulse { 50% { box-shadow: 0 0 0 7px rgba(103, 232, 249, .16); } }
+.ci-dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: #3f7d8b; }
+.ci[data-state="listening"] .ci-dot { background: #7ef1c0; box-shadow: 0 0 10px #7ef1c0; }
+.ci:is([data-state="thinking"], [data-state="transcribing"], [data-state="loading"]) .ci-dot { background: #67e8f9; animation: ci-blink 1s ease-in-out infinite; }
+.ci[data-state="navigating"] .ci-dot { background: #a5f3fc; box-shadow: 0 0 10px #67e8f9; }
+.ci[data-state="speaking"] .ci-dot { background: #c4b5fd; }
+.ci[data-state="error"] .ci-dot { background: #ffb7a5; }
+@keyframes ci-blink { 50% { opacity: .35; } }
+.ci-state { display: flex; gap: 10px; align-items: center; justify-content: center; width: min(940px, 100%); margin: 3px 0 0; min-height: 24px; font-size: 11.5px; color: #9fbcc6; line-height: 16px; }
+.ci-state [data-ci-state] { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ci[data-state="error"] [data-ci-state] { color: #ffc4b5; }
+.ci-mode, .ci-toggle { min-height: 24px; height: 24px; padding: 0 8px; border: 1px solid rgba(103, 232, 249, .22); border-radius: 999px; background: transparent; color: #8fdcea; font-size: 10.5px; line-height: 22px; letter-spacing: .02em; white-space: nowrap; }
+.ci-mode:empty { display: none; }
+.ci-sheet { position: fixed; z-index: 30; top: calc(var(--ci-shell) + var(--ci-h) + 8px); right: max(16px, calc(50% - 470px)); width: min(420px, calc(100vw - 32px)); max-height: calc(100dvh - var(--ci-shell) - var(--ci-h) - 32px); overflow-y: auto; padding: 16px 18px; border: 1px solid rgba(103, 232, 249, .25); border-radius: 18px; background: rgba(6, 15, 24, .97); box-shadow: 0 18px 50px rgba(0, 0, 0, .55); font-size: 13px; color: #cfe3e9; display: grid; gap: 12px; }
+.ci-sheet[hidden] { display: none; }
+.ci-sheet h3 { margin: 0 0 6px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #8fdcea; }
+.ci-sheet section { display: grid; gap: 8px; }
+.ci-sheet label { display: flex; gap: 10px; align-items: flex-start; font-size: 12.5px; line-height: 1.45; color: #c2d6dc; }
+.ci-sheet input[type="checkbox"], .ci-sheet input[type="radio"] { width: auto; min-height: auto; margin-top: 3px; flex: none; }
+.ci-sheet button { justify-self: start; }
+.ci-fine, .ci-turn small { display: block; font-size: 11.5px; line-height: 1.5; color: #9fb6bf; overflow-wrap: anywhere; }
+.ci-progress { width: 100%; height: 4px; border-radius: 4px; background: rgba(255, 255, 255, .08); overflow: hidden; } .ci-progress i { display: block; height: 100%; width: 0; background: #67e8f9; transition: width .3s; }
+.ci-output { position: fixed; z-index: 15; top: calc(var(--ci-shell) + var(--ci-h) + 64px); left: 112px; width: min(420px, calc(100vw - 140px)); max-height: calc(100dvh - var(--ci-shell) - var(--ci-h) - 150px); overflow-y: auto; overscroll-behavior: contain; padding: 4px 16px 6px; border: 1px solid rgba(103, 232, 249, .2); border-radius: 18px; background: rgba(6, 15, 24, .93); box-shadow: 0 14px 44px rgba(0, 0, 0, .45); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.ci-output[hidden], body.earth:not(.ea-explore) .ci-output { display: none; }
+.ci-turn { padding: 12px 0; border-bottom: 1px solid rgba(103, 232, 249, .1); display: grid; gap: 8px; }
+.ci-turn:last-child { border-bottom: 0; }
+.ci-q { margin: 0; font-size: 12px; color: #8fdcea; }
+.ci-answer { margin: 0; font-size: 14.5px; line-height: 1.5; color: #eef9fc; white-space: pre-line; }
+.ci-answer.ci-error { color: #ffc4b5; }
+.ci-actions { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.ci-actions li { font-size: 11.5px; padding: 3px 9px; border-radius: 999px; background: rgba(103, 232, 249, .1); color: #a5f3fc; }
+.ci-choices { display: grid; gap: 6px; }
+.ci-choices button { text-align: left; white-space: normal; font-size: 12.5px; padding: 8px 10px; min-height: 0; border-radius: 12px; }
+.ci-choices button small { display: block; color: #93abb4; font-size: 11px; }
+.ci-turn details summary { cursor: pointer; font-size: 11.5px; color: #8fb3bd; }
+.ci-turn details[open] { display: grid; gap: 6px; }
+.ci-sources { display: flex; flex-wrap: wrap; gap: 4px 10px; } .ci-sources a { font-size: 11.5px; color: #90e8f5; overflow-wrap: anywhere; }
+@media (max-width: 860px) {
+  :root { --ci-h: 74px; }
+  body.earth .ci { padding: 6px 8px 3px; }
+  .ci-form { height: 44px; padding: 0 3px 0 12px; gap: 2px; }
+  .ci-form input { font-size: 16px; padding: 0 4px; }
+  .ci-icon { width: 36px; height: 36px; min-height: 36px; }
+  .ci-state { font-size: 10.5px; margin-top: 2px; }
+  .ci-sheet { left: 8px; right: 8px; width: auto; }
+  body.earth.ea-explore .ea-tools .ea-ic { min-height: 36px; padding: 6px 12px; font-size: 13px; }
+  .ci-output { top: auto; left: 8px; right: 8px; bottom: calc(8px + env(safe-area-inset-bottom, 0px)); width: auto; max-height: 36dvh; }
+  body.earth.ea-explore:has(.ci-output:not([hidden])) .ea-scales { display: none; }
+  /* The agent panel is a bottom sheet on phones: the answer becomes a short strip under the bar instead. */
+  body.earth.ea-explore:has(#ea-panel:not([hidden])) .ci-output { top: calc(var(--ci-shell) + var(--ci-h) + 6px); bottom: auto; max-height: 70px; overflow: hidden; }
+  body.earth.ea-explore:has(#ea-panel:not([hidden])) .ea-panel { max-height: 52dvh; }
+}
+@media (prefers-reduced-motion: reduce) { .ci, .ci * { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
+
+body.earth .ci { height: auto; min-height: 84px; }
+body.earth .ci > .speech-review { width: min(940px,100%); }
+
+body.earth:not(.ea-explore) .ci { display: none; }
+body.earth .ci > .speech-review:has(> p[hidden]) { display: none; }

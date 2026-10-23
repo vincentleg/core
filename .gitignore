@@ -14,9 +14,27 @@ __pycache__/
 data/raw/
 data/results.local.json
 .cache/
+# Local databases and browser profiles (INC-2026-10-15-01), wherever they are created
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+*.db
+*chrome-profile*/
 
 # Local supervisor state (Phase 8): queue, live status, STOP file
 .core-local/
 
 # Claude Code personal overrides (project .claude/settings.json is shared)
 .claude/settings.local.json
+
+# Public static build (scripts/build-public.mjs); regenerated, never committed
+public/
+.vercel
+
+# On-device AI third-party bundles: rebuilt and checksum-verified by scripts/vendor-ai.mjs (too large for the repository policy)
+assets/vendor/web-llm-0.2.85/
+assets/vendor/transformers-4.3.0/
+
+# Supabase CLI link state
+supabase/.temp/

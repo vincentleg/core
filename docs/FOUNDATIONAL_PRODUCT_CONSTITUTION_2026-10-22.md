@@ -1,0 +1,41 @@
+# CORE product constitution — founder direction, 2026-10-22
+
+Status: product direction for this isolated development branch. It extends the product description; it does **not** repeal Constitution V1.1, FD01–FD11, the data rule FD09, or any scientific gate. No public opening, external action, payment, or production release is authorized by this document alone.
+
+## Purpose and boundaries
+
+CORE is a participatory digital Earth where people and software agents can identify problems, organize authorized evidence, compare hypotheses and simulations, and prepare proposals for human review. A world interface can make a place and its problems understandable; text and accessible reports must carry the same essential meaning when 3D is unavailable. The Kardashev horizon is long term research context, one dimension among rights, health, peace and ecology, not a product capability or measure of human worth.
+
+1. **Humanity first.** Every person may potentially offer observations, ideas, evidence and criticism. No AI rank assesses a person's intrinsic value.
+2. **Agents serve humans.** Agents have named roles, bounded tools and auditable outputs. They cannot exercise governmental authority or initiate consequential physical action.
+3. **Evidence before claims.** Mark observations, user claims, authorized data, assumptions, simulations, predictions, recorded replays, commercial statements and fictional demonstrations distinctly. A calculated benefit is never a measured real-world gain.
+4. **Human authorization.** A recommendation, favorable review or prototype `APPROVED` state is not a signed authority. Transmission or action needs the appropriate authenticated human mandate and separate controls.
+5. **Accountability.** Preserve a proposal's versions, provenance, limitations, objections, simulation settings, reviews, decisions and independently confirmed follow-up. Missing or invalid proof blocks advancement.
+6. **Equal civic access.** Payment, avatar appearance, popularity and trophies confer no extra civic vote, scientific authority or public-interest priority.
+7. **Privacy and access.** Minimize data, obtain explicit consent, offer keyboard/text alternatives and accessible identity paths, isolate business/private tenants, and require moderation and abuse controls before public participation.
+8. **Real and virtual remain legible.** Real Earth shows sourced geographic observations and coverage limits. CORE World shows agents, hypothetical futures and symbolic representations. Hybrid View links the two with visible status and provenance.
+
+## Connected offers and current truth
+
+**CORE World** is the free human entry: explore, inspect a supported place and research mission, and optionally keep a contribution in this browser. A universal persistent account, shared public conversation and independently measured impact are future work. **CORE for Business** is a distinct, consent-based organization environment; its agents must identify their sponsor and cannot pose as neutral experts. the founder-private project and private founder workspace are prototypes, not a customer partnership. **CORE for Cities** would provide resident intake, evidence-backed comparisons and human consultation controls. **CORE for Governments** would provide institutional analysis of infrastructure, water, energy and resilience. Neither institutional offer has an authorized partner or operational decision system today.
+
+Business Base $199/month, Business Max $399/month and optional consumer $4.99/month are unvalidated hypotheses. Billing stays inactive. Cosmetic purchases must never buy influence. World ID is only a candidate for optional higher-assurance actions after official integration, privacy and accessibility review; it is neither a DDoS defense nor the sole route to participation, and CORE must not directly collect biometrics.
+
+## Authority and lifecycle
+
+An idea may move through draft, submitted, moderation, needs evidence, analysis, simulation candidate, simulated, independent/human review, recommended or not recommended, approved for transmission, transmitted, externally implemented, and impact measured; rejection/archive remain possible. Each transition requires an identified actor and the necessary proof. The final three states require separately verified external records and authority; no public UI may infer them from an agent narrative. Existing local contribution stages remain local prototype states until a secure server workflow exists.
+
+Challenges may run at neighborhood, city, region, country or world scope only with published criteria, provenance, moderation, appeals and resistance to coordinated manipulation. Achievements describe specific contributions, never the worth of contributors; popularity cannot replace scientific evidence.
+
+Current practical pilot: San Francisco, an openly labeled example issue, recorded or deterministic agents, reproducible scenarios, missing-evidence review and a human decision boundary. Maintain the Phase 14 scientific validation path: lawful source access and intended use, observed counts/timings where applicable, preregistration, holdout, calibration error and independent review before efficacy or impact claims.
+
+## Strategic integration — Civilization Foundation 2.0 (2026-10-23)
+
+This section adds the founder's ten-part Strategic Product Addendum, as restated in the 2026-10-23 consolidation brief. It repeals nothing above. Traceability, architecture, maturity, roadmap, evidence register and decision memo: `docs/CIVILIZATION_FOUNDATION_2_0.md`.
+
+9. **Visual agent operating system.** Agents may be placed on the globe and in Hybrid View with a persistent identity, a mission, a status, a tool and evidence trail, and a human supervisor. Every displayed status is either read from a recorded state or labeled as a demonstration state; an animation never implies work that was not performed. Civic, scientific, business and institutional agents are distinct classes with visible sponsor and scope. Execution is on demand and budget bounded: durable identity is allowed, resident fleets of continuously running agents are not. Consequential actions need human approval, and no agent implements a real-world intervention.
+10. **Simulation informs, humans decide.** "The simulator becomes the planner" is a design inspiration only. A serious scenario records authorized inputs, observations, assumptions, baseline, model limits, calibration status, alternatives, uncertainty, reproducibility, independent review, human authorization and any measured outcome. A model's self-assessment is never independent validation. The San Francisco queue scenarios stay labeled illustrative and uncalibrated.
+11. **Commercial independence.** Business customers and sponsors cannot buy scientific credibility, civic influence, ranking or favorable public-interest conclusions. Business agents always disclose whom they represent.
+12. **Spatial intelligence is research.** World models, neural scenes, generated worlds, AI-native game tools and external geographic renderers are research references, not dependencies. A generated world is never presented as verified geography. Adoption requires licensing, data authorization, cost, security, scientific integrity and performance reviews and founder approval. Explorer 2.0, low-poly redesigns, photogrammetry restarts and purchased assets remain out of scope.
+13. **External claims are registered.** Investor, market or technology claims cite an original source URL, author, date and an exact quote only when independently verified, separate from CORE's interpretation. No endorsement, acceptance, investment, traction, customer, partnership or revenue is implied. Product vision, prototype, verified capability, market hypothesis, scientific result and future offer stay separately labeled.
+14. **Participation without hardware or avatars.** Every civic function has a text and keyboard path. Avatars, homes, clothing, vehicles and virtual spaces are optional. Recognition describes contributions, never people; no social score, popularity-based scientific judgment or coercive gamification. Proof-of-personhood providers (including World ID) are not integrated in this phase.

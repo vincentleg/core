@@ -42,6 +42,13 @@
    "reason": "Synthetic fixture (not a real mailbox) proving feed redaction of agency staff emails.",
    "added": "2026-10-13",
    "sha256": "83ae73d88a24845081a57544442fb2c7278389f74fcf590c67d56c02d487570f"
+  },
+  {
+   "rule": "email",
+   "path": "test/founder-account.test.js",
+   "reason": "Synthetic account fixture using the reserved .invalid domain, not a real contact or founder credential.",
+   "added": "2026-10-21",
+   "sha256": "a1d5d4103d619e71d41f4d8e96798978615d95d0ed9f31a860b4524840fd8ccf"
   }
  ]
 }

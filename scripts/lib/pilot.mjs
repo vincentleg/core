@@ -42,3 +42,57 @@ export function compareCounts(observed, predicted) {
   if (!Number.isFinite(total) || !Number.isFinite(error)) throw Error('Numeric overflow');
   return { n: observed.length, mae: error / observed.length, wape: error / total, efficacyValidated: false };
 }
+// Phase 14 scaffolding: preregistered day split, sealed holdout, training-days mean baseline, frozen models.
+// Leakage is prevented by construction: partition() never returns holdout rows, predictions are hashed before
+// evaluateHoldout() opens them, and every result stays uncalibrated/unreviewed until a human reviewer says otherwise.
+const sha = v => crypto.createHash('sha256').update(JSON.stringify(v)).digest('hex');
+const DAY = /^\d{4}-\d{2}-\d{2}$/, dayOf = r => r.start.slice(0, 10);
+const slot = r => [r.site, r.direction, r.mode, r.start.slice(11, 16), Date.parse(r.end) - Date.parse(r.start)].join('|');
+export function preregister({ id, calibration, validation = [], holdout, thresholds = null }) {
+  const days = [...calibration, ...validation, ...holdout];
+  if (!/^[a-z0-9-]{2,80}$/.test(id || '') || !calibration?.length || !holdout?.length || days.some(d => !DAY.test(d) || !Number.isFinite(Date.parse(d)))) throw Error('Protocol needs an id, calibration and holdout days (YYYY-MM-DD)');
+  if (new Set(days).size !== days.length) throw Error('Protocol days must be disjoint');
+  if ([...calibration, ...validation].some(d => d >= [...holdout].sort()[0])) throw Error('Holdout days must follow every calibration/validation day');
+  if (thresholds !== null && (!thresholds || typeof thresholds !== 'object' || Object.keys(thresholds).some(k => !['maxWape', 'maxAbsBias'].includes(k)) || Object.values(thresholds).some(x => !Number.isFinite(x) || x <= 0))) throw Error('Thresholds: positive maxWape/maxAbsBias ratios or null');
+  const protocol = { version: 1, id, calibration: [...calibration].sort(), validation: [...validation].sort(), holdout: [...holdout].sort(), thresholds, metrics: ['mae', 'wape', 'biasByDirection'], unit: 'site|direction|mode|start-time|duration' };
+  return { ...protocol, protocolSha256: sha(protocol) };
+}
+const checkProtocol = p => { const { protocolSha256, ...rest } = p || {}; if (!protocolSha256 || sha(rest) !== protocolSha256) throw Error('Protocol altered after preregistration'); return p; };
+export function partition(pkg, protocol, { allowSynthetic = false } = {}) {
+  checkProtocol(protocol);
+  const v = validateCounts(pkg, { allowSynthetic }); if (v.state !== 'VALIDATED_INPUT') return { state: 'BLOCKED', issues: v.issues };
+  const of = new Map([...protocol.calibration.map(d => [d, 'calibration']), ...protocol.validation.map(d => [d, 'validation']), ...protocol.holdout.map(d => [d, 'holdout'])]);
+  const out = { calibration: [], validation: [], holdout: [] }, unassigned = new Set();
+  for (const r of pkg.rows) { const s = of.get(dayOf(r)); if (s) out[s].push(r); else unassigned.add(dayOf(r)); }
+  if (unassigned.size) return { state: 'BLOCKED', issues: [`Rows on days outside the protocol: ${[...unassigned].sort().join(', ')}`] };
+  if (Object.values(out).some((rows, i) => i !== 1 && !rows.length)) return { state: 'BLOCKED', issues: ['Calibration and holdout must both contain observations'] };
+  return { state: 'PARTITIONED', protocolSha256: protocol.protocolSha256, kind: v.kind, calibration: out.calibration, validation: out.validation,
+    holdout: { sealed: true, rows: out.holdout.length, commitment: sha(out.holdout) }, calibrated: false, independentReview: false, authorizesRealWorld: false };
+}
+export function meanBaseline(calibrationRows) {
+  const acc = new Map();
+  for (const r of calibrationRows) { const k = slot(r), a = acc.get(k) || [0, 0]; acc.set(k, [a[0] + r.count, a[1] + 1]); }
+  return { kind: 'training-days-mean', table: Object.fromEntries([...acc].sort().map(([k, [s, n]]) => [k, s / n])) };
+}
+export function freeze(model, parts) {
+  if (parts?.state !== 'PARTITIONED' || !model || typeof model.kind !== 'string' || !model.table || typeof model.table !== 'object') throw Error('Freeze needs a partition and a {kind, table} model');
+  return { protocolSha256: parts.protocolSha256, holdoutCommitment: parts.holdout.commitment, modelSha256: sha(model), model };
+}
+export function evaluateHoldout(pkg, protocol, frozen, { allowSynthetic = false } = {}) {
+  checkProtocol(protocol);
+  const parts = partition(pkg, protocol, { allowSynthetic }); if (parts.state !== 'PARTITIONED') return parts;
+  if (!Array.isArray(frozen) || !frozen.length || !frozen.some(f => f?.model?.kind === 'training-days-mean')) throw Error('A frozen training-days-mean baseline must be evaluated with any candidate');
+  const holdout = pkg.rows.filter(r => protocol.holdout.includes(dayOf(r)));
+  if (sha(holdout) !== parts.holdout.commitment) throw Error('Holdout commitment mismatch');
+  const results = frozen.map(f => {
+    if (f.protocolSha256 !== protocol.protocolSha256 || f.holdoutCommitment !== parts.holdout.commitment || sha(f.model) !== f.modelSha256) throw Error('Model was not frozen against this protocol and sealed holdout');
+    const missing = holdout.filter(r => !Number.isFinite(f.model.table[slot(r)]));
+    if (missing.length) return { kind: f.model.kind, modelSha256: f.modelSha256, state: 'NOT_EVALUABLE', reason: `${missing.length} holdout slots without a prediction (never treated as zero)` };
+    let m; try { m = compareCounts(holdout.map(r => r.count), holdout.map(r => f.model.table[slot(r)])); } catch (e) { return { kind: f.model.kind, modelSha256: f.modelSha256, state: 'NOT_EVALUABLE', reason: e.message }; }
+    const bias = {}; for (const d of new Set(holdout.map(r => r.direction))) { const rs = holdout.filter(r => r.direction === d), y = rs.reduce((s, r) => s + r.count, 0); bias[d] = y ? rs.reduce((s, r) => s + f.model.table[slot(r)] - r.count, 0) / y : null; }
+    const t = protocol.thresholds, verdict = !t ? 'NO_PREREGISTERED_THRESHOLD' : (t.maxWape === undefined || m.wape <= t.maxWape) && (t.maxAbsBias === undefined || Object.values(bias).every(b => b !== null && Math.abs(b) <= t.maxAbsBias)) ? 'WITHIN_THRESHOLDS' : 'FAILED_THRESHOLDS';
+    return { kind: f.model.kind, modelSha256: f.modelSha256, state: 'EVALUATED', n: m.n, mae: m.mae, wape: m.wape, biasByDirection: bias, verdict };
+  });
+  return { state: 'HOLDOUT_OPENED', protocolSha256: protocol.protocolSha256, holdoutCommitment: parts.holdout.commitment, kind: parts.kind, results,
+    note: 'Record this result append-only; a revised model needs a new protocol and a new holdout.', calibrated: false, independentReview: false, efficacyValidated: false, authorizesRealWorld: false };
+}

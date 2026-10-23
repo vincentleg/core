@@ -1,0 +1,38 @@
+// CORE — shared interface strings, English (reference) and French. Every key must exist in both (test/v9.test.js).
+// Message pairs that belong to one module are written next to that module's code with T(en, fr) instead.
+// Spanish, German, Simplified Chinese and Portuguese translate the English values (src/i18n/locales/*.json).
+const en = {
+  'nav.home': 'home', 'nav.command': 'Search or ask', 'nav.demoShort': 'Demo', 'nav.more': 'More',
+  'world.real': 'Real', 'world.agents': 'Agents', 'world.hybrid': 'Hybrid', 'world.activity': 'Activity', 'world.list': 'List', 'world.search': 'Search a recorded problem, a street…', 'world.noticed': 'I noticed something',
+  'nav.solutions': 'Solutions', 'nav.plans': 'Plans', 'nav.explore': 'Explore', 'nav.create': 'Create', 'nav.together': 'Together', 'nav.me': 'My CORE', 'nav.trust': 'TRUST', 'nav.journey': 'Journey',
+  'nav.proto': 'PREVIEW', 'nav.protoNote': 'Early preview: public data, recorded simulations, no real-world impact verified yet', 'nav.manifesto': 'Manifesto', 'nav.demo': 'Experience CORE', 'nav.progress': 'Progress', 'nav.language': 'Language', 'nav.voice': 'Search or ask CORE', 'nav.main': 'Main navigation',
+  'cmp.title': 'CORE companion', 'cmp.intro': 'Type what you want to do. I only perform actions from a fixed list, and I never share, delete or publish anything for you.',
+  'cmp.placeholder': 'e.g. “show the bus lane simulation”', 'cmp.do': 'Go',
+  'cmp.not_understood': 'I did not understand. Try one of the examples below.', 'cmp.invalid': 'I could not do that: {reason}.',
+  'cmp.confirm': 'This needs your own explicit action.', 'cmp.open': 'Open the page', 'cmp.examples': 'Examples', 'cmp.close': 'Close', 'cmp.history': 'What I did',
+  'cmp.ex1': 'Go to Folsom Street', 'cmp.ex2': 'Play the traffic signal simulation', 'cmp.ex3': 'Compare scenarios', 'cmp.ex4': 'Open the mobility mission', 'cmp.ex5': 'Show the agents layer', 'cmp.ex6': 'Switch language to Spanish',
+  'act.navigate_to_place': 'Going to {place}.', 'act.find_agent': 'Here is {code}, {role}.', 'act.follow_agent': 'Following {code}.', 'act.open_mission': 'Opening the mission: {title}.',
+  'act.switch_world_layer': 'Layer: {layer}.', 'act.ask_agent': 'Opening a conversation with {code}. Your question is pre-filled, not sent.',
+  'act.start_simulation': 'Replaying the recorded simulation ({scenario}). It is an uncalibrated model, not a prediction.', 'act.compare_scenarios': 'Here is the comparison of the recorded scenarios, with their uncertainty.',
+  'act.open_report': 'Opening the report for {title}.', 'act.open_profile': 'Opening My CORE.', 'act.change_language': 'Language: {lang}.',
+  'act.share_contribution': 'Sharing always needs your own explicit choice. Nothing has been shared.', 'act.delete_my_data': 'Deleting data needs your own confirmation in TRUST. Nothing has been deleted.',
+  'lang.draft': 'Draft translation, not yet reviewed by a native speaker. English is the reference.',
+};
+const fr = {
+  'nav.home': 'accueil', 'nav.command': 'Chercher ou demander', 'nav.demoShort': 'Démo', 'nav.more': 'Plus',
+  'world.real': 'Réel', 'world.agents': 'Agents', 'world.hybrid': 'Hybride', 'world.activity': 'Activité', 'world.list': 'Liste', 'world.search': 'Rechercher un problème, une rue…', 'world.noticed': 'J’ai remarqué…',
+  'nav.solutions': 'Solutions', 'nav.plans': 'Offres', 'nav.explore': 'Explorer', 'nav.create': 'Créer', 'nav.together': 'Ensemble', 'nav.me': 'Mon CORE', 'nav.trust': 'TRUST', 'nav.journey': 'Parcours',
+  'nav.proto': 'APERÇU', 'nav.protoNote': 'Version préliminaire : données publiques, simulations enregistrées, aucun impact réel encore vérifié', 'nav.manifesto': 'Manifeste', 'nav.demo': 'Découvrir CORE', 'nav.progress': 'Progrès', 'nav.language': 'Langue', 'nav.voice': 'Chercher ou demander à CORE', 'nav.main': 'Navigation principale',
+  'cmp.title': 'Compagnon CORE', 'cmp.intro': 'Écrivez ce que vous voulez faire. Je n’exécute que des actions d’une liste fixe, et je ne partage, ne supprime ni ne publie rien à votre place.',
+  'cmp.placeholder': 'ex. « montre la simulation de la voie de bus »', 'cmp.do': 'Aller',
+  'cmp.not_understood': 'Je n’ai pas compris. Essayez un des exemples ci-dessous.', 'cmp.invalid': 'Impossible : {reason}.',
+  'cmp.confirm': 'Cette action exige votre propre geste explicite.', 'cmp.open': 'Ouvrir la page', 'cmp.examples': 'Exemples', 'cmp.close': 'Fermer', 'cmp.history': 'Ce que j’ai fait',
+  'cmp.ex1': 'Va à Folsom Street', 'cmp.ex2': 'Rejoue la simulation des feux', 'cmp.ex3': 'Compare les scénarios', 'cmp.ex4': 'Ouvre la mission mobilité', 'cmp.ex5': 'Affiche la couche agents', 'cmp.ex6': 'Change la langue en espagnol',
+  'act.navigate_to_place': 'Direction {place}.', 'act.find_agent': 'Voici {code}, {role}.', 'act.follow_agent': 'Je suis {code}.', 'act.open_mission': 'Ouverture de la mission : {title}.',
+  'act.switch_world_layer': 'Couche : {layer}.', 'act.ask_agent': 'Conversation avec {code} ouverte. Votre question est préremplie, pas envoyée.',
+  'act.start_simulation': 'Relecture de la simulation enregistrée ({scenario}). Modèle non calibré, pas une prévision.', 'act.compare_scenarios': 'Voici la comparaison des scénarios enregistrés, avec leur incertitude.',
+  'act.open_report': 'Ouverture du rapport : {title}.', 'act.open_profile': 'Ouverture de Mon CORE.', 'act.change_language': 'Langue : {lang}.',
+  'act.share_contribution': 'Partager exige toujours votre propre choix explicite. Rien n’a été partagé.', 'act.delete_my_data': 'Supprimer des données exige votre confirmation dans TRUST. Rien n’a été supprimé.',
+  'lang.draft': 'Traduction provisoire, non relue par une personne de langue maternelle. L’anglais fait référence.',
+};
+export const STRINGS = { en, fr };

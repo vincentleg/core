@@ -1,0 +1,1 @@
+../../../../.agents/skills/security-best-practices/references/javascript-general-web-frontend-security.md

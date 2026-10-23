@@ -111,7 +111,7 @@ body.agents-wide.sf-open .layers { right: calc(min(480px, 100vw - 32px) + 28px);
 .findings button { width: 100%; text-align: left; background: #061223; color: var(--ink); border: 1px solid var(--line); display: grid; grid-template-columns: 10px 1fr auto; gap: 2px 8px; align-items: center; font: 12px var(--body); padding: 6px 8px; }
 .findings button i { width: 10px; height: 10px; border-radius: 2px; grid-row: span 2; } .findings button span { grid-column: 2; color: var(--muted); font-size: 11px; } .findings button small { grid-column: 2; color: var(--muted); font-size: 10px; }
 .findings button em { grid-row: 1; grid-column: 3; font: normal 600 10px var(--mono); } .findings button.sel { border-color: var(--amber); } .findings button.suggest { border-color: var(--cyan); }
-em.ok, .state.ok { color: #7ee0a0; } em.warn, .state.warn { color: var(--amber); } em.fail, .state.fail { color: #ff7b7b; }
+em.ok, .state.ok { color: #7ee0a0; } .state.info { color: var(--accent); } em.warn, .state.warn { color: var(--amber); } em.fail, .state.fail { color: #ff7b7b; }
 #cw-detail h3 { margin: 8px 0 2px; font: 600 15px var(--display); } #cw-detail h4 { margin: 10px 0 4px; font: 600 12px var(--display); letter-spacing: .1em; text-transform: uppercase; color: var(--cyan); }
 .scen-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
 .scen { background: #061223; color: var(--ink); border: 1px solid var(--line); text-align: left; display: flex; flex-direction: column; gap: 3px; padding: 6px; font: 11.5px var(--body); }
@@ -352,6 +352,24 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
   .agent-av.occluded { opacity: .18; } .agent-av.occluded .tag { display: none; }
   body.landing .activity, body.ws-open .activity { display: none; } body.demo-on .activity { left: auto; right: 12px; bottom: 64px; width: min(420px, calc(100vw - 24px)); } body.theatre-on .activity { display: none; }
   @media (max-width: 700px) { .activity { bottom: 100px; max-height: 22vh; } body.card-open .activity { display: none; } }
+/* Accessibility (WCAG 2.2): screen-reader-only heading; range sliders keep a 24 px minimum target height (SC 2.5.8). */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+input[type=range] { min-height: 24px; }
+#th-list label { min-height: 24px; }
+/* Layout guard: floating panels never overlap. Priority: inspector (city panel, workspace, cards) > Explorer > Activity > Population bar. */
+.layers { z-index: 7; }
+@media (min-width: 1101px) {
+  body.sf-open .pop-bar { left: calc(var(--dock-w) + 2 * var(--gap)); right: calc(var(--insp-w) + 2 * var(--gap)); transform: none; max-width: none; top: calc(var(--navh) + var(--gap) + 44px); }
+}
+@media (max-width: 1100px) {
+  .pop-bar { left: calc(var(--dock-w) + 2 * var(--gap)); right: var(--gap); top: calc(var(--navh) + var(--gap) + 44px); bottom: auto; }
+  body.sf-open .pop-bar, body.sf-open .activity, body.card-open .activity { display: none; }
+  body.sf-open .console, body.ws-open .console { display: none; }
+}
+@media (max-width: 700px) {
+  .pop-bar { left: var(--gap); }
+  .activity { display: none; }
+}
 </style>
 <link rel="stylesheet" href="src/science.css">
 </head>
@@ -376,8 +394,10 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
     <button type="button" role="tab" data-sec="missions" aria-selected="false">Missions</button>
     <button type="button" role="tab" data-sec="evidence" aria-selected="false">Preuves</button>
   </div>
-  <span class="navmeta" id="navmeta">—</span><a class="navlink" href="privacy.html">Confidentialité</a>
+  <span class="navmeta" id="navmeta">—</span><a class="navlink" href="world.html" title="Prototype local : avatar humain, un agent, un problème réel">CORE World (prototype)</a><a class="navlink" href="privacy.html">Confidentialité</a>
 </nav>
+<main id="core-main">
+<h1 class="sr-only">CORE — Creation Of Reborn Earth : globe, villes, agents et preuves</h1>
 <div id="map" role="region" aria-label="Globe 3D de CORE"></div>
 <div id="legacy-sec" hidden><button type="button" data-sec="agents">agents</button><button type="button" data-sec="cities">cities</button><button type="button" data-sec="problems">problems</button><button type="button" data-sec="activity">activity</button><button type="button" data-sec="sims">sims</button><button type="button" data-sec="decisions">decisions</button><button type="button" data-sec="data">data</button><button type="button" data-sec="health">health</button><button type="button" data-sec="demo">demo</button></div>
 <section class="panel ws" id="ws" hidden aria-live="polite"><header><h2 id="ws-title"></h2><button type="button" class="ghost small" id="ws-close">Fermer</button></header><div class="ws-tabs" id="ws-tabs" role="tablist"></div><div class="wsbody" id="ws-body"></div></section>
@@ -515,6 +535,7 @@ body.ws-open .layers { right: calc(min(520px, 100vw - 32px) + 28px); }
 
 <div class="panel status" aria-live="polite"><b id="pos">—</b> · zoom <b id="zoom">—</b> · <span id="msg">Chargement de la Terre…</span><span id="net" hidden> · <span class="warn">tuiles partielles (réseau)</span></span></div>
 
+</main>
 <script type="module" src="src/maplibre-loader.mjs"></script>
 <script src="src/sf-world.js"></script>
 <script src="src/sf-view.js"></script>

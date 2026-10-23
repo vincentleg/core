@@ -62,7 +62,7 @@ The Edit/data guard is therefore defence in depth, not a complete barrier. The `
 
 - **Subagents**: `AGENTS.md` sets one agent with no delegation without authorization.
 - **Claude hooks**: the repository's git hooks already enforce integrity and tests. A Claude-side duplicate would cost time on every tool call. The `deny` rules give a partial generated-file guard without a script.
-- **Project skills**: no workflow is yet repeated often enough to justify one. Revisit if Phase 14 adds a recurring validation recipe.
+- **Project skills**: one added on 2026-10-15, `.claude/skills/core-browser-audit/` (see below). The real-browser recipe had become recurring, and had to be rebuilt from scratch, with a safety trap (port 9222).
 
 ## Validation
 
@@ -74,3 +74,80 @@ The Edit/data guard is therefore defence in depth, not a complete barrier. The `
 - Approve or discard these uncommitted changes. Nothing has been committed or pushed.
 - Identify "Edge Rope" if it was not Edgee.
 - Optionally approve a one-off run of `claude-code-setup` as a second opinion.
+
+## Advertised Claude skills (UI/UX, SEO, accessibility, marketing, legal checklists…) — 2026-10-15
+
+No specific skill package or source was supplied, so none can be verified or installed. Any proposed skill must pass these checks before use:
+- authentic source and maintainer, licence, and full read of its instructions and scripts;
+- filesystem, network and secret access, and external transmission of repository content;
+- supply-chain risk and compatibility with `.claude/settings.json` deny rules and FD08/FD09;
+- measured incremental value and cost.
+
+Skills that hide AI use, bypass provider limits or evade security controls are refused outright.
+
+The compliance audit (`docs/compliance/`) was done with existing tools only:
+- `grep`;
+- the repository's Chromium audits;
+- a scratch CDP DOM probe, not committed;
+- GitHub's public advisory API, which received only the public package name.
+
+Built-in Claude Code skills (`/code-review`, `/security-review`, `/simplify`) cover review needs. Marketing claims about token savings or productivity are not treated as evidence. **Decision: nothing installed.**
+
+## Screenshot candidates — evaluation 2026-10-15 (V2 mission)
+
+Method:
+- Identity, licence, last push and stars come from the GitHub API, which received public repository names only.
+- Install, network and telemetry behaviour come from each README and file tree, and for the shared installer from its source (`vercel-labs/skills` `src/telemetry.ts`).
+- No candidate was installed or executed. Screenshots and social posts are leads, not evidence; stars are not a quality measure.
+- Context cost: each installed skill adds its description to every session, and its body loads when the skill is used.
+
+**Cross-cutting finding.** Most skills install with `npx skills add …`. That CLI **sends telemetry to skills.sh by default** (opt-out with `DISABLE_TELEMETRY` or `DO_NOT_TRACK`). Any skill CORE adopts is therefore copied by hand at a pinned commit after review, never installed through that CLI.
+
+### Engineering skills
+| Candidate | Source · licence · last push | What it is | Install / network / telemetry | Decision | Reason |
+|---|---|---|---|---|---|
+| Superpowers | `obra/superpowers` · MIT · 2026-10-10 | 15 skills: brainstorm, plan, TDD, debugging, verification | Plugin with a `SessionStart` hook; its optional visual companion loads a logo from the author's site that reports the version (opt-out env var) | **ADAPT** (principles only) | Overlaps `AGENTS.md`; the hook and the telemetry pixel are not needed for the principles |
+| Agent Skills | `addyosmani/agent-skills` · MIT · 2026-10-13 | 25 skills across define, plan, build, verify | Plugin with hooks, or `npx skills` (telemetry) | **ADAPT** | Good checklists. 25 descriptions add context every session; CORE already has a stricter verify loop |
+| Anthropic Skills | `anthropics/skills` · per-skill licences (no repository licence) · 2026-10-09 | 20 reference skills (`frontend-design`, `webapp-testing`, `skill-creator`…) | Official marketplace | **DEFER** | Useful references. `webapp-testing` needs Playwright, see below |
+| Matt Pocock Skills | `mattpocock/skills` · MIT · 2026-10-13 | 38 skills (planning, TDD, terseness) | `npx skills` (telemetry) | **ADAPT** | Ideas worth keeping (state the goal, terse output); 38 descriptions is too much context |
+| Karpathy guidelines | `multica-ai/andrej-karpathy-skills` (was `forrestchang/…`) · **no licence** · 2026-04-20 | One `CLAUDE.md`: think first, simplicity, surgical changes, goal-driven execution | Plugin or copy | **ADAPT** (ideas only) | No licence, so the text cannot be copied. All four principles are already in `AGENTS.md` (targeted reads, no superfluous refactoring, end criteria) |
+| Ponytail | `DietrichGebert/ponytail` · 2026-10-15 | 12 skills that push the agent towards less code | Plugin with hooks | **DEFER** | Same aim as `AGENTS.md` ("aucun refactoring superflu"); hooks add a call on every tool use |
+| Caveman | `JuliusBrussee/caveman` · Apache-2.0 · 2026-10-15 | Terse-output skill **plus a proxy, CLI and cloud** | The CLI sends usage stats by default; the proxy and its cloud service can route model traffic | **REJECT** | A model proxy is forbidden by `CLAUDE.md`. The skill alone sends nothing, but terse "caveman" prose conflicts with clear French documentation |
+| Security Audit | `cloudflare/security-audit-skill` · MIT · Cloudflare organisation · commit `c1c8a8c14710` (2026-09-14) | One source-first audit skill (~3,100 words plus reference files), confirmed vs candidate findings, sandboxed execution | Pure Markdown plus 2 local validators; no network | **EXPERIMENT** (founder approval) | Best fit of the set. Its full-audit mode delegates to subagents, which `AGENTS.md` forbids without authorization. Guidance mode is usable once vendored at the pinned commit |
+| Diagram Design | `cathrynlavery/diagram-design` · 2026-10-15 | Editorial diagram skill | `npx skills`; `pip install playwright` for export | **DEFER** | No diagram need in the current scope |
+| Graphify | `Graphify-Labs/graphify` · Apache-2.0 · 2026-10-14 | Codebase-to-graph query tool | Python package via pipx/uv (`curl … | sh` installer shown), `PreToolUse` hook, local query log | **DEFER** | A new Python dependency and hook for a repo that `grep` navigates well |
+| Humanizer | `blader/humanizer` · MIT · 2026-09-28 | Removes signs of AI writing | `npx skills` | **REJECT** | Hiding AI involvement is refused by policy (see above) |
+| Claude-Mem | `thedotmack/claude-mem` · Apache-2.0 · 2026-10-13 | Session capture through 4 hooks | `npx claude-mem install` | **REJECT** (unchanged) | Captures every prompt and tool call; duplicates native memory |
+| Find-Skills | `vercel-labs/skills` · MIT · 2026-10-09 | The `npx skills` installer and its `find` command | Telemetry to skills.sh by default | **REJECT** as an install path | See the cross-cutting finding |
+
+### Design skills
+| Candidate | Source · licence · last push | Install / network / telemetry | Decision | Reason |
+|---|---|---|---|---|
+| Taste Skill | `Leonxlnx/taste-skill` · MIT · 2026-10-14 | `npx skills`; README carries API-key referral promotions | **DEFER** | Art-direction prompts; CORE needs consistency with its existing tokens more than a new direction |
+| Impeccable | `pbakaus/impeccable` · Apache-2.0 · 2026-10-15 | Every new design calls `impeccable.style`, and anonymous telemetry is on unless opted out | **REJECT** | Sends design activity to a third-party service by design |
+| UI UX Pro Max | `nextlevelbuilder/ui-ux-pro-max-skill` · MIT · 2026-10-15 | CLI `init`, Python scripts, a large rules database; a paid "Premium" tier exists | **DEFER** | Generic industry rules; heavy context. Its accessibility checklist overlaps WCAG, which CORE already targets |
+| Awesome DESIGN.md | `VoltAgent/awesome-design-md` · MIT · 2026-10-14 | Markdown only | **ADAPT** (format only) | Collections of other brands' design analyses. CORE must not imitate another brand; only the `DESIGN.md` format idea is used (`docs/DESIGN.md`) |
+
+### Browser automation
+| Candidate | Source · licence | Decision | Reason |
+|---|---|---|---|
+| Playwright CLI / MCP | `microsoft/playwright-cli`, `microsoft/playwright-mcp` · Apache-2.0 | **EXPERIMENT** (founder approval) | CORE's dependency-free CDP/BiDi audits now pass in Chromium and Firefox. Playwright's real gain is **WebKit**, the only untested engine. It needs an npm package plus browser downloads (user cache, about 100–200 MB), so it requires founder approval. Its WebKit is close to Safari, but not identical |
+
+### 3D and motion
+| Candidate | Source · licence | Decision | Reason |
+|---|---|---|---|
+| img2threejs | `img2threejs/img2threejs` · Apache-2.0 | DEFER | CORE renders with MapLibre custom layers, not Three.js; image-to-model reconstruction risks implying measured geometry |
+| Motion | `motiondivision/motion` · MIT | DEFER | No animation need that CSS transitions plus `prefers-reduced-motion` do not cover |
+| GSAP | `greensock/GSAP` · proprietary no-charge licence (not OSI) | REJECT | Licence terms; no need |
+| Lottie | `airbnb/lottie-web` · MIT · last push 2025-09-01 | DEFER | Slowing maintenance; decorative |
+| Remotion | `remotion-dev/remotion` · company licence required above a team-size threshold | REJECT | Possible paid licence; video rendering is not runtime |
+| Hyperframes | `heygen-com/hyperframes` · Apache-2.0 | DEFER | Video rendering for explainers; not runtime; 40 skills |
+| Motion Design Skill | `LottieFiles/motion-design-skill` · 20 Markdown files | ADAPT | Timing, easing and reduced-motion principles, written into `docs/DESIGN.md` |
+| Claude Motion Skill | `Hype-yolo/claude-motion-skill` · MIT · 67 stars, 3,198 files | REJECT | Low adoption, large surface, no CORE need |
+
+### Other
+| Candidate | Finding | Decision |
+|---|---|---|
+| Katana | `projectdiscovery/katana` (MIT) is a web crawler. **Its link to "Claude Opus" in the screenshot is UNVERIFIED** | REJECT for CORE: crawling third-party sites conflicts with FD09 and with the rule against intrusive testing |
+
+**Adopted:** one project-local skill written for CORE (`.claude/skills/core-browser-audit/`), with no third-party text or code. Its description costs about 50 tokens per session. **Rollback:** delete the folder. **Installed third-party tools: none.**

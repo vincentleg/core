@@ -9,7 +9,7 @@
   const pill = (t, c = '') => `<span class="pill ${c}">${esc(t)}</span>`;
   const short = id => String(id || '').split('.').pop();
   const EPI = { observed: 'Observé', reported: 'Rapporté', derived: 'Dérivé', hypothesis: 'Hypothèse', simulated: 'Simulé (modèle déterministe)' };
-  const DEC = { 'ÉLIGIBLE À LA REVUE HUMAINE': 'ok', 'PREUVES SUPPLÉMENTAIRES REQUISES': 'warn', REJETÉ: 'fail' };
+  const DEC = { 'ÉLIGIBLE À LA REVUE HUMAINE': 'info', 'PREUVES SUPPLÉMENTAIRES REQUISES': 'warn', REJETÉ: 'fail' };
   const STAGE_FR = { received: 'Réception', 'model-check': 'Modèle local', classification: 'Classification', geolocation: 'Géolocalisation', selection: 'Sélection des agents', investigation: 'Investigation', deliberation: 'Délibération', revision: 'Révision', scenario: 'Scénarios', verification: 'Vérification', brief: 'Note de décision', gateway: 'Passerelle' };
 
   function render(mc, { recorded = false } = {}) {

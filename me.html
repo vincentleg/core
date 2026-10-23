@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self' blob: data:; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<meta name="core-ready" content="CORE_ME">
+<script src="src/ui/boot-guard.mjs"></script>
+<title data-fr="CORE: Mon CORE">CORE: My CORE</title>
+<meta name="description" content="Your personal CORE space: avatar, private ideas, contributions, journey, followed problems, learning and privacy. Local, no account.">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="src/world/world.css">
+<link rel="stylesheet" href="src/civic/commons.css">
+<link rel="stylesheet" href="src/ui/living-earth.css">
+<link rel="stylesheet" href="src/me/me.css">
+</head>
+<body class="commons me">
+<a class="skip" href="#me-body" data-fr="Aller au contenu">Skip to content</a>
+<header class="bar" id="core-nav"></header>
+<main id="me-main">
+  <nav class="le-subnav" id="me-sub" aria-label="My CORE" data-fr-label="Mon CORE"></nav>
+  <section class="me-hero" aria-labelledby="me-name">
+    <div class="me-portrait"><canvas id="me-canvas" role="img" aria-label="Your avatar" data-fr-label="Votre avatar"></canvas></div>
+    <div class="me-id">
+      <p class="le-eyebrow" data-fr="Mon CORE">My CORE</p>
+      <h1 id="me-name">You</h1>
+      <p class="me-sub" id="me-meta"></p>
+      <div class="le-row"><a class="btn" href="#founder-account" data-fr="Espace fondateur · Pipeline commercial">Founder Workspace · Business Pipeline</a><a class="btn" href="avatar.html" data-fr="Modifier mon avatar">Edit my avatar</a><a class="btn" href="commons.html#profile" data-fr="Identité pseudonyme">Pseudonymous identity</a><a class="btn" href="commons.html#trust" data-fr="Confidentialité">Privacy</a></div>
+    </div>
+    <div class="me-facts" id="me-facts"></div>
+  </section>
+  <div id="me-body" class="me-grid" tabindex="-1"></div>
+  <p id="toast" class="toast" role="status" aria-live="polite"></p>
+</main>
+<script type="module" src="src/me/me.mjs"></script>
+</body>
+</html>

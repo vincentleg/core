@@ -19,6 +19,9 @@ const FORBIDDEN_PATHS = [
   [/^test-results\//, 'local test evidence must stay out of Git'], [/(^|\/)node_modules\//, 'dependencies'],
   [/\.(png|jpe?g|gif|webp|bmp|mp4|mov)$/i, 'screenshots and media'], [/\.log$/i, 'raw logs'],
   [/(^|\/)\.env(\.|$)(?!example$)/, 'environment files'], [/\.(pem|key|p12|pfx)$/i, 'key material'], [/^data\/raw\//, 'raw data'],
+  // INC-2026-10-15-01: local databases and browser profiles never belong in Git, wherever they sit.
+  [/\.(sqlite3?|db)(-(wal|shm|journal))?$/i, 'local databases'], [/(^|\/)\.core-local\//, 'local agent state'],
+  [/(^|\/)(Cookies|Login Data|Web Data|History|Local State)(-journal)?$/, 'browser profile stores'], [/(^|\/)[^/]*chrome-profile[^/]*\//i, 'browser profiles'],
 ];
 const SECRET_RULES = [
   ['aws-access-key', /\bAKIA[0-9A-Z]{16}\b/], ['github-token', /\bgh[pousr]_[A-Za-z0-9]{30,}\b/], ['openai-style-key', /\bsk-[A-Za-z0-9_-]{20,}\b/],

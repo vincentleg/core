@@ -10,6 +10,8 @@ const require = createRequire(import.meta.url);
 const CT = require('../../src/civ-tools.js'), D = require('../../src/civ-discovery.js'), CITIES = require('../../src/cities.js');
 const FETCH_PER_DAY = 4, WATCH = `${DIR}/watch`;
 export function openScheduler(QFILE, { maxMissions = 4 } = {}) {
+  // An isolated queue (tests, experiments) reports next to itself; only the default queue writes the owner's status file.
+  const STATUS = QFILE === `${DIR}/civd.sqlite` ? `${DIR}/civd-status.json` : `${QFILE.replace(/\.sqlite$/, '')}-status.json`;
   const MAXM = Math.min(8, maxMissions); let args = [];
   const { DatabaseSync } = require('node:sqlite');
   const db = new DatabaseSync(QFILE);
@@ -66,7 +68,7 @@ export function openScheduler(QFILE, { maxMissions = 4 } = {}) {
       if (m && m.human) { set(it.id, 'done', { ...r, human: m.human.decision }); if (m.human.decision === 'APPROVED') report.followUps += enqueue(`follow-up|monitor|${m.id}`, 'follow-up', it.city, { mission: m.id, action: 'surveiller les tronçons de la mission à chaque nouvel instantané' }, it.priority, 'awaiting-snapshot');
         if (m.human.decision === 'NEEDS_MORE_EVIDENCE') report.followUps += enqueue(`follow-up|evidence|${m.id}`, 'follow-up', it.city, { mission: m.id, action: 'preuves supplémentaires demandées par un humain' }, it.priority + 1, 'awaiting-snapshot'); } }
     report.queue = summary(); log('cycle', report);
-    fs.writeFileSync(`${DIR}/civd-status.json`, JSON.stringify({ ...report, pid: process.pid, items: q('SELECT id, kind, city, status, priority, key, updated, result FROM queue ORDER BY priority DESC LIMIT 200') }));
+    fs.writeFileSync(STATUS, JSON.stringify({ ...report, pid: process.pid, items: q('SELECT id, kind, city, status, priority, key, updated, result FROM queue ORDER BY priority DESC LIMIT 200') }));
     if (args.includes('--publish')) {
       fs.mkdirSync('data/civ', { recursive: true });
       const items = q('SELECT kind, city, status, priority, payload, result, created, updated FROM queue ORDER BY priority DESC').map(r => ({ ...r, payload: JSON.parse(r.payload), result: r.result ? JSON.parse(r.result) : null }));

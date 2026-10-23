@@ -1,0 +1,82 @@
+{
+ "generated_at": "2026-10-16T20:01:00+00:00",
+ "generator": "scripts/mobility/build.py",
+ "engine": "Eclipse SUMO 1.27.1 (EPL-2.0)",
+ "bbox": [
+  -122.4115,
+  37.7725,
+  -122.3965,
+  37.786
+ ],
+ "simulatedSeconds": 1800,
+ "seeds": [
+  1,
+  2,
+  3,
+  4,
+  5
+ ],
+ "sources": [
+  {
+   "id": "osm-soma",
+   "title": "OpenStreetMap — drivable streets, SoMa (Overpass)",
+   "license": "ODbL 1.0 — © OpenStreetMap contributors",
+   "url": "https://www.openstreetmap.org/copyright",
+   "retrieved_at": "2026-10-16T19:35:50+00:00",
+   "raw_sha256": "45f53946b7ba6b80d74da08f3d972e6e330b3570bd447cda5eb3d3840488eb64",
+   "bbox": [
+    -122.4115,
+    37.7725,
+    -122.3965,
+    37.786
+   ]
+  },
+  {
+   "id": "ybh5-27n2",
+   "title": "Traffic Signals (DataSF ybh5-27n2)",
+   "license": "ODC Public Domain Dedication and License (PDDL)",
+   "url": "https://data.sf.gov/d/ybh5-27n2",
+   "retrieved_at": "2026-10-16T19:35:52+00:00",
+   "raw_sha256": "d7c0947eec32f38f3326c5cdaeead97a5c115466f71e5154db6d00fe733b8737"
+  },
+  {
+   "id": "tzh6-6j82",
+   "title": "Transit Only Lanes (DataSF tzh6-6j82)",
+   "license": "ODC Public Domain Dedication and License (PDDL)",
+   "url": "https://data.sf.gov/d/tzh6-6j82",
+   "retrieved_at": "2026-10-16T19:35:53+00:00",
+   "raw_sha256": "6d10bc73264420b1bfa056f5a52991048897a55bdc77cc23394d170d789fcb78"
+  }
+ ],
+ "network": {
+  "edges": 601,
+  "folsomEdges": 34,
+  "folsomLaneCounts": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "signalsInModel": 73,
+  "signalsDataSF": 74,
+  "signalsMatchedWithin35m": 69,
+  "transitOnlyLaneStreets": [
+   "?"
+  ]
+ },
+ "synthetic": [
+  "Demande voiture : trajets aléatoires (randomTrips, graine fixe), environ 1 100 trajets / 30 min — hypothèse, aucun comptage public disponible.",
+  "Plans de feux : générés par SUMO (fixes ou actionnés) — aucun minutage réel publié.",
+  "Ligne de bus : synthétique sur Folsom, un bus toutes les 6 min — le GTFS Muni exige un accord de licence non accepté.",
+  "Émissions : modèle HBEFA par défaut de SUMO — estimation, flotte non calibrée."
+ ],
+ "calibration": "NON CALIBRÉ — aucun résultat ne décrit le trafic réel de San Francisco.",
+ "blockers": [
+  "Comptages de trafic : aucun jeu public trouvé sur DataSF.",
+  "Minutage des feux : non publié.",
+  "GTFS Muni : accord de licence (indemnisation, droit californien) — décision du fondateur requise."
+ ],
+ "reproduce": "python3 -m venv <venv> && <venv>/bin/pip install eclipse-sumo==1.27.1 sumo-data==1.27.1 && <venv>/bin/python scripts/mobility/build.py --fetch --seeds 5",
+ "computeSeconds": 52.9,
+ "searchComputeSeconds": 91.2
+}

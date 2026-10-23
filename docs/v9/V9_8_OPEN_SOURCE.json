@@ -1,0 +1,120 @@
+[
+  {
+    "repository": "ggml-org/whisper.cpp",
+    "url": "https://github.com/ggml-org/whisper.cpp",
+    "license": "MIT",
+    "archived": false,
+    "defaultBranch": "master",
+    "checked": "2026-10-20",
+    "integrated": true,
+    "notes": "Documentation/metadata assessment; integration status refers to V9.8 runtime adapters, not hosted services."
+  },
+  {
+    "repository": "SYSTRAN/faster-whisper",
+    "url": "https://github.com/SYSTRAN/faster-whisper",
+    "license": "MIT",
+    "archived": false,
+    "defaultBranch": "master",
+    "checked": "2026-10-20",
+    "integrated": false,
+    "notes": "Documentation/metadata assessment; integration status refers to V9.8 runtime adapters, not hosted services."
+  },
+  {
+    "repository": "rhasspy/piper",
+    "url": "https://github.com/rhasspy/piper",
+    "license": "MIT",
+    "archived": true,
+    "defaultBranch": "master",
+    "checked": "2026-10-20",
+    "integrated": false,
+    "notes": "Documentation/metadata assessment; integration status refers to V9.8 runtime adapters, not hosted services."
+  },
+  {
+    "repository": "hexgrad/kokoro",
+    "url": "https://github.com/hexgrad/kokoro",
+    "license": "Apache-2.0",
+    "archived": false,
+    "defaultBranch": "main",
+    "checked": "2026-10-20",
+    "integrated": false,
+    "notes": "Documentation/metadata assessment; integration status refers to V9.8 runtime adapters, not hosted services."
+  },
+  {
+    "repository": "pipecat-ai/pipecat",
+    "url": "https://github.com/pipecat-ai/pipecat",
+    "license": "BSD-2-Clause",
+    "archived": false,
+    "defaultBranch": "main",
+    "checked": "2026-10-20",
+    "integrated": false,
+    "notes": "Documentation/metadata assessment; integration status refers to V9.8 runtime adapters, not hosted services."
+  },
+  {
+    "repository": "livekit/agents",
+    "url": "https://github.com/livekit/agents",
+    "license": "Apache-2.0",
+    "archived": false,
+    "defaultBranch": "main",
+    "checked": "2026-10-20",
+    "integrated": false,
+    "notes": "Documentation/metadata assessment; integration status refers to V9.8 runtime adapters, not hosted services."
+  },
+  {
+    "repository": "komoot/photon",
+    "url": "https://github.com/komoot/photon",
+    "license": "Apache-2.0",
+    "archived": false,
+    "defaultBranch": "master",
+    "checked": "2026-10-20",
+    "integrated": true,
+    "notes": "Documentation/metadata assessment; integration status refers to V9.8 runtime adapters, not hosted services."
+  },
+  {
+    "repository": "pelias/pelias",
+    "url": "https://github.com/pelias/pelias",
+    "license": "MIT",
+    "archived": false,
+    "defaultBranch": "master",
+    "checked": "2026-10-20",
+    "integrated": false,
+    "notes": "Documentation/metadata assessment; integration status refers to V9.8 runtime adapters, not hosted services."
+  },
+  {
+    "repository": "ollama/ollama",
+    "url": "https://github.com/ollama/ollama",
+    "license": "MIT",
+    "archived": false,
+    "defaultBranch": "main",
+    "checked": "2026-10-20",
+    "integrated": true,
+    "notes": "Documentation/metadata assessment; integration status refers to V9.8 runtime adapters, not hosted services."
+  },
+  {
+    "repository": "langchain-ai/langgraph",
+    "url": "https://github.com/langchain-ai/langgraph",
+    "license": "MIT",
+    "archived": false,
+    "defaultBranch": "main",
+    "checked": "2026-10-20",
+    "integrated": false,
+    "notes": "Documentation/metadata assessment; integration status refers to V9.8 runtime adapters, not hosted services."
+  },
+  {
+    "repository": "mlc-ai/web-llm",
+    "url": "https://github.com/mlc-ai/web-llm",
+    "license": "Apache-2.0",
+    "archived": false,
+    "checked": "2026-10-20",
+    "integrated": true,
+    "notes": "V9.8.1 public on-device LLM runtime (0.2.85), module worker, consent-gated; schema-derived whitespace-free grammar."
+  },
+  {
+    "repository": "huggingface/transformers.js",
+    "url": "https://github.com/huggingface/transformers.js",
+    "license": "Apache-2.0",
+    "archived": false,
+    "checked": "2026-10-20",
+    "integrated": true,
+    "notes": "V9.8.1 public on-device Whisper (4.3.0) with ONNX Runtime Web (MIT), consent-gated."
+  }
+]

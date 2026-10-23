@@ -1,0 +1,7 @@
+# R7 — independent CORE Cities case (local)
+
+`city.html` connects the San Francisco mobility mission, dated map sources, a clearly synthetic contribution example, browser-local drafting, five recorded SUMO alternatives, the full research dossier, scientific uncertainty and a blocked human decision boundary. The selector reads the existing `data/mobility/results.json`; numbers are not invented by the page. Missing or unrecognized scenario files stop the comparison and name the failure.
+
+This is an independent CORE demonstration, with no City of San Francisco affiliation or public authority. The example proposal is derived from `examples/contributions/synthetic-public.json` (`core-contribution-demo-v1`), not an actual citizen submission. The scenarios use synthetic demand and are uncalibrated. Rights, post-construction observations/timings and independent review remain external dependencies; no recommendation or transmission is enabled. No new data source, backend, account or paid service was added.
+
+Verification: `node --test test/business.test.js test/product.test.js` (4/4); isolated Chrome desktop 1440×900/mobile 390×844 and missing-file path via `scripts/r7-cities-browser.mjs` (19/19); full `node scripts/verify.mjs` (378/378, integrity 0 findings). Screenshots and gate log: `.core-local/evidence/r7-cities/` (ignored). Safari, Firefox, physical devices and screen readers were not checked.

@@ -1,57 +1,222 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CORE — confidentialité</title>
+<title>CORE: privacy</title>
 <link rel="icon" href="assets/brand/core-mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <style>
   :root { --bg: #02060f; --ink: #e8f4ff; --muted: #9fb6c9; --line: #1d2f44; --accent: #5cc8ff; }
   body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.6 'IBM Plex Sans', system-ui, sans-serif; }
-  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; overflow-wrap: anywhere; }
   h1 { font: 600 24px 'IBM Plex Sans', sans-serif; } h2 { font-size: 17px; margin-top: 28px; color: var(--accent); }
   table { width: 100%; border-collapse: collapse; font-size: 14px; } th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
   a { color: var(--accent); } .muted { color: var(--muted); font-size: 13px; }
+  nav.langs { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 14px; }
+  section + section { border-top: 1px solid var(--line); margin-top: 40px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 </style>
 </head>
 <body>
 <main>
-  <p><a href="./">← Retour à CORE</a></p>
-  <h1>Confidentialité — prototype CORE</h1>
-  <p class="muted">Dernière mise à jour : 14 octobre 2026 (Phase 9). Cette page décrit le comportement réel du prototype public. Elle n’est pas un avis juridique et ne revendique aucune conformité (RGPD, CCPA/CPRA ou autre) : aucune revue par un professionnel du droit n’a encore eu lieu.</p>
+  <p><a href="./">← CORE</a></p>
+  <nav class="langs" aria-label="Language / Langue / Idioma / Sprache / 语言 / Idioma">
+    <a href="#en" lang="en" hreflang="en">English</a><a href="#fr" lang="fr" hreflang="fr">Français</a><a href="#es" lang="es" hreflang="es">Español</a><a href="#de" lang="de" hreflang="de">Deutsch</a><a href="#zh-CN" lang="zh-CN" hreflang="zh-CN">简体中文</a><a href="#pt" lang="pt" hreflang="pt">Português</a>
+  </nav>
 
+  <section lang="en" id="en">
+  <h1>Privacy: CORE public prototype</h1>
+  <p class="muted">Updated 21 October 2026 (V9.9). This page describes what the public prototype actually does. It is not legal advice and claims no compliance (GDPR, CCPA/CPRA or other): no legal professional has reviewed it.</p>
+  <h2>What CORE does not do</h2>
+  <ul>
+    <li>No account, no sign-in and no form sent to a CORE server: CORE has no application server or database for visitors.</li>
+    <li>No cookies set by CORE, no analytics, no advertising trackers.</li>
+    <li>CORE never speaks its answers aloud and never records or keeps audio.</li>
+    <li>CORE does not train any model on what you type.</li>
+  </ul>
+  <h2>Storage in your browser</h2>
+  <p>Everything you create stays in this browser under <code>core.*</code> keys (localStorage and sessionStorage): your language, avatar and pseudonym, followed missions, contributions, the local state of the agents and your ideas (the idea vault is encrypted with your passphrase). The “My CORE” page (TRUST section) lists these items and erases them; clearing your browser data also removes them. If you enable on-device AI, the model files are kept in your browser’s cache until you clear it.</p>
+  <h2>Hosting and third parties</h2>
+  <p>The site is static, served by Vercel, Inc. As with any website, Vercel processes your IP address and request details to deliver pages, under its own terms. Fonts and the map library are served by CORE itself. Your browser contacts these services directly:</p>
+  <table><thead><tr><th>Service</th><th>Why</th><th>When</th></tr></thead><tbody>
+    <tr><td>OpenFreeMap</td><td>Map tiles and labels (© OpenStreetMap contributors)</td><td>When the map is shown</td></tr>
+    <tr><td>NASA GIBS</td><td>Satellite imagery at planet scale</td><td>When the map is shown</td></tr>
+    <tr><td>AWS Terrain Tiles</td><td>Relief</td><td>“High” quality only</td></tr>
+    <tr><td>Photon (komoot)</td><td>Finding unindexed places; receives the requested place name, map context center and IP address. Consent or refusal is remembered in this browser under core.geocode.consent; search history is not saved</td><td>Only if you switch this option on</td></tr>
+    <tr><td>Hugging Face, GitHub</td><td>One-time download of the on-device AI model files (they see your IP address and the files requested, never your text)</td><td>Only if you enable on-device AI</td></tr>
+  </tbody></table>
+  <p class="muted">The page’s content-security policy restricts CORE requests; it does not control the browser provider’s speech service. On the founder’s own computer only, the site can also use a local model; that address is never contacted from the public site.</p>
+  <h2>CORE Intelligence (AI)</h2>
+  <p>Typed requests are interpreted in your browser. Clear commands (places, agents, evidence) use deterministic rules. If you enable on-device AI, a small open model (Qwen3) runs in your browser with WebGPU; your requests are not sent to CORE or anyone else. Answers come from CORE’s recorded data and can be wrong: sources and limits are shown with them.</p>
+  <h2>Voice input (optional)</h2>
+  <p>Voice input and basic chat never require Qwen. Press the microphone to start; press it again or Escape to cancel. Already-available on-device recognition is preferred. Otherwise, a separate confirmation explains that your browser may send audio to its provider under that provider’s privacy policy. CORE does not receive, upload or store audio and never speaks answers. Transcripts use the same pipeline as typed requests. No speech pack is installed automatically. Support and connectivity vary; if recognition is unavailable, denied or fails, typing still works.</p>
+  <h2>Data processed by the agents</h2>
+  <p>Only public datasets listed in CORE’s data policy (for example DataSF, USGS, OpenStreetMap). Individual records such as 311 requests or names of permit holders are excluded by design.</p>
+  <h2>Retention, deletion and contact</h2>
+  <p>CORE keeps nothing about you on a server, so there is nothing to request from us: erase your data in “My CORE” or in your browser settings. Questions: <a href="https://github.com/vincentleg/core">github.com/vincentleg/core</a>.</p>
+  </section>
+
+  <section lang="fr" id="fr">
+  <h1>Confidentialité : prototype public de CORE</h1>
+  <p class="muted">Mise à jour le 21 octobre 2026 (V9.9). Cette page décrit le comportement réel du prototype public. Elle n’est pas un avis juridique et ne revendique aucune conformité (RGPD, CCPA/CPRA ou autre) : aucun professionnel du droit ne l’a relue.</p>
   <h2>Ce que CORE ne fait pas</h2>
   <ul>
-    <li>Aucun compte, aucun formulaire, aucune collecte de données personnelles.</li>
-    <li>Aucun cookie, aucune mesure d’audience, aucun pisteur publicitaire.</li>
-    <li>Aucun serveur applicatif : le site est statique (GitHub Pages). Aucun modèle d’IA ne s’exécute pour les visiteurs du site public.</li>
+    <li>Ni compte, ni connexion, ni formulaire envoyé à un serveur CORE : CORE n’a ni serveur applicatif ni base de données pour les visiteurs.</li>
+    <li>Aucun cookie déposé par CORE, aucune mesure d’audience, aucun traceur publicitaire.</li>
+    <li>CORE ne lit jamais ses réponses à voix haute et n’enregistre ni ne conserve aucun son.</li>
+    <li>CORE n’entraîne aucun modèle avec ce que vous écrivez.</li>
   </ul>
-
   <h2>Stockage dans votre navigateur</h2>
-  <table><tbody>
-    <tr><th>localStorage</th><td>Éléments de veille récupérés par votre navigateur et réglages d’actualisation. Ils ne quittent pas votre appareil ; vous pouvez les effacer depuis les réglages du navigateur.</td></tr>
-    <tr><th>sessionStorage</th><td><code>core.entered</code> : l’écran d’accueil a déjà été vu pendant cette session.</td></tr>
-  </tbody></table>
-
-  <h2>Requêtes vers des tiers</h2>
-  <p>Pour afficher la carte et les données publiques, votre navigateur contacte directement les services ci-dessous. Chacun reçoit, comme pour toute page web, votre adresse IP et l’identification de votre navigateur, selon ses propres conditions. Les polices et la bibliothèque cartographique MapLibre GL sont hébergées par CORE (aucune requête à Google Fonts ni à un CDN de code).</p>
+  <p>Tout ce que vous créez reste dans ce navigateur sous des clés <code>core.*</code> (localStorage et sessionStorage) : votre langue, votre avatar et pseudonyme, les missions suivies, vos contributions, l’état local des agents et vos idées (le coffre d’idées est chiffré avec votre phrase secrète). La page « Mon CORE » (section TRUST) liste ces éléments et les efface ; vider les données du navigateur les supprime aussi. Si vous activez l’IA sur l’appareil, les fichiers du modèle restent dans le cache du navigateur jusqu’à ce que vous le vidiez.</p>
+  <h2>Hébergement et tiers</h2>
+  <p>Le site est statique, servi par Vercel, Inc. Comme pour tout site web, Vercel traite votre adresse IP et les détails des requêtes pour livrer les pages, selon ses propres conditions. Les polices et la bibliothèque cartographique sont servies par CORE. Votre navigateur contacte directement ces services :</p>
   <table><thead><tr><th>Service</th><th>Pourquoi</th><th>Quand</th></tr></thead><tbody>
-    <tr><td>GitHub Pages (GitHub, Inc.)</td><td>Hébergement du site</td><td>Toujours</td></tr>
-    <tr><td>OpenFreeMap</td><td>Tuiles et libellés de carte (données © OpenStreetMap contributors)</td><td>Toujours</td></tr>
-    <tr><td>NASA GIBS</td><td>Image de la Terre de l’écran d’accueil</td><td>Écran d’accueil</td></tr>
-    <tr><td>AWS (Terrain Tiles)</td><td>Relief</td><td>Si le relief est activé</td></tr>
-    <tr><td>data.sf.gov, earthquake.usgs.gov, api.weather.gov</td><td>Veille sur des sources publiques officielles</td><td>Quand la veille s’actualise dans votre navigateur</td></tr>
-    <tr><td>api.github.com</td><td>Historique public des collectes automatiques</td><td>Vue « Santé des données »</td></tr>
+    <tr><td>OpenFreeMap</td><td>Tuiles et libellés de carte (© contributeurs OpenStreetMap)</td><td>Quand la carte est affichée</td></tr>
+    <tr><td>NASA GIBS</td><td>Imagerie satellite à l’échelle planétaire</td><td>Quand la carte est affichée</td></tr>
+    <tr><td>AWS Terrain Tiles</td><td>Relief</td><td>Qualité « Haute » uniquement</td></tr>
+    <tr><td>Photon (komoot)</td><td>Trouver des lieux non indexés ; reçoit le nom demandé, le centre du contexte cartographique et l’adresse IP. Le consentement ou refus est mémorisé dans ce navigateur sous core.geocode.consent ; aucun historique des recherches n’est conservé</td><td>Seulement si vous activez cette option</td></tr>
+    <tr><td>Hugging Face, GitHub</td><td>Téléchargement unique des fichiers du modèle d’IA sur l’appareil (ils voient votre adresse IP et les fichiers demandés, jamais votre texte)</td><td>Seulement si vous activez l’IA sur l’appareil</td></tr>
   </tbody></table>
-  <p class="muted">Une politique de sécurité du contenu (CSP) interdit au site de contacter tout autre service. Sur la machine du fondateur uniquement, le site peut contacter un modèle local (Ollama) et lire l’état du superviseur local ; ces adresses ne sont jamais jointes depuis le site public.</p>
-
+  <p class="muted">La politique de sécurité de la page limite les requêtes de CORE, pas le service vocal de l’éditeur du navigateur. Sur l’ordinateur du fondateur uniquement, le site peut aussi utiliser un modèle local ; cette adresse n’est jamais contactée depuis le site public.</p>
+  <h2>CORE Intelligence (IA)</h2>
+  <p>Les demandes écrites sont interprétées dans votre navigateur. Les commandes claires (lieux, agents, preuves) utilisent des règles déterministes. Si vous activez l’IA sur l’appareil, un petit modèle ouvert (Qwen3) tourne dans votre navigateur avec WebGPU ; vos demandes ne sont envoyées ni à CORE ni à personne. Les réponses proviennent des données enregistrées de CORE et peuvent être fausses : sources et limites sont affichées avec elles.</p>
+  <h2>Saisie vocale (facultative)</h2>
+  <p>La saisie vocale et le chat de base ne nécessitent jamais Qwen. Appuyez sur le micro pour démarrer, puis à nouveau ou sur Échap pour annuler. La reconnaissance sur l’appareil déjà disponible est privilégiée. Sinon, une confirmation distincte explique que le navigateur peut envoyer le son à son éditeur selon sa politique de confidentialité. CORE ne reçoit, ne transmet ni ne conserve le son et ne lit jamais les réponses à voix haute. La transcription suit le même traitement que le texte saisi. Aucun module vocal n’est installé automatiquement. La compatibilité et la connexion varient ; en cas d’indisponibilité, de refus ou d’échec, l’écrit fonctionne toujours.</p>
   <h2>Données traitées par les agents</h2>
-  <p>Uniquement des données publiques inscrites dans la politique de données de CORE (DataSF sous ODC-PDDL, USGS, NWS, OpenStreetMap sous ODbL, etc.). Les données individuelles (par exemple les demandes 311, les noms de titulaires ou de propriétaires) sont exclues par conception.</p>
+  <p>Uniquement des jeux de données publics listés dans la politique de données de CORE (par exemple DataSF, USGS, OpenStreetMap). Les données individuelles, comme les demandes 311 ou les noms de titulaires de permis, sont exclues par conception.</p>
+  <h2>Conservation, suppression et contact</h2>
+  <p>CORE ne conserve rien sur vous sur un serveur : il n’y a rien à nous demander. Effacez vos données dans « Mon CORE » ou dans les réglages du navigateur. Questions : <a href="https://github.com/vincentleg/core">github.com/vincentleg/core</a>.</p>
+  </section>
 
-  <h2>Contact</h2>
-  <p>Dépôt public : <a href="https://github.com/vincentleg/core">github.com/vincentleg/core</a>.</p>
+  <section lang="es" id="es">
+  <h1>Privacidad: prototipo público de CORE</h1>
+  <p class="muted">Actualizado el 21 de octubre de 2026 (V9.9). Esta página describe lo que realmente hace el prototipo público. No es asesoramiento jurídico ni afirma cumplir ninguna normativa (RGPD, CCPA/CPRA u otra): ningún profesional del derecho la ha revisado. Traducción redactada por un modelo, sin revisión profesional.</p>
+  <h2>Lo que CORE no hace</h2>
+  <ul>
+    <li>Sin cuenta, sin inicio de sesión y sin formularios enviados a un servidor de CORE: CORE no tiene servidor de aplicación ni base de datos para los visitantes.</li>
+    <li>Sin cookies de CORE, sin analítica, sin rastreadores publicitarios.</li>
+    <li>CORE nunca lee sus respuestas en voz alta y nunca graba ni conserva audio.</li>
+    <li>CORE no entrena ningún modelo con lo que escribes.</li>
+  </ul>
+  <h2>Almacenamiento en tu navegador</h2>
+  <p>Todo lo que creas se queda en este navegador con claves <code>core.*</code> (localStorage y sessionStorage): tu idioma, tu avatar y seudónimo, las misiones seguidas, tus contribuciones, el estado local de los agentes y tus ideas (la bóveda de ideas está cifrada con tu frase de contraseña). La página «Mi CORE» (sección TRUST) enumera estos elementos y los borra; borrar los datos del navegador también los elimina. Si activas la IA en el dispositivo, los archivos del modelo se guardan en la caché del navegador hasta que la borres.</p>
+  <h2>Alojamiento y terceros</h2>
+  <p>El sitio es estático y lo sirve Vercel, Inc. Como en cualquier sitio web, Vercel trata tu dirección IP y los detalles de las solicitudes para entregar las páginas, según sus propias condiciones. Las fuentes y la biblioteca de mapas las sirve el propio CORE. Tu navegador contacta directamente con estos servicios:</p>
+  <table><thead><tr><th>Servicio</th><th>Para qué</th><th>Cuándo</th></tr></thead><tbody>
+    <tr><td>OpenFreeMap</td><td>Teselas y etiquetas del mapa (© colaboradores de OpenStreetMap)</td><td>Cuando se muestra el mapa</td></tr>
+    <tr><td>NASA GIBS</td><td>Imágenes satelitales a escala planetaria</td><td>Cuando se muestra el mapa</td></tr>
+    <tr><td>AWS Terrain Tiles</td><td>Relieve</td><td>Solo en calidad «Alta»</td></tr>
+    <tr><td>Photon (komoot)</td><td>Encontrar lugares no indexados; recibe el nombre solicitado, el centro del contexto del mapa y la IP. El consentimiento o rechazo se guarda en este navegador en core.geocode.consent; no se guarda el historial de búsquedas</td><td>Solo si activas esta opción</td></tr>
+    <tr><td>Hugging Face, GitHub</td><td>Descarga única de los archivos del modelo de IA en el dispositivo (ven tu IP y los archivos solicitados, nunca tu texto)</td><td>Solo si activas la IA en el dispositivo</td></tr>
+  </tbody></table>
+  <p class="muted">La política de seguridad de la página limita las solicitudes de CORE, no el servicio de voz del proveedor del navegador. Solo en el equipo del fundador, el sitio puede usar además un modelo local; esa dirección nunca se contacta desde el sitio público.</p>
+  <h2>CORE Intelligence (IA)</h2>
+  <p>Las solicitudes escritas se interpretan en tu navegador. Las órdenes claras (lugares, agentes, evidencia) usan reglas deterministas. Si activas la IA en el dispositivo, un pequeño modelo abierto (Qwen3) se ejecuta en tu navegador con WebGPU; tus solicitudes no se envían a CORE ni a nadie. Las respuestas proceden de los datos registrados de CORE y pueden ser erróneas: se muestran con sus fuentes y límites.</p>
+  <h2>Entrada de voz (opcional)</h2>
+  <p>A entrada de voz e o chat básico nunca exigem Qwen. Pressione o microfone para começar e novamente ou Escape para cancelar. O reconhecimento no dispositivo já disponível é preferido. Caso contrário, uma confirmação separada explica que o navegador pode enviar áudio ao fornecedor conforme a política de privacidade dele. O CORE não recebe, envia nem armazena áudio e nunca lê respostas em voz alta. As transcrições são processadas como texto digitado. Nenhum pacote de voz é instalado automaticamente. Suporte e conexão variam; se não houver suporte, a permissão for negada ou ocorrer um erro, digitar continua funcionando.</p>
+  <h2>Datos tratados por los agentes</h2>
+  <p>Solo conjuntos de datos públicos incluidos en la política de datos de CORE (por ejemplo DataSF, USGS, OpenStreetMap). Los registros individuales, como solicitudes 311 o nombres de titulares de permisos, quedan excluidos por diseño.</p>
+  <h2>Conservación, eliminación y contacto</h2>
+  <p>CORE no guarda nada sobre ti en un servidor, así que no hay nada que solicitarnos: borra tus datos en «Mi CORE» o en los ajustes del navegador. Preguntas: <a href="https://github.com/vincentleg/core">github.com/vincentleg/core</a>.</p>
+  </section>
+
+  <section lang="de" id="de">
+  <h1>Datenschutz: öffentlicher Prototyp von CORE</h1>
+  <p class="muted">Aktualisiert am 21. Oktober 2026 (V9.9). Diese Seite beschreibt, was der öffentliche Prototyp tatsächlich tut. Sie ist keine Rechtsberatung und beansprucht keine Konformität (DSGVO, CCPA/CPRA oder andere): Keine Rechtsfachperson hat sie geprüft. Von einem Modell verfasste Übersetzung, nicht professionell geprüft.</p>
+  <h2>Was CORE nicht tut</h2>
+  <ul>
+    <li>Kein Konto, keine Anmeldung und kein Formular, das an einen CORE-Server gesendet wird: CORE hat für Besuchende weder Anwendungsserver noch Datenbank.</li>
+    <li>Keine von CORE gesetzten Cookies, keine Reichweitenmessung, keine Werbetracker.</li>
+    <li>CORE liest seine Antworten nie vor und nimmt kein Audio auf oder speichert es.</li>
+    <li>CORE trainiert kein Modell mit dem, was Sie eingeben.</li>
+  </ul>
+  <h2>Speicherung in Ihrem Browser</h2>
+  <p>Alles, was Sie erstellen, bleibt in diesem Browser unter <code>core.*</code>-Schlüsseln (localStorage und sessionStorage): Ihre Sprache, Ihr Avatar und Pseudonym, verfolgte Missionen, Ihre Beiträge, der lokale Zustand der Agenten und Ihre Ideen (der Ideen-Tresor ist mit Ihrer Passphrase verschlüsselt). Die Seite „Mein CORE“ (Abschnitt TRUST) listet diese Elemente auf und löscht sie; auch das Löschen der Browserdaten entfernt sie. Wenn Sie die KI auf dem Gerät aktivieren, bleiben die Modelldateien im Browser-Cache, bis Sie ihn leeren.</p>
+  <h2>Hosting und Dritte</h2>
+  <p>Die Website ist statisch und wird von Vercel, Inc. ausgeliefert. Wie bei jeder Website verarbeitet Vercel Ihre IP-Adresse und Anfragedaten, um die Seiten auszuliefern, nach eigenen Bedingungen. Schriften und die Kartenbibliothek liefert CORE selbst aus. Ihr Browser kontaktiert diese Dienste direkt:</p>
+  <table><thead><tr><th>Dienst</th><th>Wozu</th><th>Wann</th></tr></thead><tbody>
+    <tr><td>OpenFreeMap</td><td>Kartenkacheln und Beschriftungen (© OpenStreetMap-Mitwirkende)</td><td>Wenn die Karte angezeigt wird</td></tr>
+    <tr><td>NASA GIBS</td><td>Satellitenbilder im planetaren Maßstab</td><td>Wenn die Karte angezeigt wird</td></tr>
+    <tr><td>AWS Terrain Tiles</td><td>Relief</td><td>Nur bei Qualität „Hoch“</td></tr>
+    <tr><td>Photon (komoot)</td><td>Nicht indexierte Orte finden; erhält Ortsnamen, Kartenkontextmitte und IP-Adresse. Zustimmung oder Ablehnung wird in diesem Browser unter core.geocode.consent gespeichert; kein gespeicherter Suchverlauf</td><td>Nur wenn Sie diese Option einschalten</td></tr>
+    <tr><td>Hugging Face, GitHub</td><td>Einmaliger Download der Modelldateien der KI auf dem Gerät (sie sehen Ihre IP-Adresse und die angeforderten Dateien, nie Ihren Text)</td><td>Nur wenn Sie die KI auf dem Gerät aktivieren</td></tr>
+  </tbody></table>
+  <p class="muted">Die Sicherheitsrichtlinie der Seite beschränkt CORE-Anfragen, nicht den Sprachdienst des Browseranbieters. Nur auf dem Computer des Gründers kann die Website zusätzlich ein lokales Modell nutzen; diese Adresse wird von der öffentlichen Website nie kontaktiert.</p>
+  <h2>CORE Intelligence (KI)</h2>
+  <p>Getippte Anfragen werden in Ihrem Browser interpretiert. Klare Befehle (Orte, Agenten, Nachweise) nutzen deterministische Regeln. Wenn Sie die KI auf dem Gerät aktivieren, läuft ein kleines offenes Modell (Qwen3) mit WebGPU in Ihrem Browser; Ihre Anfragen werden weder an CORE noch an andere gesendet. Antworten stammen aus den aufgezeichneten Daten von CORE und können falsch sein: Quellen und Grenzen werden mit angezeigt.</p>
+  <h2>Spracheingabe (optional)</h2>
+  <p>Spracheingabe und einfacher Chat benötigen kein Qwen. Drücken Sie das Mikrofon zum Starten und erneut oder Escape zum Abbrechen. Bereits verfügbare Erkennung auf dem Gerät wird bevorzugt. Andernfalls erklärt eine gesonderte Bestätigung, dass Ihr Browser Audio gemäß der Datenschutzerklärung seines Anbieters an diesen senden kann. CORE empfängt, überträgt oder speichert kein Audio und liest Antworten nie vor. Transkriptionen werden wie getippter Text verarbeitet. Kein Sprachpaket wird automatisch installiert. Unterstützung und Verbindung variieren; bei fehlender Unterstützung, Ablehnung oder Fehlern können Sie weiterhin tippen.</p>
+  <h2>Von den Agenten verarbeitete Daten</h2>
+  <p>Nur öffentliche Datensätze aus der Datenrichtlinie von CORE (zum Beispiel DataSF, USGS, OpenStreetMap). Einzeldaten wie 311-Meldungen oder Namen von Genehmigungsinhabern sind konzeptionell ausgeschlossen.</p>
+  <h2>Speicherdauer, Löschung und Kontakt</h2>
+  <p>CORE speichert nichts über Sie auf einem Server, daher müssen Sie nichts bei uns beantragen: Löschen Sie Ihre Daten in „Mein CORE“ oder in den Browsereinstellungen. Fragen: <a href="https://github.com/vincentleg/core">github.com/vincentleg/core</a>.</p>
+  </section>
+
+  <section lang="zh-CN" id="zh-CN">
+  <h1>隐私：CORE 公开原型</h1>
+  <p class="muted">更新于 2026 年 10 月 21 日（V9.9）。本页说明公开原型的实际行为。本页不构成法律意见，也不声称符合任何法规（GDPR、CCPA/CPRA 或其他）：尚无法律专业人士审阅。译文由模型撰写，未经专业审校。</p>
+  <h2>CORE 不做的事</h2>
+  <ul>
+    <li>无账户、无登录，也不会把表单发送到 CORE 服务器：CORE 没有面向访客的应用服务器或数据库。</li>
+    <li>CORE 不设置 Cookie，不做访问统计，不使用广告追踪器。</li>
+    <li>CORE 从不朗读回答，也从不录制或保存音频。</li>
+    <li>CORE 不会用您输入的内容训练任何模型。</li>
+  </ul>
+  <h2>浏览器中的存储</h2>
+  <p>您创建的一切都以 <code>core.*</code> 键保存在此浏览器中（localStorage 和 sessionStorage）：您的语言、头像和化名、关注的任务、您的贡献、智能体的本地状态以及您的想法（想法保险库用您的口令加密）。“我的 CORE”页面（TRUST 部分）会列出并清除这些内容；清除浏览器数据也会删除它们。如果您启用设备端 AI，模型文件会保存在浏览器缓存中，直到您清除缓存。</p>
+  <h2>托管与第三方</h2>
+  <p>本网站为静态网站，由 Vercel, Inc. 提供服务。与任何网站一样，Vercel 会按照其自身条款处理您的 IP 地址和请求信息以提供页面。字体和地图库由 CORE 自行提供。您的浏览器会直接联系以下服务：</p>
+  <table><thead><tr><th>服务</th><th>用途</th><th>何时</th></tr></thead><tbody>
+    <tr><td>OpenFreeMap</td><td>地图瓦片与标注（© OpenStreetMap 贡献者）</td><td>显示地图时</td></tr>
+    <tr><td>NASA GIBS</td><td>行星尺度的卫星影像</td><td>显示地图时</td></tr>
+    <tr><td>AWS Terrain Tiles</td><td>地形</td><td>仅限“高”画质</td></tr>
+    <tr><td>Photon (komoot)</td><td>查找未索引的地点；接收请求的地点名称、地图上下文中心和 IP 地址。授权或拒绝选择保存在此浏览器的 core.geocode.consent 下；不保存搜索历史</td><td>仅在您开启此选项时</td></tr>
+    <tr><td>Hugging Face、GitHub</td><td>一次性下载设备端 AI 模型文件（它们能看到您的 IP 地址和所请求的文件，但看不到您的文本）</td><td>仅在您启用设备端 AI 时</td></tr>
+  </tbody></table>
+  <p class="muted">页面的内容安全策略限制 CORE 的请求，但不控制浏览器提供商的语音服务。仅在创始人自己的计算机上，网站还可以使用本地模型；公开网站从不联系该地址。</p>
+  <h2>CORE Intelligence（AI）</h2>
+  <p>输入的请求在您的浏览器中解析。明确的指令（地点、智能体、证据）使用确定性规则。如果您启用设备端 AI，一个小型开源模型（Qwen3）会借助 WebGPU 在您的浏览器中运行；您的请求不会发送给 CORE 或任何其他方。回答来自 CORE 已记录的数据，可能有误：回答会同时显示来源和局限。</p>
+  <h2>语音输入（可选）</h2>
+  <p>语音输入和基本聊天无需 Qwen。点击麦克风开始，再次点击或按 Escape 取消。优先使用设备上已可用的本地识别。否则，单独的确认提示会说明浏览器可能根据其提供商的隐私政策将音频发送给该提供商。CORE 不接收、上传或存储音频，也不会朗读回答。转录文字与键盘输入采用相同的处理流程。不会自动安装语音包。支持情况和网络需求因浏览器而异；若不支持、权限被拒绝或识别失败，仍可输入文字。</p>
+  <h2>智能体处理的数据</h2>
+  <p>仅限 CORE 数据政策中列出的公共数据集（例如 DataSF、USGS、OpenStreetMap）。个人记录（如 311 请求或许可持有人姓名）在设计上即被排除。</p>
+  <h2>保留、删除与联系</h2>
+  <p>CORE 不在服务器上保存任何关于您的信息，因此无需向我们提出请求：请在“我的 CORE”或浏览器设置中清除数据。如有疑问：<a href="https://github.com/vincentleg/core">github.com/vincentleg/core</a>。</p>
+  </section>
+
+  <section lang="pt" id="pt">
+  <h1>Privacidade: protótipo público do CORE</h1>
+  <p class="muted">Atualizado em 21 de outubro de 2026 (V9.9). Esta página descreve o que o protótipo público realmente faz. Não é aconselhamento jurídico e não afirma conformidade (LGPD, GDPR, CCPA/CPRA ou outra): nenhum profissional do direito a revisou. Tradução redigida por um modelo, sem revisão profissional.</p>
+  <h2>O que o CORE não faz</h2>
+  <ul>
+    <li>Sem conta, sem login e sem formulário enviado a um servidor do CORE: o CORE não tem servidor de aplicação nem banco de dados para os visitantes.</li>
+    <li>Sem cookies do CORE, sem análise de audiência, sem rastreadores de publicidade.</li>
+    <li>O CORE nunca lê suas respostas em voz alta e nunca grava nem guarda áudio.</li>
+    <li>O CORE não treina nenhum modelo com o que você digita.</li>
+  </ul>
+  <h2>Armazenamento no seu navegador</h2>
+  <p>Tudo o que você cria fica neste navegador sob chaves <code>core.*</code> (localStorage e sessionStorage): seu idioma, seu avatar e pseudônimo, as missões acompanhadas, suas contribuições, o estado local dos agentes e suas ideias (o cofre de ideias é criptografado com sua frase-senha). A página “Meu CORE” (seção TRUST) lista esses itens e os apaga; limpar os dados do navegador também os remove. Se você ativar a IA no dispositivo, os arquivos do modelo ficam no cache do navegador até você limpá-lo.</p>
+  <h2>Hospedagem e terceiros</h2>
+  <p>O site é estático e servido pela Vercel, Inc. Como em qualquer site, a Vercel trata seu endereço IP e os detalhes das solicitações para entregar as páginas, segundo seus próprios termos. As fontes e a biblioteca de mapas são servidas pelo próprio CORE. Seu navegador contata diretamente estes serviços:</p>
+  <table><thead><tr><th>Serviço</th><th>Para quê</th><th>Quando</th></tr></thead><tbody>
+    <tr><td>OpenFreeMap</td><td>Blocos e rótulos do mapa (© colaboradores do OpenStreetMap)</td><td>Quando o mapa é exibido</td></tr>
+    <tr><td>NASA GIBS</td><td>Imagens de satélite em escala planetária</td><td>Quando o mapa é exibido</td></tr>
+    <tr><td>AWS Terrain Tiles</td><td>Relevo</td><td>Apenas na qualidade “Alta”</td></tr>
+    <tr><td>Photon (komoot)</td><td>Encontrar locais não indexados; recebe o nome solicitado, o centro do contexto do mapa e o IP. O consentimento ou a recusa fica neste navegador em core.geocode.consent; o histórico de buscas não é salvo</td><td>Apenas se você ativar esta opção</td></tr>
+    <tr><td>Hugging Face, GitHub</td><td>Download único dos arquivos do modelo de IA no dispositivo (veem seu IP e os arquivos pedidos, nunca seu texto)</td><td>Apenas se você ativar a IA no dispositivo</td></tr>
+  </tbody></table>
+  <p class="muted">A política de segurança da página restringe solicitações do CORE, não o serviço de voz do fornecedor do navegador. Apenas no computador do fundador o site também pode usar um modelo local; esse endereço nunca é contatado pelo site público.</p>
+  <h2>CORE Intelligence (IA)</h2>
+  <p>As solicitações digitadas são interpretadas no seu navegador. Comandos claros (locais, agentes, evidências) usam regras determinísticas. Se você ativar a IA no dispositivo, um pequeno modelo aberto (Qwen3) roda no seu navegador com WebGPU; suas solicitações não são enviadas ao CORE nem a ninguém. As respostas vêm dos dados registrados do CORE e podem estar erradas: são exibidas com suas fontes e limites.</p>
+  <h2>Entrada de voz (opcional)</h2>
+  <p>Se o seu navegador oferecer reconhecimento de voz no dispositivo, aparece um botão de microfone. O microfone só é ativado quando você o pressiona; seu navegador transforma a fala em texto no seu dispositivo e o CORE recebe apenas o texto, como se você o tivesse digitado. No primeiro uso, seu navegador pode baixar o próprio pacote de voz do fabricante. Navegadores sem reconhecimento no dispositivo não mostram microfone; digitar sempre funciona.</p>
+  <h2>Dados tratados pelos agentes</h2>
+  <p>Apenas conjuntos de dados públicos listados na política de dados do CORE (por exemplo DataSF, USGS, OpenStreetMap). Registros individuais, como pedidos 311 ou nomes de titulares de licenças, são excluídos por concepção.</p>
+  <h2>Retenção, exclusão e contato</h2>
+  <p>O CORE não guarda nada sobre você em um servidor, então não há nada a nos pedir: apague seus dados em “Meu CORE” ou nas configurações do navegador. Dúvidas: <a href="https://github.com/vincentleg/core">github.com/vincentleg/core</a>.</p>
+  </section>
 </main>
 </body>
 </html>

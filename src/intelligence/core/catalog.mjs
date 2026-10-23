@@ -1,0 +1,68 @@
+// Public records only. Geographic assignments are not proof of active workers or completed research.
+import {TAXONOMY,PLACE_ALIASES,has,RELATIONAL,AGENT,navigationQuery,featureType,coordinatePair} from './lexicon.mjs';
+// Unicode-aware: accents are removed, letters of every script are kept (Chinese queries must survive normalisation).
+export const normal = s => String(s || '').normalize('NFD').replace(/\p{M}/gu, '').toLowerCase().replace(/ß/g, 'ss').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+export const distance = (a,b) => { const r=Math.PI/180, dlat=(b[1]-a[1])*r, dlon=(b[0]-a[0])*r; return 12742000*Math.asin(Math.min(1,Math.sqrt(Math.sin(dlat/2)**2+Math.cos(a[1]*r)*Math.cos(b[1]*r)*Math.sin(dlon/2)**2))); };
+export const coordinates = p => Array.isArray(p)&&p.length===2&&p.every(Number.isFinite)&&Math.abs(p[0])<=180&&Math.abs(p[1])<=85;
+export const KNOWLEDGE=[
+ {id:'core-now',href:'solutions.html',en:'Today, AVAILABLE NOW: 3D Earth, 500 registered geographic identities across 16 Bay Area municipalities, sourced dossiers, a recorded local-model investigation, editable exploratory traffic calculations, browser-local contributions and CORE Intelligence: instant indexed navigation plus optional on-device AI (Qwen3 in the visitor browser with WebGPU, after consent). No CORE-hosted inference server and no verified real-world impact.',fr:'Aujourd’hui, DISPONIBLE : Terre 3D, 500 identités géographiques dans 16 communes de la baie, dossiers sourcés, enquête par modèle local enregistrée, calculs exploratoires modifiables, contributions locales au navigateur et CORE Intelligence : navigation indexée instantanée et IA optionnelle sur l’appareil (Qwen3 dans le navigateur avec WebGPU, après consentement). Aucun serveur d’inférence hébergé par CORE ni impact réel vérifié.'},
+ {id:'core-workers',href:'world.html#investigations',en:'The 500 identities are registered assignments, not 500 running language models. The published investigation is recorded work by seven agents using local Ollama/Qwen3:8B. No live worker is established by the published snapshot. Walking is presentation, not reasoning.',fr:'Les 500 identités sont des affectations, pas 500 modèles actifs. L’enquête publiée est le travail enregistré de sept agents avec Ollama/Qwen3:8B local. Le snapshot ne prouve aucun travailleur actif. La marche est visuelle, pas du raisonnement.'},
+ {id:'core-plus',href:'plans.html#plus',en:'PLANNED: Plus is a proposed $12/month personal research workspace with collections, notes, following, digests and exports. No Plus subscription, billing, cloud workspace or cross-device continuity is implemented. Equal civic participation remains free.',fr:'PRÉVU : Plus est un espace de recherche personnel proposé à 12 $/mois : collections, notes, suivi, synthèses et exports. Aucun abonnement, paiement, espace cloud ni continuité multi-appareils n’est implémenté. La participation civique reste gratuite.'},
+ {id:'core-plans',href:'plans.html',en:'Proposed pricing hypotheses, not purchasable offers: Free $0, Plus $12/month, Business from $299/month, City from $2500/month, Region from $10000/month, Government custom. Professional features require implementation and validation.',fr:'Hypothèses tarifaires non commercialisées : Free 0 $, Plus 12 $/mois, Business dès 299 $, City dès 2500 $, Region dès 10000 $, Government sur mesure. Les fonctions professionnelles nécessitent implémentation et validation.'},
+ {id:'core-method',href:'world.html#city',en:'Exploratory transport scenarios use assumed demand, lanes and signal timings. They are uncalibrated calculations, not validated traffic forecasts or measured congestion improvements. Real-world deployment requires authorized observations, calibration and accountable human review.',fr:'Les scénarios de transport emploient des hypothèses de demande, voies et feux. Ces calculs non calibrés ne sont ni des prévisions validées ni des gains réels mesurés. Un déploiement exige des observations autorisées, une calibration et un examen humain responsable.'},
+ {id:'core-vision',href:'manifesto.html',en:'LONG-TERM VISION: a living digital Earth connecting human contributions, evidence, systems and reviewed progress. Planetary simulation and the Kardashev horizon are ambitions, not shipped capabilities.',fr:'VISION DE LONG TERME : une Terre numérique reliant contributions humaines, preuves, systèmes et progrès examinés. La simulation planétaire et l’horizon de Kardashev sont des ambitions, pas des capacités livrées.'},
+ {id:'core-privacy',href:'privacy.html',en:'Conversation context stays in session memory and can be reset. On-device AI runs in this browser after a one-time model download from Hugging Face; requests are not sent to CORE. Local intelligence sends text to the local model only. Optional voice input is turned into text by the browser on this device; CORE receives only the text and never records or speaks.',fr:'Le contexte reste en mémoire de session et peut être effacé. L’IA sur l’appareil s’exécute dans ce navigateur après un téléchargement unique depuis Hugging Face ; les demandes ne sont pas envoyées à CORE. L’intelligence locale transmet le texte au modèle local uniquement. La saisie vocale facultative est convertie en texte par le navigateur sur l’appareil ; CORE ne reçoit que le texte, n’enregistre rien et ne parle jamais.'}
+];
+
+export function domains(query){const q=normal(query);return Object.entries(TAXONOMY).filter(([k,words])=>[normal(k),...words].some(w=>q.includes(normal(w)))).map(([k])=>k);}
+export async function loadCatalog(fetchImpl=fetch){
+ // Large published catalogs need more than 15 s on constrained mobile links; keep a finite deadline and one retry.
+ const get=async p=>{for(let attempt=0;;attempt++)try{const r=await fetchImpl(p,{signal:AbortSignal.timeout(60000)});if(!r.ok)throw Error('Published records unavailable: '+p);return await r.json();}catch(e){
+  // A reset during startup must not leave Intelligence permanently uninitialised; invalid data still fails closed.
+  if(!['TypeError','TimeoutError','AbortError'].includes(e.name))throw e;
+  if(attempt)throw Error('Published records unavailable: '+p,{cause:e}); // name the file that was not received
+  await new Promise(resolve=>setTimeout(resolve,250));
+ }};
+ const [work,regions,urban,landmarks]=await Promise.all([get('data/intelligence/work.json'),get('data/intelligence/regions.json'),get('data/urban/catalog.json'),get('data/intelligence/places.json').catch(()=>({places:[]}))]);
+ if(work.registry?.length!==500||new Set(work.registry.map(a=>a.id)).size!==500)throw Error('Invalid 500-agent registry');
+ const cities=regions.regions.map(r=>({id:'city:'+normal(r.name).replaceAll(' ','-'),name:r.name,city:r.name,coordinates:r.center,zoom:12,type:'city',aliases:[r.name],source:{id:'census-places',href:regions.source.url||regions.source.endpoint||'https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html',text:'U.S. Census Bureau municipal reference point; statistical geography'}}));
+ const streets=['FOLSOM','HOWARD'].map(name=>{const segs=urban.segments.filter(s=>s.label.startsWith(name+' ST:'));const points=segs.flatMap(s=>s.coordinates);return {id:'street:'+name.toLowerCase()+':san-francisco',name:name==='FOLSOM'?'Folsom Street':'Howard Street',city:'San Francisco',coordinates:points.length?[points.reduce((v,p)=>v+p[0],0)/points.length,points.reduce((v,p)=>v+p[1],0)/points.length]:null,zoom:15,type:'street',aliases:[name+' street',name+' st',name+' rue'],source:{id:'sf-streets',href:urban.sources.find(s=>s.id==='sf-streets')?.url,text:'DataSF mapped corridor, 2nd–11th Street only; street-wide address resolution is unavailable locally'}};}).filter(p=>coordinates(p.coordinates));
+ const places=[...cities,...streets,...landmarks.places].map(p=>PLACE_ALIASES[p.id]?{...p,aliases:[...p.aliases,...PLACE_ALIASES[p.id]]}:p);
+ if(places.some(p=>!coordinates(p.coordinates)))throw Error('Invalid published place coordinates');
+ const agents=work.registry.map(a=>{if(!coordinates(a.assignment))throw Error('Invalid agent assignment');const tasks=work.run.tasks.filter(t=>t.agent===a.id);return {...a,tasks,recorded:tasks.some(t=>t.status==='completed'),worker:'offline',searchText:normal([a.id,a.code,a.name,a.role,a.domain,a.geography,a.mission,...a.tools,...tasks.map(t=>t.goal+' '+JSON.stringify(t.output||{})),...work.run.findings.filter(f=>f.agent===a.id).map(f=>f.tool+' '+(f.output.publisher||f.output.source||''))].join(' '))};});
+ return {work,urban,places,homeCity:streets[0]?.city,cities:places.filter(p=>p.type==='city'),agents,knowledge:KNOWLEDGE};
+}
+const skeleton=w=>normal(w).replace(/\b(street|st|rue|avenue|ave|bridge|pont|the|le|la)\b/g,'').replace(/[aeiouy\s]/g,'').replace(/(.)\1+/g,'$1');
+export function editDistance(a,b){if(Math.abs(a.length-b.length)>2)return 3;let row=Array.from({length:b.length+1},(_,i)=>i);for(let i=1;i<=a.length;i++){const next=[i];for(let j=1;j<=b.length;j++)next[j]=Math.min(next[j-1]+1,row[j]+1,row[j-1]+(a[i-1]!==b[j-1]));row=next;}return row[b.length];}
+// A city is mentioned by any of its names ("Oakland", "奥克兰"); Latin names as whole words, Chinese as substrings.
+export const mentions=(q,p)=>p.aliases.some(a=>has(q,normal(a)));
+export function searchPlaces(catalog,query,city=''){
+ const raw=navigationQuery(query),pair=coordinatePair(raw);
+ if(pair)return {places:coordinates(pair)?[{id:'coordinates:'+pair.join(','),name:raw,city:'',coordinates:pair,zoom:16,type:'coordinates',aliases:[raw],source:{id:'user-coordinates',text:'Coordinates explicitly supplied by the user; no geocoding or address verification'}}]:[],ambiguous:false,fuzzy:false};
+ const entity=normal(raw.split(/,|\s+(?:in|à|en|em)\s+/iu)[0]);
+ const kind=featureType(normal(raw)),q=normal(raw),mentioned=catalog.cities.filter(p=>mentions(q,p)),c=normal(city|| (mentioned.length===1?mentioned[0].city:''));
+ const references=catalog.places.filter(p=>p.type!=='city'&&p.aliases.some(a=>has(q,normal(a))));
+ if(RELATIONAL.test(q)&&references.length>1)return {places:references,ambiguous:true,fuzzy:false};
+ const compatible=p=>(!kind||kind===(p.type==='landmark'?featureType(normal(p.name)):p.type))&&kind!=='address';
+ const named=catalog.places.filter(p=>p.type!=='city'&&compatible(p)&&p.aliases.some(a=>has(q,normal(a))));
+ if(c&&named.some(p=>normal(p.city)!==c))return {places:[...named,...catalog.cities.filter(p=>normal(p.city)===c)],ambiguous:true,fuzzy:false};
+ const hits=catalog.places.filter(p=>compatible(p)&&(!c||normal(p.city)===c)&&p.aliases.some(a=>has(q,normal(a))));
+ // Speech recognition mishears names ("fall some street" for Folsom Street): a matching consonant skeleton only ever
+ // offers the place as a choice (ambiguous), never navigates by itself.
+ if(!named.length){const sounds=catalog.places.filter(p=>p.type!=='city'&&compatible(p)&&(!c||normal(p.city)===c)&&p.aliases.some(a=>{const k=skeleton(a);return k.length>=4&&q.split(' ').some((_,i,w)=>[1,2,3].some(n=>skeleton(w.slice(i,i+n).join(' '))===k));}));if(sounds.length)return {places:sounds,ambiguous:true,fuzzy:true};}
+ if(!named.length&&(kind||/\b(street|rue|avenue|intersection|address|adresse|downtown|quartier|neighborhood|calle|strasse|rua|endereco|direccion|barrio|bairro|viertel)\b|\d+/.test(q)||/街|路|大道|地址/.test(q)))return {places:[],ambiguous:false,fuzzy:false};
+ const exact=hits.filter(p=>p.type!=='city');const selected=exact.length?exact:hits.filter(p=>AGENT.test(q)||p.aliases.some(a=>normal(a)===entity));
+ const partial=selected.some(p=>p.type!=='city'&&(!p.aliases.some(a=>normal(a)===entity)&&entity!==normal(p.name)||!has(q,normal(p.name))&&!kind));
+ if(selected.length)return {places:selected,ambiguous:partial||selected.length>1&&selected.some(p=>distance(p.coordinates,selected[0].coordinates)>1000),partial,fuzzy:false};
+ const candidates=catalog.places.filter(p=>compatible(p)&&(!c||normal(p.city)===c)&&p.aliases.some(a=>entity.split(' ').some((_,i,words)=>{const part=words.slice(i,i+normal(a).split(' ').length).join(' ');return part.length>=4&&editDistance(part,normal(a))<=2;})));
+ return {places:candidates,ambiguous:candidates.length>0,fuzzy:candidates.length>0};
+}
+export function searchAgents(catalog,{query='',city='',recorded_only=false,near=null,ids=null}={}){
+ const ds=domains(query),q=normal(query),words=q.split(' ').filter(w=>w.length>3&&!['agent','agents','find','show','near','working','trouve','montre','travaille','specialist','specializing'].includes(w));
+ return catalog.agents.filter(a=>(!city||normal(a.geography)===normal(city))&&(!recorded_only||a.recorded)&&(!ids||ids.includes(a.id))).map(a=>{const domainScore=ds.some(d=>a.domain===d||d==='mobility'&&a.domain==='public-transport')?20:0;const score=domainScore+words.filter(w=>a.searchText.includes(w)).length;return {...a,score,distance:near?distance(near,a.assignment):null,match:domainScore?'registered domain: '+a.domain:'matching registry/task terms'};}).filter(a=>!ds.length&&!words.length||a.score>0&&(!ds.length||ds.some(d=>a.domain===d||d==='mobility'&&a.domain==='public-transport'))).sort((a,b)=>b.score-a.score||Number(b.recorded)-Number(a.recorded)||(a.distance??0)-(b.distance??0)||a.id.localeCompare(b.id));
+}
+export function evidenceFor(catalog,agentId){
+ const tasks=agentId?catalog.work.run.tasks.filter(t=>t.agent===agentId&&t.status==='completed'):catalog.work.run.tasks.filter(t=>t.status==='completed');
+ const flagged=new Set((catalog.work.narrativeFlags||[]).map(f=>f.text));
+ return tasks.flatMap(t=>(t.output?.claims||[]).map((c,i)=>({id:t.id+':'+i,text:c.text,cites:c.cites,flagged:flagged.has(c.text),agent:t.agent,completed:t.completed,kind:'recorded model claim',href:'world.html#investigations'})));
+}

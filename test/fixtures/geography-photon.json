@@ -1,0 +1,793 @@
+{
+ "source": "https://photon.komoot.io/api/",
+ "attribution": "OpenStreetMap contributors · ODbL 1.0 · official Photon/komoot service",
+ "recordedAt": "2026-10-21T22:21:52.411163+00:00",
+ "queries": [
+  {
+   "query": "Golden Gate Park",
+   "response": {
+    "type": "FeatureCollection",
+    "features": [
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "W",
+       "osm_id": 158602261,
+       "osm_key": "leisure",
+       "osm_value": "park",
+       "type": "other",
+       "name": "Golden Gate Park",
+       "city": "San Francisco",
+       "state": "California",
+       "country": "United States",
+       "countrycode": "US",
+       "extent": [
+        -122.5108673,
+        37.7746518,
+        -122.45318,
+        37.764142
+       ]
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        -122.4821837,
+        37.7693681
+       ]
+      }
+     },
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "W",
+       "osm_id": 476267889,
+       "osm_key": "leisure",
+       "osm_value": "stadium",
+       "type": "house",
+       "name": "Golden Gate Park Polo Field and Stadium",
+       "street": "Officer James W. Bloesch Road",
+       "district": "Sunset District",
+       "city": "San Francisco",
+       "state": "California",
+       "country": "United States",
+       "postcode": "94121",
+       "countrycode": "US",
+       "extent": [
+        -122.4955914,
+        37.7696385,
+        -122.4899203,
+        37.7667358
+       ]
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        -122.4927581,
+        37.7681783
+       ]
+      }
+     },
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "W",
+       "osm_id": 270649064,
+       "osm_key": "leisure",
+       "osm_value": "park",
+       "type": "other",
+       "name": "Golden Gate Park",
+       "district": "St. James-Assiniboia",
+       "city": "Winnipeg",
+       "state": "Manitoba",
+       "country": "Canada",
+       "countrycode": "CA",
+       "extent": [
+        -97.2608675,
+        49.8782811,
+        -97.2577694,
+        49.8757426
+       ]
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        -97.2595513,
+        49.8772889
+       ]
+      }
+     },
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "W",
+       "osm_id": 792942954,
+       "osm_key": "landuse",
+       "osm_value": "residential",
+       "type": "locality",
+       "name": "Golden Gate Park",
+       "city": "Davenport",
+       "county": "Scott",
+       "state": "Iowa",
+       "country": "United States",
+       "countrycode": "US",
+       "extent": [
+        -90.6069124,
+        41.5419612,
+        -90.603388,
+        41.5395119
+       ]
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        -90.6057842,
+        41.5410356
+       ]
+      }
+     },
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "W",
+       "osm_id": 435326930,
+       "osm_key": "leisure",
+       "osm_value": "park",
+       "type": "other",
+       "name": "Golden Gate Park",
+       "district": "North Oakland",
+       "city": "Oakland",
+       "county": "Alameda County",
+       "state": "California",
+       "country": "United States",
+       "countrycode": "US",
+       "extent": [
+        -122.2843122,
+        37.8453638,
+        -122.2820933,
+        37.8444016
+       ]
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        -122.2832198,
+        37.8450337
+       ]
+      }
+     },
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "W",
+       "osm_id": 478945997,
+       "osm_key": "leisure",
+       "osm_value": "park",
+       "type": "other",
+       "name": "Golden Gate Park",
+       "city": "Moses Lake",
+       "county": "Grant",
+       "state": "Washington",
+       "country": "United States",
+       "countrycode": "US",
+       "extent": [
+        -119.2998042,
+        47.1241303,
+        -119.2958788,
+        47.12239
+       ]
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        -119.2983425,
+        47.1232424
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "query": "Eiffel Tower",
+   "response": {
+    "type": "FeatureCollection",
+    "features": [
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "W",
+       "osm_id": 5013364,
+       "osm_key": "man_made",
+       "osm_value": "tower",
+       "type": "house",
+       "housenumber": "5",
+       "name": "Eiffel Tower",
+       "street": "Avenue Anatole France",
+       "locality": "Gros-Caillou",
+       "district": "Paris",
+       "city": "Paris",
+       "state": "Île-de-France",
+       "country": "France",
+       "postcode": "75007",
+       "countrycode": "FR",
+       "extent": [
+        2.2933119,
+        48.8590453,
+        2.2956897,
+        48.8574753
+       ]
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        2.2945006,
+        48.8582599
+       ]
+      }
+     },
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "N",
+       "osm_id": 2689315641,
+       "osm_key": "natural",
+       "osm_value": "peak",
+       "type": "other",
+       "name": "Eiffel Tower",
+       "county": "Improvement District No. 9",
+       "state": "Alberta",
+       "country": "Canada",
+       "countrycode": "CA"
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        -116.235,
+        51.3336
+       ]
+      }
+     },
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "W",
+       "osm_id": 909515324,
+       "osm_key": "man_made",
+       "osm_value": "tower",
+       "type": "house",
+       "name": "Eiffel Tower",
+       "county": "Hanover",
+       "state": "Virginia",
+       "country": "United States",
+       "postcode": "23047",
+       "countrycode": "US",
+       "extent": [
+        -77.4455335,
+        37.8401152,
+        -77.4450428,
+        37.8397402
+       ]
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        -77.4452828,
+        37.8399146
+       ]
+      }
+     },
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "W",
+       "osm_id": 354915873,
+       "osm_key": "leisure",
+       "osm_value": "park",
+       "type": "other",
+       "name": "Eiffel Tower Park",
+       "district": "Hancock",
+       "city": "Paris",
+       "county": "Henry",
+       "state": "Tennessee",
+       "country": "United States",
+       "countrycode": "US",
+       "extent": [
+        -88.3032658,
+        36.2883488,
+        -88.298259,
+        36.2856481
+       ]
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        -88.3007407,
+        36.2870954
+       ]
+      }
+     },
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "W",
+       "osm_id": 1051308117,
+       "osm_key": "leisure",
+       "osm_value": "park",
+       "type": "other",
+       "name": "Eiffel Tower Park",
+       "district": "Hancock",
+       "city": "Paris",
+       "county": "Henry",
+       "state": "Tennessee",
+       "country": "United States",
+       "countrycode": "US",
+       "extent": [
+        -88.3079641,
+        36.288519,
+        -88.3033215,
+        36.2855243
+       ]
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        -88.305595,
+        36.2870171
+       ]
+      }
+     },
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "W",
+       "osm_id": 1422964661,
+       "osm_key": "leisure",
+       "osm_value": "park",
+       "type": "other",
+       "name": "Eiffel Tower Park Bharia Town",
+       "district": "Bahria Town Karachi",
+       "city": "Karachi",
+       "county": "Karāchi District",
+       "state": "Sindh",
+       "country": "Pakistan",
+       "countrycode": "PK",
+       "extent": [
+        67.3489761,
+        25.1375206,
+        67.3507935,
+        25.1356687
+       ]
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        67.349969,
+        25.1366204
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "query": "Tokyo",
+   "response": {
+    "type": "FeatureCollection",
+    "features": [
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "R",
+       "osm_id": 1543125,
+       "osm_key": "place",
+       "osm_value": "province",
+       "type": "city",
+       "name": "Tokyo",
+       "country": "Japan",
+       "countrycode": "JP",
+       "extra": {
+        "admin_level": "4"
+       },
+       "extent": [
+        135.8536855,
+        35.8984245,
+        154.205541,
+        20.2145811
+       ]
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        139.7638947,
+        35.6768601
+       ]
+      }
+     },
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "N",
+       "osm_id": 2149761647,
+       "osm_key": "railway",
+       "osm_value": "station",
+       "type": "house",
+       "housenumber": "1",
+       "name": "Tōkyō",
+       "street": "9",
+       "locality": "Marunouchi 1",
+       "district": "Chiyoda",
+       "city": "Tokyo",
+       "state": "東京都",
+       "country": "Japan",
+       "postcode": "100-0005",
+       "countrycode": "JP"
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        139.766706,
+        35.6812546
+       ]
+      }
+     },
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "R",
+       "osm_id": 17864987,
+       "osm_key": "place",
+       "osm_value": "island",
+       "type": "other",
+       "name": "Tokyo International Airport",
+       "locality": "羽田空港",
+       "city": "Tokyo",
+       "country": "Japan",
+       "postcode": "144-0041",
+       "countrycode": "JP",
+       "extent": [
+        139.7539835,
+        35.5704477,
+        139.8257329,
+        35.5209727
+       ]
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        139.7760994,
+        35.5456924
+       ]
+      }
+     },
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "R",
+       "osm_id": 13904308,
+       "osm_key": "natural",
+       "osm_value": "bay",
+       "type": "other",
+       "name": "Tokyo Bay",
+       "state": "Chiba Prefecture",
+       "country": "Japan",
+       "countrycode": "JP",
+       "extent": [
+        139.6215726,
+        35.68371,
+        140.1270476,
+        35.2562939
+       ]
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        139.8477024,
+        35.4700117
+       ]
+      }
+     },
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "W",
+       "osm_id": 20028328,
+       "osm_key": "leisure",
+       "osm_value": "stadium",
+       "type": "house",
+       "housenumber": "61",
+       "name": "Tokyo Dome",
+       "street": "3",
+       "locality": "Kōraku 1",
+       "district": "Bunkyo",
+       "city": "Tokyo",
+       "state": "東京都",
+       "country": "Japan",
+       "postcode": "112-0004",
+       "countrycode": "JP",
+       "extent": [
+        139.75078,
+        35.7064952,
+        139.7531508,
+        35.704533
+       ]
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        139.7519705,
+        35.7055706
+       ]
+      }
+     },
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "W",
+       "osm_id": 25805283,
+       "osm_key": "highway",
+       "osm_value": "trunk",
+       "type": "street",
+       "name": "Tokyo Kanjo",
+       "locality": "Minamihashimoto 2-chome",
+       "district": "Chuo Ward",
+       "city": "Sagamihara",
+       "state": "Kanagawa Prefecture",
+       "country": "Japan",
+       "postcode": "252-0253",
+       "countrycode": "JP",
+       "extent": [
+        139.3495094,
+        35.5845117,
+        139.3508173,
+        35.5841288
+       ]
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        139.3501652,
+        35.5843268
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "query": "Market Street, San Francisco",
+   "tag": "highway",
+   "response": {
+    "type": "FeatureCollection",
+    "features": [
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "W",
+       "osm_id": 417087695,
+       "osm_key": "highway",
+       "osm_value": "secondary",
+       "type": "street",
+       "name": "Market Street",
+       "locality": "Civic Center",
+       "city": "San Francisco",
+       "state": "California",
+       "country": "United States",
+       "postcode": "94102",
+       "countrycode": "US",
+       "extent": [
+        -122.4175739,
+        37.7775451,
+        -122.416362,
+        37.7765816
+       ]
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        -122.416969,
+        37.7770647
+       ]
+      }
+     },
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "W",
+       "osm_id": 767943720,
+       "osm_key": "highway",
+       "osm_value": "primary",
+       "type": "street",
+       "name": "Market Street",
+       "locality": "Hayes Valley",
+       "district": "Mission",
+       "city": "San Francisco",
+       "state": "California",
+       "country": "United States",
+       "postcode": "94143",
+       "countrycode": "US",
+       "extent": [
+        -122.4213355,
+        37.7741233,
+        -122.4207377,
+        37.7736501
+       ]
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        -122.4210366,
+        37.7738867
+       ]
+      }
+     },
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "W",
+       "osm_id": 88572948,
+       "osm_key": "highway",
+       "osm_value": "secondary",
+       "type": "street",
+       "name": "New Montgomery Street",
+       "locality": "South of Market",
+       "city": "San Francisco",
+       "state": "California",
+       "country": "United States",
+       "postcode": "94105",
+       "countrycode": "US",
+       "extent": [
+        -122.4005089,
+        37.7874553,
+        -122.3989843,
+        37.7862063
+       ]
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        -122.3997473,
+        37.7868299
+       ]
+      }
+     },
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "W",
+       "osm_id": 89782522,
+       "osm_key": "highway",
+       "osm_value": "tertiary",
+       "type": "street",
+       "name": "Stockton Street",
+       "locality": "South of Market",
+       "city": "San Francisco",
+       "state": "California",
+       "country": "United States",
+       "postcode": "94108",
+       "countrycode": "US",
+       "extent": [
+        -122.4062464,
+        37.785774,
+        -122.4059164,
+        37.7857035
+       ]
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        -122.4060947,
+        37.7857066
+       ]
+      }
+     },
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "W",
+       "osm_id": 571967387,
+       "osm_key": "highway",
+       "osm_value": "secondary",
+       "type": "street",
+       "name": "Polk Street",
+       "locality": "South of Market",
+       "district": "Mission",
+       "city": "San Francisco",
+       "state": "California",
+       "country": "United States",
+       "postcode": "94102",
+       "countrycode": "US",
+       "extent": [
+        -122.4175148,
+        37.7765515,
+        -122.4174466,
+        37.7765092
+       ]
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        -122.4174805,
+        37.7765307
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "query": "UCSF Medical Center",
+   "tag": "amenity:hospital",
+   "response": {
+    "type": "FeatureCollection",
+    "features": [
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "W",
+       "osm_id": 580277612,
+       "osm_key": "amenity",
+       "osm_value": "hospital",
+       "type": "house",
+       "housenumber": "1975",
+       "name": "UCSF Medical Center at Mission Bay",
+       "street": "4th Street",
+       "locality": "Mission Bay",
+       "district": "Mission Bay",
+       "city": "San Francisco",
+       "state": "California",
+       "country": "United States",
+       "postcode": "94143",
+       "countrycode": "US",
+       "extent": [
+        -122.392424,
+        37.7667901,
+        -122.3890793,
+        37.7643645
+       ]
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        -122.3907673,
+        37.7659389
+       ]
+      }
+     },
+     {
+      "type": "Feature",
+      "properties": {
+       "osm_type": "W",
+       "osm_id": 160833250,
+       "osm_key": "amenity",
+       "osm_value": "hospital",
+       "type": "house",
+       "housenumber": "1600",
+       "name": "UCSF Mount Zion Campus",
+       "street": "Divisadero Street",
+       "locality": "Lower Pacific Heights",
+       "district": "Western Addition",
+       "city": "San Francisco",
+       "state": "California",
+       "country": "United States",
+       "postcode": "94115",
+       "countrycode": "US",
+       "extent": [
+        -122.4412524,
+        37.7862619,
+        -122.4377338,
+        37.7834862
+       ]
+      },
+      "geometry": {
+       "type": "Point",
+       "coordinates": [
+        -122.4389299,
+        37.7848882
+       ]
+      }
+     }
+    ]
+   }
+  }
+ ]
+}

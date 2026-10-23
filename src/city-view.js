@@ -7,7 +7,7 @@
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const STATUS_LABEL = { working: 'données réelles', partial: 'partiel', candidate: 'candidat', unavailable: 'indisponible' };
-  const STATE_CLASS = { 'ÉLIGIBLE À LA REVUE HUMAINE': 'ok', 'PREUVES SUPPLÉMENTAIRES REQUISES': 'warn', REJETÉ: 'fail' };
+  const STATE_CLASS = { 'ÉLIGIBLE À LA REVUE HUMAINE': 'info', 'PREUVES SUPPLÉMENTAIRES REQUISES': 'warn', REJETÉ: 'fail' };
   const BASIS_LABEL = { observed: 'OBSERVÉ', derived: 'DÉRIVÉ (géographie)', rule: 'RÈGLE', hypothesis: 'HYPOTHÈSE' };
 
   const V = { map: null, ctx: null, events: [], result: null, mode: 'idle', paused: false, speed: 120, alt: null, period: 'recent', themes: { infrastructure: true, buildings: true, nature: true, energy: false, public_space: false, events: true } };

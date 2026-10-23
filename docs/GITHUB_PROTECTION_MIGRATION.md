@@ -34,3 +34,29 @@ Action externe précise à autoriser, sans achat :
 3. Après PR réelle réussie : remplacer seulement la publication du cron par ce parcours, conserver schedules/gates/collecteurs ; puis Settings → Branches → Add branch protection rule → main : PR, core-verify/GitHub Actions à jour, conversations résolues, contrôles appliqués aux administrateurs, aucun force-push/suppression. Payload proposé disponible ; vérifier ensuite API `protected=true` et un cycle réel. Ne pas appliquer ce payload prématurément.
 
 Référence fraîche : [GitHub, disponibilité sur dépôt public Free](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches). Aucun upgrade requis pour cette capacité ; ne pas assimiler cela à un audit de facturation.
+
+
+## Recommended configuration — 2026-10-15 (consolidation branch, not applied)
+
+Live API: `main` has 0 effective rules and no rulesets; the repo is public, so both classic protection and rulesets are available without an upgrade. CI check `core-verify` is emitted by GitHub Actions (`integration_id` 15368), confirmed on `903ea98`.
+
+- **Recommended: repository ruleset** `docs/github/main-ruleset.proposed.json`. It applies to administrators too, because the bypass list is empty, and it can be paused and audited in the Rules UI.
+  - Blocks deletion and non-fast-forward pushes.
+  - Requires a PR with resolved review threads and stale-review dismissal.
+  - Requires an up-to-date `core-verify` from GitHub Actions.
+  - The classic payload `main-protection.proposed.json` stays as an equivalent alternative. Do not enable both.
+- **Reviews.** `required_approving_review_count: 0`, because GitHub forbids self-approval and there is a single maintainer. The PR plus CI plus thread resolution is the gate. Raise it to 1 once a second reviewer exists.
+- **Order (unchanged, OP01).** Enabling this today breaks the `city-feed` direct push to `main`.
+  1. Authorize the Actions PR permission.
+  2. Install the PR template workflow.
+  3. Run one successful candidate PR.
+  4. Then apply the ruleset: `gh api -X POST repos/vincentleg/core/rulesets --input docs/github/main-ruleset.proposed.json`.
+  5. Verify with `gh api repos/vincentleg/core/rules/branches/main`.
+  No bypass is granted to the bot.
+
+**Template hardening (2026-10-15, inactive).** `city-feed-pr.yml.example` stays manual-only, behind `CORE_FEED_PR_ENABLED`, with no `schedule:`, merge or approve step (enforced by `test/founder-decisions.test.js`). It now:
+- opens **one candidate at a time**: if a `city-feed/candidate-*` PR is open, it collects nothing;
+- writes run URL, trigger, base SHA, collection summary and the `feed-candidate` scope report into the PR body;
+- **dispatches `core-verify` on the candidate branch** (`actions: write`), because events created with `GITHUB_TOKEN` do not start new workflow runs, except `workflow_dispatch`. The required check then exists on the exact candidate commit.
+
+When it eventually replaces the cron's direct push, a separate approval must add the existing schedules and freshness gate. The live `city-feed.yml` is unchanged.

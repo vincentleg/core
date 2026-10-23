@@ -1,5 +1,7 @@
 # INACTIVE template. Copy to .github/workflows only after OP01 approval.
 # First run manually. Do not replace scheduled city-feed until a real reviewed PR is verified.
+# Events created with GITHUB_TOKEN do not start new workflow runs (except workflow_dispatch), so this job
+# dispatches core-verify on the candidate branch; the check lands on the exact candidate commit.
 name: city-feed-pr-candidate
 on:
   workflow_dispatch: {}
@@ -16,6 +18,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      actions: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
@@ -24,27 +27,42 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
         with:
           node-version: '22'
+      - name: One open candidate at a time (no PR flood while a review is pending)
+        id: pending
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          open=$(gh pr list --base main --state open --json headRefName --jq '[.[] | select(.headRefName | startswith("city-feed/candidate-"))] | length')
+          echo "open=$open" >> "$GITHUB_OUTPUT"
+          if [ "$open" != "0" ]; then echo "An open candidate PR awaits human review; nothing collected." >> "$GITHUB_STEP_SUMMARY"; fi
       - name: Collect and re-record only when content changes
+        if: steps.pending.outputs.open == '0'
         run: |
           node scripts/city-feed.mjs
           if node -e 'const s=require("./data/feeds/state.json"); process.exit(s.lastRun.added + s.lastRun.changed > 0 ? 0 : 1)'; then
             node scripts/agents.mjs --question "Quels travaux et quels arbres sont concernés sur Howard entre la 8e et la 9e rue ?" --segment 7051000
           fi
       - name: Validate scope, integration and security before any publication
+        if: steps.pending.outputs.open == '0'
         run: |
           node scripts/feed-candidate.mjs
           git add data/feeds data/missions data/agents
           node scripts/verify.mjs
       - name: Publish unique candidate branch and open PR; never merge or approve
+        if: steps.pending.outputs.open == '0'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          node scripts/feed-candidate.mjs
+          plan=$(node scripts/feed-candidate.mjs)
           if git diff --cached --quiet; then exit 0; fi
           git config user.name "core-city-feed[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           candidate_branch="city-feed/candidate-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           git switch -c "$candidate_branch"
-          git commit -m "data: City Intelligence candidate for review"
+          git commit -m "data: City Intelligence candidate for review (${GITHUB_EVENT_NAME} ${GITHUB_RUN_ID})"
           git push origin "HEAD:refs/heads/$candidate_branch"
-          gh pr create --base main --head "$candidate_branch" --title "data: City Intelligence candidate" --body "Generated JSON only. Human review and exact-revision core-verify required. No auto-merge."
+          run_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          last_run=$(node -e 'const s=require("./data/feeds/state.json"); console.log(JSON.stringify({lastSuccessfulUpdate: s.lastSuccessfulUpdate, added: s.lastRun.added, changed: s.lastRun.changed}))')
+          printf 'Generated JSON only, from %s (trigger %s, base %s).\n\nCollection: `%s`\n\nScope check (feed-candidate):\n```json\n%s\n```\n\nHuman review and exact-revision core-verify required. No auto-merge; this workflow never approves or merges.\n' "$run_url" "$GITHUB_EVENT_NAME" "$GITHUB_SHA" "$last_run" "$plan" > pr-body.md
+          gh pr create --base main --head "$candidate_branch" --title "data: City Intelligence candidate (${GITHUB_RUN_ID})" --body-file pr-body.md
+          gh workflow run verify.yml --ref "$candidate_branch"

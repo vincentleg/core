@@ -1,10 +1,10 @@
-# CORE — état courant faisant autorité
-- Historique O/F/L, Constitution V1/FD01–08 et WS12/recovery préservés ; Phase 13 livrée ; Phase 14 proposée seulement.
-- Phase 13 : code 409eff2, PR #2/fusion b667c6e ; docs/PHASE_13_REPORT.md ; laboratoire https://vincentleg.github.io/core/research.html.
-- Questions bornées Node/navigateur : baseline + deux variantes, conseil existant, dissidence/sensibilité, dossier JSON/Markdown vérifié par recalcul.
-- SQLite privée : findings candidats versionnés/atomiques, réouverture/déduplication ; aucune approbation terrain ou mémoire immuable revendiquée.
-- WS12 fictif : consentement → question → résultat lié à exacte révision/historique ; privé non exporté, aucun compte public/adoption/impact réel.
-- Trafic entièrement synthétique ; énergie 2024 sourcée, unités SI/K explicites ; aucun calibrage Howard/SUMO, progrès humain non réduit à l’énergie.
-- Ciblés 34/34, intégration/CI 170/170/CSP/intégrité conformes ; Chromium local et production sept checks chacun, zéro erreur/externe ; Firefox/Safari non vérifiés.
-- Outils natifs réutilisés, aucun installé ; Ollama opt-in testé une fois sans gain démontré/default ; docs/PHASE_13_TOOLING.md.
-- Main non protégée/OP01 ouvert ; pilote droits/timings/holdout/relecteur manquants ; aucun coût, réglage distant ou contrôle réel ajouté.
+# CORE — R10 paused 2026-10-23 (2nd pause): verification in progress; NOT pushed, NOT deployed
+Worktree `~/core/.core-local/worktrees/v9.8/.core-local/worktrees/civilization-reset`, branch `foundation/civilization-reset` (local only). Commits: `c1ac660` Gate A, `e460a41` Gates B–D, then this checkpoint (`git log -3`).
+Done: private project isolated (private store outside repo); agent mission card/rings; proposals only in CORE World/Hybrid; view legend; My CORE provenance + review request; es/de/zh-CN/pt drafts for all R10 strings (unreviewed).
+Tests: unit 383/383. Chrome 155 headless: R10-private, R1 21/21, R2 25/25, R3 6/6, R7 19/19, R8 16/16, R9 20/20 pass. FAIL: R4 and R5 — mission-panel button never "stable"; the R9 baseline build fails identically today, so not an R10 regression; cause under investigation (sticky `nav.pp-actions` keeps shifting as panel content above it changes). R10-world failed once on mobile proposal render; script now polls (not yet rerun). Not run: verify.mjs, Firefox 158 audit, Safari (needs founder-enabled remote automation).
+SECURITY — STILL EXPOSED: production creationofrebornearth.com still serves the private project's old modules (old *.vercel.app deployment URLs are behind Vercel login → not public). Public GitHub branch `origin/v9.9/multilingual-text-first` still holds its files, a prospect record and the founder auth UUID. Credential audit: no real secret in any public history (fixture keys only; UUID/project ref are identifiers) → no rotation needed.
+Production founder access to private projects: BLOCKED (no authenticated private-code serving).
+Release plan (not started): squash verified tree onto `origin/main` as NEW branch `release/r10-public` (this branch's history contains private files — never push it); deploy `node scripts/account/build-release.mjs`, copy `public/.vercel/project.json` from `~/core/.core-local/worktrees/v9.8/public/.vercel/`, `cd public && vercel deploy --prebuilt --prod`; then verify old private URLs 404. Remote branch deletion = separate founder approval.
+Next: finish R4/R5 diagnosis → rerun R10-world/R4/R5 → verify.mjs → Firefox audit → release branch push → deploy → live check.
+Resume: `cd` worktree; `git status`; `node --test test/*.test.js`; `node scripts/build-public.mjs`; `python3 -m http.server 8794 --bind 127.0.0.1 --directory public` → http://127.0.0.1:8794/world.html; browsers: own headless Chrome on a free port + `CORE_CDP_PORT=<port> NODE_PATH=~/core/.core-local/v8/pw/node_modules node scripts/r10-world-browser.mjs http://127.0.0.1:8794/`; founder: `node scripts/founder-server.mjs`.
+Evidence (ignored): `.core-local/evidence/r10-release/`.

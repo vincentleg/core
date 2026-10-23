@@ -92,6 +92,113 @@
       "limitations": [
         "Permits and reported collisions do not measure vehicle flow or signal timing"
       ]
+    },
+    {
+      "id": "sfmta-signal-timing-cards",
+      "kind": "measured-candidate-not-requested",
+      "provider": "SFMTA",
+      "catalogUrl": "https://sfmta.com/SignalDiagrams",
+      "access": "Not published; SFMTA states timing cards are obtained by public records request (Sunshine Ordinance / California Public Records Act). No request filed.",
+      "coverage": "Per intersection; epoch depends on request (pre- and post-reconstruction cards needed)",
+      "rights": {
+        "status": "POTENTIAL_AUTHORIZATION_UNCONFIRMED",
+        "license": null,
+        "reason": "Disclosure under public-records law is not a written reuse or republication grant; request must ask for explicit reuse terms. Legal qualification required."
+      },
+      "cost": "Request free; possible direct duplication cost for non-electronic copies (to confirm)",
+      "mandatory": true,
+      "checkedOn": "2026-10-23 UTC"
+    },
+    {
+      "id": "sfmta-signal-inventory-diagrams",
+      "kind": "geometry-context-not-ingested",
+      "provider": "SFMTA",
+      "sourceUrl": "https://sfmta.com/SignalDiagrams",
+      "access": "Published diagrams; page read only",
+      "limitations": [
+        "SFMTA: not the official source for traffic signal timing",
+        "No accuracy guarantee; field verification required",
+        "May predate reconstruction"
+      ],
+      "rights": {
+        "status": "POTENTIAL_AUTHORIZATION_UNCONFIRMED",
+        "license": null,
+        "reason": "No licence on page; sfmta.com terms (updated 2022-03-29) reserve rights in editorial and creative assets"
+      },
+      "checkedOn": "2026-10-23 UTC"
+    },
+    {
+      "id": "datasf-bicycle-loop-counters",
+      "kind": "location-metadata-not-counts",
+      "provider": "SFMTA via DataSF",
+      "sourceUrl": "https://data.sf.gov/d/7j2t-hunp",
+      "access": "Official metadata read only; no rows retrieved",
+      "fields": [
+        "COUNTER",
+        "LOCATION",
+        "LAT",
+        "LON",
+        "INSTALL_DATE",
+        "CNN_NODE",
+        "CNN_BLOCK"
+      ],
+      "rights": {
+        "status": "AUTHORIZED_AVAILABLE",
+        "license": "ODC-PDDL-1.0",
+        "evidenceUrl": "https://data.sf.gov/api/views/7j2t-hunp.json",
+        "scope": "Counter locations only; contains no counts"
+      },
+      "limitations": [
+        "Locations, not volumes",
+        "rowsUpdatedAt metadata later than data_as_of; verify freshness"
+      ],
+      "checkedOn": "2026-10-23 UTC"
+    },
+    {
+      "id": "sfmta-bike-counter-volumes",
+      "kind": "measured-candidate-not-ingested",
+      "provider": "SFMTA",
+      "catalogUrl": "https://www.sfmta.com/node/7928",
+      "access": "Not accessed; SFMTA describes continuous automated counters and annual September PM-peak manual counts; a 2019 map lists a counter on Folsom between 8th and 9th",
+      "rights": {
+        "status": "POTENTIAL_AUTHORIZATION_UNCONFIRMED",
+        "license": null,
+        "reason": "Published on sfmta.com without a data licence"
+      },
+      "limitations": [
+        "SFMTA: counts show trends, not exact cyclist numbers",
+        "Counter survival through reconstruction unknown"
+      ],
+      "checkedOn": "2026-10-23 UTC"
+    },
+    {
+      "id": "sfcta-cmp-speeds",
+      "kind": "restricted-commercial-derived",
+      "provider": "SFCTA (INRIX speeds supplied via MTC)",
+      "sourceUrl": "https://www.sfcta.org/reports/congestion-management-program-2025",
+      "access": "Published reports and dashboard only",
+      "rights": {
+        "status": "RESTRICTED",
+        "license": null,
+        "reason": "Underlying segment speeds are commercial INRIX data; published biennial LOS summaries carry no data licence"
+      },
+      "limitations": [
+        "Monthly Tue-Thu averages, AM 7:00-9:00 / PM 4:30-6:30",
+        "Segment speeds, not intersection delay or queues"
+      ],
+      "checkedOn": "2026-10-23 UTC"
+    },
+    {
+      "id": "caltrans-pems",
+      "kind": "not-applicable",
+      "provider": "Caltrans",
+      "sourceUrl": "https://dot.ca.gov/programs/traffic-operations/mpr/pems-source",
+      "rights": {
+        "status": "NOT_APPLICABLE",
+        "license": null,
+        "reason": "Freeway detector system; Folsom and Howard are city streets. Access also requires an account, which CORE rules exclude."
+      },
+      "checkedOn": "2026-10-23 UTC"
     }
   ],
   "selection": "CONDITIONAL_SHORTLIST",
@@ -116,5 +223,27 @@
       "reason": "Nearby Beale–Main corridor metadata on two 2017 days; exact intersection/timing and daily independence not established",
       "ready": false
     }
-  ]
+  ],
+  "r3": {
+    "checkedOn": "2026-10-23 UTC",
+    "report": "docs/R3_EVIDENCE_READINESS.md",
+    "statusVocabulary": [
+      "AUTHORIZED_AVAILABLE",
+      "POTENTIAL_AUTHORIZATION_UNCONFIRMED",
+      "RESTRICTED",
+      "MISSING",
+      "NOT_APPLICABLE"
+    ],
+    "corridorChange": {
+      "finding": "The Folsom-Howard Streetscape Project reconstructs the modelled corridor. Folsom (2nd-11th): SFMTA 2022 fact sheet states a reduction to 2 general-purpose lanes from 3 and 4, with a two-way separated bikeway; project page (update September 2026) reports new traffic signals on Folsom 8th-11th (about 95% complete) and the full Folsom corridor about 75% complete, targeting substantial completion in October 2026. Howard: design complete, construction 2026-2029. SFMTA pages differ on some details (transit-lane extent, per-block lanes): the as-built configuration must be verified, not assumed.",
+      "sources": [
+        "https://www.sfmta.com/projects/folsom-howard-streetscape-project",
+        "https://www.sfmta.com/sites/default/files/reports-and-documents/2022/11/folsom_streetscape_project_fact_sheet_08052022.pdf",
+        "https://www.sfmta.com/projects/folsom-street-implementation"
+      ],
+      "pageUpdate": "September 2026 (as read 2026-10-23)",
+      "consequence": "Every count, timing plan and geometry dated before reconstruction describes a different street. Calibration must target one epoch: either a historical pre-project study with same-epoch timing cards, or new post-construction observations after a stabilisation period fixed in advance. Mixing epochs is a protocol failure.",
+      "verification": "Project page read directly on 2026-10-23; fact-sheet lane statement taken from an SFMTA-domain search result (PDF not rendered locally). Re-read before sealing the protocol."
+    }
+  }
 }

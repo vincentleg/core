@@ -1,0 +1,8 @@
+{
+  "name": "core-vendor-ai",
+  "private": true,
+  "description": "Build-time only: pinned sources of the on-device AI bundles (scripts/vendor-ai.mjs). Never published.",
+  "dependencies": {
+    "@mlc-ai/web-llm": "0.2.85"
+  }
+}

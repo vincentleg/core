@@ -4,8 +4,10 @@
 // a 4 s camera orbit at the corridor (headless = software rendering: compare runs, not absolute values), number of
 // circle markers rendered in the corridor view, and sidewalk simulation recompute time in the browser.
 import fs from 'node:fs';
+// DevTools port of an isolated browser you started (never a personal profile). CORE_CDP_PORT overrides the default 9222.
+const CDP = Number(process.env.CORE_CDP_PORT || 9222);
 const url = process.argv[2] || 'http://localhost:8000/', out = process.argv[3];
-const tab = await (await fetch('http://127.0.0.1:9222/json/new?about:blank', { method: 'PUT' })).json();
+const tab = await (await fetch(`http://127.0.0.1:${CDP}/json/new?about:blank`, { method: 'PUT' })).json();
 const ws = new WebSocket(tab.webSocketDebuggerUrl); await new Promise(r => ws.addEventListener('open', r, { once: true }));
 let n = 0, bytes = 0, requests = 0; const pend = new Map(), errors = [];
 ws.addEventListener('message', e => { const m = JSON.parse(e.data); if (m.id) pend.get(m.id)?.(m); else if (m.method === 'Network.loadingFinished') { bytes += m.params.encodedDataLength; requests++; } else if (m.method === 'Runtime.exceptionThrown') errors.push(m.params.exceptionDetails.text); });
@@ -27,4 +29,4 @@ const sim = await ev(`(async () => { if (!window.CORE_SIM_SIDEWALK) return null;
 await call('HeapProfiler.collectGarbage'); const heap = Math.round((await call('Performance.getMetrics')).result.metrics.find(x => x.name === 'JSHeapUsedSize').value / 1048576);
 const result = { url, date: new Date().toISOString(), viewport: '1440x900', readyMs, loadKB: Math.round(loadBytes / 1024), loadRequests, heapMB: heap, orbitFps: fps, corridorCircles: circles, overviewCirclesZ14: overview, simRunMs: sim, uncaughtErrors: errors };
 console.log(JSON.stringify(result, null, 1)); if (out) fs.writeFileSync(out, JSON.stringify(result, null, 1) + '\n');
-ws.close(); await fetch(`http://127.0.0.1:9222/json/close/${tab.id}`);
+ws.close(); await fetch(`http://127.0.0.1:${CDP}/json/close/${tab.id}`);

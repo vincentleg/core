@@ -4,7 +4,7 @@ CORE builds a parallel 3D Earth in which proposed infrastructure changes can be 
 
 This repository currently contains a static prototype, not a calibrated digital twin or production approval system.
 
-The [master roadmap](docs/MASTER_ROADMAP.md) reconciles original commitments with delivered phases 0–11. See the [founder commitment register](docs/FOUNDER_COMMITMENTS.md), [Constitution V1](docs/CONSTITUTION_V1.md), [security baseline](docs/SECURITY_BASELINE.md) and [scientific pilot plan](docs/SCIENTIFIC_PILOT_PLAN.md). Founder decisions FD01–FD08 approve Constitution V1 and scientific priorities; operational choices remain open. Workstream 12 adds a local synthetic participation foundation, without public accounts, a cosmetic phase or real-world intervention. See [avatar vision](docs/product/CORE_AVATAR_VISION.md) and [contribution ledger](docs/product/CONTRIBUTION_IMPACT_LEDGER.md). Run `node scripts/contribution-demo.mjs` for the reproducible synthetic example; it does not change the public site or agent permissions.
+The [master roadmap](docs/MASTER_ROADMAP.md) reconciles original commitments with delivered phases 0–11. See the [founder commitment register](docs/FOUNDER_COMMITMENTS.md), [Constitution V1.1](docs/CONSTITUTION_V1_1.md) (FD11; [V1](docs/CONSTITUTION_V1.md) kept), [security baseline](docs/SECURITY_BASELINE.md) and [scientific pilot plan](docs/SCIENTIFIC_PILOT_PLAN.md). Founder decisions FD01–FD08 approve Constitution V1 and scientific priorities; operational choices remain open. Workstream 12 adds a local synthetic participation foundation, without public accounts, a cosmetic phase or real-world intervention. See [avatar vision](docs/product/CORE_AVATAR_VISION.md) and [contribution ledger](docs/product/CONTRIBUTION_IMPACT_LEDGER.md). Run `node scripts/contribution-demo.mjs` for the reproducible synthetic example; it does not change the public site or agent permissions.
 
 ## Run locally
 
@@ -13,7 +13,7 @@ Prerequisites: Node.js 22 (validated with 22.20.0), Python 3 (validated with 3.9
 ```sh
 node build.js
 node --test test/*.test.js
-python3 -m http.server 8000
+python3 -m http.server 8000 --bind 127.0.0.1   # localhost only: never serve this folder on the network (INC-2026-10-15-01)
 ```
 
 Open http://localhost:8000 for the globe and http://localhost:8000/corridor.html for the simulator. External maps and fonts require internet access. Stop the server with Ctrl+C. Use a WebGL-capable browser for the globe; the corridor uses Canvas 2D.

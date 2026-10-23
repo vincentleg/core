@@ -1,0 +1,6 @@
+.business-main { max-width: 1050px; margin: 90px auto; padding: 24px; color: #e9f5fc; }
+.business-main .business-card { padding: 24px; border: 1px solid #28485e; border-radius: 18px; margin: 16px 0; background: #0a1929; }
+.business-main h1 { font-size: clamp(28px,5vw,52px); }
+.business-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 14px; }
+.business-main button,.business-main .btn { padding: 12px; border: 1px solid #46788e; background: #102d40; color: #e4faff; border-radius: 9px; }
+@media(max-width:860px) { .business-main { margin-top:70px; } }

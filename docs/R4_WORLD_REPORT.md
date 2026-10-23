@@ -1,0 +1,7 @@
+# R4 — CORE World participation (local)
+
+`world.html#problems` now offers keyboard-accessible area and maturity filters. The area filter uses mission markers within an approximate 2 km of the current map centre and updates after a map move. The default lists all San Francisco missions. Empty results say what to do next. From a result, a visitor opens the mission's dated findings and gaps, contributes privately or to the browser-local mission workflow, then sees the contribution history in My CORE. The discovery panel also links to the published recorded investigations. No new data source or dependency was added.
+
+The map-centre distance is navigation only, not evidence or full area coverage. Browser-local contributions are not server submissions, and the scientific gate in `docs/R3_EVIDENCE_READINESS.md` remains blocked. The existing lifecycle and privacy boundaries were left intact.
+
+Verification: `node --test test/discovery.test.js test/agent-records.test.js test/lifecycle.test.js` (18/18); isolated Chrome desktop 1440×900 and mobile 390×844, `scripts/r4-world-browser.mjs` (20/20); full `node scripts/verify.mjs` 377/377, integrity 0 findings. The full gate needed local loopback permission for three pre-existing server tests. Screenshots and the verification log are ignored local artifacts in `.core-local/evidence/r4-world/`. Safari, Firefox, physical devices and screen readers were not checked.

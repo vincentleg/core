@@ -26,3 +26,20 @@ jobs:
         env:
           CORE_VERIFY_BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
         run: node scripts/verify.mjs --ci
+  local-intelligence:
+    name: local-intelligence-fixtures
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+      - name: Restore pinned optional worker (no lifecycle scripts)
+        run: npm ci --ignore-scripts --no-audit --no-fund --prefix scripts/intelligence
+      - name: Build the pinned SQLite binding from source
+        run: npm rebuild better-sqlite3 --build-from-source --prefix scripts/intelligence
+      - name: Verify local worker protocol fixtures (no model or network calls)
+        run: npm test --prefix scripts/intelligence

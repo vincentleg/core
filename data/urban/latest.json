@@ -1,0 +1,580 @@
+{
+ "id": "9ba4be49-c840-4ac3-832b-5d275f2a2437",
+ "created": "2026-10-18T21:41:28.435Z",
+ "completed": "2026-10-18T21:41:28.448Z",
+ "durationMs": 11.727999999999998,
+ "model": "core-fluid-queue-1",
+ "segment": {
+  "id": "5665000",
+  "label": "FOLSOM ST: 05TH ST → FALMOUTH ST",
+  "coordinates": [
+   [
+    -122.403387209,
+    37.780264973
+   ],
+   [
+    -122.404431251,
+    37.779440335
+   ]
+  ],
+  "center": [
+   -122.404431251,
+   37.779440335
+  ],
+  "lengthM": 129.71990766240353,
+  "source": "sf-streets",
+  "eligibility": "exploratory approach model; calibration required"
+ },
+ "request": {
+  "segment": "5665000",
+  "scenarios": [
+   {
+    "name": "Baseline",
+    "parameters": {
+     "demand": 900,
+     "lanes": 2,
+     "saturation": 1600,
+     "green": 0.45,
+     "cycle": 90,
+     "seconds": 900,
+     "speed": 30
+    }
+   },
+   {
+    "name": "Alternative A",
+    "parameters": {
+     "demand": 900,
+     "lanes": 2,
+     "saturation": 1600,
+     "green": 0.55,
+     "cycle": 90,
+     "seconds": 900,
+     "speed": 30
+    }
+   },
+   {
+    "name": "Alternative B",
+    "parameters": {
+     "demand": 900,
+     "lanes": 1,
+     "saturation": 1600,
+     "green": 0.45,
+     "cycle": 90,
+     "seconds": 900,
+     "speed": 30
+    }
+   }
+  ]
+ },
+ "fingerprint": "3622c823e95b2dd9a66fd32ee169c91045e3d883e70504936417bdf2114195e6",
+ "sources": [
+  {
+   "id": "sf-streets",
+   "publisher": "City and County of San Francisco (DPW Basemap)",
+   "url": "https://data.sf.gov/d/3psu-pn9h",
+   "license": {
+    "name": "ODC Public Domain Dedication and License (PDDL)",
+    "url": "https://opendatacommons.org/licenses/pddl/1-0/"
+   },
+   "coverage": "Folsom/Howard, 2nd–11th",
+   "observationPeriod": "administrative geometry as retrieved",
+   "retrieved": "2026-10-13T18:25:17.891Z",
+   "units": "longitude/latitude degrees; derived length in metres",
+   "updateFrequency": "snapshot; refresh cadence not established",
+   "limitations": "FOLSOM ST and HOWARD ST centerline segments from 02ND ST to 11TH ST, selected by following CNN node topology.",
+   "sha256": "5ab999617ad97f0978ad09e63c88c3773015543ff5e5e2aa1f9342e2d5192df1"
+  },
+  {
+   "id": "sf-housing",
+   "publisher": "San Francisco Planning Department",
+   "url": "https://data.sf.gov/d/xdht-4php",
+   "license": {
+    "name": "Public Domain U.S. Government",
+    "url": "https://data.sf.gov/d/xdht-4php"
+   },
+   "coverage": "San Francisco neighborhoods",
+   "observationPeriod": "completions since 2015-01-01; snapshot 2026-10-16 (partial current year)",
+   "retrieved": "2026-10-16T04:44:10.609Z",
+   "units": "net housing units; not affordability or demand",
+   "updateFrequency": "snapshot; refresh cadence not established",
+   "limitations": "Completions since 2015-01-01, summed by the source’s analysis_neighborhood field.",
+   "sha256": "8d9fc399b22e87abbf1e157ed01363e9c755419f7508140a04ef781b70cc7d1b"
+  },
+  {
+   "id": "osm-walk",
+   "publisher": "OpenStreetMap contributors",
+   "url": "https://www.openstreetmap.org/copyright",
+   "license": {
+    "name": "ODbL 1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+   },
+   "coverage": "Pedestrian ways mapped in OSM in the study bbox -122.42695,37.74783,-122.39275,37.78829 (South of Market, Mission, Tenderloin); largest connected component",
+   "observationPeriod": "2026-10-14T16:08:51Z",
+   "retrieved": "2026-10-14T16:18:19.161Z",
+   "units": "WGS84 coordinates and graph edges",
+   "updateFrequency": "dated snapshot",
+   "limitations": "Mapped geometry, not a field survey: width, surface, curb ramps and obstructions are unknown; accessibility is not asserted.",
+   "sha256": "a978b0d50570389dbc66b4e839782f0e3aceb11977f2eb4cc4637e7b19028144"
+  }
+ ],
+ "result": {
+  "model": "core-fluid-queue-1",
+  "rows": [
+   {
+    "name": "Baseline",
+    "index": 0,
+    "parameters": {
+     "demand": 900,
+     "lanes": 2,
+     "saturation": 1600,
+     "green": 0.45,
+     "cycle": 90,
+     "seconds": 900,
+     "speed": 30
+    },
+    "metrics": {
+     "arrivals": 225,
+     "served": 212.74999999999952,
+     "remaining": 12.25,
+     "maxQueue": 12.25,
+     "meanQueue": 4.509583333333335,
+     "accruedDelayPerArrivalS": 18.03833333333334,
+     "vehicleDelaySeconds": 4058.6250000000014,
+     "throughputVph": 850.9999999999981,
+     "capacityVph": 1440,
+     "utilization": 0.625,
+     "freeFlowSeconds": 15.566388919488423,
+     "exceedsApproxStorage": false,
+     "censored": true
+    },
+    "sensitivityDemandVph": [
+     720,
+     1080
+    ],
+    "sensitivityDelayS": [
+     16.8272222222222,
+     19.45500000000002
+    ],
+    "delta": {
+     "accruedDelayS": 0,
+     "throughputVph": 0,
+     "maxQueue": 0
+    }
+   },
+   {
+    "name": "Alternative A",
+    "index": 1,
+    "parameters": {
+     "demand": 900,
+     "lanes": 2,
+     "saturation": 1600,
+     "green": 0.55,
+     "cycle": 90,
+     "seconds": 900,
+     "speed": 30
+    },
+    "metrics": {
+     "arrivals": 225,
+     "served": 214.99999999999957,
+     "remaining": 10,
+     "maxQueue": 10,
+     "meanQueue": 3.0055555555555564,
+     "accruedDelayPerArrivalS": 12.022222222222226,
+     "vehicleDelaySeconds": 2705.000000000001,
+     "throughputVph": 859.9999999999983,
+     "capacityVph": 1760.0000000000002,
+     "utilization": 0.5113636363636362,
+     "freeFlowSeconds": 15.566388919488423,
+     "exceedsApproxStorage": false,
+     "censored": true
+    },
+    "sensitivityDemandVph": [
+     720,
+     1080
+    ],
+    "sensitivityDelayS": [
+     11.21555555555556,
+     12.96666666666668
+    ],
+    "delta": {
+     "accruedDelayS": -6.016111111111115,
+     "throughputVph": 9.000000000000227,
+     "maxQueue": -2.25
+    }
+   },
+   {
+    "name": "Alternative B",
+    "index": 2,
+    "parameters": {
+     "demand": 900,
+     "lanes": 1,
+     "saturation": 1600,
+     "green": 0.45,
+     "cycle": 90,
+     "seconds": 900,
+     "speed": 30
+    },
+    "metrics": {
+     "arrivals": 225,
+     "served": 172.2222222222231,
+     "remaining": 52.7777777777782,
+     "maxQueue": 52.7777777777782,
+     "meanQueue": 25.155555555555583,
+     "accruedDelayPerArrivalS": 100.62222222222233,
+     "vehicleDelaySeconds": 22640.000000000025,
+     "throughputVph": 688.8888888888923,
+     "capacityVph": 720,
+     "utilization": 1.25,
+     "freeFlowSeconds": 15.566388919488423,
+     "exceedsApproxStorage": true,
+     "censored": true
+    },
+    "sensitivityDemandVph": [
+     720,
+     1080
+    ],
+    "sensitivityDelayS": [
+     23.161666666666644,
+     152.33333333333275
+    ],
+    "delta": {
+     "accruedDelayS": 82.58388888888899,
+     "throughputVph": -162.11111111110574,
+     "maxQueue": 40.5277777777782
+    }
+   }
+  ],
+  "best": 1,
+  "verdict": "lowest accrued delay under this model and storage constraint; not a real-world recommendation"
+ },
+ "tasks": [
+  {
+   "id": "9ba4be49-c840-4ac3-832b-5d275f2a2437:0",
+   "role": "Data discovery",
+   "agent": "core.san-francisco.research.evidence-verifier",
+   "status": "completed",
+   "started": "2026-10-18T21:41:28.438Z",
+   "completed": "2026-10-18T21:41:28.438Z",
+   "output": {
+    "sources": [
+     "sf-streets",
+     "sf-housing",
+     "osm-walk"
+    ],
+    "freshness": "dated snapshots; not live feeds"
+   },
+   "durationMs": 0.15487500000000054
+  },
+  {
+   "id": "9ba4be49-c840-4ac3-832b-5d275f2a2437:1",
+   "role": "Data validation",
+   "agent": "core.san-francisco.data-science.graph-linker",
+   "status": "completed",
+   "started": "2026-10-18T21:41:28.438Z",
+   "completed": "2026-10-18T21:41:28.438Z",
+   "output": {
+    "validated": 3,
+    "missingTrafficCounts": true,
+    "missingSignalPlans": true
+   },
+   "durationMs": 0.14133400000000051
+  },
+  {
+   "id": "9ba4be49-c840-4ac3-832b-5d275f2a2437:2",
+   "role": "Geographic analysis",
+   "agent": "core.san-francisco.geotech.geotechnical",
+   "status": "completed",
+   "started": "2026-10-18T21:41:28.439Z",
+   "completed": "2026-10-18T21:41:28.439Z",
+   "output": {
+    "segment": "5665000",
+    "lengthM": 129.71990766240353,
+    "source": "sf-streets",
+    "coverage": "mapped approach only"
+   },
+   "durationMs": 0.1058749999999975
+  },
+  {
+   "id": "9ba4be49-c840-4ac3-832b-5d275f2a2437:3",
+   "role": "Baseline analysis",
+   "agent": "core.san-francisco.mobility.traffic",
+   "status": "completed",
+   "started": "2026-10-18T21:41:28.439Z",
+   "completed": "2026-10-18T21:41:28.442Z",
+   "output": {
+    "arrivals": 225,
+    "served": 212.74999999999952,
+    "remaining": 12.25,
+    "maxQueue": 12.25,
+    "meanQueue": 4.509583333333335,
+    "accruedDelayPerArrivalS": 18.03833333333334,
+    "vehicleDelaySeconds": 4058.6250000000014,
+    "throughputVph": 850.9999999999981,
+    "capacityVph": 1440,
+    "utilization": 0.625,
+    "freeFlowSeconds": 15.566388919488423,
+    "exceedsApproxStorage": false,
+    "censored": true
+   },
+   "durationMs": 2.804167000000003
+  },
+  {
+   "id": "9ba4be49-c840-4ac3-832b-5d275f2a2437:4",
+   "role": "Scenario parameters",
+   "agent": "core.san-francisco.simulation.scenario-evaluator",
+   "status": "completed",
+   "started": "2026-10-18T21:41:28.442Z",
+   "completed": "2026-10-18T21:41:28.442Z",
+   "output": {
+    "parameters": [
+     {
+      "name": "Baseline",
+      "parameters": {
+       "demand": 900,
+       "lanes": 2,
+       "saturation": 1600,
+       "green": 0.45,
+       "cycle": 90,
+       "seconds": 900,
+       "speed": 30
+      }
+     },
+     {
+      "name": "Alternative A",
+      "parameters": {
+       "demand": 900,
+       "lanes": 2,
+       "saturation": 1600,
+       "green": 0.55,
+       "cycle": 90,
+       "seconds": 900,
+       "speed": 30
+      }
+     },
+     {
+      "name": "Alternative B",
+      "parameters": {
+       "demand": 900,
+       "lanes": 1,
+       "saturation": 1600,
+       "green": 0.45,
+       "cycle": 90,
+       "seconds": 900,
+       "speed": 30
+      }
+     }
+    ],
+    "origin": "user-supplied assumptions, not observations"
+   },
+   "durationMs": 0.08066699999999827
+  },
+  {
+   "id": "9ba4be49-c840-4ac3-832b-5d275f2a2437:5",
+   "role": "Simulation",
+   "agent": "core.san-francisco.simulation.scenario-analyst",
+   "status": "completed",
+   "started": "2026-10-18T21:41:28.442Z",
+   "completed": "2026-10-18T21:41:28.444Z",
+   "output": {
+    "model": "core-fluid-queue-1",
+    "rows": [
+     {
+      "name": "Baseline",
+      "index": 0,
+      "parameters": {
+       "demand": 900,
+       "lanes": 2,
+       "saturation": 1600,
+       "green": 0.45,
+       "cycle": 90,
+       "seconds": 900,
+       "speed": 30
+      },
+      "metrics": {
+       "arrivals": 225,
+       "served": 212.74999999999952,
+       "remaining": 12.25,
+       "maxQueue": 12.25,
+       "meanQueue": 4.509583333333335,
+       "accruedDelayPerArrivalS": 18.03833333333334,
+       "vehicleDelaySeconds": 4058.6250000000014,
+       "throughputVph": 850.9999999999981,
+       "capacityVph": 1440,
+       "utilization": 0.625,
+       "freeFlowSeconds": 15.566388919488423,
+       "exceedsApproxStorage": false,
+       "censored": true
+      },
+      "sensitivityDemandVph": [
+       720,
+       1080
+      ],
+      "sensitivityDelayS": [
+       16.8272222222222,
+       19.45500000000002
+      ],
+      "delta": {
+       "accruedDelayS": 0,
+       "throughputVph": 0,
+       "maxQueue": 0
+      }
+     },
+     {
+      "name": "Alternative A",
+      "index": 1,
+      "parameters": {
+       "demand": 900,
+       "lanes": 2,
+       "saturation": 1600,
+       "green": 0.55,
+       "cycle": 90,
+       "seconds": 900,
+       "speed": 30
+      },
+      "metrics": {
+       "arrivals": 225,
+       "served": 214.99999999999957,
+       "remaining": 10,
+       "maxQueue": 10,
+       "meanQueue": 3.0055555555555564,
+       "accruedDelayPerArrivalS": 12.022222222222226,
+       "vehicleDelaySeconds": 2705.000000000001,
+       "throughputVph": 859.9999999999983,
+       "capacityVph": 1760.0000000000002,
+       "utilization": 0.5113636363636362,
+       "freeFlowSeconds": 15.566388919488423,
+       "exceedsApproxStorage": false,
+       "censored": true
+      },
+      "sensitivityDemandVph": [
+       720,
+       1080
+      ],
+      "sensitivityDelayS": [
+       11.21555555555556,
+       12.96666666666668
+      ],
+      "delta": {
+       "accruedDelayS": -6.016111111111115,
+       "throughputVph": 9.000000000000227,
+       "maxQueue": -2.25
+      }
+     },
+     {
+      "name": "Alternative B",
+      "index": 2,
+      "parameters": {
+       "demand": 900,
+       "lanes": 1,
+       "saturation": 1600,
+       "green": 0.45,
+       "cycle": 90,
+       "seconds": 900,
+       "speed": 30
+      },
+      "metrics": {
+       "arrivals": 225,
+       "served": 172.2222222222231,
+       "remaining": 52.7777777777782,
+       "maxQueue": 52.7777777777782,
+       "meanQueue": 25.155555555555583,
+       "accruedDelayPerArrivalS": 100.62222222222233,
+       "vehicleDelaySeconds": 22640.000000000025,
+       "throughputVph": 688.8888888888923,
+       "capacityVph": 720,
+       "utilization": 1.25,
+       "freeFlowSeconds": 15.566388919488423,
+       "exceedsApproxStorage": true,
+       "censored": true
+      },
+      "sensitivityDemandVph": [
+       720,
+       1080
+      ],
+      "sensitivityDelayS": [
+       23.161666666666644,
+       152.33333333333275
+      ],
+      "delta": {
+       "accruedDelayS": 82.58388888888899,
+       "throughputVph": -162.11111111110574,
+       "maxQueue": 40.5277777777782
+      }
+     }
+    ],
+    "best": 1,
+    "verdict": "lowest accrued delay under this model and storage constraint; not a real-world recommendation"
+   },
+   "durationMs": 1.8382080000000016
+  },
+  {
+   "id": "9ba4be49-c840-4ac3-832b-5d275f2a2437:6",
+   "role": "Comparison",
+   "agent": "core.san-francisco.data-science.statistics.001",
+   "status": "completed",
+   "started": "2026-10-18T21:41:28.444Z",
+   "completed": "2026-10-18T21:41:28.444Z",
+   "output": {
+    "best": 1,
+    "verdict": "lowest accrued delay under this model and storage constraint; not a real-world recommendation"
+   },
+   "durationMs": 0.0768330000000006
+  },
+  {
+   "id": "9ba4be49-c840-4ac3-832b-5d275f2a2437:7",
+   "role": "Risk review",
+   "agent": "core.san-francisco.safety.adversarial-reviewer",
+   "status": "completed",
+   "started": "2026-10-18T21:41:28.444Z",
+   "completed": "2026-10-18T21:41:28.444Z",
+   "output": {
+    "sensitivity": "demand ×0.8 and ×1.2, capped at 8,000 veh/h; not a confidence interval",
+    "limits": [
+     "Uncalibrated uniform-arrival fluid queue",
+     "No turns, spillback, pedestrian or transit effects",
+     "Delay accrued within the finite horizon; residual queues are censored",
+     "More green may disadvantage unmodeled cross-street traffic",
+     "Storage uses an assumed 7.5 m per vehicle"
+    ]
+   },
+   "durationMs": 0.08970800000000168
+  },
+  {
+   "id": "9ba4be49-c840-4ac3-832b-5d275f2a2437:8",
+   "role": "Evidence review",
+   "agent": "core.san-francisco.research.evidence-reviewer",
+   "status": "completed",
+   "started": "2026-10-18T21:41:28.445Z",
+   "completed": "2026-10-18T21:41:28.448Z",
+   "output": {
+    "fingerprint": "3622c823e95b2dd9a66fd32ee169c91045e3d883e70504936417bdf2114195e6",
+    "observed": [
+     "mapped geometry only"
+    ],
+    "assumed": "all traffic demand, saturation, lanes, timings, speed and horizon",
+    "reference": "https://www.fhwa.dot.gov/publications/research/operations/tft/chap9.pdf"
+   },
+   "durationMs": 3.212750000000007
+  },
+  {
+   "id": "9ba4be49-c840-4ac3-832b-5d275f2a2437:9",
+   "role": "Report",
+   "agent": "core.san-francisco.regulatory.knowledge-research",
+   "status": "completed",
+   "started": "2026-10-18T21:41:28.448Z",
+   "completed": "2026-10-18T21:41:28.448Z",
+   "output": {
+    "next": "Collect authorized traffic counts and signal timings, calibrate and independently review before any intervention. Human authorization required.",
+    "impact": "No real-world impact measured"
+   },
+   "durationMs": 0.1274580000000043
+  }
+ ],
+ "calibrated": false,
+ "worker": "one bounded deterministic worker; no LLM",
+ "report": {
+  "next": "Collect authorized traffic counts and signal timings, calibrate and independently review before any intervention. Human authorization required.",
+  "impact": "No real-world impact measured"
+ },
+ "hosting": "Recorded local SQLite worker result; no continuously running public backend"
+}
