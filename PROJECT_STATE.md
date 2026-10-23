@@ -1,10 +1,10 @@
-# CORE — R10 released 2026-10-23: public GitHub branch pushed, production deployed
-Worktree `~/core/.core-local/worktrees/v9.8/.core-local/worktrees/civilization-reset`; local branch `foundation/civilization-reset` (history holds private files — never push). Public release: branch `release/r10-public` = `023f711` (squash of verified tree `83fc457` onto main `bff4fbb`) + this record.
-Production https://creationofrebornearth.com = tree of `023f711`, Vercel deployment https://core-i6kgt2arh-vincentleg.vercel.app (prebuilt, existing project, no new service).
-R10 shipped: private project isolated (private store outside repo, loopback founder server only); agent mission card recorded/replay/inactive (never live) + recorded-work ring; own proposals only in CORE World/Hybrid; view legend; narrower desktop panel; live panels hold while a person interacts; My CORE provenance + review request (nothing sent); six languages (es/de/zh-CN/pt drafts unreviewed).
-Tests: verify.mjs 383/383 + integrity/CSP; local Chrome 155 191/191 (R10 16+32, R1–R9 143); Firefox 158 108/108 (6 languages; R10 panels not covered); production R10-private 16/16, R10-world 31/32 (only "no network writes": 28 POSTs from Vercel edge bot-check of headless Chrome, served HTML identical to build). Safari not run (needs founder-enabled remote automation).
-Security: live site no longer serves the private modules (404; 173 live files scanned clean); old deployment URLs behind Vercel login; no real credential in any public history → nothing to rotate. Remote branch `v9.9/multilingual-text-first` DELETED with founder approval (local copy kept); all 21 remaining remote branches scan clean. REMAINING: GitHub still serves those old commits by direct SHA URL (e.g. raw file HTTP 200) until GitHub Support purges unreferenced objects — founder request needed (cannot be done by CLI).
-Production founder access to private projects: BLOCKED by design (no authenticated private-code serving).
-Next: founder asks GitHub Support to purge cached commits of the deleted branch (repo vincentleg/core); translation review; Safari pass; merge `release/r10-public` into main only by founder decision (Pages serves main).
-Resume: `cd` worktree; `node --test test/*.test.js`; `node scripts/build-public.mjs`; `python3 -m http.server 8794 --bind 127.0.0.1 --directory public` → http://127.0.0.1:8794/world.html; founder: `node scripts/founder-server.mjs`; deploy: `node scripts/account/build-release.mjs`, copy `.vercel/project.json` into `public/.vercel/`, `cd public && vercel deploy --prebuilt --prod`.
-Evidence (ignored): `.core-local/evidence/r10-final/`, `r10-production/`.
+# CORE — R12 local release candidate, 2026-10-23
+Worktree: sanitized `release/r10-public`; parent `0c5f3d4` descends from the R10 public squash, not the deleted contaminated branch.
+R11 eight-step autonomous demo behavior was ported as reviewed source changes only; no contaminated commit was cherry-picked or merged.
+R12: shared graphite/mineral/ivory/copper visual tokens, editorial public pages, quieter professional workspace, map-led CORE World, retained holographic geography and agents.
+Public build is local only; no push, merge or deployment authorized.
+Recorded investigations and simulations remain labelled; fictional autofill stays local and requires explicit user submission to save.
+Verification: full suite 383/383, integrity 0 findings, desktop/mobile six-page demo checks and screenshots in ignored `.core-local/evidence/r12/`; mobile language control clear of navigation.
+Privacy: private project store untouched; three isolation checks passed, public build scanned clean.
+Existing release concerns: draft translations need professional review; Safari browser coverage remains unavailable; remote cached objects from the deleted branch need host support purge.
+Next: report the R12 local commit and screenshots; publication requires separate authorization.

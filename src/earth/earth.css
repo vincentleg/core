@@ -345,3 +345,28 @@ body.earth:has(#ea-hero:not([hidden]):not(.out)) :is(#ea-layers, #ea-layer-intro
 .lg-dot.real { background: var(--le-sand-50, #e8dcc4); } .lg-dot.replay { background: #62d8f2; } .lg-dot.rec { border: 2px solid #f2d36b; width: 7px; height: 7px; } .lg-dot.idea { background: #b9a2ff; box-shadow: 0 0 0 1.5px #f4f0ff; }
 body:has(#ea-layer-intro:not([hidden])) .ea-view-legend { display: none; }
 @media (max-width: 860px) { .ea-view-legend { left: 8px; top: calc(var(--navh) + 94px); max-width: calc(100vw - 16px); font-size: 10.5px; padding: 3px 8px; gap: 2px 8px; } .ea-view-legend span:nth-child(n+4) { display: none; } body:has(#ea-panel:not([hidden])) .ea-view-legend { display: none; } }
+
+/* R12: the map carries the holographic color; the interface frames it in graphite and mineral. */
+.ea-vignette { background: linear-gradient(90deg, rgba(7, 12, 16, .88), rgba(7, 12, 16, .55) 34%, transparent 68%); }
+.ea-hero { max-width: min(620px, 46vw); gap: 14px; }
+.ea-hero .le-display { max-width: 17ch; font-size: clamp(44px, 3.9vw, 59px); line-height: 1.025; letter-spacing: -.052em; }
+.ea-hero .ea-eyebrow { color: #d9ab86; }
+.ea-hero .ea-statement { color: var(--le-sand-50); font-weight: 540; }
+.ea-hero .le-lede { max-width: 49ch; color: #ccd5d2; line-height: 1.55; }
+.ea-hero .ea-hero-note { border-left-color: var(--le-copper); color: #abb8b7; }
+.ea-cta-demo { border-color: rgba(245, 242, 235, .65) !important; color: var(--le-sand-50) !important; background: rgba(15, 24, 29, .75) !important; box-shadow: none !important; }
+.ea-paths { gap: 0 22px; }
+.ea-paths a { padding: 13px 0; border: 0; border-top: 1px solid var(--le-hairline-2); border-radius: 0; background: transparent; }
+.ea-paths a:hover, .ea-paths a:focus-visible { border-color: var(--le-copper); background: transparent; }
+.ea-panel { background: rgba(22, 30, 34, .96); border-color: rgba(232, 237, 231, .18); border-radius: 12px; box-shadow: -18px 12px 54px rgba(0, 0, 0, .34); }
+.ea-panel .pp-head h2 { font-weight: 560; letter-spacing: -.04em; }
+.ea-panel .pp-sec h3 { color: #c5a184; }
+.ea-layers { background: rgba(19, 27, 31, .9); }
+.urban-tour { background: #1b262a; border-top-color: var(--le-hairline-2); }
+@media (max-width: 860px) {
+  .ea-vignette { background: linear-gradient(180deg, rgba(7, 12, 16, .75), rgba(7, 12, 16, .18) 64%, transparent); }
+  .ea-hero { max-width: none; max-height: 60dvh; }
+  .ea-hero .le-display { font-size: clamp(33px, 8vw, 43px); }
+  .ea-panel { max-height: 60dvh; }
+  .ea-panel:has(.urban-tour) { max-height: 64dvh; }
+}
