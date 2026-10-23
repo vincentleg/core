@@ -43,3 +43,16 @@ requests, founder session opening the project).
 - Found during D: a name collision with the existing `#ea-legend`; fixed by `#ea-view-legend` before commit.
 - Validation: unit 383/383; `scripts/r10-world-browser.mjs` 32/32 in three consecutive runs after removing test races
   (moving symbols; uncovered tap target). Pending: other-language strings, R1–R9 browser regressions, Firefox/Safari.
+
+## Release and containment (2026-10-23)
+- Public branch `release/r10-public` (`023f711`): a single squashed commit of the verified tree on top of `main`, so the
+  local branch history that contains the private files was never pushed. No force-push; no existing remote ref changed.
+- Production redeployed from that tree with the existing Vercel project (prebuilt). Every previously exposed private URL
+  now returns 404 on both domains; all 173 live public text assets scanned clean. Earlier deployment URLs are behind
+  Vercel's login (302 to SSO), so they are not public; they were not deleted.
+- Credentials: no real secret was ever in public history (test fixtures only). The founder auth UUID and Supabase project
+  reference are identifiers, not secrets, and cannot be "rotated"; access stays protected server-side. Nothing to rotate.
+- Fixed during release: the mission panel re-rendered every 2 s and moved content under the pointer (R4/R5 failed, also
+  on the R9 baseline). Periodic refreshes now hold for 5 s after any interaction with the panel.
+- Remaining: the pushed branch `origin/v9.9/multilingual-text-first` still holds the private files, a prospect record and the
+  founder auth UUID. Deleting it needs founder approval; GitHub may still serve its commits by SHA until a support purge.
