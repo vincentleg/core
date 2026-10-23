@@ -54,5 +54,6 @@ requests, founder session opening the project).
   reference are identifiers, not secrets, and cannot be "rotated"; access stays protected server-side. Nothing to rotate.
 - Fixed during release: the mission panel re-rendered every 2 s and moved content under the pointer (R4/R5 failed, also
   on the R9 baseline). Periodic refreshes now hold for 5 s after any interaction with the panel.
-- Remaining: the pushed branch `origin/v9.9/multilingual-text-first` still holds the private files, a prospect record and the
-  founder auth UUID. Deleting it needs founder approval; GitHub may still serve its commits by SHA until a support purge.
+- Remote branch `v9.9/multilingual-text-first` deleted with founder approval (not a force-push; all its commits kept
+  locally). The 21 remaining remote branches contain no private term. Remaining: GitHub still serves those commits by
+  direct SHA URL until GitHub Support purges unreferenced objects; the founder must request that purge.
