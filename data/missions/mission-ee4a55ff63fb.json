@@ -166,7 +166,7 @@
       }
      ],
      "value": 0,
-     "asOf": "2026-10-22T21:34:23.037Z",
+     "asOf": "2026-10-23T01:56:26.931Z",
      "agent": "core.san-francisco.climate.weather-alerts",
      "tool": "resilience.weather-alerts"
     }
@@ -341,7 +341,7 @@
     }
    ],
    "value": 0,
-   "asOf": "2026-10-22T21:34:23.037Z",
+   "asOf": "2026-10-23T01:56:26.931Z",
    "agent": "core.san-francisco.climate.weather-alerts",
    "tool": "resilience.weather-alerts"
   },
@@ -744,14 +744,14 @@
   },
   {
    "seq": 21,
-   "t": 4,
+   "t": 5,
    "kind": "gateway",
    "agent": "core.san-francisco.governance.gateway",
    "text": "PREUVES SUPPLÉMENTAIRES REQUISES — Aucune action proposée : surveiller les révisions USGS ; une évaluation d’impact exigerait des données structurelles et géotechniques non disponibles. Limites : Aucune donnée structurelle, géotechnique ou d’inspection : aucun impact ne peut être évalué."
   },
   {
    "seq": 22,
-   "t": 4,
+   "t": 5,
    "kind": "mission",
    "state": "needs-evidence",
    "text": "Mission → needs-evidence"
@@ -760,9 +760,9 @@
  "fingerprint": "16bcf0ae69b48d15",
  "recorded": {
   "by": "scripts/agents.mjs (Node)",
-  "at": "2026-10-22T21:34:40.913Z",
+  "at": "2026-10-23T01:56:44.449Z",
   "wallMs": 5,
   "snapshot": "2026-10-13T18:25:19.678Z",
-  "feedUpdate": "2026-10-22T21:34:23.037Z"
+  "feedUpdate": "2026-10-23T01:56:26.931Z"
  }
 }
