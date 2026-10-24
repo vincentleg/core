@@ -81,7 +81,7 @@ async function syncLife() {
   for (const e of STORE.list().filter(x => x.state === 'private')) {
     let r = recs[e.id];
     try {
-      if (!r) { r = await LIFE.create({ id: e.id, owner, mission: e.mission, demonstration: e.demonstration, reason: e.investigation ? `Draft prepared from the saved agent investigation ${e.investigation.execution} in this browser on ${e.at}` : `Draft recorded from the private contribution saved in this browser on ${e.at}`, evidence: [{ kind: 'user-claim', ref: e.id, source: 'this browser' }, ...SV.lifecycleEvidence(e.investigation)] }); if (!STORE.saveLifecycle(r)) continue; }
+      if (!r) { r = await LIFE.create({ id: e.id, owner, mission: e.mission, demonstration: e.demonstration, reason: e.investigation ? `Draft prepared from the saved agent investigation ${e.investigation.execution} in this browser on ${e.at}` : e.city ? `Draft prepared from the saved city summary ${e.city.id} in this browser on ${e.at}` : `Draft recorded from the private contribution saved in this browser on ${e.at}`, evidence: [{ kind: 'user-claim', ref: e.id, source: 'this browser' }, ...SV.lifecycleEvidence(e.investigation), ...SV.cityLifecycleEvidence(e.city)] }); if (!STORE.saveLifecycle(r)) continue; }
       life.set(e.id, { record: r, check: await LIFE.verify(r), owned: r.owner === owner });
     } catch { /* storage unavailable: the card falls back to the plain contribution line */ }
   }
@@ -101,7 +101,7 @@ function lifeHTML(e) {
     ${records ? AR.relatedHTML(records, r) : recordsFailed && r.mission === AR.MISSION_OF_WORK ? `<div class="lc-related"><h4>${T('Related recorded investigation', 'Enquête enregistrée liée')}</h4><p class="fine">${T(`Could not load ${AR.FILES.work}; reload to retry.`, `Impossible de charger ${AR.FILES.work} ; rechargez pour réessayer.`)}</p></div>` : ''}
     <div><h4>${T('Pending decisions', 'Décisions en attente')}</h4>${pend ? `<ul>${pend}</ul>` : `<p class="fine">${T('None: this contribution is closed.', 'Aucune : cette contribution est close.')}</p>`}</div></div>
     ${can('SUBMITTED') ? `<form class="lc-submit" data-life-submit="${esc(e.id)}"><label class="fine"><input type="checkbox" name="consent" required> ${T('I agree that a reviewer may read this text if one is ever verified. Demonstration: nothing is sent; the CORE evidence check runs in this browser.', 'J’accepte qu’un relecteur lise ce texte si l’un d’eux est un jour vérifié. Démonstration : rien n’est envoyé ; le contrôle des preuves CORE s’exécute dans ce navigateur.')}</label><button type="submit" class="btn small">${T('Submit for demonstration review', 'Soumettre pour une revue de démonstration')}</button></form>` : ''}
-    ${invRefHTML(e.investigation)}${MV.linkHTML(e.relates?.mission === r.mission ? e.relates : null)}<div class="lc-prov"><h4>${T('Provenance', 'Provenance')}</h4><p class="fine">${T('Created', 'Créée')} ${esc(day(e.at))} ${T('in this browser', 'dans ce navigateur')} · ${Array.isArray(e.place) ? `${T('place', 'lieu')} ${esc(Number(e.place[1]).toFixed(4))}, ${esc(Number(e.place[0]).toFixed(4))}` : T('no map place recorded', 'aucun lieu cartographié')} · ${T('structured by', 'structurée par')} ${esc(e.structuredBy || T('the author', 'l’auteur'))} · ${T('stored only in this browser; never sent by CORE', 'stockée uniquement dans ce navigateur ; jamais envoyée par CORE')} · ${check.ok ? T('history verified', 'historique vérifié') : T('history failed verification', 'historique non vérifié')}</p>
+    ${invRefHTML(e.investigation)}${cityRefHTML(e.city)}${MV.linkHTML(e.relates?.mission === r.mission ? e.relates : null)}<div class="lc-prov"><h4>${T('Provenance', 'Provenance')}</h4><p class="fine">${T('Created', 'Créée')} ${esc(day(e.at))} ${T('in this browser', 'dans ce navigateur')} · ${Array.isArray(e.place) ? `${T('place', 'lieu')} ${esc(Number(e.place[1]).toFixed(4))}, ${esc(Number(e.place[0]).toFixed(4))}` : T('no map place recorded', 'aucun lieu cartographié')} · ${T('structured by', 'structurée par')} ${esc(e.structuredBy || T('the author', 'l’auteur'))} · ${T('stored only in this browser; never sent by CORE', 'stockée uniquement dans ce navigateur ; jamais envoyée par CORE')} · ${check.ok ? T('history verified', 'historique vérifié') : T('history failed verification', 'historique non vérifié')}</p>
       ${r.mission ? `<a class="btn small" href="world.html#mission=${encodeURIComponent(r.mission)}">${T('Open the mission’s evidence on the map', 'Ouvrir les preuves de la mission sur la carte')}</a>` : ''}
       ${check.ok && L1.owned && !r.demonstration ? `<button type="button" class="btn small" data-life-packet="${esc(e.id)}">${T('Download a review request', 'Télécharger une demande de revue')}</button><span class="fine"> ${T('For a human reviewer you choose. CORE sends nothing and the state does not change.', 'Pour un relecteur humain de votre choix. CORE n’envoie rien et l’état ne change pas.')}</span>` : r.demonstration ? `<p class="fine">${T('Saved during the guided tour as a demonstration draft, so no review request is offered. To prepare one, use Contribute on the map.', 'Enregistrée pendant la visite guidée comme brouillon de démonstration : aucune demande de revue n’est proposée. Pour en préparer une, utilisez Contribuer sur la carte.')} <a href="world.html#contribute">${T('Contribute on the map', 'Contribuer sur la carte')}</a></p>` : ''}</div>
     ${can('ARCHIVED') ? `<button type="button" class="btn small ghost" data-life-archive="${esc(e.id)}">${T('Archive', 'Archiver')}</button>` : ''}
@@ -138,7 +138,43 @@ function invCard() {
       <span class="fine">${ok ? `${T('Integrity verified', 'Intégrité vérifiée')} · SHA-256 <code>${esc(r.digest.slice(0, 12))}…</code>` : `<b class="cmp-err">${T('Integrity check failed', 'Échec du contrôle d’intégrité')}: ${esc(reason)}</b> ${T('It cannot be reviewed; export or delete it.', 'Elle ne peut pas aller en revue ; exportez-la ou supprimez-la.')}`}</span>
       <span class="le-row inv-actions"><button type="button" class="btn small" data-inv-open="${esc(r.execution)}" aria-expanded="${invOpen === r.execution}">${invOpen === r.execution ? T('Close', 'Fermer') : T('Inspect', 'Examiner')}</button>${ok ? `<a class="btn small" href="world.html#exec=${encodeURIComponent(r.execution)}">${T('Reopen on the map', 'Rouvrir sur la carte')}</a>` : ''}<button type="button" class="btn small" data-inv-export="${esc(r.execution)}">${T('Export', 'Exporter')}</button>${ok ? (c ? `<a class="btn small" href="#contributions" data-inv-goto="${esc(c.id)}">${T('Review request prepared: see it', 'Demande de revue préparée : la voir')}</a>` : `<button type="button" class="btn small primary" data-inv-review="${esc(r.execution)}">${T('Prepare a review request', 'Préparer une demande de revue')}</button>`) : ''}<button type="button" class="btn small ghost" data-inv-del="${esc(r.execution)}">${T('Delete', 'Supprimer')}</button></span>
       ${invOpen === r.execution ? `<div class="inv-detail" id="inv-detail">${invDetail.get(`${r.execution}|${lang()}`) || T('Loading…', 'Chargement…')}</div>` : ''}</span></li>`; }).join('')}</ul>
+  ${cityListHTML()}
   ${items.length ? '' : `<p class="fine">${T('No saved investigation. On the map, open the San Francisco mobility mission, run a supervised execution and choose “Save in My CORE”.', 'Aucune enquête enregistrée. Sur la carte, ouvrez la mission de mobilité de San Francisco, lancez une exécution supervisée et choisissez « Enregistrer dans Mon CORE ».')}</p><a class="btn" href="world.html#intel=mission.sf.mobility">${T('Open the mission', 'Ouvrir la mission')}</a>`}`;
+}
+// R31: city summaries saved from the City Intelligence view. Re-verified on load; each links to the investigations it
+// compared, which are checked again (present, same digest). Their review request uses the same contribution lifecycle.
+const cities = new Map(), cityDetail = new Map(); let cityOpen = null;
+async function syncCity() { cities.clear(); for (const sum of SV.listCitySummaries(localStorage)) { let ok = true, reason = null; try { await SV.verifyCitySummary(sum); } catch (err) { ok = false; reason = err.message; } cities.set(sum.id, { sum, ok, reason }); } }
+const reportOk = r => !!r && inv.get(r.execution)?.ok === true && inv.get(r.execution).report.digest === r.digest;
+const cityLinked = id => STORE.list().find(c => c.city?.id === id) || null;
+function cityRefHTML(ref) {
+  const r = ref && SV.cleanCityRef(ref); if (!r) return '';
+  return `<div class="mi-link inv-ref"><b>${T('From a saved city summary', 'Issue d’une synthèse urbaine enregistrée')}</b> · ${esc(r.city)}<br><span class="fine"><code>${esc(r.id.slice(0, 8))}</code> · ${esc(day(r.createdAt))} · ${r.investigations.length} ${T('linked investigation(s)', 'enquête(s) liée(s)')} · SHA-256 <code>${esc(r.digest.slice(0, 12))}…</code> · ${cities.get(r.id)?.ok ? T('saved summary verified', 'synthèse enregistrée vérifiée') : T('saved summary missing or not verified', 'synthèse enregistrée absente ou non vérifiée')} · ${T('relationships between missions are hypotheses; not validated, not approved', 'les relations entre missions sont des hypothèses ; non validé, non approuvé')}</span></div>`;
+}
+function cityListHTML() {
+  const list = [...cities.values()].reverse(); if (!list.length) return '';
+  return `<h3 id="city-summaries">${T('City summaries', 'Synthèses urbaines')}</h3><ul class="me-list inv-list">${list.map(({ sum, ok, reason }) => { const c = cityLinked(sum.id);
+    return `<li data-city-sum="${esc(sum.id)}"><span><span class="le-badge inv-cls" data-class="recorded">${T('Deterministic city comparison', 'Comparaison urbaine déterministe')}</span><br><b>${esc(T(sum.city.name.en, sum.city.name.fr))} · ${esc(day(sum.createdAt))}</b><br>
+      <span class="fine"><code>${esc(sum.id.slice(0, 8))}</code> · ${sum.missions.length} ${T('missions', 'missions')} · ${T('shared geography', 'géographie commune')}: ${sum.overlaps.map(o => esc(o.neighborhood)).join(', ') || T('none', 'aucune')} · ${sum.opportunities.length} ${T('opportunities (hypotheses)', 'pistes (hypothèses)')} · ${sum.disagreements.length} ${T('disagreements', 'désaccords')}</span><br>
+      <span class="fine">${sum.missions.map(m => m.report ? `${esc(m.id)}: <a href="#investigations" data-inv-goto-inv="${esc(m.report.execution)}"><code>${esc(m.report.execution.slice(0, 8))}</code></a> ${reportOk(m.report) ? T('(present, verified)', '(présente, vérifiée)') : T('(deleted or changed)', '(supprimée ou modifiée)')}` : `${esc(m.id)}: ${T('no saved run', 'aucune exécution enregistrée')}`).join(' · ')}</span><br>
+      <span class="fine">${ok ? `${T('Integrity verified', 'Intégrité vérifiée')} · SHA-256 <code>${esc(sum.digest.slice(0, 12))}…</code>` : `<b class="cmp-err">${T('Integrity check failed', 'Échec du contrôle d’intégrité')}: ${esc(reason)}</b>`} · ${esc(NOTVAL())}</span>
+      <span class="le-row inv-actions"><button type="button" class="btn small" data-city-open="${esc(sum.id)}" aria-expanded="${cityOpen === sum.id}">${cityOpen === sum.id ? T('Close', 'Fermer') : T('Inspect', 'Examiner')}</button><a class="btn small" href="world.html#city=san-francisco">${T('Open the current city view', 'Ouvrir la vue urbaine actuelle')}</a><button type="button" class="btn small" data-city-export="${esc(sum.id)}">${T('Export', 'Exporter')}</button>${ok ? (c ? `<a class="btn small" href="#contributions" data-inv-goto="${esc(c.id)}">${T('Review request prepared: see it', 'Demande de revue préparée : la voir')}</a>` : `<button type="button" class="btn small primary" data-city-review="${esc(sum.id)}">${T('Prepare a review request', 'Préparer une demande de revue')}</button>`) : ''}<button type="button" class="btn small ghost" data-city-del="${esc(sum.id)}">${T('Delete', 'Supprimer')}</button></span>
+      ${cityOpen === sum.id ? `<div class="inv-detail" id="city-detail">${cityDetail.get(`${sum.id}|${lang()}`) || T('Loading…', 'Chargement…')}</div>` : ''}</span></li>`; }).join('')}</ul>`;
+}
+async function showCityDetail() {
+  const box = $('city-detail'), x = cities.get(cityOpen), key = `${cityOpen}|${lang()}`; if (!box || !x || cityDetail.has(key)) return;
+  try { const V = await import('../execution/city-view.mjs'); cityDetail.set(key, V.summaryHTML(x.sum, { reportOk })); if ($('city-detail') === box) box.innerHTML = cityDetail.get(key); }
+  catch (err) { box.textContent = T(`Details unavailable: ${err.message}`, `Détails indisponibles : ${err.message}`); }
+}
+async function prepareCityReview(id) {
+  const x = cities.get(id); if (!x?.ok) return;
+  const sum = x.sum, text = [`${T('Saved city summary', 'Synthèse urbaine enregistrée')} ${sum.id} (${T(sum.city.name.en, sum.city.name.fr)}). ${NOTVAL()}`,
+    `${T('Shared geography (co-location only)', 'Géographie commune (co-localisation seulement)')}: ${sum.overlaps.map(o => o.neighborhood).join(', ') || '—'}.`,
+    `${T('Opportunities, all hypotheses', 'Pistes, toutes des hypothèses')}: ${sum.opportunities.map(o => o.text).join(' ')}`].join('\n').slice(0, 1000);
+  const e = STORE.save({ kind: 'question', title: `${T('City summary', 'Synthèse urbaine')} · ${T(sum.city.name.en, sum.city.name.fr)} · ${day(sum.createdAt)}`.slice(0, 120), text, mission: null, structuredBy: 'deterministic', city: SV.cityRef(sum) });
+  if (!STORE.list().some(c => c.id === e.id)) return toast(T('Browser storage unavailable; nothing was prepared.', 'Stockage local indisponible ; rien n’a été préparé.'));
+  await syncLife(); render(); document.querySelector(`[data-life="${CSS.escape(e.id)}"]`)?.scrollIntoView({ block: 'start' });
+  toast(T('Draft review request prepared in My contributions. Nothing was sent.', 'Brouillon de demande de revue préparé dans Mes contributions. Rien n’a été envoyé.'));
 }
 // Preparing a review request reuses the contribution lifecycle: a private draft that references the investigation.
 async function prepareReview(id) {
@@ -199,7 +235,8 @@ function render() {
   $('me-body').querySelectorAll('[data-life-packet]').forEach(b => b.onclick = () => {
     const id = b.dataset.lifePacket, L1 = life.get(id), entry = STORE.list().find(x => x.id === id); if (!L1 || !entry) return;
     const ix = entry.investigation && inv.get(entry.investigation.execution), investigationCheck = !entry.investigation ? null : ix?.ok && ix.report.digest === entry.investigation.digest ? { ok: true } : { ok: false, reason: ix ? 'saved report altered or not verified' : 'saved report deleted from this browser' };
-    const packet = LC.reviewPacket(L1.record, entry, { verification: L1.check, related: records ? AR.relatedInvestigation(records, L1.record) : null, investigationCheck });
+    const cx = entry.city && cities.get(entry.city.id), cityCheck = !entry.city ? null : cx?.ok && cx.sum.digest === entry.city.digest ? { ok: true } : { ok: false, reason: cx ? 'saved city summary altered or not verified' : 'saved city summary deleted from this browser' };
+    const packet = LC.reviewPacket(L1.record, entry, { verification: L1.check, related: records ? AR.relatedInvestigation(records, L1.record) : null, investigationCheck, cityCheck });
     const url = URL.createObjectURL(new Blob([JSON.stringify(packet, null, 2) + '\n'], { type: 'application/json' })), a = Object.assign(document.createElement('a'), { href: url, download: `core-review-request-${id}.json` });
     document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
   });
@@ -212,16 +249,25 @@ function render() {
   B.querySelectorAll('[data-inv-del]').forEach(b => b.onclick = () => { if (!confirm(T('Delete this saved investigation from this browser? A review request already prepared keeps its reference but can no longer be checked against the report.', 'Supprimer cette enquête enregistrée de ce navigateur ? Une demande de revue déjà préparée garde sa référence mais ne pourra plus être vérifiée avec le rapport.'))) return;
     if (!SV.deleteReport(b.dataset.invDel, localStorage)) return toast(T('Browser storage unavailable; nothing was deleted.', 'Stockage local indisponible ; rien n’a été supprimé.')); if (invOpen === b.dataset.invDel) invOpen = null; inv.delete(b.dataset.invDel); render(); });
   if (invOpen) showInvDetail();
+  if (cityOpen) showCityDetail();
+  B.querySelectorAll('[data-city-open]').forEach(b => b.onclick = () => { cityOpen = cityOpen === b.dataset.cityOpen ? null : b.dataset.cityOpen; render(); document.querySelector(`[data-city-sum="${CSS.escape(b.dataset.cityOpen)}"]`)?.scrollIntoView({ block: 'start' }); });
+  B.querySelectorAll('[data-city-export]').forEach(b => b.onclick = () => { const x = cities.get(b.dataset.cityExport); if (x) saveFile(`core-city-summary-${x.sum.id.slice(0, 8)}.json`, x.sum); });
+  B.querySelectorAll('[data-city-review]').forEach(b => b.onclick = () => prepareCityReview(b.dataset.cityReview));
+  B.querySelectorAll('[data-inv-goto-inv]').forEach(b => b.onclick = e => { e.preventDefault(); const el = document.querySelector(`[data-inv="${CSS.escape(b.dataset.invGotoInv)}"]`); if (el) el.scrollIntoView({ block: 'start' }); else toast(T('That investigation is no longer saved in this browser.', 'Cette enquête n’est plus enregistrée dans ce navigateur.')); });
+  B.querySelectorAll('[data-city-del]').forEach(b => b.onclick = () => { if (!confirm(T('Delete this city summary from this browser? The investigations it links to are kept.', 'Supprimer cette synthèse urbaine de ce navigateur ? Les enquêtes liées sont conservées.'))) return;
+    if (!SV.deleteCitySummary(b.dataset.cityDel, localStorage)) return toast(T('Browser storage unavailable; nothing was deleted.', 'Stockage local indisponible ; rien n’a été supprimé.')); if (cityOpen === b.dataset.cityDel) cityOpen = null; cities.delete(b.dataset.cityDel); render(); });
   if (location.hash === '#contributions' || location.hash === '#investigations') $(location.hash.slice(1))?.scrollIntoView({ block: 'start' });
 }
 // Earth-first (src/features.mjs): identity is the pseudonym, not a 3D avatar; the portrait and the studio link are dormant.
 if (!STREET_LEVEL) { document.querySelector('.me-portrait')?.remove(); document.querySelector('.me-hero a[href="avatar.html"]')?.remove(); }
 render(); if (STREET_LEVEL) portrait();
 // #investigation=<id> (from the map): open that saved investigation once its integrity has been checked.
-syncInv().then(() => { const id = new URLSearchParams(location.hash.slice(1)).get('investigation'); if (id && inv.has(id)) invOpen = id; render(); if (invOpen) { document.querySelector(`[data-inv="${CSS.escape(invOpen)}"]`)?.scrollIntoView({ block: 'start' }); } });
+// #city=<id>: open that saved city summary (after its investigations, which it links to, are verified).
+Promise.all([syncInv(), syncCity()]).then(() => { const h = new URLSearchParams(location.hash.slice(1)), id = h.get('investigation'), cid = h.get('city'); if (id && inv.has(id)) invOpen = id; if (cid && cities.has(cid)) cityOpen = cid; render();
+  const target = invOpen ? `[data-inv="${CSS.escape(invOpen)}"]` : cityOpen ? `[data-city-sum="${CSS.escape(cityOpen)}"]` : null; if (target) document.querySelector(target)?.scrollIntoView({ block: 'start' }); });
 fetch('data/problems/registry.json').then(r => r.json()).then(r => { problems = r.problems; render(); }).catch(() => {});
 VS.onChange(() => render()); onLang(() => render());
-globalThis.CORE_ME = { render, portrait: false, life, inv };
+globalThis.CORE_ME = { render, portrait: false, life, inv, cities };
 syncLife().then(render);
 
 mountFounderAccount($('me-body')); mountLocalFounder($('me-body'));

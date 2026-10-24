@@ -32,6 +32,9 @@ import * as EX from '../execution/engine.mjs';
 import * as XV from '../execution/view.mjs';
 import { createRegistry, APPROVED_RESOURCES } from '../execution/tools.mjs';
 import * as EXM from '../execution/missions.mjs';
+import * as CITY from '../execution/city.mjs';
+import * as CV from '../execution/city-view.mjs';
+import * as SV from '../execution/saved.mjs';
 import { requirementsFor } from '../contrib/lifecycle.mjs';
 import { nearbyMissions } from './discovery.mjs';
 import { ollamaJSON } from '../intelligence/pool.mjs';
@@ -374,6 +377,7 @@ function setLayer(m, { intro = true } = {}) {
 
 // ---------- panels ----------
 function panel(kind, id, html) {
+  if (kind !== 'city') cityLayer(null);
   const same = S.panelKind?.kind === kind && S.panelKind?.id === id, hadFocus = $('ea-panel').contains(document.activeElement); S.panelKind = { kind, id }; $('ea-panel-body').innerHTML = html;
   // Keep keyboard focus in the panel when its content is replaced (e.g. after following a link inside it).
   if (hadFocus && !$('ea-panel').contains(document.activeElement)) $('ea-panel').focus({ preventScroll: true });
@@ -492,6 +496,43 @@ async function openStoredExec(id) {
   try { if (!r) throw Error(T('Not found in this browser.', 'Introuvable dans ce navigateur.')); await EX.verifyReport(r); S.exec = { ...(S.exec || {}), report: r, ctl: null, source: 'stored' }; renderExec(); }
   catch (err) { panel('exec', 'stored', XV.unavailableHTML(T(`This stored execution cannot be shown: ${err.message}`, `Cette exécution enregistrée ne peut pas être affichée : ${err.message}`))); }
 }
+// R31: city intelligence — a deterministic comparison of the city's missions and of investigations saved in this
+// browser (reports are re-verified before use). Uses only the bundled files the city layer cites.
+async function cityReports() { const out = []; for (const r of EX.listReports(localStorage)) { try { out.push(await EX.verifyReport(r)); } catch { /* altered reports are left out */ } } return out; }
+async function showCity() {
+  revealMap(); panel('city', 'san-francisco', `<p class="fine" role="status">${T('Loading the city’s missions, evidence and saved investigations…', 'Chargement des missions, preuves et enquêtes enregistrées de la ville…')}</p>`);
+  await Promise.all([loadRecords(), S.urbanReady].map(p => p?.catch?.(() => null)));
+  await execResources({ evidence: CITY.CITY_RESOURCES.map(resource => ({ resource })) });
+  try { S.city = { ctx: CITY.cityContext({ cityId: 'san-francisco', resources: S.execRes.resources, hashes: S.execRes.hashes, reports: await cityReports() }), saved: null }; }
+  catch (err) { return void panel('city', 'san-francisco', XV.unavailableHTML(String(err.message || err))); }
+  renderCity(); cityLayer(S.city.ctx); S.map.easeTo({ center: [-122.405, 37.778], zoom: 13.2, pitch: 45, duration: 900 });
+  history.replaceState(null, '', '#city=san-francisco');
+}
+const renderCity = () => { if (S.city) { const top = $('ea-panel').scrollTop; panel('city', 'san-francisco', CV.cityHTML(S.city.ctx, { nameOf: agentName, saved: S.city.saved })); $('ea-panel').scrollTop = top; } };
+// Map: shared neighbourhoods outlined, mission locations marked (and the mapped approach drawn). Removed with the panel.
+function cityLayer(ctx) {
+  const map = S.map; if (!map) return;
+  // isStyleLoaded() is also false while tiles load: retry once the map is idle, if the city panel is still open.
+  if (!map.isStyleLoaded()) { if (ctx) map.once('idle', () => { if (S.panelKind?.kind === 'city') cityLayer(S.city?.ctx || null); }); return; }
+  for (const id of ['core-city-fill', 'core-city-line', 'core-city-pts']) if (map.getLayer(id)) map.setLayoutProperty(id, 'visibility', ctx ? 'visible' : 'none');
+  if (!ctx) return;
+  const nb = S.execRes?.resources?.[CITY.CITIES['san-francisco'].boundaries.resource], shared = new Set(ctx.overlaps.map(o => o.neighborhood));
+  const features = [...(nb?.features || []).filter(f => shared.has(f.properties.nhood)).map(f => ({ type: 'Feature', geometry: f.geometry, properties: { kind: 'area', name: f.properties.nhood } })),
+    ...ctx.missions.map(m => ({ type: 'Feature', geometry: { type: 'Point', coordinates: m.place.center }, properties: { kind: 'mission', name: T(m.title.en, m.title.fr) } })),
+    ...ctx.missions.filter(m => m.link.points?.length > 1).map(m => ({ type: 'Feature', geometry: { type: 'LineString', coordinates: m.link.points }, properties: { kind: 'segment', name: m.id } }))];
+  const data = { type: 'FeatureCollection', features };
+  if (map.getSource('core-city')) map.getSource('core-city').setData(data);
+  else { map.addSource('core-city', { type: 'geojson', data });
+    map.addLayer({ id: 'core-city-fill', type: 'fill', source: 'core-city', filter: ['==', ['get', 'kind'], 'area'], paint: { 'fill-color': '#5fd4ff', 'fill-opacity': 0.1 } });
+    map.addLayer({ id: 'core-city-line', type: 'line', source: 'core-city', filter: ['!=', ['get', 'kind'], 'mission'], paint: { 'line-color': '#5fd4ff', 'line-width': ['match', ['get', 'kind'], 'segment', 5, 2], 'line-opacity': 0.85 } });
+    map.addLayer({ id: 'core-city-pts', type: 'circle', source: 'core-city', filter: ['==', ['get', 'kind'], 'mission'], paint: { 'circle-radius': 8, 'circle-color': '#f2d36b', 'circle-stroke-color': '#0b1620', 'circle-stroke-width': 2 } }); }
+}
+async function saveCity() {
+  if (!S.city?.ctx) return;
+  try { const sum = await CITY.citySummary(S.city.ctx); await SV.verifyCitySummary(sum); const r = SV.saveCitySummary(sum, localStorage);
+    if (!r.ok) return toast(T(`Not saved: ${r.reason}`, `Non enregistrée : ${r.reason}`)); S.city.saved = sum.id; renderCity(); toast(T('City summary saved in My CORE, in this browser only.', 'Synthèse urbaine enregistrée dans Mon CORE, dans ce navigateur seulement.')); }
+  catch (err) { toast(String(err.message || err)); }
+}
 const showIntel = () => { panel('intel', MI.MISSION, intelBody()); loadRecords(); S.urbanReady?.then(() => { if (S.panelKind?.kind === 'intel' && S.intel?.catalog !== S.urban?.catalog) refreshPanel(true); }).catch(() => {}); };
 const agentPanelHTML = id => CP.agentHTML(S.civ, id).replace('</header>', `</header>${cardHTML(id)}${intelBrief(id)}`) + recordsHTML(id);
 const showAgent = id => { S.lastAgent = id; return S.urban?.catalog.agents.some(a => a.id === id) ? S.urban.agent(id) : panel('agent', id, agentPanelHTML(id)); };
@@ -547,7 +588,8 @@ function problemsHTML() {
   const results = discoveryResults();
   return `<header class="pp-head"><p class="le-eyebrow">${T('Problem intelligence · San Francisco', 'Intelligence des problèmes · San Francisco')}</p><h2 id="pp-title">${T('Problems & missions', 'Problèmes et missions')}</h2>
     <p class="pp-lede">${T('Explore dated findings, declared gaps and demonstration missions. Choose a mission to see its evidence, agent work and participation path.', 'Explorez les constats datés, les lacunes déclarées et les missions de démonstration. Choisissez une mission pour voir ses preuves, le travail des agents et comment contribuer.')}</p>
-    <p class="fine">${counts.map(([c, n]) => `${n} · ${E(CATEGORY[c])}`).join(': ')}. ${T('San Francisco is the first city: the same method is designed for any place with open data.', 'San Francisco est la première ville : la même méthode est conçue pour tout lieu doté de données ouvertes.')}</p></header>
+    <p class="fine">${counts.map(([c, n]) => `${n} · ${E(CATEGORY[c])}`).join(': ')}. ${T('San Francisco is the first city: the same method is designed for any place with open data.', 'San Francisco est la première ville : la même méthode est conçue pour tout lieu doté de données ouvertes.')}</p>
+    <p class="le-row"><button type="button" class="small primary" data-city="open">${T('City intelligence · San Francisco', 'Intelligence urbaine · San Francisco')}</button><span class="fine">${T('Compare executable missions, evidence and gaps across the city.', 'Comparer missions exécutables, preuves et lacunes à l’échelle de la ville.')}</span></p></header>
     <div class="pp-sec"><label>${T('Area', 'Zone')} <select data-discovery="area"><option value="all"${discovery.area === 'all' ? ' selected' : ''}>${T('All San Francisco missions', 'Toutes les missions de San Francisco')}</option><option value="near"${discovery.area === 'near' ? ' selected' : ''}>${T('Within about 2 km of map centre', 'À environ 2 km du centre de la carte')}</option></select></label>
     <label>${T('Maturity', 'Maturité')} <select data-discovery="category"><option value="all">${T('All', 'Toutes')}</option>${ORDER.map(c => `<option value="${c}"${discovery.category === c ? ' selected' : ''}>${E(CATEGORY[c])}</option>`).join('')}</select></label><p class="fine">${T('Nearby uses mission markers and an approximate distance; it does not imply full local coverage.', 'La proximité utilise les repères des missions et une distance approximative ; elle ne signifie pas une couverture locale complète.')}</p><p id="cv-discovery-count" role="status">${results.count} ${T('matching missions', 'missions correspondantes')}</p></div>
     <div id="cv-discovery-results">${results.html}</div>
@@ -707,7 +749,7 @@ function refreshPanel(force = false) {
   if (k.kind === 'agent') B.innerHTML = agentPanelHTML(k.id); else if (k.kind === 'proposal' && force) return void showProposal(k.id); else if (k.kind === 'urban-agent' && force && S.lastAgent) return void S.urban?.agent(S.lastAgent); else if (k.kind === 'place' && force && S.nearAt) return void showNear(S.nearAt); else if (k.kind === 'mission') B.innerHTML = missionBody(k.id); else if (k.kind === 'activity') B.innerHTML = CP.activityHTML(S.civ, CIV.state());
   else if (k.kind === 'hierarchy') B.innerHTML = CP.hierarchyHTML(S.civ); else if (k.kind === 'team') B.innerHTML = CP.teamHTML(S.civ, k.id); else if (k.kind === 'problems' && force) B.innerHTML = problemsHTML();
   else if (force && k.kind === 'problem') B.innerHTML = problemPanel(k.id); else if (force && k.kind === 'simulation') return void renderSimulation(); else if (force && k.kind === 'event') B.innerHTML = CP.eventHTML(S.civ, k.id);
-  else if (force && k.kind === 'intel') B.innerHTML = intelBody(); else if (force && k.kind === 'exec') return void renderExec();
+  else if (force && k.kind === 'intel') B.innerHTML = intelBody(); else if (force && k.kind === 'exec') return void renderExec(); else if (force && k.kind === 'city') return void renderCity();
   else if (force && k.kind === 'contribute') return void showContribute(k.id, S.draftLink?.ref); else if (force && k.kind === 'investigate' && !S.investigating) return void showInvestigate(k.id);
   $('ea-panel').scrollTop = top;
 }
@@ -746,6 +788,7 @@ async function startCivilisation() {
     if (h.get('investigate') && R.M.has(h.get('investigate'))) { revealMap(); showInvestigate(h.get('investigate')); }
     if (h.has('contribute')) { revealMap(); showContribute(R.M.has(h.get('contribute')) ? h.get('contribute') : null); }
     if (/^[0-9a-f-]{36}$/.test(h.get('exec') || '')) { revealMap(); openStoredExec(h.get('exec')); }
+    if (h.get('city') === 'san-francisco') showCity();
     if (h.get('intel') === MI.MISSION) { revealMap(); S.map.jumpTo({ center: R.M.get(MI.MISSION)?.center || PLACES.somaField, zoom: 15.8, pitch: 58, bearing: -40 }); S.scale = 'city'; renderScales(); if (S.layer.mode === 'real') setLayer('hybrid', { intro: false }); showIntel(); }
     if (h.get('sim')) (h.get('play') ? playSimulation : showSimulation)(h.get('sim'));
     if (h.get('follow') && R.byId.has(h.get('agent'))) followAgent(h.get('agent'));
@@ -764,7 +807,7 @@ function wireCiv() {
   });
   document.querySelectorAll('#ea-layers [data-layer]').forEach(b => b.onclick = () => setLayer(b.dataset.layer));
   $('ea-panel-body').addEventListener('click', e => {
-    const t = e.target.closest('[data-mission],[data-agent],[data-agent-location],[data-intel],[data-intel-fly],[data-mi-jump],[data-ev],[data-follow],[data-follow-mission],[data-speed],[data-hierarchy],[data-reason],[data-sim],[data-scn],[data-scn-play],[data-scn-off],[data-team],[data-investigate],[data-contribute],[data-activity],[data-open],[data-exec],[data-exec-open],[data-exec-mission]'); if (!t) return;
+    const t = e.target.closest('[data-mission],[data-agent],[data-agent-location],[data-intel],[data-intel-fly],[data-mi-jump],[data-ev],[data-follow],[data-follow-mission],[data-speed],[data-hierarchy],[data-reason],[data-sim],[data-scn],[data-scn-play],[data-scn-off],[data-team],[data-investigate],[data-contribute],[data-activity],[data-open],[data-exec],[data-exec-open],[data-exec-mission],[data-city]'); if (!t) return;
     if (t.matches('a[href^="dialogue.html"], a[href^="report.html"], a[href^="me.html"]')) return; e.preventDefault();
     if (t.dataset.open) return void openPanel(t.dataset.open);
     if (t.dataset.agentLocation) { const post = S.records?.byId.get(t.dataset.agentLocation)?.post; if (Array.isArray(post)) { if (S.layer?.mode === 'real') setLayer('hybrid'); void flyTo(post, 17); } return; }
@@ -772,6 +815,7 @@ function wireCiv() {
     if (t.dataset.exec) return void execAction(t.dataset.exec);
     if (t.dataset.execOpen) return void openStoredExec(t.dataset.execOpen);
     if (t.dataset.execMission) return void showExecPlan(t.dataset.execMission);
+    if (t.dataset.city) return void (t.dataset.city === 'save' ? saveCity() : showCity());
     if (t.dataset.intelFly) { const c = t.dataset.intelFly.split(',').map(Number); if (c.length === 2 && c.every(Number.isFinite)) { if (S.layer?.mode === 'real') setLayer('hybrid'); void flyTo(c, 17); } return; }
     if (t.dataset.miJump) { const d = $(t.dataset.miJump); if (d) { if (d.tagName === 'DETAILS') d.open = true; d.scrollIntoView({ block: 'start' }); } return; }
     if (t.dataset.sim) return void showSimulation(t.dataset.sim);
@@ -808,6 +852,7 @@ addEventListener('hashchange', () => {
   else if (h.get('mission') === 'mission.sf.mobility') openPublicDestination('city');
   else if (h.get('intel') === MI.MISSION && S.civReady) { revealMap(); showIntel(); }
   else if (/^[0-9a-f-]{36}$/.test(h.get('exec') || '') && S.civReady) { revealMap(); openStoredExec(h.get('exec')); }
+  else if (h.get('city') === 'san-francisco' && S.civReady && S.panelKind?.kind !== 'city') showCity();
 });
 async function launchDemo(mode) { return openDemoChoice(); }
 

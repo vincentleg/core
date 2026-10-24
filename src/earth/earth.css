@@ -488,3 +488,6 @@ body.earth.ea-explore .ea-guide { top: calc(var(--ci-shell, var(--navh)) + var(-
 .ex-controls { position: sticky; top: 0; z-index: 1; background: inherit; } .ex-controls button { min-height: 44px; }
 .ex-result h4 { margin: 10px 0 4px; font-size: 13px; } .ex-log code { overflow-wrap: anywhere; }
 .ex-actions button, .ex-actions .btn { min-height: 44px; }
+/* R31 city intelligence */
+.ci-list > li { padding: 8px 0; border-top: 1px solid var(--le-hairline-2); overflow-wrap: anywhere; }
+.ci-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; } .ci-actions button { min-height: 44px; }

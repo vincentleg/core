@@ -58,7 +58,8 @@ test('compatible with partial state: no saved runs, one mission only, stale resu
   const C = await CP, R = await loadAll(), [sf, h] = await runs(R);
   const empty = C.cityContext({ ...R, reports: [] });
   assert.ok(empty.missions.every(m => !m.report)); assert.equal(empty.opportunities.filter(o => /No saved investigation of/.test(o.text)).length, 2);
-  assert.deepEqual(empty.missions[1].requirements.map(q => [q.id, q.basis]), [['need', 'missing'], ['dates', 'missing'], ['review', 'missing']]);
+  assert.deepEqual(empty.missions[1].requirements.map(q => [q.id, q.basis, q.from]), [['need', 'missing', 'specification'], ['dates', 'missing', 'specification'], ['review', 'missing', 'specification']]);
+  assert.ok(C.cityContext({ ...R, reports: [sf, h] }).missions.every(m => m.requirements.every(q => q.basis === 'missing' && q.from === 'saved-run')), 'unmet requirements are gaps, never computed outputs');
   const one = C.cityContext({ ...R, reports: [sf] }); assert.equal(one.missions[0].report.execution, sf.execution); assert.equal(one.missions[1].report, null);
   const stale = structuredClone(h), row = stale.calls.find(c => c.tool === 'housing.pipeline').output.rows.find(r => r.neighborhood === 'Mission'); row.affordable += 7;
   const s = C.cityContext({ ...R, reports: [sf, stale] });
