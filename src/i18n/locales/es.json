@@ -3034,5 +3034,8 @@
 "Contribute an idea":"Aportar una idea",
 "Private, kept in this browser":"Privada, guardada en este navegador",
 "Skip":"Omitir",
-"Don’t show again":"No volver a mostrar"
+"Don’t show again":"No volver a mostrar",
+"Purpose":"Objetivo",
+"Recorded investigation (local-model run) · dated public data · no verified real-world impact":"Investigación registrada (ejecución de un modelo local) · datos públicos fechados · ningún impacto real verificado",
+"Browser replay only · no published investigation yet":"Solo reproducción en el navegador · aún sin investigación publicada"
 }

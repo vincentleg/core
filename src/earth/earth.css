@@ -425,3 +425,9 @@ body:has(#ea-panel:not([hidden]), #ea-list:not([hidden]), #ea-demo-choice:not([h
 .ea-guide-n { position: relative; }
 body.earth.ea-explore .ea-guide { top: calc(var(--ci-shell, var(--navh)) + var(--ci-h, 0px) + 16px); }
 @media (max-width: 860px) { body.earth.ea-explore .ea-guide { top: auto; } }
+/* R17 mission summary: where, purpose, evidence status, one next action. */
+.pp-summary { margin: 4px 0 14px; padding: 12px 14px; border: 1px solid var(--le-hairline-2); border-radius: 12px; background: rgba(245, 242, 235, .04); }
+.pp-summary dl { margin: 0 0 12px; display: grid; grid-template-columns: max-content 1fr; gap: 6px 12px; font-size: 13.5px; line-height: 1.45; }
+.pp-summary dt { color: #c5a184; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; padding-top: 1px; }
+.pp-summary dd { margin: 0; color: var(--le-text); }
+.pp-summary .primary { width: 100%; min-height: 44px; }

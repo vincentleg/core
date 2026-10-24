@@ -100,7 +100,7 @@ function focusSegment(segment, { open = true, instant = false } = {}) {
   const e = S.data.bySeg.get(segment); if (!e) return;
   S.sel = e.items[0].id; S.map.getSource('focus').setData({ type: 'FeatureCollection', features: [S.data.segs.get(segment)] });
   const target = { center: e.coord, zoom: Math.max(S.map.getZoom(), 16.4), pitch: 62, bearing: e.along - 30 };
-  if (S.mode !== 'human') (instant || reduced() ? S.map.jumpTo(target) : S.map.easeTo({ ...target, duration: 1600 }));
+  if (S.mode !== 'human') (instant ? S.map.jumpTo(target) : moveTo(target));
   if (open) openPanel(e.items[0].id);
 }
 const problemPanel = id => { const p = S.data.byId.get(id), j = J.read(), e = S.data.bySeg.get(p.segment);
@@ -154,7 +154,7 @@ function showGuide() {
   const done = new Set(), el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; };
   const steps = [
     ['place', T('Explore a place', 'Explorer un lieu'), T('Fly to the San Francisco example', 'Survoler l’exemple de San Francisco'), () => goScale('city')],
-    ['mission', T('Inspect a mission', 'Examiner une mission'), T('Evidence, sources and gaps', 'Preuves, sources et lacunes'), async () => { if (S.scale !== 'city') await goScale('city'); openMission(FLAGSHIP_MISSION); }],
+    ['mission', T('Inspect a mission', 'Examiner une mission'), T('Evidence, sources and gaps', 'Preuves, sources et lacunes'), () => { openMission(FLAGSHIP_MISSION); S.scale = 'city'; renderScales(); }],
     ['idea', T('Contribute an idea', 'Proposer une idée'), T('Private, kept in this browser', 'Privée, conservée dans ce navigateur'), () => showContribute()],
   ];
   const g = el('aside', 'ea-guide le-glass'); g.id = 'ea-guide'; g.setAttribute('aria-labelledby', 'ea-guide-h');
@@ -394,10 +394,18 @@ const agentPanelHTML = id => CP.agentHTML(S.civ, id).replace('</header>', `</hea
 const showAgent = id => { S.lastAgent = id; return S.urban?.catalog.agents.some(a => a.id === id) ? S.urban.agent(id) : panel('agent', id, agentPanelHTML(id)); };
 const showNear = lngLat => { S.nearAt = lngLat; if (!S.records) { loadRecords(); panel('place', lngLat.join(','), `<p class="fine">${T('Loading published agent records…', 'Chargement des enregistrements publiés des agents…')}</p>`); return; } panel('place', lngLat.join(','), AR.nearHTML(S.records, lngLat, S.registryCounts)); };
 const CLICKABLE = ['markers', 'civ-agents', 'civ-hubs', 'civ-net-city', 'urban-clusters', 'urban-agents', 'my-proposals'];
+const escS = v => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+// Mission summary at the top of the panel: where, purpose, evidence status (from published records only) and one next action.
+const missionSummary = id => {
+  const m = S.civ?.M.get(id); if (!m) return '';
+  const where = m.scope ? L(m.scope) : (m.city || '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  const ev = id === AR.MISSION_OF_WORK && S.records?.work?.run ? T('Recorded investigation (local-model run) · dated public data · no verified real-world impact', 'Enquête enregistrée (exécution d’un modèle local) · données publiques datées · aucun impact réel vérifié') : T('Browser replay only · no published investigation yet', 'Relecture dans le navigateur seulement · aucune enquête publiée pour l’instant');
+  const next = id === FLAGSHIP_MISSION ? `<button type="button" class="primary" data-urban="workbench">${T('Run an editable transport model', 'Exécuter un modèle de transport modifiable')}</button>` : `<button type="button" class="primary" data-contribute="${escS(id)}">${T('Contribute an idea', 'Proposer une idée')}</button>`;
+  return `<section class="pp-summary"><dl><dt>${T('Where', 'Où')}</dt><dd>${escS(where)}</dd><dt>${T('Purpose', 'Objectif')}</dt><dd>${escS(L(m.question || m.title))}</dd><dt>${T('Evidence', 'Preuves')}</dt><dd>${escS(ev)}</dd></dl>${next}</section>`;
+};
 const missionBody = id => {
   const records = S.records ? AR.missionRunHTML(S.records, id) : `<section class="pp-sec ar"><p class="fine">${T('Loading published investigation records…', 'Chargement des enquêtes publiées…')}</p></section>`;
-  return (id === FLAGSHIP_MISSION ? `<button type="button" class="primary" data-urban="workbench">${T('Run an editable transport model', 'Exécuter un modèle de transport modifiable')}</button>` : '')
-    + CP.missionHTML(S.civ, id).replace('</header>', `</header>${records}`);
+  return CP.missionHTML(S.civ, id).replace('</header>', `</header>${missionSummary(id)}${records}`);
 };
 const showMission = id => { panel('mission', id, missionBody(id)); loadRecords(); };
 const showActivity = () => panel('activity', null, CP.activityHTML(S.civ, CIV.state()));
@@ -407,7 +415,14 @@ const showTeam = id => panel('team', id, CP.teamHTML(S.civ, id));
 async function openMission(id) {
   const m = S.civ?.M.get(id); if (!m) return; revealMap(); if (S.layer?.mode === 'real') setLayer('hybrid');
   showMission(id); history.replaceState(null, '', `#mission=${encodeURIComponent(id)}`);
-  if (m.center && S.mode !== 'human') { const cam = { center: m.center, zoom: 15.6, pitch: 58, bearing: -40, padding: sidePad() }; reduced() ? S.map.jumpTo(cam) : S.map.easeTo({ ...cam, duration: 1400 }); }
+  if (m.center && S.mode !== 'human') moveTo({ center: m.center, zoom: 15.6, pitch: 58, bearing: -40, padding: sidePad() });
+}
+// Camera: no move when the target is already framed, a short ease nearby, one flight for large zoom changes; reduced motion jumps.
+function moveTo(cam) {
+  const c = S.map.getCenter(), z = S.map.getZoom(), [lng, lat] = cam.center, dz = Math.abs(z - cam.zoom);
+  if (Math.hypot((lng - c.lng) * Math.cos(lat * Math.PI / 180), lat - c.lat) * 111000 < 120 && dz < 0.6) return;
+  if (reduced()) return S.map.jumpTo(cam);
+  dz > 4 ? S.map.flyTo({ ...cam, duration: 2400, curve: 1.42, essential: false }) : S.map.easeTo({ ...cam, duration: 1100 });
 }
 const sidePad = () => ({ left: 0, top: 0, bottom: 0, right: innerWidth > 860 ? Math.min(480, innerWidth * 0.36) : 0 });
 
@@ -452,7 +467,7 @@ async function showSimulation(id = 'S0', { camera = true } = {}) {
     }
     if (S.traffic) { S.traffic.group.visible = true; terrain('traffic', true); }
     await S.scn.show(id); renderSimulation();
-    if (camera && S.mode !== 'human') { revealMap(); const cam = { ...SIM_CAM, padding: sidePad() }; reduced() ? S.map.jumpTo(cam) : S.map.easeTo({ ...cam, duration: 1400 }); S.scale = 'city'; renderScales(); }
+    if (camera && S.mode !== 'human') { revealMap(); moveTo({ ...SIM_CAM, padding: sidePad() }); S.scale = 'city'; renderScales(); }
     history.replaceState(null, '', `#sim=${encodeURIComponent(id)}`);
   } catch (e) { console.error(e); toast(T(`Simulation unavailable: ${e.message}`, `Simulation indisponible : ${e.message}`)); }
 }
