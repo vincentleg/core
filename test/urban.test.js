@@ -18,6 +18,14 @@ test('fluid queue conserves vehicles, reacts to interventions and rejects invali
  assert.equal(M.compare({scenarios:[{name:'a',parameters:p},{name:'b',parameters:p}]},s).best,null);
  assert.equal(M.compare({scenarios:[{name:'a',parameters:p},{name:'b',parameters:{...p,demand:0}}]},s).best,null,'lower demand is not automatically a winning intervention');
 });
+test('calibration readiness uses only documented geometry and leaves unsupported gates open',async()=>{
+ const {calibrationReadiness}=await import('../src/urban/tasks.mjs');
+ const r=calibrationReadiness(catalog,catalog.segments[0]);
+ assert.deepEqual(r.checklist.map(x=>[x.id,x.status]),[['geometry','met'],['measurements','missing'],['temporal','missing'],['spatial','unverified'],['authorization','unverified'],['calibration','missing'],['holdout','missing'],['review','missing']]);
+ assert.equal(r.authorizedModelDatasets.length,1);assert.equal(r.authorizedModelDatasets[0].id,'sf-streets');
+ assert.equal(r.calibrated,false);assert.equal(r.predictiveAccuracyValidated,false);assert.equal(r.outstanding.length,7);
+ assert.equal(calibrationReadiness(catalog,{...catalog.segments[0],source:'unknown'}).checklist[0].status,'unverified');
+});
 test('real task events, execution timestamps and reports are verified by recomputation',async()=>{
  const {execute,verifyReport,modelSource}=await import('../src/urban/tasks.mjs');const {DEFAULT}=await import('../src/urban/model.mjs');const events=[];
  const request={segment:catalog.segments[0].id,scenarios:[{name:'Reference',parameters:DEFAULT},{name:'Alternative',parameters:{...DEFAULT,green:.65}}]};

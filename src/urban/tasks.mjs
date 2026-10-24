@@ -1,10 +1,24 @@
-import { compare, digest, VERSION, REFERENCE } from './model.mjs';
+import { compare, digest, VERSION, REFERENCE, DEFAULT } from './model.mjs';
 export const ROLES = ['Data discovery', 'Data validation', 'Geographic analysis', 'Baseline analysis', 'Scenario parameters', 'Simulation', 'Comparison', 'Risk review', 'Evidence review', 'Report'];
 // DATA_SOURCES.md records this official DataSF street snapshot and its PDDL reuse terms.
 export const modelSource = (catalog, segment) => {
   const s = catalog?.sources?.find(s => s.id === segment?.source);
   return s?.id === 'sf-streets' && s.url === 'https://data.sf.gov/d/3psu-pn9h' && s.license?.name === 'ODC Public Domain Dedication and License (PDDL)' && /^[a-f0-9]{64}$/.test(s.sha256) && Number.isFinite(Date.parse(s.retrieved)) ? s : null;
 };
+export function calibrationReadiness(catalog, segment) {
+  const source = modelSource(catalog, segment);
+  const checklist = [
+    { id: 'geometry', label: 'Mapped model geometry', status: source ? 'met' : 'unverified', evidence: source ? `data/urban/catalog.json sf-streets; data/sf/manifest.json corridor.geojson; docs/DATA_SOURCES.md; SHA-256 ${source.sha256}` : 'Model source authorization unverified; no geometry accepted' },
+    { id: 'measurements', label: 'Observed traffic measurements', status: 'missing', evidence: 'docs/R3_EVIDENCE_READINESS.md: no authorized traffic counts or signal timings integrated' },
+    { id: 'temporal', label: 'Temporal coverage', status: 'missing', evidence: 'docs/SCIENTIFIC_PILOT_PLAN.md G1: comparable multi-day windows proposed, not collected' },
+    { id: 'spatial', label: 'Spatial matching', status: 'unverified', evidence: 'docs/pilot/source-manifest.json: candidate counts are historical; exact model approach match not established' },
+    { id: 'authorization', label: 'Source authorization', status: 'unverified', evidence: 'docs/DATA_SOURCES.md: DataSF geometry PDDL documented; SFMTA count reuse rights UNVERIFIED' },
+    { id: 'calibration', label: 'Calibration dataset', status: 'missing', evidence: 'docs/SCIENTIFIC_PILOT_PLAN.md G0–G1: no authorized calibration split or signal plan' },
+    { id: 'holdout', label: 'Independent holdout', status: 'missing', evidence: 'docs/SCIENTIFIC_PILOT_PLAN.md G1: holdout split proposed, not established' },
+    { id: 'review', label: 'Independent review', status: 'missing', evidence: 'docs/SCIENTIFIC_PILOT_PLAN.md G3: reviewer identity and availability unconfirmed' },
+  ];
+  return { kind: 'calibration-readiness', model: VERSION, segment: segment?.id || null, exploratory: true, calibrated: false, predictiveAccuracyValidated: false, inputs: Object.keys(DEFAULT), outputs: ['queue', 'accrued delay', 'throughput', 'remaining vehicles', 'demand sensitivity'], authorizedModelDatasets: source ? [{ id: source.id, url: source.url, retrieved: source.retrieved, license: source.license.name, sha256: source.sha256 }] : [], checklist, outstanding: checklist.filter(x => x.status !== 'met').map(x => x.id) };
+}
 export async function execute(catalog, request, notify = async () => {}) {
   if (!catalog || catalog.version !== 'core-urban-1' || !Array.isArray(catalog.sources)) throw Error('Unknown data catalog');
   if(!Array.isArray(catalog.taskAgents)||catalog.taskAgents.length!==10||new Set(catalog.taskAgents).size!==10||catalog.taskAgents.some(id=>!catalog.agents.some(a=>a.id===id)))throw Error('Invalid specialist assignments');

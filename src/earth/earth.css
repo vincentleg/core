@@ -445,6 +445,9 @@ body.earth.ea-explore .ea-guide { top: calc(var(--ci-shell, var(--navh)) + var(-
 .urban-evidence { border: 1px solid var(--le-hairline-2); border-radius: 12px; padding: 12px; }
 .urban-evidence .kv { grid-template-columns: 1fr; gap: 2px; margin: 0; }
 .urban-evidence .kv dt { margin-top: 6px; } .urban-evidence .kv dd { overflow-wrap: anywhere; }
+.urban-readiness { border: 1px solid var(--le-hairline-2); border-radius: 12px; padding: 12px; }
+.urban-readiness ol { margin: 8px 0; padding-left: 20px; display: grid; gap: 6px; font-size: 12px; }
+.urban-readiness li small { display: block; color: var(--le-text-2); overflow-wrap: anywhere; }
 /* R20 saved analyses (browser-local). */
 .urban-saved { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--le-hairline-2); }
 .urban-saved ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
