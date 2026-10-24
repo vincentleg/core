@@ -408,3 +408,20 @@ body.earth { --ea-foot: 64px; }
 @media (max-height: 700px) and (max-width: 860px) { .ea-hero .ea-eyebrow { display: none; } .ea-hero .le-display { font-size: clamp(30px, 8vw, 38px); } }
 @media (max-width: 380px) { body.earth { --ea-foot: 134px; } }
 body.earth .le-lang-floating select { max-width: none; }
+
+/* R16 first-steps guide (after Enter CORE): small, dismissible, the next action carries the accent. */
+.ea-guide { position: fixed; z-index: 12; right: 16px; top: calc(var(--navh) + 72px); width: min(300px, calc(100vw - 32px)); padding: 14px; border-radius: 16px; background: rgba(19, 27, 31, .92); }
+.ea-guide-h { margin: 0 0 8px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: #d9ab86; }
+.ea-guide ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.ea-guide ol button { width: 100%; display: flex; gap: 10px; align-items: center; text-align: left; min-height: 48px; padding: 8px 10px; border: 1px solid var(--le-hairline-2); border-radius: 12px; background: transparent; box-shadow: none; color: var(--le-text); }
+.ea-guide ol button b { display: block; font-size: 14px; font-weight: 560; } .ea-guide ol button small { display: block; font-size: 12px; color: var(--le-text-2); }
+.ea-guide-n { flex: none; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--le-hairline-2); font-size: 12px; }
+.ea-guide ol button.next { border-color: var(--le-sand-50); background: rgba(245, 242, 235, .08); }
+.ea-guide ol button.next .ea-guide-n { background: var(--le-sand-50); color: #0d1317; border-color: transparent; }
+.ea-guide ol button.done { opacity: .6; } .ea-guide ol button.done .ea-guide-n { color: transparent; } .ea-guide ol button.done .ea-guide-n::before { content: "✓"; color: var(--le-text); position: absolute; }
+.ea-guide-ctl { display: flex; justify-content: space-between; margin: 8px 0 0; } .ea-guide-ctl button.ea-quiet { min-height: 44px; padding: 8px 4px; font-size: 13px; color: var(--le-text-2); background: none; border: 0; box-shadow: none; text-decoration: underline; }
+body:has(#ea-panel:not([hidden]), #ea-list:not([hidden]), #ea-demo-choice:not([hidden]), .urban-tour) .ea-guide { display: none; }
+@media (max-width: 860px) { .ea-guide { top: auto; right: 8px; left: 8px; width: auto; bottom: calc(146px + env(safe-area-inset-bottom, 0px)); padding: 10px; } .ea-guide ol button small { display: none; } }
+.ea-guide-n { position: relative; }
+body.earth.ea-explore .ea-guide { top: calc(var(--ci-shell, var(--navh)) + var(--ci-h, 0px) + 16px); }
+@media (max-width: 860px) { body.earth.ea-explore .ea-guide { top: auto; } }

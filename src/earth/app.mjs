@@ -143,7 +143,33 @@ async function start() {
   $('ea-scales').hidden = false; $('ea-tools').hidden = false; $('ea-legend').hidden = false;
   enterExplorer();
   await fly({ center: [S.map.getCenter().lng, 22], zoom: innerWidth < 700 ? 1.05 : 1.65, pitch: 0, bearing: 0 }, 1100);
-  S.scale = 'planet'; renderScales();
+  S.scale = 'planet'; renderScales(); showGuide();
+}
+// First-steps guide after Enter CORE: three optional actions on the San Francisco example, the next one highlighted.
+// Not a wizard (any step, any order); Skip hides it for this visit, "Don't show again" is stored in this browser only.
+const GUIDE_KEY = 'core.guide.off';
+function showGuide() {
+  try { if (localStorage.getItem(GUIDE_KEY) === '1') return; } catch {}
+  if ($('ea-guide')) { $('ea-guide').hidden = false; return; }
+  const done = new Set(), el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; };
+  const steps = [
+    ['place', T('Explore a place', 'Explorer un lieu'), T('Fly to the San Francisco example', 'Survoler l’exemple de San Francisco'), () => goScale('city')],
+    ['mission', T('Inspect a mission', 'Examiner une mission'), T('Evidence, sources and gaps', 'Preuves, sources et lacunes'), async () => { if (S.scale !== 'city') await goScale('city'); openMission(FLAGSHIP_MISSION); }],
+    ['idea', T('Contribute an idea', 'Proposer une idée'), T('Private, kept in this browser', 'Privée, conservée dans ce navigateur'), () => showContribute()],
+  ];
+  const g = el('aside', 'ea-guide le-glass'); g.id = 'ea-guide'; g.setAttribute('aria-labelledby', 'ea-guide-h');
+  const h = el('p', 'ea-guide-h', T('Start here', 'Commencez ici')); h.id = 'ea-guide-h';
+  const ol = el('ol'), ctl = el('p', 'ea-guide-ctl');
+  const mark = () => { const next = steps.find(([id]) => !done.has(id))?.[0];
+    ol.querySelectorAll('button').forEach(b => { b.classList.toggle('done', done.has(b.dataset.step)); b.classList.toggle('next', b.dataset.step === next); if (b.dataset.step === next) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+    if (!next) g.hidden = true; };
+  steps.forEach(([id, title, sub, go], i) => { const b = el('button'); b.type = 'button'; b.dataset.step = id;
+    const t = el('span'); t.append(el('b', '', title), el('small', '', sub)); b.append(el('span', 'ea-guide-n', String(i + 1)), t);
+    b.onclick = () => { done.add(id); mark(); go(); }; const li = el('li'); li.append(b); ol.append(li); });
+  const skip = el('button', 'ea-quiet', T('Skip', 'Passer')), off = el('button', 'ea-quiet', T('Don’t show again', 'Ne plus afficher'));
+  skip.type = off.type = 'button'; skip.onclick = () => { g.hidden = true; };
+  off.onclick = () => { try { localStorage.setItem(GUIDE_KEY, '1'); } catch {} g.hidden = true; };
+  ctl.append(skip, off); g.append(h, ol, ctl); $('ea-main').append(g); mark();
 }
 
 // Relief is switched off while the 3D layer is in use (street level, traffic replay): SoMa is flat and the 3D layer
