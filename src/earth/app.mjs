@@ -683,7 +683,11 @@ onLang(() => {
       revealMap(); const e = S.data.bySeg.get(S.data.byId.get(FLAGSHIP).segment); S.map.jumpTo({ center: e.coord, zoom: 16.2, pitch: 60, bearing: e.along - 30 });
       focusSegment(e.items[0].segment, { open: false, instant: true }); if (STREET_LEVEL) S.map.once('idle', () => goScale('human'));
     } else if (VPLACES[h.get('place')]) { const P = VPLACES[h.get('place')]; if (P.scale) { revealMap(); goScale(P.scale); } else flyTo(P.at, P.zoom);
-    } else if (!['sim', 'mission', 'problems', 'agent', 'team', 'investigate', 'contribute'].some(k => h.has(k))) { if (innerWidth > 860) S.map.setPadding({ left: Math.min(760, innerWidth * 0.48), right: 0, top: 0, bottom: 0 }); spin(); }
+    } else if (!['sim', 'mission', 'problems', 'agent', 'team', 'investigate', 'contribute'].some(k => h.has(k))) { if (innerWidth > 860) S.map.setPadding({ left: Math.min(760, innerWidth * 0.48), right: 0, top: 0, bottom: 0 });
+      else { // narrow screens: frame the whole globe in the band between the navigation and the hero
+        const top = $('core-nav').getBoundingClientRect().bottom, bottom = innerHeight - $('ea-hero').getBoundingClientRect().top, band = Math.min(innerWidth, innerHeight - top - bottom);
+        S.map.jumpTo({ zoom: Math.max(0.2, Math.min(1.75, Math.log2(0.8 * band / 152))), padding: { left: 0, right: 0, top, bottom } }); }
+      spin(); }
   });
 })();
 globalThis.CORE_EARTH = { state: S, goScale, openPanel, focusSegment, enterHuman, leaveHuman, start, get exploring() { return document.body.classList.contains('ea-explore'); }, setLayer, showAgent, showMission, openMission, showActivity, showEvent, showHierarchy, showTeam, showProblems, showInvestigate, showContribute, showNoticed: showContribute, showSimulation, hideSimulation, playSimulation, revealMap, toggleCar, flyTo, followAgent, openDemoChoice, launchDemo, ensureScene, civ: () => S.civ, get fps() { const f = S.frames; return f.length ? f.length / f.reduce((a, b) => a + b, 0) : 0; } };

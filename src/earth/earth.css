@@ -370,3 +370,41 @@ body:has(#ea-layer-intro:not([hidden])) .ea-view-legend { display: none; }
   .ea-panel { max-height: 60dvh; }
   .ea-panel:has(.urban-tour) { max-height: 64dvh; }
 }
+
+/* R15 homepage: a short hero in the free band between the navigation and the map credits. It is sized by its content,
+   never clipped (it scrolls as a whole only when a screen is shorter than its content); disclosures live in #ea-status. */
+body.earth { --ea-foot: 64px; }
+.ea-hero, body.earth:has(#ea-hero:not([hidden]):not(.out)) .ea-hero { left: clamp(24px, 7vw, 112px); right: auto; top: calc((100dvh + var(--navh) - var(--ea-foot)) / 2); bottom: auto; transform: translateY(-50%); width: min(600px, 44vw); max-width: none; max-height: calc(100dvh - var(--navh) - var(--ea-foot) - env(safe-area-inset-bottom, 0px)); overflow-y: auto; margin: 0; padding: 16px 0; display: block; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; border-radius: 0; scrollbar-width: none; }
+.ea-hero.out { transform: translateY(calc(-50% + 12px)); }
+.ea-hero-main { display: grid; gap: 20px; }
+.ea-hero .ea-eyebrow { margin: 0; }
+.ea-hero .le-display { margin: 0; max-width: 13ch; font-size: clamp(40px, 4.3vw, 66px); line-height: 1.02; letter-spacing: -.045em; }
+.ea-hero .le-lede { margin: 0; max-width: 32ch; font-size: clamp(16px, 1.35vw, 19px); line-height: 1.5; color: #ccd5d2; }
+.ea-hero .ea-ctas { margin-top: 10px; gap: 12px; flex-wrap: wrap; }
+.ea-hero .ea-ctas > * { min-height: 48px; }
+.ea-disclose { margin: 28px 0 0; padding-top: 14px; border-top: 1px solid var(--le-hairline-2); max-width: 32ch; }
+.ea-hero .ea-disclose button.ea-quiet { padding: 8px 0; font-size: 14px; color: var(--le-text-2); }
+.ea-hero .ea-disclose button.ea-quiet::after { content: " →"; }
+.ea-status-note { margin: 10px 0 4px; padding-left: 10px; border-left: 2px solid var(--le-copper); font-size: 13px; line-height: 1.45; color: #c3cecd; }
+.ea-status .ea-horizon { margin-top: 14px; }
+.ea-status .ea-paths { margin-top: 12px; }
+.ea-status .ea-manifesto { display: inline-block; margin-top: 12px; padding: 10px 0; }
+@media (max-width: 860px) {
+  /* Phones and tablets: Earth on top, the hero anchored above the credits and the tab bar; the language pill moves up. */
+  body.earth { --ea-foot: 116px; }
+  .ea-hero, body.earth:has(#ea-hero:not([hidden]):not(.out)) .ea-hero { left: 20px; right: 20px; width: auto; top: auto; bottom: calc(var(--ea-foot) + env(safe-area-inset-bottom, 0px)); transform: none; max-height: calc(100dvh - var(--navh) - var(--ea-foot) - 16px - env(safe-area-inset-bottom, 0px)); padding: 0; }
+  .ea-hero.out { transform: translateY(12px); }
+  .ea-hero-main { gap: 14px; }
+  .ea-hero .le-display { max-width: 14ch; font-size: clamp(32px, 8.6vw, 46px); }
+  .ea-hero .le-lede { font-size: 16px; max-width: 36ch; }
+  .ea-hero .ea-ctas { margin-top: 4px; }
+  .ea-hero .ea-ctas > * { flex: 1 1 auto; }
+  .ea-disclose { margin-top: 14px; padding-top: 8px; max-width: none; }
+  .ea-vignette { background: linear-gradient(0deg, rgba(7, 12, 16, .94), rgba(7, 12, 16, .72) 42%, transparent 72%); }
+  body.earth:has(#ea-hero:not([hidden]):not(.out)) .le-lang-floating { top: calc(var(--navh) + 10px); bottom: auto; }
+  .ea-status { max-height: calc(100dvh - var(--navh) - 120px - env(safe-area-inset-bottom, 0px)); }
+}
+@media (max-width: 860px) and (min-width: 600px) { .ea-hero, body.earth:has(#ea-hero:not([hidden]):not(.out)) .ea-hero { left: 48px; right: 48px; } .ea-hero .ea-ctas > * { flex: 0 0 auto; } }
+@media (max-height: 700px) and (max-width: 860px) { .ea-hero .ea-eyebrow { display: none; } .ea-hero .le-display { font-size: clamp(30px, 8vw, 38px); } }
+@media (max-width: 380px) { body.earth { --ea-foot: 134px; } }
+body.earth .le-lang-floating select { max-width: none; }
