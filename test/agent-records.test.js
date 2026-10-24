@@ -151,6 +151,24 @@ test('Gate B mission card names mission, problem, evidence, tools, review and hi
   assert.equal(AR.missionCardHTML(AR.buildIndex({ registry: [], failed: [AR.REGISTRY] }), worker), '');
 });
 
+test('agent mission view follows saved investigation steps and keeps evidence, assumptions and inactivity distinct', async () => {
+  const AR = await ARP, ix = await index(), worker = 'core.san-francisco.housing.lead';
+  const h = AR.missionCardHTML(ix, worker);
+  for (const field of ['Identity', 'Assigned location', 'Objective', 'Current status', 'Evidence examined', 'Next available action']) assert.match(h, new RegExp(`<dt>${field}</dt>`));
+  assert.match(h, /Recorded investigation · 7 steps/);
+  assert.match(h, /data-agent-location="core\.san-francisco\.housing\.lead"/);
+  assert.match(h, /data-mission="mission\.sf\.mobility"/);
+  assert.match(h, /data-urban="workbench"/);
+  assert.match(h, /Computed, uncalibrated[\s\S]*\[F8\]/);
+  assert.match(h, /Unverified hypothesis[\s\S]*authorized catalog cannot establish absence/);
+  assert.match(h, /F6 \(evidence-backed geometry only\)/);
+  assert.match(h, /Oakland location is unsupported/);
+  const idle = REG.agents.find(a => !ix.records(a.id).work.length && !ix.records(a.id).urban.length && !ix.records(a.id).civ.length);
+  const inactive = AR.missionCardHTML(ix, idle.id);
+  assert.match(inactive, /No recorded objective/); assert.match(inactive, /Live execution is unavailable here/);
+  assert.doesNotMatch(inactive, /Recorded investigation · 7 steps|data-urban="workbench"/);
+});
+
 test('Gate B: a visitor-run browser task is neither replay nor recorded work', async () => {
   const AR = await ARP, ix = await index();
   const silent = REG.agents.find(a => AR.executionClass(ix, a.id) !== 'recorded' && a.executionMode !== 'unavailable').id;

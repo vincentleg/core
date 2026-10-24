@@ -156,6 +156,22 @@ export function executionClass(index, id, replayState = null, live = null) {
   if (replayState && replayState !== 'idle' && index.byId.get(id)?.executionMode !== 'unavailable') return 'replay';
   return 'inactive';
 }
+// A citation records provenance, not automatic truth. Only mapped administrative geometry is labelled evidence-backed;
+// source searches and an uncalibrated calculation cannot establish an observed traffic effect.
+function investigationSteps(index) {
+  const w = index.work, tasks = w?.run?.tasks || [], findings = new Map((w?.run?.findings || []).map(f => [f.id, f]));
+  const findingType = f => f.tool === 'geographic_context' ? T('evidence-backed geometry only', 'géométrie étayée seulement') : f.tool === 'calculate_scenarios' ? T('computed assumption, uncalibrated', 'hypothèse calculée, non calibrée') : f.tool === 'retrieve_source' ? T('source metadata, no traffic observations', 'métadonnées de source, sans observations de trafic') : T('catalog search or evidence check', 'recherche de catalogue ou contrôle des preuves');
+  const claim = c => {
+    const flag = w.narrativeFlags?.find(f => f.text === c.text), refs = (c.cites || []).map(id => findings.get(id)).filter(Boolean);
+    const wrongCity = /Oakland/i.test(c.text) && /Folsom Street approach|5660000/i.test(c.text);
+    const kind = flag || wrongCity ? T('Unverified hypothesis', 'Hypothèse non vérifiée') : refs.some(f => f.tool === 'calculate_scenarios') ? T('Computed, uncalibrated', 'Calculé, non calibré') : refs.some(f => f.tool === 'geographic_context') ? T('Mapped evidence only', 'Preuve cartographique seulement') : refs.some(f => f.tool === 'retrieve_source') ? T('Source metadata only', 'Métadonnées de source seulement') : T('Hypothesis / catalog check', 'Hypothèse / contrôle du catalogue');
+    return `<li><b>${kind}</b> · ${esc(c.text)} <span class="fine">[${esc((c.cites || []).join(', ') || T('no cited finding', 'aucun constat cité'))}]${flag ? ` · ${esc(flag.reason)}` : wrongCity ? ` · ${T('The mapped approach is in San Francisco; the Oakland location is unsupported.', 'L’approche cartographiée est à San Francisco ; le lieu Oakland n’est pas étayé.')}` : ''}</span></li>`;
+  };
+  return `<details class="ao-steps"><summary>${T(`Recorded investigation · ${tasks.length} steps`, `Enquête enregistrée · ${tasks.length} étapes`)}</summary><p class="fine">${esc(day(w.run.completed))} · <code>${esc(FILES.work)}</code> · ${T('Saved records only; live execution unavailable.', 'Enregistrements sauvegardés seulement ; exécution en direct indisponible.')}</p><ol>${tasks.map((t, i) => {
+    const refs = [...new Set((t.output?.claims || []).flatMap(c => c.cites || []))].map(id => findings.get(id)).filter(Boolean);
+    return `<li><details><summary>${T('Step', 'Étape')} ${i + 1} · ${esc(t.role)} · ${esc(t.status)}${t.completed ? ` · ${esc(day(t.completed))}` : ''}</summary><p>${esc(t.goal || T('No goal recorded', 'Aucun objectif enregistré'))}</p><ul>${(t.output?.claims || []).map(claim).join('') || `<li>${none()}</li>`}</ul><p class="fine">${T('Evidence examined', 'Preuves examinées')}: ${refs.length ? refs.map(f => `${esc(f.id)} (${findingType(f)})`).join(' · ') : T('none cited', 'aucune citée')}</p>${t.output?.uncertainty?.length ? `<p class="fine">${T('Open uncertainty', 'Incertitude ouverte')}: ${esc(t.output.uncertainty.join(' '))}</p>` : ''}</details></li>`;
+  }).join('')}</ol></details>`;
+}
 // Compact mission card shown first in an agent panel: what it is doing, why it is here, what supports it.
 // `replay`: { state, stateLabel, missionTitle, kind } from the browser. kind 'replay' (default): deterministic engine replay;
 // kind 'task': a scenario task the visitor ran in this browser (shown as such, never as agent work or replay).
@@ -172,14 +188,25 @@ export function missionCardHTML(index, id, replay = null) {
   const caps = a.capabilities?.length || 0, runs = r.tools.length + r.rejected.length;
   const tools = `${T(`${caps} authorized capability(ies)`, `${caps} capacité(s) autorisée(s)`)} · ${runs ? T(`${r.tools.length} recorded tool run(s), ${r.rejected.length} refused`, `${r.tools.length} exécution(s) d’outil enregistrée(s), ${r.rejected.length} refusée(s)`) : T('no recorded tool run', 'aucune exécution d’outil enregistrée')}`;
   const review = r.work.length && m.work?.humanReview ? esc(m.work.humanReview) : T('Any conclusion needs human review; the agent cannot approve, decide or act outside CORE.', 'Toute conclusion exige une revue humaine ; l’agent ne peut ni approuver, ni décider, ni agir hors de CORE.');
+  const recordsUnavailable = Object.values(FILES).some(f => index.failed.includes(f));
+  const focus = r.work.at(-1)?.goal || (recordsUnavailable ? T('Unavailable: records could not be loaded', 'Indisponible : enregistrements non chargés') : r.civ.length ? T('Recorded mission; objective not in this record', 'Mission enregistrée ; objectif absent de cet enregistrement') : T('No recorded objective', 'Aucun objectif enregistré'));
+  const navigation = `${Array.isArray(a.post) ? `<button type="button" class="small" data-agent-location="${esc(id)}">${T('Assigned location', 'Lieu affecté')}</button>` : ''}${r.work.length ? `<button type="button" class="small" data-mission="${esc(MISSION_OF_WORK)}">${T('Mission', 'Mission')}</button><button type="button" class="small" data-urban="workbench">${T('Scenario workbench', 'Atelier de scénarios')}</button>` : ''}`;
   return `<section class="pp-sec ao-card" data-exec="${cls}" aria-label="${T('Mission card', 'Fiche de mission')}">
     <p class="ao-exec-row"><span class="ao-exec" data-exec="${cls}">${esc(T(...label))}</span>${replay?.stateLabel ? `<span class="ao-replay">${T('On the map', 'Sur la carte')}: ${esc(replay.stateLabel)}${task ? '' : ` · ${T('replay', 'relecture')}`}</span>` : ''}</p>
-    <p class="fine ao-why">${esc(T(...why))}</p><dl class="kv ao-kv">
+    <p class="fine ao-why">${esc(T(...why))} ${T('Live execution is unavailable here.', 'L’exécution en direct est indisponible ici.')}</p><dl class="kv ao-kv">
+    <dt>${T('Identity', 'Identité')}</dt><dd>${esc(AT(a, 'name') || AT(a, 'role') || a.id)} · <code>${esc(a.code || a.id)}</code></dd>
+    <dt>${T('Assigned location', 'Lieu affecté')}</dt><dd>${esc(scope)}${Array.isArray(a.post) ? ` · ${T('virtual post', 'poste virtuel')} ${esc(a.post[1].toFixed(4))}, ${esc(a.post[0].toFixed(4))}` : ''}</dd>
+    <dt>${T('Objective', 'Objectif')}</dt><dd>${esc(focus)}</dd>
+    <dt>${T('Current status', 'Statut actuel')}</dt><dd>${esc(T(...label))} · ${T('no verified live task', 'aucune tâche en direct vérifiée')}</dd>
+    <dt>${T('Evidence examined', 'Preuves examinées')}</dt><dd>${r.findings.length ? r.findings.map(f => `<code>${esc(f.id)}</code>${f.source ? ` ${esc(f.source)}` : ''}`).join(' · ') : recordsUnavailable ? missing(T('Unavailable: records could not be loaded', 'Indisponible : enregistrements non chargés')) : none()}</dd>
+    <dt>${T('Next available action', 'Prochaine action disponible')}</dt><dd class="le-row">${navigation || none()}</dd></dl>
+    ${r.work.length && index.work?.run ? investigationSteps(index) : ''}
+    <details class="pp-adv"><summary>${T('Record provenance and permissions', 'Provenance des enregistrements et autorisations')}</summary><dl class="kv ao-kv">
     <dt>${T('Responsibility', 'Responsabilité')}</dt><dd>${esc(AT(a, 'role') || AT(a, 'name') || a.id)}</dd>
     <dt>${T('Why here', 'Pourquoi ici')}</dt><dd>${esc(scope)} <span class="fine">(${T('virtual post', 'poste virtuel')})</span></dd>
     <dt>${T('Problem', 'Problème')}</dt><dd>${problem}</dd>
     <dt>${T('Evidence', 'Preuves')}</dt><dd>${evidence}</dd>
     <dt>${T('Tools', 'Outils')}</dt><dd>${tools}</dd>
     <dt>${T('Human review', 'Revue humaine')}</dt><dd>${review}</dd>
-    <dt>${T('History', 'Historique')}</dt><dd>${last ? `${esc(day(last.at))} · <code>${esc(last.source)}</code>` : none()}</dd></dl></section>`;
+    <dt>${T('History', 'Historique')}</dt><dd>${last ? `${esc(day(last.at))} · <code>${esc(last.source)}</code>` : none()}</dd></dl></details></section>`;
 }

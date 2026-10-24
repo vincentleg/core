@@ -656,9 +656,10 @@ function wireCiv() {
   });
   document.querySelectorAll('#ea-layers [data-layer]').forEach(b => b.onclick = () => setLayer(b.dataset.layer));
   $('ea-panel-body').addEventListener('click', e => {
-    const t = e.target.closest('[data-mission],[data-agent],[data-ev],[data-follow],[data-follow-mission],[data-speed],[data-hierarchy],[data-reason],[data-sim],[data-scn],[data-scn-play],[data-scn-off],[data-team],[data-investigate],[data-contribute],[data-activity],[data-open]'); if (!t) return;
+    const t = e.target.closest('[data-mission],[data-agent],[data-agent-location],[data-ev],[data-follow],[data-follow-mission],[data-speed],[data-hierarchy],[data-reason],[data-sim],[data-scn],[data-scn-play],[data-scn-off],[data-team],[data-investigate],[data-contribute],[data-activity],[data-open]'); if (!t) return;
     if (t.matches('a[href^="dialogue.html"], a[href^="report.html"], a[href^="me.html"]')) return; e.preventDefault();
     if (t.dataset.open) return void openPanel(t.dataset.open);
+    if (t.dataset.agentLocation) { const post = S.records?.byId.get(t.dataset.agentLocation)?.post; if (Array.isArray(post)) { if (S.layer?.mode === 'real') setLayer('hybrid'); void flyTo(post, 17); } return; }
     if (t.dataset.sim) return void showSimulation(t.dataset.sim);
     if (t.dataset.scn) return void showSimulation(t.dataset.scn, { camera: false });
     if (t.dataset.scnPlay) { if (S.scn.state.playing) S.scn.stop(); else { if (S.scn.state.frame >= (S.scn.state.trace?.frames.length || 1) - 1) S.scn.render(0); S.scn.play(); } return void renderSimulation(); }
