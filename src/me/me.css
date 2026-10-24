@@ -55,3 +55,7 @@ body.commons.me { background: linear-gradient(160deg, #172127, #0d1318 48%); }
 /* R10 Gate C: contribution provenance and review request */
 .lc-prov { border-top: 1px solid #22425a; margin-top: 10px; padding-top: 8px; display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
 .lc-prov h4, .lc-prov p { flex-basis: 100%; margin: 0; }
+
+/* R27: link from a contribution to the recorded mission item it responds to. */
+.mi-link { border-left: 3px solid #9fd0f2; padding: 6px 10px; margin: 8px 0; overflow-wrap: anywhere; }
+.mi-link code { font-size: 12px; }

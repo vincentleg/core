@@ -5,6 +5,7 @@
 // them every review, recommendation, authorization and external state, are refused (fail closed). The last three
 // states also need a verified external record and an enabled external authority; neither exists (Constitution V1.1,
 // product constitution §4–§5). Pure module: no DOM, storage or network; usable in Node tests and in the browser.
+import { cleanLink } from '../earth/mission-intel.mjs';
 export const STATES = Object.freeze(['DRAFT', 'SUBMITTED', 'NEEDS_EVIDENCE', 'UNDER_REVIEW', 'SIMULATION_CANDIDATE', 'SIMULATED', 'INDEPENDENT_REVIEW', 'RECOMMENDED', 'NOT_RECOMMENDED', 'APPROVED_FOR_TRANSMISSION', 'TRANSMITTED', 'EXTERNALLY_IMPLEMENTED', 'IMPACT_MEASURED', 'REJECTED', 'ARCHIVED']);
 export const MAIN_PATH = Object.freeze(['DRAFT', 'SUBMITTED', 'UNDER_REVIEW', 'SIMULATION_CANDIDATE', 'SIMULATED', 'INDEPENDENT_REVIEW', 'RECOMMENDED', 'APPROVED_FOR_TRANSMISSION', 'TRANSMITTED', 'EXTERNALLY_IMPLEMENTED', 'IMPACT_MEASURED']);
 export const EXTERNAL_STATES = Object.freeze(['TRANSMITTED', 'EXTERNALLY_IMPLEMENTED', 'IMPACT_MEASURED']);
@@ -193,7 +194,7 @@ export function reviewPacket(record, entry, { verification, related = null, at =
     format: 'core.review-request.v1', preparedAt: at,
     notice: 'Prepared by the author in their own browser. CORE has not transmitted, reviewed, validated or endorsed this request; a human reviewer decides whether further investigation is justified.',
     reviewerQuestion: 'Is further investigation of this contribution justified? Answer yes, no, or name the specific evidence needed.',
-    contribution: { id: entry.id, kind: entry.kind, title: entry.title, text: entry.text, mission: entry.mission, place: Array.isArray(entry.place) ? entry.place : null, createdAt: entry.at, structuredBy: entry.structuredBy || null, status: 'claim, not a verified observation' },
+    contribution: { id: entry.id, kind: entry.kind, title: entry.title, text: entry.text, mission: entry.mission, place: Array.isArray(entry.place) ? entry.place : null, createdAt: entry.at, structuredBy: entry.structuredBy || null, status: 'claim, not a verified observation', relatesTo: cleanLink(entry.relates)?.mission === record.mission ? cleanLink(entry.relates) : null },
     lifecycle: { state: record.state, demonstration: !!record.demonstration, events: record.events.map(e => ({ ...clone(e), actor: { ...e.actor, id: e.actor.role === 'owner' ? 'author' : e.actor.id } })), integrity: verification ? { ok: verification.ok === true, head: verification.head || null, reason: verification.reason || null } : { ok: false, reason: 'not verified' } },
     missingEvidence: missing(record).map(g => ({ kind: g.kind, id: g.id, label: g.label.en })),
     limitations: req.limitations.map(x => x.en),

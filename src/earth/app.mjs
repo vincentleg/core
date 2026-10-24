@@ -25,6 +25,10 @@ import { PLACES as VPLACES, suggestMission } from '../voice/actions.mjs';
 import * as CONTRIB from '../contrib/contributions.mjs';
 import * as STORE from '../contrib/store.mjs';
 import * as AR from './agent-records.mjs';
+import * as MI from './mission-intel.mjs';
+import * as MV from './mission-intel-view.mjs';
+import { calibrationReadiness } from '../urban/tasks.mjs';
+import { requirementsFor } from '../contrib/lifecycle.mjs';
 import { nearbyMissions } from './discovery.mjs';
 import { ollamaJSON } from '../intelligence/pool.mjs';
 import { T, L, AT, lang, onLang, num } from '../i18n/i18n.mjs';
@@ -378,7 +382,7 @@ function loadRecords() {
   const failed = [];
   return S.recordsReady ||= Promise.all([AR.REGISTRY, AR.FILES.work, AR.FILES.urban, AR.FILES.civ].map(u => getJSON(u).catch(() => { failed.push(u); return null; }))).then(([reg, work, urban, civ]) => {
     S.records = AR.buildIndex({ registry: reg?.agents || [], work, urban, civ, failed }); S.registryCounts = reg ? AR.registryCounts(reg) : null;
-    if (['agent', 'urban-agent', 'place', 'mission'].includes(S.panelKind?.kind)) refreshPanel(true);
+    if (['agent', 'urban-agent', 'place', 'mission', 'intel'].includes(S.panelKind?.kind)) refreshPanel(true);
   });
 }
 const URBAN_STATE = { working: ['scenario model task running in this browser at your request', 'tâche du modèle de scénarios en cours dans ce navigateur à votre demande'], queued: ['scenario model task queued in this browser', 'tâche du modèle de scénarios en file dans ce navigateur'], unavailable: ['scenario worker unavailable in this browser', 'exécuteur de scénarios indisponible dans ce navigateur'], completed: ['a completion recorded in data/intelligence/work.json or data/urban/latest.json', 'une fin de tâche enregistrée dans data/intelligence/work.json ou data/urban/latest.json'], idle: ['no recorded or running task', 'aucune tâche enregistrée ni en cours'] };
@@ -390,8 +394,22 @@ const recordsHTML = id => { S.lastAgent = id; if (!S.records) { loadRecords(); r
 // Gate B: the mission card (execution class, responsibility, problem, evidence, tools, review, history) comes first.
 const cardHTML = id => { if (!S.records) return ''; const act = S.civ?.activity(id), m = act?.mission ? S.civ.M.get(act.mission) : null; return AR.missionCardHTML(S.records, id, act ? { state: act.state, stateLabel: CP.stateLabel(act.state), missionTitle: m ? L(m.title) : null } : null); };
 // Urban agents: the map state is a browser scenario task (run at the visitor's request) or idle, never live AI work.
-const urbanCardHTML = id => { if (!S.records) return ''; const v = S.urban?.statusOf(id); return AR.missionCardHTML(S.records, id, v ? { state: v, stateLabel: mapStateOf(id).source, missionTitle: null, kind: 'task' } : null); };
-const agentPanelHTML = id => CP.agentHTML(S.civ, id).replace('</header>', `</header>${cardHTML(id)}`) + recordsHTML(id);
+const urbanCardHTML = id => { if (!S.records) return ''; const v = S.urban?.statusOf(id); return AR.missionCardHTML(S.records, id, v ? { state: v, stateLabel: mapStateOf(id).source, missionTitle: null, kind: 'task' } : null) + intelBrief(id); };
+// R27: deterministic mission intelligence over the recorded investigation and calibration readiness (built once per load).
+function intelCtx() {
+  const w = S.records?.work; if (!w?.run || S.records.failed.includes(AR.FILES.work)) return null;
+  const cat = S.urban?.catalog || null; if (S.intel?.work === w && S.intel.catalog === cat) return S.intel.ctx;
+  const seg = cat?.segments.find(s => s.id === w.run.findings?.find(f => f.tool === 'calculate_scenarios')?.output?.segment);
+  S.intel = { work: w, catalog: cat, ctx: MI.buildMission({ work: w, readiness: cat ? calibrationReadiness(cat, seg) : null }), center: seg?.center || null };
+  return S.intel.ctx;
+}
+const agentName = id => { const a = S.records?.byId.get(id); return a ? `${a.code || id} · ${AT(a, 'name') || AT(a, 'role') || ''}`.replace(/ · $/, '') : id; };
+const intelBrief = id => { const ctx = intelCtx(); return ctx ? MV.agentBriefHTML(ctx, S.records.work, id, { nameOf: agentName }) : ''; };
+const linkedMine = () => STORE.list().filter(c => c.mission === MI.MISSION);
+const intelBody = () => { const ctx = intelCtx(); if (!ctx) return `<section class="pp-sec ar">${S.records ? `<p class="ar-missing">${T(`Could not load ${AR.FILES.work}; the mission investigation is unavailable. Reload to retry.`, `Impossible de charger ${AR.FILES.work} ; l’enquête de mission est indisponible. Rechargez pour réessayer.`)}</p>` : `<p class="fine">${T('Loading published investigation records…', 'Chargement des enquêtes publiées…')}</p>`}</section>`;
+  return MV.missionHTML(ctx, { nameOf: agentName, mine: linkedMine(), needs: requirementsFor(MI.MISSION).needs.map(n => L(n.label)), segmentCenter: S.intel.center }); };
+const showIntel = () => { panel('intel', MI.MISSION, intelBody()); loadRecords(); S.urbanReady?.then(() => { if (S.panelKind?.kind === 'intel' && S.intel?.catalog !== S.urban?.catalog) refreshPanel(true); }).catch(() => {}); };
+const agentPanelHTML = id => CP.agentHTML(S.civ, id).replace('</header>', `</header>${cardHTML(id)}${intelBrief(id)}`) + recordsHTML(id);
 const showAgent = id => { S.lastAgent = id; return S.urban?.catalog.agents.some(a => a.id === id) ? S.urban.agent(id) : panel('agent', id, agentPanelHTML(id)); };
 const showNear = lngLat => { S.nearAt = lngLat; if (!S.records) { loadRecords(); panel('place', lngLat.join(','), `<p class="fine">${T('Loading published agent records…', 'Chargement des enregistrements publiés des agents…')}</p>`); return; } panel('place', lngLat.join(','), AR.nearHTML(S.records, lngLat, S.registryCounts)); };
 const CLICKABLE = ['markers', 'civ-agents', 'civ-hubs', 'civ-net-city', 'urban-clusters', 'urban-agents', 'my-proposals'];
@@ -406,7 +424,8 @@ const missionSummary = id => {
 };
 const missionBody = id => {
   const records = S.records ? AR.missionRunHTML(S.records, id) : `<section class="pp-sec ar"><p class="fine">${T('Loading published investigation records…', 'Chargement des enquêtes publiées…')}</p></section>`;
-  return CP.missionHTML(S.civ, id).replace('</header>', `</header>${missionSummary(id)}${records}`);
+  const intel = id === MI.MISSION && S.records?.work?.run ? `<p class="le-row"><button type="button" class="small" data-intel="${MI.MISSION}">${T('Open the mission investigation: evidence, responsibilities, open questions', 'Ouvrir l’enquête de mission : preuves, responsabilités, questions ouvertes')}</button></p>` : '';
+  return CP.missionHTML(S.civ, id).replace('</header>', `</header>${missionSummary(id)}${intel}${records}`);
 };
 const showMission = id => { panel('mission', id, missionBody(id)); loadRecords(); };
 const showActivity = () => panel('activity', null, CP.activityHTML(S.civ, CIV.state()));
@@ -537,12 +556,13 @@ function showInvestigate(mid, preset = '') {
 }
 
 // ---------- contribute: observe → (structure) → edit → keep private / share with consent ----------
-function showContribute(mid = null) {
+function showContribute(mid = null, relates = null) {
   const R = S.civ; if (!R) return toast(T('The CORE civilisation is still loading…', 'La civilisation CORE se charge encore…'));
   const missions = [...R.M.values()].map(m => ({ id: m.id, title: m.title })), place = S.map.getZoom() >= 15 ? S.map.getCenter().toArray().map(x => +x.toFixed(5)) : null;
-  panel('contribute', mid, `<header class="pp-head"><p class="le-eyebrow">${T('Contribute', 'Contribuer')}</p><h2 id="pp-title">${T('I noticed something', 'J’ai remarqué quelque chose')}</h2>
+  const link = relates && mid === MI.MISSION ? MI.linkTarget(intelCtx(), relates) : null; S.draftLink = link;
+  panel('contribute', mid, `<header class="pp-head"><p class="le-eyebrow">${T('Contribute', 'Contribuer')}</p><h2 id="pp-title">${link ? T('Respond to the mission', 'Répondre à la mission') : T('I noticed something', 'J’ai remarqué quelque chose')}</h2>
     <p class="pp-lede">${T('Describe what you have seen, in your own words. CORE can help structure it; you then decide whether it stays private or is shared with a mission.', 'Décrivez ce que vous avez vu, avec vos mots. CORE peut vous aider à le structurer ; vous décidez ensuite s’il reste privé ou s’il est partagé avec une mission.')}</p></header>
-    <form class="form" id="nt-form"><label>${T('Mission', 'Mission')} <select id="nt-m0"><option value="">${T('Let CORE suggest one', 'Laisser CORE en suggérer une')}</option>${missions.map(x => `<option value="${esc(x.id)}"${x.id === mid ? ' selected' : ''}>${E(x.title)}</option>`).join('')}</select></label>
+    ${MV.linkHTML(link, agentName)}<form class="form" id="nt-form"><label>${T('Mission', 'Mission')} <select id="nt-m0"><option value="">${T('Let CORE suggest one', 'Laisser CORE en suggérer une')}</option>${missions.map(x => `<option value="${esc(x.id)}"${x.id === mid ? ' selected' : ''}>${E(x.title)}</option>`).join('')}</select></label>
       <label>${T('What I noticed', 'Ce que j’ai remarqué')} <textarea id="nt-text" maxlength="1000" required placeholder="${esc(T('E.g. In the morning, buses get stuck on Folsom between 5th and 6th; maybe because of cars turning right.', 'Ex. : Le matin, les bus restent bloqués sur Folsom entre la 5th et la 6th ; peut-être à cause des voitures qui tournent à droite.'))}"></textarea></label>
       <p class="fine">${place ? T(`Place: the map centre (${place[1]}, ${place[0]}) will be attached.`, `Lieu : le centre de la carte (${place[1]}, ${place[0]}) sera joint.`) : T('Zoom into the place you mean to attach it.', 'Zoomez sur le lieu concerné pour le joindre.')}</p>
       <div class="le-row"><button type="submit" class="primary" data-mode="det">${T('Structure it', 'Le structurer')}</button><button type="button" id="nt-model" data-mode="model"${PUBLIC ? ' disabled aria-describedby="nt-model-note"' : ''}>${PUBLIC ? T('Local model · unavailable on this site', 'Modèle local · indisponible sur ce site') : T('Structure with the local model', 'Structurer avec le modèle local')}</button></div>${PUBLIC ? `<p class="fine" id="nt-model-note">${T('Local-model structuring is available only on a computer running CORE with a local model; this public site uses deterministic rules.', 'La structuration par modèle local n’est disponible que sur un ordinateur exécutant CORE avec un modèle local ; ce site public utilise des règles déterministes.')}</p>` : ''}</form>
@@ -552,6 +572,7 @@ function showContribute(mid = null) {
     if (isCrisis(text)) { $('nt-text').value = ''; $('nt-state').textContent = crisisMessage(lang()); return; }
     const chosen = $('nt-m0').value || null;
     let st = CONTRIB.structure(text, { missions, findingsOf: id => R.M.get(id)?.findings || [], suggest: t => chosen || suggestMission(t, missions), place }); if (!st) return;
+    if (link) { st.relates = link; if (!chosen) st.mission = link.mission; if (st.kind === 'observation' && ['claim', 'conflict'].includes(link.kind)) st.kind = 'challenge'; }
     st.structuredBy = 'deterministic';
     if (useModel) { $('nt-state').textContent = T('Asking the local model…', 'Interrogation du modèle local…'); const model = await CIV.localModel().catch(() => null);
       if (!model) $('nt-state').textContent = T('Local AI reasoning is unavailable: deterministic structuring was used.', 'Raisonnement local indisponible : structuration déterministe utilisée.');
@@ -576,10 +597,10 @@ function renderStructured(st, missions) {
     <div id="nt-confirm" class="nt-confirm" hidden><p>${T('Sharing adds this title and text to the mission’s contribution queue in this browser. Agents will check its form (sources, numbers, personal data, links to the evidence); nothing is accepted automatically, nothing is published, and CORE has no shared server: nobody else will see it.', 'Partager ajoute ce titre et ce texte à la file des contributions de la mission, dans ce navigateur. Les agents vérifieront sa forme (sources, chiffres, données personnelles, liens avec les preuves) ; rien n’est accepté automatiquement, rien n’est publié, et CORE n’a pas de serveur partagé : personne d’autre ne le verra.')}</p>
       <label class="inline"><input type="checkbox" id="nt-consent"> ${T('I understand and choose to share it with this mission.', 'Je comprends et je choisis de le partager avec cette mission.')}</label>
       <div class="le-row"><button type="button" class="primary" id="nt-share">${T('Confirm sharing', 'Confirmer le partage')}</button><button type="button" class="ghost" id="nt-cancel">${T('Cancel', 'Annuler')}</button></div></div></form></div><div id="nt-done"></div>`;
-  const val = () => ({ kind: $('nt-kind').value, title: $('nt-title').value.trim(), text: $('nt-body').value.trim() + (st.place ? `\n(${T('Place', 'Lieu')}: ${st.place[1]}, ${st.place[0]})` : ''), mission: $('nt-mission').value, place: st.place, structuredBy: st.structuredBy });
+  const val = () => ({ kind: $('nt-kind').value, title: $('nt-title').value.trim(), text: $('nt-body').value.trim() + (st.place ? `\n(${T('Place', 'Lieu')}: ${st.place[1]}, ${st.place[0]})` : ''), mission: $('nt-mission').value, place: st.place, structuredBy: st.structuredBy, relates: st.relates?.mission === $('nt-mission').value ? st.relates : null });
   const done = (html) => { $('nt-done').innerHTML = html; $('nt-done').scrollIntoView({ block: 'nearest' }); };
   $('nt-private').onclick = () => { const v = val(); if (!v.title || !v.text) return toast(T('Give a title and a text.', 'Donnez un titre et un texte.')); const e = STORE.save({ ...v, state: 'private', id: S.draftId }); S.draftId = e.id; if (S.layer) syncProposals(S.layer.mode);
-    done(`<p class="nt-ok">${T('Kept private: stored only in this browser (not encrypted, not shared). You can share it later from My CORE.', 'Gardé en privé : enregistré seulement dans ce navigateur (non chiffré, non partagé). Vous pourrez le partager plus tard depuis Mon CORE.')} <a href="me.html#contributions">${T('My contributions', 'Mes contributions')}</a> · <a href="dialogue.html">${T('Encrypted Idea Vault', 'Coffre à idées chiffré')}</a></p>`); };
+    done(`<p class="nt-ok">${T('Kept private: stored only in this browser (not encrypted, not shared). You can share it later from My CORE.', 'Gardé en privé : enregistré seulement dans ce navigateur (non chiffré, non partagé). Vous pourrez le partager plus tard depuis Mon CORE.')}${e.relates ? ` ${T(`Linked to ${e.relates.kind} ${e.relates.ref} of the mission; no agent analysed it and nothing is approved.`, `Liée à l’élément ${e.relates.ref} de la mission ; aucun agent ne l’a analysée et rien n’est approuvé.`)}` : ''}</p><p class="le-row"><a class="btn small primary" href="me.html#contributions">${T('Prepare a human review request', 'Préparer une demande de revue humaine')}</a>${e.mission === MI.MISSION ? `<button type="button" class="small" data-intel="${MI.MISSION}">${T('Back to the mission investigation', 'Retour à l’enquête de mission')}</button>` : ''}</p><p class="fine"><a href="me.html#contributions">${T('My contributions', 'Mes contributions')}</a> · <a href="dialogue.html">${T('Encrypted Idea Vault', 'Coffre à idées chiffré')}</a></p>`); };
   $('nt-share-ask').onclick = () => { $('nt-confirm').hidden = false; $('nt-consent').focus(); };
   $('nt-cancel').onclick = () => { $('nt-confirm').hidden = true; };
   $('nt-share').onclick = async () => { const v = val(); if (!v.title || !v.text) return toast(T('Give a title and a text.', 'Donnez un titre et un texte.'));
@@ -602,7 +623,8 @@ function refreshPanel(force = false) {
   if (k.kind === 'agent') B.innerHTML = agentPanelHTML(k.id); else if (k.kind === 'proposal' && force) return void showProposal(k.id); else if (k.kind === 'urban-agent' && force && S.lastAgent) return void S.urban?.agent(S.lastAgent); else if (k.kind === 'place' && force && S.nearAt) return void showNear(S.nearAt); else if (k.kind === 'mission') B.innerHTML = missionBody(k.id); else if (k.kind === 'activity') B.innerHTML = CP.activityHTML(S.civ, CIV.state());
   else if (k.kind === 'hierarchy') B.innerHTML = CP.hierarchyHTML(S.civ); else if (k.kind === 'team') B.innerHTML = CP.teamHTML(S.civ, k.id); else if (k.kind === 'problems' && force) B.innerHTML = problemsHTML();
   else if (force && k.kind === 'problem') B.innerHTML = problemPanel(k.id); else if (force && k.kind === 'simulation') return void renderSimulation(); else if (force && k.kind === 'event') B.innerHTML = CP.eventHTML(S.civ, k.id);
-  else if (force && k.kind === 'contribute') return void showContribute(k.id); else if (force && k.kind === 'investigate' && !S.investigating) return void showInvestigate(k.id);
+  else if (force && k.kind === 'intel') B.innerHTML = intelBody();
+  else if (force && k.kind === 'contribute') return void showContribute(k.id, S.draftLink?.ref); else if (force && k.kind === 'investigate' && !S.investigating) return void showInvestigate(k.id);
   $('ea-panel').scrollTop = top;
 }
 const posOf = id => S.ground ? S.ground.pos(id) : S.civ.posOf(id); // drawn on the validated pedestrian network
@@ -639,6 +661,7 @@ async function startCivilisation() {
     if (h.get('team') && R.M.has(h.get('team'))) { revealMap(); showTeam(h.get('team')); }
     if (h.get('investigate') && R.M.has(h.get('investigate'))) { revealMap(); showInvestigate(h.get('investigate')); }
     if (h.has('contribute')) { revealMap(); showContribute(R.M.has(h.get('contribute')) ? h.get('contribute') : null); }
+    if (h.get('intel') === MI.MISSION) { revealMap(); S.map.jumpTo({ center: R.M.get(MI.MISSION)?.center || PLACES.somaField, zoom: 15.8, pitch: 58, bearing: -40 }); S.scale = 'city'; renderScales(); if (S.layer.mode === 'real') setLayer('hybrid', { intro: false }); showIntel(); }
     if (h.get('sim')) (h.get('play') ? playSimulation : showSimulation)(h.get('sim'));
     if (h.get('follow') && R.byId.has(h.get('agent'))) followAgent(h.get('agent'));
     else if (h.get('agent') && R.byId.has(h.get('agent'))) { revealMap(); S.map.jumpTo({ center: posOf(h.get('agent')), zoom: 17, pitch: 60 }); if (S.layer.mode === 'real') setLayer('hybrid', { intro: false }); showAgent(h.get('agent')); }
@@ -656,17 +679,20 @@ function wireCiv() {
   });
   document.querySelectorAll('#ea-layers [data-layer]').forEach(b => b.onclick = () => setLayer(b.dataset.layer));
   $('ea-panel-body').addEventListener('click', e => {
-    const t = e.target.closest('[data-mission],[data-agent],[data-agent-location],[data-ev],[data-follow],[data-follow-mission],[data-speed],[data-hierarchy],[data-reason],[data-sim],[data-scn],[data-scn-play],[data-scn-off],[data-team],[data-investigate],[data-contribute],[data-activity],[data-open]'); if (!t) return;
+    const t = e.target.closest('[data-mission],[data-agent],[data-agent-location],[data-intel],[data-intel-fly],[data-mi-jump],[data-ev],[data-follow],[data-follow-mission],[data-speed],[data-hierarchy],[data-reason],[data-sim],[data-scn],[data-scn-play],[data-scn-off],[data-team],[data-investigate],[data-contribute],[data-activity],[data-open]'); if (!t) return;
     if (t.matches('a[href^="dialogue.html"], a[href^="report.html"], a[href^="me.html"]')) return; e.preventDefault();
     if (t.dataset.open) return void openPanel(t.dataset.open);
     if (t.dataset.agentLocation) { const post = S.records?.byId.get(t.dataset.agentLocation)?.post; if (Array.isArray(post)) { if (S.layer?.mode === 'real') setLayer('hybrid'); void flyTo(post, 17); } return; }
+    if (t.dataset.intel) return void showIntel();
+    if (t.dataset.intelFly) { const c = t.dataset.intelFly.split(',').map(Number); if (c.length === 2 && c.every(Number.isFinite)) { if (S.layer?.mode === 'real') setLayer('hybrid'); void flyTo(c, 17); } return; }
+    if (t.dataset.miJump) { const d = $(t.dataset.miJump); if (d) { if (d.tagName === 'DETAILS') d.open = true; d.scrollIntoView({ block: 'start' }); } return; }
     if (t.dataset.sim) return void showSimulation(t.dataset.sim);
     if (t.dataset.scn) return void showSimulation(t.dataset.scn, { camera: false });
     if (t.dataset.scnPlay) { if (S.scn.state.playing) S.scn.stop(); else { if (S.scn.state.frame >= (S.scn.state.trace?.frames.length || 1) - 1) S.scn.render(0); S.scn.play(); } return void renderSimulation(); }
     if (t.dataset.scnOff) return void hideSimulation();
     if (t.dataset.team) return void showTeam(t.dataset.team);
     if (t.dataset.investigate) return void showInvestigate(t.dataset.investigate);
-    if (t.dataset.contribute) return void showContribute(t.dataset.contribute);
+    if (t.dataset.contribute) return void showContribute(t.dataset.contribute, t.dataset.relates || null);
     if (t.dataset.activity) return void showActivity();
     if (t.dataset.reason) { CIV.enableReasoning(t.dataset.reason === 'on').then(() => showActivity()); showActivity(); } else if (t.dataset.hierarchy) showHierarchy(); else if (t.dataset.mission) openMission(t.dataset.mission); else if (t.dataset.agent) showAgent(t.dataset.agent); else if (t.dataset.ev) showEvent(t.dataset.ev);
     else if (t.dataset.follow) { S.follow = S.follow === t.dataset.follow ? null : t.dataset.follow; toast(S.follow ? T('The camera follows this agent (click “Follow” again to stop).', 'La caméra suit cet agent (cliquez « Suivre » à nouveau pour arrêter).') : T('Stopped following.', 'Suivi arrêté.')); }
@@ -692,6 +718,7 @@ addEventListener('hashchange', () => {
   if (h.has('demo')) openDemoChoice();
   else if (h.has('investigations')) openPublicDestination('investigations');
   else if (h.get('mission') === 'mission.sf.mobility') openPublicDestination('city');
+  else if (h.get('intel') === MI.MISSION && S.civReady) { revealMap(); showIntel(); }
 });
 async function launchDemo(mode) { return openDemoChoice(); }
 
@@ -726,7 +753,7 @@ onLang(() => {
       revealMap(); const e = S.data.bySeg.get(S.data.byId.get(FLAGSHIP).segment); S.map.jumpTo({ center: e.coord, zoom: 16.2, pitch: 60, bearing: e.along - 30 });
       focusSegment(e.items[0].segment, { open: false, instant: true }); if (STREET_LEVEL) S.map.once('idle', () => goScale('human'));
     } else if (VPLACES[h.get('place')]) { const P = VPLACES[h.get('place')]; if (P.scale) { revealMap(); goScale(P.scale); } else flyTo(P.at, P.zoom);
-    } else if (!['sim', 'mission', 'problems', 'agent', 'team', 'investigate', 'contribute'].some(k => h.has(k))) { if (innerWidth > 860) S.map.setPadding({ left: Math.min(760, innerWidth * 0.48), right: 0, top: 0, bottom: 0 });
+    } else if (!['sim', 'mission', 'problems', 'agent', 'team', 'investigate', 'contribute', 'intel'].some(k => h.has(k))) { if (innerWidth > 860) S.map.setPadding({ left: Math.min(760, innerWidth * 0.48), right: 0, top: 0, bottom: 0 });
       else { // narrow screens: frame the whole globe in the band between the navigation and the hero
         const top = $('core-nav').getBoundingClientRect().bottom, bottom = innerHeight - $('ea-hero').getBoundingClientRect().top, band = Math.min(innerWidth, innerHeight - top - bottom);
         S.map.jumpTo({ zoom: Math.max(0.2, Math.min(1.75, Math.log2(0.8 * band / 152))), padding: { left: 0, right: 0, top, bottom } }); }
