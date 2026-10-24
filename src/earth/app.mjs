@@ -142,8 +142,9 @@ async function start() {
   S.map.setPadding({ left: 0, right: 0, top: 0, bottom: 0 });
   $('ea-scales').hidden = false; $('ea-tools').hidden = false; $('ea-legend').hidden = false;
   enterExplorer();
-  await fly({ center: [S.map.getCenter().lng, 22], zoom: innerWidth < 700 ? 1.05 : 1.65, pitch: 0, bearing: 0 }, 1100);
-  S.scale = 'planet'; renderScales(); showGuide();
+  fly({ center: [S.map.getCenter().lng, 22], zoom: innerWidth < 700 ? 1.05 : 1.65, pitch: 0, bearing: 0 }, 1100);
+  S.scale = 'planet'; renderScales();
+  await S.civLoading; showGuide();
 }
 // First-steps guide after Enter CORE: three optional actions on the San Francisco example, the next one highlighted.
 // Not a wizard (any step, any order); Skip hides it for this visit, "Don't show again" is stored in this browser only.
