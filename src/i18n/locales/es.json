@@ -3043,5 +3043,22 @@
 "Comparison":"Comparación",
 "CORE computes and records this comparison; it does not approve, recommend for adoption or implement any street change. Any decision belongs to qualified people and the responsible public agency, after calibration with measured counts and signal timings.":"CORE calcula y registra esta comparación; no aprueba, no recomienda su adopción ni implementa ningún cambio en la calle. Cualquier decisión corresponde a personas cualificadas y a la autoridad pública responsable, tras una calibración con conteos y tiempos semafóricos medidos.",
 "Assumptions, sources and limits":"Supuestos, fuentes y límites",
-"Kept private in this browser until you choose to share it.":"Se mantiene privada en este navegador hasta que decidas compartirla."
+"Kept private in this browser until you choose to share it.":"Se mantiene privada en este navegador hasta que decidas compartirla.",
+"Scenario inputs (assumptions)":"Entradas de los escenarios (supuestos)",
+"Scenario inputs":"Entradas de los escenarios",
+"Input":"Entrada",
+"Unit":"Unidad",
+"Values in parentheses are differences from the baseline. Every input is an assumption, not a measurement.":"Los valores entre paréntesis son diferencias respecto a la referencia. Cada entrada es un supuesto, no una medición.",
+"Prepare decision brief":"Preparar informe de decisión",
+"CORE decision brief":"Informe de decisión de CORE",
+"Decision brief generated in this browser":"Informe de decisión generado en este navegador",
+"Decision brief":"Informe de decisión",
+"Exploratory, uncalibrated model. Not a prediction, a measured gain or a recommendation. Human review is required before any decision.":"Modelo exploratorio sin calibrar. No es una predicción, una mejora medida ni una recomendación. Se requiere revisión humana antes de cualquier decisión.",
+"Location":"Ubicación",
+"Sources":"Fuentes",
+"Computed comparison":"Comparación calculada",
+"Uncertainty and limitations":"Incertidumbre y limitaciones",
+"Required human review":"Revisión humana requerida",
+"Reviewer":"Revisor",
+"Date":"Fecha"
 }

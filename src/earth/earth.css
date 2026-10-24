@@ -439,3 +439,6 @@ body.earth.ea-explore .ea-guide { top: calc(var(--ci-shell, var(--navh)) + var(-
 .urban-problem { margin-bottom: 14px; } .urban-problem h3 { margin-top: 0; }
 .urban-review { margin-top: 16px; padding: 12px 14px; border: 1px solid var(--le-copper); border-radius: 12px; }
 .urban-review h3 { margin: 0 0 6px; } .urban-review .primary { width: 100%; min-height: 44px; margin-top: 10px; }
+/* R19 decision workspace. */
+.urban-table td.urban-changed { color: var(--le-sand-50); font-weight: 600; }
+.urban-review [data-contribute] { width: 100%; min-height: 44px; margin-top: 8px; }

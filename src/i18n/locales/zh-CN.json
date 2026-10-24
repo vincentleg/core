@@ -3043,5 +3043,22 @@
 "Comparison":"比较",
 "CORE computes and records this comparison; it does not approve, recommend for adoption or implement any street change. Any decision belongs to qualified people and the responsible public agency, after calibration with measured counts and signal timings.":"CORE 计算并记录此比较；它不会批准、建议采用或实施任何道路改动。任何决定都应由合格人员和负责的公共机构在使用实测流量和信号配时完成校准后作出。",
 "Assumptions, sources and limits":"假设、来源与局限",
-"Kept private in this browser until you choose to share it.":"在你选择分享之前，仅私密保存在此浏览器中。"
+"Kept private in this browser until you choose to share it.":"在你选择分享之前，仅私密保存在此浏览器中。",
+"Scenario inputs (assumptions)":"情景输入（假设）",
+"Scenario inputs":"情景输入",
+"Input":"输入",
+"Unit":"单位",
+"Values in parentheses are differences from the baseline. Every input is an assumption, not a measurement.":"括号中的数值为与基线的差异。每项输入都是假设，而非测量值。",
+"Prepare decision brief":"准备决策简报",
+"CORE decision brief":"CORE 决策简报",
+"Decision brief generated in this browser":"在此浏览器中生成的决策简报",
+"Decision brief":"决策简报",
+"Exploratory, uncalibrated model. Not a prediction, a measured gain or a recommendation. Human review is required before any decision.":"探索性、未校准的模型。不是预测、实测收益或建议。任何决定之前都需要人工审核。",
+"Location":"位置",
+"Sources":"来源",
+"Computed comparison":"计算比较",
+"Uncertainty and limitations":"不确定性与局限",
+"Required human review":"必需的人工审核",
+"Reviewer":"审核人",
+"Date":"日期"
 }

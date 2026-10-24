@@ -3043,5 +3043,22 @@
 "Comparison":"Comparação",
 "CORE computes and records this comparison; it does not approve, recommend for adoption or implement any street change. Any decision belongs to qualified people and the responsible public agency, after calibration with measured counts and signal timings.":"O CORE calcula e registra esta comparação; não aprova, não recomenda a adoção nem implementa nenhuma mudança na via. Qualquer decisão cabe a pessoas qualificadas e à autoridade pública responsável, após calibração com contagens e tempos semafóricos medidos.",
 "Assumptions, sources and limits":"Pressupostos, fontes e limites",
-"Kept private in this browser until you choose to share it.":"Mantida privada neste navegador até você decidir compartilhá-la."
+"Kept private in this browser until you choose to share it.":"Mantida privada neste navegador até você decidir compartilhá-la.",
+"Scenario inputs (assumptions)":"Entradas dos cenários (pressupostos)",
+"Scenario inputs":"Entradas dos cenários",
+"Input":"Entrada",
+"Unit":"Unidade",
+"Values in parentheses are differences from the baseline. Every input is an assumption, not a measurement.":"Os valores entre parênteses são diferenças em relação à referência. Cada entrada é um pressuposto, não uma medição.",
+"Prepare decision brief":"Preparar resumo de decisão",
+"CORE decision brief":"Resumo de decisão do CORE",
+"Decision brief generated in this browser":"Resumo de decisão gerado neste navegador",
+"Decision brief":"Resumo de decisão",
+"Exploratory, uncalibrated model. Not a prediction, a measured gain or a recommendation. Human review is required before any decision.":"Modelo exploratório não calibrado. Não é uma previsão, um ganho medido nem uma recomendação. É necessária revisão humana antes de qualquer decisão.",
+"Location":"Local",
+"Sources":"Fontes",
+"Computed comparison":"Comparação calculada",
+"Uncertainty and limitations":"Incerteza e limitações",
+"Required human review":"Revisão humana necessária",
+"Reviewer":"Revisor",
+"Date":"Data"
 }
