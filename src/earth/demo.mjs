@@ -9,6 +9,7 @@ const B = 'core.san-francisco.housing.lead'; // recorded quantitative role, F6/F
 const ROAD = [[-122.403387209, 37.780264973], [-122.404431251, 37.779440335]]; // catalog segment 5665000
 const GLOBE = { center: [-24, 24], zoom: 1.6, pitch: 0, bearing: 0 };
 const CITY = { center: [-122.4135, 37.7765], zoom: 12.2, pitch: 45, bearing: -25 };
+const MID = [(ROAD[0][0] + ROAD[1][0]) / 2, (ROAD[0][1] + ROAD[1][1]) / 2];
 const AGENT = { center: ROAD[0], zoom: 16.8, pitch: 54, bearing: -35 };
 const PROBLEM = { center: ROAD[1], zoom: 17.3, pitch: 58, bearing: -32 };
 const PAIR = { center: [-122.4041, 37.77985], zoom: 16.5, pitch: 50, bearing: -35 };
@@ -18,8 +19,8 @@ export const STAGES = Object.freeze([
   { id: 'activate', ...EN('CORE activates', 'Parallel World is a virtual workspace on sourced Earth geography. The mission is a guided reenactment, not live agent execution.', 'CORE s’active', 'Le Monde parallèle est un espace virtuel sur une géographie sourcée. La mission est une reconstitution guidée, pas une exécution en direct.'), from: GLOBE, to: GLOBE, subject: 'Earth', panel: 'none' },
   { id: 'approach', ...EN('Approach San Francisco', 'The camera locates the supported city and its Folsom Street mobility mission.', 'Approche de San Francisco', 'La caméra repère la ville prise en charge et sa mission mobilité sur Folsom Street.'), from: GLOBE, to: CITY, subject: 'San Francisco', panel: 'none' },
   { id: 'introduce', ...EN('Meet the evidence agent', 'CORE-CLI-0015 is a registered software identity. Its recorded role was evidence review in the offline mobility investigation.', 'Rencontrer l’agent de preuve', 'CORE-CLI-0015 est une identité logicielle enregistrée. Son rôle consigné était la revue des preuves dans l’enquête mobilité hors ligne.'), from: CITY, to: AGENT, subject: A, panel: 'agent' },
-  { id: 'depart', ...EN('Travel along the mapped approach', 'A blue avatar moves on the published Folsom Street centerline. This movement is a visual reenactment, not a GPS trace or autonomous trip.', 'Parcourir l’approche cartographiée', 'Un avatar bleu suit l’axe publié de Folsom Street. Ce mouvement est une reconstitution visuelle, ni une trace GPS ni un déplacement autonome.'), from: AGENT, to: { ...AGENT, center: ROAD[0], zoom: 17.2 }, subject: A, panel: 'none', travel: [0, 0.5] },
-  { id: 'arrive', ...EN('Follow the agent to the question', 'The camera follows the illustrative route to the mapped approach. No current traffic condition is inferred from this movement.', 'Suivre l’agent jusqu’à la question', 'La caméra suit le trajet illustratif vers l’approche cartographiée. Aucun état actuel du trafic n’est déduit de ce mouvement.'), from: AGENT, to: PROBLEM, subject: A, panel: 'none', travel: [0.5, 1] },
+  { id: 'depart', ...EN('Travel along the mapped approach', 'A blue avatar moves on the published Folsom Street centerline. This movement is a visual reenactment, not a GPS trace or autonomous trip.', 'Parcourir l’approche cartographiée', 'Un avatar bleu suit l’axe publié de Folsom Street. Ce mouvement est une reconstitution visuelle, ni une trace GPS ni un déplacement autonome.'), from: AGENT, to: { ...AGENT, center: MID, zoom: 17.2 }, subject: A, panel: 'none', travel: [0, 0.5] },
+  { id: 'arrive', ...EN('Follow the agent to the question', 'The camera follows the illustrative route to the mapped approach. No current traffic condition is inferred from this movement.', 'Suivre l’agent jusqu’à la question', 'La caméra suit le trajet illustratif vers l’approche cartographiée. Aucun état actuel du trafic n’est déduit de ce mouvement.'), from: { ...AGENT, center: MID, zoom: 17.2 }, to: PROBLEM, subject: A, panel: 'none', travel: [0.5, 1] },
   { id: 'problem', ...EN('Identify the evidence gap', 'The sourced street geometry is known. Traffic counts, actual signal timings and a measured delay at this location are missing; the mission asks whether an assumed timing change could reduce modelled delay.', 'Identifier le manque de preuves', 'La géométrie sourcée est connue. Comptages, minutages réels et retards mesurés ici manquent ; la mission teste si une modification supposée des feux peut réduire le retard modélisé.'), from: PROBLEM, to: PROBLEM, subject: 'Folsom segment 5665000', panel: 'mission' },
   { id: 'investigate', ...EN('Inspect recorded work', 'The approved mission tools read authorized geography, inspect evidence readiness and compare bounded scenarios. The published offline run has source and tool records; this tour starts no new run.', 'Examiner le travail consigné', 'Les outils autorisés lisent la géographie, contrôlent les preuves et comparent des scénarios bornés. L’exécution hors ligne publiée a des sources et journaux ; cette visite ne lance rien.'), from: PROBLEM, to: WORK, subject: 'Recorded tools', panel: 'team' },
   { id: 'exchange', ...EN('Agents exchange findings', 'Scripted illustration: the evidence role points to recorded validation F4/F5; the quantitative role contributes recorded mapped context F6/F7 and calculation F8. Open the recorded investigation for actual event logs.', 'Les agents échangent leurs constats', 'Illustration scénarisée : le rôle preuve montre F4/F5 ; le rôle quantitatif apporte le contexte F6/F7 et le calcul F8. Ouvrez l’enquête consignée pour les vrais journaux.'), from: WORK, to: PAIR, subject: 'CORE-CLI-0015 + CORE-HSG-0017', panel: 'investigation', pair: true },
@@ -48,7 +49,7 @@ const F = { type: 'FeatureCollection', features: [] };
 const line = coords => ({ type: 'FeatureCollection', features: [{ type: 'Feature', geometry: { type: 'LineString', coordinates: coords }, properties: {} }] });
 const routePosition = f => ROAD[0].map((n, i) => mix(n, ROAD[1][i], f));
 
-export function createDemo(E, { mode = 'auto', root = document.body } = {}) {
+export function createDemo(E, { mode = 'auto', root = document.body, Marker = null } = {}) {
   const map = E.state.map, reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const state = { running: true, paused: false, done: false, i: -1, elapsed: 0, duration: reduced ? 2200 : 7600, mode };
   const old = { mode: E.state.layer?.mode || 'parallel', camera: map ? { center: map.getCenter().toArray(), zoom: map.getZoom(), pitch: map.getPitch(), bearing: map.getBearing(), padding: map.getPadding() } : null };
@@ -58,9 +59,9 @@ export function createDemo(E, { mode = 'auto', root = document.body } = {}) {
   const hasReport = report?.request?.segment === '5665000' && Array.isArray(report?.result?.rows) && report.result.rows.length >= 2;
   const el = document.createElement('section'); el.className = 'demo le-glass mission-demo'; el.setAttribute('role', 'region'); el.setAttribute('aria-label', T('CORE mission demonstration', 'Démonstration de mission CORE')); root.append(el);
   const avatars = new Map();
-  if (map && globalThis.maplibregl?.Marker) for (const agent of DEMO_AGENTS) {
+  if (map && Marker) for (const agent of DEMO_AGENTS) {
     const node = document.createElement('div'); node.className = 'demo-avatar'; node.innerHTML = `<i aria-hidden="true"></i><b>${esc(agent.code)}</b>`; node.title = `${agent.code} · ${agent.role} · scripted visual reenactment`;
-    const marker = new maplibregl.Marker({ element: node, anchor: 'bottom' }).setLngLat(ROAD[0]).addTo(map);
+    const marker = new Marker({ element: node, anchor: 'bottom' }).setLngLat(ROAD[0]).addTo(map);
     avatars.set(agent.id, marker);
   }
   if (map?.getSource && !map.getSource('demo-route')) { map.addSource('demo-route', { type: 'geojson', data: F }); map.addLayer({ id: 'demo-route', type: 'line', source: 'demo-route', paint: { 'line-color': '#62d8f2', 'line-width': 4, 'line-opacity': .85, 'line-dasharray': [1, 1] } }); }
@@ -86,7 +87,7 @@ export function createDemo(E, { mode = 'auto', root = document.body } = {}) {
   }
   function view() {
     const st = STAGES[state.i]; if (!st) return;
-    el.innerHTML = `<div class="demo-top"><p class="le-eyebrow">${T('PARALLEL WORLD · MISSION REENACTMENT', 'MONDE PARALLÈLE · RECONSTITUTION DE MISSION')} · ${state.i + 1}/${STAGES.length}</p><button type="button" class="ghost small" data-d="exit" aria-label="${T('Exit demonstration', 'Quitter la démonstration')}">✕</button></div><h2>${esc(TXT(st.title))}</h2><p class="demo-say">${esc(TXT(st.detail))}</p><p class="demo-subject">${T('Focus', 'Cible')}: ${esc(st.subject)}</p>${details(st)}<p class="demo-step-label">${T('Step', 'Étape')} ${state.i + 1} · <span data-step-pct>0%</span></p><div class="demo-stagebar" role="progressbar" aria-label="${T('Step progress', 'Progression de l’étape')}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i data-stepbar></i></div><p class="demo-total-label">${T('Total demonstration progress', 'Progression totale')} · <span data-total-pct>0%</span></p><div class="demo-bar" role="progressbar" aria-label="${T('Total progress', 'Progression totale')}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i data-totalbar></i></div><div class="le-row demo-ctl"><button type="button" class="small" data-d="prev" ${state.i === 0 ? 'disabled' : ''}>← ${T('Previous', 'Précédent')}</button><button type="button" class="small" data-d="pause">${state.paused ? T('Play', 'Lire') : T('Pause', 'Pause')}</button><button type="button" class="small" data-d="next" ${state.i === STAGES.length - 1 ? 'disabled' : ''}>${T('Next', 'Suivant')} →</button><button type="button" class="small" data-d="restart">${T('Restart', 'Recommencer')}</button><button type="button" class="ghost small" data-d="exit">${T('Exit', 'Quitter')}</button></div>`;
+    el.innerHTML = `<div class="demo-top"><p class="le-eyebrow">${st.real ? T('REAL WORLD · MISSION HANDOFF', 'MONDE RÉEL · FIN DE LA MISSION') : T('PARALLEL WORLD · MISSION REENACTMENT', 'MONDE PARALLÈLE · RECONSTITUTION DE MISSION')} · ${state.i + 1}/${STAGES.length}</p><button type="button" class="ghost small" data-d="exit" aria-label="${T('Exit demonstration', 'Quitter la démonstration')}">✕</button></div><h2>${esc(TXT(st.title))}</h2><p class="demo-say">${esc(TXT(st.detail))}</p><p class="demo-subject">${T('Focus', 'Cible')}: ${esc(st.subject)}</p>${details(st)}<p class="demo-step-label">${T('Step', 'Étape')} ${state.i + 1} · <span data-step-pct>0%</span></p><div class="demo-stagebar" role="progressbar" aria-label="${T('Step progress', 'Progression de l’étape')}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i data-stepbar></i></div><p class="demo-total-label">${T('Total demonstration progress', 'Progression totale')} · <span data-total-pct>0%</span></p><div class="demo-bar" role="progressbar" aria-label="${T('Total progress', 'Progression totale')}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i data-totalbar></i></div><div class="le-row demo-ctl"><button type="button" class="small" data-d="prev" ${state.i === 0 ? 'disabled' : ''}>← ${T('Previous', 'Précédent')}</button><button type="button" class="small" data-d="pause">${state.paused ? T('Play', 'Lire') : T('Pause', 'Pause')}</button><button type="button" class="small" data-d="next" ${state.i === STAGES.length - 1 ? 'disabled' : ''}>${T('Next', 'Suivant')} →</button><button type="button" class="small" data-d="restart">${T('Restart', 'Recommencer')}</button><button type="button" class="ghost small" data-d="exit">${T('Exit', 'Quitter')}</button></div>`;
     render(progress(state.elapsed, state.duration), true);
   }
   function render(p, camera = false) {
@@ -95,24 +96,33 @@ export function createDemo(E, { mode = 'auto', root = document.body } = {}) {
     for (const [name, value] of [['step', p], ['total', total]]) { const bar = el.querySelector(`[data-${name}bar]`), label = el.querySelector(`[data-${name}-pct]`), outer = bar?.parentElement; if (bar) bar.style.width = `${Math.round(value * 1000) / 10}%`; if (label) label.textContent = `${Math.round(value * 100)}%`; outer?.setAttribute('aria-valuenow', String(Math.round(value * 100))); }
     const visible = !st.real && E.state.layer?.mode !== 'real' && state.i >= 2;
     for (const [id, marker] of avatars) { const show = visible && (id === A || st.pair); marker.getElement().hidden = !show; }
-    const fraction = st.travel ? mix(st.travel[0], st.travel[1], p) : state.i < 3 ? 0 : 1;
-    avatars.get(A)?.setLngLat(routePosition(fraction)); avatars.get(B)?.setLngLat(ROAD[1]);
+    const fraction = st.travel ? mix(st.travel[0], st.travel[1], p * p * (3 - 2 * p)) : state.i < 3 ? 0 : 1;
+    // Both avatars meet at the mapped approach; a screen offset keeps their figures and codes legible side by side.
+    avatars.get(A)?.setLngLat(routePosition(fraction)).setOffset(st.pair ? [-52, 0] : [0, 0]); avatars.get(B)?.setLngLat(ROAD[1]).setOffset(st.pair ? [52, 0] : [0, 0]);
     if (route) route.setData(visible && st.travel ? line(ROAD) : F);
     if (camera && map?.jumpTo && (performance.now() - lastCamera > 32 || p === 0 || p === 1)) {
       lastCamera = performance.now(); const c = reduced ? st.to : cameraAt(st, p); const mobile = innerWidth < 861;
-      try { map.jumpTo({ ...c, padding: mobile ? { top: 20, bottom: 280, left: 0, right: 0 } : { top: 0, bottom: 0, left: 320, right: document.getElementById('ea-panel')?.hidden ? 0 : 440 } }); } catch { /* Map unavailable: caption remains usable. */ }
+      // Phones: frame the target in the strip of map left between the header controls and the caption.
+      const top = Math.round(Math.min(innerHeight * 0.34, 300)), bottom = Math.max(0, Math.min(innerHeight - top - 80, Math.round(innerHeight - el.getBoundingClientRect().top)));
+      try { map.jumpTo({ ...c, padding: mobile ? { top, bottom, left: 0, right: 0 } : { top: 0, bottom: 0, left: 320, right: document.getElementById('ea-panel')?.hidden ? 0 : 440 } }); } catch { /* Map unavailable: caption remains usable. */ }
     }
   }
+  // Each stage gets a token: panels that resolve after the user has moved on are discarded, never shown.
+  let token = 0;
+  const simOn = () => E.state.scn?.state?.on;
   function scene(st) {
+    const mine = ++token;
     E.revealMap(); E.setLayer(st.real ? 'real' : 'parallel', { intro: false });
-    const panel = document.getElementById('ea-panel');
-    if (panel) panel.hidden = st.panel === 'none';
-    if (state.i > 10) E.hideSimulation({ quiet: true });
+    if (st.panel !== 'simulation' && simOn()) E.hideSimulation({ quiet: true });
+    // Phones show one sheet only: the caption carries the evidence summary and dossier link; the side sheet stays closed.
+    const panel = document.getElementById('ea-panel'), compact = innerWidth < 861;
+    if (panel) panel.hidden = compact || st.panel === 'none';
+    if (compact && st.panel !== 'simulation') return;
     const actions = {
-      agent: () => hasRecord && E.showAgent(A), mission: () => E.openMission(MOB), team: () => hasRecord && E.showTeam(MOB),
+      agent: () => hasRecord && E.showAgent(A), mission: () => E.showMission(MOB), team: () => hasRecord && E.showTeam(MOB),
       investigation: () => hasRecord && E.state.urban?.investigations(), workbench: () => E.state.urban?.open(),
-      simulation: () => E.showSimulation('S0', { camera: false }), results: () => E.state.urban?.results(),
-      report: () => E.openMission(MOB)
+      simulation: () => E.showSimulation('S0', { camera: false }).then(() => { if (mine === token && state.running) { if (compact && panel) panel.hidden = true; return; } if (state.running) scene(STAGES[state.i]); else if (simOn()) E.hideSimulation({ quiet: true }); }),
+      results: () => E.state.urban?.results(), report: () => E.showMission(MOB)
     };
     try { Promise.resolve(actions[st.panel]?.()).catch(e => console.warn('demo panel unavailable', e)); } catch (e) { console.warn('demo panel unavailable', e); }
   }
@@ -131,7 +141,7 @@ export function createDemo(E, { mode = 'auto', root = document.body } = {}) {
   function exit() {
     if (!state.running) return; state.running = false; cancelAnimationFrame(frame); route?.setData(F);
     for (const marker of avatars.values()) marker.remove(); if (map?.getLayer?.('demo-route')) map.removeLayer('demo-route'); if (map?.getSource?.('demo-route')) map.removeSource('demo-route');
-    E.state.scn?.stop?.(); E.setLayer(old.mode, { intro: false }); if (old.camera) map?.jumpTo(old.camera);
+    if (simOn()) E.hideSimulation({ quiet: true }); token++; E.setLayer(old.mode, { intro: false }); if (old.camera) map?.jumpTo(old.camera);
     document.getElementById('ea-panel')?.setAttribute('hidden', ''); el.remove(); removeEventListener('keydown', keys, true); map?.getCanvas?.().removeEventListener('pointerdown', pause);
   }
   function keys(e) { if (!state.running || e.target.closest?.('input, textarea, select, button, a')) return; if (e.key === 'Escape') { e.preventDefault(); exit(); } else if (e.key === ' ') { e.preventDefault(); state.paused ? resume() : pause(); } else if (e.key === 'ArrowRight') { e.preventDefault(); go(state.i + 1); } else if (e.key === 'ArrowLeft') { e.preventDefault(); go(state.i - 1); } }

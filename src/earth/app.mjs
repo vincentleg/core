@@ -936,7 +936,7 @@ addEventListener('hashchange', () => {
 async function launchDemo(mode = 'auto') {
   await Promise.all([S.civLoading, S.urbanReady]);
   S.demo?.exit();
-  S.demo = createDemo(globalThis.CORE_EARTH, { mode });
+  S.demo = createDemo(globalThis.CORE_EARTH, { mode, Marker: maplibregl.Marker });
   S.demo.start();
   return S.demo;
 }

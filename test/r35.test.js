@@ -62,4 +62,9 @@ test('R35 scene uses published records and keeps scripted movement separate from
   assert.match(code, /E\.setLayer\(st\.real \? 'real' : 'parallel'/);
   assert.match(code, /E\.hideSimulation\(\{ quiet: true \}\)/);
   assert.doesNotMatch(code, /\.runMission\(|\.approve\(|\.publish\(/);
+  // Avatars need the module's Marker class (no maplibregl global exists); stale async panels are discarded by stage token.
+  assert.doesNotMatch(code, /globalThis\.maplibregl/);
+  assert.match(fs.readFileSync('src/earth/app.mjs', 'utf8'), /createDemo\(globalThis\.CORE_EARTH, \{ mode, Marker: maplibregl\.Marker \}\)/);
+  assert.match(code, /mine === token && state\.running/);
+  assert.match(code, /REAL WORLD · MISSION HANDOFF/);
 });

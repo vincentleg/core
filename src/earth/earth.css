@@ -270,7 +270,7 @@ button.ea-agent-tag .le-agent-id::before { width: 12px; height: 12px; }
 .demo-results { display: grid; gap: 4px; margin: 10px 0; }
 .demo-results div { display: flex; justify-content: space-between; gap: 8px; padding: 5px 8px; background: rgba(102, 191, 225, .08); border-radius: 6px; font-size: 12px; }
 .demo-results .best { border: 1px solid rgba(98, 216, 242, .6); }
-@media (max-width: 860px) { .mission-demo { bottom: 70px; max-height: 45dvh; } .demo-exchange { gap: 4px; } .demo-exchange div { padding: 6px; font-size: 10px; } .mission-demo .demo-ctl { gap: 3px; } .mission-demo .demo-ctl button { padding: 5px 8px; font-size: 11px; } }
+@media (max-width: 860px) { .mission-demo { bottom: 70px; max-height: 40dvh; } .demo-exchange { gap: 4px; } .demo-exchange div { padding: 6px; font-size: 10px; } .mission-demo .demo-ctl { gap: 3px; } .mission-demo .demo-ctl button { min-height: 44px; padding: 6px 10px; font-size: 12px; } }
 
 /* ---------- V9.1 landing: one primary action, progressive disclosure, readable fine print ---------- */
 .ea-hero .ea-secondary { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; }
