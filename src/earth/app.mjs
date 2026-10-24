@@ -596,7 +596,7 @@ function refreshPanel(force = false) {
   const k = S.panelKind; if (!k || $('ea-panel').hidden) return;
   if (!force && $('ea-panel').contains(document.activeElement) && ['BUTTON', 'INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return;
   // Live content never moves under a person who is reading or about to click: hold periodic refreshes for 5 s after any interaction with the panel.
-  if (!force && performance.now() - (S.panelTouched || 0) < 5000) return;
+  if (!force && (performance.now() - (S.panelTouched || 0) < 5000 || $('ea-panel').matches(':hover'))) return; // and never while the pointer is over the panel
   const top = $('ea-panel').scrollTop, B = $('ea-panel-body');
   if (k.kind === 'agent') B.innerHTML = agentPanelHTML(k.id); else if (k.kind === 'proposal' && force) return void showProposal(k.id); else if (k.kind === 'urban-agent' && force && S.lastAgent) return void S.urban?.agent(S.lastAgent); else if (k.kind === 'place' && force && S.nearAt) return void showNear(S.nearAt); else if (k.kind === 'mission') B.innerHTML = missionBody(k.id); else if (k.kind === 'activity') B.innerHTML = CP.activityHTML(S.civ, CIV.state());
   else if (k.kind === 'hierarchy') B.innerHTML = CP.hierarchyHTML(S.civ); else if (k.kind === 'team') B.innerHTML = CP.teamHTML(S.civ, k.id); else if (k.kind === 'problems' && force) B.innerHTML = problemsHTML();
