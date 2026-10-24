@@ -3060,5 +3060,17 @@
 "Uncertainty and limitations":"Unsicherheit und Grenzen",
 "Required human review":"Erforderliche menschliche Prüfung",
 "Reviewer":"Prüfer/in",
-"Date":"Datum"
+"Date":"Datum",
+"Could not save in this browser (storage full or blocked).":"Speichern in diesem Browser nicht möglich (Speicher voll oder blockiert).",
+"Saved only in this browser (local storage). Nothing is sent anywhere; clearing site data or using another browser loses it.":"Nur in diesem Browser gespeichert (lokaler Speicher). Nichts wird gesendet; beim Löschen der Websitedaten oder in einem anderen Browser geht es verloren.",
+"Saved analyses":"Gespeicherte Analysen",
+"scenarios":"Szenarien",
+"Rename":"Umbenennen",
+"No saved analysis yet. Run a comparison, then save it.":"Noch keine gespeicherte Analyse. Führe einen Vergleich aus und speichere ihn.",
+"Save this analysis":"Diese Analyse speichern",
+"Save in this browser":"In diesem Browser speichern",
+"Restored from the saved analysis":"Wiederhergestellt aus der gespeicherten Analyse",
+"The comparison below was recomputed now with the current simulator; saved figures are a past exploratory run, not measurements.":"Der folgende Vergleich wurde jetzt mit dem aktuellen Simulator neu berechnet; gespeicherte Zahlen sind ein früherer explorativer Lauf, keine Messungen.",
+"Saved in this browser.":"In diesem Browser gespeichert.",
+"New name for this analysis":"Neuer Name für diese Analyse"
 }

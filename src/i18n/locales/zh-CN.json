@@ -3060,5 +3060,17 @@
 "Uncertainty and limitations":"不确定性与局限",
 "Required human review":"必需的人工审核",
 "Reviewer":"审核人",
-"Date":"日期"
+"Date":"日期",
+"Could not save in this browser (storage full or blocked).":"无法在此浏览器中保存（存储已满或被阻止）。",
+"Saved only in this browser (local storage). Nothing is sent anywhere; clearing site data or using another browser loses it.":"仅保存在此浏览器中（本地存储）。不会发送到任何地方；清除网站数据或使用其他浏览器会导致丢失。",
+"Saved analyses":"已保存的分析",
+"scenarios":"个情景",
+"Rename":"重命名",
+"No saved analysis yet. Run a comparison, then save it.":"尚无已保存的分析。请先运行比较，然后保存。",
+"Save this analysis":"保存此分析",
+"Save in this browser":"保存在此浏览器中",
+"Restored from the saved analysis":"已从保存的分析恢复",
+"The comparison below was recomputed now with the current simulator; saved figures are a past exploratory run, not measurements.":"下面的比较已使用当前模拟器重新计算；保存的数字是过去的探索性运行，而非测量值。",
+"Saved in this browser.":"已保存在此浏览器中。",
+"New name for this analysis":"此分析的新名称"
 }

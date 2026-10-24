@@ -3060,5 +3060,17 @@
 "Uncertainty and limitations":"Incerteza e limitações",
 "Required human review":"Revisão humana necessária",
 "Reviewer":"Revisor",
-"Date":"Data"
+"Date":"Data",
+"Could not save in this browser (storage full or blocked).":"Não foi possível salvar neste navegador (armazenamento cheio ou bloqueado).",
+"Saved only in this browser (local storage). Nothing is sent anywhere; clearing site data or using another browser loses it.":"Salvo apenas neste navegador (armazenamento local). Nada é enviado; limpar os dados do site ou usar outro navegador faz com que se perca.",
+"Saved analyses":"Análises salvas",
+"scenarios":"cenários",
+"Rename":"Renomear",
+"No saved analysis yet. Run a comparison, then save it.":"Ainda não há análises salvas. Execute uma comparação e salve-a.",
+"Save this analysis":"Salvar esta análise",
+"Save in this browser":"Salvar neste navegador",
+"Restored from the saved analysis":"Restaurado a partir da análise salva",
+"The comparison below was recomputed now with the current simulator; saved figures are a past exploratory run, not measurements.":"A comparação abaixo foi recalculada agora com o simulador atual; os números salvos são uma execução exploratória anterior, não medições.",
+"Saved in this browser.":"Salvo neste navegador.",
+"New name for this analysis":"Novo nome para esta análise"
 }
