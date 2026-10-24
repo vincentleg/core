@@ -3037,5 +3037,11 @@
 "Don’t show again":"Não mostrar novamente",
 "Purpose":"Objetivo",
 "Recorded investigation (local-model run) · dated public data · no verified real-world impact":"Investigação registrada (execução de modelo local) · dados públicos datados · nenhum impacto real verificado",
-"Browser replay only · no published investigation yet":"Apenas reprodução no navegador · ainda sem investigação publicada"
+"Browser replay only · no published investigation yet":"Apenas reprodução no navegador · ainda sem investigação publicada",
+"Decision journey":"Percurso de decisão",
+"Problem and evidence":"Problema e evidências",
+"Comparison":"Comparação",
+"CORE computes and records this comparison; it does not approve, recommend for adoption or implement any street change. Any decision belongs to qualified people and the responsible public agency, after calibration with measured counts and signal timings.":"O CORE calcula e registra esta comparação; não aprova, não recomenda a adoção nem implementa nenhuma mudança na via. Qualquer decisão cabe a pessoas qualificadas e à autoridade pública responsável, após calibração com contagens e tempos semafóricos medidos.",
+"Assumptions, sources and limits":"Pressupostos, fontes e limites",
+"Kept private in this browser until you choose to share it.":"Mantida privada neste navegador até você decidir compartilhá-la."
 }

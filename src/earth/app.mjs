@@ -369,7 +369,7 @@ function panel(kind, id, html) {
   // Keep keyboard focus in the panel when its content is replaced (e.g. after following a link inside it).
   if (hadFocus && !$('ea-panel').contains(document.activeElement)) $('ea-panel').focus({ preventScroll: true });
   if (!same) $('ea-panel').scrollTop = 0; $('ea-panel').hidden = false; $('ea-human').hidden = kind !== 'problem' || id !== FLAGSHIP || S.mode === 'human';
-  $('ea-panel').classList.remove('le-enter'); void $('ea-panel').offsetWidth; $('ea-panel').classList.add('le-enter');
+  if (!same) { $('ea-panel').classList.remove('le-enter'); void $('ea-panel').offsetWidth; $('ea-panel').classList.add('le-enter'); } // refreshes of the same panel do not replay the entrance
 }
 const recordedIds = () => (S.records ? [...S.records.byId.keys()].filter(id => AR.executionClass(S.records, id) === 'recorded') : []);
 // R2: published agent records (registry + recorded runs), loaded once; every displayed status names its source.

@@ -3037,5 +3037,11 @@
 "Don’t show again":"不再显示",
 "Purpose":"目的",
 "Recorded investigation (local-model run) · dated public data · no verified real-world impact":"已记录的调查（本地模型运行）· 带日期的公开数据 · 无经核实的现实影响",
-"Browser replay only · no published investigation yet":"仅为浏览器回放 · 尚无已发布的调查"
+"Browser replay only · no published investigation yet":"仅为浏览器回放 · 尚无已发布的调查",
+"Decision journey":"决策流程",
+"Problem and evidence":"问题与证据",
+"Comparison":"比较",
+"CORE computes and records this comparison; it does not approve, recommend for adoption or implement any street change. Any decision belongs to qualified people and the responsible public agency, after calibration with measured counts and signal timings.":"CORE 计算并记录此比较；它不会批准、建议采用或实施任何道路改动。任何决定都应由合格人员和负责的公共机构在使用实测流量和信号配时完成校准后作出。",
+"Assumptions, sources and limits":"假设、来源与局限",
+"Kept private in this browser until you choose to share it.":"在你选择分享之前，仅私密保存在此浏览器中。"
 }
