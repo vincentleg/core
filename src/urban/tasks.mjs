@@ -1,10 +1,16 @@
 import { compare, digest, VERSION, REFERENCE } from './model.mjs';
 export const ROLES = ['Data discovery', 'Data validation', 'Geographic analysis', 'Baseline analysis', 'Scenario parameters', 'Simulation', 'Comparison', 'Risk review', 'Evidence review', 'Report'];
+// DATA_SOURCES.md records this official DataSF street snapshot and its PDDL reuse terms.
+export const modelSource = (catalog, segment) => {
+  const s = catalog?.sources?.find(s => s.id === segment?.source);
+  return s?.id === 'sf-streets' && s.url === 'https://data.sf.gov/d/3psu-pn9h' && s.license?.name === 'ODC Public Domain Dedication and License (PDDL)' && /^[a-f0-9]{64}$/.test(s.sha256) && Number.isFinite(Date.parse(s.retrieved)) ? s : null;
+};
 export async function execute(catalog, request, notify = async () => {}) {
   if (!catalog || catalog.version !== 'core-urban-1' || !Array.isArray(catalog.sources)) throw Error('Unknown data catalog');
   if(!Array.isArray(catalog.taskAgents)||catalog.taskAgents.length!==10||new Set(catalog.taskAgents).size!==10||catalog.taskAgents.some(id=>!catalog.agents.some(a=>a.id===id)))throw Error('Invalid specialist assignments');
   const segment = catalog.segments.find(s=>s.id===request.segment);
   if (!segment) throw Error('Area unavailable: additional calibration required');
+  if (!modelSource(catalog, segment)) throw Error('Dataset reuse authorization unverified; model blocked');
   const id = crypto.randomUUID(), created = new Date().toISOString(), start = performance.now();
   const tasks = ROLES.map((role,i)=>({id:`${id}:${i}`,role,agent:catalog.taskAgents[i],status:'queued',started:null,completed:null,output:null}));
   await notify({type:'queued',id,created,tasks:structuredClone(tasks)});

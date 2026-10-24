@@ -7,4 +7,4 @@ Earlier live private isolation: 14 pages, 0 requests to localhost/127.0.0.1/.cor
 R14 QA (recorded): 13 pages × 3 viewports, 0 overflow/errors/sampled contrast failures; evidence `.core-local/evidence/r14/`.
 Known, non-blocking: initial-render layout shift on dialogue/report/My CORE; Earth page ~7 MB; some 20–23 px text links; plans detail English-only; translations are model-written drafts.
 Risks: Safari/WebKit not tested (founder waived); deleted-branch cached objects still need host purge; third-party tile/imagery availability.
-Next: final release complete; no further phase authorized.
+R21 local checkpoint: SF decision workspace and Decision Brief separate sourced geometry, user assumptions and computed outputs; DataSF street reuse documented, unknown source blocks model; calibration/field/independent validation absent. Focused tests 18/18 and one offline browser check passed. Commit local only; no push or deployment.

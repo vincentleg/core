@@ -19,8 +19,12 @@ test('fluid queue conserves vehicles, reacts to interventions and rejects invali
  assert.equal(M.compare({scenarios:[{name:'a',parameters:p},{name:'b',parameters:{...p,demand:0}}]},s).best,null,'lower demand is not automatically a winning intervention');
 });
 test('real task events, execution timestamps and reports are verified by recomputation',async()=>{
- const {execute,verifyReport}=await import('../src/urban/tasks.mjs');const {DEFAULT}=await import('../src/urban/model.mjs');const events=[];
+ const {execute,verifyReport,modelSource}=await import('../src/urban/tasks.mjs');const {DEFAULT}=await import('../src/urban/model.mjs');const events=[];
  const request={segment:catalog.segments[0].id,scenarios:[{name:'Reference',parameters:DEFAULT},{name:'Alternative',parameters:{...DEFAULT,green:.65}}]};
+ assert.equal(modelSource(catalog,catalog.segments[0]).id,'sf-streets');
+ const unverified=structuredClone(catalog);unverified.sources.find(s=>s.id==='sf-streets').license.name='Unverified';
+ assert.equal(modelSource(unverified,unverified.segments[0]),null);
+ await assert.rejects(execute(unverified,request),/authorization unverified/);
  const r=await execute(catalog,request,e=>events.push(structuredClone(e)));
  assert.equal(r.tasks.length,10);assert.equal(events.filter(e=>e.task?.status==='working').length,10);assert.equal(events.filter(e=>e.task?.status==='completed').length,10);assert.ok(r.tasks.every(t=>Date.parse(t.completed)>=Date.parse(t.started)));
  assert.equal((await verifyReport(r,catalog)).id,r.id);

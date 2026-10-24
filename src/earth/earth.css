@@ -442,6 +442,9 @@ body.earth.ea-explore .ea-guide { top: calc(var(--ci-shell, var(--navh)) + var(-
 /* R19 decision workspace. */
 .urban-table td.urban-changed { color: var(--le-sand-50); font-weight: 600; }
 .urban-review [data-contribute] { width: 100%; min-height: 44px; margin-top: 8px; }
+.urban-evidence { border: 1px solid var(--le-hairline-2); border-radius: 12px; padding: 12px; }
+.urban-evidence .kv { grid-template-columns: 1fr; gap: 2px; margin: 0; }
+.urban-evidence .kv dt { margin-top: 6px; } .urban-evidence .kv dd { overflow-wrap: anywhere; }
 /* R20 saved analyses (browser-local). */
 .urban-saved { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--le-hairline-2); }
 .urban-saved ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
