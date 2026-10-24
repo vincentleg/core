@@ -1,6 +1,7 @@
 import {navigationIntent,featureType} from '../intelligence/core/lexicon.mjs';
 import {normal} from '../intelligence/core/catalog.mjs';
 import {speechReview} from '../ui/speech-review.mjs';
+import {worldCommand,executeWorldCommand,rememberWorldCommand,worldSession} from './world-commands.mjs';
 // CORE Companion (text). Loaded only when the person opens it (Command button or Cmd/Ctrl-K).
 //  • Text always works. Navigation commands run real application actions; research questions are answered from the
 //    missions' recorded findings (cited by id), with an offer — never automatic — to ask the full research team, which
@@ -27,6 +28,8 @@ const needs = text => ({ agents: /core[- ][a-z]{2,4}[- ]\d|agent|follow|suis|ask
 const REASON = { 'language-not-available': ['That language is not available yet: CORE offers English, French, Spanish, German, Simplified Chinese and Portuguese.', 'Cette langue n’est pas encore disponible : CORE propose l’anglais, le français, l’espagnol, l’allemand, le chinois simplifié et le portugais.'], 'unknown-agent': ['I could not find that agent. Try its code, e.g. CORE-MOB-001.', 'Je n’ai pas trouvé cet agent. Essayez son code, ex. CORE-MOB-001.'], 'unknown-mission': ['Which mission? Mobility, housing, energy, road safety, urban forest…', 'Quelle mission ? Mobilité, logement, énergie, sécurité routière, forêt urbaine…'] };
 export async function run(text) {
   if (isCrisis(text)) return { ok: true, msg: crisisMessage(lang()), html: '' };
+  const command = worldCommand(text, { cityId: globalThis.CORE_EARTH?.state?.selectedCity, code: lang(), session: worldSession });
+  if (command) { const action = await executeWorldCommand(command, globalThis.CORE_EARTH); rememberWorldCommand(worldSession, text, command); return { ok: true, msg: command.text, html: '', href: action.href || null }; }
   if (navigationIntent(text) || featureType(normal(text))) {
     if (globalThis.CORE_INTELLIGENCE) { const result = await CORE_INTELLIGENCE.submit(text); return { ok: !!CORE_INTELLIGENCE.lastResult?.navigated, msg: CORE_INTELLIGENCE.lastResult?.text || '' }; }
     try { sessionStorage.setItem('core.navigation.pending', String(text).slice(0,300)); return { ok: true, msg: T('Opening Earth to resolve your request…', 'Ouverture de la Terre pour rechercher votre destination…'), href: 'world.html' }; }

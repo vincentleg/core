@@ -9,7 +9,7 @@ const LABELS = {
   pt: ['Idioma do microfone', 'Igual à interface', 'Reveja ou edite o texto e envie. O navegador pode confundir nomes de lugares.', 'Outras transcrições']
 };
 
-// Shared by both input surfaces. Nothing is submitted or geocoded until the user presses Send.
+// Shared transcript review. The World bar may auto-run a recognized read-only navigation command.
 export function speechReview(input, form, cancel) {
   const box = document.createElement('div'); box.className = 'speech-review';
   const label = document.createElement('label'), select = document.createElement('select');

@@ -34,6 +34,7 @@ import { createRegistry, APPROVED_RESOURCES } from '../execution/tools.mjs';
 import * as EXM from '../execution/missions.mjs';
 import * as CITY from '../execution/city.mjs';
 import { CITIES } from '../execution/city-registry.mjs';
+import { LAYERS as GEO_LAYERS, canEnable } from './evidence-layers.mjs';
 import * as CV from '../execution/city-view.mjs';
 import * as SV from '../execution/saved.mjs';
 import { requirementsFor } from '../contrib/lifecycle.mjs';
@@ -49,7 +50,7 @@ const SF = [-122.4, 37.776];
 const toast = msg => { const t = $('toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => { t.classList.remove('on'); t.textContent = ''; }, 3600); }; // the CSS shows any non-empty toast
 const lowDevice = () => (navigator.deviceMemory && navigator.deviceMemory <= 4) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) || matchMedia('(pointer: coarse)').matches;
 const qp = new URLSearchParams(location.search).get('quality');
-const S = { map: null, data: null, scale: 'planet', mode: 'map', sel: null, navToken: 0, quality: ['high', 'balanced', 'low'].includes(qp) ? qp : lowDevice() ? 'balanced' : 'high', scene: null, keys: new Set(), joy: { x: 0, y: 0 }, heading: 0, cam: 'third', pos: null, nearAgent: false, spinning: false, frames: [], ready: false, humanReady: false, buildings: 0 };
+const S = { map: null, data: null, scale: 'planet', mode: 'map', sel: null, navToken: 0, geoLayers: new Set(['city-readiness', 'mission-locations', 'recorded-problems']), boundaryReady: false, quality: ['high', 'balanced', 'low'].includes(qp) ? qp : lowDevice() ? 'balanced' : 'high', scene: null, keys: new Set(), joy: { x: 0, y: 0 }, heading: 0, cam: 'third', pos: null, nearAgent: false, spinning: false, frames: [], ready: false, humanReady: false, buildings: 0 };
 NAV.render($('core-nav'), { active: 'world' });
 
 // ---------- data: published CORE records only ----------
@@ -77,7 +78,7 @@ function makeMap(d) {
   map.on('mouseenter', 'markers', () => { map.getCanvas().style.cursor = 'pointer'; }); map.on('mouseleave', 'markers', () => { map.getCanvas().style.cursor = ''; });
   for (const ev of ['mousedown', 'touchstart', 'wheel']) map.on(ev, () => { S.spinning = false; });
   map.on('zoomend', syncScale); map.on('moveend', syncScale);
-  map.on('moveend', () => { for (const marker of S.cityMarkers || []) marker.getElement().hidden = map.getZoom() >= 5; });
+  map.on('moveend', syncGeoLayers);
   map.on('moveend', () => {
     if (S.panelKind?.kind !== 'problems' || discovery.area !== 'near') return;
     const results = discoveryResults();
@@ -108,6 +109,44 @@ function cityMarkers() {
     button.onclick = () => void selectCity(city.id);
     return new maplibregl.Marker({ element: button, anchor: 'bottom' }).setLngLat(city.center).addTo(S.map);
   });
+}
+function renderEvidenceLayers() {
+  $('ea-evidence-list').innerHTML = GEO_LAYERS.map(layer => `<div class="ea-evidence-row" data-available="${layer.availability !== 'unavailable'}"><label><input type="checkbox" data-geo-layer="${layer.id}" ${S.geoLayers.has(layer.id) ? 'checked' : ''} ${layer.availability === 'unavailable' ? 'disabled' : ''}><span>${esc(L(layer.title))}</span></label><span>${esc(L(layer.limitation))}</span><small>${esc(layer.scope)} · ${esc(layer.scientificStatus)} · ${esc(layer.source)}${layer.updatedAt ? ` · ${esc(layer.updatedAt.slice(0, 10))}` : ''}<br>${esc(layer.authorization)} · ${esc(layer.evidence || T('no dataset', 'aucun jeu de données'))}</small></div>`).join('');
+}
+function syncGeoLayers() {
+  if (!S.map) return;
+  for (const marker of S.cityMarkers || []) marker.getElement().hidden = !S.geoLayers.has('city-readiness') || S.map.getZoom() >= 5;
+  for (const [id, layer] of [['r34-missions', 'mission-locations'], ['r34-boundaries', 'sf-boundaries'], ['marker-halo', 'recorded-problems'], ['markers', 'recorded-problems']])
+    if (S.map.getLayer(id)) S.map.setLayoutProperty(id, 'visibility', S.geoLayers.has(layer) ? 'visible' : 'none');
+}
+function installGeoLayers() {
+  const features = CITY.citySpecs('san-francisco').filter(spec => spec.status === 'executable').map(spec => ({ type: 'Feature', geometry: { type: 'Point', coordinates: spec.place.center }, properties: { id: spec.id } }));
+  S.map.addSource('r34-missions', { type: 'geojson', data: { type: 'FeatureCollection', features } });
+  S.map.addLayer({ id: 'r34-missions', type: 'circle', source: 'r34-missions', minzoom: 7, paint: { 'circle-radius': 6, 'circle-color': '#f2d36b', 'circle-stroke-color': '#071b2b', 'circle-stroke-width': 2 } }, 'marker-halo');
+  S.map.on('click', 'r34-missions', e => { const id = e.features?.[0]?.properties?.id; if (id) void openMission(id); });
+  S.map.on('mouseenter', 'r34-missions', () => { S.map.getCanvas().style.cursor = 'pointer'; });
+  S.map.on('mouseleave', 'r34-missions', () => { S.map.getCanvas().style.cursor = ''; });
+  syncGeoLayers();
+}
+async function enableBoundaries() {
+  if (S.boundaryReady) return;
+  const B = CITIES['san-francisco'].boundaries, [file, manifest] = await Promise.all([fetch(B.resource), getJSON(B.manifest)]);
+  if (!file.ok) throw Error(`Boundary HTTP ${file.status}`);
+  const bytes = await file.arrayBuffer(), expected = manifest.datasets?.find(d => d.file === B.file)?.sha256;
+  const actual = [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(x => x.toString(16).padStart(2, '0')).join('');
+  if (!expected || actual !== expected) throw Error('Boundary checksum mismatch');
+  const data = JSON.parse(new TextDecoder().decode(bytes));
+  if (!Array.isArray(data.features) || data.features.length !== 41) throw Error('Boundary geometry incomplete');
+  S.map.addSource('r34-boundaries', { type: 'geojson', data });
+  S.map.addLayer({ id: 'r34-boundaries', type: 'line', source: 'r34-boundaries', minzoom: 8, maxzoom: 16, paint: { 'line-color': '#6bdfff', 'line-width': 1.4, 'line-opacity': 0.7, 'line-dasharray': [3, 2] } }, 'marker-halo');
+  S.boundaryReady = true;
+}
+async function toggleGeoLayer(id, enabled) {
+  const layer = GEO_LAYERS.find(x => x.id === id); if (!layer || layer.availability === 'unavailable') return;
+  if (enabled && id === 'sf-boundaries') { try { await enableBoundaries(); } catch (e) { toast(T(`Boundary unavailable: ${e.message}`, `Limites indisponibles : ${e.message}`)); renderEvidenceLayers(); return; } }
+  if (enabled && !canEnable(id, { boundaryChecksum: S.boundaryReady })) return;
+  if (enabled) S.geoLayers.add(id); else S.geoLayers.delete(id);
+  syncGeoLayers(); renderEvidenceLayers();
 }
 function syncScale() { if (S.mode === 'human') return; const z = S.map.getZoom(), s = z < 5 ? 'planet' : z < 12 ? 'region' : 'city'; if (s !== S.scale) { S.scale = s; renderScales(); } }
 const fly = (o, ms = 3200) => new Promise(r => { if (reduced()) { S.map.jumpTo(o); return r(); } S.map.once('moveend', r); S.map.flyTo({ ...o, duration: ms, essential: false, curve: 1.5 }); setTimeout(r, ms + 2500); });
@@ -834,6 +873,8 @@ async function startCivilisation() {
 }
 function wireCiv() {
   $('ea-cities').addEventListener('click', e => { const city = e.target.closest('[data-world-city]'); if (city) void selectCity(city.dataset.worldCity); else if (e.target.closest('[data-world-return]')) void goScale('planet'); });
+  $('ea-evidence-list').addEventListener('change', e => { if (e.target.matches('[data-geo-layer]')) void toggleGeoLayer(e.target.dataset.geoLayer, e.target.checked); });
+  $('ea-evidence-reset').onclick = () => { S.geoLayers = new Set(['city-readiness', 'mission-locations', 'recorded-problems']); syncGeoLayers(); renderEvidenceLayers(); void goScale('planet'); };
   $('ea-panel-body').addEventListener('click', e => { if (e.target.closest('[data-world-return]')) void goScale('planet'); });
   for (const ev of ['scroll', 'wheel', 'pointermove', 'pointerdown', 'keydown', 'focusin', 'touchstart']) $('ea-panel').addEventListener(ev, () => { S.panelTouched = performance.now(); }, { passive: true });
   $('ea-panel-body').addEventListener('change', e => {
@@ -896,7 +937,7 @@ async function launchDemo(mode) { return openDemoChoice(); }
 
 // ---------- language changes: re-render everything visible ----------
 onLang(() => {
-  renderScales(); renderCities(); for (const marker of S.cityMarkers || []) { const city = CITIES[marker.getElement().dataset.cityId]; if (city) { marker.getElement().setAttribute('aria-label', `${L(city.name)} · ${readinessName(city)}`); marker.getElement().querySelector('b').textContent = L(city.name); } } if (S.civ) renderList(); if (S.layer) renderLegend(S.layer.mode);
+  renderScales(); renderCities(); renderEvidenceLayers(); for (const marker of S.cityMarkers || []) { const city = CITIES[marker.getElement().dataset.cityId]; if (city) { marker.getElement().setAttribute('aria-label', `${L(city.name)} · ${readinessName(city)}`); marker.getElement().querySelector('b').textContent = L(city.name); } } if (S.civ) renderList(); if (S.layer) renderLegend(S.layer.mode);
   if (S.mode === 'human') { $('ea-hint').textContent = hint(); $('ea-cam').textContent = camLabel(); $('ea-talk').textContent = talkLabel(); }
   if (!$('ea-human').disabled) $('ea-human').textContent = T('Walk at street level', 'Descendre à hauteur humaine');
   if (S.scn?.state.on) { const id = S.scn.state.scenario; S.scn.show(id); }
@@ -906,11 +947,11 @@ onLang(() => {
 // ---------- boot ----------
 (async () => {
   try { S.data = await loadData(); } catch (e) { globalThis.CORE_DEMO.fail(e); $('fatal').hidden = false; $('fatal').textContent = `${T('CORE records unavailable', 'Registres CORE indisponibles')}: ${e.message}`; return; }
-  S.map = makeMap(S.data); wire(); wireCiv(); renderScales(); renderCities(); renderList(); cityMarkers();
+  S.map = makeMap(S.data); wire(); wireCiv(); renderScales(); renderCities(); renderEvidenceLayers(); renderList(); cityMarkers();
   $('ea-human').textContent = T('Walk at street level', 'Descendre à hauteur humaine');
   if (!STREET_LEVEL) document.querySelector('.ea-human').style.display = 'none'; // street walk + avatar link: dormant
   S.map.on('load', () => {
-    S.ready = true; $('ea-start').disabled = false;
+    S.ready = true; $('ea-start').disabled = false; installGeoLayers();
     S.urbanReady = createUrban(globalThis.CORE_EARTH, { display: (html, kind) => panel(kind, null, html), reveal: revealMap, records: recordsHTML, card: id => urbanCardHTML(id) }).then(u => { S.urban = u; loadRecords(); return u; });
     globalThis.CORE_DEMO.ready(async () => (await S.urbanReady).demo());
     S.urbanReady.catch(e => { console.error('Living City unavailable:', e); globalThis.CORE_DEMO.fail(e); toast(T('Living City unavailable; existing research remains accessible.', 'Ville vivante indisponible ; les recherches existantes restent accessibles.')); });
@@ -932,7 +973,7 @@ onLang(() => {
       spin(); }
   });
 })();
-globalThis.CORE_EARTH = { state: S, goScale, openPanel, focusSegment, enterHuman, leaveHuman, start, get exploring() { return document.body.classList.contains('ea-explore'); }, setLayer, showAgent, showMission, openMission, showActivity, showEvent, showHierarchy, showTeam, showProblems, showInvestigate, showContribute, showNoticed: showContribute, showSimulation, hideSimulation, playSimulation, revealMap, toggleCar, flyTo, followAgent, openDemoChoice, launchDemo, ensureScene, civ: () => S.civ, get fps() { const f = S.frames; return f.length ? f.length / f.reduce((a, b) => a + b, 0) : 0; } };
+globalThis.CORE_EARTH = { state: S, goScale, selectCity, showCity, openPanel, focusSegment, enterHuman, leaveHuman, start, get exploring() { return document.body.classList.contains('ea-explore'); }, setLayer, showAgent, showMission, openMission, showActivity, showEvent, showHierarchy, showTeam, showProblems, showInvestigate, showContribute, showNoticed: showContribute, showSimulation, hideSimulation, playSimulation, revealMap, toggleCar, flyTo, followAgent, openDemoChoice, launchDemo, ensureScene, civ: () => S.civ, get fps() { const f = S.frames; return f.length ? f.length / f.reduce((a, b) => a + b, 0) : 0; } };
 
 // Founder-private projects open only in an authorized local founder session (src/private/extensions.mjs).
 async function privateRoute() {

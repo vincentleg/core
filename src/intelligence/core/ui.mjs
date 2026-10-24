@@ -1,12 +1,16 @@
 import {speechReview} from '../../ui/speech-review.mjs';
+import {worldCommand,executeWorldCommand,rememberWorldCommand,worldSession} from '../../voice/world-commands.mjs';
+import {speechOutput} from '../../ui/speech-output.mjs';
 import {loadCatalog} from './catalog.mjs';import {createIntelligence} from './engine.mjs';import {earthMap} from './map.mjs';import {localConnection} from './connection.mjs';import {photon} from './geocoder.mjs';import {lang,T} from '../../i18n/i18n.mjs';import {startDictation,dictationMessage} from '../../ui/dictation.mjs';
 // Compact text command bar: one input, send, a status line and a collapsible answer card. Evidence, sources, engine
 // and timings live behind "Details". The on-device model downloads only after an explicit choice.
 const root=document.getElementById('core-intelligence'),$=s=>root.querySelector(s),input=$('[data-ci-query]'),output=$('[data-ci-output]'),status=$('[data-ci-state]'),modeChip=$('[data-ci-mode]'),toggle=$('[data-ci-collapse]'),settings=$('[data-ci-settings]');
 const tr=T;
 const store={get:k=>{try{return localStorage.getItem(k);}catch{return null;}},set:(k,v)=>{try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v);}catch{}}};
-const WORDS={idle:['Ready','Prêt'],thinking:['Thinking…','Réflexion…'],executing:['Thinking…','Réflexion…'],navigating:['Navigating…','Navigation…'],loading:['Loading…','Chargement…'],error:['Unavailable — try again or rephrase','Indisponible — réessayez ou reformulez']};
+const WORDS={idle:['Ready','Prêt'],preparing:['Preparing microphone…','Préparation du micro…'],listening:['Listening…','Écoute…'],transcribing:['Transcribing…','Transcription…'],speaking:['Speaking…','Lecture vocale…'],thinking:['Thinking…','Réflexion…'],executing:['Thinking…','Réflexion…'],navigating:['Navigating…','Navigation…'],loading:['Loading…','Chargement…'],error:['Unavailable — try again or rephrase','Indisponible — réessayez ou reformulez']};
 let engine=null,connection=null,busy=false,lastRequest=null,lastResult=null,generation=0,failure=null;
+let lastAnswer='';
+const reader=speechOutput({onState:value=>{if(value==='speaking')setState('speaking');else if(root.dataset.state==='speaking')setState('idle');$('[data-ci-read]').hidden=!reader.supported||!lastAnswer||value==='speaking';$('[data-ci-stop-speaking]').hidden=value!=='speaking';}});
 const ai={status:'checking',modelId:null,label:null,reason:'',progress:0,loadMs:null,handle:null};
 function setState(value,detail=''){
  root.dataset.state=value;const w=WORDS[value]||WORDS.error;status.textContent=T(w[0],w[1])+(detail&&value!=='executing'&&value!=='navigating'?' · '+detail:'');
@@ -55,7 +59,9 @@ function render(r,question,replace=null){
  if(sources.length){const links=el('div',null,'ci-sources');for(const s of sources.slice(0,10)){const target=href(s.href);if(!target)continue;const a=el('a',s.text||s.id);a.href=target;a.target='_blank';a.rel='noopener noreferrer';links.append(a);}d.append(links);}
  for(const e of r.events||[])d.append(el('p',e.tool+' · '+e.status+(e.error?' · '+e.error:'')+(e.durationMs!=null?' · '+e.durationMs+' ms':''),'ci-fine'));
  if(r.pending)turn.append(el('p',tr('Writing the answer…','Rédaction de la réponse…'),'ci-fine'));
- turn.append(d);if(replace?.isConnected)replace.replaceWith(turn);else output.append(turn);while(output.querySelectorAll('.ci-turn').length>3)output.querySelector('.ci-turn').remove();output.scrollTop=turn.offsetTop-4;refreshChrome();return turn;
+ turn.append(d);if(replace?.isConnected)replace.replaceWith(turn);else output.append(turn);while(output.querySelectorAll('.ci-turn').length>10)output.querySelector('.ci-turn').remove();output.scrollTop=turn.offsetTop-4;
+ if(!r.pending){lastAnswer=answer||'';$('[data-ci-read]').hidden=!reader.supported||!lastAnswer;}
+ refreshChrome();return turn;
 }
 // ---------- on-device AI (public site) ----------
 function renderAI(){
@@ -88,9 +94,15 @@ async function disableAI(){store.set('core.ai.consent',null);engine?.setModel(nu
 // ---------- requests ----------
 async function submit(value,{keepInput=false}={}){
  const q=String(value||'').trim();if(!q)return;document.dispatchEvent(new Event('core:navigation-request'));if(busy){engine?.cancel();return;}
+ reader.stop();
  if(globalThis.CORE_EARTH&&!CORE_EARTH.exploring&&CORE_EARTH.state?.map)CORE_EARTH.revealMap();
  const requestGeneration=++generation;busy=true;lastRequest=q;if(!keepInput)input.value='';setState('thinking');
- try{await initialization;let provisional=null;const r=await engine.run(q,{language:lang(),onProgress:p=>{if(requestGeneration===generation)provisional=render(p,q);}});if(requestGeneration!==generation)return;
+ try{const command=worldCommand(q,{cityId:globalThis.CORE_EARTH?.state?.selectedCity,code:lang(),session:worldSession});
+  if(command){const action=await executeWorldCommand(command,globalThis.CORE_EARTH);if(requestGeneration!==generation)return;
+   rememberWorldCommand(worldSession,q,command);
+   const r={text:command.text,actions:[command.text],mode:'indexed-offline',responseKind:'fast-route',sources:command.sources.map(path=>({id:path,href:path,text:path})),events:[],navigated:!!action.navigated};lastResult=r;render(r,q);
+   if(action.href)setTimeout(()=>{location.href=action.href;},350);return;}
+  await initialization;let provisional=null;const r=await engine.run(q,{language:lang(),onProgress:p=>{if(requestGeneration===generation)provisional=render(p,q);}});if(requestGeneration!==generation)return;
   lastResult=r;render(r,q,provisional);}
  catch(e){render({text:e.message,error:true,mode:'indexed-offline'},q);setState('error',e.message);}
  finally{if(requestGeneration===generation){busy=false;if(root.dataset.state!=='error')setState('idle');}}
@@ -118,17 +130,19 @@ let stopDictation=null;const mic=$('[data-ci-mic]');
 const review=speechReview(input,$('[data-ci-form]'),()=>{stopDictation?.();stopDictation=null;});
 settings.prepend(review.languageControl);
 mic.onclick=async()=>{if(stopDictation){stopDictation();stopDictation=null;return;}
- stopDictation=startDictation({code:review.code(),onText:review.receive,onState:(st,d)=>{
+ reader.stop();stopDictation=startDictation({code:review.code(),onText:(text,final,detail)=>{review.receive(text,final,detail);if(final){setState('transcribing');const command=worldCommand(text,{cityId:globalThis.CORE_EARTH?.state?.selectedCity,code:review.code(),session:worldSession});if(command?.action){review.clear();void submit(text);}else setState('idle',T('Review and send the transcript','Vérifiez et envoyez la transcription'));}},onState:(st,d)=>{
   const active=st==='preparing'||st==='listening';mic.setAttribute('aria-pressed',String(active));
   mic.setAttribute('aria-label',active?T('Stop listening','Arrêter l’écoute'):T('Speak a request','Dicter une demande'));
-  if(active)status.textContent=dictationMessage(st==='preparing'?'preparing':d);
+  if(active){setState(st);status.textContent=dictationMessage(st==='preparing'?'preparing':d);}
   else{stopDictation=null;if(st==='error')setState('error',dictationMessage(d));else if(!busy)setState('idle');}
  }});
 };
 document.addEventListener('core:lang',()=>stopDictation?.());
-window.addEventListener('pagehide',()=>stopDictation?.());
+window.addEventListener('pagehide',()=>{stopDictation?.();reader.stop();});
+$('[data-ci-read]').onclick=()=>{if(!reader.speak(lastAnswer,lang()))setState('error',T('Speech playback unavailable','Lecture vocale indisponible'));};
+$('[data-ci-stop-speaking]').onclick=()=>reader.stop();
 $('[data-ci-cancel]').onclick=()=>{engine?.cancel();};
-$('[data-ci-reset]').onclick=()=>{stopDictation?.();review.clear();generation++;busy=false;engine?.reset();output.replaceChildren();output.hidden=true;input.value='';refreshChrome();input.focus();};
+$('[data-ci-reset]').onclick=()=>{stopDictation?.();reader.stop();review.clear();worldSession.reset();lastAnswer='';$('[data-ci-read]').hidden=true;generation++;busy=false;engine?.reset();output.replaceChildren();output.hidden=true;input.value='';refreshChrome();input.focus();};
 toggle.onclick=()=>{output.hidden=!output.hidden;refreshChrome();};
 const openSettings=()=>{settings.hidden=!settings.hidden;$('[data-ci-more]').setAttribute('aria-expanded',String(!settings.hidden));if(!settings.hidden)renderAI();};
 $('[data-ci-more]').onclick=openSettings;modeChip.onclick=openSettings;

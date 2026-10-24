@@ -49,12 +49,13 @@
       <button type="button" class="ci-icon" data-ci-cancel aria-label="Stop" data-fr-label="Arrêter" hidden><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2"/></svg></button>
       <button type="button" class="ci-icon ci-more" data-ci-more aria-expanded="false" aria-controls="ci-settings" aria-label="AI and privacy settings" data-fr-label="Réglages IA et confidentialité"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg></button>
     </form>
-    <p class="ci-state" role="status" aria-live="polite"><span data-ci-state>Ready</span><button type="button" class="ci-mode" data-ci-mode aria-controls="ci-settings"></button><button type="button" class="ci-toggle" data-ci-collapse hidden></button></p>
+    <p class="ci-state" role="status" aria-live="polite"><span data-ci-state>Ready</span><button type="button" class="ci-mode" data-ci-mode aria-controls="ci-settings"></button><button type="button" class="ci-toggle" data-ci-collapse hidden></button><button type="button" class="ci-toggle" data-ci-read hidden data-fr="Lire la réponse">Read answer</button><button type="button" class="ci-toggle" data-ci-stop-speaking hidden data-fr="Arrêter la voix">Stop voice</button></p>
     <div class="ci-sheet" id="ci-settings" data-ci-settings hidden>
       <p class="ci-fine" data-fr="Les commandes, la recherche et les réponses enregistrées fonctionnent sans téléchargement. Les réponses génératives nécessitent l’IA avancée facultative.">Commands, search and recorded answers work without downloads. Generative answers require optional Advanced AI.</p>
       <details data-ci-advanced><summary data-fr="IA avancée (facultative)">Advanced AI (optional)</summary><section class="ci-ai" data-ci-ai></section></details>
       <section><label><input type="checkbox" data-ci-geocode><span data-fr="Rechercher les lieux non indexés avec Photon/komoot (envoie le nom du lieu et le centre du contexte cartographique ; choix mémorisé dans ce navigateur ; OpenStreetMap, ODbL ; service sans garantie)">Search unindexed places with Photon/komoot (sends the place name and map context center; choice remembered in this browser; OpenStreetMap, ODbL; no availability guarantee)</span></label></section>
       <p class="ci-fine" data-fr="La conversation reste en mémoire dans cet onglet ; rien n’est envoyé à CORE.">The conversation stays in memory in this tab; nothing is sent to CORE.</p>
+      <p class="ci-fine" data-fr="Le micro démarre uniquement sur votre action. La reconnaissance du navigateur peut envoyer le son à son fournisseur après votre accord ; la lecture des réponses utilise la voix du navigateur ou du système uniquement sur demande.">The microphone starts only when you press it. Browser recognition may send audio to its provider after your consent; answer playback uses a browser or system voice only when requested.</p>
       <button type="button" class="ghost small" data-ci-reset data-fr="Effacer la conversation">Clear conversation</button>
     </div>
     <div class="ci-output" data-ci-output aria-live="polite" aria-label="CORE responses" hidden></div>
@@ -69,7 +70,7 @@
     <button type="button" class="ghost small ea-layer-help" id="ea-layer-help" aria-expanded="false" aria-controls="ea-layer-intro" aria-label="What do these views mean?" data-fr-label="Que signifient ces vues ?">?</button></div>
   <aside id="ea-layer-intro" class="ea-layer-intro le-glass" hidden aria-live="polite"></aside>
   <nav class="ea-scales le-glass" id="ea-scales" aria-label="Scale" data-fr-label="Échelle" hidden></nav>
-  <details class="ea-cities le-glass" id="ea-cities" hidden><summary data-fr="Explorer les villes">Explore cities</summary><div id="ea-city-list"></div></details>
+  <details class="ea-cities le-glass" id="ea-cities" hidden><summary data-fr="Explorer les villes">Explore cities</summary><div id="ea-city-list"></div><details class="ea-evidence"><summary data-fr="Couches et preuves">Layers &amp; evidence</summary><div id="ea-evidence-list"></div><button type="button" class="small" id="ea-evidence-reset" data-fr="Vue Terre par défaut">Default Earth view</button></details></details>
 
   <div class="ea-tools" id="ea-tools" hidden>
     <div class="ea-search le-glass"><label class="sr-only" for="ea-q" data-fr="Rechercher un lieu, un problème ou une mission">Search a place, a problem or a mission</label>
