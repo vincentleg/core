@@ -13,9 +13,10 @@ import { verify } from '../intelligence/verifier.mjs';
 export const CATALOG_FILE = 'data/urban/catalog.json';
 // R30: SF housing snapshot (scripts/housing-snapshot.mjs; licences checked in docs/v7/V7_2_RESUME.md, manifest with
 // URLs, retrieval dates and SHA-256). Eviction counts are deliberately not approved: no mission needs them.
-export const HOUSING = Object.freeze({ manifest: 'data/sf-housing/manifest.json', pipeline: 'data/sf-housing/pipeline.geojson', byYear: 'data/sf-housing/production-by-year.json', byNeighborhood: 'data/sf-housing/production-by-neighborhood.json' });
+export const HOUSING = Object.freeze({ manifest: 'data/sf-housing/manifest.json', pipeline: 'data/sf-housing/pipeline.geojson', byYear: 'data/sf-housing/production-by-year.json', byNeighborhood: 'data/sf-housing/production-by-neighborhood.json', neighborhoods: 'data/sf-housing/neighborhoods.geojson' });
+// R31: SF Analysis Neighborhoods (j2bu-swwd, PDDL, boundaries only) link missions geographically at city level.
 // Bundled, published resources a tool may read. Fixed in code: a mission specification can cite these, never add to them.
-export const APPROVED_RESOURCES = Object.freeze([CATALOG_FILE, WORK_FILE, HOUSING.manifest, HOUSING.pipeline, HOUSING.byYear, HOUSING.byNeighborhood]);
+export const APPROVED_RESOURCES = Object.freeze([CATALOG_FILE, WORK_FILE, HOUSING.manifest, HOUSING.pipeline, HOUSING.byYear, HOUSING.byNeighborhood, HOUSING.neighborhoods]);
 export const ALLOWED_LICENSES = Object.freeze(['ODC Public Domain Dedication and License (PDDL)', 'Public Domain U.S. Government']);
 export const PERMISSIONS = Object.freeze({
   'read-bundled': { allowed: true, label: 'Read authorized bundled geographic data' },

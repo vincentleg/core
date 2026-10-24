@@ -67,3 +67,35 @@ export function lifecycleEvidence(ref) {
   return [{ kind: 'simulation', ref: `exec:${r.execution}`, source: `local ${r.class === 'local-model' ? 'execution with a local AI model' : 'deterministic execution'} in this browser · report SHA-256 ${r.digest}` },
     ...(r.recordedRun ? [{ kind: 'recorded-agent-work', ref: `data/intelligence/work.json#run:${r.recordedRun}`, source: 'recorded investigation read by the execution, not re-run' }] : [])];
 }
+
+// R31 — city-level summaries (src/execution/city.mjs): deterministic comparisons of missions and of saved agent
+// investigations. Stored only in this browser, explicitly; verified by digest; never validated or approved.
+export const CITY_VERSION = 'core-city-1', CITY_KEY = 'core.city.v1', MAX_CITY = 10;
+export async function verifyCitySummary(sum) {
+  if (sum?.kind !== 'core-city-summary' || sum.version !== CITY_VERSION || sum.mode !== 'deterministic-comparison') throw Error('Unknown city summary');
+  const { digest: d, ...rest } = sum; if (await digest(rest) !== d) throw Error('City summary digest mismatch: altered or incomplete');
+  if (sum.review?.accepted !== false || sum.validated !== false || sum.approved !== false) throw Error('City summary claims a validation or approval code cannot grant');
+  return sum;
+}
+const readCity = st => { try { const v = JSON.parse(st.getItem(CITY_KEY)); return Array.isArray(v) ? v.filter(x => x?.kind === 'core-city-summary') : []; } catch { return []; } };
+export const listCitySummaries = st => readCity(st);
+export function saveCitySummary(sum, st) {
+  const all = readCity(st); if (all.some(x => x.id === sum.id)) return { ok: true, already: true };
+  if (all.length >= MAX_CITY) return { ok: false, reason: `${MAX_CITY} city summaries are already saved; delete one in My CORE first.` };
+  all.push(sum); try { st.setItem(CITY_KEY, JSON.stringify(all)); return { ok: true }; } catch { return { ok: false, reason: 'Browser storage unavailable or full.' }; }
+}
+export function deleteCitySummary(id, st) { const all = readCity(st), rest = all.filter(x => x.id !== id); if (rest.length === all.length) return false; try { st.setItem(CITY_KEY, JSON.stringify(rest)); return true; } catch { return false; } }
+// Reference kept with a contribution: summary identity and digest plus the investigations it compared.
+export function cityRef(sum) { return cleanCityRef({ id: sum.id, digest: sum.digest, city: sum.city.id, createdAt: sum.createdAt, missions: sum.missions.map(m => m.id), investigations: sum.missions.filter(m => m.report).map(m => ({ execution: m.report.execution, digest: m.report.digest, mission: m.id })) }); }
+export function cleanCityRef(v) {
+  if (!v || typeof v !== 'object' || !s(v.id, 64) || !HEX64.test(v.digest || '') || !s(v.city, 40)) return null;
+  return { id: v.id, digest: v.digest, city: v.city, createdAt: s(v.createdAt, 40), missions: (Array.isArray(v.missions) ? v.missions : []).slice(0, 8).map(m => s(m, 80)).filter(Boolean),
+    investigations: (Array.isArray(v.investigations) ? v.investigations : []).slice(0, 6).map(i => (i && s(i.execution, 64) && HEX64.test(i.digest || '') ? { execution: i.execution, digest: i.digest, mission: s(i.mission, 80) } : null)).filter(Boolean),
+    validated: false, approved: false };
+}
+// Lifecycle evidence for a city summary: the comparison itself (a compilation of agent work) and each investigation.
+export function cityLifecycleEvidence(ref) {
+  const r = cleanCityRef(ref); if (!r) return [];
+  return [{ kind: 'recorded-agent-work', ref: `city:${r.id}`, source: `local city summary (deterministic comparison of missions and saved investigations) · SHA-256 ${r.digest}` },
+    ...r.investigations.map(i => ({ kind: 'simulation', ref: `exec:${i.execution}`, source: `saved investigation of ${i.mission} · report SHA-256 ${i.digest}` }))];
+}

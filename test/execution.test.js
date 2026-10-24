@@ -20,7 +20,7 @@ test('only the declared local tools are allowed; everything else is denied and r
   for (const id of ['net.fetch', 'shell.exec', 'fs.read', 'comms.send', 'records.publish', 'world.act', 'eval', 'anything']) {
     const c = await reg.call(id, { url: 'https://example.org', cmd: 'rm -rf /' }); assert.equal(c.status, 'denied', id); assert.equal(c.output, null); assert.match(c.error, /denied/); }
   for (const p of ['network', 'shell', 'filesystem', 'communication', 'publish', 'real-world']) assert.equal(PERMISSIONS[p].allowed, false);
-  assert.deepEqual(APPROVED_RESOURCES, ['data/urban/catalog.json', 'data/intelligence/work.json', 'data/sf-housing/manifest.json', 'data/sf-housing/pipeline.geojson', 'data/sf-housing/production-by-year.json', 'data/sf-housing/production-by-neighborhood.json']);
+  assert.deepEqual(APPROVED_RESOURCES, ['data/urban/catalog.json', 'data/intelligence/work.json', 'data/sf-housing/manifest.json', 'data/sf-housing/pipeline.geojson', 'data/sf-housing/production-by-year.json', 'data/sf-housing/production-by-neighborhood.json', 'data/sf-housing/neighborhoods.geojson']);
   const E = await EP, plan = E.planSF({ work: WORK, objective: OBJ }); plan.tasks[0].tool = 'net.fetch';
   assert.throws(() => E.createExecution(plan, { resources: RES }), /Plan rejected: T1: tool net.fetch is denied \(network\)/);
   assert.throws(() => E.planSF({ work: WORK, objective: ' ' }), /explicit objective/);
