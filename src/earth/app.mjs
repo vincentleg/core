@@ -30,7 +30,8 @@ import * as MV from './mission-intel-view.mjs';
 import { calibrationReadiness } from '../urban/tasks.mjs';
 import * as EX from '../execution/engine.mjs';
 import * as XV from '../execution/view.mjs';
-import { createRegistry } from '../execution/tools.mjs';
+import { createRegistry, APPROVED_RESOURCES } from '../execution/tools.mjs';
+import * as EXM from '../execution/missions.mjs';
 import { requirementsFor } from '../contrib/lifecycle.mjs';
 import { nearbyMissions } from './discovery.mjs';
 import { ollamaJSON } from '../intelligence/pool.mjs';
@@ -408,45 +409,62 @@ function intelCtx() {
 }
 const agentName = id => { const a = S.records?.byId.get(id); return a ? `${a.code || id} · ${AT(a, 'name') || AT(a, 'role') || ''}`.replace(/ · $/, '') : id; };
 const intelBrief = id => { const ctx = intelCtx(); if (!ctx) return ''; const last = EX.listReports(localStorage).filter(r => r.agents.some(a => a.agent === id)).at(-1), mem = last && EX.memoryOf(last, id);
-  return MV.agentBriefHTML(ctx, S.records.work, id, { nameOf: agentName }) + (MI.laneOf(ctx, id) ? `<section class="pp-sec"><h3>${T('Local executions', 'Exécutions locales')}</h3>${mem ? `<p class="fine">${T('Last run in this browser', 'Dernière exécution dans ce navigateur')} ${escS(String(mem.at || '').slice(0, 16).replace('T', ' '))}: ${mem.tasks.map(t => `${escS(t.id)} ${escS(t.tool)} (${escS(t.status)})`).join(', ')} · ${mem.findings.length} ${T('findings', 'constats')} <button type="button" class="ghost small" data-exec-open="${escS(mem.execution)}">${T('Open', 'Ouvrir')}</button></p>` : `<p class="fine">${T('No local execution yet in this browser.', 'Aucune exécution locale dans ce navigateur pour l’instant.')}</p>`}<button type="button" class="small" data-exec="plan">${T('Plan a supervised execution with this agent', 'Préparer une exécution supervisée avec cet agent')}</button></section>` : ''); };
+  return MV.agentBriefHTML(ctx, S.records.work, id, { nameOf: agentName }) + (MI.laneOf(ctx, id) ? `<section class="pp-sec"><h3>${T('Local executions', 'Exécutions locales')}</h3>${mem ? `<p class="fine">${T('Last run in this browser', 'Dernière exécution dans ce navigateur')} ${escS(String(mem.at || '').slice(0, 16).replace('T', ' '))}: ${mem.tasks.map(t => `${escS(t.id)} ${escS(t.tool)} (${escS(t.status)})`).join(', ')} · ${mem.findings.length} ${T('findings', 'constats')} <button type="button" class="ghost small" data-exec-open="${escS(mem.execution)}">${T('Open', 'Ouvrir')}</button></p>` : `<p class="fine">${T('No local execution yet in this browser.', 'Aucune exécution locale dans ce navigateur pour l’instant.')}</p>`}<button type="button" class="small" data-exec-mission="${MI.MISSION}">${T('Plan a supervised execution with this agent', 'Préparer une exécution supervisée avec cet agent')}</button></section>` : ''); };
 const linkedMine = () => STORE.list().filter(c => c.mission === MI.MISSION);
 const intelBody = () => { const ctx = intelCtx(); if (!ctx) return `<section class="pp-sec ar">${S.records ? `<p class="ar-missing">${T(`Could not load ${AR.FILES.work}; the mission investigation is unavailable. Reload to retry.`, `Impossible de charger ${AR.FILES.work} ; l’enquête de mission est indisponible. Rechargez pour réessayer.`)}</p>` : `<p class="fine">${T('Loading published investigation records…', 'Chargement des enquêtes publiées…')}</p>`}</section>`;
-  return MV.missionHTML(ctx, { nameOf: agentName, mine: linkedMine(), needs: requirementsFor(MI.MISSION).needs.map(n => L(n.label)), segmentCenter: S.intel.center }).replace('</header>', `</header><p class="le-row"><button type="button" class="primary" data-exec="plan">${T('Plan a supervised local execution of this mission', 'Préparer une exécution locale supervisée de cette mission')}</button><span class="fine">${T('The investigation below is a recorded replay; an execution runs new tool calls in this browser.', 'L’enquête ci-dessous est une relecture enregistrée ; une exécution lance de nouveaux appels d’outils dans ce navigateur.')}</span></p>`); };
-// R28: supervised local execution. Resources are the bundled files already loaded for the mission; nothing else is read.
-const EXEC_OBJECTIVE = () => T('Would a ten-point green-time increase on the mapped Folsom Street approach reduce modelled delay, how robust is that to unknown demand, and what evidence is missing before any real-world claim?', 'Une hausse de dix points du temps de vert sur l’approche cartographiée de Folsom Street réduirait-elle le retard modélisé, avec quelle robustesse face à une demande inconnue, et quelles preuves manquent avant toute affirmation réelle ?');
-const execResources = () => (S.records?.work?.run && S.urban?.catalog ? { [AR.FILES.work]: S.records.work, 'data/urban/catalog.json': S.urban.catalog } : null);
+  return MV.missionHTML(ctx, { nameOf: agentName, mine: linkedMine(), needs: requirementsFor(MI.MISSION).needs.map(n => L(n.label)), segmentCenter: S.intel.center }).replace('</header>', `</header><p class="le-row"><button type="button" class="primary" data-exec-mission="${MI.MISSION}">${T('Plan a supervised local execution of this mission', 'Préparer une exécution locale supervisée de cette mission')}</button><span class="fine">${T('The investigation below is a recorded replay; an execution runs new tool calls in this browser.', 'L’enquête ci-dessous est une relecture enregistrée ; une exécution lance de nouveaux appels d’outils dans ce navigateur.')}</span></p>`); };
+// R28/R30: supervised local execution of a mission specification (src/execution/missions.mjs). The agents read only
+// the bundled files the specification cites, all on the code allow-list; files not already loaded for the map are
+// fetched from this site and hashed (SHA-256 of the exact bytes) so tools can check them against their manifest.
 const execDescribe = id => createRegistry().describe(id);
+const execAvail = spec => EXM.availability(spec, S.execRes?.resources || {});
 async function execModel() {
-  if (PUBLIC) return { available: false, name: null, reason: T('Local AI reasoning is unavailable on this public site: CORE never contacts a model on a visitor’s computer. Task T7 will be reported unavailable; the deterministic tools still run.', 'Le raisonnement local par IA est indisponible sur ce site public : CORE ne contacte jamais de modèle sur l’ordinateur d’un visiteur. La tâche T7 sera signalée indisponible ; les outils déterministes fonctionnent quand même.') };
+  if (PUBLIC) return { available: false, name: null, reason: T('Local AI reasoning is unavailable on this public site: CORE never contacts a model on a visitor’s computer. The local-model task will be reported unavailable; the deterministic tools still run.', 'Le raisonnement local par IA est indisponible sur ce site public : CORE ne contacte jamais de modèle sur l’ordinateur d’un visiteur. La tâche du modèle local sera signalée indisponible ; les outils déterministes fonctionnent quand même.') };
   const name = await CIV.localModel().catch(() => null);
-  return name ? { available: true, name } : { available: false, name: null, reason: T('No local model answers at 127.0.0.1:11434 on this computer. Task T7 will be reported unavailable; the deterministic tools still run.', 'Aucun modèle local ne répond à 127.0.0.1:11434 sur cet ordinateur. La tâche T7 sera signalée indisponible ; les outils déterministes fonctionnent quand même.') };
+  return name ? { available: true, name } : { available: false, name: null, reason: T('No local model answers at 127.0.0.1:11434 on this computer. The local-model task will be reported unavailable; the deterministic tools still run.', 'Aucun modèle local ne répond à 127.0.0.1:11434 sur cet ordinateur. La tâche du modèle local sera signalée indisponible ; les outils déterministes fonctionnent quand même.') };
 }
-async function showExecPlan() {
+async function execResources(spec) {
+  const R = S.execRes ||= { resources: {}, hashes: {} };
+  for (const p of new Set((spec.evidence || []).map(e => e.resource))) {
+    if (R.resources[p] != null || !APPROVED_RESOURCES.includes(p)) continue;
+    if (p === AR.FILES.work) { if (S.records?.work?.run && !S.records.failed.includes(p)) R.resources[p] = S.records.work; continue; }
+    if (p === 'data/urban/catalog.json') { if (S.urban?.catalog) R.resources[p] = S.urban.catalog; continue; }
+    try { const r = await fetch(p); if (!r.ok) throw Error(`HTTP ${r.status}`); const buf = await r.arrayBuffer();
+      R.hashes[p] = [...new Uint8Array(await crypto.subtle.digest('SHA-256', buf))].map(x => x.toString(16).padStart(2, '0')).join(''); R.resources[p] = JSON.parse(new TextDecoder().decode(buf)); }
+    catch { /* left unloaded: the plan shows "missing data" and cannot be authorized */ }
+  }
+}
+async function showExecPlan(missionId = S.exec?.spec?.id || MI.MISSION) {
   if (S.exec?.ctl && ['running', 'paused'].includes(S.exec.ctl.state.status)) return renderExec();
-  panel('exec', 'plan', `<p class="fine" role="status">${T('Loading the mission records and checking for a local model…', 'Chargement des enregistrements de la mission et recherche d’un modèle local…')}</p>`);
+  const spec = EXM.specFor(missionId);
+  if (!spec) return void panel('exec', 'plan', XV.unavailableHTML(T(`No mission specification exists for ${missionId}.`, `Aucune spécification de mission n’existe pour ${missionId}.`)));
+  if (spec.status === 'blocked') { S.exec = { spec, source: 'blocked' }; return renderExec(); }
+  panel('exec', 'plan', `<p class="fine" role="status">${T('Loading the mission evidence and checking for a local model…', 'Chargement des preuves de la mission et recherche d’un modèle local…')}</p>`);
   await Promise.all([loadRecords(), S.urbanReady].map(p => p?.catch?.(() => null)));
-  const res = execResources();
-  if (!res) return void panel('exec', 'plan', XV.unavailableHTML(T(`Could not load ${AR.FILES.work} or data/urban/catalog.json; the agents have no authorized resources to work on.`, `Impossible de charger ${AR.FILES.work} ou data/urban/catalog.json ; les agents n’ont aucune ressource autorisée sur laquelle travailler.`)));
-  const model = await execModel(), plan = EX.planSF({ work: S.records.work, objective: S.exec?.plan?.objective || EXEC_OBJECTIVE() });
-  S.exec = { plan, model, ctl: null, report: null, source: 'plan' };
+  await execResources(spec);
+  const model = await execModel(), keep = S.exec?.plan?.mission === spec.id ? S.exec.plan.objective : null;
+  let plan; try { plan = EX.planMission(spec, { work: S.records?.work, objective: keep || T(spec.objective.en, spec.objective.fr), agentIds: S.records ? new Set(S.records.byId.keys()) : null }); }
+  catch (err) { return void panel('exec', 'plan', XV.unavailableHTML(String(err.message || err))); }
+  S.exec = { spec, plan, model, ctl: null, report: null, source: 'plan' };
   renderExec();
 }
 function renderExec() {
   const x = S.exec; if (!x) return;
-  if (x.source === 'plan') { panel('exec', 'plan', XV.planHTML(x.plan, { nameOf: agentName, describe: execDescribe, model: x.model, stored: EX.listReports(localStorage) })); $('ex-form').onsubmit = startExec; return; }
+  if (x.source === 'blocked') return void panel('exec', x.spec.id, XV.blockedHTML(x.spec, { specs: EXM.SPECS, availOf: execAvail }));
+  if (x.source === 'plan') { panel('exec', 'plan', XV.planHTML(x.plan, { nameOf: agentName, describe: execDescribe, model: x.model, stored: EX.listReports(localStorage), avail: execAvail(x.spec), specs: EXM.SPECS, availOf: execAvail })); $('ex-form').onsubmit = startExec; return; }
   const top = $('ea-panel').scrollTop;
   panel('exec', x.source === 'stored' ? `stored:${x.report.execution}` : x.ctl.state.id, x.source === 'stored' ? XV.runHTML(x.report, { nameOf: agentName, source: 'stored' }) : XV.runHTML(x.ctl.state, { nameOf: agentName, saved: !!x.report && EX.listReports(localStorage).some(r => r.execution === x.report.execution) }));
   $('ea-panel').scrollTop = top;
 }
 function startExec(e) {
-  e.preventDefault(); const msg = $('ex-form-msg'), num = id => Number($(id).value), bad = t => { msg.textContent = t; msg.hidden = false; };
+  e.preventDefault(); const msg = $('ex-form-msg'), bad = t => { msg.textContent = t; msg.hidden = false; };
   if (!$('ex-consent').checked) return bad(T('Tick the authorization box first: nothing runs without it.', 'Cochez d’abord la case d’autorisation : rien ne s’exécute sans elle.'));
-  const objective = $('ex-objective').value.trim(), demand = num('ex-demand'), g0 = num('ex-green0') / 100, g1 = num('ex-green1') / 100;
+  const objective = $('ex-objective').value.trim(), values = Object.fromEntries([...document.querySelectorAll('[data-ex-input]')].map(i => [i.dataset.exInput, Number(i.value)]));
   if (!objective) return bad(T('Write an explicit objective.', 'Écrivez un objectif explicite.'));
-  if (!(demand >= 100 && demand <= 3000 && g0 >= 0.1 && g0 <= 0.85 && g1 >= 0.1 && g1 <= 0.85)) return bad(T('Demand must be 100–3000 veh/h and green 10–85 %.', 'La demande doit être de 100 à 3000 véh/h et le vert de 10 à 85 %.'));
-  const base = S.exec.plan.assumptions[0].parameters, assumptions = [{ name: T('Baseline (assumed)', 'Référence (supposée)'), parameters: { ...base, demand, green: g0 } }, { name: T(`Variant: green ${Math.round(g1 * 100)} %`, `Variante : vert ${Math.round(g1 * 100)} %`), parameters: { ...base, demand, green: g1 } }];
+  if (execAvail(S.exec.spec).status !== 'available') return bad(T('This mission cannot run: its evidence is not loaded.', 'Cette mission ne peut pas s’exécuter : ses preuves ne sont pas chargées.'));
   let plan, ctl;
-  try { plan = EX.planSF({ work: S.records.work, objective, assumptions }); ctl = EX.createExecution(plan, { resources: execResources(), generate: S.exec.model.available ? ollamaJSON({ model: S.exec.model.name }) : null, stepMode: $('ex-step').checked, onEvent: () => { if (S.panelKind?.kind === 'exec') renderExec(); } }); }
+  try { plan = EX.planMission(S.exec.spec, { work: S.records?.work, objective, values, agentIds: S.records ? new Set(S.records.byId.keys()) : null });
+    ctl = EX.createExecution(plan, { resources: S.execRes.resources, hashes: S.execRes.hashes, generate: S.exec.model.available ? ollamaJSON({ model: S.exec.model.name }) : null, stepMode: $('ex-step').checked, onEvent: () => { if (S.panelKind?.kind === 'exec') renderExec(); } }); }
   catch (err) { return bad(String(err.message || err)); }
   S.exec = { ...S.exec, plan, ctl, source: 'local' }; renderExec(); finishExec(ctl.start());
 }
@@ -485,7 +503,7 @@ const missionSummary = id => {
   const m = S.civ?.M.get(id); if (!m) return '';
   const where = m.scope ? L(m.scope) : (m.city || '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
   const ev = id === AR.MISSION_OF_WORK && S.records?.work?.run ? T('Recorded investigation (local-model run) · dated public data · no verified real-world impact', 'Enquête enregistrée (exécution d’un modèle local) · données publiques datées · aucun impact réel vérifié') : T('Browser replay only · no published investigation yet', 'Relecture dans le navigateur seulement · aucune enquête publiée pour l’instant');
-  const next = id === FLAGSHIP_MISSION ? `<div class="le-row"><button type="button" class="primary" data-urban="workbench">${T('Run an editable transport model', 'Exécuter un modèle de transport modifiable')}</button><button type="button" data-exec="plan">${T('Plan a supervised agent execution', 'Préparer une exécution supervisée des agents')}</button></div>` : `<button type="button" class="primary" data-contribute="${escS(id)}">${T('Contribute an idea', 'Proposer une idée')}</button>`;
+  const next = id === FLAGSHIP_MISSION ? `<div class="le-row"><button type="button" class="primary" data-urban="workbench">${T('Run an editable transport model', 'Exécuter un modèle de transport modifiable')}</button><button type="button" data-exec-mission="${FLAGSHIP_MISSION}">${T('Plan a supervised agent execution', 'Préparer une exécution supervisée des agents')}</button></div>` : `<div class="le-row"><button type="button" class="primary" data-contribute="${escS(id)}">${T('Contribute an idea', 'Proposer une idée')}</button>${EXM.specFor(id) ? `<button type="button" data-exec-mission="${escS(id)}">${T('Plan a supervised agent execution', 'Préparer une exécution supervisée des agents')}</button>` : ''}</div>`;
   return `<section class="pp-summary"><dl><dt>${T('Where', 'Où')}</dt><dd>${escS(where)}</dd><dt>${T('Purpose', 'Objectif')}</dt><dd>${escS(L(m.question || m.title))}</dd><dt>${T('Evidence', 'Preuves')}</dt><dd>${escS(ev)}</dd></dl>${next}</section>`;
 };
 const missionBody = id => {
@@ -746,13 +764,14 @@ function wireCiv() {
   });
   document.querySelectorAll('#ea-layers [data-layer]').forEach(b => b.onclick = () => setLayer(b.dataset.layer));
   $('ea-panel-body').addEventListener('click', e => {
-    const t = e.target.closest('[data-mission],[data-agent],[data-agent-location],[data-intel],[data-intel-fly],[data-mi-jump],[data-ev],[data-follow],[data-follow-mission],[data-speed],[data-hierarchy],[data-reason],[data-sim],[data-scn],[data-scn-play],[data-scn-off],[data-team],[data-investigate],[data-contribute],[data-activity],[data-open],[data-exec],[data-exec-open]'); if (!t) return;
+    const t = e.target.closest('[data-mission],[data-agent],[data-agent-location],[data-intel],[data-intel-fly],[data-mi-jump],[data-ev],[data-follow],[data-follow-mission],[data-speed],[data-hierarchy],[data-reason],[data-sim],[data-scn],[data-scn-play],[data-scn-off],[data-team],[data-investigate],[data-contribute],[data-activity],[data-open],[data-exec],[data-exec-open],[data-exec-mission]'); if (!t) return;
     if (t.matches('a[href^="dialogue.html"], a[href^="report.html"], a[href^="me.html"]')) return; e.preventDefault();
     if (t.dataset.open) return void openPanel(t.dataset.open);
     if (t.dataset.agentLocation) { const post = S.records?.byId.get(t.dataset.agentLocation)?.post; if (Array.isArray(post)) { if (S.layer?.mode === 'real') setLayer('hybrid'); void flyTo(post, 17); } return; }
     if (t.dataset.intel) return void showIntel();
     if (t.dataset.exec) return void execAction(t.dataset.exec);
     if (t.dataset.execOpen) return void openStoredExec(t.dataset.execOpen);
+    if (t.dataset.execMission) return void showExecPlan(t.dataset.execMission);
     if (t.dataset.intelFly) { const c = t.dataset.intelFly.split(',').map(Number); if (c.length === 2 && c.every(Number.isFinite)) { if (S.layer?.mode === 'real') setLayer('hybrid'); void flyTo(c, 17); } return; }
     if (t.dataset.miJump) { const d = $(t.dataset.miJump); if (d) { if (d.tagName === 'DETAILS') d.open = true; d.scrollIntoView({ block: 'start' }); } return; }
     if (t.dataset.sim) return void showSimulation(t.dataset.sim);
