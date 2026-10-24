@@ -28,6 +28,9 @@ import * as AR from './agent-records.mjs';
 import * as MI from './mission-intel.mjs';
 import * as MV from './mission-intel-view.mjs';
 import { calibrationReadiness } from '../urban/tasks.mjs';
+import * as EX from '../execution/engine.mjs';
+import * as XV from '../execution/view.mjs';
+import { createRegistry } from '../execution/tools.mjs';
 import { requirementsFor } from '../contrib/lifecycle.mjs';
 import { nearbyMissions } from './discovery.mjs';
 import { ollamaJSON } from '../intelligence/pool.mjs';
@@ -404,10 +407,65 @@ function intelCtx() {
   return S.intel.ctx;
 }
 const agentName = id => { const a = S.records?.byId.get(id); return a ? `${a.code || id} · ${AT(a, 'name') || AT(a, 'role') || ''}`.replace(/ · $/, '') : id; };
-const intelBrief = id => { const ctx = intelCtx(); return ctx ? MV.agentBriefHTML(ctx, S.records.work, id, { nameOf: agentName }) : ''; };
+const intelBrief = id => { const ctx = intelCtx(); if (!ctx) return ''; const last = EX.listReports(localStorage).filter(r => r.agents.some(a => a.agent === id)).at(-1), mem = last && EX.memoryOf(last, id);
+  return MV.agentBriefHTML(ctx, S.records.work, id, { nameOf: agentName }) + (MI.laneOf(ctx, id) ? `<section class="pp-sec"><h3>${T('Local executions', 'Exécutions locales')}</h3>${mem ? `<p class="fine">${T('Last run in this browser', 'Dernière exécution dans ce navigateur')} ${escS(String(mem.at || '').slice(0, 16).replace('T', ' '))}: ${mem.tasks.map(t => `${escS(t.id)} ${escS(t.tool)} (${escS(t.status)})`).join(', ')} · ${mem.findings.length} ${T('findings', 'constats')} <button type="button" class="ghost small" data-exec-open="${escS(mem.execution)}">${T('Open', 'Ouvrir')}</button></p>` : `<p class="fine">${T('No local execution yet in this browser.', 'Aucune exécution locale dans ce navigateur pour l’instant.')}</p>`}<button type="button" class="small" data-exec="plan">${T('Plan a supervised execution with this agent', 'Préparer une exécution supervisée avec cet agent')}</button></section>` : ''); };
 const linkedMine = () => STORE.list().filter(c => c.mission === MI.MISSION);
 const intelBody = () => { const ctx = intelCtx(); if (!ctx) return `<section class="pp-sec ar">${S.records ? `<p class="ar-missing">${T(`Could not load ${AR.FILES.work}; the mission investigation is unavailable. Reload to retry.`, `Impossible de charger ${AR.FILES.work} ; l’enquête de mission est indisponible. Rechargez pour réessayer.`)}</p>` : `<p class="fine">${T('Loading published investigation records…', 'Chargement des enquêtes publiées…')}</p>`}</section>`;
-  return MV.missionHTML(ctx, { nameOf: agentName, mine: linkedMine(), needs: requirementsFor(MI.MISSION).needs.map(n => L(n.label)), segmentCenter: S.intel.center }); };
+  return MV.missionHTML(ctx, { nameOf: agentName, mine: linkedMine(), needs: requirementsFor(MI.MISSION).needs.map(n => L(n.label)), segmentCenter: S.intel.center }).replace('</header>', `</header><p class="le-row"><button type="button" class="primary" data-exec="plan">${T('Plan a supervised local execution of this mission', 'Préparer une exécution locale supervisée de cette mission')}</button><span class="fine">${T('The investigation below is a recorded replay; an execution runs new tool calls in this browser.', 'L’enquête ci-dessous est une relecture enregistrée ; une exécution lance de nouveaux appels d’outils dans ce navigateur.')}</span></p>`); };
+// R28: supervised local execution. Resources are the bundled files already loaded for the mission; nothing else is read.
+const EXEC_OBJECTIVE = () => T('Would a ten-point green-time increase on the mapped Folsom Street approach reduce modelled delay, how robust is that to unknown demand, and what evidence is missing before any real-world claim?', 'Une hausse de dix points du temps de vert sur l’approche cartographiée de Folsom Street réduirait-elle le retard modélisé, avec quelle robustesse face à une demande inconnue, et quelles preuves manquent avant toute affirmation réelle ?');
+const execResources = () => (S.records?.work?.run && S.urban?.catalog ? { [AR.FILES.work]: S.records.work, 'data/urban/catalog.json': S.urban.catalog } : null);
+const execDescribe = id => createRegistry().describe(id);
+async function execModel() {
+  if (PUBLIC) return { available: false, name: null, reason: T('Local AI reasoning is unavailable on this public site: CORE never contacts a model on a visitor’s computer. Task T7 will be reported unavailable; the deterministic tools still run.', 'Le raisonnement local par IA est indisponible sur ce site public : CORE ne contacte jamais de modèle sur l’ordinateur d’un visiteur. La tâche T7 sera signalée indisponible ; les outils déterministes fonctionnent quand même.') };
+  const name = await CIV.localModel().catch(() => null);
+  return name ? { available: true, name } : { available: false, name: null, reason: T('No local model answers at 127.0.0.1:11434 on this computer. Task T7 will be reported unavailable; the deterministic tools still run.', 'Aucun modèle local ne répond à 127.0.0.1:11434 sur cet ordinateur. La tâche T7 sera signalée indisponible ; les outils déterministes fonctionnent quand même.') };
+}
+async function showExecPlan() {
+  if (S.exec?.ctl && ['running', 'paused'].includes(S.exec.ctl.state.status)) return renderExec();
+  panel('exec', 'plan', `<p class="fine" role="status">${T('Loading the mission records and checking for a local model…', 'Chargement des enregistrements de la mission et recherche d’un modèle local…')}</p>`);
+  await Promise.all([loadRecords(), S.urbanReady].map(p => p?.catch?.(() => null)));
+  const res = execResources();
+  if (!res) return void panel('exec', 'plan', XV.unavailableHTML(T(`Could not load ${AR.FILES.work} or data/urban/catalog.json; the agents have no authorized resources to work on.`, `Impossible de charger ${AR.FILES.work} ou data/urban/catalog.json ; les agents n’ont aucune ressource autorisée sur laquelle travailler.`)));
+  const model = await execModel(), plan = EX.planSF({ work: S.records.work, objective: S.exec?.plan?.objective || EXEC_OBJECTIVE() });
+  S.exec = { plan, model, ctl: null, report: null, source: 'plan' };
+  renderExec();
+}
+function renderExec() {
+  const x = S.exec; if (!x) return;
+  if (x.source === 'plan') { panel('exec', 'plan', XV.planHTML(x.plan, { nameOf: agentName, describe: execDescribe, model: x.model, stored: EX.listReports(localStorage) })); $('ex-form').onsubmit = startExec; return; }
+  const top = $('ea-panel').scrollTop;
+  panel('exec', x.source === 'stored' ? `stored:${x.report.execution}` : x.ctl.state.id, x.source === 'stored' ? XV.runHTML(x.report, { nameOf: agentName, source: 'stored' }) : XV.runHTML(x.ctl.state, { nameOf: agentName }));
+  $('ea-panel').scrollTop = top;
+}
+function startExec(e) {
+  e.preventDefault(); const msg = $('ex-form-msg'), num = id => Number($(id).value), bad = t => { msg.textContent = t; msg.hidden = false; };
+  if (!$('ex-consent').checked) return bad(T('Tick the authorization box first: nothing runs without it.', 'Cochez d’abord la case d’autorisation : rien ne s’exécute sans elle.'));
+  const objective = $('ex-objective').value.trim(), demand = num('ex-demand'), g0 = num('ex-green0') / 100, g1 = num('ex-green1') / 100;
+  if (!objective) return bad(T('Write an explicit objective.', 'Écrivez un objectif explicite.'));
+  if (!(demand >= 100 && demand <= 3000 && g0 >= 0.1 && g0 <= 0.85 && g1 >= 0.1 && g1 <= 0.85)) return bad(T('Demand must be 100–3000 veh/h and green 10–85 %.', 'La demande doit être de 100 à 3000 véh/h et le vert de 10 à 85 %.'));
+  const base = S.exec.plan.assumptions[0].parameters, assumptions = [{ name: T('Baseline (assumed)', 'Référence (supposée)'), parameters: { ...base, demand, green: g0 } }, { name: T(`Variant: green ${Math.round(g1 * 100)} %`, `Variante : vert ${Math.round(g1 * 100)} %`), parameters: { ...base, demand, green: g1 } }];
+  let plan, ctl;
+  try { plan = EX.planSF({ work: S.records.work, objective, assumptions }); ctl = EX.createExecution(plan, { resources: execResources(), generate: S.exec.model.available ? ollamaJSON({ model: S.exec.model.name }) : null, stepMode: $('ex-step').checked, onEvent: () => { if (S.panelKind?.kind === 'exec') renderExec(); } }); }
+  catch (err) { return bad(String(err.message || err)); }
+  S.exec = { ...S.exec, plan, ctl, source: 'local' }; renderExec(); finishExec(ctl.start());
+}
+const finishExec = p => p.then(rep => { S.exec.report = rep; if (!EX.saveReport(rep, localStorage)) toast(T('Browser storage unavailable: download the report to keep it.', 'Stockage du navigateur indisponible : téléchargez le rapport pour le conserver.')); if (S.panelKind?.kind === 'exec') renderExec(); });
+const saveJSON = (name, v) => { const url = URL.createObjectURL(new Blob([JSON.stringify(v, null, 2)], { type: 'application/json' })), a = document.createElement('a'); a.href = url; a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); };
+async function execAction(act) {
+  const x = S.exec, ctl = x?.ctl, rep = x?.source === 'stored' ? x.report : ctl?.state.report;
+  if (act === 'plan') return void showExecPlan();
+  if (act === 'pause') ctl?.pause(); else if (act === 'resume') ctl?.resume(); else if (act === 'cancel') ctl?.cancel(); else if (act === 'retry' && ctl) { finishExec(ctl.retry()); }
+  else if (act === 'download' && rep) saveJSON(`core-investigation-${rep.execution.slice(0, 8)}.json`, rep);
+  else if (act === 'review' && rep) { const g = EX.gate(rep, 'accept-conclusions'); saveJSON(`core-review-request-${rep.execution.slice(0, 8)}.json`, EX.reviewRequest(rep));
+    const m = $('ex-review-msg'); if (m) m.textContent = T(`Review request prepared and downloaded in this browser; nothing was sent. ${g.reason} Give it to a qualified reviewer yourself.`, `Demande de revue préparée et téléchargée dans ce navigateur ; rien n’a été envoyé. ${g.reason} Transmettez-la vous-même à un relecteur qualifié.`); return; }
+  renderExec();
+}
+async function openStoredExec(id) {
+  const r = EX.listReports(localStorage).find(x => x.execution === id);
+  try { if (!r) throw Error(T('Not found in this browser.', 'Introuvable dans ce navigateur.')); await EX.verifyReport(r); S.exec = { ...(S.exec || {}), report: r, ctl: null, source: 'stored' }; renderExec(); }
+  catch (err) { panel('exec', 'stored', XV.unavailableHTML(T(`This stored execution cannot be shown: ${err.message}`, `Cette exécution enregistrée ne peut pas être affichée : ${err.message}`))); }
+}
 const showIntel = () => { panel('intel', MI.MISSION, intelBody()); loadRecords(); S.urbanReady?.then(() => { if (S.panelKind?.kind === 'intel' && S.intel?.catalog !== S.urban?.catalog) refreshPanel(true); }).catch(() => {}); };
 const agentPanelHTML = id => CP.agentHTML(S.civ, id).replace('</header>', `</header>${cardHTML(id)}${intelBrief(id)}`) + recordsHTML(id);
 const showAgent = id => { S.lastAgent = id; return S.urban?.catalog.agents.some(a => a.id === id) ? S.urban.agent(id) : panel('agent', id, agentPanelHTML(id)); };
@@ -419,7 +477,7 @@ const missionSummary = id => {
   const m = S.civ?.M.get(id); if (!m) return '';
   const where = m.scope ? L(m.scope) : (m.city || '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
   const ev = id === AR.MISSION_OF_WORK && S.records?.work?.run ? T('Recorded investigation (local-model run) · dated public data · no verified real-world impact', 'Enquête enregistrée (exécution d’un modèle local) · données publiques datées · aucun impact réel vérifié') : T('Browser replay only · no published investigation yet', 'Relecture dans le navigateur seulement · aucune enquête publiée pour l’instant');
-  const next = id === FLAGSHIP_MISSION ? `<button type="button" class="primary" data-urban="workbench">${T('Run an editable transport model', 'Exécuter un modèle de transport modifiable')}</button>` : `<button type="button" class="primary" data-contribute="${escS(id)}">${T('Contribute an idea', 'Proposer une idée')}</button>`;
+  const next = id === FLAGSHIP_MISSION ? `<div class="le-row"><button type="button" class="primary" data-urban="workbench">${T('Run an editable transport model', 'Exécuter un modèle de transport modifiable')}</button><button type="button" data-exec="plan">${T('Plan a supervised agent execution', 'Préparer une exécution supervisée des agents')}</button></div>` : `<button type="button" class="primary" data-contribute="${escS(id)}">${T('Contribute an idea', 'Proposer une idée')}</button>`;
   return `<section class="pp-summary"><dl><dt>${T('Where', 'Où')}</dt><dd>${escS(where)}</dd><dt>${T('Purpose', 'Objectif')}</dt><dd>${escS(L(m.question || m.title))}</dd><dt>${T('Evidence', 'Preuves')}</dt><dd>${escS(ev)}</dd></dl>${next}</section>`;
 };
 const missionBody = id => {
@@ -623,7 +681,7 @@ function refreshPanel(force = false) {
   if (k.kind === 'agent') B.innerHTML = agentPanelHTML(k.id); else if (k.kind === 'proposal' && force) return void showProposal(k.id); else if (k.kind === 'urban-agent' && force && S.lastAgent) return void S.urban?.agent(S.lastAgent); else if (k.kind === 'place' && force && S.nearAt) return void showNear(S.nearAt); else if (k.kind === 'mission') B.innerHTML = missionBody(k.id); else if (k.kind === 'activity') B.innerHTML = CP.activityHTML(S.civ, CIV.state());
   else if (k.kind === 'hierarchy') B.innerHTML = CP.hierarchyHTML(S.civ); else if (k.kind === 'team') B.innerHTML = CP.teamHTML(S.civ, k.id); else if (k.kind === 'problems' && force) B.innerHTML = problemsHTML();
   else if (force && k.kind === 'problem') B.innerHTML = problemPanel(k.id); else if (force && k.kind === 'simulation') return void renderSimulation(); else if (force && k.kind === 'event') B.innerHTML = CP.eventHTML(S.civ, k.id);
-  else if (force && k.kind === 'intel') B.innerHTML = intelBody();
+  else if (force && k.kind === 'intel') B.innerHTML = intelBody(); else if (force && k.kind === 'exec') return void renderExec();
   else if (force && k.kind === 'contribute') return void showContribute(k.id, S.draftLink?.ref); else if (force && k.kind === 'investigate' && !S.investigating) return void showInvestigate(k.id);
   $('ea-panel').scrollTop = top;
 }
@@ -679,11 +737,13 @@ function wireCiv() {
   });
   document.querySelectorAll('#ea-layers [data-layer]').forEach(b => b.onclick = () => setLayer(b.dataset.layer));
   $('ea-panel-body').addEventListener('click', e => {
-    const t = e.target.closest('[data-mission],[data-agent],[data-agent-location],[data-intel],[data-intel-fly],[data-mi-jump],[data-ev],[data-follow],[data-follow-mission],[data-speed],[data-hierarchy],[data-reason],[data-sim],[data-scn],[data-scn-play],[data-scn-off],[data-team],[data-investigate],[data-contribute],[data-activity],[data-open]'); if (!t) return;
+    const t = e.target.closest('[data-mission],[data-agent],[data-agent-location],[data-intel],[data-intel-fly],[data-mi-jump],[data-ev],[data-follow],[data-follow-mission],[data-speed],[data-hierarchy],[data-reason],[data-sim],[data-scn],[data-scn-play],[data-scn-off],[data-team],[data-investigate],[data-contribute],[data-activity],[data-open],[data-exec],[data-exec-open]'); if (!t) return;
     if (t.matches('a[href^="dialogue.html"], a[href^="report.html"], a[href^="me.html"]')) return; e.preventDefault();
     if (t.dataset.open) return void openPanel(t.dataset.open);
     if (t.dataset.agentLocation) { const post = S.records?.byId.get(t.dataset.agentLocation)?.post; if (Array.isArray(post)) { if (S.layer?.mode === 'real') setLayer('hybrid'); void flyTo(post, 17); } return; }
     if (t.dataset.intel) return void showIntel();
+    if (t.dataset.exec) return void execAction(t.dataset.exec);
+    if (t.dataset.execOpen) return void openStoredExec(t.dataset.execOpen);
     if (t.dataset.intelFly) { const c = t.dataset.intelFly.split(',').map(Number); if (c.length === 2 && c.every(Number.isFinite)) { if (S.layer?.mode === 'real') setLayer('hybrid'); void flyTo(c, 17); } return; }
     if (t.dataset.miJump) { const d = $(t.dataset.miJump); if (d) { if (d.tagName === 'DETAILS') d.open = true; d.scrollIntoView({ block: 'start' }); } return; }
     if (t.dataset.sim) return void showSimulation(t.dataset.sim);

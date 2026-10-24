@@ -478,3 +478,13 @@ body.earth.ea-explore .ea-guide { top: calc(var(--ci-shell, var(--navh)) + var(-
 .urban-saved li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 10px; align-items: center; }
 .urban-saved li small { display: block; color: var(--le-text-2); font-size: 12px; }
 .urban-saved label { display: grid; gap: 4px; margin-bottom: 8px; } .urban-saved button.small { min-height: 36px; }
+/* R28 supervised execution */
+.ex-mode { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; margin: 6px 0 0; }
+.ex-st[data-st=done], .ex-st[data-st=completed] { color: #7fdcaa; } .ex-st[data-st=running] { color: #9fd0f2; } .ex-st[data-st=paused], .ex-st[data-st=queued], .ex-st[data-st=planned] { color: #b9c4cf; }
+.ex-st[data-st=failed], .ex-st[data-st=blocked], .ex-st[data-st=denied], .ex-st[data-st=limit-exceeded], .ex-st[data-st=completed-with-failures] { color: #e79a6b; } .ex-st[data-st=unavailable], .ex-st[data-st=cancelled] { color: #9aa7b3; }
+.ex-tasks { margin: 6px 0; padding-left: 22px; display: grid; gap: 8px; } .ex-tasks > li { overflow-wrap: anywhere; } .ex-tasks > li[data-status=running] { color: #e6f4ff; }
+.ex-tasks .ghost.small { min-height: 32px; }
+.ex-assume { border: 1px solid var(--le-hairline); border-radius: 12px; padding: 8px 12px; display: grid; gap: 6px; } .ex-assume input { max-width: 9em; }
+.ex-controls { position: sticky; top: 0; z-index: 1; background: inherit; } .ex-controls button { min-height: 44px; }
+.ex-result h4 { margin: 10px 0 4px; font-size: 13px; } .ex-log code { overflow-wrap: anywhere; }
+.ex-actions button, .ex-actions .btn { min-height: 44px; }
