@@ -1,10 +1,10 @@
-# CORE — R15 V1 production release, 2026-10-23
-Worktree `.core-local/worktrees/v9.8/.core-local/worktrees/r12-release`, sanitized `release/r10-public`; release commit `85718d6` (R14) pushed to origin (fast-forward from `0c5f3d4`, pre-push integrity scan 0 findings); no merge into main; private project store untouched.
-Production: https://creationofrebornearth.com (www → 308 to apex), Vercel project `core`, deployment `dpl_6gG3Cc2jNjH3yq98nUhetAVR2H6a` built from `bedf3f5` (R16 first-steps guide, R17 mission summary/idle markers/calmer camera, R18 SF decision journey ending in human review, R19 stable panel clicks; pre-push suite 383/383, now run without the hook's Git environment); rollback `dpl_BmNsDHdqZVEmU2VJJuCYkv2sTQgn` (`fa6d06d`, minimal homepage hero).
-Release correspondence: all 204 published files byte-identical (SHA-256) between local `public/` and live; `integrity-check --all` 849 files, 0 findings.
-Live verification: R12 six pages + eight-step autonomous demo + CORE World handoff and R13 journeys (Earth layers, mission, contribution → My CORE → review request, nine pages, menu, language persistence) passed desktop and mobile against production.
-Private isolation live: 14 pages, 0 requests to localhost/127.0.0.1/.core-local/private paths, 0 page errors; third-party hosts only openfreemap, NASA GIBS, s3.amazonaws.com; internal pages, docs, scripts, state, .env and .vercel return 404; security headers present; published CSP has no local-model endpoint.
+# CORE — R20 final public release, 2026-10-23
+Worktree `.core-local/worktrees/v9.8/.core-local/worktrees/r12-release`, sanitized `release/r10-public`; runtime commit `3508587` pushed fast-forward to origin; no merge into main; private project store untouched.
+Production: Vercel project `core`, deployment `dpl_HEx9fPRhChWGaJc2qvuVgFyahrDw` READY, https://core-psi-seven.vercel.app; prior deployment `dpl_6gG3Cc2jNjH3yq98nUhetAVR2H6a` available for rollback. Custom domain previously recorded: https://creationofrebornearth.com.
+Release verification: public build 203 files; focused tests 18/18; real-click Chrome journey Enter CORE → mission → simulator → save → reload → restore → decision brief passed; required pre-push hook 383/383 and integrity scan 849 files, 0 findings.
+Earlier live verification: R12 six pages + eight-step autonomous demo + CORE World handoff and R13 journeys (Earth layers, mission, contribution → My CORE → review request, nine pages, menu, language persistence) passed desktop and mobile against prior production.
+Earlier live private isolation: 14 pages, 0 requests to localhost/127.0.0.1/.core-local/private paths, 0 page errors; third-party hosts only openfreemap, NASA GIBS, s3.amazonaws.com; internal pages, docs, scripts, state, .env and .vercel return 404; security headers present; published CSP has no local-model endpoint.
 R14 QA (recorded): 13 pages × 3 viewports, 0 overflow/errors/sampled contrast failures; evidence `.core-local/evidence/r14/`.
 Known, non-blocking: initial-render layout shift on dialogue/report/My CORE; Earth page ~7 MB; some 20–23 px text links; plans detail English-only; translations are model-written drafts.
 Risks: Safari/WebKit not tested (founder waived); deleted-branch cached objects still need host purge; third-party tile/imagery availability.
-Next: none authorized; any further phase requires founder authorization.
+Next: final release complete; no further phase authorized.
