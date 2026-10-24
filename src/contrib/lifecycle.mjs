@@ -6,6 +6,7 @@
 // states also need a verified external record and an enabled external authority; neither exists (Constitution V1.1,
 // product constitution §4–§5). Pure module: no DOM, storage or network; usable in Node tests and in the browser.
 import { cleanLink } from '../earth/mission-intel.mjs';
+import { cleanRef } from '../execution/saved.mjs';
 export const STATES = Object.freeze(['DRAFT', 'SUBMITTED', 'NEEDS_EVIDENCE', 'UNDER_REVIEW', 'SIMULATION_CANDIDATE', 'SIMULATED', 'INDEPENDENT_REVIEW', 'RECOMMENDED', 'NOT_RECOMMENDED', 'APPROVED_FOR_TRANSMISSION', 'TRANSMITTED', 'EXTERNALLY_IMPLEMENTED', 'IMPACT_MEASURED', 'REJECTED', 'ARCHIVED']);
 export const MAIN_PATH = Object.freeze(['DRAFT', 'SUBMITTED', 'UNDER_REVIEW', 'SIMULATION_CANDIDATE', 'SIMULATED', 'INDEPENDENT_REVIEW', 'RECOMMENDED', 'APPROVED_FOR_TRANSMISSION', 'TRANSMITTED', 'EXTERNALLY_IMPLEMENTED', 'IMPACT_MEASURED']);
 export const EXTERNAL_STATES = Object.freeze(['TRANSMITTED', 'EXTERNALLY_IMPLEMENTED', 'IMPACT_MEASURED']);
@@ -187,7 +188,7 @@ export function createLifecycle({ clock = () => new Date().toISOString(), verify
 // R10 Gate C: a review request the author can download and give to a human reviewer of their choice. CORE transmits
 // nothing, endorses nothing and stays in the same state; the owner's local id is replaced by "author". `verification` is
 // the result of verify(record); `related` is relatedInvestigation(...) or null (never "analysed by agents").
-export function reviewPacket(record, entry, { verification, related = null, at = new Date().toISOString() } = {}) {
+export function reviewPacket(record, entry, { verification, related = null, investigationCheck = null, at = new Date().toISOString() } = {}) {
   if (!record || !entry || record.id !== entry.id) throw Error('Record and contribution do not match');
   const req = requirementsFor(record.mission);
   return {
@@ -198,6 +199,9 @@ export function reviewPacket(record, entry, { verification, related = null, at =
     lifecycle: { state: record.state, demonstration: !!record.demonstration, events: record.events.map(e => ({ ...clone(e), actor: { ...e.actor, id: e.actor.role === 'owner' ? 'author' : e.actor.id } })), integrity: verification ? { ok: verification.ok === true, head: verification.head || null, reason: verification.reason || null } : { ok: false, reason: 'not verified' } },
     missingEvidence: missing(record).map(g => ({ kind: g.kind, id: g.id, label: g.label.en })),
     limitations: req.limitations.map(x => x.en),
-    relatedRecordedInvestigation: related ? { ...related, analysedContribution: false } : null
+    relatedRecordedInvestigation: related ? { ...related, analysedContribution: false } : null,
+    // R29: the saved local agent investigation this request is about, by reference (identity, digest, evidence refs).
+    agentInvestigation: cleanRef(entry.investigation) ? { ...cleanRef(entry.investigation), reportCheck: investigationCheck ? { ok: investigationCheck.ok === true, reason: investigationCheck.reason || null } : { ok: false, reason: 'not checked' },
+      meaning: 'Exploratory computation run by CORE agents in the author’s browser: uncalibrated model outputs, stated assumptions and, if any, model-generated hypotheses. Not scientifically validated, not approved, not a decision.' } : null
   };
 }

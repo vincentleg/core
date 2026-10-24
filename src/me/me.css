@@ -59,3 +59,12 @@ body.commons.me { background: linear-gradient(160deg, #172127, #0d1318 48%); }
 /* R27: link from a contribution to the recorded mission item it responds to. */
 .mi-link { border-left: 3px solid #9fd0f2; padding: 6px 10px; margin: 8px 0; overflow-wrap: anywhere; }
 .mi-link code { font-size: 12px; }
+/* R29 agent investigations */
+.inv-list > li > span { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.inv-cls[data-class=deterministic] { color: #f2d36b; } .inv-cls[data-class=local-model] { color: #c4cfff; } .inv-cls[data-class=recorded] { color: #9fd0f2; }
+.inv-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; } .inv-actions .btn { min-height: 44px; }
+.inv-detail { margin-top: 10px; padding-top: 6px; border-top: 1px solid var(--le-hairline); }
+.inv-detail .mi-list { margin: 6px 0; padding-left: 18px; } .inv-detail li { display: list-item; padding: 3px 0; border: 0; }
+.inv-detail h3 { margin: 12px 0 4px; font-size: 15px; } .inv-detail h4 { margin: 8px 0 2px; font-size: 13px; }
+.inv-detail .mi-k { font: 600 11px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; padding: 0 6px; border-radius: 4px; background: rgba(159, 195, 220, .12); }
+.inv-detail details > summary { cursor: pointer; min-height: 32px; }

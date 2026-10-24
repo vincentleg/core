@@ -8,15 +8,15 @@
 import { createRegistry, KINDS, CATALOG_FILE } from './tools.mjs';
 import { WORK_FILE, MISSION } from '../earth/mission-intel.mjs';
 import { DEFAULT } from '../urban/model.mjs';
+import { VERSION, digest } from './saved.mjs';
+export { VERSION, digest, verifyReport, saveReport, listReports, deleteReport, savedEntries, STORE_KEY, MAX_SAVED, executionClass, investigationRef } from './saved.mjs';
 
-export const VERSION = 'core-exec-1';
 export const LIMITS = Object.freeze({ maxTasks: 10, maxToolCalls: 14, maxRuntimeMs: 240000, maxRecordBytes: 400000, modelTimeoutMs: 120000 });
 export const TERMINAL = Object.freeze(['done', 'failed', 'blocked', 'denied', 'unavailable', 'cancelled']);
 export const SF_SEGMENT = '5660000';
 
 const SETTLED_OK = t => t.status === 'done' || (t.optional && ['unavailable', 'failed', 'denied'].includes(t.status));
 const bytes = v => new TextEncoder().encode(JSON.stringify(v ?? null)).length;
-export async function digest(value) { const b = new TextEncoder().encode(JSON.stringify(value ?? null)); return [...new Uint8Array(await crypto.subtle.digest('SHA-256', b))].map(x => x.toString(16).padStart(2, '0')).join(''); }
 const deepFreeze = o => { if (o && typeof o === 'object' && !Object.isFrozen(o)) { Object.freeze(o); Object.values(o).forEach(deepFreeze); } return o; };
 
 // Agent identities come from the recorded investigation: each responsibility (R27 lanes) is filled by the recorded
@@ -152,22 +152,5 @@ export function gate(rep, action) {
   if (rep?.review?.accepted === true && rep.review.decidedBy && rep.review.status === 'approved-by-human') return { allowed: action === 'accept-conclusions', reason: action === 'accept-conclusions' ? 'Accepted by a recorded human decision' : 'External steps need separate human authorization' };
   return { allowed: false, reason: 'Human review required: this report is awaiting review and its conclusions are proposals.' };
 }
-export async function verifyReport(rep) {
-  if (rep?.kind !== 'core-investigation-report' || rep.version !== VERSION || rep.mode !== 'local-execution') throw Error('Unknown report');
-  const { digest: d, ...rest } = rep; if (await digest(rest) !== d) throw Error('Report digest mismatch: altered or incomplete');
-  if (rep.review?.accepted !== false || rep.externalActions?.allowed !== false) throw Error('Report claims an approval code cannot grant');
-  return rep;
-}
-// Request for a person to review; contains the report digest so the reviewer can check what they received.
-export function reviewRequest(rep, at = new Date().toISOString()) {
-  return { kind: 'core-review-request', preparedAt: at, mission: rep.mission, execution: rep.execution, reportDigest: rep.digest, status: rep.status, objective: rep.objective,
-    ask: 'Review the computed outputs, the disagreements and the unresolved requirements. Nothing here is accepted, published or sent; CORE has no shared server.',
-    disagreements: rep.disagreements.map(d => d.subject), unresolved: rep.requirements.map(q => q.label), conclusions: rep.conclusions, reasoning: rep.reasoning.status };
-}
-
-// Browser-local persistence (last 5 reports), only in the Storage object passed in.
-export const STORE_KEY = 'core.executions.v1';
-export function saveReport(rep, st) { try { const all = listReports(st).filter(r => r.execution !== rep.execution); all.push(rep); st.setItem(STORE_KEY, JSON.stringify(all.slice(-5))); return true; } catch { return false; } }
-export function listReports(st) { try { const v = JSON.parse(st.getItem(STORE_KEY)); return Array.isArray(v) ? v : []; } catch { return []; } }
 // What each agent did in an execution, linked to the recorded run it read.
 export const memoryOf = (rep, agent) => { const a = rep.agents.find(x => x.agent === agent); return a ? { agent, execution: rep.execution, at: rep.endedAt, tasks: a.tasks, findings: a.findings, recordedRun: rep.reads.recordedRun, source: 'local-execution' } : null; };

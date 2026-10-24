@@ -119,8 +119,6 @@ test('human review gates acceptance and external action; reports are tamper-evid
   const forged = { ...structuredClone(r), review: { status: 'approved-by-human', accepted: true, decidedBy: 'engine' } };
   await assert.rejects(E.verifyReport(forged), /digest mismatch/);
   const t = structuredClone(r); t.findings[0].text = 'altered'; await assert.rejects(E.verifyReport(t), /digest mismatch/);
-  const req = E.reviewRequest(r, '2026-10-23T12:00:00Z');
-  assert.equal(req.reportDigest, r.digest); assert.equal(req.unresolved.length, r.requirements.length); assert.match(req.ask, /Nothing here is accepted, published or sent/);
 });
 
 test('browser-local privacy: no network, storage or code execution inside the engine', async () => {
@@ -130,6 +128,6 @@ test('browser-local privacy: no network, storage or code execution inside the en
   try { const { r } = await run(); assert.equal(r.status, 'completed'); } finally { globalThis.fetch = real; }
   assert.equal(calls, 0);
   const E = await EP, m = new Map(), st = { getItem: k => m.get(k) ?? null, setItem: (k, v) => m.set(k, v) }, { r } = await run();
-  assert.ok(E.saveReport(r, st)); assert.deepEqual([...m.keys()], ['core.executions.v1']); assert.equal(E.listReports(st)[0].execution, r.execution);
-  assert.equal(E.saveReport(r, { getItem: () => null, setItem: () => { throw Error('quota'); } }), false);
+  assert.ok(E.saveReport(r, st).ok); assert.deepEqual([...m.keys()], ['core.executions.v1']); assert.equal(E.listReports(st)[0].execution, r.execution);
+  assert.equal(E.saveReport(r, { getItem: () => null, setItem: () => { throw Error('quota'); } }).ok, false);
 });

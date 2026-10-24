@@ -435,7 +435,7 @@ function renderExec() {
   const x = S.exec; if (!x) return;
   if (x.source === 'plan') { panel('exec', 'plan', XV.planHTML(x.plan, { nameOf: agentName, describe: execDescribe, model: x.model, stored: EX.listReports(localStorage) })); $('ex-form').onsubmit = startExec; return; }
   const top = $('ea-panel').scrollTop;
-  panel('exec', x.source === 'stored' ? `stored:${x.report.execution}` : x.ctl.state.id, x.source === 'stored' ? XV.runHTML(x.report, { nameOf: agentName, source: 'stored' }) : XV.runHTML(x.ctl.state, { nameOf: agentName }));
+  panel('exec', x.source === 'stored' ? `stored:${x.report.execution}` : x.ctl.state.id, x.source === 'stored' ? XV.runHTML(x.report, { nameOf: agentName, source: 'stored' }) : XV.runHTML(x.ctl.state, { nameOf: agentName, saved: !!x.report && EX.listReports(localStorage).some(r => r.execution === x.report.execution) }));
   $('ea-panel').scrollTop = top;
 }
 function startExec(e) {
@@ -450,15 +450,23 @@ function startExec(e) {
   catch (err) { return bad(String(err.message || err)); }
   S.exec = { ...S.exec, plan, ctl, source: 'local' }; renderExec(); finishExec(ctl.start());
 }
-const finishExec = p => p.then(rep => { S.exec.report = rep; if (!EX.saveReport(rep, localStorage)) toast(T('Browser storage unavailable: download the report to keep it.', 'Stockage du navigateur indisponible : téléchargez le rapport pour le conserver.')); if (S.panelKind?.kind === 'exec') renderExec(); });
+// R29: nothing is stored until the person chooses "Save in My CORE"; the report is re-verified before it is written.
+const finishExec = p => p.then(rep => { S.exec.report = rep; if (S.panelKind?.kind === 'exec') renderExec(); });
+async function saveExec(rep) {
+  try { await EX.verifyReport(rep); } catch (err) { toast(err.message); return false; }
+  const r = EX.saveReport(rep, localStorage); if (!r.ok) toast(T(`Not saved: ${r.reason}`, `Non enregistrée : ${r.reason}`)); return r.ok;
+}
 const saveJSON = (name, v) => { const url = URL.createObjectURL(new Blob([JSON.stringify(v, null, 2)], { type: 'application/json' })), a = document.createElement('a'); a.href = url; a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); };
 async function execAction(act) {
   const x = S.exec, ctl = x?.ctl, rep = x?.source === 'stored' ? x.report : ctl?.state.report;
   if (act === 'plan') return void showExecPlan();
   if (act === 'pause') ctl?.pause(); else if (act === 'resume') ctl?.resume(); else if (act === 'cancel') ctl?.cancel(); else if (act === 'retry' && ctl) { finishExec(ctl.retry()); }
   else if (act === 'download' && rep) saveJSON(`core-investigation-${rep.execution.slice(0, 8)}.json`, rep);
-  else if (act === 'review' && rep) { const g = EX.gate(rep, 'accept-conclusions'); saveJSON(`core-review-request-${rep.execution.slice(0, 8)}.json`, EX.reviewRequest(rep));
-    const m = $('ex-review-msg'); if (m) m.textContent = T(`Review request prepared and downloaded in this browser; nothing was sent. ${g.reason} Give it to a qualified reviewer yourself.`, `Demande de revue préparée et téléchargée dans ce navigateur ; rien n’a été envoyé. ${g.reason} Transmettez-la vous-même à un relecteur qualifié.`); return; }
+  else if (act === 'save' && rep) { if (await saveExec(rep)) toast(T('Saved in My CORE, in this browser only.', 'Enregistrée dans Mon CORE, dans ce navigateur seulement.')); }
+  else if (act === 'review' && rep) { // The review request is the existing My CORE one; it needs the investigation saved first.
+    const m = $('ex-review-msg'), saved = x.source === 'stored' || EX.listReports(localStorage).some(r => r.execution === rep.execution);
+    if (!saved && !['completed', 'completed-with-failures'].includes(rep.status)) { if (m) m.textContent = T('Only a finished execution can go to review; download the report instead.', 'Seule une exécution terminée peut aller en revue ; téléchargez plutôt le rapport.'); return; }
+    if (saved || await saveExec(rep)) location.href = `me.html#investigation=${encodeURIComponent(rep.execution)}`; return; }
   renderExec();
 }
 async function openStoredExec(id) {
@@ -719,6 +727,7 @@ async function startCivilisation() {
     if (h.get('team') && R.M.has(h.get('team'))) { revealMap(); showTeam(h.get('team')); }
     if (h.get('investigate') && R.M.has(h.get('investigate'))) { revealMap(); showInvestigate(h.get('investigate')); }
     if (h.has('contribute')) { revealMap(); showContribute(R.M.has(h.get('contribute')) ? h.get('contribute') : null); }
+    if (/^[0-9a-f-]{36}$/.test(h.get('exec') || '')) { revealMap(); openStoredExec(h.get('exec')); }
     if (h.get('intel') === MI.MISSION) { revealMap(); S.map.jumpTo({ center: R.M.get(MI.MISSION)?.center || PLACES.somaField, zoom: 15.8, pitch: 58, bearing: -40 }); S.scale = 'city'; renderScales(); if (S.layer.mode === 'real') setLayer('hybrid', { intro: false }); showIntel(); }
     if (h.get('sim')) (h.get('play') ? playSimulation : showSimulation)(h.get('sim'));
     if (h.get('follow') && R.byId.has(h.get('agent'))) followAgent(h.get('agent'));
@@ -779,6 +788,7 @@ addEventListener('hashchange', () => {
   else if (h.has('investigations')) openPublicDestination('investigations');
   else if (h.get('mission') === 'mission.sf.mobility') openPublicDestination('city');
   else if (h.get('intel') === MI.MISSION && S.civReady) { revealMap(); showIntel(); }
+  else if (/^[0-9a-f-]{36}$/.test(h.get('exec') || '') && S.civReady) { revealMap(); openStoredExec(h.get('exec')); }
 });
 async function launchDemo(mode) { return openDemoChoice(); }
 
