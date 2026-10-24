@@ -1,6 +1,7 @@
 // Isolated CDP acceptance for R28 (supervised execution): one real-click desktop journey — mission → plan review →
 // refused without authorization → authorized step-by-step local execution (pause/resume) → findings, disagreements,
-// unresolved requirements → human review request → scenario workbench → stored re-open → cancel and retry — and one
+// unresolved requirements → save in My CORE → scenario workbench → stored re-open → cancel and retry → human review
+// hand-off to My CORE (R29: the review request is the existing My CORE one; updated in R30) — and one
 // mobile journey from an agent brief. Start a fresh browser and a loopback server first. Serve the source tree to test
 // the local-model path on this computer, or public/ (local model stripped from the CSP) to test the unavailable path.
 //   CORE_CDP_PORT=<port> node scripts/r28-execution-browser.mjs <desktop-base-url> <mobile-base-url> <evidence-dir>
@@ -36,8 +37,8 @@ try {
     await waitPanel(page, /Mission investigation/, 120000);
     // 1. An existing geographic problem: the recorded investigation is labelled a replay; execution is a separate action.
     check('mission investigation separates recorded replay from execution', /recorded replay; an execution runs new tool calls/.test(await panelText(page)));
-    await page.locator('#ea-panel button[data-exec="plan"]').first().click();
-    await waitPanel(page, /Plan a bounded local investigation/);
+    await page.locator('#ea-panel button[data-exec-mission="mission.sf.mobility"]').first().click();
+    await waitPanel(page, /Plan only: nothing has run/);
     // 2. Review the plan.
     const plan = await panelText(page); fs.writeFileSync(`${dir}/desktop-plan.txt`, plan);
     check('plan lists eight tasks with agents, tools, permissions and dependencies', ['T1', 'T4', 'T6', 'T8'].every(t => plan.includes(t)) && /sim\.sweep/.test(plan) && /compute-local/.test(plan) && /after T2, T3, T4, T5/.test(plan) && /Plan only: nothing has run/.test(plan));
@@ -78,27 +79,26 @@ try {
     await page.locator('.ex-log summary').click();
     check('tool-call log shows resources and digests', /data\/urban\/catalog\.json/.test(await page.locator('.ex-log').innerText()) && /in [a-f0-9]{10} · out [a-f0-9]{10}/.test(await page.locator('.ex-log').innerText()));
     await page.screenshot({ path: `${dir}/desktop-result.png`, fullPage: false });
-    const stored = await page.evaluate(() => JSON.parse(localStorage.getItem('core.executions.v1')).at(-1));
+    // R29: nothing is stored until the person saves it.
+    check('nothing stored before saving', await page.evaluate(() => !localStorage.getItem('core.executions.v1')));
+    await page.locator('#ea-panel [data-exec="save"]').click(); await waitPanel(page, /Saved in My CORE \(this browser only\)/);
+    const stored = await page.evaluate(() => JSON.parse(localStorage.getItem('core.executions.v1')).at(-1).report);
     check('report stored only in this browser, local-execution mode, new id, user assumption kept', stored.mode === 'local-execution' && stored.execution !== stored.reads.recordedRun && stored.calls.every(c => /^[a-f0-9]{64}$/.test(c.outputDigest)) && stored.calls.find(c => c.tool === 'sim.compare').input.scenarios[1].parameters.green === 0.6 && stored.review.accepted === false);
     fs.writeFileSync(`${dir}/report.json`, JSON.stringify(stored, null, 2));
     const extra = [...hosts].filter(h => h !== new URL(desk).host && h !== '127.0.0.1:11434' && !TILE_HOSTS.includes(h));
     check('execution contacted no host beyond this site, map tiles and the local model', extra.length === 0 && writes.every(w => w === 'POST http://127.0.0.1:11434/api/chat'));
     console.log('hosts', before, [...hosts].join(' '), 'writes', writes.length);
-    // 8. Human review request.
-    const [dl] = await Promise.all([page.waitForEvent('download'), page.locator('#ea-panel [data-exec="review"]').click()]);
-    const req = JSON.parse(fs.readFileSync(await dl.path(), 'utf8')); fs.writeFileSync(`${dir}/review-request.json`, JSON.stringify(req, null, 2));
-    check('review request prepared locally, carries the report digest, nothing sent', req.kind === 'core-review-request' && req.reportDigest === stored.digest && /nothing was sent/.test(await page.locator('#ex-review-msg').innerText()));
     // 7. Scenario workbench.
     await page.locator('#ea-panel [data-urban="workbench"]').click();
     await waitPanel(page, /Run actual model/);
     check('scenario workbench opens from the report', true);
     // Re-open the stored execution: labelled, not re-run.
     await page.evaluate(() => { location.hash = ''; }); await page.evaluate(() => { location.hash = 'intel=mission.sf.mobility'; }); await waitPanel(page, /Mission investigation/);
-    await page.locator('#ea-panel button[data-exec="plan"]').first().click(); await waitPanel(page, /Earlier executions in this browser/);
+    await page.locator('#ea-panel button[data-exec-mission="mission.sf.mobility"]').first().click(); await waitPanel(page, /Saved in My CORE \(this browser\)/);
     await page.locator('[data-exec-open]').first().click(); await waitPanel(page, /re-opened from this browser: not re-run/);
     check('stored execution re-opened with its label and no new tool call', /not re-run/.test(await panelText(page)) && await page.locator('#ex-controls button').count() === 0);
     // 5. Cancel and recover.
-    await page.locator('#ea-panel [data-exec="plan"]').last().click(); await waitPanel(page, /Plan a bounded local investigation/);
+    await page.locator('#ea-panel [data-exec="plan"]').last().click(); await waitPanel(page, /Plan only: nothing has run/);
     await page.locator('#ex-step').check(); await page.locator('#ex-consent').check(); await page.locator('#ex-run').click();
     await page.waitForFunction(() => /Paused/.test(document.querySelector('#ea-panel .ex-mode')?.innerText || ''), null, { timeout: 30000 });
     await page.locator('#ex-controls [data-exec="cancel"]').click(); await waitPanel(page, /Retry unfinished tasks/);
@@ -108,6 +108,12 @@ try {
     await page.waitForFunction(() => /Paused/.test(document.querySelector('#ea-panel .ex-mode')?.innerText || ''), null, { timeout: 30000 });
     check('retry resumes the unfinished tasks in the same execution', /2\/8 tasks done/i.test(await panelText(page)));
     await page.locator('#ex-controls [data-exec="cancel"]').click();
+    // 8. Human review: hand-off to My CORE, where the saved investigation is verified and its review request prepared.
+    await page.goto(desk + `world.html#exec=${stored.execution}`, { waitUntil: 'domcontentloaded' }); await waitPanel(page, /re-opened from this browser: not re-run/, 120000);
+    await page.locator('#ea-panel [data-exec="review"]').click(); await page.waitForURL(/me\.html#investigation=/);
+    const item = page.locator(`[data-inv="${stored.execution}"]`); await item.waitFor({ timeout: 30000 });
+    await page.waitForFunction(i => /Integrity verified/.test(document.querySelector(`[data-inv="${i}"]`)?.innerText || ''), stored.execution, { timeout: 30000 });
+    check('review hands off to My CORE: saved investigation verified, review request can be prepared, nothing sent', await item.locator('[data-inv-review]').count() === 1 && writes.every(w => w === 'POST http://127.0.0.1:11434/api/chat'));
     await context.close(); }
   // Mobile, public build: from an agent brief, run without a model; touch targets and overflow.
   { const { context, page, writes } = await open('mobile', { width: 390, height: 844 }, { isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
@@ -116,7 +122,7 @@ try {
     await page.locator('[data-mi-jump="mi-agents"]').tap();
     await page.locator('#mi-agents [data-agent]').first().tap(); await waitPanel(page, /Mission responsibility/);
     const b = page.locator('#ea-panel button', { hasText: 'Plan a supervised execution with this agent' }); await b.scrollIntoViewIfNeeded(); await b.tap();
-    await waitPanel(page, /Plan a bounded local investigation/);
+    await waitPanel(page, /Plan only: nothing has run/);
     check('mobile: plan opened from an agent; AI reasoning unavailable on the public build', /AI reasoning: unavailable/.test(await panelText(page)));
     await page.locator('#ex-consent').tap(); const run = page.locator('#ex-run'); await run.scrollIntoViewIfNeeded();
     const box = await run.boundingBox(); check('mobile: authorize button ≥ 44 px and inside the viewport', box && box.height >= 44 && box.x >= 0 && box.x + box.width <= 390);

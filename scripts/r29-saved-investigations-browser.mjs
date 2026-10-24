@@ -31,8 +31,8 @@ async function open(label, viewport, extra = {}) {
 async function runOnMap(page, base) {
   await page.goto(base + 'world.html#intel=mission.sf.mobility', { waitUntil: 'domcontentloaded' });
   await waitPanel(page, /Mission investigation/, 120000);
-  const plan = page.locator('#ea-panel button[data-exec="plan"]').first(); await plan.scrollIntoViewIfNeeded(); await plan.click();
-  await waitPanel(page, /Plan a bounded local investigation/);
+  const plan = page.locator('#ea-panel button[data-exec-mission="mission.sf.mobility"]').first(); await plan.scrollIntoViewIfNeeded(); await plan.click();
+  await waitPanel(page, /Plan only: nothing has run/);
   await page.locator('#ex-consent').check(); await page.locator('#ex-run').click();
   await waitPanel(page, /Findings of this execution/, 240000);
 }
@@ -54,7 +54,7 @@ try {
     // 3. Reload and reopen it on the map: labelled re-opened, not re-run.
     await page.reload({ waitUntil: 'domcontentloaded' }); await waitPanel(page, /Mission investigation/, 120000);
     check('saved report persists across a reload', (await saved(page))[0]?.report.execution === id);
-    await page.locator('#ea-panel button[data-exec="plan"]').first().click(); await waitPanel(page, /Saved in My CORE \(this browser\)/);
+    await page.locator('#ea-panel button[data-exec-mission="mission.sf.mobility"]').first().click(); await waitPanel(page, /Saved in My CORE \(this browser\)/);
     await page.locator('[data-exec-open]').first().click(); await waitPanel(page, /re-opened from this browser: not re-run/);
     check('reopened on the map without re-running', /not re-run/.test(await panelText(page)) && (await saved(page)).length === 1);
     // 4. To My CORE through the review action; the saved investigation opens, verified.
