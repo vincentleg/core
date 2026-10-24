@@ -68,3 +68,20 @@ test('R35 scene uses published records and keeps scripted movement separate from
   assert.match(code, /mine === token && state\.running/);
   assert.match(code, /REAL WORLD · MISSION HANDOFF/);
 });
+
+test('R35 legacy world-mode values never restore a third mode', () => {
+  const app = fs.readFileSync('src/earth/app.mjs', 'utf8');
+  // The pre-R35 persistent key held an automatic default, so it is removed and ignored; only the session key is read.
+  assert.match(app, /LEGACY_LAYER_KEY = 'core\.world\.layer'/);
+  assert.match(app, /m \|\|= sessionStorage\.getItem\(LAYER_KEY\); \} catch \{\} dropLegacyMode\(\);/);
+  assert.doesNotMatch(app, /localStorage\.getItem\(LEGACY_LAYER_KEY\)/);
+  const worldMode = eval(app.match(/const worldMode = (m => [^;]+);/)[1]);
+  for (const [v, want] of [['real', 'real'], ['parallel', 'parallel'], ['agents', 'parallel'], ['hybrid', 'parallel'], ['bogus', null], [null, null]]) assert.equal(worldMode(v), want);
+  assert.equal(worldMode('hybrid') || 'parallel', 'parallel');
+  // No user-facing mode label for Real Earth, Hybrid View or CORE World-as-a-mode remains in the world interface.
+  for (const f of ['src/earth/app.mjs', 'src/urban/app.mjs', 'src/voice/companion.mjs', 'src/voice/actions.mjs', 'src/civic/ui-journey.mjs', 'src/i18n/strings.mjs', 'world.html']) {
+    const code = fs.readFileSync(f, 'utf8').replace(/^\s*\/\/.*$/gm, '');
+    assert.doesNotMatch(code, /Hybrid View|Vue hybride|world\.hybrid|Begin on Real Earth|You are in CORE World|CORE World layer|label: 'Explain Real Earth/, f);
+  }
+  assert.doesNotMatch(fs.readFileSync('src/urban/app.mjs', 'utf8'), /setLayer\('(agents|hybrid)'/);
+});

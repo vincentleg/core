@@ -1,5 +1,5 @@
 // CORE World — the parallel Earth. Four connected scales on one map: Planet → Region → City → Street.
-// Real geography first (Real Earth); the parallel research civilisation of software agents on top (CORE World); both
+// Real geography first (Real World); the parallel research civilisation of software agents on top (Parallel World); both
 // in Parallel World. Missions, evidence, recorded simulations, contributions and the guided demo are reached from
 // here. Nothing is transmitted: avatar, journey, contributions and investigations stay in this browser. English by
 // default; every visible string is English/French (src/i18n), and the page re-renders when the language changes.
@@ -374,8 +374,12 @@ function wire() {
 }
 
 // ---------- Parallel World / Real World ----------
-const LAYER_KEY = 'core.world.mode.v2', INTRO_KEY = 'core.layerintro.v1';
+const LAYER_KEY = 'core.world.mode.v2', LEGACY_LAYER_KEY = 'core.world.layer', INTRO_KEY = 'core.layerintro.v1';
+// Only two modes exist. Legacy 'agents' and 'hybrid' (and anything unknown) resolve to Parallel World, never to a third mode.
 const worldMode = m => m === 'real' ? 'real' : ['parallel', 'agents', 'hybrid'].includes(m) ? 'parallel' : null;
+// Pre-R35 builds wrote 'real' to this persistent key on every first visit, so its value is not evidence of a choice:
+// it is removed once and ignored (Parallel World). Valid current selections live in LAYER_KEY for the tab session.
+function dropLegacyMode() { try { localStorage.removeItem(LEGACY_LAYER_KEY); } catch {} }
 const LAYER_TEXT = {
   real: [['Real World', 'Monde réel'], ['Physical geography and sourced public records. Virtual agents and their routes are hidden.', 'Géographie physique et registres publics sourcés. Les agents virtuels et leurs trajets sont masqués.']],
   parallel: [['Parallel World', 'Monde parallèle'], ['CORE’s virtual agent environment on sourced geography. Agent positions and movement are visual representations, not live physical activity.', 'L’environnement virtuel des agents CORE sur une géographie sourcée. Positions et mouvements sont des représentations, pas une activité physique en direct.']] };
@@ -407,7 +411,7 @@ function showProposal(id) {
   const m = c.mission && S.civ?.M.get(c.mission);
   panel('proposal', id, `<header class="pp-head"><div class="le-row"><span class="le-eyebrow">${T('Your proposal', 'Votre proposition')}</span><span class="le-badge" data-s="info">${T('Proposed · not evidence', 'Proposée · pas une preuve')}</span></div>
     <h2 id="pp-title">${esc(c.title)}</h2><p class="pp-place">${esc(Number(c.place[1]).toFixed(4))}, ${esc(Number(c.place[0]).toFixed(4))} · ${c.state === 'shared' ? T('shared with the mission queue in this browser', 'partagée avec la file de la mission dans ce navigateur') : T('private to this browser', 'privée dans ce navigateur')}</p></header>
-    <div class="pp-sec"><p>${esc(c.text)}</p><p class="fine">${T('A claim by you, shown on the CORE World layer. It is not an observation, has not been analysed by any agent and has not been reviewed.', 'Une affirmation de votre part, affichée sur la couche Monde CORE. Ce n’est pas une observation ; aucun agent ne l’a analysée et elle n’a pas été relue.')}</p></div>
+    <div class="pp-sec"><p>${esc(c.text)}</p><p class="fine">${T('A claim by you, shown in Parallel World. It is not an observation, has not been analysed by any agent and has not been reviewed.', 'Une affirmation de votre part, affichée dans le Monde parallèle. Ce n’est pas une observation ; aucun agent ne l’a analysée et elle n’a pas été relue.')}</p></div>
     <nav class="pp-actions">${m ? `<a href="#" class="btn" data-mission="${esc(m.id)}">${T('Mission', 'Mission')}: ${esc(L(m.title))}</a>` : ''}<a class="btn primary" href="me.html">${T('Follow its review in My CORE', 'Suivre sa revue dans Mon CORE')}</a></nav>`);
 }
 const LEGEND = {
@@ -854,7 +858,7 @@ async function startCivilisation() {
     S.layer.relabel(lang());
     // In Parallel World, selecting an empty place lists registered virtual agents posted near it.
     S.map.on('click', e => { if (S.layer?.mode === 'real' || S.map.getZoom() < 11 || S.demo?.state.running) return; const layers = CLICKABLE.filter(id => S.map.getLayer(id)); if (layers.length && S.map.queryRenderedFeatures(e.point, { layers }).length) return; showNear([+e.lngLat.lng.toFixed(5), +e.lngLat.lat.toFixed(5)]); });
-    const h = new URLSearchParams(location.hash.slice(1)); let m = h.get('layer'); try { m ||= sessionStorage.getItem(LAYER_KEY); } catch {}
+    const h = new URLSearchParams(location.hash.slice(1)); let m = h.get('layer'); try { m ||= sessionStorage.getItem(LAYER_KEY); } catch {} dropLegacyMode();
     setLayer(worldMode(m) || 'parallel', { intro: false });
     CIV.onChange(civTick);
     if (h.get('mission') && R.M.has(h.get('mission'))) { revealMap(); S.map.jumpTo({ center: R.M.get(h.get('mission')).center || PLACES.somaField, zoom: 15.8, pitch: 58, bearing: -40 }); S.scale = 'city'; renderScales(); if (S.layer.mode === 'real') setLayer('parallel', { intro: false }); showMission(h.get('mission')); }

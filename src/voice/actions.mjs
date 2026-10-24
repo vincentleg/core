@@ -24,7 +24,7 @@ export const ACTIONS = {
   agents_investigating: { params: {}, label: 'What the agents are investigating' },
   missing_evidence: { params: { mission: 'mission' }, label: 'What evidence is missing' },
   switch_world_layer: { params: { layer: 'layer' }, label: 'Switch the world view' },
-  explain_layers: { params: {}, label: 'Explain Real Earth and CORE World' },
+  explain_layers: { params: {}, label: 'Explain Parallel World and Real World' },
   ask_agent: { params: { agent: 'agent', question: 'text' }, label: 'Ask an agent' },
   ask_question: { params: { question: 'text' }, label: 'Ask CORE a research question' },
   start_simulation: { params: { scenario: 'scenario' }, label: 'Play a recorded simulation' },

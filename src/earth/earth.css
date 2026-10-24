@@ -338,7 +338,7 @@ body.earth:has(#ea-hero:not([hidden]):not(.out)) :is(#ea-layers, #ea-layer-intro
 .urban-tasks pre, .ea-panel pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 11px; max-height: 180px; overflow: auto; }
 .urban-tour { position: sticky; bottom: -16px; padding: 12px 0; background: var(--le-ink-900); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; border-top: 1px solid var(--le-hairline); }
 .urban-tour span { flex: 1; font-size: 12px; }
-@media (max-width: 860px) { #urban-status { top: calc(var(--navh) + 96px); left: 8px; max-width: calc(100vw - 16px); font-size: 11px; padding: 8px 12px; } } /* R2: below, not over, the Real/CORE/Hybrid switch */
+@media (max-width: 860px) { #urban-status { top: calc(var(--navh) + 96px); left: 8px; max-width: calc(100vw - 16px); font-size: 11px; padding: 8px 12px; } } /* R2: below, not over, the Parallel/Real switch */
 #urban-form > button.primary { position: sticky; top: 0; z-index: 2; }
 
 .ea-cta-demo { min-height: 50px; border: 1px solid var(--le-cyan) !important; color: var(--le-cyan) !important; background: rgba(98,216,242,.08) !important; font-weight: 600; }
@@ -357,7 +357,7 @@ body.earth:has(#ea-hero:not([hidden]):not(.out)) :is(#ea-layers, #ea-layer-intro
 /* Shared loading feedback remains visible when the hero has already closed. */
 .ea-demo-pending { position: fixed; z-index: 40; top: calc(var(--navh) + 12px); left: 50%; transform: translateX(-50%); max-width: calc(100vw - 32px); width: max-content; padding: 12px 18px; border-radius: 14px; color: var(--le-cyan); }
 /* R2: the floating language selector never covers an open panel or list, nor the map attribution.
-   Phones: it moves beside the Real/CORE/Hybrid switch. Desktop: the panel stops above it. */
+   Phones: it moves beside the Parallel/Real switch. Desktop: the panel stops above it. */
 @media (max-width: 860px) {
   body.earth:not(.twin-open):has(#ea-panel:not([hidden]), #ea-list:not([hidden])) .le-lang-floating { top: calc(var(--navh) + 54px); bottom: auto; right: max(8px, env(safe-area-inset-right)); }
   /* Explore mode adds the command bar: #ea-main redefines --navh, which the floating label (outside it) does not inherit. */

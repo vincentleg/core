@@ -118,6 +118,18 @@ try {
     check('mobile: exit restores Parallel World with no demo residue', !p.running && p.avatars.length === 0 && !p.route && p.mode === 'parallel' && !p.sim && !p.overflow);
     await context.close();
   }
+  { // Legacy persistent mode values: 'hybrid' (or the old automatic 'real') must open Parallel World and be removed.
+    const { context, page } = await open('legacy', { width: 1280, height: 900 });
+    await context.addInitScript(() => { if (!sessionStorage.getItem('r35.legacy')) { sessionStorage.setItem('r35.legacy', '1'); localStorage.setItem('core.world.layer', 'hybrid'); } });
+    await page.goto(base + 'world.html', { waitUntil: 'domcontentloaded' });
+    await page.waitForFunction(() => globalThis.CORE_EARTH?.state.layer?.mode, null, { timeout: 180000, polling: 250 });
+    const r = await page.evaluate(() => ({ mode: CORE_EARTH.state.layer.mode, legacy: localStorage.getItem('core.world.layer'), radios: [...document.querySelectorAll('#ea-layers [role=radio]')].map(b => b.dataset.layer) }));
+    check('legacy stored hybrid opens Parallel World, legacy key removed, exactly two mode radios', r.mode === 'parallel' && r.legacy === null && r.radios.join() === 'parallel,real');
+    await page.locator('#ea-start').click(); await page.locator('#ea-layers [data-layer="real"]').click(); await page.reload({ waitUntil: 'domcontentloaded' });
+    await page.waitForFunction(() => globalThis.CORE_EARTH?.state.layer?.mode, null, { timeout: 180000, polling: 250 });
+    check('a current Real World selection is kept for the tab session', await page.evaluate(() => CORE_EARTH.state.layer.mode) === 'real');
+    await context.close();
+  }
   check('zero page errors', errors.length === 0);
 } finally {
   fs.writeFileSync(`${dir}/results.json`, JSON.stringify({ checks, errors }, null, 2));

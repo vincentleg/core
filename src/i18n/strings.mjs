@@ -3,7 +3,7 @@
 // Spanish, German, Simplified Chinese and Portuguese translate the English values (src/i18n/locales/*.json).
 const en = {
   'nav.home': 'home', 'nav.command': 'Search or ask', 'nav.demoShort': 'Demo', 'nav.more': 'More',
-  'world.real': 'Real', 'world.agents': 'Agents', 'world.hybrid': 'Hybrid', 'world.activity': 'Activity', 'world.list': 'List', 'world.search': 'Search a recorded problem, a street…', 'world.noticed': 'I noticed something',
+  'world.real': 'Real', 'world.activity': 'Activity', 'world.list': 'List', 'world.search': 'Search a recorded problem, a street…', 'world.noticed': 'I noticed something',
   'nav.solutions': 'Solutions', 'nav.plans': 'Plans', 'nav.explore': 'Explore', 'nav.create': 'Create', 'nav.together': 'Together', 'nav.me': 'My CORE', 'nav.trust': 'TRUST', 'nav.journey': 'Journey',
   'nav.proto': 'PREVIEW', 'nav.protoNote': 'Early preview: public data, recorded simulations, no real-world impact verified yet', 'nav.manifesto': 'Manifesto', 'nav.demo': 'Experience CORE', 'nav.progress': 'Progress', 'nav.language': 'Language', 'nav.voice': 'Search or ask CORE', 'nav.main': 'Main navigation',
   'cmp.title': 'CORE companion', 'cmp.intro': 'Type what you want to do. I only perform actions from a fixed list, and I never share, delete or publish anything for you.',
@@ -20,7 +20,7 @@ const en = {
 };
 const fr = {
   'nav.home': 'accueil', 'nav.command': 'Chercher ou demander', 'nav.demoShort': 'Démo', 'nav.more': 'Plus',
-  'world.real': 'Réel', 'world.agents': 'Agents', 'world.hybrid': 'Hybride', 'world.activity': 'Activité', 'world.list': 'Liste', 'world.search': 'Rechercher un problème, une rue…', 'world.noticed': 'J’ai remarqué…',
+  'world.real': 'Réel', 'world.activity': 'Activité', 'world.list': 'Liste', 'world.search': 'Rechercher un problème, une rue…', 'world.noticed': 'J’ai remarqué…',
   'nav.solutions': 'Solutions', 'nav.plans': 'Offres', 'nav.explore': 'Explorer', 'nav.create': 'Créer', 'nav.together': 'Ensemble', 'nav.me': 'Mon CORE', 'nav.trust': 'TRUST', 'nav.journey': 'Parcours',
   'nav.proto': 'APERÇU', 'nav.protoNote': 'Version préliminaire : données publiques, simulations enregistrées, aucun impact réel encore vérifié', 'nav.manifesto': 'Manifeste', 'nav.demo': 'Découvrir CORE', 'nav.progress': 'Progrès', 'nav.language': 'Langue', 'nav.voice': 'Chercher ou demander à CORE', 'nav.main': 'Navigation principale',
   'cmp.title': 'Compagnon CORE', 'cmp.intro': 'Écrivez ce que vous voulez faire. Je n’exécute que des actions d’une liste fixe, et je ne partage, ne supprime ni ne publie rien à votre place.',
