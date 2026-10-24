@@ -111,8 +111,8 @@ body.earth { background: radial-gradient(1px 1px at 12% 18%, #ffffffaa, transpar
 .ea-layers { position: fixed; z-index: 11; left: 16px; top: calc(var(--navh) + 8px); display: flex; gap: 2px; padding: 4px; border-radius: var(--le-r-pill); }
 .ea-layers button { border: 0; min-height: 30px; padding: 4px 14px; font-size: 13px; background: transparent; color: var(--le-text-2); }
 .ea-layers [aria-checked="true"] { background: var(--le-sand-50); color: #0b1426; }
-body[data-layer="agents"] .ea-layers [data-layer="agents"][aria-checked="true"] { background: var(--le-cyan); }
-.ea-leg-agents { display: none !important; } body[data-layer="agents"] .ea-leg-agents, body[data-layer="hybrid"] .ea-leg-agents { display: inline-flex !important; }
+body[data-layer="parallel"] .ea-layers [data-layer="parallel"][aria-checked="true"] { background: var(--le-cyan); }
+.ea-leg-agents { display: none !important; } body[data-layer="parallel"] .ea-leg-agents { display: inline-flex !important; }
 .cv-feed { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 13px; }
 .cv-ev { padding: 8px 10px; border-radius: 12px; background: rgba(255, 255, 255, .03); border: 1px solid var(--le-hairline); cursor: pointer; }
 .cv-ev:hover { border-color: var(--le-hairline-2); } .cv-ev.sys { background: transparent; border-style: dashed; }
@@ -249,6 +249,28 @@ button.ea-agent-tag .le-agent-id::before { width: 12px; height: 12px; }
 .demo-stagebar i { display: block; height: 100%; width: 0; background: rgba(98, 216, 242, .75); transition: width .25s linear; }
 .demo-auto { color: var(--le-cyan); }
 @media (prefers-reduced-motion: reduce) { .demo .demo-r0, .demo .demo-r1, .demo .demo-r2, .demo-live { animation: none; } }
+
+/* R35: the mission director owns both progress bars and the geographic avatar overlay. */
+.mission-demo { max-height: min(66dvh, 660px); overflow: auto; border: 1px solid rgba(98, 216, 242, .44); box-shadow: 0 12px 48px rgba(0, 9, 29, .72), 0 0 45px rgba(17, 136, 194, .16); }
+.mission-demo .demo-stagebar { height: 5px; margin: 3px 0 8px; background: rgba(98, 216, 242, .13); }
+.mission-demo .demo-stagebar i, .mission-demo .demo-bar i { transition: none; background: linear-gradient(90deg, #277bdb, #62d8f2); box-shadow: 0 0 12px rgba(98, 216, 242, .85); }
+.mission-demo .demo-bar { height: 3px; margin: 2px 0 14px; }
+.mission-demo .demo-step-label, .mission-demo .demo-total-label, .mission-demo .demo-subject { font: 600 11px/1.4 var(--le-mono); letter-spacing: .06em; color: var(--le-cyan); margin: 7px 0 3px; }
+.mission-demo .demo-total-label { color: var(--le-text-3); }
+.mission-demo .demo-say { font-size: 15px; line-height: 1.5; }
+.mission-demo .demo-unavailable { color: #ffc488; }
+.demo-avatar { display: grid; justify-items: center; gap: 2px; min-width: 90px; color: #dffbff; font: 700 10px var(--le-mono); text-shadow: 0 0 8px #00bcea; pointer-events: none; filter: drop-shadow(0 0 10px #39bbf7); }
+.demo-avatar[hidden] { display: none; }
+.demo-avatar i { display: block; width: 23px; height: 35px; background: linear-gradient(#b9f6ff, #2b9cdb); clip-path: polygon(36% 0,64% 0,78% 20%,68% 35%,89% 42%,100% 65%,78% 70%,70% 53%,68% 100%,53% 100%,50% 72%,47% 100%,32% 100%,30% 53%,22% 70%,0 65%,11% 42%,32% 35%,22% 20%); }
+.demo-avatar b { padding: 3px 6px; border: 1px solid rgba(98, 216, 242, .7); border-radius: 6px; background: rgba(0, 22, 47, .9); white-space: nowrap; }
+.demo-exchange { display: flex; gap: 10px; align-items: center; margin: 12px 0; }
+.demo-exchange div { flex: 1; min-width: 0; display: grid; gap: 4px; padding: 10px; border: 1px solid rgba(98, 216, 242, .35); border-radius: 10px; background: rgba(32, 116, 177, .11); font-size: 12px; }
+.demo-exchange small { color: var(--le-text-3); }
+.demo-exchange > span { color: var(--le-cyan); }
+.demo-results { display: grid; gap: 4px; margin: 10px 0; }
+.demo-results div { display: flex; justify-content: space-between; gap: 8px; padding: 5px 8px; background: rgba(102, 191, 225, .08); border-radius: 6px; font-size: 12px; }
+.demo-results .best { border: 1px solid rgba(98, 216, 242, .6); }
+@media (max-width: 860px) { .mission-demo { bottom: 70px; max-height: 45dvh; } .demo-exchange { gap: 4px; } .demo-exchange div { padding: 6px; font-size: 10px; } .mission-demo .demo-ctl { gap: 3px; } .mission-demo .demo-ctl button { padding: 5px 8px; font-size: 11px; } }
 
 /* ---------- V9.1 landing: one primary action, progressive disclosure, readable fine print ---------- */
 .ea-hero .ea-secondary { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; }

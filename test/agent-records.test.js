@@ -15,10 +15,8 @@ test('authoritative agent counts come from the registry: 510 identities, 501 in 
   assert.equal(Object.values(c.modes).reduce((a, b) => a + b, 0), 510);
   // The urban map shows the San Francisco identities except the single city-level direction (scripts/urban-build.mjs).
   assert.equal(json('data/urban/catalog.json').agents.length, c.sanFrancisco - REG.agents.filter(a => a.city === 'san-francisco' && a.level === 'city').length);
-  const demo = fs.readFileSync('src/earth/demo.mjs', 'utf8');
-  assert.match(demo, new RegExp(`${c.sanFrancisco} registered agent identities in San Francisco`));
-  assert.match(demo, new RegExp(`all ${c.total} registered agents: ${c.sanFrancisco} assigned to San Francisco and ${c.outsideSanFrancisco} global`));
-  assert.doesNotMatch(demo, /The organisation of the 510 registered agents\./);
+  const { DEMO_AGENTS } = await import('../src/earth/demo.mjs');
+  assert.ok(DEMO_AGENTS.every(a => REG.agents.some(r => r.id === a.id && r.code === a.code)), 'demo identities come from the registry');
 });
 
 test('records join only published runs, with tools, rejections, findings and their provenance', async () => {

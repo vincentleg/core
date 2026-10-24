@@ -1,6 +1,6 @@
 // CORE World — the parallel Earth. Four connected scales on one map: Planet → Region → City → Street.
 // Real geography first (Real Earth); the parallel research civilisation of software agents on top (CORE World); both
-// together (Hybrid View). Missions, evidence, recorded simulations, contributions and the guided demo are reached from
+// in Parallel World. Missions, evidence, recorded simulations, contributions and the guided demo are reached from
 // here. Nothing is transmitted: avatar, journey, contributions and investigations stay in this browser. English by
 // default; every visible string is English/French (src/i18n), and the page re-renders when the language changes.
 import { privateExtensions } from '../private/extensions.mjs';
@@ -20,6 +20,7 @@ import * as CP from './civ-panels.mjs';
 import * as SCN from './scenarios.mjs';
 import { createGround } from './ground.mjs';
 import { createUrban } from '../urban/app.mjs';
+import { createDemo } from './demo.mjs';
 import { createVehicle } from './vehicle.mjs';
 import { PLACES as VPLACES, suggestMission } from '../voice/actions.mjs';
 import * as CONTRIB from '../contrib/contributions.mjs';
@@ -280,7 +281,7 @@ async function enterHuman() {
     $('ea-hud').hidden = false; $('ea-panel').hidden = true; $('ea-human').hidden = true;
     $('ea-me').innerHTML = `<i style="${CFG.chipStyle(me.appearance)}"></i><b>${esc(me.identity.pseudonym || T('You', 'Vous'))}</b>`;
     $('ea-hint').textContent = hint(); $('ea-cam').textContent = camLabel(); $('ea-talk').textContent = talkLabel();
-    if (S.layer && S.layer.mode === 'real') setLayer('hybrid');
+    if (S.layer && S.layer.mode === 'real') setLayer('parallel');
     S.map.keyboard.disable(); S.map.dragPan.disable();
     terrain('human', true);
     await fly(camFor(), 2600);
@@ -350,7 +351,7 @@ function wire() {
     if ((before === 'high') !== (S.quality === 'high')) toast(T('Relief turns on or off at the next page load (“High” quality only).', 'Le relief s’active ou se désactive au prochain chargement de la page (qualité « Haute » seulement).')); if (S.scene) { S.scene.setQuality(S.quality === 'high' ? 'high' : 'balanced'); if (S.quality === 'low') { $('ea-up').click(); } else if (S.mode === 'human') S.buildings = S.scene.refreshBuildings(); } };
   $('ea-noticed-btn').onclick = () => { revealMap(); showContribute(); };
   $('ea-problems-btn').onclick = () => { if (!$('ea-hero').hidden) revealMap(); showProblems(); };
-  $('ea-layer-help').onclick = () => { const v = $('ea-layer-intro'); if (v.hidden) layerIntro(S.layer?.mode || 'real', true); else { v.hidden = true; $('ea-layer-help').setAttribute('aria-expanded', 'false'); } };
+  $('ea-layer-help').onclick = () => { const v = $('ea-layer-intro'); if (v.hidden) layerIntro(S.layer?.mode || 'parallel', true); else { v.hidden = true; $('ea-layer-help').setAttribute('aria-expanded', 'false'); } };
   // What works today: working / experimental / long-term vision, for anyone seeing CORE for the first time (also #status).
   $('ea-status-btn').onclick = () => { const a = $('ea-status'); a.hidden = !a.hidden; $('ea-status-btn').setAttribute('aria-expanded', String(!a.hidden)); if (!a.hidden) a.focus(); };
   $('ea-about-btn').onclick = () => { const a = $('ea-about'); a.hidden = !a.hidden; $('ea-about-btn').setAttribute('aria-expanded', String(!a.hidden)); };
@@ -372,12 +373,12 @@ function wire() {
   const end = () => { jid = null; S.joy = { x: 0, y: 0 }; knob.style.transform = ''; }; joy.addEventListener('pointerup', end); joy.addEventListener('pointercancel', end);
 }
 
-// ---------- Real Earth / CORE World / Hybrid View ----------
-const LAYER_KEY = 'core.world.layer', INTRO_KEY = 'core.layerintro.v1';
+// ---------- Parallel World / Real World ----------
+const LAYER_KEY = 'core.world.mode.v2', INTRO_KEY = 'core.layerintro.v1';
+const worldMode = m => m === 'real' ? 'real' : ['parallel', 'agents', 'hybrid'].includes(m) ? 'parallel' : null;
 const LAYER_TEXT = {
-  real: [['Real Earth', 'Terre réelle'], ['The physical planet: real geography, public data and the problems recorded from it. Markers are coloured by level of evidence: observed, potential risk, hypothesis.', 'La planète physique : géographie réelle, données publiques et problèmes enregistrés à partir d’elles. Les marqueurs sont colorés selon le niveau de preuve : observé, risque potentiel, hypothèse.']],
-  agents: [['CORE World', 'Monde CORE'], ['The parallel research civilisation: holographic software agents (not people), their teams, mission centres and the work flowing between them. Bright = assigned to a task; dim = idle. It is a working environment, not a second physical city.', 'La civilisation de recherche parallèle : des agents logiciels holographiques (pas des personnes), leurs équipes, leurs centres de mission et le travail qui circule entre eux. Lumineux = affecté à une tâche ; sombre = inactif. C’est un environnement de travail, pas une seconde ville physique.']],
-  hybrid: [['Hybrid View', 'Vue hybride'], ['Both together: see where the agents work on physical-world problems, at the evidence, around Folsom Street, in virtual meeting points.', 'Les deux ensemble : voyez où les agents travaillent sur des problèmes du monde physique : près des preuves, autour de Folsom Street, à des points de réunion virtuels.']] };
+  real: [['Real World', 'Monde réel'], ['Physical geography and sourced public records. Virtual agents and their routes are hidden.', 'Géographie physique et registres publics sourcés. Les agents virtuels et leurs trajets sont masqués.']],
+  parallel: [['Parallel World', 'Monde parallèle'], ['CORE’s virtual agent environment on sourced geography. Agent positions and movement are visual representations, not live physical activity.', 'L’environnement virtuel des agents CORE sur une géographie sourcée. Positions et mouvements sont des représentations, pas une activité physique en direct.']] };
 function layerIntro(m, force = false) {
   let seen = []; try { seen = JSON.parse(localStorage.getItem(INTRO_KEY) || '[]'); } catch {}
   if (!force && seen.includes(m)) return;
@@ -389,8 +390,7 @@ function layerIntro(m, force = false) {
   try { localStorage.setItem(INTRO_KEY, JSON.stringify([...new Set([...seen, m])])); } catch {}
   clearTimeout(layerIntro.t); if (!force) layerIntro.t = setTimeout(() => { v.hidden = true; }, 9000);
 }
-// Gate D (R10): the visitor's own located ideas are proposals, shown only in CORE World and Hybrid View — never in
-// Real Earth, which keeps sourced geography only. They come from this browser's storage and are never sent anywhere.
+// Browser-local proposals are shown only in Parallel World; Real World keeps sourced geography only.
 const proposalData = () => ({ type: 'FeatureCollection', features: STORE.list().filter(c => Array.isArray(c.place) && c.place.length === 2 && c.place.every(Number.isFinite)).map(c => ({ type: 'Feature', geometry: { type: 'Point', coordinates: c.place }, properties: { id: c.id } })) });
 function syncProposals(m) {
   if (!S.map?.getSource) return;
@@ -411,22 +411,22 @@ function showProposal(id) {
     <nav class="pp-actions">${m ? `<a href="#" class="btn" data-mission="${esc(m.id)}">${T('Mission', 'Mission')}: ${esc(L(m.title))}</a>` : ''}<a class="btn primary" href="me.html">${T('Follow its review in My CORE', 'Suivre sa revue dans Mon CORE')}</a></nav>`);
 }
 const LEGEND = {
-  real: () => `<span><i class="lg-dot real"></i>${T('Real Earth: sourced map data and dated public records only', 'Terre réelle : données cartographiques sourcées et registres publics datés uniquement')}</span>`,
-  agents: () => `<span><i class="lg-dot replay"></i>${T('agent motion: replay in this browser', 'mouvement des agents : relecture dans ce navigateur')}</span><span><i class="lg-dot rec"></i>${T('recorded work', 'travail enregistré')}</span><span><i class="lg-dot idea"></i>${T('your proposals (private)', 'vos propositions (privées)')}</span>`,
+  real: () => `<span><i class="lg-dot real"></i>${T('Real World: sourced map data and dated public records only', 'Monde réel : données cartographiques sourcées et registres publics datés uniquement')}</span>`,
+  parallel: () => `<span><i class="lg-dot replay"></i>${T('agent motion: visual reenactment', 'mouvement des agents : reconstitution visuelle')}</span><span><i class="lg-dot rec"></i>${T('recorded work', 'travail enregistré')}</span><span><i class="lg-dot idea"></i>${T('your proposals (private)', 'vos propositions (privées)')}</span>`,
 };
-LEGEND.hybrid = () => `${LEGEND.agents()}<span><i class="lg-dot real"></i>${T('over the real map', 'sur la carte réelle')}</span>`;
 function renderLegend(m) {
   let el = $('ea-view-legend'); if (!el) { el = Object.assign(document.createElement('p'), { id: 'ea-view-legend', className: 'ea-view-legend le-glass' }); el.setAttribute('aria-live', 'polite'); $('ea-layers').after(el); }
   el.dataset.layer = m; el.innerHTML = (LEGEND[m] || LEGEND.real)();
 }
 function setLayer(m, { intro = true } = {}) {
-  if (!S.layer) return; const prev = S.layer.mode; S.layer.setMode(m); try { localStorage.setItem(LAYER_KEY, m); } catch {}
+  if (!S.layer) return; m = worldMode(m) || 'parallel'; const prev = S.layer.mode; S.layer.setMode(m); try { sessionStorage.setItem(LAYER_KEY, m); } catch {}
   if (m !== 'real') loadRecords().then(() => S.layer?.setRecorded(recordedIds()));
   syncProposals(m); renderLegend(m);
   document.querySelectorAll('#ea-layers [data-layer]').forEach(b => b.setAttribute('aria-checked', String(b.dataset.layer === m)));
   if (S.crowd) S.crowd.visible = m !== 'real';
   const g = S.scene?.world?.getObjectByName('core-agents'); if (g) g.visible = m !== 'real';
   for (const mk of S.plates?.values() || []) mk.getElement().hidden = m === 'real';
+  for (const id of ['urban-routes', 'urban-clusters', 'urban-agents']) if (S.map.getLayer(id)) S.map.setLayoutProperty(id, 'visibility', m === 'real' ? 'none' : 'visible');
   if (S.urban) for (const id of ['civ-agents', 'civ-agents-rec', 'civ-agents-glow', 'civ-agents-label', 'civ-links']) if (S.map.getLayer(id)) S.map.setLayoutProperty(id, 'visibility', 'none');
   document.body.dataset.layer = m;
   if (intro && prev !== m && !S.demo?.state.running) layerIntro(m);
@@ -633,7 +633,7 @@ const showEvent = seq => panel('event', seq, CP.eventHTML(S.civ, seq));
 const showHierarchy = () => panel('hierarchy', null, CP.hierarchyHTML(S.civ));
 const showTeam = id => panel('team', id, CP.teamHTML(S.civ, id));
 async function openMission(id) {
-  const m = S.civ?.M.get(id); if (!m) return; revealMap(); if (S.layer?.mode === 'real') setLayer('hybrid');
+  const m = S.civ?.M.get(id); if (!m) return; revealMap(); if (S.layer?.mode === 'real') setLayer('parallel');
   showMission(id); history.replaceState(null, '', `#mission=${encodeURIComponent(id)}`);
   if (m.center && S.mode !== 'human') moveTo({ center: m.center, zoom: 15.6, pitch: 58, bearing: -40, padding: sidePad() });
 }
@@ -671,7 +671,7 @@ function problemsHTML() {
     <div class="pp-sec"><p><a class="btn small" href="world.html#investigations">${T('Recorded agent investigations', 'Enquêtes enregistrées des agents')}</a> <a class="btn small" href="me.html#contributions">${T('My contribution history', 'Historique de mes contributions')}</a></p><p><button type="button" class="small" data-activity="1">${T('See all agent activity', 'Voir toute l’activité des agents')}</button> <button type="button" class="small" data-hierarchy="1">${T('How the agents are organised', 'Organisation des agents')}</button></p></div>`;
 }
 const E = x => esc(L(x));
-function showProblems() { if (!S.civ) return toast(T('The CORE civilisation is still loading…', 'La civilisation CORE se charge encore…')); revealMap(); if (S.layer?.mode === 'real') setLayer('hybrid'); panel('problems', null, problemsHTML()); history.replaceState(null, '', '#problems'); }
+function showProblems() { if (!S.civ) return toast(T('The CORE civilisation is still loading…', 'La civilisation CORE se charge encore…')); revealMap(); if (S.layer?.mode === 'real') setLayer('parallel'); panel('problems', null, problemsHTML()); history.replaceState(null, '', '#problems'); }
 
 // ---------- recorded SUMO scenarios (reversible overlay) ----------
 // One fixed camera for every scenario, so before/after line up; close enough for the 3D cars and buses to read.
@@ -697,7 +697,7 @@ async function playSimulation(id = 'S0') { await showSimulation(id); S.scn?.rend
 function hideSimulation({ quiet = false } = {}) { S.scn?.hide(); S.traffic?.update([]); terrain('traffic', false); $('ea-panel').hidden = true; history.replaceState(null, '', location.pathname + location.search); if (!quiet) toast(T('Scenario removed: the map shows the real street again.', 'Scénario retiré : la carte montre de nouveau la rue réelle.')); }
 function revealMap() { S.spinning = false; $('ea-hero').hidden = true; $('ea-vignette').hidden = true; $('ea-scales').hidden = false; $('ea-tools').hidden = false; $('ea-cities').hidden = false; $('ea-legend').hidden = false; S.map.setPadding({ left: 0, right: 0, top: 0, bottom: 0 }); enterExplorer(); }
 async function flyTo(center, zoom) { if (S.mode === 'human') leaveHuman(); revealMap(); await fly({ center, zoom, pitch: zoom > 14 ? 58 : 40, bearing: -30 }, 2600); syncScale(); }
-function followAgent(id) { if (!S.civ?.byId.has(id)) return; revealMap(); if (S.layer?.mode === 'real') setLayer('hybrid'); S.follow = id; S.map.jumpTo({ center: posOf(id), zoom: Math.max(S.map.getZoom(), 17), pitch: 60 }); showAgent(id); }
+function followAgent(id) { if (!S.civ?.byId.has(id)) return; revealMap(); if (S.layer?.mode === 'real') setLayer('parallel'); S.follow = id; S.map.jumpTo({ center: posOf(id), zoom: Math.max(S.map.getZoom(), 17), pitch: 60 }); showAgent(id); }
 
 // ---------- ask the research team (real multi-agent investigation) ----------
 const ROLE_NAME = { coordinator: ['Coordinator', 'Coordination'], evidence: ['Evidence researcher', 'Recherche de preuves'], analyst: ['Domain analyst', 'Analyse du domaine'], simulation: ['Simulation specialist', 'Spécialiste de la simulation'], critic: ['Scientific critic', 'Critique scientifique'], synthesis: ['Synthesis', 'Synthèse'] };
@@ -852,22 +852,22 @@ async function startCivilisation() {
     if (STREET_LEVEL) createGround(R).then(g => { S.ground = g; }).catch(e => console.warn('pedestrian network unavailable', e));
     S.layer = createAgentLayer(S.map, { runtime: R, pos: posOf, onAgent: showAgent, onHub: showAgent, onNetwork: id => { if (id === 'san-francisco') showHierarchy(); else panel('network', id, `<header class="pp-head"><h2 id="pp-title">New York</h2></header><p>${T('Cross-city missions were <b>recorded</b> in Phase 10 (replay). New York’s agent registry is not loaded in this version: no activity there is shown as real.', 'Des missions inter-villes ont été <b>enregistrées</b> en Phase 10 (relecture). Le registre d’agents de New York n’est pas chargé dans cette version : aucune activité n’y est montrée comme réelle.')}</p>`); } });
     S.layer.relabel(lang());
-    // R2: in CORE World and Hybrid View, selecting an empty place lists the registered agents posted near it.
+    // In Parallel World, selecting an empty place lists registered virtual agents posted near it.
     S.map.on('click', e => { if (S.layer?.mode === 'real' || S.map.getZoom() < 11 || S.demo?.state.running) return; const layers = CLICKABLE.filter(id => S.map.getLayer(id)); if (layers.length && S.map.queryRenderedFeatures(e.point, { layers }).length) return; showNear([+e.lngLat.lng.toFixed(5), +e.lngLat.lat.toFixed(5)]); });
-    const h = new URLSearchParams(location.hash.slice(1)); let m = h.get('layer'); try { m ||= localStorage.getItem(LAYER_KEY); } catch {}
-    setLayer(['real', 'agents', 'hybrid'].includes(m) ? m : 'real', { intro: false });
+    const h = new URLSearchParams(location.hash.slice(1)); let m = h.get('layer'); try { m ||= sessionStorage.getItem(LAYER_KEY); } catch {}
+    setLayer(worldMode(m) || 'parallel', { intro: false });
     CIV.onChange(civTick);
-    if (h.get('mission') && R.M.has(h.get('mission'))) { revealMap(); S.map.jumpTo({ center: R.M.get(h.get('mission')).center || PLACES.somaField, zoom: 15.8, pitch: 58, bearing: -40 }); S.scale = 'city'; renderScales(); if (S.layer.mode === 'real') setLayer('hybrid', { intro: false }); showMission(h.get('mission')); }
+    if (h.get('mission') && R.M.has(h.get('mission'))) { revealMap(); S.map.jumpTo({ center: R.M.get(h.get('mission')).center || PLACES.somaField, zoom: 15.8, pitch: 58, bearing: -40 }); S.scale = 'city'; renderScales(); if (S.layer.mode === 'real') setLayer('parallel', { intro: false }); showMission(h.get('mission')); }
     if (h.has('problems')) { revealMap(); S.map.jumpTo({ center: PLACES.somaField, zoom: 14.6, pitch: 50, bearing: -30 }); S.scale = 'city'; renderScales(); showProblems(); }
     if (h.get('team') && R.M.has(h.get('team'))) { revealMap(); showTeam(h.get('team')); }
     if (h.get('investigate') && R.M.has(h.get('investigate'))) { revealMap(); showInvestigate(h.get('investigate')); }
     if (h.has('contribute')) { revealMap(); showContribute(R.M.has(h.get('contribute')) ? h.get('contribute') : null); }
     if (/^[0-9a-f-]{36}$/.test(h.get('exec') || '')) { revealMap(); openStoredExec(h.get('exec')); }
     if (CITIES[h.get('city')]) selectCity(h.get('city'));
-    if (h.get('intel') === MI.MISSION) { revealMap(); S.map.jumpTo({ center: R.M.get(MI.MISSION)?.center || PLACES.somaField, zoom: 15.8, pitch: 58, bearing: -40 }); S.scale = 'city'; renderScales(); if (S.layer.mode === 'real') setLayer('hybrid', { intro: false }); showIntel(); }
+    if (h.get('intel') === MI.MISSION) { revealMap(); S.map.jumpTo({ center: R.M.get(MI.MISSION)?.center || PLACES.somaField, zoom: 15.8, pitch: 58, bearing: -40 }); S.scale = 'city'; renderScales(); if (S.layer.mode === 'real') setLayer('parallel', { intro: false }); showIntel(); }
     if (h.get('sim')) (h.get('play') ? playSimulation : showSimulation)(h.get('sim'));
     if (h.get('follow') && R.byId.has(h.get('agent'))) followAgent(h.get('agent'));
-    else if (h.get('agent') && R.byId.has(h.get('agent'))) { revealMap(); S.map.jumpTo({ center: posOf(h.get('agent')), zoom: 17, pitch: 60 }); if (S.layer.mode === 'real') setLayer('hybrid', { intro: false }); showAgent(h.get('agent')); }
+    else if (h.get('agent') && R.byId.has(h.get('agent'))) { revealMap(); S.map.jumpTo({ center: posOf(h.get('agent')), zoom: 17, pitch: 60 }); if (S.layer.mode === 'real') setLayer('parallel', { intro: false }); showAgent(h.get('agent')); }
     S.civReady = true;
   } catch (e) { console.error(e); toast(T(`CORE civilisation unavailable: ${e.message}`, `Civilisation CORE indisponible : ${e.message}`)); }
 }
@@ -889,13 +889,13 @@ function wireCiv() {
     const t = e.target.closest('[data-mission],[data-agent],[data-agent-location],[data-intel],[data-intel-fly],[data-mi-jump],[data-ev],[data-follow],[data-follow-mission],[data-speed],[data-hierarchy],[data-reason],[data-sim],[data-scn],[data-scn-play],[data-scn-off],[data-team],[data-investigate],[data-contribute],[data-activity],[data-open],[data-exec],[data-exec-open],[data-exec-mission],[data-city]'); if (!t) return;
     if (t.matches('a[href^="dialogue.html"], a[href^="report.html"], a[href^="me.html"]')) return; e.preventDefault();
     if (t.dataset.open) return void openPanel(t.dataset.open);
-    if (t.dataset.agentLocation) { const post = S.records?.byId.get(t.dataset.agentLocation)?.post; if (Array.isArray(post)) { if (S.layer?.mode === 'real') setLayer('hybrid'); void flyTo(post, 17); } return; }
+    if (t.dataset.agentLocation) { const post = S.records?.byId.get(t.dataset.agentLocation)?.post; if (Array.isArray(post)) { if (S.layer?.mode === 'real') setLayer('parallel'); void flyTo(post, 17); } return; }
     if (t.dataset.intel) return void showIntel();
     if (t.dataset.exec) return void execAction(t.dataset.exec);
     if (t.dataset.execOpen) return void openStoredExec(t.dataset.execOpen);
     if (t.dataset.execMission) return void showExecPlan(t.dataset.execMission);
     if (t.dataset.city) return void (t.dataset.city === 'save' ? saveCity() : showCity());
-    if (t.dataset.intelFly) { const c = t.dataset.intelFly.split(',').map(Number); if (c.length === 2 && c.every(Number.isFinite)) { if (S.layer?.mode === 'real') setLayer('hybrid'); void flyTo(c, 17); } return; }
+    if (t.dataset.intelFly) { const c = t.dataset.intelFly.split(',').map(Number); if (c.length === 2 && c.every(Number.isFinite)) { if (S.layer?.mode === 'real') setLayer('parallel'); void flyTo(c, 17); } return; }
     if (t.dataset.miJump) { const d = $(t.dataset.miJump); if (d) { if (d.tagName === 'DETAILS') d.open = true; d.scrollIntoView({ block: 'start' }); } return; }
     if (t.dataset.sim) return void showSimulation(t.dataset.sim);
     if (t.dataset.scn) return void showSimulation(t.dataset.scn, { camera: false });
@@ -923,7 +923,7 @@ async function openPublicDestination(kind) {
     else if (kind === 'city') { await S.civLoading; if (!S.civReady) throw Error('City research unavailable'); revealMap(); S.map.jumpTo({ center: PLACES.somaField, zoom: 15.8, pitch: 50 }); showMission('mission.sf.mobility'); }
   } catch (e) { toast(e.message); }
 }
-async function openDemoChoice() { return globalThis.CORE_DEMO.request(); }
+async function openDemoChoice() { const choice = $('ea-demo-choice'); S.demoReturn = document.activeElement; choice.hidden = false; choice.querySelector('[data-demo-mode="auto"]')?.focus(); }
 addEventListener('hashchange', () => {
   const h = new URLSearchParams(location.hash.slice(1));
   if (h.has('demo')) openDemoChoice();
@@ -933,7 +933,13 @@ addEventListener('hashchange', () => {
   else if (/^[0-9a-f-]{36}$/.test(h.get('exec') || '') && S.civReady) { revealMap(); openStoredExec(h.get('exec')); }
   else if (CITIES[h.get('city')] && S.civReady && S.panelKind?.id !== h.get('city')) selectCity(h.get('city'));
 });
-async function launchDemo(mode) { return openDemoChoice(); }
+async function launchDemo(mode = 'auto') {
+  await Promise.all([S.civLoading, S.urbanReady]);
+  S.demo?.exit();
+  S.demo = createDemo(globalThis.CORE_EARTH, { mode });
+  S.demo.start();
+  return S.demo;
+}
 
 // ---------- language changes: re-render everything visible ----------
 onLang(() => {
@@ -953,9 +959,9 @@ onLang(() => {
   S.map.on('load', () => {
     S.ready = true; $('ea-start').disabled = false; installGeoLayers();
     S.urbanReady = createUrban(globalThis.CORE_EARTH, { display: (html, kind) => panel(kind, null, html), reveal: revealMap, records: recordsHTML, card: id => urbanCardHTML(id) }).then(u => { S.urban = u; loadRecords(); return u; });
-    globalThis.CORE_DEMO.ready(async () => (await S.urbanReady).demo());
     S.urbanReady.catch(e => { console.error('Living City unavailable:', e); globalThis.CORE_DEMO.fail(e); toast(T('Living City unavailable; existing research remains accessible.', 'Ville vivante indisponible ; les recherches existantes restent accessibles.')); });
     const h = new URLSearchParams(location.hash.slice(1)); S.civLoading = startCivilisation();
+    globalThis.CORE_DEMO.ready(async () => launchDemo('auto'));
     if (pendingDestination || h.has('demo') || h.has('investigations')) { const target = pendingDestination || (h.has('demo') ? 'demo' : 'investigations'); pendingDestination = null; openPublicDestination(target);
     } else if (h.get('problem') && S.data.byId.has(h.get('problem'))) {
       revealMap(); const p = S.data.byId.get(h.get('problem')); S.map.jumpTo({ center: S.data.bySeg.get(p.segment)?.coord || SF, zoom: 16.4, pitch: 62, bearing: (S.data.bySeg.get(p.segment)?.along || 0) - 30 }); S.scale = 'city'; renderScales();

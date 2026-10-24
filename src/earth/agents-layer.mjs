@@ -1,15 +1,11 @@
-// CORE World V7.2 — Agent Earth overlay. The same geography in three modes:
-//  • real    — the V7 Living Earth, unchanged;
-//  • agents  — the computational layer: the base map is restyled as a hologram and the civilisation becomes visible
-//              (agents, team hubs, collaboration links, mission zones, the planet-scale network);
-//  • hybrid  — the real Earth with the agents on top.
+// Parallel World shows virtual agents on sourced geography; Real World hides every virtual-agent layer.
 // Positions and states come only from the civilisation runtime (src/civilization/runtime.mjs).
 import { T, translate } from '../i18n/i18n.mjs';
 const EMPTY = { type: 'FeatureCollection', features: [] };
 export const STATE_COLORS = { working: '#62d8f2', inspecting: '#7fdcaa', meeting: '#b9a2ff', travelling: '#cfe8f5', reasoning: '#f29ad0', returning: '#7d93ab', idle: '#5f86ad' };
 const STATE_EXPR = ['match', ['get', 'state'], ...Object.entries(STATE_COLORS).flat(), '#5f86ad'];
 const Z = (...s) => ['interpolate', ['linear'], ['zoom'], ...s];
-// Agent mode restyle: paint values swapped in agents mode and restored for real/hybrid.
+// Parallel mode restyle: paint values restored in Real World.
 const HOLO = {
   bg: ['background-color', '#020a16'], imagery: ['raster-saturation', -1], water: ['fill-color', '#04182c'], landcover: ['fill-opacity', 0.12], park: ['fill-opacity', 0.12],
   'road-case': ['line-color', '#071a2c'], road: ['line-color', '#1e5a7d'], building: ['fill-extrusion-color', '#123a5c'], 'road-lane': ['line-opacity', 0],
@@ -17,7 +13,7 @@ const HOLO = {
 const arc = (a, b, n = 64) => Array.from({ length: n + 1 }, (_, i) => { const t = i / n, lng = a[0] + (b[0] - a[0]) * t, lat = a[1] + (b[1] - a[1]) * t + Math.sin(Math.PI * t) * 6; return [lng, lat]; });
 
 export function createAgentLayer(map, { runtime, onAgent, onHub, onNetwork, pos = null }) {
-  const R = runtime, saved = {}; let mode = 'real', recorded = new Set();
+  const R = runtime, saved = {}; let mode = 'parallel', recorded = new Set();
   const sf = R.agents.filter(a => a.city === 'san-francisco' && a.post && !['council', 'assembly', 'global'].includes(a.level));
   map.addSource('civ-agents', { type: 'geojson', data: EMPTY });
   map.addSource('civ-links', { type: 'geojson', data: EMPTY });
@@ -67,7 +63,7 @@ export function createAgentLayer(map, { runtime, onAgent, onHub, onNetwork, pos 
     for (const [layer, [prop, val]] of Object.entries(HOLO)) {
       if (!map.getLayer(layer)) continue;
       if (!(layer in saved)) saved[layer] = map.getPaintProperty(layer, prop);
-      map.setPaintProperty(layer, prop, m === 'agents' ? val : saved[layer]);
+      map.setPaintProperty(layer, prop, m === 'parallel' ? val : saved[layer]);
     }
     update();
   }

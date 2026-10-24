@@ -51,7 +51,8 @@ test('companion: words become one typed action with validated parameters; sharin
   assert.deepEqual(P('show the bus lane simulation'), { name: 'start_simulation', params: { scenario: 'A' } });
   assert.equal(P('compare scenarios').name, 'compare_scenarios');
   assert.deepEqual(P('open the mobility mission'), { name: 'open_mission', params: { mission: 'mission.sf.mobility' } });
-  assert.deepEqual(P('switch to the hybrid layer'), { name: 'switch_world_layer', params: { layer: 'hybrid' } });
+  assert.deepEqual(P('switch to Parallel World'), { name: 'switch_world_layer', params: { layer: 'parallel' } });
+  assert.deepEqual(P('passe au Monde réel'), { name: 'switch_world_layer', params: { layer: 'real' } });
   assert.deepEqual(P('change language to French'), { name: 'change_language', params: { lang: 'fr' } }); assert.deepEqual(P('change language to Japanese'), { name: null, reason: 'language-not-available' });
   for (const [q, l] of [['change language to Spanish', 'es'], ['Sprache Deutsch', 'de'], ['切换到中文', 'zh-CN'], ['cambiar idioma a portugués', 'pt']]) assert.deepEqual(P(q), { name: 'change_language', params: { lang: l } });
   assert.equal(P('Start the guided demo').name, 'start_demo'); assert.equal(P('What are the agents investigating?').name, 'agents_investigating'); assert.equal(P('What evidence is missing?').name, 'missing_evidence');

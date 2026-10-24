@@ -5,7 +5,7 @@
 // where the person must act themselves. Research questions are answered from the missions' recorded findings
 // (deterministic retrieval, cited by id); the full research team (local model) is offered, never run silently.
 import { T, lang, LANGS as LANGUAGES } from '../i18n/i18n.mjs';
-export const LAYERS = ['real', 'agents', 'hybrid'];
+export const LAYERS = ['parallel', 'real'];
 export const SCENARIOS = ['S0', 'A', 'B', 'C', 'D'];
 export const LANGS = Object.fromEntries(LANGUAGES.map(([code, name]) => [code, name])); // the six interface languages
 export const PLACES = {
@@ -45,7 +45,7 @@ const LANG_WORDS = [['en', /\b(english|anglais|ingles|englisch|ingl[eê]s)\b|英
 const PLANNED_WORDS = /\b(arabic|arabe|hindi|bengali|russian|russe|japanese|japonais|italian|italien|korean|coreen)\b/;
 const PLACE_WORDS = [['golden-gate', /golden gate/], ['folsom', /\bfolsom\b/], ['soma', /\bsoma\b|south of market/], ['new-york', /new york|nyc/], ['san-francisco', /san francisco|\bsf\b/], ['earth', /\b(earth|terre|planet|planete|globe)\b/]];
 const SCN_WORDS = [['A', /bus lane|voie (de )?bus|voie reservee|bus only/], ['B', /signal|feux|traffic light|actuated|adaptati/], ['C', /bike|velo|cycl|road diet/], ['D', /demand|demande|fewer cars|moins de voitures/], ['S0', /baseline|reference|actuel|current/]];
-const LAYER_WORDS = [['hybrid', /hybrid|hybride|both|les deux/], ['agents', /core world|monde core|\bagents?\b|civili/], ['real', /real earth|terre reelle|\b(real|reel|reelle|reality|realite)\b/]];
+const LAYER_WORDS = [['parallel', /parallel world|monde parallele|core world|monde core|\bagents?\b|civili/], ['real', /real world|monde reel|real earth|terre reelle|\b(real|reel|reelle|reality|realite)\b/]];
 const QUESTION = /\?\s*$|^(why|how|what|which|where|when|who|is|are|does|do|can|could|pourquoi|comment|quel|quelle|quels|quelles|ou|quand|qui|est-ce|combien)\b/;
 
 function agentRef(t, ctx) {
@@ -76,7 +76,7 @@ export function parse(text, ctx = {}) {
   if (/\b(demo|tour|visite|guided|guidee)\b/.test(t)) return { name: 'start_demo', params: { mode: /step|manual|pas a pas|manuel/.test(t) ? 'manual' : /auto|watch|regarder/.test(t) ? 'auto' : 'choose' } };
   if (/manifest/.test(t)) return { name: 'open_manifesto', params: {} };
   if (/(difference|differen|explain|explique).*(real|reel)|(real|reel).*(core world|monde core|parallel|parallele)/.test(t)) return { name: 'explain_layers', params: {} };
-  if (/\b(layer|couche|mode|view|vue)\b/.test(t) && first(t, LAYER_WORDS)) return { name: 'switch_world_layer', params: { layer: first(t, LAYER_WORDS) } };
+  if (/\b(layer|couche|mode|view|vue|world|monde)\b/.test(t) && first(t, LAYER_WORDS)) return { name: 'switch_world_layer', params: { layer: first(t, LAYER_WORDS) } };
   if (/compar/.test(t)) return { name: 'compare_scenarios', params: {} };
   if (/simul|replay|rejou|scenario/.test(t)) return { name: 'start_simulation', params: { scenario: first(t, SCN_WORDS) || 'S0' } };
   if (/(missing|manque|lacune|gap|unknown|inconnu).*(evidence|data|preuve|donnee)|(evidence|preuve|donnee).*(missing|manque)/.test(t)) return { name: 'missing_evidence', params: { mission: missionRef(t, ctx) || 'mission.sf.mobility' } };
@@ -126,8 +126,8 @@ export function plan(cmd, ctx = {}) {
     case 'show_problems': return { ok: true, call: ['showProblems'], href: 'world.html#problems', say: T('Here are the problems CORE’s agents are working on, with each mission’s maturity.', 'Voici les problèmes sur lesquels travaillent les agents de CORE, avec la maturité de chaque mission.') };
     case 'agents_investigating': return { ok: true, call: ['showProblems'], href: 'world.html#problems', answer: 'missions', say: T('The agents work on these missions. Each one says what is known, what is missing and what the team is doing now.', 'Les agents travaillent sur ces missions. Chacune dit ce qui est connu, ce qui manque et ce que fait l’équipe maintenant.') };
     case 'missing_evidence': return { ok: true, call: ['openMission', p.mission], href: `world.html#mission=${enc(p.mission)}`, answer: 'gaps', say: T(`What is missing for “${mt(mission)}”:`, `Ce qui manque pour « ${mt(mission)} » :`) };
-    case 'switch_world_layer': return { ok: true, call: ['setLayer', p.layer], href: `world.html#layer=${enc(p.layer)}`, say: T(`${{ real: 'Real Earth', agents: 'CORE World', hybrid: 'Hybrid View' }[p.layer]}.`, `${{ real: 'Terre réelle', agents: 'Monde CORE', hybrid: 'Vue hybride' }[p.layer]}.`) };
-    case 'explain_layers': return { ok: true, say: T('Real Earth is the physical planet: real geography, public data and recorded problems. CORE World is the parallel research civilisation: software agents (not people, not independent AI) organised in teams, working on those problems. Hybrid View shows both, so you can see where the agents work on physical-world problems.', 'La Terre réelle est la planète physique : géographie réelle, données publiques et problèmes enregistrés. Le Monde CORE est la civilisation de recherche parallèle : des agents logiciels (ni des personnes, ni des IA indépendantes) organisés en équipes, qui travaillent sur ces problèmes. La Vue hybride montre les deux, pour voir où les agents travaillent sur des problèmes du monde physique.') };
+    case 'switch_world_layer': return { ok: true, call: ['setLayer', p.layer], href: `world.html#layer=${enc(p.layer)}`, say: T(`${{ real: 'Real World', parallel: 'Parallel World' }[p.layer]}.`, `${{ real: 'Monde réel', parallel: 'Monde parallèle' }[p.layer]}.`) };
+    case 'explain_layers': return { ok: true, say: T('Parallel World is the virtual agent environment on sourced geography. Real World shows physical geography and verified evidence without virtual agents. CORE World is the separate public product.', 'Le Monde parallèle est l’environnement virtuel des agents sur une géographie sourcée. Le Monde réel montre la géographie physique et des preuves vérifiées sans agents virtuels. CORE World est le produit public distinct.') };
     case 'ask_agent': return { ok: true, href: `dialogue.html#mission=${enc(ctx.agentMission?.(p.agent) || 'mission.sf.mobility')}&agent=${enc(p.agent)}`, prefill: p.question, say: T(`Opening a conversation with ${agent.code}. Your question is pre-filled, not sent.`, `Conversation avec ${agent.code} ouverte. Votre question est préremplie, pas envoyée.`) };
     case 'ask_question': return { ok: true, answer: 'question', say: T('From the recorded findings:', 'D’après les constats enregistrés :') };
     case 'start_simulation': return { ok: true, call: ['playSimulation', p.scenario], href: `world.html#sim=${enc(p.scenario)}&play=1`, say: T(`Replaying the recorded simulation (${p.scenario === 'S0' ? 'baseline' : `scenario ${p.scenario}`}). It is an uncalibrated model, not a prediction.`, `Relecture de la simulation enregistrée (${p.scenario === 'S0' ? 'référence' : `scénario ${p.scenario}`}). Modèle non calibré, pas une prévision.`) };
