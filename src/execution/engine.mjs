@@ -9,6 +9,7 @@ import { createRegistry, KINDS, APPROVED_RESOURCES } from './tools.mjs';
 import { WORK_FILE } from '../earth/mission-intel.mjs';
 import { VERSION, digest } from './saved.mjs';
 import { SF_MOBILITY, TYPES, validateSpec } from './missions.mjs';
+import { cityForMission } from './city-registry.mjs';
 export { VERSION, digest, verifyReport, saveReport, listReports, deleteReport, savedEntries, STORE_KEY, MAX_SAVED, executionClass, investigationRef } from './saved.mjs';
 
 export const LIMITS = Object.freeze({ maxTasks: 10, maxToolCalls: 14, maxRuntimeMs: 240000, maxRecordBytes: 400000, modelTimeoutMs: 120000 });
@@ -39,7 +40,7 @@ export function planMission(spec, { work = null, objective, values = {}, assumpt
     input: { ...structuredClone(t.input), ...(bound.byTool?.[t.tool] || {}), ...(['reason.hypotheses', 'report.compose'].includes(t.tool) ? { objective: objective.trim() } : {}) },
     deps: t.deps.filter(d => !dropped.has(d)), goal: t.goal, ...(t.optional ? { optional: true } : {}) }));
   const resources = [...new Set(spec.evidence.map(e => e.resource))];
-  return { version: VERSION, mission: spec.id, spec: { id: spec.id, version: spec.version, type: spec.type, category: spec.category, title: spec.title, place: spec.place, evidence: spec.evidence, limitations: spec.limitations, review: spec.review },
+  return { version: VERSION, mission: spec.id, city: cityForMission(spec.id)?.id || null, spec: { id: spec.id, version: spec.version, type: spec.type, category: spec.category, title: spec.title, place: spec.place, evidence: spec.evidence, limitations: spec.limitations, review: spec.review },
     objective: objective.trim(), resources, recordedRun: resources.includes(WORK_FILE) ? work?.run?.id || null : null,
     inputs: type.inputs.map(i => ({ ...i, value: bound.values[i.id] ?? i.default })), note: bound.note, assumptions: bound.assumptions, tasks, limits: { ...LIMITS },
     requirements: (spec.requirements || []).map(q => ({ ...q, evidence: q.evidence || `${spec.id} specification v${spec.version}`, declared: true })) };

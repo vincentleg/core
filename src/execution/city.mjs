@@ -9,14 +9,12 @@ import { SPECS, availability } from './missions.mjs';
 import { HOUSING, CATALOG_FILE } from './tools.mjs';
 import { WORK_FILE } from '../earth/mission-intel.mjs';
 import { digest, executionClass, modelOf, CITY_VERSION } from './saved.mjs';
+import { CITIES } from './city-registry.mjs';
 
-export const CITIES = Object.freeze({
-  'san-francisco': { id: 'san-francisco', name: { en: 'San Francisco', fr: 'San Francisco' }, center: [-122.4194, 37.7749], bbox: [-122.52, 37.70, -122.35, 37.84],
-    boundaries: { resource: HOUSING.neighborhoods, manifest: HOUSING.manifest, file: 'neighborhoods.geojson', key: 'nhood', id: 'j2bu-swwd', title: 'Analysis Neighborhoods', unit: 'analysis neighbourhood' } }
-});
+export { CITIES } from './city-registry.mjs';
 export const CITY_RESOURCES = Object.freeze([CATALOG_FILE, WORK_FILE, HOUSING.manifest, HOUSING.pipeline, HOUSING.byYear, HOUSING.byNeighborhood, HOUSING.neighborhoods]);
-const inBox = (p, b) => p[0] >= b[0] && p[0] <= b[2] && p[1] >= b[1] && p[1] <= b[3];
-export const citySpecs = cityId => { const c = CITIES[cityId]; return c ? SPECS.filter(s => inBox(s.place.center, c.bbox)) : []; };
+export const citySpecs = cityId => { const c = CITIES[cityId]; return c ? SPECS.filter(s => c.missionIds.includes(s.id)) : []; };
+export const cityAgents = cityId => citySpecs(cityId).flatMap(spec => Object.entries(spec.agents || {}).map(([role, assignment]) => ({ mission: spec.id, role, ...assignment })));
 
 // Ray casting on (Multi)Polygon rings, holes included.
 function inRing(p, ring) { let inside = false; for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) { const [xi, yi] = ring[i], [xj, yj] = ring[j]; if ((yi > p[1]) !== (yj > p[1]) && p[0] < (xj - xi) * (p[1] - yi) / (yj - yi) + xi) inside = !inside; } return inside; }
@@ -49,6 +47,13 @@ const days = (a, b) => Math.round((Date.parse(b) - Date.parse(a)) / 864e5);
 // `now`: ISO time used only for evidence ages.
 export function cityContext({ cityId = 'san-francisco', resources: R = {}, hashes = {}, reports = [], now = new Date().toISOString() } = {}) {
   const city = CITIES[cityId]; if (!city) throw Error(`Unknown city ${cityId}`);
+  if (!city.boundaries) {
+    const missions = citySpecs(cityId).map(spec => ({ id: spec.id, title: spec.title, status: spec.status, availability: 'blocked', availabilityReason: spec.blocker, place: spec.place, evidence: [], agents: [], limitations: spec.limitations, report: null }));
+    return { city: { id: city.id, name: city.name, center: city.center, country: city.country }, readiness: city.readiness,
+      boundary: { loaded: false, checksum: 'not available' }, missions, overlaps: [], facts: [], shared: [], publishers: [], sharedGaps: [], conflicts: [], disagreements: [], contributions: [], opportunities: [],
+      log: [{ step: 1, id: 'availability', detail: `${city.name.en}: ${city.readiness}; no authorized local boundary or executable mission.` }],
+      review: { required: true, status: 'not-ready', by: 'Independent scientific review is required before any city finding can be claimed.' } };
+  }
   const log = [], step = (id, detail) => log.push({ step: log.length + 1, id, detail }), B = city.boundaries, nb = R[B.resource];
   const bm = (R[B.manifest]?.datasets || []).find(d => d.file === B.file), bh = hashes[B.resource];
   const boundary = { id: B.id, title: B.title, resource: B.resource, loaded: !!nb, features: nb?.features?.length || 0, license: bm?.license?.name || null, retrieved: bm?.retrieved_at || null, checksum: !nb ? 'not loaded' : !bm ? 'no manifest entry' : !bh ? 'not checked' : bh === bm.sha256 ? 'verified' : 'mismatch' };

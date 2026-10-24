@@ -14,7 +14,7 @@ const notice = () => T('Deterministic comparison by code, not an agent run. Miss
 // The Earth panel. `saved`: id of the summary saved from this view, if any.
 export function cityHTML(ctx, { nameOf = x => x, saved = null } = {}) {
   const who = id => `<button type="button" class="ghost small" data-agent="${esc(id)}">${esc(nameOf(id))}</button>`;
-  return `<header class="pp-head"><p class="le-eyebrow">${T('City intelligence', 'Intelligence urbaine')}</p><h2 id="pp-title">${esc(T(ctx.city.name.en, ctx.city.name.fr))}</h2>
+  return `<header class="pp-head"><p class="le-eyebrow">${T('City intelligence', 'Intelligence urbaine')}</p><h2 id="pp-title">${esc(T(ctx.city.name.en, ctx.city.name.fr))}</h2><button type="button" class="small" data-world-return>${T('← Global Earth', '← Terre entière')}</button>
     <p class="pp-lede">${esc(notice())}</p>
     <p class="fine">${T('Shared geography', 'Géographie commune')}: ${esc(ctx.boundary.title)} (${esc(ctx.boundary.id)}, ${esc(ctx.boundary.license || '?')}, ${T('retrieved', 'récupéré')} ${esc(day(ctx.boundary.retrieved))}) · ${ctx.boundary.features} ${T('areas', 'zones')} · ${T('checksum', 'somme de contrôle')} ${esc(ctx.boundary.checksum)}</p></header>
   <section class="pp-sec" id="ci-missions"><h3>${T('Missions', 'Missions')} (${ctx.missions.length})</h3><ul class="mi-list ci-list">${ctx.missions.map(m => `<li><b>${esc(title(m))}</b> <span class="mi-st ex-st" data-st="${m.availability === 'available' ? 'ready' : esc(m.availability)}">${esc(T(...(AV[m.availability] || [m.availability, m.availability])))}</span><br>

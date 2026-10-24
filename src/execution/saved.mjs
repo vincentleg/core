@@ -3,6 +3,7 @@
 // "local-model" only if a local-model tool call succeeded and produced hypotheses; otherwise "deterministic". The
 // published recorded investigation is a third class ("recorded") and is never stored here. A reference built from a
 // report is a bounded snapshot (identity, digest, evidence refs); it always says not validated and not approved.
+import { cityForMission } from './city-registry.mjs';
 export const VERSION = 'core-exec-1';
 export async function digest(value) { const b = new TextEncoder().encode(JSON.stringify(value ?? null)); return [...new Uint8Array(await crypto.subtle.digest('SHA-256', b))].map(x => x.toString(16).padStart(2, '0')).join(''); }
 export async function verifyReport(rep) {
@@ -40,7 +41,7 @@ export const modelOf = rep => (executionClass(rep) === 'local-model' ? s(rep.rea
 // Snapshot kept with a contribution: identity, integrity and evidence references, not the report body.
 export function investigationRef(rep) {
   return cleanRef({
-    execution: rep.execution, digest: rep.digest, mission: rep.mission, class: executionClass(rep), model: modelOf(rep), mode: rep.mode, status: rep.status,
+    execution: rep.execution, digest: rep.digest, mission: rep.mission, city: cityForMission(rep.mission)?.id || null, class: executionClass(rep), model: modelOf(rep), mode: rep.mode, status: rep.status,
     startedAt: rep.startedAt, endedAt: rep.endedAt, recordedRun: rep.reads?.recordedRun ?? null, objective: rep.objective,
     agents: (rep.agents || []).map(a => a.agent),
     findings: (rep.findings || []).filter(f => f.origin === 'this-execution').map(f => ({ id: f.id, kind: f.kind, agent: f.agent, ref: f.ref })),
@@ -52,7 +53,7 @@ export function cleanRef(v) {
   if (!v || typeof v !== 'object' || !s(v.execution, 64) || !HEX64.test(v.digest || '') || !s(v.mission, 80) || !['deterministic', 'local-model'].includes(v.class) || v.mode !== 'local-execution') return null;
   const at = x => (s(x, 40) && Number.isFinite(Date.parse(x)) ? x : null), list = (a, n, f) => (Array.isArray(a) ? a.slice(0, n).map(f).filter(Boolean) : []);
   return {
-    execution: v.execution, digest: v.digest, mission: v.mission, class: v.class, model: v.class === 'local-model' ? s(v.model, 80) : null, mode: 'local-execution',
+    execution: v.execution, digest: v.digest, mission: v.mission, city: v.city && cityForMission(v.mission)?.id === v.city ? v.city : null, class: v.class, model: v.class === 'local-model' ? s(v.model, 80) : null, mode: 'local-execution',
     status: s(v.status, 30), startedAt: at(v.startedAt), endedAt: at(v.endedAt), recordedRun: s(v.recordedRun, 64), objective: s(v.objective, 600) || '',
     agents: list(v.agents, 10, a => s(a, 80)),
     findings: list(v.findings, LIMITS.findings, f => (f && s(f.id, 8) && s(f.kind, 30) ? { id: f.id, kind: f.kind, agent: s(f.agent, 80), ref: s(f.ref, 120) } : null)),
