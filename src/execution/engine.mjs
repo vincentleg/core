@@ -5,10 +5,10 @@
 // disagreements separate, and produces an inspectable report whose conclusions stay proposals: accepting them, or
 // proposing any external action, is gated on a human review this code cannot grant. No network, storage or DOM here;
 // the host supplies loaded resources, an optional local-model function and (for persistence) a Storage object.
-import { createRegistry, KINDS, CATALOG_FILE } from './tools.mjs';
-import { WORK_FILE, MISSION } from '../earth/mission-intel.mjs';
-import { DEFAULT } from '../urban/model.mjs';
+import { createRegistry, KINDS, APPROVED_RESOURCES } from './tools.mjs';
+import { WORK_FILE } from '../earth/mission-intel.mjs';
 import { VERSION, digest } from './saved.mjs';
+import { SF_MOBILITY, TYPES, validateSpec } from './missions.mjs';
 export { VERSION, digest, verifyReport, saveReport, listReports, deleteReport, savedEntries, STORE_KEY, MAX_SAVED, executionClass, investigationRef } from './saved.mjs';
 
 export const LIMITS = Object.freeze({ maxTasks: 10, maxToolCalls: 14, maxRuntimeMs: 240000, maxRecordBytes: 400000, modelTimeoutMs: 120000 });
@@ -19,36 +19,40 @@ const SETTLED_OK = t => t.status === 'done' || (t.optional && ['unavailable', 'f
 const bytes = v => new TextEncoder().encode(JSON.stringify(v ?? null)).length;
 const deepFreeze = o => { if (o && typeof o === 'object' && !Object.isFrozen(o)) { Object.freeze(o); Object.values(o).forEach(deepFreeze); } return o; };
 
-// Agent identities come from the recorded investigation: each responsibility (R27 lanes) is filled by the recorded
-// agent whose role matches. Returns { lane: agentId } and null for a lane no recorded agent fills.
+// Agent identities of the recorded SF investigation, by recorded role (kept for R28 callers).
 export function agentsFrom(work) {
   const tasks = work?.run?.tasks || [], pick = role => tasks.find(t => t.role === role)?.agent || null;
   return { context: pick('geography'), discovery: pick('discovery'), evidence: pick('evidence'), scenario: pick('quantitative'), risk: pick('reviewer'), planner: pick('planner'), review: pick('reporter') };
 }
-// The San Francisco mobility plan. `assumptions` are the user's declared simulator inputs (baseline first).
-export function planSF({ work, objective, assumptions = null, demands = [600, 750, 900, 1050, 1200, 1350, 1500], useModel = true } = {}) {
+// R30: a plan derived from a validated mission specification. `values` are the mission type's bounded inputs;
+// `agentIds` (Set) checks explicit identities against the registry; `work` resolves recorded roles.
+export function planMission(spec, { work = null, objective, values = {}, assumptions = null, demands, useModel = true, agentIds = null } = {}) {
   if (typeof objective !== 'string' || !objective.trim() || objective.length > 600) throw Error('An explicit objective (1–600 characters) is required');
-  const a = agentsFrom(work), recordedF8 = work?.run?.findings?.find(f => f.tool === 'calculate_scenarios')?.output?.request?.scenarios;
-  const scenarios = assumptions || recordedF8 || [{ name: 'Baseline', parameters: { ...DEFAULT } }, { name: 'More green time', parameters: { ...DEFAULT, green: 0.55 } }];
-  const seg = { segment: SF_SEGMENT };
-  const tasks = [
-    { id: 'T1', lane: 'context', agent: a.context, tool: 'geo.segment', input: seg, deps: [], goal: 'Confirm the mapped approach and that its source is authorized for modelling.' },
-    { id: 'T2', lane: 'evidence', agent: a.discovery, tool: 'records.inspect', input: seg, deps: [], goal: 'Read what the recorded investigation established, claimed and left open.' },
-    { id: 'T3', lane: 'evidence', agent: a.evidence, tool: 'evidence.readiness', input: seg, deps: ['T1'], goal: 'List the scientific requirements still unmet for this approach.' },
-    { id: 'T4', lane: 'scenario', agent: a.scenario, tool: 'sim.compare', input: { ...seg, scenarios }, deps: ['T1'], goal: 'Run the exploratory simulator on the declared assumptions.' },
-    { id: 'T5', lane: 'scenario', agent: a.scenario, tool: 'sim.sweep', input: { ...seg, baseline: scenarios[0].parameters, variant: scenarios.at(-1).parameters, demands }, deps: ['T1'], goal: 'Test whether the modelled effect survives the unknown demand.' },
-    { id: 'T6', lane: 'risk', agent: a.risk, tool: 'evidence.compare', input: seg, deps: ['T2', 'T3', 'T4', 'T5'], goal: 'Compare computed outputs with recorded claims, assumptions and readiness.' },
-    ...(useModel ? [{ id: 'T7', lane: 'review', agent: a.planner, tool: 'reason.hypotheses', input: { objective }, deps: ['T6'], optional: true, goal: 'Draft testable hypotheses (local model only; otherwise unavailable).' }] : []),
-    { id: 'T8', lane: 'review', agent: a.review, tool: 'report.compose', input: { objective }, deps: useModel ? ['T6', 'T7'] : ['T6'], goal: 'Compose the report and hand it to human review.' }
-  ];
-  return { version: VERSION, mission: MISSION, objective: objective.trim(), resources: [CATALOG_FILE, WORK_FILE], recordedRun: work?.run?.id || null, assumptions: scenarios, tasks, limits: { ...LIMITS } };
+  const issues = validateSpec(spec, { agentIds }); if (issues.length) throw Error(`Specification rejected: ${issues.join('; ')}`);
+  if (spec.status !== 'executable') throw Error(`Mission ${spec.id} is not executable: ${spec.blocker}`);
+  const type = TYPES[spec.type];
+  for (const [k, v] of Object.entries(values)) { const d = type.inputs.find(i => i.id === k); if (!d) throw Error(`Unknown input ${k} for ${spec.type}`); if (!Number.isFinite(v) || v < d.min || v > d.max || Math.round((v - d.min) / d.step) * d.step + d.min !== v) throw Error(`${k} must be ${d.min}–${d.max} in steps of ${d.step}`); }
+  const bound = type.bind(spec, values, { work, assumptions, ...(demands ? { demands } : {}) });
+  const agentOf = k => { const a = spec.agents[k]; return a.agent || work?.run?.tasks?.find(t => t.role === a.recordedRole)?.agent || null; };
+  const dropped = new Set(useModel ? [] : spec.tasks.filter(t => t.optional).map(t => t.id));
+  const tasks = spec.tasks.filter(t => !dropped.has(t.id)).map(t => ({ id: t.id, lane: t.lane, agent: agentOf(t.by), tool: t.tool,
+    input: { ...structuredClone(t.input), ...(bound.byTool?.[t.tool] || {}), ...(['reason.hypotheses', 'report.compose'].includes(t.tool) ? { objective: objective.trim() } : {}) },
+    deps: t.deps.filter(d => !dropped.has(d)), goal: t.goal, ...(t.optional ? { optional: true } : {}) }));
+  const resources = [...new Set(spec.evidence.map(e => e.resource))];
+  return { version: VERSION, mission: spec.id, spec: { id: spec.id, version: spec.version, type: spec.type, category: spec.category, title: spec.title, place: spec.place, evidence: spec.evidence, limitations: spec.limitations, review: spec.review },
+    objective: objective.trim(), resources, recordedRun: resources.includes(WORK_FILE) ? work?.run?.id || null : null,
+    inputs: type.inputs.map(i => ({ ...i, value: bound.values[i.id] ?? i.default })), note: bound.note, assumptions: bound.assumptions, tasks, limits: { ...LIMITS },
+    requirements: (spec.requirements || []).map(q => ({ ...q, evidence: q.evidence || `${spec.id} specification v${spec.version}`, declared: true })) };
 }
+// The San Francisco mobility plan (R28 signature). `assumptions` are the user's declared simulator inputs, baseline first.
+export const planSF = ({ work, objective, assumptions = null, demands, useModel = true, values = {} } = {}) => planMission(SF_MOBILITY, { work, objective, assumptions, demands, useModel, values });
 // Static checks before authorization: bounded size, known agents, acyclic dependencies, every tool permitted.
 export function checkPlan(plan, registry) {
   const issues = [], ids = new Set(plan?.tasks?.map(t => t.id));
   if (!plan?.tasks?.length) return ['Empty plan'];
   if (plan.tasks.length > (plan.limits?.maxTasks ?? LIMITS.maxTasks)) issues.push(`Plan has ${plan.tasks.length} tasks; limit ${plan.limits.maxTasks}`);
   if (ids.size !== plan.tasks.length) issues.push('Duplicate task ids');
+  for (const r of plan.resources || []) if (!APPROVED_RESOURCES.includes(r)) issues.push(`Resource ${r} is not approved`);
   for (const t of plan.tasks) { const d = registry.describe(t.tool);
     if (!d) issues.push(`${t.id}: unknown tool ${t.tool}`); else if (!d.allowed) issues.push(`${t.id}: tool ${t.tool} is denied (${d.permission})`);
     if (!t.agent) issues.push(`${t.id}: no recorded agent fills the ${t.lane} responsibility`);
@@ -60,17 +64,17 @@ export function checkPlan(plan, registry) {
 }
 
 // host: { resources, generate, clock, onEvent, stepMode, idOf }. Returns a controller; nothing runs before start().
-export function createExecution(plan, { resources = {}, generate = null, clock = () => new Date(), onEvent = () => {}, stepMode = false, idOf = () => crypto.randomUUID() } = {}) {
-  const registry = createRegistry({ resources, generate });
+export function createExecution(plan, { resources = {}, hashes = {}, generate = null, clock = () => new Date(), onEvent = () => {}, stepMode = false, idOf = () => crypto.randomUUID() } = {}) {
+  const registry = createRegistry({ resources, hashes, generate });
   const issues = checkPlan(plan, registry); if (issues.length) throw Error(`Plan rejected: ${issues.join('; ')}`);
   const limits = { ...LIMITS, ...plan.limits }, iso = () => clock().toISOString(), ms = () => clock().getTime();
   const ex = { id: idOf(), version: VERSION, mode: 'local-execution', mission: plan.mission, objective: plan.objective, recordedRun: plan.recordedRun, plan: structuredClone(plan), limits,
     status: 'planned', createdAt: iso(), startedAt: null, endedAt: null, authorizedAt: null,
     tasks: plan.tasks.map(t => ({ ...structuredClone(t), status: 'queued', startedAt: null, endedAt: null, calls: [], error: null })),
-    calls: [], findings: [], requirements: [], disagreements: [], log: [], reasoning: { status: generate ? 'pending' : 'unavailable', model: null, reason: generate ? null : 'No local model runtime reachable from this page; deterministic tools only.' }, stopReason: null };
+    calls: [], findings: [], requirements: structuredClone(plan.requirements || []).map(q => ({ ...q, raisedBy: 'mission specification', task: null })), disagreements: [], conclusions: [], log: [], reasoning: { status: generate ? 'pending' : 'unavailable', model: null, reason: generate ? null : 'No local model runtime reachable from this page; deterministic tools only.' }, stopReason: null };
   const outputs = {}; let step = stepMode, paused = false, wake = null, ctl = null, t0 = 0, recordBytes = 0;
   const emit = (type, extra = {}) => { const e = { seq: ex.log.length + 1, at: iso(), type, ...extra }; ex.log.push(e); onEvent(e, ex); };
-  const board = () => deepFreeze(structuredClone({ findings: ex.findings, requirements: ex.requirements, disagreements: ex.disagreements, outputs }));
+  const board = () => deepFreeze(structuredClone({ findings: ex.findings, requirements: ex.requirements, disagreements: ex.disagreements, conclusions: ex.conclusions, outputs }));
   const overLimit = () => ex.calls.length >= limits.maxToolCalls ? `tool-call limit (${limits.maxToolCalls})` : ms() - t0 > limits.maxRuntimeMs ? `runtime limit (${limits.maxRuntimeMs} ms)` : recordBytes > limits.maxRecordBytes ? `record-size limit (${limits.maxRecordBytes} bytes)` : null;
   const next = () => ex.tasks.find(t => t.status === 'queued' && t.deps.every(d => TERMINAL.includes(ex.tasks.find(x => x.id === d).status)));
   const yieldTurn = () => new Promise(r => setTimeout(r, 0));
@@ -90,6 +94,8 @@ export function createExecution(plan, { resources = {}, generate = null, clock =
       (outputs[t.tool] ||= []).push(r.output);
       for (const f of r.findings) { if (!KINDS.includes(f.kind)) continue; ex.findings.push({ id: `E${ex.findings.length + 1}`, ...f, origin: f.recorded ? 'recorded-run' : 'this-execution', agent: t.agent, task: t.id, tool: t.tool, call: call.seq, ref: `exec:${ex.id}#call:${call.seq}`, at: call.endedAt }); }
       for (const q of r.requirements) if (!ex.requirements.some(x => x.id === q.id)) ex.requirements.push({ ...q, raisedBy: t.agent, task: t.id });
+      const own = new Set(ex.findings.filter(f => f.call === call.seq).map(f => f.id));
+      for (const c of r.conclusions) ex.conclusions.push({ text: c.text, basis: ex.findings.filter(f => own.has(f.id) && (!c.basis || f.kind === c.basis)).map(f => f.id), task: t.id, agent: t.agent });
       for (const d of r.disagreements) ex.disagreements.push({ id: `D${ex.disagreements.length + 1}`, ...d, task: t.id, raisedBy: t.agent, resolved: false });
       if (r.reasoning) ex.reasoning = { status: 'active', model: r.reasoning.model, reason: 'Hypotheses drafted by a local model and validated by code (schema, citations, verifier).' };
       t.status = 'done';
@@ -131,7 +137,7 @@ export function createExecution(plan, { resources = {}, generate = null, clock =
 // The report: inspectable, typed, linked to the recorded run it read, and never accepted by code.
 export async function report(ex) {
   const composed = ex.calls.filter(c => c.tool === 'report.compose' && c.status === 'ok').at(-1)?.output || null;
-  const r = { kind: 'core-investigation-report', version: VERSION, mode: 'local-execution', execution: ex.id, mission: ex.mission, objective: ex.objective, status: ex.status, complete: ex.status === 'completed' && !!composed,
+  const r = { kind: 'core-investigation-report', version: VERSION, mode: 'local-execution', execution: ex.id, mission: ex.mission, spec: ex.plan.spec ? { id: ex.plan.spec.id, version: ex.plan.spec.version, type: ex.plan.spec.type, category: ex.plan.spec.category, place: ex.plan.spec.place.label, limitations: ex.plan.spec.limitations, review: ex.plan.spec.review } : null, objective: ex.objective, status: ex.status, complete: ex.status === 'completed' && !!composed,
     createdAt: ex.createdAt, authorizedAt: ex.authorizedAt, startedAt: ex.startedAt, endedAt: ex.endedAt, stopReason: ex.stopReason,
     reads: { recordedRun: ex.recordedRun, resources: [...new Set(ex.calls.flatMap(c => c.resources))] },
     reasoning: ex.reasoning, limits: ex.limits,
