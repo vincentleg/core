@@ -29,7 +29,10 @@ export function full(ref = null) {
   if (!unchangedRuntime(ref)) throw Error('Stage runtime changes before verification, or check out the exact push target.');
   const key = fingerprint(ref); security();
   const tests = fs.readdirSync('test').filter(f => f.endsWith('.test.js')).sort().map(f => 'test/' + f);
-  execFileSync(process.execPath, ['--test', ...tests], { stdio: 'inherit' });
+  // Git hooks export GIT_DIR, GIT_INDEX_FILE, GIT_WORK_TREE…; inherited by tests, they would redirect fixture repositories
+  // (git init/commit/config in temporary directories) into this real repository. Tests run without them.
+  const env = Object.fromEntries(Object.entries(process.env).filter(([k]) => !/^GIT_(DIR|WORK_TREE|INDEX_FILE|OBJECT_DIRECTORY|ALTERNATE_OBJECT_DIRECTORIES|COMMON_DIR|NAMESPACE|CEILING_DIRECTORIES|DISCOVERY_ACROSS_FILESYSTEM|PREFIX|QUARANTINE_PATH|CONFIG|CONFIG_GLOBAL|CONFIG_SYSTEM|CONFIG_PARAMETERS|CONFIG_COUNT|CONFIG_KEY_\d+|CONFIG_VALUE_\d+|EXEC_PATH|PUSH_OPTION_\w+)$/.test(k)));
+  execFileSync(process.execPath, ['--test', ...tests], { stdio: 'inherit', env });
   if (!unchangedRuntime(ref) || fingerprint(ref) !== key) throw Error('Runtime changed during verification');
   fs.mkdirSync('.core-local/verification', { recursive: true });
   fs.writeFileSync(proofPath(key), JSON.stringify({ key, node: process.version, passed: true, at: new Date().toISOString() }) + '\n');
