@@ -24,6 +24,7 @@ test('calibration readiness uses only documented geometry and leaves unsupported
  assert.deepEqual(r.checklist.map(x=>[x.id,x.status]),[['geometry','met'],['measurements','missing'],['temporal','missing'],['spatial','unverified'],['authorization','unverified'],['calibration','missing'],['holdout','missing'],['review','missing']]);
  assert.equal(r.authorizedModelDatasets.length,1);assert.equal(r.authorizedModelDatasets[0].id,'sf-streets');
  assert.equal(r.calibrated,false);assert.equal(r.predictiveAccuracyValidated,false);assert.equal(r.outstanding.length,7);
+ assert.ok(r.checklist.filter(x=>x.status!=='met').every(x=>x.evidence&&x.next));
  assert.equal(calibrationReadiness(catalog,{...catalog.segments[0],source:'unknown'}).checklist[0].status,'unverified');
 });
 test('real task events, execution timestamps and reports are verified by recomputation',async()=>{
